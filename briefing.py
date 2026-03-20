@@ -1021,15 +1021,14 @@ def crawl_acrc(target):
 
 
 def crawl_motie(target):
-    """산업통상자원부 — Playwright (onclick seq 패턴)"""
+    """산업통상자원부 — Playwright (목록에서 직접 파일 수집, 상세 페이지 접근 없음)"""
     print("\n[산업통상자원부]")
     BASE = "https://www.motie.go.kr"
     LIST = f"{BASE}/kor/article/ATCL3f49a5a8c?pageIndex=1"
     results = []
     try:
         with sync_playwright() as pw:
-            browser = pw.chromium.launch(
-                headless=True,
+            browser = pw.chromium.launch(headless=True,
                 args=["--disable-blink-features=AutomationControlled"])
             ctx = browser.new_context(
                 user_agent=(
@@ -1045,6 +1044,7 @@ def crawl_motie(target):
             page.goto(LIST, wait_until="networkidle", timeout=30000)
             soup = BeautifulSoup(page.content(), "lxml")
             seen = set()
+
             for row in soup.select("table tbody tr"):
                 text = row.get_text(" ", strip=True)
                 dm   = re.search(r"(\d{4})[.\-](\d{2})[.\-](\d{2})", text)
@@ -1052,28 +1052,36 @@ def crawl_motie(target):
                 row_date = f"{dm.group(1)}-{dm.group(2)}-{dm.group(3)}"
                 if row_date < target.isoformat(): continue
                 if row_date != target.isoformat(): continue
-                # onclick에서 article ID 추출
-                onclick = ""
+
+                # onclick에서 seq ID 추출
+                seq_m = None
                 for el in row.find_all(attrs={"onclick": True}):
-                    onclick = el.get("onclick", ""); break
-                seq_m = re.search(r"(\d{5,})", onclick)
-                a     = row.find("a", href=True)
-                title = clean_title(a.get_text(strip=True) if a else text[:60])
-                if seq_m:
-                    href = f"{BASE}/kor/article/ATCL3f49a5a8c/{seq_m.group(1)}/view"
-                elif a and a["href"] not in ("#", ""):
-                    href = BASE + a["href"] if not a["href"].startswith("http") else a["href"]
-                else:
-                    continue
-                if href in seen: continue
-                seen.add(href)
-                page.goto(href, wait_until="networkidle", timeout=30000)
-                soup2 = BeautifulSoup(page.content(), "lxml")
-                pdfs, hwps = extract_file_links(soup2, BASE)
+                    seq_m = re.search(r"article\.view\('(\d+)'\)", el.get("onclick",""))
+                    if seq_m: break
+                if not seq_m: continue
+                seq_id   = seq_m.group(1)
+                detail_url = f"{BASE}/kor/article/ATCL3f49a5a8c/{seq_id}/view"
+                if detail_url in seen: continue
+                seen.add(detail_url)
+
+                # 제목
+                title_a = row.find("a", href="#")
+                title = clean_title(title_a.get_text(strip=True)) if title_a else clean_title(text[:60])
+
+                # 파일: 목록에서 /attach/down/ 패턴 직접 수집
+                pdfs, hwps, seen2 = [], [], set()
+                for a2 in row.find_all("a", href=re.compile(r"/attach/down/")):
+                    h2   = a2["href"]
+                    full = BASE + h2 if not h2.startswith("http") else h2
+                    if full in seen2: continue
+                    seen2.add(full)
+                    fn = a2.get_text(strip=True).lower()
+                    # Content-Disposition으로 확장자 판별 → 일단 pdf로 시도
+                    pdfs.append(full)
+
                 print(f"  ✓ {title[:60]}")
-                results.append(make_item("산업통상자원부", title, href, row_date, pdfs, hwps))
-                page.goto(LIST, wait_until="networkidle", timeout=30000)
-                soup = BeautifulSoup(page.content(), "lxml")
+                results.append(make_item("산업통상자원부", title, detail_url,
+                                         row_date, pdfs, hwps))
             browser.close()
     except Exception as e:
         print(f"  [Playwright 오류] {e}")
@@ -1674,7 +1682,21 @@ def process_item(item):
     src  = re.sub(r"[^\w가-힣]", "", item["source"])[:4]
     safe = re.sub(r"[^\w가-힣]", "_", item["title"])[:25]
 
-    # PDF 우선
+    # 기존 txt 파일 있으면 텍스트 바로 로드
+    txt_fname = f"{item['date']}_{src}_{safe}.txt"
+    txt_path  = TXT_DIR / txt_fname
+    if txt_path.exists():
+        raw = txt_path.read_text(encoding="utf-8")
+        # 헤더 제거 후 본문만 추출
+        sep = "─" * 60
+        if sep in raw:
+            item["text"] = raw.split(sep, 1)[-1].strip()
+        else:
+            item["text"] = raw
+        return
+
+    # PDF 우선 (이미 있으면 텍스트만 추출)
+    texts = []
     for j, url in enumerate(item["pdfs"], 1):
         fname = f"{item['date']}_{src}_{safe}_{j}.pdf"
         path  = download_file(url, fname, s)
@@ -1682,10 +1704,13 @@ def process_item(item):
         text  = extract_pdf(path)
         if text:
             item["files"].append(str(path))
-            item["text"] = text
-            save_text(item, text)
-            return
+            texts.append(text)
         time.sleep(0.3)
+
+    if texts:
+        item["text"] = "\n\n".join(texts)
+        save_text(item, item["text"])
+        return
 
     # HWP 폴백
     if item["hwps"]:
@@ -1698,10 +1723,12 @@ def process_item(item):
         text  = extract_hwp(path)
         if text:
             item["files"].append(str(path))
-            item["text"] = text
-            save_text(item, text)
-            return
+            texts.append(text)
         time.sleep(0.3)
+
+    if texts:
+        item["text"] = "\n\n".join(texts)
+        save_text(item, item["text"])
 
     if not item["text"]:
         print(f"    ⚠ 텍스트 추출 실패 (PDF:{len(item['pdfs'])} HWP:{len(item['hwps'])})")
@@ -1815,6 +1842,17 @@ def main():
         item["summary"] = summarize(item)
         print(f"  [{item['source']}] {item['summary'][:70]}")
         time.sleep(0.5)
+
+    # WordPress 자동 포스팅
+    print(f"\n{'─'*60}")
+    print("[WordPress 포스팅 중...]")
+    wp_count = 0
+    for item in all_items:
+        if item.get("summary") and not item["summary"].startswith("["):
+            if wp_post(item):
+                wp_count += 1
+            time.sleep(1)
+    print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")
 
     # 최종 출력
     print(f"\n{'='*60}")
