@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>브리핑룸 — 정부 보도자료 구독</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Pretendard:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #f7f6f2;
+  --bg2:       #eeecea;
+  --surface:   #ffffff;
+  --border:    #e2e0db;
+  --border2:   #d4d1ca;
+  --text:      #1a1916;
+  --text2:     #4a4844;
+  --muted:     #9a9790;
+  --accent:    #2f54eb;
+  --accent-l:  #e8ecfd;
+  --accent-h:  #1a3fd4;
+  --green:     #16a34a;
+  --green-l:   #dcfce7;
+  --serif:     'Noto Serif KR', serif;
+  --sans:      'Pretendard', sans-serif;
+  --mono:      'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  min-height: 100vh;
+}
+
+/* 배경 미묘한 패턴 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0);
+  background-size: 28px 28px;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* 헤더 */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 34px;
+  height: 34px;
+  background: var(--text);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+}
+
+.logo-text {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+  font-weight: 500;
+}
+
+.nav-link:hover { color: var(--text); }
+
+.nav-btn {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--surface);
+  background: var(--text);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+
+.nav-btn:hover { background: var(--text2); }
+
+/* 히어로 */
+.hero {
+  padding: 64px 0 48px;
+  text-align: center;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  background: var(--accent-l);
+  border: 1px solid rgba(47,84,235,0.15);
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  letter-spacing: 0.8px;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--accent);
+  position: relative;
+}
+
+.hero h1 em::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+  opacity: 0.25;
+  border-radius: 2px;
+}
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--text2);
+  line-height: 1.7;
+  max-width: 440px;
+  margin: 0 auto 40px;
+}
+
+/* 통계 */
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  margin-bottom: 48px;
+}
+
+.stat-item {
+  flex: 1;
+  padding: 18px 20px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-num {
+  display: block;
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -1px;
+}
+
+.stat-label {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 3px;
+  font-family: var(--mono);
+  letter-spacing: 0.3px;
+}
+
+/* 카드 */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  margin-bottom: 12px;
+}
+
+.card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg);
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+  font-family: var(--mono);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.card-title-row::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--text);
+}
+
+.btn-row {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-sm {
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.12s;
+  letter-spacing: 0.2px;
+}
+
+.btn-sm:hover {
+  color: var(--text);
+  border-color: var(--border2);
+  background: var(--bg2);
+}
+
+/* 카테고리 섹션 */
+.cat-section {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cat-section:last-of-type { border-bottom: none; }
+
+.cat-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-family: var(--mono);
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.cat-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.ministry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 5px;
+}
+
+/* 체크박스 */
+.m-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.12s;
+  user-select: none;
+}
+
+.m-item:hover {
+  background: var(--bg2);
+  border-color: var(--border);
+}
+
+.m-item.checked {
+  background: var(--accent-l);
+  border-color: rgba(47,84,235,0.2);
+}
+
+.m-item input { display: none; }
+
+.chk {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--border2);
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  transition: all 0.12s;
+}
+
+.m-item.checked .chk {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.chk-svg { opacity: 0; transition: opacity 0.1s; }
+.m-item.checked .chk-svg { opacity: 1; }
+
+.m-name {
+  font-size: 13px;
+  color: var(--text2);
+  font-weight: 400;
+  transition: color 0.12s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.m-item.checked .m-name { color: var(--text); font-weight: 500; }
+
+/* 선택 바 */
+.sel-bar {
+  padding: 12px 20px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sel-count {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.sel-count strong { color: var(--accent); }
+
+.sel-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: flex-end;
+  max-width: 420px;
+}
+
+.sel-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent);
+  background: var(--accent-l);
+  border: 1px solid rgba(47,84,235,0.15);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* 이메일 섹션 */
+.email-section {
+  padding: 22px 20px;
+}
+
+.email-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.req-badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--accent);
+  background: var(--accent-l);
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+
+.email-row {
+  display: flex;
+  gap: 8px;
+}
+
+.email-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text);
+  outline: none;
+  transition: all 0.15s;
+}
+
+.email-input::placeholder { color: var(--muted); }
+
+.email-input:focus {
+  border-color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(47,84,235,0.1);
+}
+
+.time-sel {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text2);
+  outline: none;
+  cursor: pointer;
+  min-width: 96px;
+  appearance: none;
+  text-align: center;
+  transition: border-color 0.15s;
+}
+
+.time-sel:focus { border-color: var(--accent); }
+
+.sub-btn {
+  background: var(--text);
+  color: var(--surface);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  letter-spacing: -0.2px;
+}
+
+.sub-btn:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(47,84,235,0.25);
+}
+
+.sub-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  background: var(--text);
+}
+
+.email-hint {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* 성공 */
+.success-bar {
+  display: none;
+  padding: 14px 20px;
+  background: var(--green-l);
+  border-top: 1px solid rgba(22,163,74,0.2);
+  font-size: 13px;
+  color: var(--green);
+  font-weight: 500;
+  align-items: center;
+  gap: 8px;
+}
+
+.success-bar.show {
+  display: flex;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 미리보기 */
+.preview-wrap {
+  margin-top: 14px;
+}
+
+.preview-header-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mac-dots { display: flex; gap: 5px; }
+.mac-dots span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.preview-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.preview-email-bar {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-body {
+  padding: 20px;
+}
+
+.preview-date-row {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.preview-item:last-child { border-bottom: none; }
+
+.p-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.p-title { font-size: 12.5px; color: var(--text); line-height: 1.5; }
+
+/* 푸터 */
+footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+/* 애니메이션 */
+.fade-up {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: fadeUp 0.5s ease forwards;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up:nth-child(1) { animation-delay: 0.05s; }
+.fade-up:nth-child(2) { animation-delay: 0.1s; }
+.fade-up:nth-child(3) { animation-delay: 0.15s; }
+.fade-up:nth-child(4) { animation-delay: 0.2s; }
+
+@media (max-width: 600px) {
+  .ministry-grid { grid-template-columns: repeat(2,1fr); }
+  .stats-row { flex-wrap: wrap; }
+  .stat-item { flex: 1 1 50%; border-bottom: 1px solid var(--border); }
+  .email-row { flex-direction: column; }
+  .sel-tags { display: none; }
+  .nav-links { gap: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="fade-up">
+    <a class="logo" href="#">
+      <div class="logo-mark">📋</div>
+      <span class="logo-text">브리핑룸</span>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link" href="list.html">보도자료</a>
+      <a class="nav-link" href="#">소개</a>
+      <a class="nav-btn" href="list.html">목록 보기</a>
+    </nav>
+  </header>
+
+  <!-- 히어로 -->
+  <section class="hero fade-up">
+    <div class="hero-tag">
+      <span class="live-dot"></span>
+      매일 오전 8시 자동 발송
+    </div>
+    <h1>정부 보도자료,<br><em>놓치지 마세요</em></h1>
+    <p class="hero-desc">26개 부처의 보도자료를 매일 수집해 원하는 부처만 골라 이메일로 받아보세요.</p>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <span class="stat-num">26</span>
+        <span class="stat-label">수집 부처</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">38</span>
+        <span class="stat-label">오늘 보도자료</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">08:00</span>
+        <span class="stat-label">발송 시각</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">무료</span>
+        <span class="stat-label">요금제</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 구독 카드 -->
+  <div class="card fade-up">
+    <div class="card-header">
+      <div class="card-title-row">수신할 부처 선택</div>
+      <div class="btn-row">
+        <button class="btn-sm" onclick="selectAll()">전체 선택</button>
+        <button class="btn-sm" onclick="clearAll()">초기화</button>
+      </div>
+    </div>
+
+    <div class="cat-section">
+      <div class="cat-label">금융 · 경제</div>
+      <div class="ministry-grid" id="g-finance"></div>
+    </div>
+    <div class="cat-section">
+      <div class="cat-label">사회 · 복지</div>
+      <div class="ministry-grid" id="g-social"></div>
+    </div>
+    <div class="cat-section">
+      <div class="cat-label">산업 · 기술</div>
+      <div class="ministry-grid" id="g-industry"></div>
+    </div>
+    <div class="cat-section">
+      <div class="cat-label">외교 · 안보</div>
+      <div class="ministry-grid" id="g-diplo"></div>
+    </div>
+    <div class="cat-section" style="border-bottom:none;">
+      <div class="cat-label">행정 · 법제</div>
+      <div class="ministry-grid" id="g-admin"></div>
+    </div>
+
+    <div class="sel-bar">
+      <div class="sel-count"><strong id="sel-num">0</strong>개 부처 선택됨</div>
+      <div class="sel-tags" id="sel-tags"></div>
+    </div>
+
+    <div class="email-section">
+      <div class="email-label">
+        이메일 주소
+        <span class="req-badge">필수</span>
+      </div>
+      <div class="email-row">
+        <input class="email-input" type="email" id="email" placeholder="you@company.com" oninput="updateBtn()">
+        <select class="time-sel" id="time-sel">
+          <option value="07">오전 7시</option>
+          <option value="08" selected>오전 8시</option>
+          <option value="09">오전 9시</option>
+          <option value="10">오전 10시</option>
+        </select>
+        <button class="sub-btn" id="sub-btn" onclick="handleSub()" disabled>구독 시작 →</button>
+      </div>
+      <div class="email-hint">선택하신 부처의 보도자료 요약을 매일 발송해 드립니다.</div>
+    </div>
+
+    <div class="success-bar" id="success-bar">
+      ✓ 구독 완료! 내일 <span id="conf-time"></span>에 첫 브리핑이 도착합니다.
+    </div>
+  </div>
+
+  <!-- 미리보기 -->
+  <div class="preview-wrap fade-up">
+    <div class="preview-header-bar">
+      <div class="mac-dots">
+        <span style="background:#ff5f57"></span>
+        <span style="background:#febc2e"></span>
+        <span style="background:#28c840"></span>
+      </div>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--muted);">이메일 미리보기</span>
+      <span></span>
+    </div>
+    <div class="preview-card">
+      <div class="preview-email-bar">
+        📬 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="abc9d9c2cecdc2c5ccd9c4c4c6ebccc4dd86c9d9c2cecd85c0d9">[email&#160;protected]</a> → <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6e17011b2e0d01031e0f0017400d0103">[email&#160;protected]</a>
+      </div>
+      <div class="preview-body">
+        <div class="preview-date-row">📅 2026년 3월 18일 화요일 — 오늘의 정부 브리핑</div>
+        <div class="preview-item">
+          <span class="p-badge" style="background:#e8ecfd;color:#2f54eb;">금융위</span>
+          <span class="p-title">가상자산시장 시세조종 혐의자 수사기관 고발 — 제5차 금융위원회 정례회의 의결</span>
+        </div>
+        <div class="preview-item">
+          <span class="p-badge" style="background:#dcfce7;color:#16a34a;">기재부</span>
+          <span class="p-title">2026년 2월 수출입 현황 — 반도체·자동차 중심 회복세 지속</span>
+        </div>
+        <div class="preview-item">
+          <span class="p-badge" style="background:#fef3c7;color:#d97706;">과기부</span>
+          <span class="p-title">46개 AI 응용제품 개발에 7,540억 원 지원 — AX-Sprint 본격 추진</span>
+        </div>
+        <div class="preview-item">
+          <span class="p-badge" style="background:#fce7f3;color:#db2777;">외교부</span>
+          <span class="p-title">중동 상황 관련 본부-공관 합동 재외국민보호 상황점검회의 개최</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="fade-up">
+    <span>© 2026 브리핑룸</span>
+    <span>공공데이터 기반 · 무료 서비스</span>
+  </footer>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const MINS = {
+  'g-finance':  ['금융위원회','금융감독원','기획재정부','산업통상자원부','공정거래위원회'],
+  'g-social':   ['보건복지부','교육부','고용노동부','성평등가족부','국민권익위원회','국가보훈부','법무부'],
+  'g-industry': ['과학기술정보통신부','국토교통부','해양수산부','농림축산식품부','중소벤처기업부','환경부','개인정보보호위원회'],
+  'g-diplo':    ['외교부','국방부','통일부'],
+  'g-admin':    ['행정안전부','인사혁신처','법제처','문화체육관광부'],
+};
+
+const selected = new Set();
+
+Object.entries(MINS).forEach(([gridId, names]) => {
+  const grid = document.getElementById(gridId);
+  names.forEach(name => {
+    const lbl = document.createElement('label');
+    lbl.className = 'm-item';
+    lbl.dataset.name = name;
+    lbl.innerHTML = `
+      <input type="checkbox" value="${name}">
+      <div class="chk">
+        <svg class="chk-svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="m-name">${name}</span>`;
+    lbl.addEventListener('click', () => {
+      if (selected.has(name)) { selected.delete(name); lbl.classList.remove('checked'); }
+      else { selected.add(name); lbl.classList.add('checked'); }
+      updateUI();
+    });
+    grid.appendChild(lbl);
+  });
+});
+
+function updateUI() {
+  document.getElementById('sel-num').textContent = selected.size;
+  const tags = document.getElementById('sel-tags');
+  tags.innerHTML = '';
+  [...selected].slice(0,5).forEach(n => {
+    const s = document.createElement('span');
+    s.className = 'sel-tag';
+    s.textContent = n;
+    tags.appendChild(s);
+  });
+  if (selected.size > 5) {
+    const s = document.createElement('span');
+    s.className = 'sel-tag';
+    s.textContent = `+${selected.size-5}`;
+    tags.appendChild(s);
+  }
+  updateBtn();
+}
+
+function updateBtn() {
+  const email = document.getElementById('email').value;
+  document.getElementById('sub-btn').disabled = !(selected.size > 0 && email.includes('@'));
+}
+
+function selectAll() {
+  Object.values(MINS).flat().forEach(n => {
+    selected.add(n);
+    document.querySelector(`[data-name="${n}"]`)?.classList.add('checked');
+  });
+  updateUI();
+}
+
+function clearAll() {
+  selected.clear();
+  document.querySelectorAll('.m-item').forEach(e => e.classList.remove('checked'));
+  updateUI();
+}
+
+function handleSub() {
+  const time = document.getElementById('time-sel').value;
+  const btn = document.getElementById('sub-b
