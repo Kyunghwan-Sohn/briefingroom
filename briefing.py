@@ -1922,8 +1922,42 @@ def wp_get_or_create_category(name):
     return cat_id
 
 
+_posted_titles: set = set()
+
+def wp_check_duplicate(title: str, date_str: str) -> bool:
+    key = f"{date_str}::{title.strip()}"
+    if key in _posted_titles:
+        print(f"    [중복 스킵] {title[:40]}")
+        return True
+    try:
+        import html as _html
+        after  = f"{date_str}T00:00:00"
+        before = f"{date_str}T23:59:59"
+        r = requests.get(
+            f"{WP_URL}/wp-json/wp/v2/posts",
+            params={"after": after, "before": before,
+                    "per_page": 100, "_fields": "id,title"},
+            auth=(WP_USER, WP_PASS), timeout=10,
+        )
+        if r.status_code != 200: return False
+        for p in r.json():
+            existing = _html.unescape(
+                p.get("title", {}).get("rendered", "")).strip()
+            if existing == title.strip():
+                print(f"    [중복 스킵] #{p['id']} {title[:40]}")
+                _posted_titles.add(key)
+                return True
+        return False
+    except:
+        return False
+
+
 def wp_post(item):
     if not item.get("summary") or item["summary"].startswith("["):
+        return False
+
+    # 중복 체크
+    if wp_check_duplicate(item["title"], item["date"]):
         return False
 
     summary = ""
