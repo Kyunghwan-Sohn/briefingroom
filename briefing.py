@@ -32,7 +32,12 @@ MAX_TEXT = 6000
 TIMEOUT  = 20
 DELAY    = 1.5
 
-BASE_DIR = Path.home() / "Desktop" / "briefing"
+# GitHub Actions 환경 자동 감지
+import os
+if os.environ.get("GITHUB_ACTIONS"):
+    BASE_DIR = Path(__file__).parent
+else:
+    BASE_DIR = Path.home() / "Desktop" / "briefing"
 PDF_DIR  = BASE_DIR / "pdfs"
 TXT_DIR  = BASE_DIR / "texts"
 PDF_DIR.mkdir(exist_ok=True)
@@ -1839,10 +1844,9 @@ if __name__ == "__main__":
 # WordPress 자동 포스팅
 # ════════════════════════════════════════════════════
 
-import os
 WP_URL  = "https://hotclipfolio.com"
-WP_USER = os.environ.get("WP_USER", "hotclipfolio")
-WP_PASS = os.environ.get("WP_PASS", "qSUw w4xA ELSm w6z9 6zIU U8G8")
+WP_USER = "hotclipfolio"
+WP_PASS = "qSUw w4xA ELSm w6z9 6zIU U8G8"
 
 CAT_MAP = {
     "금융위원회": "금융경제", "금융감독원": "금융경제",
