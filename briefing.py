@@ -1802,125 +1802,6 @@ CRAWLERS = [
 ]
 
 
-def main():
-    target = date.today()
-    if len(sys.argv) > 1:
-        try:
-            target = date.fromisoformat(sys.argv[1])
-        except ValueError:
-            print("날짜 형식 오류. 예: python briefing.py 2026-03-18")
-            sys.exit(1)
-
-    print(f"{'='*60}")
-    print(f"  브리핑룸  |  {target}  |  {len(CRAWLERS)}개 부처")
-    print(f"{'='*60}")
-
-    all_items = []
-    for name, crawler in CRAWLERS:
-        try:
-            items = crawler(target)
-            print(f"  → {name}: {len(items)}건")
-            all_items.extend(items)
-        except Exception as e:
-            print(f"  [{name}] 오류: {e}")
-
-    print(f"\n{'─'*60}")
-    print(f"총 {len(all_items)}건 수집\n")
-
-    # 파일 처리
-    print("[파일 처리 중...]")
-    for item in all_items:
-        if not (item["pdfs"] or item["hwps"]): continue
-        print(f"\n  [{item['source']}] {item['title'][:50]}")
-        print(f"  PDF:{len(item['pdfs'])} HWP:{len(item['hwps'])}")
-        process_item(item)
-
-    # LLM 요약
-    print(f"\n{'─'*60}")
-    print("[LLM 요약 중...]")
-    for item in all_items:
-        item["summary"] = summarize(item)
-        print(f"  [{item['source']}] {item['summary'][:70]}")
-        time.sleep(0.5)
-
-    # WordPress 자동 포스팅
-    print(f"\n{'─'*60}")
-    print("[WordPress 포스팅 중...]")
-    wp_count = 0
-    for item in all_items:
-        if item.get("summary") and not item["summary"].startswith("["):
-            if wp_post(item):
-                wp_count += 1
-            time.sleep(1)
-    print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")
-
-    # 최종 출력
-    print(f"\n{'='*60}")
-    print(f"  완료  |  {target}  |  총 {len(all_items)}건")
-    print(f"{'='*60}")
-    by_source = {}
-    for item in all_items:
-        by_source.setdefault(item["source"], []).append(item)
-
-    print(f"\n{'─'*60}")
-    total = 0
-    for name, _ in CRAWLERS:
-        cnt   = len(by_source.get(name, []))
-        total += cnt
-        mark  = "✅" if cnt > 0 else "⚪"
-        print(f"  {mark} {name:<18} {cnt}건")
-    print(f"{'─'*60}")
-    print(f"  합계: {total}건")
-    print(f"  파일: {PDF_DIR}")
-    print(f"  텍스트: {TXT_DIR}")
-
-
-if __name__ == "__main__":
-    main()
-
-# ════════════════════════════════════════════════════
-# WordPress 자동 포스팅
-# ════════════════════════════════════════════════════
-
-WP_URL  = "https://hotclipfolio.com"
-WP_USER = "hotclipfolio"
-WP_PASS = "qSUw w4xA ELSm w6z9 6zIU U8G8"
-
-CAT_MAP = {
-    "금융위원회": "금융경제", "금융감독원": "금융경제",
-    "기획재정부": "금융경제", "한국은행": "금융경제",
-    "산업통상자원부": "금융경제", "공정거래위원회": "금융경제",
-    "보건복지부": "사회복지", "교육부": "사회복지",
-    "고용노동부": "사회복지", "성평등가족부": "사회복지",
-    "국민권익위원회": "사회복지", "국가보훈부": "사회복지",
-    "법무부": "사회복지",
-    "과학기술정보통신부": "산업기술", "국토교통부": "산업기술",
-    "해양수산부": "산업기술", "농림축산식품부": "산업기술",
-    "중소벤처기업부": "산업기술", "환경부": "산업기술",
-    "개인정보보호위원회": "산업기술",
-    "외교부": "외교안보", "국방부": "외교안보", "통일부": "외교안보",
-    "행정안전부": "행정법제", "인사혁신처": "행정법제",
-    "법제처": "행정법제", "문화체육관광부": "행정법제",
-}
-
-_wp_cat_cache = {}
-
-def wp_get_or_create_category(name):
-    if name in _wp_cat_cache:
-        return _wp_cat_cache[name]
-    auth = (WP_USER, WP_PASS)
-    r = requests.get(f"{WP_URL}/wp-json/wp/v2/categories",
-                     params={"search": name, "per_page": 5}, auth=auth, timeout=10)
-    for cat in r.json():
-        if cat["name"] == name:
-            _wp_cat_cache[name] = cat["id"]
-            return cat["id"]
-    r2 = requests.post(f"{WP_URL}/wp-json/wp/v2/categories",
-                       json={"name": name}, auth=auth, timeout=10)
-    cat_id = r2.json().get("id", 1)
-    _wp_cat_cache[name] = cat_id
-    return cat_id
-
 
 _posted_titles: set = set()
 
@@ -2047,3 +1928,124 @@ def wp_post(item):
     except Exception as e:
         print(f"    ❌ WP 예외: {e}")
         return False
+
+
+def main():
+    target = date.today()
+    if len(sys.argv) > 1:
+        try:
+            target = date.fromisoformat(sys.argv[1])
+        except ValueError:
+            print("날짜 형식 오류. 예: python briefing.py 2026-03-18")
+            sys.exit(1)
+
+    print(f"{'='*60}")
+    print(f"  브리핑룸  |  {target}  |  {len(CRAWLERS)}개 부처")
+    print(f"{'='*60}")
+
+    all_items = []
+    for name, crawler in CRAWLERS:
+        try:
+            items = crawler(target)
+            print(f"  → {name}: {len(items)}건")
+            all_items.extend(items)
+        except Exception as e:
+            print(f"  [{name}] 오류: {e}")
+
+    print(f"\n{'─'*60}")
+    print(f"총 {len(all_items)}건 수집\n")
+
+    # 파일 처리
+    print("[파일 처리 중...]")
+    for item in all_items:
+        if not (item["pdfs"] or item["hwps"]): continue
+        print(f"\n  [{item['source']}] {item['title'][:50]}")
+        print(f"  PDF:{len(item['pdfs'])} HWP:{len(item['hwps'])}")
+        process_item(item)
+
+    # LLM 요약
+    print(f"\n{'─'*60}")
+    print("[LLM 요약 중...]")
+    for item in all_items:
+        item["summary"] = summarize(item)
+        print(f"  [{item['source']}] {item['summary'][:70]}")
+        time.sleep(0.5)
+
+    # WordPress 자동 포스팅
+    print(f"\n{'─'*60}")
+    print("[WordPress 포스팅 중...]")
+    wp_count = 0
+    for item in all_items:
+        if item.get("summary") and not item["summary"].startswith("["):
+            if wp_post(item):
+                wp_count += 1
+            time.sleep(1)
+    print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")
+
+    # 최종 출력
+    print(f"\n{'='*60}")
+    print(f"  완료  |  {target}  |  총 {len(all_items)}건")
+    print(f"{'='*60}")
+    by_source = {}
+    for item in all_items:
+        by_source.setdefault(item["source"], []).append(item)
+
+    print(f"\n{'─'*60}")
+    total = 0
+    for name, _ in CRAWLERS:
+        cnt   = len(by_source.get(name, []))
+        total += cnt
+        mark  = "✅" if cnt > 0 else "⚪"
+        print(f"  {mark} {name:<18} {cnt}건")
+    print(f"{'─'*60}")
+    print(f"  합계: {total}건")
+    print(f"  파일: {PDF_DIR}")
+    print(f"  텍스트: {TXT_DIR}")
+
+
+if __name__ == "__main__":
+    main()
+
+# ════════════════════════════════════════════════════
+# WordPress 자동 포스팅
+# ════════════════════════════════════════════════════
+
+WP_URL  = "https://hotclipfolio.com"
+WP_USER = "hotclipfolio"
+WP_PASS = "qSUw w4xA ELSm w6z9 6zIU U8G8"
+
+CAT_MAP = {
+    "금융위원회": "금융경제", "금융감독원": "금융경제",
+    "기획재정부": "금융경제", "한국은행": "금융경제",
+    "산업통상자원부": "금융경제", "공정거래위원회": "금융경제",
+    "보건복지부": "사회복지", "교육부": "사회복지",
+    "고용노동부": "사회복지", "성평등가족부": "사회복지",
+    "국민권익위원회": "사회복지", "국가보훈부": "사회복지",
+    "법무부": "사회복지",
+    "과학기술정보통신부": "산업기술", "국토교통부": "산업기술",
+    "해양수산부": "산업기술", "농림축산식품부": "산업기술",
+    "중소벤처기업부": "산업기술", "환경부": "산업기술",
+    "개인정보보호위원회": "산업기술",
+    "외교부": "외교안보", "국방부": "외교안보", "통일부": "외교안보",
+    "행정안전부": "행정법제", "인사혁신처": "행정법제",
+    "법제처": "행정법제", "문화체육관광부": "행정법제",
+}
+
+_wp_cat_cache = {}
+
+def wp_get_or_create_category(name):
+    if name in _wp_cat_cache:
+        return _wp_cat_cache[name]
+    auth = (WP_USER, WP_PASS)
+    r = requests.get(f"{WP_URL}/wp-json/wp/v2/categories",
+                     params={"search": name, "per_page": 5}, auth=auth, timeout=10)
+    for cat in r.json():
+        if cat["name"] == name:
+            _wp_cat_cache[name] = cat["id"]
+            return cat["id"]
+    r2 = requests.post(f"{WP_URL}/wp-json/wp/v2/categories",
+                       json={"name": name}, auth=auth, timeout=10)
+    cat_id = r2.json().get("id", 1)
+    _wp_cat_cache[name] = cat_id
+    return cat_id
+
