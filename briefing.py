@@ -1623,11 +1623,36 @@ def extract_pdf(path):
         return ""
 
 
+def extract_hwpx(path):
+    """HWPX(ZIP 기반) 텍스트 추출"""
+    import zipfile, xml.etree.ElementTree as ET
+    try:
+        with zipfile.ZipFile(path, 'r') as z:
+            names = z.namelist()
+            texts = []
+            for name in names:
+                if 'Contents/section' in name and name.endswith('.xml'):
+                    with z.open(name) as f:
+                        tree = ET.parse(f)
+                        root = tree.getroot()
+                        ns = {'hp': 'http://www.hancom.co.kr/hwpml/2012/paragraph'}
+                        for t in root.iter():
+                            if t.text and t.text.strip():
+                                texts.append(t.text.strip())
+            return '\n'.join(texts)
+    except Exception as e:
+        return ''
+
+
 def extract_hwp(path):
     """HWP(OLE2) / HWPX(ZIP) 텍스트 추출"""
     try:
         with open(path, "rb") as f:
             magic = f.read(4)
+        # HTML 응답 감지 (다운로드 실패)
+        if magic[:4] in (b"<!DO", b"<htm", b"<HTM", b"<HTM") or magic[:1] == b"<":
+            print(f"    [스킵] HTML 응답")
+            return ""
         # HWPX — ZIP 기반
         if magic[:2] == b"PK":
             with zipfile.ZipFile(path) as z:
@@ -1951,6 +1976,7 @@ def wp_post(item):
         "status":     "publish",
         "categories": cat_ids,
         "tags":       tag_ids,
+        "date":       f"{item['date']}T09:00:00",
     }
 
     try:
@@ -2068,6 +2094,7 @@ def wp_post_summary(all_items, target, is_weekly=False):
         "content":    content_html,
         "status":     "publish",
         "categories": cat_ids,
+        "date":       f"{target.isoformat()}T08:00:00",
     }
     try:
         r = requests.post(f"{WP_URL}/wp-json/wp/v2/posts",
@@ -2122,24 +2149,52 @@ def main():
     print(f"{'='*60}")
 
     all_items = []
+    MAX_RETRY = 3
+
     for crawl_date in target_dates:
         if is_weekly:
             print(f"\n{'='*40}  {crawl_date}  {'='*40}")
+
+        failed = []
+
+        # 1차 수집
         for name, crawler in CRAWLERS:
-            for attempt in range(2):
+            try:
+                items = crawler(crawl_date)
+                print(f"  → {name}: {len(items)}건")
+                all_items.extend(items)
+            except Exception as e:
+                print(f"  [{name}] 실패: {str(e)[:80]}")
+                failed.append((name, crawler))
+            time.sleep(random.randint(30, 90))
+
+        # 재시도
+        retry_count = 0
+        while failed and retry_count < MAX_RETRY:
+            retry_count += 1
+            print(f"\n{'='*60}")
+            print(f"  실패 부수 {len(failed)}개 → 30분 후 재시도 ({retry_count}/{MAX_RETRY})")
+            print(f"  대상: {', '.join(n for n,_ in failed)}")
+            print(f"{'='*60}")
+            time.sleep(1800)
+
+            still_failed = []
+            for name, crawler in failed:
                 try:
                     items = crawler(crawl_date)
-                    print(f"  → {name}: {len(items)}건")
+                    print(f"  → [{name}] 재시도 성공: {len(items)}건")
                     all_items.extend(items)
-                    break
                 except Exception as e:
-                    if attempt == 0 and "CONNECTION_RESET" in str(e):
-                        print(f"  [{name}] Connection Reset → 10초 후 재시도")
-                        time.sleep(random.randint(20, 40))
-                    else:
-                        print(f"  [{name}] 오류: {e}")
-                        break
-            time.sleep(random.randint(30, 90))
+                    print(f"  [{name}] 재시도 실패: {str(e)[:80]}")
+                    still_failed.append((name, crawler))
+                time.sleep(random.randint(30, 90))
+            failed = still_failed
+
+        if failed:
+            print(f"\n  최종 실패: {', '.join(n for n,_ in failed)}")
+        else:
+            print(f"\n  ✅ 모든 부수 수집 완료!")
+
 
     print(f"\n{'─'*60}")
     print(f"총 {len(all_items)}건 수집\n")
