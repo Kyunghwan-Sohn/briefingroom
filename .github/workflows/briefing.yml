@@ -1,4 +1,4 @@
-﻿name: briefingroom-auto
+name: briefingroom-auto
 
 on:
   schedule:
@@ -13,6 +13,9 @@ on:
         default: 'auto'
       date:
         description: 'YYYY-MM-DD'
+        required: false
+      sources:
+        description: 'comma-separated ministry names or codes (e.g. fsc,moef,금융위원회)'
         required: false
 
 permissions:
@@ -46,12 +49,13 @@ jobs:
           WP_PASS: ${{ secrets.WP_PASS }}
           RUN_MODE: ${{ github.event.inputs.mode || 'auto' }}
           RUN_DATE: ${{ github.event.inputs.date || '' }}
+          CRAWLER_SOURCES: ${{ github.event.inputs.sources || '' }}
         run: python briefing.py
 
       - name: commit
         run: |
           git config user.name "briefing-bot"
           git config user.email "bot@briefingroom.kr"
-          git add -A
+          git add briefing.py briefingroom/ data/ texts/ pdfs/ list.html .github/workflows/briefing.yml
           git diff --staged --quiet || git commit -m "auto"
           git push
