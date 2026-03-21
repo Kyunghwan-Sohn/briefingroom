@@ -2164,6 +2164,11 @@ def main():
             wp_count += 1
     print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")
 
+    # 일별/주간 종합 요약 포스팅
+    print(f"\n{chr(8212)*60}")
+    print("[종합 요약 포스팅 중...]")
+    wp_post_summary(all_items, target, is_weekly)
+
     print(f"\n{'='*60}")
     print(f"  완료  |  {target}  |  총 {len(all_items)}건")
     print(f"{'='*60}")
