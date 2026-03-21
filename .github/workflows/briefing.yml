@@ -1,41 +1,57 @@
-name: 브리핑룸 자동 수집
+﻿name: briefingroom-auto
 
 on:
   schedule:
-    - cron: '0 23 * * *'  # 매일 KST 오전 8시 (UTC 23:00)
-  workflow_dispatch:        # 수동 실행 버튼
+    - cron: '0 9 * * 1-5'
+    - cron: '0 16 * * 6'
+    - cron: '0 16 * * 0'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'daily or weekly'
+        required: false
+        default: 'auto'
+      date:
+        description: 'YYYY-MM-DD'
+        required: false
+
+permissions:
+  contents: write
 
 jobs:
   briefing:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
 
     steps:
-      - name: 저장소 체크아웃
+      - name: checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Python 설치
+      - name: python-setup
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: 패키지 설치
+      - name: install
         run: |
           pip install -r requirements.txt
           playwright install chromium
           playwright install-deps chromium
 
-      - name: 브리핑룸 실행
+      - name: run
         env:
           WP_USER: ${{ secrets.WP_USER }}
           WP_PASS: ${{ secrets.WP_PASS }}
-        run: |
-          python briefing.py
+          RUN_MODE: ${{ github.event.inputs.mode || 'auto' }}
+          RUN_DATE: ${{ github.event.inputs.date || '' }}
+        run: python briefing.py
 
-      - name: 실행 결과 커밋
+      - name: commit
         run: |
           git config user.name "briefing-bot"
           git config user.email "bot@briefingroom.kr"
           git add -A
-          git diff --quiet && git diff --staged --quiet || git commit -m "자동 수집: $(date '+%Y-%m-%d')"
+          git diff --staged --quiet || git commit -m "auto"
           git push

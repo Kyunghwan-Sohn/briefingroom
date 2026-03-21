@@ -2113,31 +2113,40 @@ def wp_post_summary(all_items, target, is_weekly=False):
 
 
 def main():
+    import os
     from datetime import timedelta
     today = date.today()
-    weekday = today.weekday()  # 0=월 6=일
+    weekday = today.weekday()  # 0=월 4=금 5=토 6=일
 
-    # 요일별 날짜 설정
-    if weekday in (6, 0):  # 일/월 → 주간 모음
+    run_mode = os.environ.get('RUN_MODE', 'auto')
+    run_date = os.environ.get('RUN_DATE', '')
+
+    if run_mode == 'weekly':
         is_weekly = True
-        if weekday == 0:  # 월요일
-            last_friday = today - timedelta(days=3)
-        else:  # 일요일
-            last_friday = today - timedelta(days=2)
+    elif run_mode == 'daily':
+        is_weekly = False
+    else:
+        # auto: 토(5)/일(6) → 주간, 나머지 → 일별
+        is_weekly = weekday in (5, 6)
+
+    if is_weekly:
+        # 가장 최근 금요일 기준 월~금
+        last_friday = today
+        while last_friday.weekday() != 4:
+            last_friday -= timedelta(days=1)
         last_monday = last_friday - timedelta(days=4)
         target_dates = [last_monday + timedelta(days=i) for i in range(5)]
-        target = target_dates[-1]
+        target = last_friday
     else:
-        is_weekly = False
-        target = today - timedelta(days=1)
+        # 일별: 당일
+        target = today
+        if run_date:
+            try:
+                target = date.fromisoformat(run_date)
+            except ValueError:
+                pass
         target_dates = [target]
 
-    if len(sys.argv) > 1:
-        try:
-            target = date.fromisoformat(sys.argv[1])
-            target_dates = [target]
-            is_weekly = False
-        except ValueError:
             print("날짜 형식 오류. 예: python briefing.py 2026-03-18")
             sys.exit(1)
 
