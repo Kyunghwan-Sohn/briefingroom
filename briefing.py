@@ -1,3 +1,4 @@
+import random
 """
 briefing.py — 대한민국 정부 26개 부처 보도자료 수집기
 
@@ -37,7 +38,7 @@ import os
 if os.environ.get("GITHUB_ACTIONS"):
     BASE_DIR = Path(__file__).parent
 else:
-    BASE_DIR = Path.home() / "Desktop" / "briefing"
+    BASE_DIR = Path(__file__).parent
 PDF_DIR  = BASE_DIR / "pdfs"
 TXT_DIR  = BASE_DIR / "texts"
 PDF_DIR.mkdir(exist_ok=True)
@@ -45,7 +46,7 @@ TXT_DIR.mkdir(exist_ok=True)
 
 HEADERS = {
     "User-Agent": (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
     ),
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -212,10 +213,10 @@ def pw_crawl_list(name, list_url, base, target,
         with sync_playwright() as pw:
             browser = pw.chromium.launch(
                 headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR",
@@ -294,10 +295,10 @@ def crawl_fsc(target):
         with sync_playwright() as pw:
             browser = pw.chromium.launch(
                 headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -399,10 +400,10 @@ def crawl_moef(target):
         with sync_playwright() as pw:
             browser = pw.chromium.launch(
                 headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -471,10 +472,10 @@ def crawl_moe(target):
         with sync_playwright() as pw:
             browser = pw.chromium.launch(
                 headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -539,10 +540,10 @@ def crawl_molit(target):
         with sync_playwright() as pw:
             browser = pw.chromium.launch(
                 headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -593,10 +594,10 @@ def crawl_mohw(target):
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -692,10 +693,10 @@ def crawl_mcst(target):
         with sync_playwright() as pw:
             browser = pw.chromium.launch(
                 headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -749,10 +750,10 @@ def crawl_mois(target):
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -813,10 +814,10 @@ def crawl_moel(target):
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -880,10 +881,10 @@ def crawl_mss(target):
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -968,10 +969,10 @@ def crawl_pipc(target):
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -1029,10 +1030,10 @@ def crawl_motie(target):
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -1141,10 +1142,10 @@ def crawl_mof(target):
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -1220,10 +1221,10 @@ def crawl_mogef(target):
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -1277,10 +1278,10 @@ def crawl_mpva(target):
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -1352,10 +1353,10 @@ def crawl_msit(target):
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -1432,10 +1433,10 @@ def crawl_mnd(target):
         with sync_playwright() as pw:
             browser = pw.chromium.launch(
                 headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -1485,10 +1486,10 @@ def crawl_bok(target):
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True,
-                args=["--disable-blink-features=AutomationControlled"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
             ctx = browser.new_context(
                 user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/122.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
@@ -1803,7 +1804,29 @@ CRAWLERS = [
 
 
 
+WP_URL  = "https://hotclipfolio.com"
+WP_USER = "hotclipfolio"
+WP_PASS = "qSUw w4xA ELSm w6z9 6zIU U8G8"
+
+CAT_MAP = {
+    "금융위원회": "금융경제", "금융감독원": "금융경제",
+    "기획재정부": "금융경제", "한국은행": "금융경제",
+    "산업통상자원부": "금융경제", "공정거래위원회": "금융경제",
+    "보건복지부": "사회복지", "교육부": "사회복지",
+    "고용노동부": "사회복지", "성평등가족부": "사회복지",
+    "국민권익위원회": "사회복지", "국가보훈부": "사회복지",
+    "법무부": "사회복지",
+    "과학기술정보통신부": "산업기술", "국토교통부": "산업기술",
+    "해양수산부": "산업기술", "농림축산식품부": "산업기술",
+    "중소벤처기업부": "산업기술", "환경부": "산업기술",
+    "개인정보보호위원회": "산업기술",
+    "외교부": "외교안보", "국방부": "외교안보", "통일부": "외교안보",
+    "행정안전부": "행정법제", "인사혁신처": "행정법제",
+    "법제처": "행정법제", "문화체육관광부": "행정법제",
+}
+
 _posted_titles: set = set()
+_wp_cat_cache = {}
 
 def wp_check_duplicate(title: str, date_str: str) -> bool:
     key = f"{date_str}::{title.strip()}"
@@ -1832,6 +1855,22 @@ def wp_check_duplicate(title: str, date_str: str) -> bool:
     except:
         return False
 
+
+def wp_get_or_create_category(name):
+    if name in _wp_cat_cache:
+        return _wp_cat_cache[name]
+    auth = (WP_USER, WP_PASS)
+    r = requests.get(f"{WP_URL}/wp-json/wp/v2/categories",
+                     params={"search": name, "per_page": 5}, auth=auth, timeout=10)
+    for cat in r.json():
+        if cat["name"] == name:
+            _wp_cat_cache[name] = cat["id"]
+            return cat["id"]
+    r2 = requests.post(f"{WP_URL}/wp-json/wp/v2/categories",
+                       json={"name": name}, auth=auth, timeout=10)
+    cat_id = r2.json().get("id", 1)
+    _wp_cat_cache[name] = cat_id
+    return cat_id
 
 def wp_post(item):
     if not item.get("summary") or item["summary"].startswith("["):
@@ -1931,77 +1970,97 @@ def wp_post(item):
 
 
 def main():
-    target = date.today()
+    from datetime import timedelta
+    today = date.today()
+    weekday = today.weekday()  # 0=월 6=일
+
+    # 요일별 날짜 설정
+    if weekday in (6, 0):  # 일/월 → 주간 모음
+        is_weekly = True
+        if weekday == 0:  # 월요일
+            last_friday = today - timedelta(days=3)
+        else:  # 일요일
+            last_friday = today - timedelta(days=2)
+        last_monday = last_friday - timedelta(days=4)
+        target_dates = [last_monday + timedelta(days=i) for i in range(5)]
+        target = target_dates[-1]
+    else:
+        is_weekly = False
+        target = today - timedelta(days=1)
+        target_dates = [target]
+
     if len(sys.argv) > 1:
         try:
             target = date.fromisoformat(sys.argv[1])
+            target_dates = [target]
+            is_weekly = False
         except ValueError:
             print("날짜 형식 오류. 예: python briefing.py 2026-03-18")
             sys.exit(1)
 
     print(f"{'='*60}")
-    print(f"  브리핑룸  |  {target}  |  {len(CRAWLERS)}개 부처")
+    if is_weekly:
+        print(f"  브리핑룸  |  주간 모음  |  {target_dates[0]} ~ {target_dates[-1]}")
+    else:
+        print(f"  브리핑룸  |  {target}  |  {len(CRAWLERS)}개 부처")
     print(f"{'='*60}")
 
     all_items = []
-    for name, crawler in CRAWLERS:
-        try:
-            items = crawler(target)
-            print(f"  → {name}: {len(items)}건")
-            all_items.extend(items)
-        except Exception as e:
-            print(f"  [{name}] 오류: {e}")
+    for crawl_date in target_dates:
+        if is_weekly:
+            print(f"\n{'='*40}  {crawl_date}  {'='*40}")
+        for name, crawler in CRAWLERS:
+            for attempt in range(2):
+                try:
+                    items = crawler(crawl_date)
+                    print(f"  → {name}: {len(items)}건")
+                    all_items.extend(items)
+                    break
+                except Exception as e:
+                    if attempt == 0 and "CONNECTION_RESET" in str(e):
+                        print(f"  [{name}] Connection Reset → 10초 후 재시도")
+                        time.sleep(random.randint(20, 40))
+                    else:
+                        print(f"  [{name}] 오류: {e}")
+                        break
+            time.sleep(random.randint(30, 90))
 
     print(f"\n{'─'*60}")
     print(f"총 {len(all_items)}건 수집\n")
 
-    # 파일 처리
     print("[파일 처리 중...]")
     for item in all_items:
         if not (item["pdfs"] or item["hwps"]): continue
-        print(f"\n  [{item['source']}] {item['title'][:50]}")
-        print(f"  PDF:{len(item['pdfs'])} HWP:{len(item['hwps'])}")
         process_item(item)
 
-    # LLM 요약
     print(f"\n{'─'*60}")
     print("[LLM 요약 중...]")
     for item in all_items:
         item["summary"] = summarize(item)
-        print(f"  [{item['source']}] {item['summary'][:70]}")
+        print(f"  summary: {item['summary'][:60]}")
         time.sleep(0.5)
 
-    # WordPress 자동 포스팅
     print(f"\n{'─'*60}")
     print("[WordPress 포스팅 중...]")
     wp_count = 0
     for item in all_items:
-        if item.get("summary") and not item["summary"].startswith("["):
-            if wp_post(item):
-                wp_count += 1
-            time.sleep(1)
+        if wp_post(item):
+            wp_count += 1
     print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")
 
-    # 최종 출력
     print(f"\n{'='*60}")
     print(f"  완료  |  {target}  |  총 {len(all_items)}건")
     print(f"{'='*60}")
-    by_source = {}
-    for item in all_items:
-        by_source.setdefault(item["source"], []).append(item)
 
     print(f"\n{'─'*60}")
-    total = 0
     for name, _ in CRAWLERS:
-        cnt   = len(by_source.get(name, []))
-        total += cnt
-        mark  = "✅" if cnt > 0 else "⚪"
-        print(f"  {mark} {name:<18} {cnt}건")
+        cnt = sum(1 for i in all_items if i["source"] == name)
+        mark = "✅" if cnt > 0 else "⚪"
+        print(f"  {mark} {name:<20} {cnt}건")
     print(f"{'─'*60}")
-    print(f"  합계: {total}건")
+    print(f"  합계: {len(all_items)}건")
     print(f"  파일: {PDF_DIR}")
     print(f"  텍스트: {TXT_DIR}")
-
 
 if __name__ == "__main__":
     main()
@@ -2010,42 +2069,6 @@ if __name__ == "__main__":
 # WordPress 자동 포스팅
 # ════════════════════════════════════════════════════
 
-WP_URL  = "https://hotclipfolio.com"
-WP_USER = "hotclipfolio"
-WP_PASS = "qSUw w4xA ELSm w6z9 6zIU U8G8"
 
-CAT_MAP = {
-    "금융위원회": "금융경제", "금융감독원": "금융경제",
-    "기획재정부": "금융경제", "한국은행": "금융경제",
-    "산업통상자원부": "금융경제", "공정거래위원회": "금융경제",
-    "보건복지부": "사회복지", "교육부": "사회복지",
-    "고용노동부": "사회복지", "성평등가족부": "사회복지",
-    "국민권익위원회": "사회복지", "국가보훈부": "사회복지",
-    "법무부": "사회복지",
-    "과학기술정보통신부": "산업기술", "국토교통부": "산업기술",
-    "해양수산부": "산업기술", "농림축산식품부": "산업기술",
-    "중소벤처기업부": "산업기술", "환경부": "산업기술",
-    "개인정보보호위원회": "산업기술",
-    "외교부": "외교안보", "국방부": "외교안보", "통일부": "외교안보",
-    "행정안전부": "행정법제", "인사혁신처": "행정법제",
-    "법제처": "행정법제", "문화체육관광부": "행정법제",
-}
 
-_wp_cat_cache = {}
-
-def wp_get_or_create_category(name):
-    if name in _wp_cat_cache:
-        return _wp_cat_cache[name]
-    auth = (WP_USER, WP_PASS)
-    r = requests.get(f"{WP_URL}/wp-json/wp/v2/categories",
-                     params={"search": name, "per_page": 5}, auth=auth, timeout=10)
-    for cat in r.json():
-        if cat["name"] == name:
-            _wp_cat_cache[name] = cat["id"]
-            return cat["id"]
-    r2 = requests.post(f"{WP_URL}/wp-json/wp/v2/categories",
-                       json={"name": name}, auth=auth, timeout=10)
-    cat_id = r2.json().get("id", 1)
-    _wp_cat_cache[name] = cat_id
-    return cat_id
 
