@@ -27,7 +27,7 @@ def crawl_fss(target):
             if not a: continue
             href = BASE + a["href"] if not a["href"].startswith("http") else a["href"]
             time.sleep(DELAY)
-            soup2 = get_soup(href, new_session())
+            soup2 = get_soup(href, s)
             pdfs, hwps = (extract_file_links(soup2, BASE) if soup2 else ([], []))
             title = clean_title(a.get_text(strip=True))
             print(f"  ✓ {title[:60]}")

@@ -56,9 +56,10 @@ def crawl_moe(target):
                     seen2.add(h2)
                     full2 = BASE + h2 if not h2.startswith("http") else h2
                     fn = a2.get_text(strip=True).lower()
-                    # 파일명 없으면 URL에서 판별 불가 → 헤드 요청으로 Content-Type 확인
-                    # 일단 hwp로 저장 (다운로드 시 확장자 판별)
-                    hwps.append(full2)
+                    if re.search(r"\.pdf", fn) or re.search(r"\.pdf", h2, re.I):
+                        pdfs.append(full2)
+                    else:
+                        hwps.append(full2)
 
                 print(f"  ✓ {title[:60]}")
                 results.append(make_item("교육부", title, full_url,

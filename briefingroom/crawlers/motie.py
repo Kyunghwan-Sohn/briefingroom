@@ -59,8 +59,10 @@ def crawl_motie(target):
                     if full in seen2: continue
                     seen2.add(full)
                     fn = a2.get_text(strip=True).lower()
-                    # Content-Disposition으로 확장자 판별 → 일단 pdf로 시도
-                    pdfs.append(full)
+                    if re.search(r"\.hwp", fn) or re.search(r"\.hwp", full, re.I):
+                        hwps.append(full)
+                    else:
+                        pdfs.append(full)
 
                 print(f"  ✓ {title[:60]}")
                 results.append(make_item("산업통상자원부", title, detail_url,

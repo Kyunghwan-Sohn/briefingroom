@@ -12,10 +12,21 @@ def crawl_mofa(target):
         with sync_playwright() as pw:
             browser = pw.chromium.launch(
                 headless=True,
-                args=["--ignore-certificate-errors", "--disable-web-security"],
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox",
+                      "--disable-dev-shm-usage", "--ignore-certificate-errors"],
                 **_pw_proxy_arg())
-            page = browser.new_page(ignore_https_errors=True)
-            page.set_extra_http_headers(HEADERS)
+            ctx = browser.new_context(
+                user_agent=(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/131.0.0.0 Safari/537.36"),
+                locale="ko-KR", timezone_id="Asia/Seoul",
+                viewport={"width": 1280, "height": 800},
+                ignore_https_errors=True,
+            )
+            page = ctx.new_page()
+            page.add_init_script(
+                "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
             page.goto(LIST, wait_until="networkidle", timeout=30000)
             soup = BeautifulSoup(page.content(), "lxml")
             seen = set()
