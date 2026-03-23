@@ -23,6 +23,7 @@ if (is_page()) {
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="브리핑룸 — 정부 보도자료 AI 요약">
 <meta name="twitter:description" content="27개 부처 보도자료 매일 수집 + AI 요약 + 무료 이메일 구독">
+<link rel="alternate" type="application/rss+xml" title="브리핑룸 RSS" href="https://hotclipfolio.com/feed/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Pretendard:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -178,6 +179,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .hero-stat-label{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.6);letter-spacing:.5px;margin-top:2px}
 .hero-dismiss{position:absolute;top:8px;right:12px;background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:14px}
 .hero-banner.hidden{display:none}
+/* 구독 프리셋 */
+.preset-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.preset-btn{padding:6px 12px;border:1.5px solid var(--border);border-radius:20px;background:var(--surface);font-family:var(--mono);font-size:10px;color:var(--text2);cursor:pointer;transition:all .12s;white-space:nowrap}
+.preset-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-l)}
 @media(max-width:768px){.hero-banner{flex-direction:column;text-align:center;padding:20px 16px}.hero-left h2{font-size:17px}.hero-stats{justify-content:center}}
 .empty{text-align:center;padding:50px 0;color:var(--muted);grid-column:1/-1}
 .empty-icon{font-size:28px;margin-bottom:10px;opacity:.5}
@@ -248,6 +253,12 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       <div class="pop-msg" id="pop-msg"></div>
       <div class="pop-email-row">
         <input class="pop-email" type="email" id="pop-email" placeholder="이메일 주소">
+      </div>
+      <div class="preset-row">
+        <button class="preset-btn" onclick="applyPreset('journalist')">기자용 (전체)</button>
+        <button class="preset-btn" onclick="applyPreset('finance')">투자자용 (금융·경제)</button>
+        <button class="preset-btn" onclick="applyPreset('tech')">IT/과학 종사자</button>
+        <button class="preset-btn" onclick="applyPreset('policy')">정책 연구자</button>
       </div>
       <div class="min-hdr">
         <span class="min-hdr-txt">받아볼 부처 선택 <span class="min-cnt" id="pop-cnt">0</span>개</span>
@@ -521,6 +532,18 @@ function buildPopGrid(){
     };
     g.appendChild(el);
   });
+}
+const PRESETS={
+  journalist: MINS,  // 전체
+  finance: ['금융위원회','금융감독원','기획재정부','한국은행','공정거래위원회','산업통상자원부'],
+  tech: ['과학기술정보통신부','산업통상자원부','중소벤처기업부','개인정보보호위원회'],
+  policy: ['기획재정부','보건복지부','고용노동부','교육부','행정안전부','법제처','국토교통부','환경부'],
+};
+function applyPreset(key){
+  selMins.clear();
+  (PRESETS[key]||[]).forEach(m=>selMins.add(m));
+  document.getElementById('pop-cnt').textContent=selMins.size;
+  buildPopGrid();
 }
 function toggleAll(){
   if(selMins.size===MINS.length){selMins.clear()}else{MINS.forEach(m=>selMins.add(m))}
