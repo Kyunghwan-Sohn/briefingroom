@@ -14,7 +14,7 @@ def crawl_mnd(target):
             browser = pw.chromium.launch(
                 headless=True,
                 args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"],
-                **_pw_proxy_arg())
+                **pw_proxy_arg())
             ctx = browser.new_context(
                 user_agent=(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
