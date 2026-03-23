@@ -376,11 +376,144 @@ def crawl_fsec(target: date) -> list[dict]:
 
 
 # ═══════════════════════════════════════════════════════════
-# 7~11. 나머지 기관 (공통 패턴)
+# 7. 한국은행 (Playwright)
 # ═══════════════════════════════════════════════════════════
+def crawl_bok_pw(target: date) -> list[dict]:
+    print(f"\n  [한국은행] {target}")
+    from playwright.sync_api import sync_playwright
 
-# 신용보증기금, 기술보증기금, 한국주택금융공사, 한국자산관리공사, 서민금융진흥원
-# → JS 렌더링 필요 기관은 스킵 (추후 Playwright로 확장)
+    BASE = "https://www.bok.or.kr"
+    results = []
+    target_str = target.isoformat()
+
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--no-sandbox", "--disable-dev-shm-usage"])
+            ctx = browser.new_context(
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                locale="ko-KR", timezone_id="Asia/Seoul",
+            )
+            page = ctx.new_page()
+            page.add_init_script("Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
+            page.goto(f"{BASE}/portal/singl/newsData/list.do?menuNo=201263", wait_until="networkidle", timeout=25000)
+            soup = BeautifulSoup(page.content(), "lxml")
+
+            for a in soup.find_all("a", class_="title"):
+                href = a.get("href", "")
+                title = _clean_title(a.get_text(strip=True))
+                if not title:
+                    continue
+
+                # 부모에서 날짜 찾기
+                parent = a
+                date_span = None
+                for _ in range(5):
+                    parent = parent.find_parent()
+                    if not parent:
+                        break
+                    date_span = parent.find("span", class_="date")
+                    if date_span:
+                        break
+                if not date_span:
+                    continue
+                date_text = re.sub(r"등록일", "", date_span.get_text(strip=True))
+                dm = re.search(r"(\d{4})\.(\d{2})\.(\d{2})", date_text)
+                if not dm:
+                    continue
+                row_date = f"{dm.group(1)}-{dm.group(2)}-{dm.group(3)}"
+                if row_date != target_str:
+                    continue
+
+                full_url = BASE + href if not href.startswith("http") else href
+
+                # 상세 페이지에서 파일 수집
+                page.goto(full_url, wait_until="networkidle", timeout=25000)
+                soup2 = BeautifulSoup(page.content(), "lxml")
+                pdfs, hwps, seen = [], [], set()
+                for a2 in soup2.find_all("a", href=re.compile(r"/fileSrc/")):
+                    h = a2["href"]
+                    fn = a2.get_text(strip=True).lower()
+                    if "뷰어" in fn or "viewer" in fn:
+                        continue
+                    full2 = BASE + h if not h.startswith("http") else h
+                    if full2 in seen:
+                        continue
+                    seen.add(full2)
+                    if re.search(r"\.pdf", fn):
+                        pdfs.append(full2)
+                    elif re.search(r"\.hwp", fn):
+                        hwps.append(full2)
+
+                print(f"    ✓ {title[:55]}")
+                results.append(_make_item("한국은행", title, full_url, row_date, pdfs, hwps))
+
+            browser.close()
+    except Exception as e:
+        print(f"    [Playwright 오류] {e}")
+
+    return results
+
+
+# ═══════════════════════════════════════════════════════════
+# 8. 한국거래소 (Playwright)
+# ═══════════════════════════════════════════════════════════
+def crawl_krx_pw(target: date) -> list[dict]:
+    print(f"\n  [한국거래소] {target}")
+    from playwright.sync_api import sync_playwright
+
+    BASE = "https://open.krx.co.kr"
+    results = []
+    target_str = target.isoformat()
+    seen = set()
+
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--no-sandbox", "--disable-dev-shm-usage"])
+            ctx = browser.new_context(
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                locale="ko-KR", timezone_id="Asia/Seoul",
+            )
+            page = ctx.new_page()
+            page.add_init_script("Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
+            page.goto(f"{BASE}/contents/OPN/05/05000000/OPN05000000.jsp", wait_until="networkidle", timeout=25000)
+            soup = BeautifulSoup(page.content(), "lxml")
+
+            # li 또는 div에서 날짜+제목 추출
+            for el in soup.find_all(["li", "div"]):
+                text = el.get_text(" ", strip=True)
+                dm = re.search(r"(\d{4})[/.\-](\d{2})[/.\-](\d{2})", text)
+                if not dm:
+                    continue
+                row_date = f"{dm.group(1)}-{dm.group(2)}-{dm.group(3)}"
+                if row_date != target_str:
+                    continue
+
+                a = el.find("a")
+                if not a:
+                    continue
+                title = _clean_title(a.get_text(strip=True))
+                if not title or len(title) < 5 or title in seen:
+                    continue
+                seen.add(title)
+
+                # KRX 보도자료는 첨부파일 없이 원문 링크만
+                onclick = a.get("onclick", "")
+                href = a.get("href", "#")
+                # onclick에서 상세 URL 추출 시도
+                seq_m = re.search(r"'(\d+)'", onclick)
+                if seq_m:
+                    detail_url = f"{BASE}/contents/OPN/05/05010000/OPN05010000.jsp?boardSeq={seq_m.group(1)}"
+                else:
+                    detail_url = BASE + href if href != "#" and not href.startswith("http") else f"{BASE}/contents/OPN/05/05000000/OPN05000000.jsp"
+
+                print(f"    ✓ {title[:55]}")
+                results.append(_make_item("한국거래소", title, detail_url, row_date))
+
+            browser.close()
+    except Exception as e:
+        print(f"    [Playwright 오류] {e}")
+
+    return results
 
 
 # ═══════════════════════════════════════════════════════════
@@ -389,10 +522,8 @@ def crawl_fsec(target: date) -> list[dict]:
 
 FINANCE_CRAWLERS = [
     ("금융감독원",   crawl_fss),
-    # 한국은행, 한국거래소, 예금보험공사 — JS 렌더링 필요, 추후 확장
-    # ("한국은행",     crawl_bok),
-    # ("한국거래소",   crawl_krx),
-    # ("예금보험공사", crawl_kdic),
+    ("한국은행",     crawl_bok_pw),
+    ("한국거래소",   crawl_krx_pw),
     ("금융결제원",   crawl_kftc),
     ("금융보안원",   crawl_fsec),
 ]
