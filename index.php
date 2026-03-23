@@ -10,7 +10,19 @@ if (is_page()) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>브리핑룸 — 정부 보도자료</title>
+<title>브리핑룸 — 27개 정부 부처 보도자료 AI 요약</title>
+<meta name="description" content="대한민국 27개 정부 부처 보도자료를 매일 자동 수집하고 AI가 요약합니다. 부처별 맞춤 이메일 구독 무료.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hotclipfolio.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="브리핑룸 — 27개 정부 부처 보도자료 AI 요약">
+<meta property="og:description" content="대한민국 27개 정부 부처 보도자료를 매일 자동 수집하고 AI가 요약합니다.">
+<meta property="og:url" content="https://hotclipfolio.com/">
+<meta property="og:site_name" content="브리핑룸">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="브리핑룸 — 정부 보도자료 AI 요약">
+<meta name="twitter:description" content="27개 부처 보도자료 매일 수집 + AI 요약 + 무료 이메일 구독">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Pretendard:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -156,6 +168,17 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .d-btn.primary:hover{background:var(--accent)}
 .d-btn.sec{background:var(--bg2);color:var(--text2);border:1px solid var(--border)}
 .d-btn.sec:hover{color:var(--text);border-color:var(--border2)}
+/* 히어로 배너 */
+.hero-banner{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);padding:28px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:1}
+.hero-left h2{font-family:var(--serif);font-size:20px;font-weight:700;color:#fff;letter-spacing:-.5px;margin-bottom:6px}
+.hero-left p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.5}
+.hero-stats{display:flex;gap:16px}
+.hero-stat{text-align:center;padding:8px 14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px}
+.hero-stat-num{font-family:var(--serif);font-size:18px;font-weight:700;color:#fff}
+.hero-stat-label{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.6);letter-spacing:.5px;margin-top:2px}
+.hero-dismiss{position:absolute;top:8px;right:12px;background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:14px}
+.hero-banner.hidden{display:none}
+@media(max-width:768px){.hero-banner{flex-direction:column;text-align:center;padding:20px 16px}.hero-left h2{font-size:17px}.hero-stats{justify-content:center}}
 .empty{text-align:center;padding:50px 0;color:var(--muted);grid-column:1/-1}
 .empty-icon{font-size:28px;margin-bottom:10px;opacity:.5}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -190,7 +213,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .detail{width:100%;right:-100%}
   .header-sub-area{display:none}
   .header{padding:0 16px}
+  .mobile-cta{display:flex}
 }
+/* 모바일 하단 고정 CTA */
+.mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:15;background:linear-gradient(135deg,#0f172a,#1e40af);padding:12px 16px;gap:8px;align-items:center;box-shadow:0 -4px 20px rgba(0,0,0,.15)}
+.mobile-cta-text{color:rgba(255,255,255,.85);font-size:12px;white-space:nowrap}
+.mobile-cta-btn{flex:1;padding:10px;background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;text-align:center;transition:all .15s}
+.mobile-cta-btn:hover{background:rgba(255,255,255,.28)}
 </style>
 </head>
 <body>
@@ -228,6 +257,20 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       <button class="pop-submit" id="pop-submit" onclick="doSubscribe()">구독하기</button>
     </div>
   </div>
+</div>
+
+<!-- 히어로 배너 (첫 방문자용) -->
+<div class="hero-banner" id="hero-banner">
+  <div class="hero-left">
+    <h2>27개 정부 부처 보도자료, AI가 요약합니다</h2>
+    <p>매일 자동 수집 + 3줄 요약 + 부처별 맞춤 이메일 구독 무료</p>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">27</div><div class="hero-stat-label">수집 부처</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">AI</div><div class="hero-stat-label">자동 요약</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">08:00</div><div class="hero-stat-label">매일 발송</div></div>
+  </div>
+  <button class="hero-dismiss" onclick="dismissHero()" title="닫기">✕</button>
 </div>
 
 <!-- 본문 -->
@@ -447,6 +490,17 @@ function subBarMinistry(){
 }
 
 /* 구독 팝업 */
+// 히어로 배너 닫기 (localStorage로 7일간 숨김)
+function dismissHero(){
+  document.getElementById('hero-banner').classList.add('hidden');
+  localStorage.setItem('hero_dismissed', Date.now());
+}
+(function(){
+  const d=localStorage.getItem('hero_dismissed');
+  if(d && Date.now()-Number(d)<7*86400000)
+    document.getElementById('hero-banner')?.classList.add('hidden');
+})();
+
 function openSubPopup(){
   const email=document.getElementById('header-email').value.trim();
   if(email)document.getElementById('pop-email').value=email;
@@ -532,6 +586,12 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();close
   }
 })();
 </script>
+
+<!-- 모바일 하단 고정 CTA -->
+<div class="mobile-cta">
+  <span class="mobile-cta-text">27개 부처 보도자료</span>
+  <button class="mobile-cta-btn" onclick="openSubPopup()">무료 이메일 구독 →</button>
+</div>
 </body>
 </html>
 

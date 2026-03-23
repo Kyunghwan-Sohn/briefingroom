@@ -5,6 +5,9 @@ if ( have_posts() ) :
 $post_id = get_the_ID();
 $source = get_post_meta($post_id, 'briefing_source', true);
 $date = get_post_meta($post_id, 'briefing_date', true);
+$excerpt = wp_strip_all_tags(get_the_excerpt());
+if (!$excerpt) $excerpt = wp_trim_words(wp_strip_all_tags(get_the_content()), 30, '...');
+$canonical = get_permalink();
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -12,6 +15,36 @@ $date = get_post_meta($post_id, 'briefing_date', true);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?php the_title(); ?> - 브리핑룸</title>
+<meta name="description" content="<?php echo esc_attr($excerpt); ?>">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="<?php echo esc_url($canonical); ?>">
+<meta property="og:type" content="article">
+<meta property="og:title" content="<?php echo esc_attr(get_the_title()); ?> - 브리핑룸">
+<meta property="og:description" content="<?php echo esc_attr($excerpt); ?>">
+<meta property="og:url" content="<?php echo esc_url($canonical); ?>">
+<meta property="og:site_name" content="브리핑룸">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="<?php echo get_the_date('c'); ?>">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="<?php echo esc_attr(get_the_title()); ?>">
+<meta name="twitter:description" content="<?php echo esc_attr($excerpt); ?>">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "<?php echo esc_js(get_the_title()); ?>",
+  "datePublished": "<?php echo get_the_date('c'); ?>",
+  "dateModified": "<?php echo get_the_modified_date('c'); ?>",
+  "description": "<?php echo esc_js($excerpt); ?>",
+  "url": "<?php echo esc_url($canonical); ?>",
+  "publisher": {
+    "@type": "Organization",
+    "name": "브리핑룸",
+    "url": "https://hotclipfolio.com"
+  },
+  "mainEntityOfPage": "<?php echo esc_url($canonical); ?>"
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Pretendard:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
