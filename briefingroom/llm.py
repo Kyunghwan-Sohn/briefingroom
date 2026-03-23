@@ -1,3 +1,4 @@
+import json
 import time
 
 import requests
@@ -5,6 +6,34 @@ import requests
 from .config import API_KEY, API_URL, MAX_TEXT, MODEL, SYSTEM_PROMPT
 
 MAX_RETRIES = 3
+
+
+def _parse_response(resp: requests.Response) -> str:
+    """스트리밍/비스트리밍 응답 모두 처리"""
+    content_type = resp.headers.get("Content-Type", "")
+
+    # 스트리밍 응답 처리 (text/event-stream)
+    if "event-stream" in content_type or resp.text.startswith("data:"):
+        collected = []
+        for line in resp.text.splitlines():
+            line = line.strip()
+            if not line or line == "data: [DONE]":
+                continue
+            if line.startswith("data:"):
+                try:
+                    chunk = json.loads(line[5:].strip())
+                    delta = chunk["choices"][0]["delta"]
+                    if delta.get("content"):
+                        collected.append(delta["content"])
+                except Exception:
+                    continue
+        return "".join(collected).strip()
+
+    # 일반 JSON 응답
+    try:
+        return resp.json()["choices"][0]["message"]["content"].strip()
+    except Exception as e:
+        return f"[파싱 실패] {e}"
 
 
 def summarize(item: dict) -> str:
@@ -31,7 +60,7 @@ def summarize(item: dict) -> str:
                 timeout=120,
             )
             if resp.status_code == 200:
-                return resp.json()["choices"][0]["message"]["content"].strip()
+                return _parse_response(resp)
             if resp.status_code == 429 or resp.status_code >= 500:
                 wait = 2 ** attempt * 5
                 print(f"    [LLM 재시도] HTTP {resp.status_code}, {wait}초 대기 ({attempt+1}/{MAX_RETRIES})")
