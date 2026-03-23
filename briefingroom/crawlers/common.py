@@ -168,7 +168,7 @@ def pw_crawl_list(name, list_url, base, target,
                 user_agent=(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/122.0.0.0 Safari/537.36"),
+                    "Chrome/131.0.0.0 Safari/537.36"),
                 locale="ko-KR",
                 timezone_id="Asia/Seoul",
                 viewport={"width": 1280, "height": 800},
@@ -181,7 +181,7 @@ def pw_crawl_list(name, list_url, base, target,
                 try:
                     page.goto(base, timeout=15000)
                     page.wait_for_timeout(500)
-                except:
+                except Exception:
                     pass
             page.goto(list_url, wait_until="networkidle", timeout=30000)
             soup = BeautifulSoup(page.content(), "lxml")

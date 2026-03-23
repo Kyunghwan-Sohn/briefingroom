@@ -16,7 +16,7 @@ def crawl_bok(target):
                 user_agent=(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/122.0.0.0 Safari/537.36"),
+                    "Chrome/131.0.0.0 Safari/537.36"),
                 locale="ko-KR", timezone_id="Asia/Seoul",
                 viewport={"width": 1280, "height": 800},
             )

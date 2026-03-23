@@ -21,6 +21,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: briefing
+  cancel-in-progress: false
+
 jobs:
   briefing:
     runs-on: ubuntu-latest
@@ -36,6 +40,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
+
+      - name: cache-playwright
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
 
       - name: install
         run: |
@@ -45,8 +56,12 @@ jobs:
 
       - name: run
         env:
+          WP_URL: ${{ secrets.WP_URL }}
           WP_USER: ${{ secrets.WP_USER }}
           WP_PASS: ${{ secrets.WP_PASS }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_API_URL: ${{ secrets.LLM_API_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
           RUN_MODE: ${{ github.event.inputs.mode || 'auto' }}
           RUN_DATE: ${{ github.event.inputs.date || '' }}
           CRAWLER_SOURCES: ${{ github.event.inputs.sources || '' }}
@@ -57,5 +72,5 @@ jobs:
           git config user.name "briefing-bot"
           git config user.email "bot@briefingroom.kr"
           git add briefing.py briefingroom/ data/ texts/ pdfs/ list.html .github/workflows/briefing.yml
-          git diff --staged --quiet || git commit -m "auto"
+          git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d)"
           git push

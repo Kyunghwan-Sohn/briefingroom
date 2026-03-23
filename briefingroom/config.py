@@ -1,8 +1,9 @@
+import os
 from pathlib import Path
 
-API_KEY = "sk-abcd-48263410568dc65eac7c5f7290d6de506187af0a6aa1ad34"
-API_URL = "https://abcllm-api.brut.bot/v1/chat/completions"
-MODEL = "[MLX] Qwen3-4B"
+API_KEY = os.environ.get("LLM_API_KEY", "")
+API_URL = os.environ.get("LLM_API_URL", "https://abcllm-api.brut.bot/v1/chat/completions")
+MODEL = os.environ.get("LLM_MODEL", "[MLX] Qwen3-4B")
 MAX_TEXT = 6000
 TIMEOUT = 20
 DELAY = 1.5
@@ -18,7 +19,7 @@ for _dir in (PDF_DIR, TXT_DIR, DATA_DIR):
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
     ),
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "ko-KR,ko;q=0.9",

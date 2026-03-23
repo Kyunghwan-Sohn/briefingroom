@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+import time
 from collections import defaultdict
 from datetime import timedelta
 from pathlib import Path
@@ -8,12 +10,43 @@ import requests
 
 from briefingroom.config import CAT_MAP
 
-WP_URL  = "https://hotclipfolio.com"
-WP_USER = "hotclipfolio"
-WP_PASS = "qSUw w4xA ELSm w6z9 6zIU U8G8"
+WP_URL  = os.environ.get("WP_URL", "https://hotclipfolio.com")
+WP_USER = os.environ.get("WP_USER", "")
+WP_PASS = os.environ.get("WP_PASS", "")
+
+MAX_RETRIES = 3
+
+
+def _wp_post_with_retry(payload, label="WP"):
+    for attempt in range(MAX_RETRIES):
+        try:
+            r = requests.post(f"{WP_URL}/wp-json/wp/v2/posts",
+                              json=payload, auth=(WP_USER, WP_PASS), timeout=30)
+            if r.status_code in (200, 201):
+                post_id = r.json().get("id")
+                post_url = r.json().get("link")
+                print(f"    ✅ {label} #{post_id} {post_url}")
+                return True
+            if r.status_code >= 500 or r.status_code == 429:
+                wait = 2 ** attempt * 5
+                print(f"    [{label} 재시도] HTTP {r.status_code}, {wait}초 대기 ({attempt+1}/{MAX_RETRIES})")
+                time.sleep(wait)
+                continue
+            print(f"    ❌ {label} 오류: {r.status_code} {r.text[:100]}")
+            return False
+        except (requests.ConnectionError, requests.Timeout) as e:
+            wait = 2 ** attempt * 5
+            print(f"    [{label} 재시도] {e}, {wait}초 대기 ({attempt+1}/{MAX_RETRIES})")
+            time.sleep(wait)
+        except Exception as e:
+            print(f"    ❌ {label} 예외: {e}")
+            return False
+    print(f"    ❌ {label} 재시도 모두 실패")
+    return False
 
 _posted_titles: set = set()
 _wp_cat_cache = {}
+_wp_tag_cache = {}
 
 def wp_check_duplicate(title: str, date_str: str) -> bool:
     key = f"{date_str}::{title.strip()}"
@@ -39,7 +72,8 @@ def wp_check_duplicate(title: str, date_str: str) -> bool:
                 _posted_titles.add(key)
                 return True
         return False
-    except:
+    except Exception as e:
+        print(f"    [중복체크 실패] {e}")
         return False
 
 def wp_get_or_create_category(name):
@@ -111,25 +145,31 @@ def wp_post(item):
 </div>
 """
 
-    # 태그 ID 생성/조회
+    # 태그 ID 생성/조회 (캐시 활용)
     tag_ids = []
     for kw in keywords:
         if not kw: continue
+        if kw in _wp_tag_cache:
+            tag_ids.append(_wp_tag_cache[kw])
+            continue
         try:
             r_tag = requests.get(f"{WP_URL}/wp-json/wp/v2/tags",
                                  params={"search": kw, "per_page": 3},
                                  auth=(WP_USER, WP_PASS), timeout=10)
             found = [t for t in r_tag.json() if t["name"] == kw]
             if found:
+                _wp_tag_cache[kw] = found[0]["id"]
                 tag_ids.append(found[0]["id"])
             else:
                 r_new = requests.post(f"{WP_URL}/wp-json/wp/v2/tags",
                                       json={"name": kw},
                                       auth=(WP_USER, WP_PASS), timeout=10)
                 if r_new.status_code in (200, 201):
-                    tag_ids.append(r_new.json().get("id"))
-        except:
-            pass
+                    tag_id = r_new.json().get("id")
+                    _wp_tag_cache[kw] = tag_id
+                    tag_ids.append(tag_id)
+        except Exception as e:
+            print(f"    [태그 생성 실패] {kw}: {e}")
 
     payload = {
         "title":      item["title"],
@@ -140,20 +180,7 @@ def wp_post(item):
         "date":       f"{item['date']}T09:00:00",
     }
 
-    try:
-        r = requests.post(f"{WP_URL}/wp-json/wp/v2/posts",
-                          json=payload, auth=(WP_USER, WP_PASS), timeout=30)
-        if r.status_code in (200, 201):
-            post_id  = r.json().get("id")
-            post_url = r.json().get("link")
-            print(f"    ✅ WP #{post_id} {post_url}")
-            return True
-        else:
-            print(f"    ❌ WP 오류: {r.status_code} {r.text[:100]}")
-            return False
-    except Exception as e:
-        print(f"    ❌ WP 예외: {e}")
-        return False
+    return _wp_post_with_retry(payload, label="WP")
 
 def wp_post_summary(all_items, target, is_weekly=False):
     """일별/주간 종합 요약 포스팅"""
@@ -164,14 +191,16 @@ def wp_post_summary(all_items, target, is_weekly=False):
     from datetime import timedelta
 
     # 제목 설정
+    DAYS_KO = ['월요일','화요일','수요일','목요일','금요일','토요일','일요일']
     if is_weekly:
-        # 주차 계산
         week_num = (target.day - 1) // 7 + 1
-        post_title = f"{target.year}년 {target.month}월 {week_num}주차 주간 보도자료"
-        date_range = f"{(target - timedelta(days=4)).strftime('%Y.%m.%d')} ~ {target.strftime('%Y.%m.%d')}"
+        mon = target - timedelta(days=4)
+        post_title = f"{target.year}년 {target.month}월 {week_num}주차 주간 보도자료 ({target.month}월 {mon.day}일 ~ {target.month}월 {target.day}일)"
+        date_range = f"{mon.strftime('%Y.%m.%d')} ~ {target.strftime('%Y.%m.%d')}"
         period_label = f"주간 ({date_range})"
     else:
-        post_title = f"{target.year}년 {target.month}월 {target.day}일 보도자료"
+        day_name = DAYS_KO[target.weekday()]
+        post_title = f"{target.year}년 {target.month}월 {target.day}일 {day_name} 보도자료"
         period_label = target.strftime('%Y.%m.%d')
 
     # 중복 체크
@@ -256,17 +285,4 @@ def wp_post_summary(all_items, target, is_weekly=False):
         "categories": cat_ids,
         "date":       f"{target.isoformat()}T08:00:00",
     }
-    try:
-        r = requests.post(f"{WP_URL}/wp-json/wp/v2/posts",
-                          json=payload, auth=(WP_USER, WP_PASS), timeout=30)
-        if r.status_code in (200, 201):
-            post_id  = r.json().get("id")
-            post_url = r.json().get("link")
-            print(f"    ✅ 요약 포스팅 #{post_id} {post_url}")
-            return True
-        else:
-            print(f"    ❌ 요약 포스팅 오류: {r.status_code} {r.text[:100]}")
-            return False
-    except Exception as e:
-        print(f"    ❌ 요약 포스팅 예외: {e}")
-        return False
+    return _wp_post_with_retry(payload, label="요약 포스팅")

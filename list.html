@@ -151,17 +151,39 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
 
+/* 모바일 헤더 */
+.mobile-header{display:none;position:sticky;top:0;z-index:20;background:rgba(245,244,240,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 16px;height:50px;align-items:center;justify-content:space-between}
+.mobile-header .logo{gap:7px}
+.mobile-header .logo-mark{width:26px;height:26px;font-size:12px;border-radius:6px}
+.mobile-header .logo-text{font-size:15px}
+.menu-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:16px;cursor:pointer;color:var(--text2)}
+.menu-btn:hover{background:var(--bg2)}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:25}
+.sb-overlay.open{display:block}
+
 @media(max-width:768px){
-  .sidebar{display:none}
+  .mobile-header{display:flex}
+  .sidebar{display:none;position:fixed;top:0;left:0;z-index:30;width:260px;height:100vh;box-shadow:4px 0 20px rgba(0,0,0,.15)}
+  .sidebar.open{display:flex}
   .main{margin-left:0}
   .cards-grid{grid-template-columns:1fr}
   .detail{width:100%;right:-100%}
+  .topbar{top:50px}
 }
 </style>
 </head>
 <body>
 
-<aside class="sidebar">
+<header class="mobile-header">
+  <a class="logo" href="index.html">
+    <div class="logo-mark">📋</div>
+    <span class="logo-text">브리핑룸</span>
+  </a>
+  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+</header>
+<div class="sb-overlay" id="sb-overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
   <div class="sb-top">
     <a class="logo" href="index.html">
       <div class="logo-mark">📋</div>
@@ -266,6 +288,12 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 </div>
 
 <script>
+// ── 모바일 사이드바 토글 ──────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sb-overlay').classList.toggle('open');
+}
+
 // ── 설정 ──────────────────────────────────────────────
 const WP_API  = 'https://hotclipfolio.com/wp-json/wp/v2';
 const PER_PAGE = 50;
@@ -578,6 +606,7 @@ function setFilter(cat, el) {
   el.classList.add('active');
   expanded = {};
   render();
+  if (window.innerWidth <= 768) toggleSidebar();
 }
 
 function setView(v, el) {
