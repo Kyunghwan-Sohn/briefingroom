@@ -12,7 +12,8 @@ def crawl_mofa(target):
         with sync_playwright() as pw:
             browser = pw.chromium.launch(
                 headless=True,
-                args=["--ignore-certificate-errors", "--disable-web-security"])
+                args=["--ignore-certificate-errors", "--disable-web-security"],
+                **_pw_proxy_arg())
             page = browser.new_page(ignore_https_errors=True)
             page.set_extra_http_headers(HEADERS)
             page.goto(LIST, wait_until="networkidle", timeout=30000)

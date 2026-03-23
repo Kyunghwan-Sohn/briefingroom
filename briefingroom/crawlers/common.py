@@ -8,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
-from briefingroom.config import HEADERS, TIMEOUT, DELAY
+from briefingroom.config import HEADERS, TIMEOUT, DELAY, PROXIES, PROXY_URL
 
 
 def make_item(source, title, url, date_str, pdfs, hwps):
@@ -24,7 +24,16 @@ def make_item(source, title, url, date_str, pdfs, hwps):
 def new_session():
     s = requests.Session()
     s.headers.update(HEADERS)
+    if PROXIES:
+        s.proxies.update(PROXIES)
     return s
+
+
+def _pw_proxy_arg():
+    """Playwright용 프록시 설정 반환"""
+    if not PROXY_URL:
+        return {}
+    return {"proxy": {"server": PROXY_URL}}
 
 
 def get_soup(url, session, retries=2):
@@ -163,7 +172,8 @@ def pw_crawl_list(name, list_url, base, target,
         with sync_playwright() as pw:
             browser = pw.chromium.launch(
                 headless=True,
-                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"])
+                args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--disable-dev-shm-usage"],
+                **_pw_proxy_arg())
             ctx = browser.new_context(
                 user_agent=(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "

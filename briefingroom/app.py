@@ -5,7 +5,7 @@ import random
 import time
 from datetime import date, timedelta
 
-from briefingroom.config import PDF_DIR, TXT_DIR
+from briefingroom.config import PDF_DIR, TXT_DIR, RETRY_DELAYS, CRAWL_DELAY_MIN, CRAWL_DELAY_MAX
 from briefingroom.crawlers import CRAWLERS, CRAWLER_ALIASES
 from briefingroom.llm import summarize
 from briefingroom.pipeline import process_item
@@ -90,7 +90,11 @@ def main():
         print("  선택 실행: " + ", ".join(name for name, _ in selected_crawlers))
 
     all_items = []
-    max_retry = 3
+    collected_keys = set()  # 중복 방지: (source, title, date)
+
+    # 주간 모드: 부처 간 딜레이 축소 (5일 × 26부처 = 130회이므로)
+    delay_min = 10 if is_weekly else CRAWL_DELAY_MIN
+    delay_max = 30 if is_weekly else CRAWL_DELAY_MAX
 
     for crawl_date in target_dates:
         if is_weekly:
@@ -100,32 +104,47 @@ def main():
         for name, crawler in selected_crawlers:
             try:
                 items = crawler(crawl_date)
-                print(f"  → {name}: {len(items)}건")
-                all_items.extend(items)
+                # 중복 방지: 재시도 시 이미 수집된 항목 제외
+                new_items = []
+                for item in items:
+                    key = (item["source"], item["title"], item["date"])
+                    if key not in collected_keys:
+                        collected_keys.add(key)
+                        new_items.append(item)
+                print(f"  → {name}: {len(new_items)}건")
+                all_items.extend(new_items)
             except Exception as e:
                 print(f"  [{name}] 실패: {str(e)[:80]}")
                 failed.append((name, crawler))
-            time.sleep(random.randint(30, 90))
+            time.sleep(random.randint(delay_min, delay_max))
 
-        retry_count = 0
-        while failed and retry_count < max_retry:
-            retry_count += 1
+        # 점진적 백오프 재시도: 5분 → 10분 → 15분 (총 30분, 기존 90분에서 대폭 축소)
+        for retry_idx, wait_sec in enumerate(RETRY_DELAYS):
+            if not failed:
+                break
+            wait_min = wait_sec // 60
             print(f"\n{'=' * 60}")
-            print(f"  실패 부처 {len(failed)}개 → 30분 후 재시도 ({retry_count}/{max_retry})")
+            print(f"  실패 부처 {len(failed)}개 → {wait_min}분 후 재시도 ({retry_idx+1}/{len(RETRY_DELAYS)})")
             print(f"  대상: {', '.join(n for n, _ in failed)}")
             print("=" * 60)
-            time.sleep(1800)
+            time.sleep(wait_sec)
 
             still_failed = []
             for name, crawler in failed:
                 try:
                     items = crawler(crawl_date)
-                    print(f"  → [{name}] 재시도 성공: {len(items)}건")
-                    all_items.extend(items)
+                    new_items = []
+                    for item in items:
+                        key = (item["source"], item["title"], item["date"])
+                        if key not in collected_keys:
+                            collected_keys.add(key)
+                            new_items.append(item)
+                    print(f"  → [{name}] 재시도 성공: {len(new_items)}건")
+                    all_items.extend(new_items)
                 except Exception as e:
                     print(f"  [{name}] 재시도 실패: {str(e)[:80]}")
                     still_failed.append((name, crawler))
-                time.sleep(random.randint(30, 90))
+                time.sleep(random.randint(delay_min, delay_max))
             failed = still_failed
 
         if failed:

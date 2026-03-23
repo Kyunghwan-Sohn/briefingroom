@@ -62,6 +62,9 @@ jobs:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_API_URL: ${{ secrets.LLM_API_URL }}
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          PROXY_URL: ${{ secrets.PROXY_URL }}
+          CRAWL_DELAY_MIN: ${{ vars.CRAWL_DELAY_MIN || '30' }}
+          CRAWL_DELAY_MAX: ${{ vars.CRAWL_DELAY_MAX || '90' }}
           RUN_MODE: ${{ github.event.inputs.mode || 'auto' }}
           RUN_DATE: ${{ github.event.inputs.date || '' }}
           CRAWLER_SOURCES: ${{ github.event.inputs.sources || '' }}
@@ -74,3 +77,9 @@ jobs:
           git add briefing.py briefingroom/ data/ texts/ pdfs/ list.html .github/workflows/briefing.yml
           git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d)"
           git push
+
+      - name: notify-failure
+        if: failure()
+        run: |
+          echo "::error::브리핑룸 크롤링 실패 - $(date +%Y-%m-%d)"
+          echo "워크플로우 로그를 확인하세요: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

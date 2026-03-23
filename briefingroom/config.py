@@ -8,6 +8,16 @@ MAX_TEXT = 6000
 TIMEOUT = 20
 DELAY = 1.5
 
+# 한국 프록시 설정 (GitHub Actions 해외 IP 차단 우회)
+# 형식: socks5://user:pass@host:port 또는 http://host:port
+PROXY_URL = os.environ.get("PROXY_URL", "")
+PROXIES = {"http": PROXY_URL, "https": PROXY_URL} if PROXY_URL else {}
+
+# 재시도 설정
+RETRY_DELAYS = [300, 600, 900]  # 5분, 10분, 15분 (점진적 백오프)
+CRAWL_DELAY_MIN = int(os.environ.get("CRAWL_DELAY_MIN", "30"))
+CRAWL_DELAY_MAX = int(os.environ.get("CRAWL_DELAY_MAX", "90"))
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 PDF_DIR = BASE_DIR / "pdfs"
 TXT_DIR = BASE_DIR / "texts"
