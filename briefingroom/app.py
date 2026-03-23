@@ -7,6 +7,7 @@ from datetime import date, timedelta
 
 from briefingroom.config import PDF_DIR, TXT_DIR, DATA_DIR
 from briefingroom.crawlers.koreakr import crawl_koreakr
+from briefingroom.crawlers.finance import crawl_finance_all
 from briefingroom.llm import summarize
 from briefingroom.pipeline import process_item
 from briefingroom.storage import save_daily_snapshot
@@ -102,11 +103,19 @@ def main():
 
     all_items = []
     for crawl_date in target_dates:
+        # 1) korea.kr 통합 크롤링 (정부 부처)
         try:
             items = crawl_koreakr(crawl_date)
             all_items.extend(items)
         except Exception as e:
             print(f"  [korea.kr 오류] {crawl_date}: {str(e)[:80]}")
+
+        # 2) 금융 유관기관 크롤링 (korea.kr 미수록 기관)
+        try:
+            finance_items = crawl_finance_all(crawl_date)
+            all_items.extend(finance_items)
+        except Exception as e:
+            print(f"  [금융기관 오류] {crawl_date}: {str(e)[:80]}")
 
     print(f"\n{'─' * 60}")
     print(f"총 {len(all_items)}건 수집\n")
