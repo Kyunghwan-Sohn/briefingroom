@@ -14,6 +14,7 @@ from briefingroom.llm import summarize
 from briefingroom.pipeline import process_item
 from briefingroom.storage import save_daily_snapshot
 from briefingroom.wordpress import wp_post
+from briefingroom.verify import verify_counts, fill_missing
 
 
 def _dedup(items: list[dict]) -> list[dict]:
@@ -106,8 +107,14 @@ def main():
     # ── 최종 중복 제거 ───────────────────────────────────────
     all_items = _dedup(all_items)
 
+    # ── Phase 4: 기관별 건수 검증 + 누락분 보완 ──────────────
+    mismatches = verify_counts(all_items, target)
+    if mismatches:
+        all_items = fill_missing(all_items, mismatches, target)
+        all_items = _dedup(all_items)
+
     print(f"\n{'─' * 60}")
-    print(f"총 {len(all_items)}건 수집\n")
+    print(f"총 {len(all_items)}건 수집 (검증 완료)\n")
 
     # ── 파일 처리 ────────────────────────────────────────────
     print("[파일 처리 중...]")
