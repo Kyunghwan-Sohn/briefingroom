@@ -2,7 +2,10 @@ name: briefingroom
 
 on:
   schedule:
-    - cron: '0 9 * * *'
+    # KST 09:30 = UTC 00:30, KST 16:00 = UTC 07:00, KST 19:00 = UTC 10:00
+    - cron: '30 0 * * *'
+    - cron: '0 7 * * *'
+    - cron: '0 10 * * *'
   workflow_dispatch:
     inputs:
       date:
@@ -63,12 +66,11 @@ jobs:
         run: |
           git config user.name "briefing-bot"
           git config user.email "bot@briefingroom.kr"
-          git add briefing.py briefingroom/ data/ texts/ pdfs/ list.html .github/workflows/briefing.yml
-          git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d)"
+          git add briefing.py briefingroom/ data/ texts/ pdfs/ list.html .github/workflows/
+          git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d) $(date +%H:%M)"
           git push
 
       - name: notify-failure
         if: failure()
         run: |
-          echo "::error::브리핑룸 크롤링 실패 - $(date +%Y-%m-%d)"
-          echo "워크플로우 로그를 확인하세요: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "::error::브리핑룸 크롤링 실패 - $(date +%Y-%m-%d %H:%M)"

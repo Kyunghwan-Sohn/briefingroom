@@ -696,9 +696,16 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();close
 (async()=>{
   await loadCats();
 
-  // 기본 날짜: 오늘 (매일 운영)
+  // 기본 날짜: 오전 10시 전이면 전일, 10시 이후면 당일
   const today = new Date();
-  curDate = new Date(today);
+  const hour = today.getHours();
+  if(hour < 10){
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    curDate = yesterday;
+  } else {
+    curDate = new Date(today);
+  }
 
   // URL 파라미터 확인
   const params = new URLSearchParams(window.location.search);
