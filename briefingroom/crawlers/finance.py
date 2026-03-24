@@ -496,18 +496,45 @@ def crawl_krx_pw(target: date) -> list[dict]:
                     continue
                 seen.add(title)
 
-                # KRX 보도자료는 첨부파일 없이 원문 링크만
                 onclick = a.get("onclick", "")
                 href = a.get("href", "#")
-                # onclick에서 상세 URL 추출 시도
                 seq_m = re.search(r"'(\d+)'", onclick)
                 if seq_m:
                     detail_url = f"{BASE}/contents/OPN/05/05010000/OPN05010000.jsp?boardSeq={seq_m.group(1)}"
                 else:
-                    detail_url = BASE + href if href != "#" and not href.startswith("http") else f"{BASE}/contents/OPN/05/05000000/OPN05000000.jsp"
+                    detail_url = BASE + href if href != "#" and not href.startswith("http") else ""
+                if not detail_url:
+                    continue
+
+                # 상세 페이지에서 본문 텍스트 + 첨부파일 수집
+                pdfs, hwps = [], []
+                body_text = ""
+                try:
+                    page.goto(detail_url, wait_until="networkidle", timeout=25000)
+                    soup2 = BeautifulSoup(page.content(), "lxml")
+                    # 본문 텍스트 추출
+                    content_el = soup2.find("div", class_="view-content") or soup2.find("div", class_="brd-content") or soup2.find("td", class_="content")
+                    if content_el:
+                        body_text = re.sub(r"\s+", " ", content_el.get_text(strip=True))
+                    # 첨부파일
+                    for a2 in soup2.find_all("a", href=re.compile(r"download|file|attach", re.I)):
+                        h = a2["href"]
+                        full = BASE + h if not h.startswith("http") else h
+                        fn = a2.get_text(strip=True).lower()
+                        if re.search(r"\.pdf", fn):
+                            pdfs.append(full)
+                        elif re.search(r"\.hwp", fn):
+                            hwps.append(full)
+                        else:
+                            pdfs.append(full)
+                except Exception:
+                    pass
 
                 print(f"    ✓ {title[:55]}")
-                results.append(_make_item("한국거래소", title, detail_url, row_date))
+                item = _make_item("한국거래소", title, detail_url, row_date, pdfs, hwps)
+                if body_text:
+                    item["text"] = body_text
+                results.append(item)
 
             browser.close()
     except Exception as e:

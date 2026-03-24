@@ -179,10 +179,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .d-btn.sec{background:var(--bg2);color:var(--text2);border:1px solid var(--border)}
 .d-btn.sec:hover{color:var(--text);border-color:var(--border2)}
 /* 히어로 배너 */
-.hero-banner{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);padding:28px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:1}
-.hero-left h2{font-family:var(--serif);font-size:20px;font-weight:700;color:#fff;letter-spacing:-.5px;margin-bottom:6px}
-.hero-left p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.5}
-.hero-stats{display:flex;gap:16px}
+.hero-banner{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:1;margin-left:216px}
+.hero-left h2{font-family:var(--serif);font-size:18px;font-weight:700;color:#fff;letter-spacing:-.5px;margin-bottom:4px}
+.hero-left p{font-size:12px;color:rgba(255,255,255,.7);line-height:1.5}
+.hero-stats{display:flex;gap:12px}
 .hero-stat{text-align:center;padding:8px 14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px}
 .hero-stat-num{font-family:var(--serif);font-size:18px;font-weight:700;color:#fff}
 .hero-stat-label{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.6);letter-spacing:.5px;margin-top:2px}
@@ -192,7 +192,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .preset-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
 .preset-btn{padding:6px 12px;border:1.5px solid var(--border);border-radius:20px;background:var(--surface);font-family:var(--mono);font-size:10px;color:var(--text2);cursor:pointer;transition:all .12s;white-space:nowrap}
 .preset-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-l)}
-@media(max-width:768px){.hero-banner{flex-direction:column;text-align:center;padding:20px 16px}.hero-left h2{font-size:17px}.hero-stats{justify-content:center}}
+@media(max-width:768px){.hero-banner{margin-left:0;flex-direction:column;text-align:center;padding:16px}.hero-left h2{font-size:16px}.hero-stats{justify-content:center}}
 .empty{text-align:center;padding:50px 0;color:var(--muted);grid-column:1/-1}
 .empty-icon{font-size:28px;margin-bottom:10px;opacity:.5}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -428,15 +428,42 @@ async function loadCats(){try{const r=await fetch(`${WP_API}/categories?per_page
 async function loadPosts(){
   document.getElementById('main-content').innerHTML='<div class="loading"><div class="loading-spinner"></div><div>데이터 불러오는 중...</div></div>';
   const ds=fmtDate(curDate);
+  const wd=curDate.getDay(); // 0=일, 6=토
+
+  // 주말: 해당 주 월~현재까지 전체 보도자료 표시
+  let startDate=ds, endDate=ds, titleSuffix='';
+  if(wd===6){ // 토요일 → 월~토
+    const mon=new Date(curDate);mon.setDate(curDate.getDate()-(curDate.getDay()-1));
+    startDate=fmtDate(mon); titleSuffix=' (주간 종합)';
+  } else if(wd===0){ // 일요일 → 월~일
+    const mon=new Date(curDate);mon.setDate(curDate.getDate()-6);
+    startDate=fmtDate(mon); titleSuffix=' (주간 종합)';
+  }
+
   document.getElementById('date-label').textContent=ds;
   const mbl=document.getElementById('mobile-date-label');
   if(mbl) mbl.textContent=curDate.getMonth()+1+'월 '+curDate.getDate()+'일';
-  document.getElementById('page-title').textContent=`${curDate.getMonth()+1}월 ${curDate.getDate()}일 보도자료`;
-  document.getElementById('page-sub').textContent=fmtDateKo(curDate);
+  document.getElementById('page-title').textContent=`${curDate.getMonth()+1}월 ${curDate.getDate()}일 보도자료${titleSuffix}`;
+  document.getElementById('page-sub').textContent=titleSuffix ? `${startDate} ~ ${endDate}` : fmtDateKo(curDate);
+
   try{
-    const r=await fetch(`${WP_API}/posts?per_page=${PER_PAGE}&after=${ds}T00:00:00&before=${ds}T23:59:59&_fields=id,title,content,link,categories,date`);
-    if(!r.ok)throw new Error(`HTTP ${r.status}`);
-    allItems=(await r.json()).map(parsePost);render();updateSidebar();
+    // 주말이면 여러 페이지 로드 (주간 전체)
+    let posts=[];
+    for(let pg=1;pg<=10;pg++){
+      const r=await fetch(`${WP_API}/posts?per_page=100&page=${pg}&after=${startDate}T00:00:00&before=${endDate}T23:59:59&_fields=id,title,content,link,categories,date`);
+      if(!r.ok) break;
+      const data=await r.json();
+      posts.push(...data);
+      if(data.length<100) break;
+    }
+    // 중복 제거 (제목 기준)
+    const seen=new Set();
+    posts=posts.filter(p=>{
+      const t=p.title?.rendered||'';
+      if(seen.has(t))return false;
+      seen.add(t);return true;
+    });
+    allItems=posts.map(parsePost);render();updateSidebar();
   }catch(e){document.getElementById('main-content').innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div>로드 실패: ${e.message}</div></div>`}
 }
 function parsePost(p){
