@@ -93,6 +93,123 @@ def _count_fss(s, target: date) -> int:
     return count
 
 
+def _count_bok(s, target: date) -> int:
+    """한국은행 — Playwright 필요, requests로는 0 반환되므로 Playwright 시도"""
+    try:
+        from playwright.sync_api import sync_playwright
+        count = 0
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--no-sandbox"])
+            ctx = browser.new_context(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36", locale="ko-KR")
+            page = ctx.new_page()
+            page.goto("https://www.bok.or.kr/portal/singl/newsData/list.do?menuNo=201263", wait_until="networkidle", timeout=20000)
+            soup = BeautifulSoup(page.content(), "lxml")
+            for a in soup.find_all("a", class_="title"):
+                parent = a
+                date_span = None
+                for _ in range(5):
+                    parent = parent.find_parent()
+                    if not parent: break
+                    date_span = parent.find("span", class_="date")
+                    if date_span: break
+                if date_span:
+                    dt = re.sub(r"등록일", "", date_span.get_text(strip=True))
+                    dm = re.search(r"(\d{4})\.(\d{2})\.(\d{2})", dt)
+                    if dm and f"{dm.group(1)}-{dm.group(2)}-{dm.group(3)}" == target.isoformat():
+                        count += 1
+            browser.close()
+        return count
+    except Exception:
+        return 0
+
+
+def _count_krx(s, target: date) -> int:
+    """한국거래소 — Playwright"""
+    try:
+        from playwright.sync_api import sync_playwright
+        count = 0
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--no-sandbox"])
+            ctx = browser.new_context(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36", locale="ko-KR")
+            page = ctx.new_page()
+            page.goto("https://open.krx.co.kr/contents/OPN/05/05000000/OPN05000000.jsp", wait_until="networkidle", timeout=20000)
+            soup = BeautifulSoup(page.content(), "lxml")
+            ds = target.isoformat()
+            seen = set()
+            for el in soup.find_all(["li", "div"]):
+                text = el.get_text(" ", strip=True)
+                dm = re.search(r"(\d{4})[/.\-](\d{2})[/.\-](\d{2})", text)
+                if not dm: continue
+                if f"{dm.group(1)}-{dm.group(2)}-{dm.group(3)}" != ds: continue
+                a = el.find("a")
+                if a:
+                    t = a.get_text(strip=True)
+                    if t and len(t) > 5 and t not in seen:
+                        seen.add(t)
+                        count += 1
+            browser.close()
+        return count
+    except Exception:
+        return 0
+
+
+def _count_kdic(s, target: date) -> int:
+    """예금보험공사 — Playwright 메인 페이지"""
+    try:
+        from playwright.sync_api import sync_playwright
+        count = 0
+        ds = target.isoformat()
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--no-sandbox"])
+            page = browser.new_page()
+            page.goto("https://www.kdic.or.kr", wait_until="networkidle", timeout=20000)
+            soup = BeautifulSoup(page.content(), "lxml")
+            for a in soup.find_all("a"):
+                text = a.get_text(strip=True)
+                dm = re.search(r"(\d{4})[.\-](\d{2})[.\-](\d{2})", text)
+                if dm and f"{dm.group(1)}-{dm.group(2)}-{dm.group(3)}" == ds:
+                    title = re.sub(r"\d{4}[.\-]\d{2}[.\-]\d{2}.*$", "", text).strip()
+                    if title and len(title) > 5 and "입찰" not in title and "공용차량" not in title:
+                        count += 1
+            browser.close()
+        return count
+    except Exception:
+        return 0
+
+
+def _count_kfb(s, target: date) -> int:
+    """은행연합회 — Playwright 메인 페이지"""
+    try:
+        from playwright.sync_api import sync_playwright
+        count = 0
+        ds = target.isoformat()
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--no-sandbox"])
+            page = browser.new_page()
+            page.goto("https://www.kfb.or.kr", wait_until="networkidle", timeout=20000)
+            soup = BeautifulSoup(page.content(), "lxml")
+            for a in soup.find_all("a", href=re.compile(r"info_news_view")):
+                parent = a.find_parent()
+                ptext = parent.get_text(" ", strip=True) if parent else ""
+                dm = re.search(r"(\d{4})[/.\-](\d{2})[/.\-](\d{2})", ptext)
+                if dm and f"{dm.group(1)}-{dm.group(2)}-{dm.group(3)}" == ds:
+                    count += 1
+            browser.close()
+        return count
+    except Exception:
+        return 0
+
+
+# 금융기관 검증 함수 목록
+FINANCE_VERIFIERS = [
+    ("금융감독원",   _count_fss),
+    ("한국은행",     _count_bok),
+    ("한국거래소",   _count_krx),
+    ("예금보험공사", _count_kdic),
+    ("은행연합회",   _count_kfb),
+]
+
+
 # 검증 가능한 기관 목록 (korea.kr에서 확인 가능)
 VERIFIABLE_SOURCES = [
     "금융위원회", "기획재정부", "재정경제부", "교육부", "보건복지부",
@@ -130,17 +247,23 @@ def verify_counts(items: list[dict], target: date) -> dict:
             pass
         time.sleep(0.3)
 
-    # 금융감독원 개별 검증
-    fss_my = collected.get("금융감독원", 0)
-    try:
-        fss_actual = _count_fss(s, target)
-        if fss_actual > fss_my:
-            mismatches["금융감독원"] = (fss_my, fss_actual)
-            print(f"  ⚠️  {'금융감독원':<18} 수집 {fss_my}건 / 실제 {fss_actual}건 (누락 {fss_actual - fss_my}건)")
-        elif fss_my > 0:
-            print(f"  ✅ {'금융감독원':<18} {fss_my}건 일치")
-    except Exception:
-        pass
+    # 금융기관 개별 사이트 검증
+    for source, count_fn in FINANCE_VERIFIERS:
+        my_count = collected.get(source, 0)
+        try:
+            actual = count_fn(s, target)
+            if actual > my_count:
+                mismatches[source] = (my_count, actual)
+                print(f"  ⚠️  {source:<18} 수집 {my_count}건 / 실제 {actual}건 (누락 {actual - my_count}건)")
+            elif my_count > 0:
+                print(f"  ✅ {source:<18} {my_count}건 일치")
+            else:
+                print(f"  ─  {source:<18} 수집 0건 / 실제 {actual}건")
+                if actual > 0:
+                    mismatches[source] = (0, actual)
+        except Exception as e:
+            print(f"  ❓ {source:<18} 검증 실패 ({str(e)[:30]})")
+        time.sleep(0.5)
 
     if not mismatches:
         print(f"\n  ✅ 모든 기관 건수 일치!")
