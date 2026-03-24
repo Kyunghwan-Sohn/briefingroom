@@ -93,7 +93,9 @@ def wp_get_or_create_category(name):
     return cat_id
 
 def wp_post(item):
-    if not item.get("summary") or item["summary"].startswith("["):
+    has_summary = item.get("summary") and not item["summary"].startswith("[")
+    # 요약 없어도 제목+원문링크가 있으면 포스팅 허용
+    if not has_summary and not item.get("title"):
         return False
 
     # 중복 체크
@@ -102,11 +104,14 @@ def wp_post(item):
 
     summary = ""
     keywords = []
-    for line in item["summary"].split("\n"):
-        if line.startswith("요약:"):
-            summary = line.replace("요약:", "").strip()
-        elif line.startswith("키워드:"):
-            keywords = [k.strip() for k in line.replace("키워드:", "").split(",")]
+    if has_summary:
+        for line in item["summary"].split("\n"):
+            if line.startswith("요약:"):
+                summary = line.replace("요약:", "").strip()
+            elif line.startswith("키워드:"):
+                keywords = [k.strip() for k in line.replace("키워드:", "").split(",")]
+    if not summary:
+        summary = f'{item["source"]} 보도자료입니다. 원문 링크에서 상세 내용을 확인하세요.'
 
     cat_name = CAT_MAP.get(item["source"], "브리핑룸")
     cat_ids  = [
