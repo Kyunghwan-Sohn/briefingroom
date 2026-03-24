@@ -215,8 +215,17 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .mobile-date-nav{display:none;align-items:center;justify-content:space-between;background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;position:sticky;top:56px;z-index:7}
 .mob-date-label{font-family:var(--mono);font-size:13px;color:var(--text2);font-weight:500}
 .mob-date-arrow{background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:5px 14px;cursor:pointer;color:var(--text);font-size:13px}
+/* 모바일 분야 필터 */
+.mob-filter{display:none;overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--surface);border-bottom:1px solid var(--border);padding:8px 12px;gap:6px;position:sticky;top:100px;z-index:6;scrollbar-width:none}
+.mob-filter::-webkit-scrollbar{display:none}
+.mob-filter-btn{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-family:var(--mono);font-size:11px;color:var(--text2);cursor:pointer;transition:all .12s;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.mob-filter-btn:hover{border-color:var(--border2);background:var(--bg2)}
+.mob-filter-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
+.mob-filter-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.mob-filter-btn.active .mob-filter-dot{background:#fff !important}
 @media(max-width:768px){
   .mobile-date-nav{display:flex}
+  .mob-filter{display:flex}
   .sub-bar{flex-wrap:nowrap}
   .sub-bar-sel{display:none}
   .popup{max-height:80vh;overflow-y:auto;border-radius:14px 14px 0 0;position:fixed;bottom:0;left:0;right:0;width:100%;max-width:100%}
@@ -228,6 +237,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .header-sub-area{display:none}
   .header{padding:0 16px}
   .mobile-cta{display:flex}
+  .topbar{top:142px}
 }
 /* 모바일 하단 고정 CTA */
 .mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:15;background:linear-gradient(135deg,#0f172a,#1e40af);padding:12px 16px;gap:8px;align-items:center;box-shadow:0 -4px 20px rgba(0,0,0,.15)}
@@ -291,6 +301,23 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="hero-stat"><div class="hero-stat-num">AI</div><div class="hero-stat-label">자동 요약</div></div>
   </div>
   <button class="hero-dismiss" onclick="dismissHero()" title="닫기">✕</button>
+</div>
+
+<!-- 모바일 날짜 탐색 -->
+<div class="mobile-date-nav">
+  <button class="mob-date-arrow" onclick="changeDate(-1)">◀</button>
+  <span class="mob-date-label" id="mobile-date-label"></span>
+  <button class="mob-date-arrow" onclick="changeDate(1)">▶</button>
+</div>
+
+<!-- 모바일 분야 필터 -->
+<div class="mob-filter" id="mob-filter">
+  <button class="mob-filter-btn active" onclick="mobSetFilter('all',this)">전체</button>
+  <button class="mob-filter-btn" onclick="mobSetFilter('금융경제',this)"><span class="mob-filter-dot" style="background:var(--c-fin)"></span>금융·경제</button>
+  <button class="mob-filter-btn" onclick="mobSetFilter('사회복지',this)"><span class="mob-filter-dot" style="background:var(--c-soc)"></span>사회·복지</button>
+  <button class="mob-filter-btn" onclick="mobSetFilter('산업기술',this)"><span class="mob-filter-dot" style="background:var(--c-ind)"></span>산업·기술</button>
+  <button class="mob-filter-btn" onclick="mobSetFilter('외교안보',this)"><span class="mob-filter-dot" style="background:var(--c-dip)"></span>외교·안보</button>
+  <button class="mob-filter-btn" onclick="mobSetFilter('행정법제',this)"><span class="mob-filter-dot" style="background:var(--c-adm)"></span>행정·법제</button>
 </div>
 
 <!-- 본문 -->
@@ -595,6 +622,17 @@ function toggleFinSub(el){
   document.getElementById('fin-sub').classList.toggle('open');
 }
 
+function mobSetFilter(cat, el){
+  curFilter = cat;
+  // 모바일 필터 버튼 active 전환
+  document.querySelectorAll('.mob-filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  // 데스크톱 사이드바도 동기화
+  document.querySelectorAll('.f-item').forEach(i => i.classList.remove('active'));
+  expanded = {};
+  render();
+}
+
 function applyPreset(key){
   selMins.clear();
   (PRESETS[key]||[]).forEach(m=>selMins.add(m));
@@ -662,7 +700,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();close
 
 <!-- 모바일 하단 고정 CTA -->
 <div class="mobile-cta">
-  <span class="mobile-cta-text">27개 부처 보도자료</span>
+  <span class="mobile-cta-text">51개 부처 보도자료</span>
   <button class="mobile-cta-btn" onclick="openSubPopup()">무료 이메일 구독 →</button>
 </div>
 </body>
