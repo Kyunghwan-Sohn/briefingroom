@@ -6,6 +6,7 @@ import requests
 from .config import API_KEY, API_URL, MAX_TEXT, MODEL, SYSTEM_PROMPT
 
 MAX_RETRIES = 3
+_quota_exhausted = False  # 일일 한도 초과 플래그
 
 
 def _parse_response(resp: requests.Response) -> str:
@@ -37,6 +38,9 @@ def _parse_response(resp: requests.Response) -> str:
 
 
 def summarize(item: dict) -> str:
+    global _quota_exhausted
+    if _quota_exhausted:
+        return "[한도 초과] 다음 실행에서 재처리"
     if not item.get("text"):
         return "[텍스트 없음]"
     text = item["text"][:MAX_TEXT]
@@ -61,7 +65,18 @@ def summarize(item: dict) -> str:
             )
             if resp.status_code == 200:
                 return _parse_response(resp)
-            if resp.status_code == 429 or resp.status_code >= 500:
+            if resp.status_code == 429:
+                # 일일 한도 초과 감지 → 이후 건 전부 스킵
+                body = resp.text.lower()
+                if "quota" in body or "daily" in body:
+                    _quota_exhausted = True
+                    print(f"    [LLM] 일일 한도 초과 — 나머지 건은 다음 실행에서 재처리")
+                    return "[한도 초과] 다음 실행에서 재처리"
+                wait = 2 ** attempt * 5
+                print(f"    [LLM 재시도] HTTP 429, {wait}초 대기 ({attempt+1}/{MAX_RETRIES})")
+                time.sleep(wait)
+                continue
+            if resp.status_code >= 500:
                 wait = 2 ** attempt * 5
                 print(f"    [LLM 재시도] HTTP {resp.status_code}, {wait}초 대기 ({attempt+1}/{MAX_RETRIES})")
                 time.sleep(wait)
