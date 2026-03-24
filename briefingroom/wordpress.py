@@ -55,20 +55,25 @@ def wp_check_duplicate(title: str, date_str: str) -> bool:
         import html as _html
         after  = f"{date_str}T00:00:00"
         before = f"{date_str}T23:59:59"
-        r = requests.get(
-            f"{WP_URL}/wp-json/wp/v2/posts",
-            params={"after": after, "before": before,
-                    "per_page": 100, "_fields": "id,title"},
-            auth=(WP_USER, WP_PASS), timeout=10,
-        )
-        if r.status_code != 200: return False
-        for p in r.json():
-            existing = _html.unescape(
-                p.get("title", {}).get("rendered", "")).strip()
-            if existing == title.strip():
-                print(f"    [중복 스킵] #{p['id']} {title[:40]}")
-                _posted_titles.add(key)
-                return True
+        # 페이지네이션으로 100건 이상 검색
+        for pg in range(1, 6):
+            r = requests.get(
+                f"{WP_URL}/wp-json/wp/v2/posts",
+                params={"after": after, "before": before,
+                        "per_page": 100, "page": pg, "_fields": "id,title"},
+                auth=(WP_USER, WP_PASS), timeout=10,
+            )
+            if r.status_code != 200 or not r.json():
+                break
+            for p in r.json():
+                existing = _html.unescape(
+                    p.get("title", {}).get("rendered", "")).strip()
+                if existing == title.strip():
+                    print(f"    [중복 스킵] #{p['id']} {title[:40]}")
+                    _posted_titles.add(key)
+                    return True
+            if len(r.json()) < 100:
+                break
         return False
     except Exception as e:
         print(f"    [중복체크 실패] {e}")
@@ -183,5 +188,8 @@ def wp_post(item):
         "date":       f"{item['date']}T09:00:00",
     }
 
-    return _wp_post_with_retry(payload, label="WP")
+    result = _wp_post_with_retry(payload, label="WP")
+    if result:
+        _posted_titles.add(f"{item['date']}::{item['title'].strip()}")
+    return result
 

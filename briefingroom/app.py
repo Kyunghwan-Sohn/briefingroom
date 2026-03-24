@@ -44,6 +44,19 @@ def main():
     except Exception as e:
         print(f"  [금융기관 오류] {str(e)[:80]}")
 
+    # 소스 간 중복 제거 (제목+날짜 기준)
+    seen_keys = set()
+    unique_items = []
+    for item in all_items:
+        key = (item["title"].strip(), item["date"])
+        if key not in seen_keys:
+            seen_keys.add(key)
+            unique_items.append(item)
+    dedup_count = len(all_items) - len(unique_items)
+    all_items = unique_items
+    if dedup_count:
+        print(f"  [중복 제거] {dedup_count}건")
+
     print(f"\n{'─' * 60}")
     print(f"총 {len(all_items)}건 수집\n")
 
