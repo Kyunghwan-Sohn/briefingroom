@@ -405,14 +405,7 @@ async function loadPosts(){
   const mbl=document.getElementById('mobile-date-label');
   if(mbl) mbl.textContent=curDate.getMonth()+1+'월 '+curDate.getDate()+'일';
   document.getElementById('page-title').textContent=`${curDate.getMonth()+1}월 ${curDate.getDate()}일 보도자료`;
-  const todayD=new Date();const todayWd2=todayD.getDay();
-  let subText=fmtDateKo(curDate);
-  // 오늘 기준 기본날짜면 요일 안내 추가
-  const isFriData=(todayWd2===6||todayWd2===0||todayWd2===1);
-  const isYesterday=((todayD-curDate)/(1000*60*60*24)<1.5 && curDate<todayD);
-  if(isFriData&&isYesterday) subText+=' (금요일 보도자료)';
-  else if(isYesterday) subText+=' 보도자료';
-  document.getElementById('page-sub').textContent=subText;
+  document.getElementById('page-sub').textContent=fmtDateKo(curDate);
   try{
     const r=await fetch(`${WP_API}/posts?per_page=${PER_PAGE}&after=${ds}T00:00:00&before=${ds}T23:59:59&_fields=id,title,content,link,categories,date`);
     if(!r.ok)throw new Error(`HTTP ${r.status}`);
@@ -638,15 +631,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();close
 (async()=>{
   await loadCats();
 
-  // 요일별 기본 날짜 설정
+  // 기본 날짜: 오늘 (매일 운영)
   const today = new Date();
-  const wd = today.getDay(); // 0=일, 6=토
-  const defaultDate = new Date(today);
-  if(wd === 6) defaultDate.setDate(today.getDate()-1);       // 토→금
-  else if(wd === 0) defaultDate.setDate(today.getDate()-2);  // 일→금
-  else if(wd === 1) defaultDate.setDate(today.getDate()-3);  // 월→금
-  else defaultDate.setDate(today.getDate()-1);               // 화~금→전날
-  curDate = defaultDate;
+  curDate = new Date(today);
 
   // URL 파라미터 확인
   const params = new URLSearchParams(window.location.search);
