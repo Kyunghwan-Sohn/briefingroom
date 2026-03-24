@@ -42,16 +42,15 @@ def serialize_item(item: dict) -> dict:
     }
 
 
-def save_daily_snapshot(items: Iterable[dict], target: date, is_weekly: bool = False) -> Path:
+def save_daily_snapshot(items: Iterable[dict], target: date) -> Path:
     serialized = [serialize_item(item) for item in items]
     payload = {
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "target_date": target.isoformat(),
-        "mode": "weekly" if is_weekly else "daily",
         "count": len(serialized),
         "items": serialized,
     }
-    out_path = DATA_DIR / (f"weekly-{target.isoformat()}.json" if is_weekly else f"{target.isoformat()}.json")
+    out_path = DATA_DIR / f"{target.isoformat()}.json"
     out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     latest_payload = dict(payload)

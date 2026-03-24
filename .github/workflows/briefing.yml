@@ -1,15 +1,12 @@
-name: briefingroom-daily
+name: briefingroom
 
 on:
   schedule:
-    - cron: '0 9 * * 1-5'
+    - cron: '0 9 * * *'
   workflow_dispatch:
     inputs:
       date:
         description: 'YYYY-MM-DD (특정 날짜 수집)'
-        required: false
-      sources:
-        description: 'comma-separated ministry names or codes (e.g. fsc,moef,금융위원회)'
         required: false
 
 permissions:
@@ -59,9 +56,7 @@ jobs:
           PROXY_URL: ${{ secrets.PROXY_URL }}
           CRAWL_DELAY_MIN: ${{ vars.CRAWL_DELAY_MIN || '30' }}
           CRAWL_DELAY_MAX: ${{ vars.CRAWL_DELAY_MAX || '90' }}
-          RUN_MODE: daily
           RUN_DATE: ${{ github.event.inputs.date || '' }}
-          CRAWLER_SOURCES: ${{ github.event.inputs.sources || '' }}
         run: python briefing.py
 
       - name: commit
