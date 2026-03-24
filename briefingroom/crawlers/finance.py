@@ -517,6 +517,108 @@ def crawl_krx_pw(target: date) -> list[dict]:
 
 
 # ═══════════════════════════════════════════════════════════
+# 9. 예금보험공사 (Playwright — 메인 페이지 슬라이드)
+# ═══════════════════════════════════════════════════════════
+def crawl_kdic_pw(target: date) -> list[dict]:
+    print(f"\n  [예금보험공사] {target}")
+    from playwright.sync_api import sync_playwright
+
+    BASE = "https://www.kdic.or.kr"
+    results = []
+    target_str = target.isoformat()
+    seen = set()
+
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--no-sandbox", "--disable-dev-shm-usage"])
+            ctx = browser.new_context(
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                locale="ko-KR",
+            )
+            page = ctx.new_page()
+            page.goto(BASE, wait_until="networkidle", timeout=20000)
+            soup = BeautifulSoup(page.content(), "lxml")
+
+            for a in soup.find_all("a"):
+                text = a.get_text(strip=True)
+                dm = re.search(r"(\d{4})[.\-](\d{2})[.\-](\d{2})", text)
+                if not dm:
+                    continue
+                row_date = f"{dm.group(1)}-{dm.group(2)}-{dm.group(3)}"
+                if row_date != target_str:
+                    continue
+                # 보도자료 영역인지 확인 (공지/입찰 제외)
+                title = re.sub(r"\d{4}[.\-]\d{2}[.\-]\d{2}.*$", "", text).strip()
+                if not title or len(title) < 5 or title in seen:
+                    continue
+                if any(kw in title for kw in ["입찰", "공용차량", "객원연구", "비상임이사 공개모집"]):
+                    continue
+                seen.add(title)
+
+                detail_url = f"{BASE}/di/medi/selectPbcrBbsList.do?cdVl=bodo"
+                print(f"    ✓ {title[:55]}")
+                results.append(_make_item("예금보험공사", title, detail_url, row_date))
+
+            browser.close()
+    except Exception as e:
+        print(f"    [Playwright 오류] {e}")
+
+    return results
+
+
+# ═══════════════════════════════════════════════════════════
+# 10. 은행연합회 (Playwright — 메인 페이지 보도자료)
+# ═══════════════════════════════════════════════════════════
+def crawl_kfb_pw(target: date) -> list[dict]:
+    print(f"\n  [은행연합회] {target}")
+    from playwright.sync_api import sync_playwright
+
+    BASE = "https://www.kfb.or.kr"
+    results = []
+    target_str = target.isoformat()
+    seen = set()
+
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--no-sandbox", "--disable-dev-shm-usage"])
+            ctx = browser.new_context(
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                locale="ko-KR",
+            )
+            page = ctx.new_page()
+            page.goto(BASE, wait_until="networkidle", timeout=20000)
+            soup = BeautifulSoup(page.content(), "lxml")
+
+            for a in soup.find_all("a", href=re.compile(r"info_news_view")):
+                text = a.get_text(strip=True)
+                href = a["href"]
+                # 부모에서 날짜 추출
+                parent = a.find_parent()
+                ptext = parent.get_text(" ", strip=True) if parent else text
+                dm = re.search(r"(\d{4})[/.\-](\d{2})[/.\-](\d{2})", ptext)
+                if not dm:
+                    continue
+                row_date = f"{dm.group(1)}-{dm.group(2)}-{dm.group(3)}"
+                if row_date != target_str:
+                    continue
+
+                title = _clean_title(re.sub(r"\d{4}/\d{2}/\d{2}.*$", "", text).strip())
+                if not title or title in seen:
+                    continue
+                seen.add(title)
+
+                full_url = BASE + href if not href.startswith("http") else href
+                print(f"    ✓ {title[:55]}")
+                results.append(_make_item("은행연합회", title, full_url, row_date))
+
+            browser.close()
+    except Exception as e:
+        print(f"    [Playwright 오류] {e}")
+
+    return results
+
+
+# ═══════════════════════════════════════════════════════════
 # 통합 크롤링 함수
 # ═══════════════════════════════════════════════════════════
 
@@ -524,6 +626,8 @@ FINANCE_CRAWLERS = [
     ("금융감독원",   crawl_fss),
     ("한국은행",     crawl_bok_pw),
     ("한국거래소",   crawl_krx_pw),
+    ("예금보험공사", crawl_kdic_pw),
+    ("은행연합회",   crawl_kfb_pw),
     ("금융결제원",   crawl_kftc),
     ("금융보안원",   crawl_fsec),
 ]
