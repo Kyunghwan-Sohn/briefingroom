@@ -4,7 +4,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Iterable
 
-from .config import CAT_MAP, DATA_DIR
+from .config import CAT_MAP, DATA_DIR, FINANCE_SUB_MAP
 
 
 def extract_summary_parts(summary: str) -> tuple[str, list[str]]:
@@ -30,6 +30,7 @@ def serialize_item(item: dict) -> dict:
         "url": item.get("url", ""),
         "date": item.get("date", ""),
         "category": CAT_MAP.get(item.get("source", ""), "행정법제"),
+        "finance_sub": FINANCE_SUB_MAP.get(item.get("source", ""), ""),
         "pdfs": item.get("pdfs", []),
         "hwps": item.get("hwps", []),
         "files": item.get("files", []),

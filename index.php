@@ -97,6 +97,15 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .f-cnt{font-family:var(--mono);font-size:10px;color:var(--muted);background:var(--bg2);padding:1px 6px;border-radius:8px}
 .f-item.active .f-cnt{background:rgba(47,84,235,.12);color:var(--accent)}
 .sb-min-section{padding:10px 6px;flex:1}
+/* 금융 서브카테고리 */
+.sb-sub{padding:0 0 0 18px;max-height:0;overflow:hidden;transition:max-height .25s ease}
+.sb-sub.open{max-height:300px}
+.sb-sub .f-item{padding:5px 8px}
+.sb-sub .f-left{font-size:11.5px}
+.sb-sub .f-dot{width:6px;height:6px}
+.fin-toggle{cursor:pointer;position:relative}
+.fin-toggle::after{content:'▸';position:absolute;right:8px;font-size:9px;color:var(--muted);transition:transform .2s}
+.fin-toggle.expanded::after{transform:rotate(90deg)}
 .main{margin-left:216px;flex:1;min-height:calc(100vh - 56px)}
 .topbar{position:sticky;top:56px;z-index:5;background:rgba(245,244,240,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 24px;height:46px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .search-wrap{flex:1;max-width:300px;position:relative}
@@ -273,13 +282,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 <!-- 히어로 배너 (첫 방문자용) -->
 <div class="hero-banner" id="hero-banner">
   <div class="hero-left">
-    <h2>27개 정부 부처 보도자료, AI가 요약합니다</h2>
-    <p>매일 자동 수집 + 3줄 요약 + 부처별 맞춤 이메일 구독 무료</p>
+    <h2>51개 부처 + 7개 금융기관, AI가 요약합니다</h2>
+    <p>정부 보도자료 + 금융 유관기관까지 매일 자동 수집 · AI 요약 · 무료 이메일 구독</p>
   </div>
   <div class="hero-stats">
-    <div class="hero-stat"><div class="hero-stat-num">27</div><div class="hero-stat-label">수집 부처</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">51+</div><div class="hero-stat-label">수집 기관</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">금융</div><div class="hero-stat-label">특화 분석</div></div>
     <div class="hero-stat"><div class="hero-stat-num">AI</div><div class="hero-stat-label">자동 요약</div></div>
-    <div class="hero-stat"><div class="hero-stat-num">08:00</div><div class="hero-stat-label">매일 발송</div></div>
   </div>
   <button class="hero-dismiss" onclick="dismissHero()" title="닫기">✕</button>
 </div>
@@ -302,7 +311,16 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     </div>
     <div class="sb-section">
       <div class="sb-label">분야</div>
-      <div class="f-item" onclick="setFilter('금융경제',this)"><div class="f-left"><div class="f-dot" style="background:var(--c-fin)"></div>금융·경제</div><span class="f-cnt" id="cnt-금융경제">0</span></div>
+      <div class="f-item fin-toggle" id="fin-toggle" onclick="toggleFinSub(this)"><div class="f-left"><div class="f-dot" style="background:var(--c-fin)"></div>금융·경제</div><span class="f-cnt" id="cnt-금융경제">0</span></div>
+      <div class="sb-sub" id="fin-sub">
+        <div class="f-item" onclick="setFilter('금융경제',this)"><div class="f-left"><div class="f-dot" style="background:var(--c-fin)"></div>전체</div><span class="f-cnt" id="cnt-금융경제-all">0</span></div>
+        <div class="f-item" onclick="setFilter('fin-금융정책',this)"><div class="f-left"><div class="f-dot" style="background:#2f54eb"></div>금융정책</div><span class="f-cnt" id="cnt-fin-금융정책">0</span></div>
+        <div class="f-item" onclick="setFilter('fin-감독규제',this)"><div class="f-left"><div class="f-dot" style="background:#dc2626"></div>감독·규제</div><span class="f-cnt" id="cnt-fin-감독규제">0</span></div>
+        <div class="f-item" onclick="setFilter('fin-시장통화',this)"><div class="f-left"><div class="f-dot" style="background:#16a34a"></div>시장·통화</div><span class="f-cnt" id="cnt-fin-시장통화">0</span></div>
+        <div class="f-item" onclick="setFilter('fin-금융인프라',this)"><div class="f-left"><div class="f-dot" style="background:#7c3aed"></div>금융인프라</div><span class="f-cnt" id="cnt-fin-금융인프라">0</span></div>
+        <div class="f-item" onclick="setFilter('fin-정책금융',this)"><div class="f-left"><div class="f-dot" style="background:#d97706"></div>정책금융</div><span class="f-cnt" id="cnt-fin-정책금융">0</span></div>
+        <div class="f-item" onclick="setFilter('fin-업계동향',this)"><div class="f-left"><div class="f-dot" style="background:#0891b2"></div>업계동향</div><span class="f-cnt" id="cnt-fin-업계동향">0</span></div>
+      </div>
       <div class="f-item" onclick="setFilter('사회복지',this)"><div class="f-left"><div class="f-dot" style="background:var(--c-soc)"></div>사회·복지</div><span class="f-cnt" id="cnt-사회복지">0</span></div>
       <div class="f-item" onclick="setFilter('산업기술',this)"><div class="f-left"><div class="f-dot" style="background:var(--c-ind)"></div>산업·기술</div><span class="f-cnt" id="cnt-산업기술">0</span></div>
       <div class="f-item" onclick="setFilter('외교안보',this)"><div class="f-left"><div class="f-dot" style="background:var(--c-dip)"></div>외교·안보</div><span class="f-cnt" id="cnt-외교안보">0</span></div>
@@ -413,7 +431,15 @@ function parsePost(p){
 }
 function filtered(){
   let it=allItems;
-  if(curFilter!=='all')it=it.filter(i=>i.cat===curFilter||i.src===curFilter);
+  if(curFilter!=='all'){
+    if(curFilter.startsWith('fin-')){
+      // 금융 서브카테고리 필터
+      const sub=curFilter.slice(4);
+      it=it.filter(i=>FIN_SUB_MAP[i.src]===sub);
+    } else {
+      it=it.filter(i=>i.cat===curFilter||i.src===curFilter);
+    }
+  }
   if(curSearch){const q=curSearch.toLowerCase();it=it.filter(i=>i.title.toLowerCase().includes(q)||i.src.toLowerCase().includes(q)||i.sum.toLowerCase().includes(q))}
   return it;
 }
@@ -442,7 +468,9 @@ function mkBlock(cat,items){
   b.appendChild(g);return b;
 }
 function mkCard(it,idx){
+  const finSub=FIN_SUB_MAP[it.src]||'';
   const col=CC[it.cat]||'var(--accent)';const bg=CB[it.cat]||'rgba(47,84,235,.08)';
+  const badgeLabel=finSub?`${it.src}`:it.src;
   const c=document.createElement('div');c.className='press-card';
   c.style.cssText=`--card-color:${col};animation-delay:${Math.min(idx,8)*.04}s`;
   if(curView==='list'){
@@ -468,6 +496,12 @@ function closeDetail(){document.getElementById('d-overlay').classList.remove('op
 function updateSidebar(){
   document.getElementById('cnt-all').textContent=allItems.length;
   CO.forEach(cat=>{const el=document.getElementById(`cnt-${cat}`);if(el)el.textContent=allItems.filter(i=>i.cat===cat).length});
+  // 금융 서브카테고리 카운트
+  const el0=document.getElementById('cnt-금융경제-all');if(el0)el0.textContent=allItems.filter(i=>i.cat==='금융경제').length;
+  ['금융정책','감독규제','시장통화','금융인프라','정책금융','업계동향'].forEach(sub=>{
+    const el=document.getElementById(`cnt-fin-${sub}`);
+    if(el)el.textContent=allItems.filter(i=>FIN_SUB_MAP[i.src]===sub).length;
+  });
   const sb=document.getElementById('ministry-sb');[...sb.querySelectorAll('.f-item')].forEach(e=>e.remove());
   [...new Set(allItems.map(i=>i.src))].sort((a,b)=>a.localeCompare(b,'ko')).forEach(m=>{
     const cnt=allItems.filter(i=>i.src===m).length;const cat=allItems.find(i=>i.src===m)?.cat||'행정법제';
@@ -476,7 +510,19 @@ function updateSidebar(){
     el.addEventListener('click',()=>setFilter(m,el));sb.appendChild(el);
   });
 }
-function setFilter(cat,el){curFilter=cat;document.querySelectorAll('.f-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');expanded={};render()}
+function setFilter(cat,el){
+  curFilter=cat;
+  document.querySelectorAll('.f-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+  expanded={};
+  // 금융 서브필터 선택 시 서브메뉴 열림 유지
+  if(cat.startsWith('fin-')||cat==='금융경제'){
+    document.getElementById('fin-sub').classList.add('open');
+    document.getElementById('fin-toggle').classList.add('expanded');
+  }
+  render();
+  if(window.innerWidth<=768&&document.getElementById('sidebar'))toggleSidebar();
+}
 function setView(v,el){curView=v;document.querySelectorAll('.v-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');render()}
 function handleSearch(q){curSearch=q.toLowerCase();expanded={};render()}
 
@@ -535,10 +581,27 @@ function buildPopGrid(){
 }
 const PRESETS={
   journalist: MINS,  // 전체
-  finance: ['금융위원회','금융감독원','기획재정부','한국은행','공정거래위원회','산업통상자원부'],
-  tech: ['과학기술정보통신부','산업통상자원부','중소벤처기업부','개인정보보호위원회'],
-  policy: ['기획재정부','보건복지부','고용노동부','교육부','행정안전부','법제처','국토교통부','환경부'],
+  finance: ['금융위원회','금융감독원','기획재정부','재정경제부','한국은행','한국거래소','예금보험공사','은행연합회','금융결제원','금융보안원','공정거래위원회'],
+  tech: ['과학기술정보통신부','산업통상자원부','산업통상부','중소벤처기업부','개인정보보호위원회'],
+  policy: ['기획재정부','재정경제부','보건복지부','고용노동부','교육부','행정안전부','법제처','국토교통부','환경부','기후에너지환경부'],
 };
+
+// 금융 서브카테고리 매핑
+const FIN_SUB_MAP={
+  '금융위원회':'금융정책','재정경제부':'금융정책','기획재정부':'금융정책','국세청':'금융정책','관세청':'금융정책',
+  '금융감독원':'감독규제','공정거래위원회':'감독규제','예금보험공사':'감독규제',
+  '한국은행':'시장통화','한국거래소':'시장통화','한국예탁결제원':'시장통화','한국투자공사':'시장통화',
+  '금융결제원':'금융인프라','금융보안원':'금융인프라','한국신용정보원':'금융인프라',
+  '한국산업은행':'정책금융','한국수출입은행':'정책금융','한국주택금융공사':'정책금융','신용보증기금':'정책금융','기술보증기금':'정책금융','서민금융진흥원':'정책금융','한국자산관리공사':'정책금융',
+  '은행연합회':'업계동향','금융투자협회':'업계동향','보험개발원':'업계동향','한국증권금융':'업계동향',
+  '산업통상자원부':'금융정책','산업통상부':'금융정책','조달청':'금융정책',
+};
+
+function toggleFinSub(el){
+  el.classList.toggle('expanded');
+  document.getElementById('fin-sub').classList.toggle('open');
+}
+
 function applyPreset(key){
   selMins.clear();
   (PRESETS[key]||[]).forEach(m=>selMins.add(m));
