@@ -14,6 +14,7 @@ from briefingroom.llm import summarize
 from briefingroom.pipeline import process_item
 from briefingroom.storage import save_daily_snapshot
 from briefingroom.wordpress import wp_post
+from briefingroom.news import get_news_for_item, format_news_html
 from briefingroom.verify import verify_counts, fill_missing
 from briefingroom.db import init_db, bulk_upsert, update_wp_status, print_dashboard
 
@@ -142,6 +143,20 @@ def main():
 
     # ── DB 업데이트: LLM 결과 ─────────────────────────────────
     bulk_upsert(all_items)
+
+    # ── 관련 뉴스 기사 검색 ─────────────────────────────────────
+    print(f"\n{'─' * 60}")
+    print("[관련 뉴스 검색 중...]")
+    news_count = 0
+    for item in all_items:
+        try:
+            articles = get_news_for_item(item)
+            if articles:
+                item["news_html"] = format_news_html(articles)
+                news_count += 1
+        except Exception:
+            pass
+    print(f"  관련 뉴스 연결: {news_count}/{len(all_items)}건")
 
     # ── JSON 스냅샷 저장 ──────────────────────────────────────
     snapshot_path = save_daily_snapshot(all_items, target)

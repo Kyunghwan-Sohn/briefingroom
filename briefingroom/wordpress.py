@@ -132,6 +132,9 @@ def wp_post(item):
         kw_html = '<div class="briefing-keywords">' + \
                   " ".join(f"<span>#{k}</span>" for k in keywords) + "</div>"
 
+    # 관련 뉴스 HTML
+    news_html = item.get("news_html", "")
+
     content_html = f"""
 <div class="briefing-post">
   <div class="briefing-meta">
@@ -143,6 +146,7 @@ def wp_post(item):
     <p>{summary}</p>
   </div>
   {kw_html}
+  {news_html}
   <div class="briefing-links">
     <h4>🔗 원문 및 첨부파일</h4>
     <ul>
