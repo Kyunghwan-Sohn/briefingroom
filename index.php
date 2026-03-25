@@ -12,7 +12,7 @@ if (is_page()) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2019101622583347" crossorigin="anonymous"></script>
 <title>브리핑룸 — 27개 정부 부처 보도자료 AI 요약</title>
-<meta name="description" content="대한민국 27개 정부 부처 보도자료를 매일 자동 수집하고 AI가 요약합니다. 부처별 맞춤 이메일 구독 무료.">
+<meta name="description" content="대한민국 51개 정부 부처 + 금융기관 보도자료를 매일 자동 수집하고 AI가 요약합니다. 텔레그램 채널에서도 받아보세요.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://hotclipfolio.com/">
 <meta property="og:type" content="website">
@@ -23,7 +23,7 @@ if (is_page()) {
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="브리핑룸 — 정부 보도자료 AI 요약">
-<meta name="twitter:description" content="27개 부처 보도자료 매일 수집 + AI 요약 + 무료 이메일 구독">
+<meta name="twitter:description" content="51개 부처 + 금융기관 보도자료 매일 수집 + AI 요약 + 텔레그램 채널">
 <link rel="alternate" type="application/rss+xml" title="브리핑룸 RSS" href="https://hotclipfolio.com/feed/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Pretendard:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -257,45 +257,18 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <span class="logo-text">브리핑룸</span>
   </a>
   <div class="header-sub-area">
-    <span class="header-sub-label">정부 보도자료 이메일로 받아보세요</span>
-    <input class="header-email" type="email" id="header-email" placeholder="이메일 주소 입력">
-    <button class="header-sub-btn" onclick="openSubPopup()">구독하기</button>
+    <span class="header-sub-label">텔레그램에서 보도자료 받아보세요</span>
+    <a class="header-sub-btn" href="https://t.me/hotclipfolio" target="_blank" style="text-decoration:none">✈ 텔레그램 채널</a>
   </div>
 </header>
 
-<!-- 구독 팝업 -->
-<div class="overlay" id="sub-overlay">
-  <div class="popup">
-    <div class="popup-hdr">
-      <span class="popup-title">이메일 구독 설정</span>
-      <button class="popup-close" onclick="closeSubPopup()">✕</button>
-    </div>
-    <div class="popup-body">
-      <div class="pop-msg" id="pop-msg"></div>
-      <div class="pop-email-row">
-        <input class="pop-email" type="email" id="pop-email" placeholder="이메일 주소">
-      </div>
-      <div class="preset-row">
-        <button class="preset-btn" onclick="applyPreset('journalist')">기자용 (전체)</button>
-        <button class="preset-btn" onclick="applyPreset('finance')">투자자용 (금융·경제)</button>
-        <button class="preset-btn" onclick="applyPreset('tech')">IT/과학 종사자</button>
-        <button class="preset-btn" onclick="applyPreset('policy')">정책 연구자</button>
-      </div>
-      <div class="min-hdr">
-        <span class="min-hdr-txt">받아볼 부처 선택 <span class="min-cnt" id="pop-cnt">0</span>개</span>
-        <button class="sel-all-btn" onclick="toggleAll()">전체 선택/해제</button>
-      </div>
-      <div class="min-grid" id="pop-min-grid"></div>
-      <button class="pop-submit" id="pop-submit" onclick="doSubscribe()">구독하기</button>
-    </div>
-  </div>
-</div>
+<!-- 텔레그램 채널 안내 (구독 팝업 대체) -->
 
 <!-- 히어로 배너 (첫 방문자용) -->
 <div class="hero-banner" id="hero-banner">
   <div class="hero-left">
     <h2>51개 부처 + 7개 금융기관, AI가 요약합니다</h2>
-    <p>정부 보도자료 + 금융 유관기관까지 매일 자동 수집 · AI 요약 · 무료 이메일 구독</p>
+    <p>정부 보도자료 + 금융 유관기관까지 매일 자동 수집 · AI 요약 · <a href="https://t.me/hotclipfolio" target="_blank" style="color:#fff;text-decoration:underline">텔레그램 채널</a>에서도 받아보세요</p>
   </div>
   <div class="hero-stats">
     <div class="hero-stat"><div class="hero-stat-num">51+</div><div class="hero-stat-label">수집 기관</div></div>
@@ -499,7 +472,7 @@ function render(){
   if(!items.length){c.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div>보도자료가 없습니다</div></div>';return}
   // 구독 바 삽입 (항상 맨 위)
   const sb=document.createElement('div');sb.className='sub-bar';
-  sb.innerHTML=`<input class="sub-bar-email" type="email" id="sub-bar-email" placeholder="보도자료 이메일로 받아보세요"><button class="sub-bar-btn" onclick="subBarNext()">구독하기</button><button class="sub-bar-sel" onclick="subBarMinistry()">부처 선택</button><div class="sub-bar-msg" id="sub-bar-msg"></div>`;
+  sb.innerHTML=`<span style="color:rgba(255,255,255,.85);font-size:13px;flex:1">✈ 텔레그램에서 매일 보도자료 받아보세요</span><a href="https://t.me/hotclipfolio" target="_blank" class="sub-bar-btn" style="text-decoration:none">채널 입장하기</a>`;
   c.appendChild(sb);
   if(curFilter!=='all'){const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;items.forEach((it,i)=>g.appendChild(mkCard(it,i)));c.appendChild(g)}
   else{const gr={};items.forEach(it=>{(gr[it.cat]=gr[it.cat]||[]).push(it)});CO.forEach(cat=>{if(!gr[cat]?.length)return;c.appendChild(mkBlock(cat,gr[cat]))})}
@@ -739,7 +712,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();close
 <!-- 모바일 하단 고정 CTA -->
 <div class="mobile-cta">
   <span class="mobile-cta-text">51개 부처 보도자료</span>
-  <button class="mobile-cta-btn" onclick="openSubPopup()">무료 이메일 구독 →</button>
+  <a class="mobile-cta-btn" href="https://t.me/hotclipfolio" target="_blank" style="text-decoration:none">✈ 텔레그램 채널 →</a>
 </div>
 </body>
 </html>
