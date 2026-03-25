@@ -48,6 +48,11 @@ def _clean_title(title: str) -> str:
             title = title[:idx]
     # 날짜+부처명 꼬리 제거 (예: '2026.03.18금융위원회')
     title = re.sub(r"\d{4}\.\d{2}\.\d{2}[\w가-힣]*$", "", title)
+    # 제목 반복 제거 (예: "제목제목본문..." → "제목")
+    title = title.strip()
+    half = len(title) // 2
+    if half > 15 and title[:half].strip() == title[half:half*2].strip():
+        title = title[:half].strip()
     return title.strip().rstrip(".")
 
 
@@ -88,17 +93,22 @@ def _parse_list_page(soup: BeautifulSoup, target_date: str):
             continue
         news_id = nid_m.group(1)
 
-        # 제목: <a> 안 첫 번째 텍스트 노드 또는 첫 span
-        first_span = a.find("span")
-        if first_span:
-            title = first_span.get_text(strip=True)
+        # 제목 추출: span.text에서 span.lead 부분을 제거
+        text_span = a.find("span", class_="text")
+        lead_span = a.find("span", class_="lead")
+        if text_span and lead_span:
+            full = text_span.get_text(strip=True)
+            lead = lead_span.get_text(strip=True)
+            # full에서 lead가 시작되는 지점까지가 제목
+            idx = full.find(lead[:30]) if lead else -1
+            title = full[:idx].strip() if idx > 5 else full[:80]
+        elif text_span:
+            title = text_span.get_text(strip=True)[:80]
         else:
-            # 텍스트 노드에서 첫 줄만
-            raw = a.get_text(strip=True)
-            title = raw.split("\n")[0] if "\n" in raw else raw
+            title = a.get_text(strip=True).split("\n")[0][:80]
         title = _clean_title(title)
         if len(title) > 120:
-            title = title[:120]
+            title = title[:117] + "..."
 
         # 상세 URL
         detail_url = f"{BASE}/briefing/pressReleaseView.do?newsId={news_id}"
