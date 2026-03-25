@@ -448,10 +448,10 @@ async function loadPosts(){
   document.getElementById('page-sub').textContent=titleSuffix ? `${startDate} ~ ${endDate}` : fmtDateKo(curDate);
 
   try{
-    // 주말이면 여러 페이지 로드 (주간 전체)
     let posts=[];
+    const dayBefore=new Date(new Date(startDate).getTime()-86400000);
+    const afterDate=fmtDate(dayBefore);
     for(let pg=1;pg<=10;pg++){
-      const dayBefore=new Date(new Date(startDate).getTime()-86400000);const afterDate=fmtDate(dayBefore);
       const r=await fetch(`${WP_API}/posts?per_page=100&page=${pg}&after=${afterDate}T23:59:00&before=${endDate}T23:59:59&_fields=id,title,content,link,categories,date`);
       if(!r.ok) break;
       const data=await r.json();
@@ -698,10 +698,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();close
 (async()=>{
   await loadCats();
 
-  // 기본 날짜: 오전 10시 전이면 전일, 10시 이후면 당일
+  // 기본 날짜: 정오(12시) 전이면 전일, 12시 이후면 당일
+  // (오전 11:40 크롤링 → ~12:00 포스팅 완료 기준)
   const today = new Date();
   const hour = today.getHours();
-  if(hour < 10){
+  if(hour < 12){
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
     curDate = yesterday;
