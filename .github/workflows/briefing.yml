@@ -2,10 +2,10 @@ name: briefingroom
 
 on:
   schedule:
-    # KST 09:30 = UTC 00:30, KST 16:00 = UTC 07:00, KST 19:00 = UTC 10:00
-    - cron: '30 0 * * *'
-    - cron: '0 7 * * *'
-    - cron: '0 10 * * *'
+    # 오전: KST 11:40 = UTC 02:40
+    - cron: '40 2 * * *'
+    # 오후: KST 18:00 = UTC 09:00
+    - cron: '0 9 * * *'
   workflow_dispatch:
     inputs:
       date:

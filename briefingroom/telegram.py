@@ -84,19 +84,30 @@ def select_top_articles(items: list[dict], max_per_cat: int = 3) -> dict:
     return selected
 
 
-def format_daily_message(items: list[dict], target: date) -> str:
-    """텔레그램 메시지 포맷 (Markdown)"""
+def format_daily_message(items: list[dict], target: date, session: str = "") -> str:
+    """텔레그램 메시지 포맷 (Markdown)
+    session: 'am' (오전), 'pm' (오후), '' (자동 판단)
+    """
     from collections import Counter
+    from datetime import datetime
 
     total = len(items)
     sources = Counter(item["source"] for item in items)
     day_name = DAYS_KO[target.weekday()]
 
+    # 오전/오후 자동 판단
+    if not session:
+        hour = datetime.now().hour
+        session = "am" if hour < 15 else "pm"
+
+    session_label = "오전" if session == "am" else "오후"
+    session_emoji = "🌅" if session == "am" else "🌆"
+
     # 헤더
     lines = [
-        f"📋 *브리핑룸 | {target.month}월 {target.day}일 ({day_name}) 일일 보도자료*",
+        f"📋 *브리핑룸 | {target.month}월 {target.day}일 ({day_name}) {session_label} 보도자료*",
         f"",
-        f"총 {total}건 수집 · {len(sources)}개 부처",
+        f"{session_emoji} {session_label} 업데이트 · 총 {total}건 · {len(sources)}개 부처",
         f"",
     ]
 
@@ -190,16 +201,19 @@ def send_telegram(text: str, bot_token: str = None, chat_id: str = None) -> bool
         return False
 
 
-def send_daily_briefing(items: list[dict], target: date) -> bool:
-    """일일 브리핑 텔레그램 발송 (메인 함수)"""
+def send_daily_briefing(items: list[dict], target: date, session: str = "") -> bool:
+    """일일 브리핑 텔레그램 발송 (메인 함수)
+    session: 'am' (오전), 'pm' (오후), '' (자동)
+    """
     if not items:
         print("  [텔레그램] 보도자료 없음 → 스킵")
         return False
 
     print(f"\n{'─' * 60}")
-    print("[텔레그램 일일 브리핑 발송]")
+    label = {"am": "오전", "pm": "오후"}.get(session, "")
+    print(f"[텔레그램 {label} 브리핑 발송]")
 
-    text = format_daily_message(items, target)
+    text = format_daily_message(items, target, session=session)
     print(f"  메시지 길이: {len(text)}자")
 
     return send_telegram(text)
