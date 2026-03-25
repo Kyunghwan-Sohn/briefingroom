@@ -147,7 +147,6 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
     # 푸터
     lines.append("──────────────────")
     lines.append(f"🔗 [전체 보도자료 보기]({SITE_URL})")
-    lines.append(f"📧 [이메일 구독]({SITE_URL}/subscribe)")
 
     text = "\n".join(lines)
 
@@ -177,11 +176,17 @@ def send_telegram(text: str, bot_token: str = None, chat_id: str = None) -> bool
             "inline_keyboard": [
                 [
                     {"text": "📋 전체 보기", "url": SITE_URL},
-                    {"text": "📧 이메일 구독", "url": f"{SITE_URL}/subscribe"},
                 ],
                 [
-                    {"text": "💰 금융 특화", "url": f"{SITE_URL}/?filter=finance"},
-                    {"text": "📰 오늘의 기사", "url": f"{SITE_URL}/?filter=news"},
+                    {"text": "💰 금융·경제", "url": f"{SITE_URL}/?cat=금융경제"},
+                    {"text": "🏥 사회·복지", "url": f"{SITE_URL}/?cat=사회복지"},
+                ],
+                [
+                    {"text": "⚙️ 산업·기술", "url": f"{SITE_URL}/?cat=산업기술"},
+                    {"text": "🌏 외교·안보", "url": f"{SITE_URL}/?cat=외교안보"},
+                ],
+                [
+                    {"text": "📜 행정·법제", "url": f"{SITE_URL}/?cat=행정법제"},
                 ],
             ]
         },
@@ -201,6 +206,74 @@ def send_telegram(text: str, bot_token: str = None, chat_id: str = None) -> bool
         return False
 
 
+def format_category_detail(items: list[dict], cat: str, target: date, max_items: int = 8) -> str:
+    """분야별 상세 메시지 — 부처 다양하게 최대 8건"""
+    cat_name = {"금융경제": "금융·경제", "사회복지": "사회·복지", "산업기술": "산업·기술",
+                 "외교안보": "외교·안보", "행정법제": "행정·법제"}.get(cat, cat)
+    emoji = dict(CAT_ORDER).get(cat, "📋")
+    day_name = DAYS_KO[target.weekday()]
+
+    # 해당 분야 아이템만
+    cat_items = [it for it in items if CAT_MAP.get(it.get("source", ""), "행정법제") == cat]
+    if not cat_items:
+        return ""
+
+    # 부처별 라운드로빈 (다양한 부처에서 골고루)
+    by_source = defaultdict(list)
+    for it in cat_items:
+        by_source[it["source"]].append(it)
+
+    selected = []
+    sources = list(by_source.keys())
+    # 필수 부처 먼저
+    for ps in PRIORITY_SOURCES:
+        if ps in sources:
+            sources.remove(ps)
+            sources.insert(0, ps)
+
+    idx = 0
+    while len(selected) < max_items and any(by_source.values()):
+        src = sources[idx % len(sources)]
+        if by_source[src]:
+            selected.append(by_source[src].pop(0))
+        else:
+            sources.remove(src)
+            if not sources:
+                break
+        idx += 1
+
+    lines = [
+        f"{emoji} *{cat_name} 상세 | {target.month}월 {target.day}일 ({day_name})*",
+        f"",
+        f"총 {len(cat_items)}건 중 주요 {len(selected)}건",
+        f"",
+    ]
+
+    for it in selected:
+        title = it.get("title", "")[:55]
+        wp_id = it.get("wp_post_id", "")
+        link = f"{SITE_URL}/?p={wp_id}" if wp_id else SITE_URL
+        lines.append(f"🏛 *{it['source']}*")
+        lines.append(f"▸ [{title}]({link})")
+        lines.append("")
+
+    lines.append(f"🔗 [전체 {cat_name} 보기]({SITE_URL}/?cat={cat})")
+    return "\n".join(lines)
+
+
+def send_category_details(items: list[dict], target: date) -> int:
+    """분야별 상세 메시지 발송 (총합 메시지 뒤에)"""
+    sent = 0
+    import time as _time
+    for cat, emoji in CAT_ORDER:
+        text = format_category_detail(items, cat, target)
+        if text:
+            if send_telegram(text):
+                sent += 1
+            _time.sleep(1)  # 텔레그램 rate limit 방지
+    return sent
+
+
 def send_daily_briefing(items: list[dict], target: date, session: str = "") -> bool:
     """일일 브리핑 텔레그램 발송 (메인 함수)
     session: 'am' (오전), 'pm' (오후), '' (자동)
@@ -214,6 +287,16 @@ def send_daily_briefing(items: list[dict], target: date, session: str = "") -> b
     print(f"[텔레그램 {label} 브리핑 발송]")
 
     text = format_daily_message(items, target, session=session)
-    print(f"  메시지 길이: {len(text)}자")
+    print(f"  총합 메시지 길이: {len(text)}자")
 
-    return send_telegram(text)
+    result = send_telegram(text)
+
+    # 분야별 상세 메시지 발송
+    if result:
+        import time as _time
+        _time.sleep(2)
+        print("  [분야별 상세 발송]")
+        sent = send_category_details(items, target)
+        print(f"  분야별 {sent}건 발송 완료")
+
+    return result
