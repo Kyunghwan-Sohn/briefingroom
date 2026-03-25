@@ -10,6 +10,7 @@ if (is_page()) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2019101622583347" crossorigin="anonymous"></script>
 <title>브리핑룸 — 27개 정부 부처 보도자료 AI 요약</title>
 <meta name="description" content="대한민국 27개 정부 부처 보도자료를 매일 자동 수집하고 AI가 요약합니다. 부처별 맞춤 이메일 구독 무료.">
 <meta name="robots" content="index, follow">
