@@ -66,7 +66,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .briefing-summary h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);margin:16px 0 10px}
 .briefing-summary p{font-size:14px;color:var(--text2);line-height:1.8;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
 .briefing-keywords{display:flex;flex-wrap:wrap;gap:5px;margin:16px 0}
-.briefing-keywords span{font-family:var(--mono);font-size:11px;color:var(--text2);background:var(--bg2);border:1px solid var(--border);padding:3px 10px;border-radius:4px}
+.briefing-keywords span{font-family:var(--mono);font-size:11px;color:#fff;background:#2f54eb;padding:4px 10px;border-radius:4px;font-weight:500}
 .briefing-links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--text);margin:16px 0 8px}
 .briefing-links ul{list-style:none;display:flex;flex-direction:column;gap:6px}
 .briefing-links a{color:var(--accent);text-decoration:none;font-size:13px;font-family:var(--mono)}
