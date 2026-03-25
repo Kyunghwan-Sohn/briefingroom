@@ -17,6 +17,7 @@ from briefingroom.wordpress import wp_post
 from briefingroom.news import get_news_for_item, format_news_html
 from briefingroom.verify import verify_counts, fill_missing
 from briefingroom.db import init_db, bulk_upsert, update_wp_status, print_dashboard
+from briefingroom.telegram import send_daily_briefing
 
 
 def _dedup(items: list[dict]) -> list[dict]:
@@ -186,6 +187,9 @@ def main():
     print("  Phase 5: DB 기반 최종 점검")
     print(f"{'━' * 60}")
     _db_audit(target)
+
+    # ── Phase 6: 텔레그램 일일 브리핑 발송 ──────────────────────
+    send_daily_briefing(all_items, target)
 
     # ── 완료 대시보드 ─────────────────────────────────────────
     print_dashboard(target.isoformat())
