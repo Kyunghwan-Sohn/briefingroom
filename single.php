@@ -14,6 +14,7 @@ $canonical = get_permalink();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2019101622583347" crossorigin="anonymous"></script>
 <title><?php the_title(); ?> - 브리핑룸</title>
 <meta name="description" content="<?php echo esc_attr($excerpt); ?>">
 <meta name="robots" content="index, follow">

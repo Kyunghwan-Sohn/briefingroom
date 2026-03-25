@@ -151,6 +151,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .card-summary mark,.d-summary mark{background:none;color:var(--accent);font-weight:600}
 .card-meta{display:flex;align-items:center;gap:10px;margin-top:6px}
 .card-meta-i{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.card-meta-i .kw-tag{color:var(--accent);font-weight:600;background:var(--accent-l);padding:1px 6px;border-radius:3px;margin:0 1px}
 .card-actions{display:flex;gap:5px;margin-top:8px}
 .c-btn{display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:6px;font-family:var(--mono);font-size:10px;cursor:pointer;transition:all .12s;text-decoration:none;border:1px solid var(--border);color:var(--muted);background:none}
 .c-btn:hover{color:var(--text);border-color:var(--border2);background:var(--bg2)}
@@ -501,7 +502,8 @@ function mkCard(it,idx){
   }else{
     let highlightedSum=it.sum;
     it.kws.forEach(k=>{if(k&&k.length>1){highlightedSum=highlightedSum.replace(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),`<mark>${k}</mark>`)}});
-    c.innerHTML=`<div class="card-top"><span class="m-badge" style="background:${bg};color:${col}">${it.src||'정부'}</span><span class="card-time">${it.date}</span></div><div class="card-title">${it.title}</div><div class="card-summary">${highlightedSum}</div><div class="card-meta"><span class="card-meta-i">🏷 ${it.kws.slice(0,2).join(' · ')}</span></div><div class="card-actions"><button class="c-btn primary" onclick="event.stopPropagation();openDetail(${it.id})">상세보기</button><a class="c-btn" href="${it.orig}" target="_blank" onclick="event.stopPropagation()">↗ 원문</a></div>`;
+    const kwTags=it.kws.slice(0,3).map(k=>`<span class="kw-tag">${k}</span>`).join(' ');
+    c.innerHTML=`<div class="card-top"><span class="m-badge" style="background:${bg};color:${col}">${it.src||'정부'}</span><span class="card-time">${it.date}</span></div><div class="card-title">${it.title}</div><div class="card-summary">${highlightedSum}</div><div class="card-meta"><span class="card-meta-i">🏷 ${kwTags}</span></div><div class="card-actions"><button class="c-btn primary" onclick="event.stopPropagation();openDetail(${it.id})">상세보기</button><a class="c-btn" href="${it.orig}" target="_blank" onclick="event.stopPropagation()">↗ 원문</a></div>`;
   }
   c.addEventListener('click',()=>openDetail(it.id));return c;
 }
