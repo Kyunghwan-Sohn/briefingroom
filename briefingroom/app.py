@@ -172,7 +172,9 @@ def main():
         result = wp_post(item)
         if result:
             wp_count += 1
-            update_wp_status(item["date"], item["title"], item["source"], 0, "ok")
+            post_id = result if isinstance(result, int) else 0
+            item["wp_post_id"] = post_id
+            update_wp_status(item["date"], item["title"], item["source"], post_id, "ok")
         else:
             update_wp_status(item["date"], item["title"], item["source"], 0, "skipped")
     print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")

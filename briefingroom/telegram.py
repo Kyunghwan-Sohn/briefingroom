@@ -95,8 +95,11 @@ def format_daily_message(items: list[dict], target: date) -> str:
 
         for source, item, src_count in selected[cat]:
             title = item.get("title", "")[:55]
+            wp_id = item.get("wp_post_id", "")
+            detail_link = f"{SITE_URL}/?p={wp_id}" if wp_id else SITE_URL
+
             lines.append(f"🏛 *{source}* ({src_count}건)")
-            lines.append(f"▸ {title}")
+            lines.append(f"▸ [{title}]({detail_link})")
 
             # 관련 뉴스 기사
             news = item.get("news_articles", [])
