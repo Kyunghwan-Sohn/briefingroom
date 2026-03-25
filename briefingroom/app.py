@@ -6,7 +6,7 @@ import time
 from collections import Counter
 from datetime import date
 
-from briefingroom.config import PDF_DIR, TXT_DIR, DATA_DIR
+from briefingroom.config import DATA_DIR  # noqa: F401
 from briefingroom.crawlers.koreakr import crawl_koreakr
 from briefingroom.crawlers.finance import crawl_finance_all
 from briefingroom.crawlers import CRAWLERS
@@ -15,6 +15,7 @@ from briefingroom.pipeline import process_item
 from briefingroom.storage import save_daily_snapshot
 from briefingroom.wordpress import wp_post
 from briefingroom.verify import verify_counts, fill_missing
+from briefingroom.db import init_db, bulk_upsert, update_wp_status, print_dashboard
 
 
 def _dedup(items: list[dict]) -> list[dict]:
@@ -116,11 +117,20 @@ def main():
     print(f"\n{'─' * 60}")
     print(f"총 {len(all_items)}건 수집 (검증 완료)\n")
 
+    # ── DB 저장: 수집 완료 ────────────────────────────────────
+    init_db()
+    bulk_upsert(all_items)
+    print(f"[DB 저장] 수집 {len(all_items)}건 → briefingroom.db")
+
     # ── 파일 처리 ────────────────────────────────────────────
+    print(f"\n{'─' * 60}")
     print("[파일 처리 중...]")
     for item in all_items:
         if item["pdfs"] or item["hwps"]:
             process_item(item)
+
+    # ── DB 업데이트: 파일 처리 결과 ───────────────────────────
+    bulk_upsert(all_items)
 
     # ── LLM 요약 ─────────────────────────────────────────────
     print(f"\n{'─' * 60}")
@@ -129,6 +139,9 @@ def main():
         item["summary"] = summarize(item)
         print(f"  summary: {item['summary'][:60]}")
         time.sleep(0.5)
+
+    # ── DB 업데이트: LLM 결과 ─────────────────────────────────
+    bulk_upsert(all_items)
 
     # ── JSON 스냅샷 저장 ──────────────────────────────────────
     snapshot_path = save_daily_snapshot(all_items, target)
@@ -140,8 +153,12 @@ def main():
     print("[WordPress 포스팅 중...]")
     wp_count = 0
     for item in all_items:
-        if wp_post(item):
+        result = wp_post(item)
+        if result:
             wp_count += 1
+            update_wp_status(item["date"], item["title"], item["source"], 0, "ok")
+        else:
+            update_wp_status(item["date"], item["title"], item["source"], 0, "skipped")
     print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")
 
     # ── 실패 건 재처리 (요약 없는 포스트 보완) ─────────────────
@@ -149,19 +166,15 @@ def main():
     print("[실패 건 재처리: 요약 없는 포스트 보완]")
     _retry_missing_summaries(target)
 
-    # ── 완료 통계 ─────────────────────────────────────────────
-    print(f"\n{'=' * 60}")
-    print(f"  완료  |  {target}  |  총 {len(all_items)}건")
-    print("=" * 60)
+    # ── Phase 5: DB 기반 최종 점검 ────────────────────────────
+    print(f"\n{'━' * 60}")
+    print("  Phase 5: DB 기반 최종 점검")
+    print(f"{'━' * 60}")
+    _db_audit(target)
 
-    stats = Counter(item["source"] for item in all_items)
-    print(f"\n{'─' * 60}")
-    for source, cnt in stats.most_common():
-        print(f"  ✅ {source:<20} {cnt}건")
-    print("─" * 60)
-    print(f"  합계: {len(all_items)}건")
-    print(f"  파일: {PDF_DIR}")
-    print(f"  텍스트: {TXT_DIR}")
+    # ── 완료 대시보드 ─────────────────────────────────────────
+    print_dashboard(target.isoformat())
+    print_dashboard()
 
 
 def _retry_missing_summaries(target):
@@ -282,6 +295,74 @@ def _retry_missing_summaries(target):
         time.sleep(0.5)
 
     print(f"  재처리 완료: {updated}/{len(no_summary)}건 보완")
+
+
+def _db_audit(target):
+    """DB 기반 최종 점검: 제목/파일/LLM/WP 상태 검증"""
+    import sqlite3
+    from briefingroom.db import DB_PATH
+
+    conn = sqlite3.connect(str(DB_PATH))
+    conn.row_factory = sqlite3.Row
+    ds = target.isoformat()
+
+    total = conn.execute("SELECT COUNT(*) FROM articles WHERE date=?", (ds,)).fetchone()[0]
+    if total == 0:
+        print(f"  DB에 {ds} 데이터 없음")
+        conn.close()
+        return
+
+    # 제목 점검
+    long_titles = conn.execute("SELECT COUNT(*) FROM articles WHERE date=? AND LENGTH(title) > 120", (ds,)).fetchone()[0]
+    short_titles = conn.execute("SELECT COUNT(*) FROM articles WHERE date=? AND LENGTH(title) < 10", (ds,)).fetchone()[0]
+
+    # 파일 점검
+    file_ok = conn.execute("SELECT COUNT(*) FROM articles WHERE date=? AND file_status='ok'", (ds,)).fetchone()[0]
+    file_fail = conn.execute("SELECT COUNT(*) FROM articles WHERE date=? AND file_status='failed'", (ds,)).fetchone()[0]
+    file_none = conn.execute("SELECT COUNT(*) FROM articles WHERE date=? AND file_status='no_file'", (ds,)).fetchone()[0]
+
+    # LLM 점검
+    llm_ok = conn.execute("SELECT COUNT(*) FROM articles WHERE date=? AND llm_status='ok'", (ds,)).fetchone()[0]
+    llm_fail = conn.execute("SELECT COUNT(*) FROM articles WHERE date=? AND llm_status='failed'", (ds,)).fetchone()[0]
+    llm_pend = conn.execute("SELECT COUNT(*) FROM articles WHERE date=? AND llm_status='pending'", (ds,)).fetchone()[0]
+
+    # WP 점검
+    wp_ok = conn.execute("SELECT COUNT(*) FROM articles WHERE date=? AND wp_status='ok'", (ds,)).fetchone()[0]
+    wp_skip = conn.execute("SELECT COUNT(*) FROM articles WHERE date=? AND wp_status='skipped'", (ds,)).fetchone()[0]
+
+    conn.close()
+
+    llm_pct = llm_ok / total * 100 if total else 0
+    wp_pct = wp_ok / total * 100 if total else 0
+
+    print(f"\n  ┌─ {ds} 최종 점검 결과 ─────────────────────┐")
+    print(f"  │ 총 수집:    {total:>5}건                        │")
+    print(f"  │                                              │")
+    print(f"  │ 제목:       정상 {total-long_titles-short_titles}건 | 긴제목 {long_titles} | 짧은제목 {short_titles}  │")
+    print(f"  │ 파일:       추출성공 {file_ok} | 실패 {file_fail} | 없음 {file_none}      │")
+    print(f"  │ LLM 요약:   ✅{llm_ok} | ❌{llm_fail} | ⏳{llm_pend} ({llm_pct:.0f}%)     │")
+    print(f"  │ WP 포스팅:  ✅{wp_ok} | ⏭{wp_skip} ({wp_pct:.0f}%)              │")
+
+    issues = []
+    if long_titles > 0:
+        issues.append(f"긴 제목 {long_titles}건")
+    if short_titles > 0:
+        issues.append(f"짧은 제목 {short_titles}건")
+    if file_fail > 0:
+        issues.append(f"파일 추출 실패 {file_fail}건")
+    if llm_fail > 0:
+        issues.append(f"LLM 실패 {llm_fail}건")
+    if llm_pend > 0:
+        issues.append(f"LLM 미처리 {llm_pend}건")
+
+    if issues:
+        print(f"  │                                              │")
+        print(f"  │ ⚠️ 이슈: {', '.join(issues):<36} │")
+    else:
+        print(f"  │                                              │")
+        print(f"  │ ✅ 모든 항목 정상                             │")
+
+    print(f"  └──────────────────────────────────────────────┘")
 
 
 if __name__ == "__main__":
