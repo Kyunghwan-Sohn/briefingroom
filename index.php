@@ -382,14 +382,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 
 <script>
 const WP_API='https://hotclipfolio.com/wp-json/wp/v2';
-const SUB_API='https://hotclipfolio.com/wp-json/briefing/v1/subscribe';
 const PER_PAGE=50;
 const MINS=['금융위원회','금융감독원','기획재정부','한국은행','교육부','보건복지부','고용노동부','성평등가족부','국민권익위원회','국가보훈부','법무부','과학기술정보통신부','국토교통부','해양수산부','농림축산식품부','중소벤처기업부','환경부','개인정보보호위원회','산업통상자원부','외교부','국방부','통일부','행정안전부','인사혁신처','법제처','문화체육관광부','공정거래위원회'];
 const CC={'금융경제':'var(--c-fin)','사회복지':'var(--c-soc)','산업기술':'var(--c-ind)','외교안보':'var(--c-dip)','행정법제':'var(--c-adm)'};
 const CB={'금융경제':'rgba(47,84,235,.08)','사회복지':'rgba(22,163,74,.08)','산업기술':'rgba(217,119,6,.08)','외교안보':'rgba(220,38,38,.08)','행정법제':'rgba(124,58,237,.08)'};
 const CN={'금융경제':'금융·경제','사회복지':'사회·복지','산업기술':'산업·기술','외교안보':'외교·안보','행정법제':'행정·법제'};
 const CO=['금융경제','사회복지','산업기술','외교안보','행정법제'];
-let allItems=[],curFilter='all',curView='grid',curSearch='',curDate=new Date(),expanded={},catMap={},selMins=new Set();
+let allItems=[],curFilter='all',curView='grid',curSearch='',curDate=new Date(),expanded={},catMap={};
 
 /* 날짜 */
 function fmtDate(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
@@ -549,27 +548,6 @@ function setFilter(cat,el){
 function setView(v,el){curView=v;document.querySelectorAll('.v-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');render()}
 function handleSearch(q){curSearch=q.toLowerCase();expanded={};render()}
 
-/* 구독 바 */
-function subBarNext(){
-  const email=document.getElementById('sub-bar-email').value.trim();
-  const msg=document.getElementById('sub-bar-msg');
-  if(!email){msg.className='sub-bar-msg error';msg.textContent='이메일을 입력해주세요.';return}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg.className='sub-bar-msg error';msg.textContent='유효한 이메일 주소를 입력해주세요.';return}
-  msg.className='sub-bar-msg';msg.textContent='';
-  document.getElementById('pop-email').value=email;
-  document.getElementById('sub-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-  buildPopGrid();
-}
-function subBarMinistry(){
-  const email=document.getElementById('sub-bar-email').value.trim();
-  if(email)document.getElementById('pop-email').value=email;
-  document.getElementById('sub-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-  buildPopGrid();
-}
-
-/* 구독 팝업 */
 // 히어로 배너 닫기 (localStorage로 7일간 숨김)
 function dismissHero(){
   document.getElementById('hero-banner').classList.add('hidden');
@@ -581,33 +559,6 @@ function dismissHero(){
     document.getElementById('hero-banner')?.classList.add('hidden');
 })();
 
-function openSubPopup(){
-  const email=document.getElementById('header-email').value.trim();
-  if(email)document.getElementById('pop-email').value=email;
-  document.getElementById('sub-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-  buildPopGrid();
-}
-function closeSubPopup(){document.getElementById('sub-overlay').classList.remove('open');document.body.style.overflow=''}
-function buildPopGrid(){
-  const g=document.getElementById('pop-min-grid');g.innerHTML='';
-  MINS.forEach(m=>{
-    const el=document.createElement('div');el.className='mc'+(selMins.has(m)?' on':'');
-    el.innerHTML=`<div class="mc-dot">${selMins.has(m)?'✓':''}</div><span class="mc-name">${m}</span>`;
-    el.onclick=()=>{
-      if(selMins.has(m)){selMins.delete(m);el.classList.remove('on');el.querySelector('.mc-dot').textContent=''}
-      else{selMins.add(m);el.classList.add('on');el.querySelector('.mc-dot').textContent='✓'}
-      document.getElementById('pop-cnt').textContent=selMins.size;
-    };
-    g.appendChild(el);
-  });
-}
-const PRESETS={
-  journalist: MINS,  // 전체
-  finance: ['금융위원회','금융감독원','기획재정부','재정경제부','한국은행','한국거래소','예금보험공사','은행연합회','금융결제원','금융보안원','공정거래위원회'],
-  tech: ['과학기술정보통신부','산업통상자원부','산업통상부','중소벤처기업부','개인정보보호위원회'],
-  policy: ['기획재정부','재정경제부','보건복지부','고용노동부','교육부','행정안전부','법제처','국토교통부','환경부','기후에너지환경부'],
-};
 
 // 금융 서브카테고리 매핑
 const FIN_SUB_MAP={
@@ -636,38 +587,7 @@ function mobSetFilter(cat, el){
   render();
 }
 
-function applyPreset(key){
-  selMins.clear();
-  (PRESETS[key]||[]).forEach(m=>selMins.add(m));
-  document.getElementById('pop-cnt').textContent=selMins.size;
-  buildPopGrid();
-}
-function toggleAll(){
-  if(selMins.size===MINS.length){selMins.clear()}else{MINS.forEach(m=>selMins.add(m))}
-  document.getElementById('pop-cnt').textContent=selMins.size;
-  buildPopGrid();
-}
-async function doSubscribe(){
-  const email=document.getElementById('pop-email').value.trim();
-  const ministries=[...selMins];
-  const btn=document.getElementById('pop-submit');
-  const msg=document.getElementById('pop-msg');
-  if(!email){msg.className='pop-msg error';msg.textContent='이메일을 입력해주세요.';return}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg.className='pop-msg error';msg.textContent='유효한 이메일 주소를 입력해주세요.';return}
-  if(!ministries.length){msg.className='pop-msg error';msg.textContent='부처를 하나 이상 선택해주세요.';return}
-  btn.disabled=true;btn.textContent='처리 중...';
-  try{
-    const r=await fetch(SUB_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,ministries})});
-    const data=await r.json();
-    if(data.success){
-      msg.className='pop-msg success';msg.textContent=`✅ 구독 완료! ${ministries.length}개 부처의 보도자료를 ${email}로 보내드립니다.`;
-      btn.textContent='완료!';
-      setTimeout(()=>{closeSubPopup();document.getElementById('header-email').value='';selMins.clear();},2500);
-    }else{msg.className='pop-msg error';msg.textContent=data.message||'오류가 발생했습니다.';}
-  }catch(e){msg.className='pop-msg error';msg.textContent='서버 연결 오류.';}
-  btn.disabled=false;if(btn.textContent==='처리 중...')btn.textContent='구독하기';
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();closeSubPopup()}if(e.key==='/'&&!e.target.matches('input,textarea')){e.preventDefault();document.getElementById('search-in').focus()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail()}if(e.key==='/'&&!e.target.matches('input,textarea')){e.preventDefault();document.getElementById('search-in').focus()}});
 // URL 파라미터 처리
 (async()=>{
   await loadCats();
