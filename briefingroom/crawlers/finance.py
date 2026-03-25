@@ -492,7 +492,9 @@ def crawl_krx_pw(target: date) -> list[dict]:
                 if not a:
                     continue
                 title = _clean_title(a.get_text(strip=True))
-                if not title or len(title) < 5 or title in seen:
+                # 잘못된 제목 필터링
+                bad_titles = {"본문 바로가기", "시장 안내", "한국거래소", "KRX", "Market"}
+                if not title or len(title) < 8 or title in seen or title in bad_titles:
                     continue
                 seen.add(title)
 

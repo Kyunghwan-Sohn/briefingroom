@@ -88,9 +88,17 @@ def _parse_list_page(soup: BeautifulSoup, target_date: str):
             continue
         news_id = nid_m.group(1)
 
-        # 제목
-        title = a.get_text(strip=True)
+        # 제목: <a> 안 첫 번째 텍스트 노드 또는 첫 span
+        first_span = a.find("span")
+        if first_span:
+            title = first_span.get_text(strip=True)
+        else:
+            # 텍스트 노드에서 첫 줄만
+            raw = a.get_text(strip=True)
+            title = raw.split("\n")[0] if "\n" in raw else raw
         title = _clean_title(title)
+        if len(title) > 120:
+            title = title[:120]
 
         # 상세 URL
         detail_url = f"{BASE}/briefing/pressReleaseView.do?newsId={news_id}"
