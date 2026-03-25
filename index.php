@@ -175,10 +175,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .kw{font-family:var(--mono);font-size:10px;color:var(--text2);background:var(--bg2);border:1px solid var(--border);padding:3px 9px;border-radius:4px}
 .d-actions{display:flex;gap:8px}
 .d-btn{flex:1;padding:10px 8px;border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;text-align:center;text-decoration:none;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px}
-.d-btn.primary{background:var(--text);color:#fff;border:none}
-.d-btn.primary:hover{background:var(--accent)}
-.d-btn.sec{background:var(--bg2);color:var(--text2);border:1px solid var(--border)}
-.d-btn.sec:hover{color:var(--text);border-color:var(--border2)}
+.d-btn.primary{background:var(--accent);color:#fff;border:none}
+.d-btn.primary:hover{background:#1a3fd4}
+.d-btn.sec{background:var(--text);color:#fff;border:none}
+.d-btn.sec:hover{background:#333}
 /* 히어로 배너 */
 .hero-banner{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:1;margin-left:216px}
 .hero-left h2{font-family:var(--serif);font-size:18px;font-weight:700;color:#fff;letter-spacing:-.5px;margin-bottom:4px}
@@ -374,8 +374,8 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="d-summary" id="d-summary"></div>
     <div class="d-kws" id="d-kws"></div>
     <div class="d-actions">
-      <a class="d-btn primary" id="d-src" href="#" target="_blank">↗ 원문 보기</a>
-      <a class="d-btn sec" id="d-wp" href="#" target="_blank">📄 상세 글</a>
+      <a class="d-btn primary" id="d-wp" href="#" target="_blank">📄 상세 글 보기</a>
+      <a class="d-btn sec" id="d-src" href="#" target="_blank">↗ 원문 보기</a>
     </div>
   </div>
 </div>
