@@ -146,11 +146,11 @@ def main():
 
     # ── 관련 뉴스 기사 검색 ─────────────────────────────────────
     print(f"\n{'─' * 60}")
-    print("[관련 뉴스 검색 중...]")
+    print("[관련 뉴스 검색 + 요약 중...]")
     news_count = 0
     for item in all_items:
         try:
-            articles = get_news_for_item(item)
+            articles = get_news_for_item(item, llm_fn=summarize)
             if articles:
                 item["news_html"] = format_news_html(articles)
                 news_count += 1

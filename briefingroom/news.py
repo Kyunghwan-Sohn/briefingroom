@@ -133,18 +133,41 @@ def fetch_article_text(url: str) -> str:
         return ""
 
 
-def get_news_for_item(item: dict) -> list[dict]:
-    """보도자료 1건에 대한 관련 뉴스 기사 검색 + 본문 추출"""
+def get_news_for_item(item: dict, llm_fn=None) -> list[dict]:
+    """보도자료 1건에 대한 관련 뉴스 기사 검색 + 요약"""
     articles = search_related_news(item["title"], item["source"])
 
     enriched = []
     for art in articles:
+        # Google News에서 og:description으로 짧은 요약 추출
         text = fetch_article_text(art["link"])
+
+        # LLM 요약 (함수가 전달된 경우)
+        news_summary = ""
+        if llm_fn and text and len(text) > 50:
+            try:
+                result = llm_fn({
+                    "source": art["source"],
+                    "title": art["title"],
+                    "text": text[:1500],
+                })
+                if not result.startswith("["):
+                    # "요약:" 접두사 제거
+                    news_summary = result.replace("요약:", "").split("키워드:")[0].strip()
+                    if len(news_summary) > 200:
+                        news_summary = news_summary[:197] + "..."
+            except Exception:
+                pass
+
+        # LLM 실패 시 본문 앞부분 사용
+        if not news_summary and text:
+            news_summary = text[:150] + "..." if len(text) > 150 else text
+
         enriched.append({
             "title": art["title"],
             "source": art["source"],
             "link": art["link"],
-            "text": text,
+            "summary": news_summary,
             "is_major": art["is_major"],
         })
         time.sleep(0.3)
@@ -153,17 +176,24 @@ def get_news_for_item(item: dict) -> list[dict]:
 
 
 def format_news_html(articles: list[dict]) -> str:
-    """관련 뉴스를 WP 포스트용 HTML로 포맷"""
+    """관련 뉴스를 WP 포스트용 HTML로 포맷 — 요약 + 링크 분리"""
     if not articles:
         return ""
 
     rows = ""
     for art in articles:
         badge_color = "#2f54eb" if art["is_major"] else "#96938c"
+        summary = art.get("summary", "")
+        summary_html = f'<p style="font-size:12px;color:#4a4844;line-height:1.5;margin:4px 0 0 0">{summary}</p>' if summary else ""
+
         rows += f"""
-    <div style="padding:8px 0;border-bottom:1px solid #e0ddd7;display:flex;align-items:center;gap:8px">
-      <span style="background:{badge_color}18;color:{badge_color};font-size:10px;padding:2px 8px;border-radius:4px;font-family:monospace;white-space:nowrap;flex-shrink:0">{art['source']}</span>
-      <a href="{art['link']}" target="_blank" style="color:#1c1b18;text-decoration:none;font-size:12px;font-weight:500;line-height:1.4">{art['title'][:70]}</a>
+    <div style="padding:10px 0;border-bottom:1px solid #e0ddd7">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">
+        <span style="background:{badge_color}18;color:{badge_color};font-size:10px;padding:2px 8px;border-radius:4px;font-family:monospace;white-space:nowrap;flex-shrink:0">{art['source']}</span>
+        <span style="font-size:13px;font-weight:500;color:#1c1b18;line-height:1.4">{art['title'][:70]}</span>
+      </div>
+      {summary_html}
+      <a href="{art['link']}" target="_blank" style="display:inline-block;margin-top:4px;font-family:monospace;font-size:11px;color:#2f54eb;text-decoration:none">↗ 기사 원문 보기</a>
     </div>"""
 
     return f"""
