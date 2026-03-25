@@ -148,6 +148,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .card-time{font-family:var(--mono);font-size:10px;color:var(--muted)}
 .card-title{font-size:13px;font-weight:500;line-height:1.5;color:var(--text);margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card-summary{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-summary mark,.d-summary mark{background:none;color:var(--accent);font-weight:600}
 .card-meta{display:flex;align-items:center;gap:10px;margin-top:6px}
 .card-meta-i{font-family:var(--mono);font-size:10px;color:var(--muted)}
 .card-actions{display:flex;gap:5px;margin-top:8px}
@@ -498,7 +499,9 @@ function mkCard(it,idx){
   if(curView==='list'){
     c.innerHTML=`<div style="width:72px;flex-shrink:0;text-align:center"><span class="m-badge" style="background:${bg};color:${col}">${it.src||'정부'}</span></div><div class="card-body" style="flex:1;min-width:0"><div class="card-title" style="-webkit-line-clamp:1;margin-bottom:0">${it.title}</div><div class="card-meta"><span class="card-meta-i">📅 ${it.date}</span></div></div><div class="card-actions" style="margin-top:0"><button class="c-btn primary" onclick="event.stopPropagation();openDetail(${it.id})">보기</button></div>`;
   }else{
-    c.innerHTML=`<div class="card-top"><span class="m-badge" style="background:${bg};color:${col}">${it.src||'정부'}</span><span class="card-time">${it.date}</span></div><div class="card-title">${it.title}</div><div class="card-summary">${it.sum}</div><div class="card-meta"><span class="card-meta-i">🏷 ${it.kws.slice(0,2).join(' · ')}</span></div><div class="card-actions"><button class="c-btn primary" onclick="event.stopPropagation();openDetail(${it.id})">상세보기</button><a class="c-btn" href="${it.orig}" target="_blank" onclick="event.stopPropagation()">↗ 원문</a></div>`;
+    let highlightedSum=it.sum;
+    it.kws.forEach(k=>{if(k&&k.length>1){highlightedSum=highlightedSum.replace(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),`<mark>${k}</mark>`)}});
+    c.innerHTML=`<div class="card-top"><span class="m-badge" style="background:${bg};color:${col}">${it.src||'정부'}</span><span class="card-time">${it.date}</span></div><div class="card-title">${it.title}</div><div class="card-summary">${highlightedSum}</div><div class="card-meta"><span class="card-meta-i">🏷 ${it.kws.slice(0,2).join(' · ')}</span></div><div class="card-actions"><button class="c-btn primary" onclick="event.stopPropagation();openDetail(${it.id})">상세보기</button><a class="c-btn" href="${it.orig}" target="_blank" onclick="event.stopPropagation()">↗ 원문</a></div>`;
   }
   c.addEventListener('click',()=>openDetail(it.id));return c;
 }
@@ -509,7 +512,9 @@ function openDetail(id){
   const b=document.getElementById('d-badge');b.textContent=it.src;b.style.cssText=`background:${bg};color:${col};border:1px solid ${col}44`;
   document.getElementById('d-title').textContent=it.title;
   document.getElementById('d-meta').innerHTML=`<div class="d-meta-i"><span>날짜</span><strong>${it.date}</strong></div><div class="d-meta-i"><span>기관</span><strong>${it.src}</strong></div><div class="d-meta-i"><span>분야</span><strong>${CN[it.cat]||it.cat}</strong></div>`;
-  document.getElementById('d-summary').textContent=it.sum||'요약 없음';
+  let dSum=it.sum||'요약 없음';
+  it.kws.forEach(k=>{if(k&&k.length>1){dSum=dSum.replace(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),`<mark>${k}</mark>`)}});
+  document.getElementById('d-summary').innerHTML=dSum;
   document.getElementById('d-kws').innerHTML=it.kws.map(k=>`<span class="kw"># ${k}</span>`).join('');
   document.getElementById('d-src').href=it.orig||'#';document.getElementById('d-wp').href=it.wp||'#';
   document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.body.style.overflow='hidden';
