@@ -189,7 +189,7 @@ def wp_post(item):
         "status":     "publish",
         "categories": cat_ids,
         "tags":       tag_ids,
-        "date":       f"{item['date']}T09:00:00",
+        "date":       f"{item['date']}T00:00:00",
     }
 
     result = _wp_post_with_retry(payload, label="WP")
