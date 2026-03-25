@@ -451,7 +451,8 @@ async function loadPosts(){
     // 주말이면 여러 페이지 로드 (주간 전체)
     let posts=[];
     for(let pg=1;pg<=10;pg++){
-      const r=await fetch(`${WP_API}/posts?per_page=100&page=${pg}&after=${startDate}T00:00:00&before=${endDate}T23:59:59&_fields=id,title,content,link,categories,date`);
+      const dayBefore=new Date(new Date(startDate).getTime()-86400000);const afterDate=fmtDate(dayBefore);
+      const r=await fetch(`${WP_API}/posts?per_page=100&page=${pg}&after=${afterDate}T23:59:00&before=${endDate}T23:59:59&_fields=id,title,content,link,categories,date`);
       if(!r.ok) break;
       const data=await r.json();
       posts.push(...data);
