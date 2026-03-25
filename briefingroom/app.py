@@ -172,8 +172,12 @@ def main():
         result = wp_post(item)
         if result:
             wp_count += 1
-            post_id = result if isinstance(result, int) else 0
+            if isinstance(result, tuple):
+                post_id, post_link = result
+            else:
+                post_id, post_link = (result if isinstance(result, int) else 0), ""
             item["wp_post_id"] = post_id
+            item["wp_link"] = post_link
             update_wp_status(item["date"], item["title"], item["source"], post_id, "ok")
         else:
             update_wp_status(item["date"], item["title"], item["source"], 0, "skipped")

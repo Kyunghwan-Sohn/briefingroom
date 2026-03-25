@@ -22,9 +22,9 @@ def _wp_post_with_retry(payload, label="WP"):
                               json=payload, auth=(WP_USER, WP_PASS), timeout=30)
             if r.status_code in (200, 201):
                 post_id = r.json().get("id")
-                post_url = r.json().get("link")
+                post_url = r.json().get("link", "")
                 print(f"    ✅ {label} #{post_id} {post_url}")
-                return post_id  # post_id 반환 (truthy)
+                return (post_id, post_url)  # (id, link) 튜플 반환
             if r.status_code >= 500 or r.status_code == 429:
                 wait = 2 ** attempt * 5
                 print(f"    [{label} 재시도] HTTP {r.status_code}, {wait}초 대기 ({attempt+1}/{MAX_RETRIES})")

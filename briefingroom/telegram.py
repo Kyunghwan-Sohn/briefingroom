@@ -15,6 +15,7 @@ from briefingroom.config import CAT_MAP, FINANCE_SUB_MAP
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
+TELEGRAM_ENABLED = os.environ.get("TELEGRAM_ENABLED", "true").lower() in ("true", "1", "yes")
 
 SITE_URL = "https://hotclipfolio.com"
 
@@ -130,8 +131,7 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
 
         for source, item, src_count in selected[cat]:
             title = item.get("title", "")[:55]
-            wp_id = item.get("wp_post_id", "")
-            detail_link = f"{SITE_URL}/?p={wp_id}" if wp_id else SITE_URL
+            detail_link = item.get("wp_link") or (f"{SITE_URL}/?p={item.get('wp_post_id','')}" if item.get("wp_post_id") else SITE_URL)
 
             lines.append(f"🏛 *{source}* ({src_count}건)")
             lines.append(f"▸ [{title}]({detail_link})")
@@ -162,6 +162,9 @@ def send_telegram(text: str, bot_token: str = None, chat_id: str = None) -> bool
     token = bot_token or TELEGRAM_BOT_TOKEN
     cid = chat_id or TELEGRAM_CHAT_ID
 
+    if not TELEGRAM_ENABLED:
+        print("  [텔레그램] TELEGRAM_ENABLED=false → 스킵")
+        return False
     if not token or not cid:
         print("  [텔레그램] BOT_TOKEN 또는 CHAT_ID 미설정 → 스킵")
         return False
@@ -251,8 +254,7 @@ def format_category_detail(items: list[dict], cat: str, target: date, max_items:
 
     for it in selected:
         title = it.get("title", "")[:55]
-        wp_id = it.get("wp_post_id", "")
-        link = f"{SITE_URL}/?p={wp_id}" if wp_id else SITE_URL
+        link = it.get("wp_link") or (f"{SITE_URL}/?p={it.get('wp_post_id','')}" if it.get("wp_post_id") else SITE_URL)
         lines.append(f"🏛 *{it['source']}*")
         lines.append(f"▸ [{title}]({link})")
         lines.append("")
