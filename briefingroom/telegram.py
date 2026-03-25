@@ -30,21 +30,33 @@ CAT_ORDER = [
 DAYS_KO = ["월", "화", "수", "목", "금", "토", "일"]
 
 
-def select_top_articles(items: list[dict], max_per_cat: int = 2, max_per_source: int = 1) -> dict:
-    """분야별 대표 보도자료 선정 (뉴스 기사 많은 건 우선)"""
+# 분야별 필수 포함 부처
+MUST_INCLUDE = {
+    "금융경제": ["금융위원회"],
+    "산업기술": ["국토교통부"],
+    "행정법제": [],
+    "사회복지": [],
+    "외교안보": [],
+}
+# 전체 필수 부처 (어떤 분야든 반드시 포함)
+PRIORITY_SOURCES = ["금융위원회", "국토교통부", "산업통상자원부", "산업통상부"]
+
+
+def select_top_articles(items: list[dict], max_per_cat: int = 3) -> dict:
+    """분야별 대표 보도자료 선정 — 필수 부처 우선 + 뉴스 기사 많은 건"""
     by_cat = defaultdict(list)
     for item in items:
         cat = CAT_MAP.get(item.get("source", ""), "행정법제")
         by_cat[cat].append(item)
 
-    selected = {}  # cat → [(item, news_count)]
+    selected = {}
     for cat, cat_items in by_cat.items():
         # 부처별 그룹핑
         by_source = defaultdict(list)
         for item in cat_items:
             by_source[item["source"]].append(item)
 
-        # 부처별 대표 1건 선정 (뉴스 기사 수 > LLM 요약 유무 > 최근)
+        # 부처별 대표 1건 선정
         source_tops = []
         for source, src_items in by_source.items():
             best = max(src_items, key=lambda x: (
@@ -53,9 +65,21 @@ def select_top_articles(items: list[dict], max_per_cat: int = 2, max_per_source:
             ))
             source_tops.append((source, best, len(src_items)))
 
-        # 건수 많은 부처 우선
-        source_tops.sort(key=lambda x: -x[2])
-        selected[cat] = source_tops[:max_per_cat]
+        # 필수 부처 우선 배치
+        must = []
+        others = []
+        for item in source_tops:
+            if item[0] in PRIORITY_SOURCES:
+                must.append(item)
+            else:
+                others.append(item)
+
+        # 나머지는 건수 많은 순
+        others.sort(key=lambda x: -x[2])
+
+        # 필수 먼저 + 나머지로 채우기
+        result = must + others
+        selected[cat] = result[:max_per_cat]
 
     return selected
 
