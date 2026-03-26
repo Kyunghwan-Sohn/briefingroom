@@ -145,6 +145,30 @@ def main():
     # ── DB 업데이트: LLM 결과 ─────────────────────────────────
     bulk_upsert(all_items)
 
+    # ── 제목 정제 ────────────────────────────────────────────
+    print(f"\n{'─' * 60}")
+    print("[제목 정제 중...]")
+    import re as _re
+    cleaned = 0
+    for item in all_items:
+        orig = item["title"]
+        t = orig
+        # 특수문자 정제
+        t = t.replace("\u200b", "").replace("\xa0", " ").replace("&#038;", "&")
+        t = _re.sub(r"\s{2,}", " ", t).strip()
+        # 반복 제목 제거
+        half = len(t) // 2
+        if half > 15 and t[:half].strip() == t[half:half*2].strip():
+            t = t[:half].strip()
+        # 120자 리밋
+        if len(t) > 120:
+            t = t[:117] + "..."
+        if t != orig:
+            item["title"] = t
+            cleaned += 1
+    if cleaned:
+        print(f"  제목 정제: {cleaned}건")
+
     # ── 관련 뉴스 기사 검색 ─────────────────────────────────────
     print(f"\n{'─' * 60}")
     print("[관련 뉴스 검색 + 요약 중...]")
@@ -164,7 +188,14 @@ def main():
     print(f"\n{'─' * 60}")
     print(f"[JSON 저장 완료] {snapshot_path}")
 
-    # ── WordPress 포스팅 ──────────────────────────────────────
+    # ── Phase 5: DB 기반 최종 점검 (포스팅 전) ────────────────
+    print(f"\n{'━' * 60}")
+    print("  Phase 5: DB 기반 최종 점검 (포스팅 전)")
+    print(f"{'━' * 60}")
+    bulk_upsert(all_items)
+    _db_audit(target)
+
+    # ── WordPress 포스팅 (점검 후) ────────────────────────────
     print(f"\n{'─' * 60}")
     print("[WordPress 포스팅 중...]")
     wp_count = 0
@@ -188,13 +219,16 @@ def main():
     print("[실패 건 재처리: 요약 없는 포스트 보완]")
     _retry_missing_summaries(target)
 
-    # ── Phase 5: DB 기반 최종 점검 ────────────────────────────
+    # ── DB 업데이트: 포스팅 결과 ─────────────────────────────
+    bulk_upsert(all_items)
+
+    # ── Phase 6: DB 최종 점검 (포스팅 후) ─────────────────────
     print(f"\n{'━' * 60}")
-    print("  Phase 5: DB 기반 최종 점검")
+    print("  Phase 6: 포스팅 후 최종 점검")
     print(f"{'━' * 60}")
     _db_audit(target)
 
-    # ── Phase 6: 텔레그램 일일 브리핑 발송 ──────────────────────
+    # ── Phase 7: 텔레그램 일일 브리핑 발송 ──────────────────────
     send_daily_briefing(all_items, target)
 
     # ── 완료 대시보드 ─────────────────────────────────────────

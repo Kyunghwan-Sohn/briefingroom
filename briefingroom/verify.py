@@ -37,10 +37,10 @@ def _session():
 # 기관별 실제 건수 확인 함수
 # ═══════════════════════════════════════════════════════════
 
-def _count_koreakr(s, target: date, source_name: str) -> int | None:
-    """korea.kr에서 특정 부처의 해당 날짜 보도자료 건수"""
+def _count_koreakr(s, target: date, source_name: str) -> tuple[int, list[str]]:
+    """korea.kr에서 특정 부처의 해당 날짜 보도자료 건수 + 제목 목록"""
     ds = target.isoformat()
-    count = 0
+    titles = []
     for pg in range(1, 15):
         try:
             r = s.get(f"https://www.korea.kr/briefing/pressReleaseList.do"
@@ -60,13 +60,25 @@ def _count_koreakr(s, target: date, source_name: str) -> int | None:
                         src = sp
                         break
                 if src == source_name:
-                    count += 1
+                    # 제목 추출
+                    text_span = a.find("span", class_="text")
+                    lead_span = a.find("span", class_="lead")
+                    if text_span and lead_span:
+                        full = text_span.get_text(strip=True)
+                        lead = lead_span.get_text(strip=True)
+                        idx = full.find(lead[:30]) if lead else -1
+                        title = full[:idx].strip() if idx > 5 else full[:80]
+                    elif text_span:
+                        title = text_span.get_text(strip=True)[:80]
+                    else:
+                        title = a.get_text(strip=True)[:80]
+                    titles.append(title)
                     found += 1
             if found == 0 and pg > 2:
                 break
         except Exception:
             break
-    return count
+    return len(titles), titles
 
 
 def _count_fss(s, target: date) -> int:
@@ -230,17 +242,27 @@ def verify_counts(items: list[dict], target: date) -> dict:
     collected = Counter(item["source"] for item in items)
     mismatches = {}  # source → (collected, actual)
 
-    # 주요 기관 korea.kr 대비 검증
+    # 주요 기관 korea.kr 대비 검증 (건수 + 제목)
+    collected_titles = {}
+    for item in items:
+        src = item.get("source", "")
+        if src not in collected_titles:
+            collected_titles[src] = set()
+        collected_titles[src].add(item.get("title", "").strip()[:50])
+
     for source in VERIFIABLE_SOURCES:
         my_count = collected.get(source, 0)
         try:
-            actual = _count_koreakr(s, target, source)
-            if actual is None:
-                continue
-            diff = actual - my_count
+            actual_count, actual_titles = _count_koreakr(s, target, source)
+            diff = actual_count - my_count
             if diff > 0:
-                mismatches[source] = (my_count, actual)
-                print(f"  ⚠️  {source:<18} 수집 {my_count}건 / 실제 {actual}건 (누락 {diff}건)")
+                mismatches[source] = (my_count, actual_count)
+                # 누락 제목 식별
+                my_titles = collected_titles.get(source, set())
+                missing = [t for t in actual_titles if t[:50] not in my_titles]
+                print(f"  ⚠️  {source:<18} 수집 {my_count}건 / 실제 {actual_count}건 (누락 {diff}건)")
+                for t in missing[:3]:
+                    print(f"       누락: {t[:50]}")
             elif my_count > 0:
                 print(f"  ✅ {source:<18} {my_count}건 일치")
         except Exception:
