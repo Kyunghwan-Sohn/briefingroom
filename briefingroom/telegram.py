@@ -5,13 +5,12 @@
 from __future__ import annotations
 
 import os
-import re
 from collections import defaultdict
 from datetime import date
 
 import requests
 
-from briefingroom.config import CAT_MAP, FINANCE_SUB_MAP
+from briefingroom.config import CAT_MAP
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
@@ -31,14 +30,9 @@ CAT_ORDER = [
 DAYS_KO = ["월", "화", "수", "목", "금", "토", "일"]
 
 
-def _escape_md(text: str) -> str:
-    """텔레그램 Markdown 특수문자 이스케이프"""
-    for ch in ["[", "]", "(", ")", "~", "`", ">", "#", "+", "-", "=", "|", "{", "}", ".", "!"]:
-        text = text.replace(ch, " ")
-    # 연속 공백 정리
-    import re as _re
-    text = _re.sub(r"\s{2,}", " ", text).strip()
-    return text
+def _escape_html(text: str) -> str:
+    """텔레그램 HTML 특수문자 이스케이프"""
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
 # 분야별 필수 포함 부처
@@ -96,7 +90,7 @@ def select_top_articles(items: list[dict], max_per_cat: int = 3) -> dict:
 
 
 def format_daily_message(items: list[dict], target: date, session: str = "") -> str:
-    """텔레그램 메시지 포맷 (Markdown)
+    """텔레그램 메시지 포맷 (HTML 모드 — 괄호/특수문자 안전)
     session: 'am' (오전), 'pm' (오후), '' (자동 판단)
     """
     from collections import Counter
@@ -106,7 +100,6 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
     sources = Counter(item["source"] for item in items)
     day_name = DAYS_KO[target.weekday()]
 
-    # 오전/오후 자동 판단
     if not session:
         hour = datetime.now().hour
         session = "am" if hour < 15 else "pm"
@@ -114,15 +107,13 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
     session_label = "오전" if session == "am" else "오후"
     session_emoji = "🌅" if session == "am" else "🌆"
 
-    # 헤더
     lines = [
-        f"📋 *브리핑룸 | {target.month}월 {target.day}일 ({day_name}) {session_label} 보도자료*",
+        f"📋 <b>브리핑룸 | {target.month}월 {target.day}일 ({day_name}) {session_label} 보도자료</b>",
         f"",
         f"{session_emoji} {session_label} 업데이트 · 총 {total}건 · {len(sources)}개 부처",
         f"",
     ]
 
-    # 분야별 섹션
     selected = select_top_articles(items)
     cat_counts = defaultdict(int)
     for item in items:
@@ -140,37 +131,40 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
         lines.append("")
 
         for source, item, src_count in selected[cat]:
-            title = _escape_md(item.get("title", ""))[:55]
-            detail_link = item.get("wp_link") or (f"{SITE_URL}/?p={item.get('wp_post_id','')}" if item.get("wp_post_id") else SITE_URL)
+            title = _escape_html(item.get("title", ""))[:55]
+            link = item.get("wp_link") or (f"{SITE_URL}/?p={item.get('wp_post_id','')}" if item.get("wp_post_id") else SITE_URL)
 
-            lines.append(f"🏛 *{_escape_md(source)}* ({src_count}건)")
-            lines.append(f"▸ [{title}]({detail_link})")
+            lines.append(f"🏛 <b>{_escape_html(source)}</b> ({src_count}건)")
+            lines.append(f'▸ <a href="{link}">{title}</a>')
 
-            # 관련 뉴스 기사
             news = item.get("news_articles", [])
             if news:
-                news_text = " · ".join(a["source"] for a in news[:3])
+                news_text = " · ".join(_escape_html(a["source"]) for a in news[:3])
                 lines.append(f"  📰 {news_text}")
 
             lines.append("")
 
-    # 푸터
     lines.append("──────────────────")
-    lines.append(f"🔗 [전체 보도자료 보기]({SITE_URL})")
+    lines.append(f'🔗 <a href="{SITE_URL}">전체 보도자료 보기</a>')
 
     text = "\n".join(lines)
-
-    # 텔레그램 4096자 제한
     if len(text) > 4000:
-        text = text[:3950] + "\n\n... 더보기: " + SITE_URL
+        text = text[:3950] + f'\n\n... <a href="{SITE_URL}">더보기</a>'
 
     return text
 
 
-def send_telegram(text: str, bot_token: str = None, chat_id: str = None) -> bool:
-    """텔레그램 메시지 발송"""
+def send_telegram(text: str, bot_token: str = "", chat_id: str = "") -> bool:
+    """텔레그램 메시지 발송 — 발송 전 자동 검증"""
     token = bot_token or TELEGRAM_BOT_TOKEN
     cid = chat_id or TELEGRAM_CHAT_ID
+
+    # 발송 전 검증
+    errors = _validate_message(text)
+    if errors:
+        print(f"  ⚠️ 메시지 검증 경고:")
+        for err in errors:
+            print(f"    - {err}")
 
     if not TELEGRAM_ENABLED:
         print("  [텔레그램] TELEGRAM_ENABLED=false → 스킵")
@@ -183,7 +177,7 @@ def send_telegram(text: str, bot_token: str = None, chat_id: str = None) -> bool
     payload = {
         "chat_id": cid,
         "text": text,
-        "parse_mode": "Markdown",
+        "parse_mode": "HTML",
         "disable_web_page_preview": True,
         "reply_markup": {
             "inline_keyboard": [
@@ -256,20 +250,20 @@ def format_category_detail(items: list[dict], cat: str, target: date, max_items:
         idx += 1
 
     lines = [
-        f"{emoji} *{cat_name} 상세 | {target.month}월 {target.day}일 ({day_name})*",
+        f"{emoji} <b>{cat_name} 상세 | {target.month}월 {target.day}일 ({day_name})</b>",
         f"",
         f"총 {len(cat_items)}건 중 주요 {len(selected)}건",
         f"",
     ]
 
     for it in selected:
-        title = _escape_md(it.get("title", ""))[:55]
+        title = _escape_html(it.get("title", ""))[:55]
         link = it.get("wp_link") or (f"{SITE_URL}/?p={it.get('wp_post_id','')}" if it.get("wp_post_id") else SITE_URL)
-        lines.append(f"🏛 *{_escape_md(it['source'])}*")
-        lines.append(f"▸ [{title}]({link})")
+        lines.append(f"🏛 <b>{_escape_html(it['source'])}</b>")
+        lines.append(f'▸ <a href="{link}">{title}</a>')
         lines.append("")
 
-    lines.append(f"🔗 [전체 {cat_name} 보기]({SITE_URL}/?cat={cat})")
+    lines.append(f'🔗 <a href="{SITE_URL}/?cat={cat}">전체 {cat_name} 보기</a>')
     return "\n".join(lines)
 
 
@@ -284,6 +278,39 @@ def send_category_details(items: list[dict], target: date) -> int:
                 sent += 1
             _time.sleep(1)  # 텔레그램 rate limit 방지
     return sent
+
+
+def _validate_message(text: str) -> list[str]:
+    """발송 전 메시지 검증 — 깨진 링크/태그 탐지"""
+    import re as _re
+    errors = []
+
+    # HTML 태그 쌍 검증
+    for tag in ["b", "a"]:
+        opens = len(_re.findall(f"<{tag}[ >]", text))
+        closes = len(_re.findall(f"</{tag}>", text))
+        if opens != closes:
+            errors.append(f"<{tag}> 태그 불일치: open={opens} close={closes}")
+
+    # <a href="..."> 링크 검증
+    links = _re.findall(r'<a href="([^"]*)">', text)
+    for link in links:
+        if not link or not link.startswith("http"):
+            errors.append(f"잘못된 링크: {link[:50]}")
+        if "&amp;" not in link and "&" in link and "?" in link:
+            pass  # URL 파라미터의 & 는 정상
+
+    # 이스케이프 안 된 HTML 특수문자
+    # <a> 태그 밖에서 < > 가 있으면 문제
+    stripped = _re.sub(r'<[^>]+>', '', text)
+    if '<' in stripped or '>' in stripped:
+        errors.append("태그 밖에 이스케이프 안 된 <> 문자 존재")
+
+    # 길이 체크
+    if len(text) > 4096:
+        errors.append(f"메시지 길이 초과: {len(text)}자 > 4096자")
+
+    return errors
 
 
 def send_daily_briefing(items: list[dict], target: date, session: str = "") -> bool:
