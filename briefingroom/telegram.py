@@ -31,6 +31,16 @@ CAT_ORDER = [
 DAYS_KO = ["월", "화", "수", "목", "금", "토", "일"]
 
 
+def _escape_md(text: str) -> str:
+    """텔레그램 Markdown 특수문자 이스케이프"""
+    for ch in ["[", "]", "(", ")", "~", "`", ">", "#", "+", "-", "=", "|", "{", "}", ".", "!"]:
+        text = text.replace(ch, " ")
+    # 연속 공백 정리
+    import re as _re
+    text = _re.sub(r"\s{2,}", " ", text).strip()
+    return text
+
+
 # 분야별 필수 포함 부처
 MUST_INCLUDE = {
     "금융경제": ["금융위원회"],
@@ -130,10 +140,10 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
         lines.append("")
 
         for source, item, src_count in selected[cat]:
-            title = item.get("title", "")[:55]
+            title = _escape_md(item.get("title", ""))[:55]
             detail_link = item.get("wp_link") or (f"{SITE_URL}/?p={item.get('wp_post_id','')}" if item.get("wp_post_id") else SITE_URL)
 
-            lines.append(f"🏛 *{source}* ({src_count}건)")
+            lines.append(f"🏛 *{_escape_md(source)}* ({src_count}건)")
             lines.append(f"▸ [{title}]({detail_link})")
 
             # 관련 뉴스 기사
@@ -253,9 +263,9 @@ def format_category_detail(items: list[dict], cat: str, target: date, max_items:
     ]
 
     for it in selected:
-        title = it.get("title", "")[:55]
+        title = _escape_md(it.get("title", ""))[:55]
         link = it.get("wp_link") or (f"{SITE_URL}/?p={it.get('wp_post_id','')}" if it.get("wp_post_id") else SITE_URL)
-        lines.append(f"🏛 *{it['source']}*")
+        lines.append(f"🏛 *{_escape_md(it['source'])}*")
         lines.append(f"▸ [{title}]({link})")
         lines.append("")
 
