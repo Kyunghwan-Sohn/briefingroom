@@ -7,6 +7,11 @@ MODEL = os.environ.get("LLM_MODEL", "[MLX] Qwen3-4B")
 MAX_TEXT = 3000  # 토큰 절약 (6000→3000, 일일 500만 토큰 한도 대응)
 TIMEOUT = 20
 DELAY = 1.5
+NEWS_ENABLED = os.environ.get("NEWS_ENABLED", "true").lower() in ("true", "1", "yes")
+NEWS_MAX_RESULTS = int(os.environ.get("NEWS_MAX_RESULTS", "2"))
+NEWS_MAX_ITEMS = int(os.environ.get("NEWS_MAX_ITEMS", "25"))
+NEWS_SUMMARY_MAX_ITEMS = int(os.environ.get("NEWS_SUMMARY_MAX_ITEMS", "12"))
+VERIFY_FINANCE_PLAYWRIGHT = os.environ.get("VERIFY_FINANCE_PLAYWRIGHT", "true").lower() in ("true", "1", "yes")
 
 # 한국 프록시 설정 (GitHub Actions 해외 IP 차단 우회)
 # 형식: socks5://user:pass@host:port 또는 http://host:port

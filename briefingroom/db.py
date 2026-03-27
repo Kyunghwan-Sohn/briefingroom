@@ -17,6 +17,19 @@ from pathlib import Path
 from briefingroom.config import BASE_DIR, CAT_MAP, FINANCE_SUB_MAP
 
 DB_PATH = BASE_DIR / "briefingroom.db"
+UPSERT_SQL = """
+    INSERT INTO articles (date, source, title, url, category, finance_sub,
+                          summary, keywords, pdf_count, hwp_count, file_status,
+                          text_length, llm_status, wp_post_id, wp_status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(date, source, title) DO UPDATE SET
+        summary = COALESCE(NULLIF(excluded.summary, ''), summary),
+        keywords = COALESCE(NULLIF(excluded.keywords, ''), keywords),
+        llm_status = CASE WHEN excluded.llm_status != 'pending' THEN excluded.llm_status ELSE llm_status END,
+        wp_post_id = COALESCE(excluded.wp_post_id, wp_post_id),
+        wp_status = CASE WHEN excluded.wp_status != 'pending' THEN excluded.wp_status ELSE wp_status END,
+        updated_at = datetime('now','localtime')
+"""
 
 
 def _conn() -> sqlite3.Connection:
@@ -61,9 +74,7 @@ def init_db():
     conn.close()
 
 
-def upsert_article(item: dict, llm_status: str = "pending", wp_post_id: int = None, wp_status: str = "pending"):
-    """보도자료 삽입 또는 업데이트"""
-    conn = _conn()
+def _summary_parts(item: dict) -> tuple[str, str]:
     summary_text = ""
     keywords = ""
     if item.get("summary") and not item["summary"].startswith("["):
@@ -74,20 +85,12 @@ def upsert_article(item: dict, llm_status: str = "pending", wp_post_id: int = No
                 keywords = line.replace("키워드:", "").strip()
         if not summary_text:
             summary_text = item["summary"]
+    return summary_text, keywords
 
-    conn.execute("""
-    INSERT INTO articles (date, source, title, url, category, finance_sub,
-                          summary, keywords, pdf_count, hwp_count, file_status,
-                          text_length, llm_status, wp_post_id, wp_status)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ON CONFLICT(date, source, title) DO UPDATE SET
-        summary = COALESCE(NULLIF(excluded.summary, ''), summary),
-        keywords = COALESCE(NULLIF(excluded.keywords, ''), keywords),
-        llm_status = CASE WHEN excluded.llm_status != 'pending' THEN excluded.llm_status ELSE llm_status END,
-        wp_post_id = COALESCE(excluded.wp_post_id, wp_post_id),
-        wp_status = CASE WHEN excluded.wp_status != 'pending' THEN excluded.wp_status ELSE wp_status END,
-        updated_at = datetime('now','localtime')
-    """, (
+
+def _article_row(item: dict, llm_status: str = "pending", wp_post_id: int = None, wp_status: str = "pending") -> tuple:
+    summary_text, keywords = _summary_parts(item)
+    return (
         item.get("date", ""),
         item.get("source", ""),
         item.get("title", "").strip(),
@@ -103,13 +106,20 @@ def upsert_article(item: dict, llm_status: str = "pending", wp_post_id: int = No
         llm_status,
         wp_post_id,
         wp_status,
-    ))
+    )
+
+
+def upsert_article(item: dict, llm_status: str = "pending", wp_post_id: int = None, wp_status: str = "pending"):
+    """보도자료 삽입 또는 업데이트"""
+    conn = _conn()
+    conn.execute(UPSERT_SQL, _article_row(item, llm_status=llm_status, wp_post_id=wp_post_id, wp_status=wp_status))
     conn.commit()
     conn.close()
 
 
 def bulk_upsert(items: list[dict]):
     """여러 건 일괄 삽입"""
+    rows = []
     for item in items:
         llm_status = "pending"
         if item.get("summary"):
@@ -117,7 +127,13 @@ def bulk_upsert(items: list[dict]):
                 llm_status = "failed"
             else:
                 llm_status = "ok"
-        upsert_article(item, llm_status=llm_status)
+        rows.append(_article_row(item, llm_status=llm_status))
+    if not rows:
+        return
+    conn = _conn()
+    conn.executemany(UPSERT_SQL, rows)
+    conn.commit()
+    conn.close()
 
 
 def update_wp_status(date_str: str, title: str, source: str, wp_post_id: int, wp_status: str):
@@ -131,16 +147,46 @@ def update_wp_status(date_str: str, title: str, source: str, wp_post_id: int, wp
     conn.close()
 
 
+def bulk_update_wp_status(rows: list[tuple[str, str, str, int, str]]):
+    """WP 포스팅 결과 일괄 업데이트"""
+    if not rows:
+        return
+    conn = _conn()
+    conn.executemany("""
+    UPDATE articles SET wp_post_id=?, wp_status=?, updated_at=datetime('now','localtime')
+    WHERE date=? AND title=? AND source=?
+    """, [
+        (wp_post_id, wp_status, date_str, title.strip(), source)
+        for date_str, title, source, wp_post_id, wp_status in rows
+    ])
+    conn.commit()
+    conn.close()
+
+
 def get_stats(date_str: str = None) -> dict:
     """통계 조회"""
     conn = _conn()
-    where = f"WHERE date='{date_str}'" if date_str else ""
+    params = (date_str,) if date_str else ()
+    base_where = " WHERE date=?" if date_str else ""
+    status_prefix = f"{base_where} AND " if date_str else " WHERE "
 
-    total = conn.execute(f"SELECT COUNT(*) FROM articles {where}").fetchone()[0]
-    by_source = conn.execute(f"SELECT source, COUNT(*) cnt FROM articles {where} GROUP BY source ORDER BY cnt DESC").fetchall()
-    llm_ok = conn.execute(f"SELECT COUNT(*) FROM articles {where} AND llm_status='ok'".replace("AND", "WHERE" if not where else "AND")).fetchone()[0]
-    llm_fail = conn.execute(f"SELECT COUNT(*) FROM articles {where} AND llm_status='failed'".replace("AND", "WHERE" if not where else "AND")).fetchone()[0]
-    wp_ok = conn.execute(f"SELECT COUNT(*) FROM articles {where} AND wp_status='ok'".replace("AND", "WHERE" if not where else "AND")).fetchone()[0]
+    total = conn.execute(f"SELECT COUNT(*) FROM articles{base_where}", params).fetchone()[0]
+    by_source = conn.execute(
+        f"SELECT source, COUNT(*) cnt FROM articles{base_where} GROUP BY source ORDER BY cnt DESC",
+        params,
+    ).fetchall()
+    llm_ok = conn.execute(
+        f"SELECT COUNT(*) FROM articles{status_prefix}llm_status='ok'",
+        params,
+    ).fetchone()[0]
+    llm_fail = conn.execute(
+        f"SELECT COUNT(*) FROM articles{status_prefix}llm_status='failed'",
+        params,
+    ).fetchone()[0]
+    wp_ok = conn.execute(
+        f"SELECT COUNT(*) FROM articles{status_prefix}wp_status='ok'",
+        params,
+    ).fetchone()[0]
 
     conn.close()
     return {

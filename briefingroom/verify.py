@@ -16,6 +16,8 @@ from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.ssl_ import create_urllib3_context
 
+from briefingroom.config import VERIFY_FINANCE_PLAYWRIGHT
+
 
 class _TLSAdapter(HTTPAdapter):
     def init_poolmanager(self, *args, **kwargs):
@@ -265,27 +267,30 @@ def verify_counts(items: list[dict], target: date) -> dict:
                     print(f"       누락: {t[:50]}")
             elif my_count > 0:
                 print(f"  ✅ {source:<18} {my_count}건 일치")
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"  ❓ {source:<18} korea.kr 검증 실패 ({str(e)[:30]})")
         time.sleep(0.3)
 
     # 금융기관 개별 사이트 검증
-    for source, count_fn in FINANCE_VERIFIERS:
-        my_count = collected.get(source, 0)
-        try:
-            actual = count_fn(s, target)
-            if actual > my_count:
-                mismatches[source] = (my_count, actual)
-                print(f"  ⚠️  {source:<18} 수집 {my_count}건 / 실제 {actual}건 (누락 {actual - my_count}건)")
-            elif my_count > 0:
-                print(f"  ✅ {source:<18} {my_count}건 일치")
-            else:
-                print(f"  ─  {source:<18} 수집 0건 / 실제 {actual}건")
-                if actual > 0:
-                    mismatches[source] = (0, actual)
-        except Exception as e:
-            print(f"  ❓ {source:<18} 검증 실패 ({str(e)[:30]})")
-        time.sleep(0.5)
+    if VERIFY_FINANCE_PLAYWRIGHT:
+        for source, count_fn in FINANCE_VERIFIERS:
+            my_count = collected.get(source, 0)
+            try:
+                actual = count_fn(s, target)
+                if actual > my_count:
+                    mismatches[source] = (my_count, actual)
+                    print(f"  ⚠️  {source:<18} 수집 {my_count}건 / 실제 {actual}건 (누락 {actual - my_count}건)")
+                elif my_count > 0:
+                    print(f"  ✅ {source:<18} {my_count}건 일치")
+                else:
+                    print(f"  ─  {source:<18} 수집 0건 / 실제 {actual}건")
+                    if actual > 0:
+                        mismatches[source] = (0, actual)
+            except Exception as e:
+                print(f"  ❓ {source:<18} 검증 실패 ({str(e)[:30]})")
+            time.sleep(0.5)
+    else:
+        print("  [금융기관 Playwright 검증 비활성화] VERIFY_FINANCE_PLAYWRIGHT=false")
 
     if not mismatches:
         print(f"\n  ✅ 모든 기관 건수 일치!")
@@ -375,8 +380,8 @@ def fill_missing(items: list[dict], mismatches: dict, target: date) -> list[dict
                                     hwps.append(full)
                                 else:
                                     pdfs.append(full)
-                    except Exception:
-                        pass
+                    except Exception as e:
+                        print(f"    [상세 재수집 실패] {source} | {title[:40]} | {str(e)[:40]}")
 
                     new_items.append({
                         "source": source, "title": title, "url": detail_url,
@@ -387,7 +392,8 @@ def fill_missing(items: list[dict], mismatches: dict, target: date) -> list[dict
                     found += 1
                 if found == 0 and pg > 3:
                     break
-            except Exception:
+            except Exception as e:
+                print(f"  [korea.kr 재수집 중단] {source} | {str(e)[:40]}")
                 break
             time.sleep(0.3)
 
@@ -400,8 +406,8 @@ def fill_missing(items: list[dict], mismatches: dict, target: date) -> list[dict
                     if key not in existing_keys:
                         new_items.append(ci)
                         existing_keys.add(key)
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"  [개별 크롤러 보완 실패] {source} | {str(e)[:40]}")
 
         if new_items:
             items.extend(new_items)

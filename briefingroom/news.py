@@ -5,16 +5,20 @@ Google News RSS로 보도자료 관련 기사를 검색하고,
 """
 from __future__ import annotations
 
+import html
 import re
 import ssl
 import time
 import xml.etree.ElementTree as ET
 from urllib.parse import quote
+from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.ssl_ import create_urllib3_context
+
+from briefingroom.config import NEWS_ENABLED, NEWS_MAX_RESULTS, NEWS_SUMMARY_MAX_ITEMS
 
 
 # 메이저 언론사 (우선순위순)
@@ -40,6 +44,10 @@ MAJOR_MEDIA = {
 }
 
 MAJOR_NAMES = set(MAJOR_MEDIA.keys())
+_HTTP_SESSION = None
+_ARTICLE_TEXT_CACHE: dict[str, str] = {}
+_RSS_CACHE: dict[tuple[str, str, int], list[dict]] = {}
+_news_summary_count = 0
 
 
 class _TLSAdapter(HTTPAdapter):
@@ -52,28 +60,51 @@ class _TLSAdapter(HTTPAdapter):
 
 
 def _session():
-    s = requests.Session()
-    s.headers.update({
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-    })
-    s.mount("https://", _TLSAdapter(max_retries=2))
-    return s
+    global _HTTP_SESSION
+    if _HTTP_SESSION is None:
+        s = requests.Session()
+        s.headers.update({
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        })
+        s.mount("https://", _TLSAdapter(max_retries=2))
+        _HTTP_SESSION = s
+    return _HTTP_SESSION
+
+
+def _safe_text(value: str) -> str:
+    return html.escape(str(value or ""), quote=True)
+
+
+def _safe_url(value: str) -> str:
+    url = str(value or "").strip()
+    parsed = urlparse(url)
+    if parsed.scheme in ("http", "https") and parsed.netloc:
+        return html.escape(url, quote=True)
+    return ""
 
 
 def search_related_news(title: str, source: str, max_results: int = 3) -> list[dict]:
     """Google News RSS로 관련 기사 검색, 메이저 언론사 우선"""
+    if not NEWS_ENABLED or max_results <= 0:
+        return []
+    cache_key = (title, source, max_results)
+    cached = _RSS_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
+
     # 검색 키워드: 부처명 + 제목 핵심어 (너무 길면 잘라냄)
     keywords = f"{source} {title[:40]}"
     query = quote(keywords)
     url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko"
 
     try:
-        r = requests.get(url, timeout=10,
-                         headers={"User-Agent": "Mozilla/5.0"})
+        r = _session().get(url, timeout=10,
+                           headers={"User-Agent": "Mozilla/5.0"})
         if r.status_code != 200:
             return []
         root = ET.fromstring(r.text)
-    except Exception:
+    except Exception as e:
+        print(f"    [뉴스 RSS 조회 실패] {source} | {title[:40]} | {e}")
         return []
 
     # 모든 기사 수집
@@ -98,11 +129,16 @@ def search_related_news(title: str, source: str, max_results: int = 3) -> list[d
     others = [a for a in all_articles if not a["is_major"]]
     sorted_articles = major + others
 
-    return sorted_articles[:max_results]
+    result = sorted_articles[:max_results]
+    _RSS_CACHE[cache_key] = result
+    return result
 
 
 def fetch_article_text(url: str) -> str:
     """기사 원문 텍스트 추출 (요약용)"""
+    cached = _ARTICLE_TEXT_CACHE.get(url)
+    if cached is not None:
+        return cached
     s = _session()
     try:
         # Google News 리다이렉트 따라가기
@@ -121,21 +157,32 @@ def fetch_article_text(url: str) -> str:
             el = soup.select_one(sel)
             if el and len(el.get_text(strip=True)) > 100:
                 text = re.sub(r"\s+", " ", el.get_text(strip=True))
-                return text[:2000]
+                extracted = text[:2000]
+                _ARTICLE_TEXT_CACHE[url] = extracted
+                return extracted
 
         # 폴백: og:description
         og = soup.find("meta", property="og:description")
         if og and og.get("content") and len(og["content"]) > 30:
-            return og["content"][:500]
+            extracted = og["content"][:500]
+            _ARTICLE_TEXT_CACHE[url] = extracted
+            return extracted
 
+        _ARTICLE_TEXT_CACHE[url] = ""
         return ""
-    except Exception:
+    except Exception as e:
+        print(f"    [기사 본문 추출 실패] {url[:80]} | {e}")
+        _ARTICLE_TEXT_CACHE[url] = ""
         return ""
 
 
 def get_news_for_item(item: dict, llm_fn=None) -> list[dict]:
     """보도자료 1건에 대한 관련 뉴스 기사 검색 + 요약"""
-    articles = search_related_news(item["title"], item["source"])
+    global _news_summary_count
+    if not NEWS_ENABLED:
+        return []
+
+    articles = search_related_news(item["title"], item["source"], max_results=NEWS_MAX_RESULTS)
 
     enriched = []
     for art in articles:
@@ -144,7 +191,7 @@ def get_news_for_item(item: dict, llm_fn=None) -> list[dict]:
 
         # LLM 요약 (함수가 전달된 경우)
         news_summary = ""
-        if llm_fn and text and len(text) > 50:
+        if llm_fn and text and len(text) > 50 and _news_summary_count < NEWS_SUMMARY_MAX_ITEMS:
             try:
                 result = llm_fn({
                     "source": art["source"],
@@ -156,8 +203,9 @@ def get_news_for_item(item: dict, llm_fn=None) -> list[dict]:
                     news_summary = result.replace("요약:", "").split("키워드:")[0].strip()
                     if len(news_summary) > 200:
                         news_summary = news_summary[:197] + "..."
-            except Exception:
-                pass
+                _news_summary_count += 1
+            except Exception as e:
+                print(f"    [뉴스 요약 실패] {art.get('source','')} | {art.get('title','')[:40]} | {e}")
 
         # LLM 실패 시 본문 앞부분 사용
         if not news_summary and text:
@@ -184,16 +232,24 @@ def format_news_html(articles: list[dict]) -> str:
     for art in articles:
         badge_color = "#2f54eb" if art["is_major"] else "#96938c"
         summary = art.get("summary", "")
-        summary_html = f'<p style="font-size:12px;color:#4a4844;line-height:1.5;margin:4px 0 0 0">{summary}</p>' if summary else ""
+        safe_summary = _safe_text(summary)
+        safe_source = _safe_text(art.get("source", ""))
+        safe_title = _safe_text(art.get("title", "")[:70])
+        safe_link = _safe_url(art.get("link", ""))
+        summary_html = f'<p style="font-size:12px;color:#4a4844;line-height:1.5;margin:4px 0 0 0">{safe_summary}</p>' if safe_summary else ""
+        link_html = (
+            f'<a href="{safe_link}" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:4px;font-family:monospace;font-size:11px;color:#2f54eb;text-decoration:none">↗ 기사 원문 보기</a>'
+            if safe_link else ""
+        )
 
         rows += f"""
     <div style="padding:10px 0;border-bottom:1px solid #e0ddd7">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">
-        <span style="background:{badge_color}18;color:{badge_color};font-size:10px;padding:2px 8px;border-radius:4px;font-family:monospace;white-space:nowrap;flex-shrink:0">{art['source']}</span>
-        <span style="font-size:13px;font-weight:500;color:#1c1b18;line-height:1.4">{art['title'][:70]}</span>
+        <span style="background:{badge_color}18;color:{badge_color};font-size:10px;padding:2px 8px;border-radius:4px;font-family:monospace;white-space:nowrap;flex-shrink:0">{safe_source}</span>
+        <span style="font-size:13px;font-weight:500;color:#1c1b18;line-height:1.4">{safe_title}</span>
       </div>
       {summary_html}
-      <a href="{art['link']}" target="_blank" style="display:inline-block;margin-top:4px;font-family:monospace;font-size:11px;color:#2f54eb;text-decoration:none">↗ 기사 원문 보기</a>
+      {link_html}
     </div>"""
 
     return f"""

@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+import html as _html
 import os
 import random
 import time
 from collections import Counter
 from datetime import date
+from urllib.parse import urlparse
 
-from briefingroom.config import DATA_DIR  # noqa: F401
+from briefingroom.config import DATA_DIR, NEWS_ENABLED, NEWS_MAX_ITEMS  # noqa: F401
 from briefingroom.crawlers.koreakr import crawl_koreakr
 from briefingroom.crawlers.finance import crawl_finance_all
 from briefingroom.crawlers import CRAWLERS
@@ -16,8 +18,20 @@ from briefingroom.storage import save_daily_snapshot
 from briefingroom.wordpress import wp_post
 from briefingroom.news import get_news_for_item, format_news_html
 from briefingroom.verify import verify_counts, fill_missing
-from briefingroom.db import init_db, bulk_upsert, update_wp_status, print_dashboard
+from briefingroom.db import init_db, bulk_upsert, bulk_update_wp_status, print_dashboard
 from briefingroom.telegram import send_daily_briefing
+
+
+def _safe_html_text(value) -> str:
+    return _html.escape(str(value or ""), quote=True)
+
+
+def _safe_html_url(value) -> str:
+    url = str(value or "").strip()
+    parsed = urlparse(url)
+    if parsed.scheme in ("http", "https") and parsed.netloc:
+        return _html.escape(url, quote=True)
+    return ""
 
 
 def _dedup(items: list[dict]) -> list[dict]:
@@ -81,6 +95,7 @@ def main():
 
         # korea.kr에서 이미 수집된 부처별 건수
         kr_counts = Counter(item["source"] for item in all_items)
+        existing_keys = {(it["title"].strip(), it["date"]) for it in all_items}
 
         for name, crawler in CRAWLERS:
             try:
@@ -89,11 +104,9 @@ def main():
                 for item in items:
                     # 이미 수집된 제목이면 스킵
                     key = (item["title"].strip(), item["date"])
-                    existing = any(
-                        (it["title"].strip(), it["date"]) == key for it in all_items
-                    )
-                    if not existing:
+                    if key not in existing_keys:
                         all_items.append(item)
+                        existing_keys.add(key)
                         new_count += 1
 
                 kr_cnt = kr_counts.get(name, 0)
@@ -173,14 +186,19 @@ def main():
     print(f"\n{'─' * 60}")
     print("[관련 뉴스 검색 + 요약 중...]")
     news_count = 0
-    for item in all_items:
+    news_candidates = all_items[:NEWS_MAX_ITEMS] if NEWS_ENABLED else []
+    for item in news_candidates:
         try:
             articles = get_news_for_item(item, llm_fn=summarize)
             if articles:
                 item["news_html"] = format_news_html(articles)
                 news_count += 1
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"  [뉴스 연결 실패] {item.get('source','')} | {item.get('title','')[:50]} | {e}")
+    if NEWS_ENABLED and len(all_items) > len(news_candidates):
+        print(f"  [뉴스 검색 제한] 상위 {len(news_candidates)}건만 처리")
+    elif not NEWS_ENABLED:
+        print("  [뉴스 검색 비활성화] NEWS_ENABLED=false")
     print(f"  관련 뉴스 연결: {news_count}/{len(all_items)}건")
 
     # ── JSON 스냅샷 저장 ──────────────────────────────────────
@@ -199,19 +217,25 @@ def main():
     print(f"\n{'─' * 60}")
     print("[WordPress 포스팅 중...]")
     wp_count = 0
+    wp_updates = []
     for item in all_items:
-        result = wp_post(item)
-        if result:
-            wp_count += 1
-            if isinstance(result, tuple):
-                post_id, post_link = result
+        try:
+            result = wp_post(item)
+            if result:
+                wp_count += 1
+                if isinstance(result, tuple):
+                    post_id, post_link = result
+                else:
+                    post_id, post_link = (result if isinstance(result, int) else 0), ""
+                item["wp_post_id"] = post_id
+                item["wp_link"] = post_link
+                wp_updates.append((item["date"], item["title"], item["source"], post_id, "ok"))
             else:
-                post_id, post_link = (result if isinstance(result, int) else 0), ""
-            item["wp_post_id"] = post_id
-            item["wp_link"] = post_link
-            update_wp_status(item["date"], item["title"], item["source"], post_id, "ok")
-        else:
-            update_wp_status(item["date"], item["title"], item["source"], 0, "skipped")
+                wp_updates.append((item["date"], item["title"], item["source"], 0, "skipped"))
+        except Exception as e:
+            print(f"  [WP 실패] {item.get('source','')} | {item.get('title','')[:50]} | {e}")
+            wp_updates.append((item["date"], item["title"], item["source"], 0, "failed"))
+    bulk_update_wp_status(wp_updates)
     print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")
 
     # ── 실패 건 재처리 (요약 없는 포스트 보완) ─────────────────
@@ -238,7 +262,6 @@ def main():
 
 def _retry_missing_summaries(target):
     """WP에서 해당 날짜의 요약 없는 포스트를 찾아 원문에서 본문 추출 → LLM → 업데이트"""
-    import html as _html
     import re
     import requests
     import ssl
@@ -337,12 +360,17 @@ def _retry_missing_summaries(target):
         if not summary_text:
             summary_text = result
 
+        safe_summary = _safe_html_text(summary_text)
         new_content = re.sub(
             r'(<div class="briefing-summary">.*?<p>)[^<]*(</p>)',
-            rf'\g<1>{summary_text}\g<2>',
+            rf'\g<1>{safe_summary}\g<2>',
             item["content"], flags=re.DOTALL
         )
-        kw_html = '<div class="briefing-keywords">' + " ".join(f"<span>#{k}</span>" for k in keywords) + "</div>" if keywords else ""
+        kw_html = (
+            '<div class="briefing-keywords">' +
+            " ".join(f"<span>#{_safe_html_text(k)}</span>" for k in keywords if k) +
+            "</div>"
+        ) if keywords else ""
         if kw_html and '<div class="briefing-keywords">' in new_content:
             new_content = re.sub(r'<div class="briefing-keywords">.*?</div>', kw_html, new_content)
 
