@@ -17,6 +17,12 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="브리핑룸 — 정부 보도자료 AI 요약">
 <meta name="twitter:description" content="51개 부처 + 금융기관 보도자료 매일 수집 + AI 요약 + 텔레그램 채널">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1c1b18">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="브리핑룸">
+<link rel="apple-touch-icon" href="/icon-192.svg">
 <link rel="alternate" type="application/rss+xml" title="브리핑룸 RSS" href="https://govbrief.kr/feed/rss.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Pretendard:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -176,6 +182,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .content{padding:16px}
   .d-close{width:44px;height:44px}
 }
+@media(min-width:769px) and (max-width:1024px){
+  .sidebar{width:180px}
+  .main{margin-left:180px}
+  .hero-banner{margin-left:180px}
+  .cards-grid{grid-template-columns:1fr}
+  .page-title{font-size:18px}
+}
 .mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:15;background:linear-gradient(135deg,#0f172a,#1e40af);padding:12px 16px;padding-bottom:max(12px, env(safe-area-inset-bottom));gap:8px;align-items:center;box-shadow:0 -4px 20px rgba(0,0,0,.15)}
 .mobile-cta-text{color:rgba(255,255,255,.85);font-size:12px;white-space:nowrap}
 .mobile-cta-btn{flex:1;padding:10px;background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;text-align:center;transition:all .15s;text-decoration:none}
@@ -334,6 +347,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       <a class="d-btn sec" id="d-src" href="#" target="_blank">↗ 원문 보기</a>
     </div>
     <div style="display:flex;gap:6px;margin-top:8px">
+      <button onclick="shareNative()" style="flex:1;padding:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:6px;font-size:12px;cursor:pointer;font-weight:500">📤 공유</button>
       <button onclick="shareTelegram()" style="flex:1;padding:8px;border:1px solid #0088cc;background:#0088cc;color:#fff;border-radius:6px;font-size:12px;cursor:pointer;font-weight:500">✈ 텔레그램</button>
       <button onclick="copyLink()" style="flex:1;padding:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:6px;font-size:12px;cursor:pointer;font-weight:500" id="copy-btn">🔗 링크 복사</button>
     </div>
@@ -659,6 +673,13 @@ function closeMinistrySheet(){
 
 let _shareTitle='',_shareUrl='';
 function shareTelegram(){window.open('https://t.me/share/url?url='+encodeURIComponent(_shareUrl)+'&text='+encodeURIComponent(_shareTitle),'_blank')}
+function shareNative(){
+  if(navigator.share){
+    navigator.share({title:_shareTitle,text:_shareTitle+' - 브리핑룸',url:_shareUrl}).catch(()=>{});
+  } else {
+    shareTelegram();
+  }
+}
 function copyLink(){navigator.clipboard.writeText(_shareUrl).then(()=>{const btn=document.getElementById('copy-btn');btn.textContent='✅ 복사됨';setTimeout(()=>{btn.textContent='🔗 링크 복사'},2000)})}
 </script>
 
@@ -666,5 +687,10 @@ function copyLink(){navigator.clipboard.writeText(_shareUrl).then(()=>{const btn
   <span class="mobile-cta-text">51개 부처 보도자료</span>
   <a class="mobile-cta-btn" href="https://t.me/govbriefkr" target="_blank" style="text-decoration:none">✈ 텔레그램 채널 →</a>
 </div>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/sw.js').catch(()=>{});
+}
+</script>
 </body>
 </html>
