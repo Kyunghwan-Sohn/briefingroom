@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hotclipfolio.com/wp-sitemap.xml
+Sitemap: https://govbrief.kr/feed/rss.xml

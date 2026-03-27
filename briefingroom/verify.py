@@ -6,33 +6,25 @@
 from __future__ import annotations
 
 import re
-import ssl
 import time
 from collections import Counter
 from datetime import date
 
 import requests
 from bs4 import BeautifulSoup
-from requests.adapters import HTTPAdapter
-from urllib3.util.ssl_ import create_urllib3_context
 
 from briefingroom.config import VERIFY_FINANCE_PLAYWRIGHT
-
-
-class _TLSAdapter(HTTPAdapter):
-    def init_poolmanager(self, *args, **kwargs):
-        ctx = create_urllib3_context()
-        ctx.set_ciphers("DEFAULT:@SECLEVEL=1")
-        ctx.minimum_version = ssl.TLSVersion.TLSv1_2
-        kwargs["ssl_context"] = ctx
-        return super().init_poolmanager(*args, **kwargs)
+from briefingroom.http import build_session
 
 
 def _session():
-    s = requests.Session()
-    s.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"})
-    s.mount("https://", _TLSAdapter(max_retries=2))
-    return s
+    return build_session(
+        retries=2,
+        legacy_tls_prefixes=(
+            "https://www.korea.kr/",
+            "https://www.fss.or.kr/",
+        ),
+    )
 
 
 # ═══════════════════════════════════════════════════════════

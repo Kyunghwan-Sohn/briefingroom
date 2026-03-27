@@ -7,7 +7,6 @@ from __future__ import annotations
 
 import html
 import re
-import ssl
 import time
 import xml.etree.ElementTree as ET
 from urllib.parse import quote
@@ -15,10 +14,9 @@ from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
-from requests.adapters import HTTPAdapter
-from urllib3.util.ssl_ import create_urllib3_context
 
 from briefingroom.config import NEWS_ENABLED, NEWS_MAX_RESULTS, NEWS_SUMMARY_MAX_ITEMS
+from briefingroom.http import build_session
 
 
 # 메이저 언론사 (우선순위순)
@@ -50,24 +48,10 @@ _RSS_CACHE: dict[tuple[str, str, int], list[dict]] = {}
 _news_summary_count = 0
 
 
-class _TLSAdapter(HTTPAdapter):
-    def init_poolmanager(self, *args, **kwargs):
-        ctx = create_urllib3_context()
-        ctx.set_ciphers("DEFAULT:@SECLEVEL=1")
-        ctx.minimum_version = ssl.TLSVersion.TLSv1_2
-        kwargs["ssl_context"] = ctx
-        return super().init_poolmanager(*args, **kwargs)
-
-
 def _session():
     global _HTTP_SESSION
     if _HTTP_SESSION is None:
-        s = requests.Session()
-        s.headers.update({
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-        })
-        s.mount("https://", _TLSAdapter(max_retries=2))
-        _HTTP_SESSION = s
+        _HTTP_SESSION = build_session(retries=2)
     return _HTTP_SESSION
 
 

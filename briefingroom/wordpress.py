@@ -10,7 +10,7 @@ import requests
 
 from briefingroom.config import CAT_MAP
 
-WP_URL  = os.environ.get("WP_URL", "https://hotclipfolio.com")
+WP_URL  = os.environ.get("WP_URL", "https://govbrief.kr")
 WP_USER = os.environ.get("WP_USER", "")
 WP_PASS = os.environ.get("WP_PASS", "")
 
@@ -103,6 +103,7 @@ def _prefetch_post_titles(date_str: str) -> set[str]:
                 break
     except Exception as e:
         print(f"    [중복목록 조회 실패] {date_str}: {e}")
+        return None
     _wp_titles_by_date[date_str] = titles
     return titles
 
@@ -136,6 +137,8 @@ def wp_check_duplicate(title: str, date_str: str) -> bool:
         return True
     try:
         titles = _prefetch_post_titles(date_str)
+        if titles is None:
+            return None
         if title.strip() in titles:
             print(f"    [중복 스킵] {title[:40]}")
             _posted_titles.add(key)
@@ -143,7 +146,7 @@ def wp_check_duplicate(title: str, date_str: str) -> bool:
         return False
     except Exception as e:
         print(f"    [중복체크 실패] {e}")
-        return False
+        return None
 
 def wp_get_or_create_category(name):
     return _get_or_create_term(_wp_cat_cache, "categories", name)
@@ -155,7 +158,10 @@ def wp_post(item):
         return False
 
     # 중복 체크
-    if wp_check_duplicate(item["title"], item["date"]):
+    duplicate_check = wp_check_duplicate(item["title"], item["date"])
+    if duplicate_check is None:
+        raise RuntimeError("WP 중복 체크 실패")
+    if duplicate_check:
         return False
 
     summary = ""

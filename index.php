@@ -14,17 +14,17 @@ if (is_page()) {
 <title>브리핑룸 — 27개 정부 부처 보도자료 AI 요약</title>
 <meta name="description" content="대한민국 51개 정부 부처 + 금융기관 보도자료를 매일 자동 수집하고 AI가 요약합니다. 텔레그램 채널에서도 받아보세요.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://hotclipfolio.com/">
+<link rel="canonical" href="https://govbrief.kr/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="브리핑룸 — 27개 정부 부처 보도자료 AI 요약">
 <meta property="og:description" content="대한민국 27개 정부 부처 보도자료를 매일 자동 수집하고 AI가 요약합니다.">
-<meta property="og:url" content="https://hotclipfolio.com/">
+<meta property="og:url" content="https://govbrief.kr/">
 <meta property="og:site_name" content="브리핑룸">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="브리핑룸 — 정부 보도자료 AI 요약">
 <meta name="twitter:description" content="51개 부처 + 금융기관 보도자료 매일 수집 + AI 요약 + 텔레그램 채널">
-<link rel="alternate" type="application/rss+xml" title="브리핑룸 RSS" href="https://hotclipfolio.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="브리핑룸 RSS" href="https://govbrief.kr/feed/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Pretendard:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -395,7 +395,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 </div>
 
 <script>
-const WP_API='https://hotclipfolio.com/wp-json/wp/v2';
+const WP_API='https://govbrief.kr/wp-json/wp/v2';
 const PER_PAGE=50;
 const MINS=['금융위원회','금융감독원','기획재정부','한국은행','교육부','보건복지부','고용노동부','성평등가족부','국민권익위원회','국가보훈부','법무부','과학기술정보통신부','국토교통부','해양수산부','농림축산식품부','중소벤처기업부','환경부','개인정보보호위원회','산업통상자원부','외교부','국방부','통일부','행정안전부','인사혁신처','법제처','문화체육관광부','공정거래위원회'];
 const CC={'금융경제':'var(--c-fin)','사회복지':'var(--c-soc)','산업기술':'var(--c-ind)','외교안보':'var(--c-dip)','행정법제':'var(--c-adm)'};
@@ -403,6 +403,7 @@ const CB={'금융경제':'rgba(47,84,235,.08)','사회복지':'rgba(22,163,74,.0
 const CN={'금융경제':'금융·경제','사회복지':'사회·복지','산업기술':'산업·기술','외교안보':'외교·안보','행정법제':'행정·법제'};
 const CO=['금융경제','사회복지','산업기술','외교안보','행정법제'];
 let allItems=[],curFilter='all',curView='grid',curSearch='',curDate=new Date(),expanded={},catMap={};
+let groupedByCat={},countsByCat={},countsBySource={},countsByFinSub={},sortedSources=[];
 
 /* 날짜 */
 function fmtDate(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
@@ -452,7 +453,7 @@ async function loadPosts(){
       if(seen.has(t))return false;
       seen.add(t);return true;
     });
-    allItems=posts.map(parsePost);render();updateSidebar();renderTopPicks();renderSourceBadges();
+    allItems=posts.map(parsePost);rebuildIndexes();render();updateSidebar();renderTopPicks();renderSourceBadges();
   }catch(e){document.getElementById('main-content').innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div>로드 실패: ${e.message}</div></div>`}
 }
 function parsePost(p){
@@ -465,6 +466,41 @@ function parsePost(p){
   const cat=CO.find(c=>cats.includes(c))||'행정법제';
   return{id:p.id,title:p.title?.rendered?.replace(/<[^>]+>/g,'')||'',src,sum,kws,orig,wp:p.link,date:p.date?.slice(0,10)||'',cat};
 }
+function rebuildIndexes(){
+  groupedByCat={};
+  countsByCat={};
+  countsBySource={};
+  countsByFinSub={};
+  sortedSources=[];
+  allItems.forEach(it=>{
+    (groupedByCat[it.cat]=groupedByCat[it.cat]||[]).push(it);
+    countsByCat[it.cat]=(countsByCat[it.cat]||0)+1;
+    countsBySource[it.src]=(countsBySource[it.src]||0)+1;
+    const finSub=FIN_SUB_MAP[it.src];
+    if(finSub) countsByFinSub[finSub]=(countsByFinSub[finSub]||0)+1;
+  });
+  sortedSources=Object.keys(countsBySource).sort((a,b)=>a.localeCompare(b,'ko'));
+}
+function escapeHtml(s){return String(s ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;')}
+function setHighlightedText(el,text,keywords=[]){
+  const source=String(text||'');
+  const terms=[...new Set((keywords||[]).filter(k=>k&&k.length>1))];
+  el.textContent='';
+  if(!terms.length){el.textContent=source;return}
+  const parts=terms.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  const re=new RegExp(`(${parts.join('|')})`,'gi');
+  let last=0;
+  source.replace(re,(match,_g,offset)=>{
+    if(offset>last)el.appendChild(document.createTextNode(source.slice(last,offset)));
+    const mark=document.createElement('mark');
+    mark.textContent=match;
+    el.appendChild(mark);
+    last=offset+match.length;
+    return match;
+  });
+  if(last<source.length)el.appendChild(document.createTextNode(source.slice(last)));
+}
+function makeMetaHtml(label,value){return `<div class="d-meta-i"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`}
 function filtered(){
   let it=allItems;
   if(curFilter!=='all'){
@@ -488,7 +524,7 @@ function render(){
   sb.innerHTML=`<span style="color:rgba(255,255,255,.85);font-size:13px;flex:1">✈ 텔레그램에서 매일 보도자료 받아보세요</span><a href="https://t.me/hotclipfolio" target="_blank" class="sub-bar-btn" style="text-decoration:none">채널 입장하기</a>`;
   c.appendChild(sb);
   if(curFilter!=='all'){const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;items.forEach((it,i)=>g.appendChild(mkCard(it,i)));c.appendChild(g)}
-  else{const gr={};items.forEach(it=>{(gr[it.cat]=gr[it.cat]||[]).push(it)});CO.forEach(cat=>{if(!gr[cat]?.length)return;c.appendChild(mkBlock(cat,gr[cat]))})}
+  else{CO.forEach(cat=>{if(!groupedByCat[cat]?.length)return;c.appendChild(mkBlock(cat,groupedByCat[cat]))})}
 }
 function mkBlock(cat,items){
   const SHOW=4;const isEx=expanded[cat];const shown=isEx?items:items.slice(0,SHOW);
@@ -504,51 +540,77 @@ function mkBlock(cat,items){
   b.appendChild(g);return b;
 }
 function mkCard(it,idx){
-  const finSub=FIN_SUB_MAP[it.src]||'';
   const col=CC[it.cat]||'var(--accent)';const bg=CB[it.cat]||'rgba(47,84,235,.08)';
-  const badgeLabel=finSub?`${it.src}`:it.src;
   const c=document.createElement('div');c.className='press-card';
   c.style.cssText=`--card-color:${col};animation-delay:${Math.min(idx,8)*.04}s`;
   if(curView==='list'){
-    c.innerHTML=`<div style="width:72px;flex-shrink:0;text-align:center"><span class="m-badge" style="background:${bg};color:${col}">${it.src||'정부'}</span></div><div class="card-body" style="flex:1;min-width:0"><div class="card-title" style="-webkit-line-clamp:1;margin-bottom:0">${it.title}</div><div class="card-meta"><span class="card-meta-i">📅 ${it.date}</span></div></div><div class="card-actions" style="margin-top:0"><button class="c-btn primary" onclick="event.stopPropagation();openDetail(${it.id})">보기</button></div>`;
+    c.innerHTML=`<div style="width:72px;flex-shrink:0;text-align:center"><span class="m-badge" style="background:${bg};color:${col}"></span></div><div class="card-body" style="flex:1;min-width:0"><div class="card-title" style="-webkit-line-clamp:1;margin-bottom:0"></div><div class="card-meta"><span class="card-meta-i"></span></div></div><div class="card-actions" style="margin-top:0"><button class="c-btn primary" type="button">보기</button></div>`;
+    c.querySelector('.m-badge').textContent=it.src||'정부';
+    c.querySelector('.card-title').textContent=it.title||'';
+    c.querySelector('.card-meta-i').textContent=`📅 ${it.date||''}`;
+    c.querySelector('.c-btn.primary').addEventListener('click',e=>{e.stopPropagation();openDetail(it.id)});
   }else{
-    let highlightedSum=it.sum;
-    it.kws.forEach(k=>{if(k&&k.length>1){highlightedSum=highlightedSum.replace(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),`<mark>${k}</mark>`)}});
-    const kwTags=it.kws.slice(0,3).map(k=>`<span class="kw-tag">${k}</span>`).join(' ');
-    c.innerHTML=`<div class="card-top"><span class="m-badge" style="background:${bg};color:${col}">${it.src||'정부'}</span><span class="card-time">${it.date}</span></div><div class="card-title">${it.title}</div><div class="card-summary">${highlightedSum}</div><div class="card-meta"><span class="card-meta-i">🏷 ${kwTags}</span></div><div class="card-actions"><button class="c-btn primary" onclick="event.stopPropagation();openDetail(${it.id})">상세보기</button><a class="c-btn" href="${it.orig}" target="_blank" onclick="event.stopPropagation()">↗ 원문</a></div>`;
+    c.innerHTML=`<div class="card-top"><span class="m-badge" style="background:${bg};color:${col}"></span><span class="card-time"></span></div><div class="card-title"></div><div class="card-summary"></div><div class="card-meta"><span class="card-meta-i">🏷 </span></div><div class="card-actions"><button class="c-btn primary" type="button">상세보기</button><a class="c-btn" target="_blank" rel="noopener noreferrer">↗ 원문</a></div>`;
+    c.querySelector('.m-badge').textContent=it.src||'정부';
+    c.querySelector('.card-time').textContent=it.date||'';
+    c.querySelector('.card-title').textContent=it.title||'';
+    setHighlightedText(c.querySelector('.card-summary'), it.sum||'', it.kws);
+    const kwWrap=c.querySelector('.card-meta-i');
+    it.kws.slice(0,3).forEach(k=>{
+      const span=document.createElement('span');
+      span.className='kw-tag';
+      span.textContent=k;
+      kwWrap.appendChild(document.createTextNode(' '));
+      kwWrap.appendChild(span);
+    });
+    c.querySelector('.c-btn.primary').addEventListener('click',e=>{e.stopPropagation();openDetail(it.id)});
+    const link=c.querySelector('.c-btn:not(.primary)');
+    link.href=it.orig||'#';
+    link.addEventListener('click',e=>e.stopPropagation());
   }
   c.addEventListener('click',()=>openDetail(it.id));return c;
 }
 function openDetail(id){
   const it=allItems.find(i=>i.id===id);if(!it)return;
-  _shareTitle=it.title;_shareUrl=it.wp||'https://hotclipfolio.com/?p='+id;
+  _shareTitle=it.title;_shareUrl=it.wp||'https://govbrief.kr/?p='+id;
   const col=CC[it.cat]||'var(--accent)';const bg=CB[it.cat]||'rgba(47,84,235,.08)';
   document.getElementById('d-hdr-min').textContent=it.src;
   const b=document.getElementById('d-badge');b.textContent=it.src;b.style.cssText=`background:${bg};color:${col};border:1px solid ${col}44`;
   document.getElementById('d-title').textContent=it.title;
-  document.getElementById('d-meta').innerHTML=`<div class="d-meta-i"><span>날짜</span><strong>${it.date}</strong></div><div class="d-meta-i"><span>기관</span><strong>${it.src}</strong></div><div class="d-meta-i"><span>분야</span><strong>${CN[it.cat]||it.cat}</strong></div>`;
-  let dSum=it.sum||'요약 없음';
-  it.kws.forEach(k=>{if(k&&k.length>1){dSum=dSum.replace(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),`<mark>${k}</mark>`)}});
-  document.getElementById('d-summary').innerHTML=dSum;
-  document.getElementById('d-kws').innerHTML=it.kws.map(k=>`<span class="kw"># ${k}</span>`).join('');
+  document.getElementById('d-meta').innerHTML=[
+    makeMetaHtml('날짜',it.date),
+    makeMetaHtml('기관',it.src),
+    makeMetaHtml('분야',CN[it.cat]||it.cat),
+  ].join('');
+  setHighlightedText(document.getElementById('d-summary'), it.sum||'요약 없음', it.kws);
+  const kwBox=document.getElementById('d-kws');
+  kwBox.textContent='';
+  it.kws.forEach(k=>{
+    const span=document.createElement('span');
+    span.className='kw';
+    span.textContent=`# ${k}`;
+    kwBox.appendChild(span);
+  });
   document.getElementById('d-src').href=it.orig||'#';document.getElementById('d-wp').href=it.wp||'#';
   document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.body.style.overflow='hidden';
 }
 function closeDetail(){document.getElementById('d-overlay').classList.remove('open');document.getElementById('detail').classList.remove('open');document.body.style.overflow=''}
 function updateSidebar(){
   document.getElementById('cnt-all').textContent=allItems.length;
-  CO.forEach(cat=>{const el=document.getElementById(`cnt-${cat}`);if(el)el.textContent=allItems.filter(i=>i.cat===cat).length});
+  CO.forEach(cat=>{const el=document.getElementById(`cnt-${cat}`);if(el)el.textContent=countsByCat[cat]||0});
   // 금융 서브카테고리 카운트
-  const el0=document.getElementById('cnt-금융경제-all');if(el0)el0.textContent=allItems.filter(i=>i.cat==='금융경제').length;
+  const el0=document.getElementById('cnt-금융경제-all');if(el0)el0.textContent=countsByCat['금융경제']||0;
   ['금융정책','감독규제','시장통화','금융인프라','정책금융','업계동향'].forEach(sub=>{
     const el=document.getElementById(`cnt-fin-${sub}`);
-    if(el)el.textContent=allItems.filter(i=>FIN_SUB_MAP[i.src]===sub).length;
+    if(el)el.textContent=countsByFinSub[sub]||0;
   });
   const sb=document.getElementById('ministry-sb');[...sb.querySelectorAll('.f-item')].forEach(e=>e.remove());
-  [...new Set(allItems.map(i=>i.src))].sort((a,b)=>a.localeCompare(b,'ko')).forEach(m=>{
-    const cnt=allItems.filter(i=>i.src===m).length;const cat=allItems.find(i=>i.src===m)?.cat||'행정법제';
+  sortedSources.forEach(m=>{
+    const cnt=countsBySource[m]||0;const cat=allItems.find(i=>i.src===m)?.cat||'행정법제';
     const el=document.createElement('div');el.className='f-item';
-    el.innerHTML=`<div class="f-left"><div class="f-dot" style="background:${CC[cat]}"></div>${m}</div><span class="f-cnt">${cnt}</span>`;
+    el.innerHTML=`<div class="f-left"><div class="f-dot" style="background:${CC[cat]}"></div><span class="f-label"></span></div><span class="f-cnt"></span>`;
+    el.querySelector('.f-label').textContent=m;
+    el.querySelector('.f-cnt').textContent=cnt;
     el.addEventListener('click',()=>setFilter(m,el));sb.appendChild(el);
   });
 }
@@ -662,30 +724,47 @@ function renderTopPicks(){
   }
   if(!picked.length){box.style.display='none';return}
   box.style.display='block';
-  list.innerHTML=picked.map(it=>{
+  list.textContent='';
+  picked.forEach(it=>{
     const bg=CC[it.cat]||'var(--muted)';
-    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid ${bg};cursor:pointer" onclick="openDetail(${it.id})">
-      <span style="font-family:var(--mono);font-size:10px;color:${bg};white-space:nowrap;font-weight:600">${it.src}</span>
-      <span style="flex:1;font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${it.title}</span>
-      <span style="font-size:10px;color:var(--muted);white-space:nowrap">${it.kws.slice(0,2).map(k=>'#'+k).join(' ')}</span>
-    </div>`}).join('');
+    const row=document.createElement('div');
+    row.style.cssText=`display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid ${bg};cursor:pointer`;
+    row.addEventListener('click',()=>openDetail(it.id));
+    const src=document.createElement('span');
+    src.style.cssText=`font-family:var(--mono);font-size:10px;color:${bg};white-space:nowrap;font-weight:600`;
+    src.textContent=it.src;
+    const title=document.createElement('span');
+    title.style.cssText='flex:1;font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
+    title.textContent=it.title;
+    const kws=document.createElement('span');
+    kws.style.cssText='font-size:10px;color:var(--muted);white-space:nowrap';
+    kws.textContent=it.kws.slice(0,2).map(k=>`#${k}`).join(' ');
+    row.append(src,title,kws);
+    list.appendChild(row);
+  });
 }
 
 /* 부처별 건수 배지 */
 function renderSourceBadges(){
   const box=document.getElementById('source-badges');
   if(!allItems.length){box.style.display='none';return}
-  const counts={};allItems.forEach(it=>{counts[it.src]=(counts[it.src]||0)+1});
-  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  const sorted=Object.entries(countsBySource).sort((a,b)=>b[1]-a[1]).slice(0,12);
   box.style.display='flex';
-  box.innerHTML=sorted.map(([src,cnt])=>`<span style="font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);color:var(--text2);cursor:pointer;white-space:nowrap" onclick="curFilter='${src}';render()">${src} ${cnt}</span>`).join('');
+  box.textContent='';
+  sorted.forEach(([src,cnt])=>{
+    const tag=document.createElement('span');
+    tag.style.cssText='font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);color:var(--text2);cursor:pointer;white-space:nowrap';
+    tag.textContent=`${src} ${cnt}`;
+    tag.addEventListener('click',()=>{curFilter=src;render()});
+    box.appendChild(tag);
+  });
 }
 
 /* 공유 기능 */
 let _shareTitle='',_shareUrl='';
 function shareKakao(){
   if(window.Kakao&&Kakao.isInitialized()){
-    Kakao.Share.sendDefault({objectType:'feed',content:{title:_shareTitle,description:'브리핑룸 — 정부 보도자료 AI 요약',imageUrl:'https://hotclipfolio.com/wp-content/uploads/2024/01/logo.png',link:{mobileWebUrl:_shareUrl,webUrl:_shareUrl}}});
+    Kakao.Share.sendDefault({objectType:'feed',content:{title:_shareTitle,description:'브리핑룸 — 정부 보도자료 AI 요약',imageUrl:'https://govbrief.kr/wp-content/uploads/2024/01/logo.png',link:{mobileWebUrl:_shareUrl,webUrl:_shareUrl}}});
   }else{window.open('https://story.kakao.com/share?url='+encodeURIComponent(_shareUrl),'_blank')}
 }
 function shareTelegram(){window.open('https://t.me/share/url?url='+encodeURIComponent(_shareUrl)+'&text='+encodeURIComponent(_shareTitle),'_blank')}

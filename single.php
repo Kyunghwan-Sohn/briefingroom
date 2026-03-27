@@ -41,7 +41,7 @@ $canonical = get_permalink();
   "publisher": {
     "@type": "Organization",
     "name": "브리핑룸",
-    "url": "https://hotclipfolio.com"
+    "url": "https://govbrief.kr"
   },
   "mainEntityOfPage": "<?php echo esc_url($canonical); ?>"
 }

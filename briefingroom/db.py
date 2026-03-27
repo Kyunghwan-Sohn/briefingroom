@@ -23,8 +23,15 @@ UPSERT_SQL = """
                           text_length, llm_status, wp_post_id, wp_status)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(date, source, title) DO UPDATE SET
+        url = COALESCE(NULLIF(excluded.url, ''), url),
+        category = COALESCE(NULLIF(excluded.category, ''), category),
+        finance_sub = COALESCE(NULLIF(excluded.finance_sub, ''), finance_sub),
         summary = COALESCE(NULLIF(excluded.summary, ''), summary),
         keywords = COALESCE(NULLIF(excluded.keywords, ''), keywords),
+        pdf_count = excluded.pdf_count,
+        hwp_count = excluded.hwp_count,
+        file_status = excluded.file_status,
+        text_length = excluded.text_length,
         llm_status = CASE WHEN excluded.llm_status != 'pending' THEN excluded.llm_status ELSE llm_status END,
         wp_post_id = COALESCE(excluded.wp_post_id, wp_post_id),
         wp_status = CASE WHEN excluded.wp_status != 'pending' THEN excluded.wp_status ELSE wp_status END,

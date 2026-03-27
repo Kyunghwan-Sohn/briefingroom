@@ -12,6 +12,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: briefing
@@ -48,6 +50,7 @@ jobs:
 
       - name: run
         env:
+          WP_ENABLED: 'false'
           WP_URL: ${{ secrets.WP_URL }}
           WP_USER: ${{ secrets.WP_USER }}
           WP_PASS: ${{ secrets.WP_PASS }}
@@ -67,7 +70,7 @@ jobs:
         run: |
           git config user.name "briefing-bot"
           git config user.email "bot@briefingroom.kr"
-          git add briefing.py briefingroom/ data/ .github/workflows/
+          git add briefing.py briefingroom/ data/ feed/ articles/ .github/workflows/
           git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d) $(date +%H:%M)"
           git push
 

@@ -1,0 +1,21 @@
+# hotclipfolio.com → govbrief.kr 301 영구 리다이렉트
+RewriteEngine On
+
+# HTTP → HTTPS 강제
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# hotclipfolio.com → govbrief.kr 리다이렉트
+RewriteCond %{HTTP_HOST} ^(www\.)?hotclipfolio\.com$ [NC]
+RewriteRule ^(.*)$ https://govbrief.kr/$1 [L,R=301]
+
+# WordPress 기본 퍼머링크
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress

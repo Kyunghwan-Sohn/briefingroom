@@ -7,3 +7,4 @@ texts/
 *.hwp
 *.hwpx
 *.db
+.env

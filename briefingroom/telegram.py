@@ -16,7 +16,7 @@ TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 TELEGRAM_ENABLED = os.environ.get("TELEGRAM_ENABLED", "true").lower() in ("true", "1", "yes")
 
-SITE_URL = "https://hotclipfolio.com"
+SITE_URL = "https://govbrief.kr"
 
 # 분야 순서 + 이모지
 CAT_ORDER = [
@@ -142,7 +142,7 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
                 for article in news[:2]:
                     news_title = _escape_html(article.get("title", ""))[:40]
                     news_src = _escape_html(article.get("source", ""))
-                    news_url = article.get("url", "")
+                    news_url = article.get("link", "") or article.get("url", "")
                     news_summary = _escape_html(article.get("summary", ""))[:60]
                     if news_url:
                         lines.append(f'  📰 <a href="{news_url}">{news_src}: {news_title}</a>')

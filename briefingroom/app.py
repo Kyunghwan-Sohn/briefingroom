@@ -15,11 +15,11 @@ from briefingroom.crawlers import CRAWLERS
 from briefingroom.llm import summarize
 from briefingroom.pipeline import process_item
 from briefingroom.storage import save_daily_snapshot
-from briefingroom.wordpress import wp_post
 from briefingroom.news import get_news_for_item, format_news_html
 from briefingroom.verify import verify_counts, fill_missing
 from briefingroom.db import init_db, bulk_upsert, bulk_update_wp_status, print_dashboard
 from briefingroom.telegram import send_daily_briefing
+from briefingroom.static_gen import generate_static
 
 
 def _safe_html_text(value) -> str:
@@ -47,6 +47,25 @@ def _dedup(items: list[dict]) -> list[dict]:
     if removed:
         print(f"  [중복 제거] {removed}건")
     return unique
+
+
+def _clean_titles(items: list[dict]) -> int:
+    import re as _re
+
+    cleaned = 0
+    for item in items:
+        orig = item["title"]
+        title = orig.replace("\u200b", "").replace("\xa0", " ").replace("&#038;", "&")
+        title = _re.sub(r"\s{2,}", " ", title).strip()
+        half = len(title) // 2
+        if half > 15 and title[:half].strip() == title[half:half * 2].strip():
+            title = title[:half].strip()
+        if len(title) > 120:
+            title = title[:117] + "..."
+        if title != orig:
+            item["title"] = title
+            cleaned += 1
+    return cleaned
 
 
 def main():
@@ -130,6 +149,12 @@ def main():
         all_items = _dedup(all_items)
 
     print(f"\n{'─' * 60}")
+    print("[제목 정제 중...]")
+    cleaned = _clean_titles(all_items)
+    if cleaned:
+        print(f"  제목 정제: {cleaned}건")
+
+    print(f"\n{'─' * 60}")
     print(f"총 {len(all_items)}건 수집 (검증 완료)\n")
 
     # ── DB 저장: 수집 완료 ────────────────────────────────────
@@ -157,30 +182,6 @@ def main():
 
     # ── DB 업데이트: LLM 결과 ─────────────────────────────────
     bulk_upsert(all_items)
-
-    # ── 제목 정제 ────────────────────────────────────────────
-    print(f"\n{'─' * 60}")
-    print("[제목 정제 중...]")
-    import re as _re
-    cleaned = 0
-    for item in all_items:
-        orig = item["title"]
-        t = orig
-        # 특수문자 정제
-        t = t.replace("\u200b", "").replace("\xa0", " ").replace("&#038;", "&")
-        t = _re.sub(r"\s{2,}", " ", t).strip()
-        # 반복 제목 제거
-        half = len(t) // 2
-        if half > 15 and t[:half].strip() == t[half:half*2].strip():
-            t = t[:half].strip()
-        # 120자 리밋
-        if len(t) > 120:
-            t = t[:117] + "..."
-        if t != orig:
-            item["title"] = t
-            cleaned += 1
-    if cleaned:
-        print(f"  제목 정제: {cleaned}건")
 
     # ── 관련 뉴스 기사 검색 ─────────────────────────────────────
     print(f"\n{'─' * 60}")
@@ -213,42 +214,48 @@ def main():
     bulk_upsert(all_items)
     _db_audit(target)
 
-    # ── WordPress 포스팅 (점검 후) ────────────────────────────
-    print(f"\n{'─' * 60}")
-    print("[WordPress 포스팅 중...]")
-    wp_count = 0
-    wp_updates = []
-    for item in all_items:
-        try:
-            result = wp_post(item)
-            if result:
-                wp_count += 1
-                if isinstance(result, tuple):
-                    post_id, post_link = result
+    # ── WordPress 포스팅 (선택적) ────────────────────────────
+    wp_enabled = os.environ.get("WP_ENABLED", "false").lower() in ("true", "1", "yes")
+    if wp_enabled:
+        from briefingroom.wordpress import wp_post
+        print(f"\n{'─' * 60}")
+        print("[WordPress 포스팅 중...]")
+        wp_count = 0
+        wp_updates = []
+        for item in all_items:
+            try:
+                result = wp_post(item)
+                if result:
+                    wp_count += 1
+                    if isinstance(result, tuple):
+                        post_id, post_link = result
+                    else:
+                        post_id, post_link = (result if isinstance(result, int) else 0), ""
+                    item["wp_post_id"] = post_id
+                    item["wp_link"] = post_link
+                    wp_updates.append((item["date"], item["title"], item["source"], post_id, "ok"))
                 else:
-                    post_id, post_link = (result if isinstance(result, int) else 0), ""
-                item["wp_post_id"] = post_id
-                item["wp_link"] = post_link
-                wp_updates.append((item["date"], item["title"], item["source"], post_id, "ok"))
-            else:
-                wp_updates.append((item["date"], item["title"], item["source"], 0, "skipped"))
-        except Exception as e:
-            print(f"  [WP 실패] {item.get('source','')} | {item.get('title','')[:50]} | {e}")
-            wp_updates.append((item["date"], item["title"], item["source"], 0, "failed"))
-    bulk_update_wp_status(wp_updates)
-    print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")
+                    wp_updates.append((item["date"], item["title"], item["source"], 0, "skipped"))
+            except Exception as e:
+                print(f"  [WP 실패] {item.get('source','')} | {item.get('title','')[:50]} | {e}")
+                wp_updates.append((item["date"], item["title"], item["source"], 0, "failed"))
+        bulk_update_wp_status(wp_updates)
+        print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")
 
-    # ── 실패 건 재처리 (요약 없는 포스트 보완) ─────────────────
-    print(f"\n{'─' * 60}")
-    print("[실패 건 재처리: 요약 없는 포스트 보완]")
-    _retry_missing_summaries(target)
+        print(f"\n{'─' * 60}")
+        print("[실패 건 재처리: 요약 없는 포스트 보완]")
+        _retry_missing_summaries(target)
+        bulk_upsert(all_items)
+    else:
+        print(f"\n{'─' * 60}")
+        print("  (WP_ENABLED=false → WordPress 포스팅 스킵)")
 
-    # ── DB 업데이트: 포스팅 결과 ─────────────────────────────
-    bulk_upsert(all_items)
+    # ── 정적 사이트 생성 (RSS + 기사 HTML) ─────────────────────
+    generate_static(target.isoformat())
 
-    # ── Phase 6: DB 최종 점검 (포스팅 후) ─────────────────────
+    # ── Phase 6: DB 최종 점검 ─────────────────────────────────
     print(f"\n{'━' * 60}")
-    print("  Phase 6: 포스팅 후 최종 점검")
+    print("  Phase 6: 최종 점검")
     print(f"{'━' * 60}")
     _db_audit(target)
 
@@ -263,20 +270,9 @@ def main():
 def _retry_missing_summaries(target):
     """WP에서 해당 날짜의 요약 없는 포스트를 찾아 원문에서 본문 추출 → LLM → 업데이트"""
     import re
-    import requests
-    import ssl
     from bs4 import BeautifulSoup
-    from requests.adapters import HTTPAdapter
-    from urllib3.util.ssl_ import create_urllib3_context
 
-    class _TLS(HTTPAdapter):
-        def init_poolmanager(self, *args, **kwargs):
-            ctx = create_urllib3_context()
-            ctx.set_ciphers("DEFAULT:@SECLEVEL=1")
-            ctx.minimum_version = ssl.TLSVersion.TLSv1_2
-            kwargs["ssl_context"] = ctx
-            return super().init_poolmanager(*args, **kwargs)
-
+    from briefingroom.http import build_session
     from briefingroom.wordpress import WP_URL, WP_USER, WP_PASS
 
     if not WP_USER:
@@ -284,22 +280,35 @@ def _retry_missing_summaries(target):
         return
 
     auth = (WP_USER, WP_PASS)
-    s = requests.Session()
-    s.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
-    s.mount("https://", _TLS(max_retries=2))
+    s = build_session(retries=2)
 
     ds = target.isoformat()
     no_summary = []
+    list_failed = False
 
     for pg in range(1, 10):
-        r = requests.get(f"{WP_URL}/wp-json/wp/v2/posts",
-                         params={"per_page": 100, "page": pg, "status": "publish",
-                                 "after": f"{ds}T00:00:00", "before": f"{ds}T23:59:59",
-                                 "_fields": "id,title,content"},
-                         auth=auth, timeout=15)
-        if r.status_code != 200 or not r.json():
+        try:
+            r = s.get(
+                f"{WP_URL}/wp-json/wp/v2/posts",
+                params={
+                    "per_page": 100,
+                    "page": pg,
+                    "status": "publish",
+                    "after": f"{ds}T00:00:00",
+                    "before": f"{ds}T23:59:59",
+                    "_fields": "id,title,content",
+                },
+                auth=auth,
+                timeout=15,
+            )
+            payload = r.json() if r.status_code == 200 else []
+        except Exception as e:
+            print(f"  [WP 요약 재조회 실패] page={pg} | {e}")
+            list_failed = True
             break
-        for p in r.json():
+        if r.status_code != 200 or not payload:
+            break
+        for p in payload:
             content = p.get("content", {}).get("rendered", "")
             sum_m = re.search(r'briefing-summary.*?<p>([^<]+)', content, re.DOTALL)
             summary = sum_m.group(1).strip() if sum_m else ""
@@ -313,15 +322,20 @@ def _retry_missing_summaries(target):
                     "url": _html.unescape(orig_m.group(1)) if orig_m else "",
                     "content": content,
                 })
-        if len(r.json()) < 100:
+        if len(payload) < 100:
             break
 
+    if list_failed and not no_summary:
+        print("  요약 재처리 중단: WP 목록 조회 실패")
+        return
     if not no_summary:
         print("  요약 미완료 건 없음 ✅")
         return
 
     print(f"  요약 미완료 {len(no_summary)}건 발견 → 재처리")
     updated = 0
+    fetch_failed = 0
+    update_failed = 0
     for item in no_summary:
         url = item["url"]
         if not url:
@@ -340,7 +354,9 @@ def _retry_missing_summaries(target):
                     og = soup.find("meta", property="og:description")
                     if og and og.get("content") and len(og["content"]) > 30:
                         body_text = og["content"]
-        except Exception:
+        except Exception as e:
+            fetch_failed += 1
+            print(f"    [원문 재수집 실패] #{item['id']} | {e}")
             continue
 
         if not body_text or len(body_text) < 30:
@@ -374,14 +390,26 @@ def _retry_missing_summaries(target):
         if kw_html and '<div class="briefing-keywords">' in new_content:
             new_content = re.sub(r'<div class="briefing-keywords">.*?</div>', kw_html, new_content)
 
-        r = requests.post(f"{WP_URL}/wp-json/wp/v2/posts/{item['id']}",
-                          json={"content": new_content}, auth=auth, timeout=15)
+        try:
+            r = s.post(
+                f"{WP_URL}/wp-json/wp/v2/posts/{item['id']}",
+                json={"content": new_content},
+                auth=auth,
+                timeout=15,
+            )
+        except Exception as e:
+            update_failed += 1
+            print(f"    [WP 요약 업데이트 실패] #{item['id']} | {e}")
+            continue
         if r.status_code == 200:
             updated += 1
             print(f"    ✅ #{item['id']} {item['source']}: 요약 보완 완료")
+        else:
+            update_failed += 1
+            print(f"    [WP 요약 업데이트 실패] #{item['id']} | HTTP {r.status_code}")
         time.sleep(0.5)
 
-    print(f"  재처리 완료: {updated}/{len(no_summary)}건 보완")
+    print(f"  재처리 완료: {updated}/{len(no_summary)}건 보완 (원문실패 {fetch_failed}건, 업데이트실패 {update_failed}건)")
 
 
 def _db_audit(target):

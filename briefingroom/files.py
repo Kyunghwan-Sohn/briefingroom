@@ -1,15 +1,34 @@
 import re
 import zlib
 import zipfile
+from contextlib import suppress
 from pathlib import Path
+from urllib.parse import urlparse
 
 import olefile
 import pdfplumber
 
 from .config import PDF_DIR, TXT_DIR
 
+MAX_DOWNLOAD_BYTES = 30 * 1024 * 1024
+
+
+def _looks_like_expected_file(path: Path) -> bool:
+    ext = path.suffix.lower()
+    with path.open("rb") as handle:
+        magic = handle.read(8)
+    if ext == ".pdf":
+        return magic.startswith(b"%PDF")
+    if ext in (".hwp", ".hwpx"):
+        return magic.startswith((b"PK", b"\xd0\xcf\x11\xe0"))
+    return True
+
 
 def download_file(url, filename, session):
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https") or not parsed.netloc:
+        print("    [스킵] 유효하지 않은 파일 URL")
+        return None
     path = PDF_DIR / filename
     if path.exists():
         print(f"    [스킵] {filename}")
@@ -20,6 +39,10 @@ def download_file(url, filename, session):
         ct = r.headers.get("Content-Type", "")
         if "html" in ct:
             print("    [스킵] HTML 응답")
+            return None
+        content_length = int(r.headers.get("Content-Length") or 0)
+        if content_length and content_length > MAX_DOWNLOAD_BYTES:
+            print(f"    [스킵] 파일 크기 초과 ({content_length // 1024}KB)")
             return None
 
         cd = r.headers.get("Content-Disposition", "")
@@ -38,12 +61,25 @@ def download_file(url, filename, session):
             print(f"    [스킵] {filename}")
             return path
 
+        total_bytes = 0
         with open(path, "wb") as f:
             for chunk in r.iter_content(8192):
+                if not chunk:
+                    continue
+                total_bytes += len(chunk)
+                if total_bytes > MAX_DOWNLOAD_BYTES:
+                    raise ValueError(f"파일 크기 초과: {total_bytes} bytes")
                 f.write(chunk)
+        if not _looks_like_expected_file(path):
+            with suppress(FileNotFoundError):
+                path.unlink()
+            print("    [스킵] 파일 형식 검증 실패")
+            return None
         print(f"    저장: {filename} ({path.stat().st_size//1024}KB)")
         return path
     except Exception as e:
+        with suppress(FileNotFoundError):
+            path.unlink()
         print(f"    다운로드 오류: {e}")
         return None
 
