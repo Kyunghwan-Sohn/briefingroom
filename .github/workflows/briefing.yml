@@ -2,8 +2,6 @@ name: briefingroom
 
 on:
   schedule:
-    # 오전: KST 11:40 = UTC 02:40
-    - cron: '40 2 * * *'
     # 오후: KST 18:00 = UTC 09:00
     - cron: '0 9 * * *'
   workflow_dispatch:
