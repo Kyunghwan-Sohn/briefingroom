@@ -125,7 +125,7 @@ def _parse_list_page(soup: BeautifulSoup, target_date: str):
 
 
 def _fetch_detail(session, news_id: str):
-    """상세 페이지에서 첨부파일 URL 추출"""
+    """상세 페이지에서 첨부파일 URL 추출 (korea.kr 본문은 전재 안내문만 있어 생략)"""
     url = f"{BASE}/briefing/pressReleaseView.do?newsId={news_id}"
     try:
         r = session.get(url, timeout=15)
@@ -204,6 +204,7 @@ def crawl_koreakr(target: date) -> list[dict]:
                 "hwps": hwps,
                 "files": [],
                 "text": "",
+                "body_text": "",
                 "summary": "",
             }
             all_items.append(result)

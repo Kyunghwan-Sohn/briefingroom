@@ -17,7 +17,7 @@ def make_item(source, title, url, date_str, pdfs, hwps):
         "date": date_str,
         "pdfs": list(dict.fromkeys(pdfs)),
         "hwps": list(dict.fromkeys(hwps)),
-        "files": [], "text": "", "summary": "",
+        "files": [], "text": "", "body_text": "", "summary": "",
     }
 
 

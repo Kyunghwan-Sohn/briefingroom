@@ -22,7 +22,7 @@ def _make_item(source, title, url, date_str, pdfs=None, hwps=None):
         "source": source, "title": title, "url": url,
         "date": date_str,
         "pdfs": pdfs or [], "hwps": hwps or [],
-        "files": [], "text": "", "summary": "",
+        "files": [], "text": "", "body_text": "", "summary": "",
     }
 
 

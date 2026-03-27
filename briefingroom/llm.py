@@ -41,10 +41,14 @@ def summarize(item: dict) -> str:
     global _quota_exhausted
     if _quota_exhausted:
         return "[한도 초과] 다음 실행에서 재처리"
-    if not item.get("text"):
-        return "[텍스트 없음]"
-    text = item["text"][:MAX_TEXT]
-    if len(item["text"]) > MAX_TEXT:
+
+    text = item.get("text", "")
+    if not text:
+        # 텍스트 없으면 제목 기반 요약 요청
+        text = f"(본문 없음. 제목만으로 요약해주세요.)"
+
+    text = text[:MAX_TEXT]
+    if len(item.get("text", "")) > MAX_TEXT:
         text += "\n\n[이하 생략]"
 
     for attempt in range(MAX_RETRIES):
