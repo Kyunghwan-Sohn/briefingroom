@@ -352,6 +352,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
         </div>
         <span class="total-badge" id="total-badge">0건</span>
       </div>
+      <!-- 오늘의 핵심 보도자료 -->
+      <div id="top-picks" style="display:none;margin-bottom:16px">
+        <div style="font-family:var(--serif);font-size:15px;font-weight:700;color:var(--text);margin-bottom:10px">🔥 오늘의 핵심 보도자료</div>
+        <div id="top-picks-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+      <!-- 부처별 건수 요약 -->
+      <div id="source-badges" style="display:none;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:5px"></div>
       <div id="main-content">
         <div class="loading"><div class="loading-spinner"></div><div>데이터 불러오는 중...</div></div>
       </div>
@@ -378,6 +385,11 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="d-actions">
       <a class="d-btn primary" id="d-wp" href="#" target="_blank">📄 상세 글 보기</a>
       <a class="d-btn sec" id="d-src" href="#" target="_blank">↗ 원문 보기</a>
+    </div>
+    <div style="display:flex;gap:6px;margin-top:8px">
+      <button onclick="shareKakao()" style="flex:1;padding:8px;border:1px solid #fee500;background:#fee500;color:#3c1e1e;border-radius:6px;font-size:12px;cursor:pointer;font-weight:500">💬 카카오톡</button>
+      <button onclick="shareTelegram()" style="flex:1;padding:8px;border:1px solid #0088cc;background:#0088cc;color:#fff;border-radius:6px;font-size:12px;cursor:pointer;font-weight:500">✈️ 텔레그램</button>
+      <button onclick="copyLink()" style="flex:1;padding:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:6px;font-size:12px;cursor:pointer;font-weight:500" id="copy-btn">🔗 링크 복사</button>
     </div>
   </div>
 </div>
@@ -440,7 +452,7 @@ async function loadPosts(){
       if(seen.has(t))return false;
       seen.add(t);return true;
     });
-    allItems=posts.map(parsePost);render();updateSidebar();
+    allItems=posts.map(parsePost);render();updateSidebar();renderTopPicks();renderSourceBadges();
   }catch(e){document.getElementById('main-content').innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div>로드 실패: ${e.message}</div></div>`}
 }
 function parsePost(p){
@@ -509,6 +521,7 @@ function mkCard(it,idx){
 }
 function openDetail(id){
   const it=allItems.find(i=>i.id===id);if(!it)return;
+  _shareTitle=it.title;_shareUrl=it.wp||'https://hotclipfolio.com/?p='+id;
   const col=CC[it.cat]||'var(--accent)';const bg=CB[it.cat]||'rgba(47,84,235,.08)';
   document.getElementById('d-hdr-min').textContent=it.src;
   const b=document.getElementById('d-badge');b.textContent=it.src;b.style.cssText=`background:${bg};color:${col};border:1px solid ${col}44`;
@@ -634,6 +647,53 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail()}if(e.
     render();
   }
 })();
+
+/* 오늘의 핵심 3건 */
+function renderTopPicks(){
+  const box=document.getElementById('top-picks');
+  const list=document.getElementById('top-picks-list');
+  if(!allItems.length){box.style.display='none';return}
+  // 요약이 있고, 키워드가 있는 건 중 분야별 1건씩
+  const picked=[];const usedCat=new Set();
+  const sorted=[...allItems].filter(it=>it.sum&&it.kws.length>0).sort((a,b)=>b.kws.length-a.kws.length);
+  for(const it of sorted){
+    if(!usedCat.has(it.cat)){usedCat.add(it.cat);picked.push(it)}
+    if(picked.length>=3)break;
+  }
+  if(!picked.length){box.style.display='none';return}
+  box.style.display='block';
+  list.innerHTML=picked.map(it=>{
+    const bg=CC[it.cat]||'var(--muted)';
+    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid ${bg};cursor:pointer" onclick="openDetail(${it.id})">
+      <span style="font-family:var(--mono);font-size:10px;color:${bg};white-space:nowrap;font-weight:600">${it.src}</span>
+      <span style="flex:1;font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${it.title}</span>
+      <span style="font-size:10px;color:var(--muted);white-space:nowrap">${it.kws.slice(0,2).map(k=>'#'+k).join(' ')}</span>
+    </div>`}).join('');
+}
+
+/* 부처별 건수 배지 */
+function renderSourceBadges(){
+  const box=document.getElementById('source-badges');
+  if(!allItems.length){box.style.display='none';return}
+  const counts={};allItems.forEach(it=>{counts[it.src]=(counts[it.src]||0)+1});
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  box.style.display='flex';
+  box.innerHTML=sorted.map(([src,cnt])=>`<span style="font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);color:var(--text2);cursor:pointer;white-space:nowrap" onclick="curFilter='${src}';render()">${src} ${cnt}</span>`).join('');
+}
+
+/* 공유 기능 */
+let _shareTitle='',_shareUrl='';
+function shareKakao(){
+  if(window.Kakao&&Kakao.isInitialized()){
+    Kakao.Share.sendDefault({objectType:'feed',content:{title:_shareTitle,description:'브리핑룸 — 정부 보도자료 AI 요약',imageUrl:'https://hotclipfolio.com/wp-content/uploads/2024/01/logo.png',link:{mobileWebUrl:_shareUrl,webUrl:_shareUrl}}});
+  }else{window.open('https://story.kakao.com/share?url='+encodeURIComponent(_shareUrl),'_blank')}
+}
+function shareTelegram(){window.open('https://t.me/share/url?url='+encodeURIComponent(_shareUrl)+'&text='+encodeURIComponent(_shareTitle),'_blank')}
+function copyLink(){
+  navigator.clipboard.writeText(_shareUrl).then(()=>{
+    const btn=document.getElementById('copy-btn');btn.textContent='✅ 복사됨';setTimeout(()=>{btn.textContent='🔗 링크 복사'},2000);
+  });
+}
 </script>
 
 <!-- 모바일 하단 고정 CTA -->
