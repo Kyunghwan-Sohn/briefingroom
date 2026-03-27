@@ -67,7 +67,7 @@ jobs:
         run: |
           git config user.name "briefing-bot"
           git config user.email "bot@briefingroom.kr"
-          git add briefing.py briefingroom/ data/ texts/ pdfs/ .github/workflows/
+          git add briefing.py briefingroom/ data/ .github/workflows/
           git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d) $(date +%H:%M)"
           git push
 
