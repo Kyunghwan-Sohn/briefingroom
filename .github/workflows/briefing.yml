@@ -57,7 +57,7 @@ jobs:
           PROXY_URL: ${{ secrets.PROXY_URL }}
           CRAWL_DELAY_MIN: ${{ vars.CRAWL_DELAY_MIN || '30' }}
           CRAWL_DELAY_MAX: ${{ vars.CRAWL_DELAY_MAX || '90' }}
-          TELEGRAM_ENABLED: 'true'
+          TELEGRAM_ENABLED: 'false'
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           RUN_DATE: ${{ github.event.inputs.date || '' }}
