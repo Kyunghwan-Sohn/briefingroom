@@ -59,7 +59,7 @@ jobs:
           PROXY_URL: ${{ secrets.PROXY_URL }}
           CRAWL_DELAY_MIN: ${{ vars.CRAWL_DELAY_MIN || '30' }}
           CRAWL_DELAY_MAX: ${{ vars.CRAWL_DELAY_MAX || '90' }}
-          TELEGRAM_ENABLED: 'false'
+          TELEGRAM_ENABLED: 'true'
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           RUN_DATE: ${{ github.event.inputs.date || '' }}
@@ -69,7 +69,7 @@ jobs:
         run: |
           git config user.name "briefing-bot"
           git config user.email "bot@briefingroom.kr"
-          git add briefing.py briefingroom/ data/ texts/ pdfs/ list.html .github/workflows/
+          git add briefing.py briefingroom/ data/ texts/ pdfs/ .github/workflows/
           git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d) $(date +%H:%M)"
           git push
 
