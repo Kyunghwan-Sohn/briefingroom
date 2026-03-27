@@ -139,8 +139,17 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
 
             news = item.get("news_articles", [])
             if news:
-                news_text = " · ".join(_escape_html(a["source"]) for a in news[:3])
-                lines.append(f"  📰 {news_text}")
+                for article in news[:2]:
+                    news_title = _escape_html(article.get("title", ""))[:40]
+                    news_src = _escape_html(article.get("source", ""))
+                    news_url = article.get("url", "")
+                    news_summary = _escape_html(article.get("summary", ""))[:60]
+                    if news_url:
+                        lines.append(f'  📰 <a href="{news_url}">{news_src}: {news_title}</a>')
+                    else:
+                        lines.append(f"  📰 {news_src}: {news_title}")
+                    if news_summary:
+                        lines.append(f"     <i>{news_summary}</i>")
 
             lines.append("")
 
@@ -313,6 +322,24 @@ def _validate_message(text: str) -> list[str]:
     return errors
 
 
+def _enrich_news(selected: dict) -> None:
+    """선정된 보도자료에 Google News 기사를 실시간 검색하여 추가"""
+    from briefingroom.news import search_related_news
+    import time as _time
+
+    total = 0
+    for cat, top_items in selected.items():
+        for source, item, src_count in top_items:
+            if item.get("news_articles"):
+                continue
+            articles = search_related_news(item.get("title", ""), source, max_results=2)
+            item["news_articles"] = articles[:2]
+            total += len(articles[:2])
+            _time.sleep(0.3)
+
+    print(f"  뉴스 검색 완료: {total}건 매칭")
+
+
 def send_daily_briefing(items: list[dict], target: date, session: str = "") -> bool:
     """일일 브리핑 텔레그램 발송 (메인 함수)
     session: 'am' (오전), 'pm' (오후), '' (자동)
@@ -325,17 +352,14 @@ def send_daily_briefing(items: list[dict], target: date, session: str = "") -> b
     label = {"am": "오전", "pm": "오후"}.get(session, "")
     print(f"[텔레그램 {label} 브리핑 발송]")
 
+    # 선정된 보도자료에 뉴스 기사 실시간 검색
+    selected = select_top_articles(items)
+    print("  [뉴스 기사 실시간 검색]")
+    _enrich_news(selected)
+
     text = format_daily_message(items, target, session=session)
     print(f"  총합 메시지 길이: {len(text)}자")
 
     result = send_telegram(text)
-
-    # 분야별 상세 메시지 발송
-    if result:
-        import time as _time
-        _time.sleep(2)
-        print("  [분야별 상세 발송]")
-        sent = send_category_details(items, target)
-        print(f"  분야별 {sent}건 발송 완료")
 
     return result
