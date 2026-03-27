@@ -106,7 +106,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .card-meta-i{font-family:var(--mono);font-size:10px;color:var(--muted)}
 .card-meta-i .kw-tag{color:var(--accent);font-weight:600;background:var(--accent-l);padding:1px 6px;border-radius:3px;margin:0 1px}
 .card-actions{display:flex;gap:5px;margin-top:8px}
-.c-btn{display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:6px;font-family:var(--mono);font-size:10px;cursor:pointer;transition:all .12s;text-decoration:none;border:1px solid var(--border);color:var(--muted);background:none}
+.c-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;min-height:36px;font-family:var(--mono);font-size:10px;cursor:pointer;transition:all .12s;text-decoration:none;border:1px solid var(--border);color:var(--muted);background:none}
 .c-btn:hover{color:var(--text);border-color:var(--border2);background:var(--bg2)}
 .c-btn.primary{background:var(--text);color:#fff;border-color:var(--text)}
 .c-btn.primary:hover{background:var(--accent);border-color:var(--accent)}
@@ -115,7 +115,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .detail{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.95);width:680px;max-width:92vw;max-height:88vh;background:var(--surface);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.2);z-index:21;overflow-y:auto;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.4,0,.2,1)}
 .detail.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
 .detail-hdr{position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;z-index:1}
-.d-close{width:28px;height:28px;border-radius:7px;background:var(--bg2);border:1px solid var(--border);cursor:pointer;color:var(--muted);font-size:14px;display:grid;place-items:center;transition:all .12s}
+.d-close{width:44px;height:44px;border-radius:10px;background:var(--bg2);border:1px solid var(--border);cursor:pointer;color:var(--muted);font-size:16px;display:grid;place-items:center;transition:all .12s}
 .d-close:hover{color:var(--text);background:var(--bg)}
 .detail-body{padding:20px;flex:1}
 .d-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:6px;margin-bottom:12px}
@@ -141,17 +141,17 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .hero-stat{text-align:center;padding:8px 14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px}
 .hero-stat-num{font-family:var(--serif);font-size:18px;font-weight:700;color:#fff}
 .hero-stat-label{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.6);letter-spacing:.5px;margin-top:2px}
-.hero-dismiss{position:absolute;top:8px;right:12px;background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:14px}
+.hero-dismiss{position:absolute;top:8px;right:12px;background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:14px;width:44px;height:44px;display:grid;place-items:center}
 .hero-banner.hidden{display:none}
 .sub-bar{background:linear-gradient(135deg,#0f172a,#2563eb);border-radius:10px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .sub-bar-btn{padding:8px 16px;background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:7px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .15s;text-decoration:none}
 .sub-bar-btn:hover{background:rgba(255,255,255,.28)}
 .mobile-date-nav{display:none;align-items:center;justify-content:space-between;background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;position:sticky;top:56px;z-index:7}
 .mob-date-label{font-family:var(--mono);font-size:13px;color:var(--text2);font-weight:500}
-.mob-date-arrow{background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:5px 14px;cursor:pointer;color:var(--text);font-size:13px}
+.mob-date-arrow{background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:10px 18px;cursor:pointer;color:var(--text);font-size:13px;min-height:44px;min-width:44px;display:grid;place-items:center}
 .mob-filter{display:none;overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--surface);border-bottom:1px solid var(--border);padding:8px 12px;gap:6px;position:sticky;top:100px;z-index:6;scrollbar-width:none}
 .mob-filter::-webkit-scrollbar{display:none}
-.mob-filter-btn{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-family:var(--mono);font-size:11px;color:var(--text2);cursor:pointer;transition:all .12s;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.mob-filter-btn{flex-shrink:0;padding:10px 16px;border-radius:20px;min-height:44px;border:1.5px solid var(--border);background:var(--surface);font-family:var(--mono);font-size:11px;color:var(--text2);cursor:pointer;transition:all .12s;white-space:nowrap;display:flex;align-items:center;gap:5px}
 .mob-filter-btn:hover{border-color:var(--border2);background:var(--bg2)}
 .mob-filter-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
 .mob-filter-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
@@ -160,22 +160,37 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .hero-banner{margin-left:0;flex-direction:column;text-align:center;padding:16px}
   .hero-left h2{font-size:16px}
   .hero-stats{justify-content:center}
-  .mobile-date-nav{display:flex}
-  .mob-filter{display:flex}
+  .mobile-date-nav{display:flex;height:46px}
+  .mob-filter{display:flex;top:calc(56px + 46px)}
   .sub-bar{flex-wrap:nowrap}
   .sidebar{display:none}.main{margin-left:0}
   .cards-grid{grid-template-columns:1fr}
-  .detail{width:100%;max-width:100vw;max-height:100vh;border-radius:0;top:0;left:0;transform:translateY(100%)}
+  .detail{width:100%;max-width:100vw;max-height:100vh;border-radius:16px 16px 0 0;top:auto;bottom:0;left:0;right:0;transform:translateY(100%)}
   .detail.open{transform:translateY(0)}
+  .detail-hdr{border-radius:16px 16px 0 0}
+  .detail-hdr::before{content:'';display:block;width:36px;height:4px;background:var(--border2);border-radius:2px;position:absolute;top:8px;left:50%;transform:translateX(-50%)}
   .header-sub-area{display:none}
   .header{padding:0 16px}
-  .mobile-cta{display:flex}
-  .topbar{top:142px}
+  .mobile-cta{display:flex;padding-bottom:max(12px, env(safe-area-inset-bottom))}
+  .topbar{position:relative;top:auto}
+  .content{padding:16px}
+  .d-close{width:44px;height:44px}
 }
-.mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:15;background:linear-gradient(135deg,#0f172a,#1e40af);padding:12px 16px;gap:8px;align-items:center;box-shadow:0 -4px 20px rgba(0,0,0,.15)}
+.mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:15;background:linear-gradient(135deg,#0f172a,#1e40af);padding:12px 16px;padding-bottom:max(12px, env(safe-area-inset-bottom));gap:8px;align-items:center;box-shadow:0 -4px 20px rgba(0,0,0,.15)}
 .mobile-cta-text{color:rgba(255,255,255,.85);font-size:12px;white-space:nowrap}
 .mobile-cta-btn{flex:1;padding:10px;background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;text-align:center;transition:all .15s;text-decoration:none}
 .mobile-cta-btn:hover{background:rgba(255,255,255,.28)}
+.ministry-sheet{display:none;position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.4);backdrop-filter:blur(4px)}
+.ministry-sheet.open{display:flex;align-items:flex-end}
+.ministry-sheet-inner{width:100%;max-height:70vh;background:var(--surface);border-radius:16px 16px 0 0;overflow-y:auto;padding-bottom:max(16px, env(safe-area-inset-bottom))}
+.ministry-sheet-hdr{position:sticky;top:0;background:var(--surface);padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;border-radius:16px 16px 0 0}
+.ministry-sheet-hdr::before{content:'';display:block;width:36px;height:4px;background:var(--border2);border-radius:2px;position:absolute;top:8px;left:50%;transform:translateX(-50%)}
+.ministry-sheet-title{font-family:var(--serif);font-size:16px;font-weight:700}
+.ministry-sheet-close{width:44px;height:44px;border-radius:10px;background:var(--bg2);border:1px solid var(--border);cursor:pointer;color:var(--muted);font-size:16px;display:grid;place-items:center}
+.ministry-sheet-list{padding:8px 12px}
+.ministry-sheet-item{display:flex;align-items:center;justify-content:space-between;padding:12px 10px;border-radius:8px;cursor:pointer;min-height:44px}
+.ministry-sheet-item:hover{background:var(--bg2)}
+.ministry-sheet-item.active{background:var(--accent-l)}
 .empty{text-align:center;padding:50px 0;color:var(--muted);grid-column:1/-1}
 .empty-icon{font-size:28px;margin-bottom:10px;opacity:.5}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -223,6 +238,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   <button class="mob-filter-btn" onclick="mobSetFilter('산업기술',this)"><span class="mob-filter-dot" style="background:var(--c-ind)"></span>산업·기술</button>
   <button class="mob-filter-btn" onclick="mobSetFilter('외교안보',this)"><span class="mob-filter-dot" style="background:var(--c-dip)"></span>외교·안보</button>
   <button class="mob-filter-btn" onclick="mobSetFilter('행정법제',this)"><span class="mob-filter-dot" style="background:var(--c-adm)"></span>행정·법제</button>
+  <button class="mob-filter-btn" onclick="openMinistrySheet()" style="border-color:var(--accent);color:var(--accent)">부처별 ▼</button>
 </div>
 
 <div class="body-wrap">
@@ -289,6 +305,16 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       </div>
     </div>
   </main>
+</div>
+
+<div class="ministry-sheet" id="ministry-sheet" onclick="if(event.target===this)closeMinistrySheet()">
+  <div class="ministry-sheet-inner">
+    <div class="ministry-sheet-hdr">
+      <span class="ministry-sheet-title">부처별 필터</span>
+      <button class="ministry-sheet-close" onclick="closeMinistrySheet()">✕</button>
+    </div>
+    <div class="ministry-sheet-list"></div>
+  </div>
 </div>
 
 <div class="detail-overlay" id="d-overlay" onclick="closeDetail()"></div>
@@ -491,7 +517,7 @@ function openDetail(id){
   const kwBox=document.getElementById('d-kws');kwBox.textContent='';
   it.kws.forEach(k=>{const span=document.createElement('span');span.className='kw';span.textContent=`# ${k}`;kwBox.appendChild(span)});
   document.getElementById('d-src').href=it.orig||'#';
-  document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.body.style.overflow='hidden';
+  document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.getElementById('detail').scrollTop=0;document.body.style.overflow='hidden';history.pushState({detail:true},'');
 }
 function closeDetail(){document.getElementById('d-overlay').classList.remove('open');document.getElementById('detail').classList.remove('open');document.body.style.overflow=''}
 function updateSidebar(){
@@ -532,7 +558,12 @@ function mobSetFilter(cat,el){
   document.querySelectorAll('.f-item').forEach(i=>i.classList.remove('active'));
   expanded={};render();
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail()}if(e.key==='/'&&!e.target.matches('input,textarea')){e.preventDefault();document.getElementById('search-in').focus()}});
+// 뒤로가기(popstate) → 디테일/부처별 시트 닫기
+window.addEventListener('popstate',e=>{
+  if(document.getElementById('detail').classList.contains('open')){closeDetail();return}
+  if(document.querySelector('.ministry-sheet.open')){closeMinistrySheet();return}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();closeMinistrySheet()}if(e.key==='/'&&!e.target.matches('input,textarea')){e.preventDefault();document.getElementById('search-in').focus()}});
 
 // 초기화
 (async()=>{
@@ -579,6 +610,51 @@ function renderSourceBadges(){
     tag.style.cssText='font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);color:var(--text2);cursor:pointer;white-space:nowrap';
     tag.textContent=`${src} ${cnt}`;tag.addEventListener('click',()=>{curFilter=src;render()});box.appendChild(tag);
   });
+}
+
+// 바텀시트 스와이프 다운 닫기
+(function(){
+  const det=document.getElementById('detail');
+  let startY=0,dragging=false;
+  det.addEventListener('touchstart',e=>{
+    if(det.scrollTop<=0){startY=e.touches[0].clientY;dragging=true}
+  },{passive:true});
+  det.addEventListener('touchmove',e=>{
+    if(!dragging)return;
+    const dy=e.touches[0].clientY-startY;
+    if(dy>0)det.style.transform=`translateY(${dy}px)`;
+  },{passive:true});
+  det.addEventListener('touchend',e=>{
+    if(!dragging)return;dragging=false;
+    const dy=parseInt(det.style.transform.replace(/[^0-9-]/g,''))||0;
+    if(dy>80){closeDetail()}
+    det.style.transform='';
+  });
+})();
+
+// 부처별 필터 바텀시트
+function openMinistrySheet(){
+  const sheet=document.getElementById('ministry-sheet');
+  if(!sheet)return;
+  const list=sheet.querySelector('.ministry-sheet-list');
+  list.innerHTML='';
+  sortedSources.forEach(m=>{
+    const cnt=countsBySource[m]||0;
+    const cat=allItems.find(i=>i.src===m)?.cat||'행정법제';
+    const item=document.createElement('div');
+    item.className='ministry-sheet-item'+(curFilter===m?' active':'');
+    item.innerHTML='<div style="display:flex;align-items:center;gap:8px"><div class="f-dot" style="background:'+CC[cat]+'"></div><span style="font-size:13px;color:var(--text2)">'+m+'</span></div><span class="f-cnt">'+cnt+'</span>';
+    item.addEventListener('click',()=>{curFilter=m;render();closeMinistrySheet()});
+    list.appendChild(item);
+  });
+  sheet.classList.add('open');
+  history.pushState({sheet:true},'');
+  document.body.style.overflow='hidden';
+}
+function closeMinistrySheet(){
+  const sheet=document.getElementById('ministry-sheet');
+  if(sheet)sheet.classList.remove('open');
+  document.body.style.overflow='';
 }
 
 let _shareTitle='',_shareUrl='';
