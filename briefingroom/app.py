@@ -82,17 +82,8 @@ def main():
         except ValueError:
             pass
 
-    # ── 토요일: 크롤링 없이 주간 요약만 ──
-    if weekly_enabled or target.weekday() == 5:
-        print("=" * 60)
-        print(f"  브리핑룸  |  {target}  |  주간 보도자료 요약 (토요일)")
-        print("=" * 60)
-        from briefingroom.weekly import run_weekly
-        run_weekly(target)
-        return
-
     # ── 일요일: 크롤링 없이 차주 정부 일정만 ──
-    if schedule_enabled or target.weekday() == 6:
+    if (schedule_enabled or target.weekday() == 6) and not weekly_enabled:
         print("=" * 60)
         print(f"  브리핑룸  |  {target}  |  차주 정부 일정 (일요일)")
         print("=" * 60)
@@ -100,8 +91,11 @@ def main():
         run_schedule(target)
         return
 
+    is_saturday = weekly_enabled or target.weekday() == 5
+    mode = "토요일 크롤링 + 주간 요약" if is_saturday else "일별 보도자료"
+
     print("=" * 60)
-    print(f"  브리핑룸  |  {target}  |  일별 보도자료")
+    print(f"  브리핑룸  |  {target}  |  {mode}")
     print("=" * 60)
 
     all_items = []
@@ -279,8 +273,17 @@ def main():
     print(f"{'━' * 60}")
     _db_audit(target)
 
-    # ── Phase 7: 텔레그램 일일 브리핑 발송 ──────────────────────
-    send_daily_briefing(all_items, target)
+    # ── Phase 7: 텔레그램 발송 ──────────────────────────────────
+    if is_saturday:
+        # 토요일: 일일 브리핑 대신 주간 요약 (월~토 전체)
+        from briefingroom.weekly import run_weekly
+        print(f"\n{'━' * 60}")
+        print("  Phase 7: 주간 보도자료 요약 (월~토)")
+        print(f"{'━' * 60}")
+        run_weekly(target)
+    else:
+        # 월~금: 일일 브리핑
+        send_daily_briefing(all_items, target)
 
     # ── 완료 대시보드 ─────────────────────────────────────────
     print_dashboard(target.isoformat())
