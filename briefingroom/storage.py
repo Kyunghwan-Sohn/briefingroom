@@ -51,7 +51,14 @@ def save_daily_snapshot(items: Iterable[dict], target: date) -> Path:
         "items": serialized,
     }
     out_path = DATA_DIR / f"{target.isoformat()}.json"
-    out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # U+FFFD 깨진 문자 검출 가드
+    raw = json.dumps(payload, ensure_ascii=False, indent=2)
+    if "\ufffd" in raw:
+        broken_count = raw.count("\ufffd")
+        print(f"  [경고] JSON에 깨진 문자 {broken_count}건 발견 → 제거 후 저장")
+        raw = raw.replace("\ufffd", "")
+    out_path.write_text(raw, encoding="utf-8")
 
     latest_payload = dict(payload)
     latest_payload["snapshot"] = out_path.name
