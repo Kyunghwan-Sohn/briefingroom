@@ -2,8 +2,12 @@ name: briefingroom
 
 on:
   schedule:
-    # 오후: KST 18:00 = UTC 09:00
-    - cron: '0 9 * * *'
+    # 오전: KST 11:40 = UTC 02:40 (월~금)
+    - cron: '40 2 * * 1-5'
+    # 오후: KST 18:00 = UTC 09:00 (월~금)
+    - cron: '0 9 * * 1-5'
+    # 주간: KST 일요일 10:00 = UTC 01:00
+    - cron: '0 1 * * 0'
   workflow_dispatch:
     inputs:
       date:
@@ -60,7 +64,7 @@ jobs:
           PROXY_URL: ${{ secrets.PROXY_URL }}
           CRAWL_DELAY_MIN: ${{ vars.CRAWL_DELAY_MIN || '30' }}
           CRAWL_DELAY_MAX: ${{ vars.CRAWL_DELAY_MAX || '90' }}
-          TELEGRAM_ENABLED: 'false'
+          TELEGRAM_ENABLED: 'true'
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           RUN_DATE: ${{ github.event.inputs.date || '' }}

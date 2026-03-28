@@ -1,12 +1,14 @@
-"""텔레그램 일일 브리핑 발송
+"""텔레그램 일일/주간 브리핑 발송
 
-오후 6시 당일 보도자료 종합 → 분야별 대표 1~2건 → 텔레그램 채널 발송
+일일: 오전/오후 당일 보도자료 종합 → 분야별 대표 1~2건
+주간: 일요일 오전 7일간 보도자료 통계 + 트렌드 분석
 """
 from __future__ import annotations
 
 import os
-from collections import defaultdict
-from datetime import date
+import sqlite3
+from collections import Counter, defaultdict
+from datetime import date, timedelta
 
 import requests
 
@@ -363,3 +365,360 @@ def send_daily_briefing(items: list[dict], target: date, session: str = "") -> b
     result = send_telegram(text)
 
     return result
+
+
+# ═══════════════════════════════════════════════════════════
+#  주간 브리핑 (Weekly)
+# ═══════════════════════════════════════════════════════════
+
+def _get_week_range(target: date) -> tuple[date, date]:
+    """target 기준 직전 월~금 날짜 범위"""
+    # 일요일 발송 기준 → 직전 월~금
+    end = target - timedelta(days=target.weekday() + 2)  # 직전 금요일
+    start = end - timedelta(days=4)  # 직전 월요일
+    # 주말도 보도자료가 있을 수 있으므로 토~일 포함
+    return start, target - timedelta(days=1)  # 월~토
+
+
+def analyze_weekly(target: date) -> dict:
+    """DB에서 최근 7일 + 전주 7일 집계하여 주간 통계 생성"""
+    from briefingroom.db import DB_PATH
+
+    start, end = _get_week_range(target)
+    prev_start = start - timedelta(days=7)
+    prev_end = start - timedelta(days=1)
+
+    conn = sqlite3.connect(str(DB_PATH))
+    conn.row_factory = sqlite3.Row
+
+    # 이번 주 데이터
+    rows = conn.execute(
+        "SELECT * FROM articles WHERE date BETWEEN ? AND ?",
+        (start.isoformat(), end.isoformat()),
+    ).fetchall()
+
+    # 전주 데이터 (비교용)
+    prev_rows = conn.execute(
+        "SELECT source, category, keywords FROM articles WHERE date BETWEEN ? AND ?",
+        (prev_start.isoformat(), prev_end.isoformat()),
+    ).fetchall()
+    conn.close()
+
+    # 이번 주 통계
+    total = len(rows)
+    by_cat = Counter()
+    by_source = Counter()
+    keywords = Counter()
+    items_by_cat = defaultdict(list)
+
+    for r in rows:
+        cat = r["category"] or CAT_MAP.get(r["source"], "행정법제")
+        by_cat[cat] += 1
+        by_source[r["source"]] += 1
+        items_by_cat[cat].append(dict(r))
+        if r["keywords"]:
+            for kw in r["keywords"].split(","):
+                kw = kw.strip()
+                if kw and len(kw) > 1:
+                    keywords[kw] += 1
+
+    # 전주 통계 (비교)
+    prev_total = len(prev_rows)
+    prev_by_source = Counter(r["source"] for r in prev_rows)
+    prev_keywords = Counter()
+    for r in prev_rows:
+        if r["keywords"]:
+            for kw in r["keywords"].split(","):
+                kw = kw.strip()
+                if kw and len(kw) > 1:
+                    prev_keywords[kw] += 1
+
+    # 부처 증감
+    source_delta = {}
+    all_sources = set(by_source.keys()) | set(prev_by_source.keys())
+    for src in all_sources:
+        curr = by_source.get(src, 0)
+        prev = prev_by_source.get(src, 0)
+        source_delta[src] = curr - prev
+
+    # 키워드 증감
+    kw_delta = {}
+    for kw, cnt in keywords.most_common(30):
+        prev_cnt = prev_keywords.get(kw, 0)
+        if prev_cnt > 0:
+            change_pct = ((cnt - prev_cnt) / prev_cnt) * 100
+        else:
+            change_pct = 999  # 신규
+        kw_delta[kw] = {"count": cnt, "prev": prev_cnt, "change_pct": change_pct}
+
+    return {
+        "start": start,
+        "end": end,
+        "total": total,
+        "prev_total": prev_total,
+        "by_cat": dict(by_cat),
+        "by_source": by_source,
+        "prev_by_source": prev_by_source,
+        "source_delta": source_delta,
+        "keywords": keywords,
+        "kw_delta": kw_delta,
+        "items_by_cat": items_by_cat,
+        "sources_count": len(by_source),
+    }
+
+
+def _select_weekly_top(analysis: dict) -> dict:
+    """주간 분야별 TOP 1 선정 — Google News RSS 기사 수 기반"""
+    from briefingroom.news import search_related_news
+    import time as _time
+
+    selected = {}
+    for cat, emoji in CAT_ORDER:
+        items = analysis["items_by_cat"].get(cat, [])
+        if not items:
+            continue
+
+        # 요약 있는 건만 후보
+        candidates = [it for it in items if it.get("summary") and not it["summary"].startswith("[")]
+        if not candidates:
+            candidates = items[:5]
+
+        # 부처별 대표 1건 (건수 최다 부처 우선)
+        by_source = defaultdict(list)
+        for it in candidates:
+            by_source[it["source"]].append(it)
+
+        source_tops = []
+        for src, src_items in by_source.items():
+            source_tops.append((src, src_items[0], len(src_items)))
+        source_tops.sort(key=lambda x: -x[2])
+
+        # 상위 3개 부처 대표에 대해 Google News 검색
+        best = None
+        best_news_count = -1
+        for src, item, cnt in source_tops[:5]:
+            articles = search_related_news(item["title"], src, max_results=5)
+            news_count = len(articles)
+            print(f"    [{cat}] {src}: \"{item['title'][:30]}...\" → 뉴스 {news_count}건")
+            if news_count > best_news_count:
+                best_news_count = news_count
+                best = (src, item, cnt, news_count, articles[:2])
+            _time.sleep(0.3)
+
+        if best:
+            selected[cat] = best
+
+    return selected
+
+
+def format_weekly_main(analysis: dict, selected: dict, target: date) -> str:
+    """주간 메인 브리핑 메시지 (A)"""
+    start = analysis["start"]
+    end = analysis["end"]
+    total = analysis["total"]
+    prev_total = analysis["prev_total"]
+
+    # 증감 표시
+    if prev_total > 0:
+        delta_pct = ((total - prev_total) / prev_total) * 100
+        delta_str = f"▲{delta_pct:.0f}%" if delta_pct > 0 else (f"▼{abs(delta_pct):.0f}%" if delta_pct < 0 else "━")
+    else:
+        delta_str = "신규"
+
+    # 키워드 TOP 5
+    top_kw = [kw for kw, _ in analysis["keywords"].most_common(5)]
+    kw_str = " ".join(f"#{kw}" for kw in top_kw) if top_kw else ""
+
+    lines = [
+        f"📊 <b>브리핑룸 | {start.month}/{start.day}~{end.month}/{end.day} 주간 리포트</b>",
+        "",
+        f"🔢 이번 주 한눈에",
+        f"  총 {total}건 · {analysis['sources_count']}개 부처 · 5개 분야",
+        f"  전주 대비: {delta_str} ({prev_total}건→{total}건)",
+        "",
+    ]
+
+    if kw_str:
+        lines.append(f"🔥 핵심 키워드")
+        lines.append(f"  {kw_str}")
+        lines.append("")
+
+    lines.append("━━━ 분야별 TOP 1 ━━━")
+    lines.append("")
+
+    for cat, emoji in CAT_ORDER:
+        if cat not in selected:
+            continue
+        src, item, cnt, news_cnt, news_articles = selected[cat]
+        cat_total = analysis["by_cat"].get(cat, 0)
+        cat_name = {"금융경제": "금융·경제", "사회복지": "사회·복지", "산업기술": "산업·기술",
+                     "외교안보": "외교·안보", "행정법제": "행정·법제"}.get(cat, cat)
+
+        title = _escape_html(item.get("title", ""))[:50]
+        summary = item.get("summary", "")
+        if summary.startswith("요약:"):
+            summary = summary.replace("요약:", "").strip()
+        summary = _escape_html(summary.split("키워드:")[0].strip())[:120]
+
+        link = item.get("url", SITE_URL)
+
+        lines.append(f"{emoji} <b>{cat_name}</b> ({cat_total}건)")
+        lines.append(f"  {_escape_html(src)} | 📰 뉴스 {news_cnt}건")
+        lines.append(f'  ▸ <a href="{link}">{title}</a>')
+        if summary:
+            lines.append(f"  📌 <i>{summary}</i>")
+        lines.append("")
+
+    lines.append("──────────────────")
+    lines.append(f'🔗 <a href="{SITE_URL}">전체 보도자료 보기</a>')
+
+    text = "\n".join(lines)
+    if len(text) > 4000:
+        text = text[:3950] + f'\n\n... <a href="{SITE_URL}">더보기</a>'
+    return text
+
+
+def format_weekly_ranking(analysis: dict) -> str:
+    """부처 활동 랭킹 메시지 (B)"""
+    start = analysis["start"]
+    end = analysis["end"]
+
+    lines = [
+        f"🏛 <b>이번 주 부처 활동 TOP 10</b>",
+        f"  ({start.month}/{start.day}~{end.month}/{end.day})",
+        "",
+    ]
+
+    top10 = analysis["by_source"].most_common(10)
+    for rank, (src, cnt) in enumerate(top10, 1):
+        delta = analysis["source_delta"].get(src, 0)
+        if delta > 0:
+            arrow = f"▲{delta}"
+        elif delta < 0:
+            arrow = f"▼{abs(delta)}"
+        else:
+            arrow = "━"
+        lines.append(f"  {rank:>2}. {_escape_html(src):<14} {cnt}건 {arrow}")
+
+    lines.append("")
+
+    # 급등/급락
+    rises = sorted(analysis["source_delta"].items(), key=lambda x: -x[1])[:3]
+    falls = sorted(analysis["source_delta"].items(), key=lambda x: x[1])[:3]
+
+    notable_rises = [(s, d) for s, d in rises if d > 3]
+    notable_falls = [(s, d) for s, d in falls if d < -3]
+
+    if notable_rises:
+        rise_str = ", ".join(f"{s}(+{d})" for s, d in notable_rises)
+        lines.append(f"📈 급등: {_escape_html(rise_str)}")
+    if notable_falls:
+        fall_str = ", ".join(f"{s}({d})" for s, d in notable_falls)
+        lines.append(f"📉 급락: {_escape_html(fall_str)}")
+
+    # 신규 부처 (전주 0건 → 이번 주 등장)
+    new_sources = [(s, c) for s, c in analysis["by_source"].items()
+                   if analysis["prev_by_source"].get(s, 0) == 0 and c > 0]
+    if new_sources:
+        new_str = ", ".join(f"{s}({c}건)" for s, c in sorted(new_sources, key=lambda x: -x[1])[:3])
+        lines.append(f"🆕 이번 주 신규: {_escape_html(new_str)}")
+
+    return "\n".join(lines)
+
+
+def format_weekly_keywords(analysis: dict) -> str:
+    """키워드 트렌드 메시지 (C)"""
+    start = analysis["start"]
+    end = analysis["end"]
+
+    lines = [
+        f"🔍 <b>이번 주 정책 키워드 트렌드</b>",
+        f"  ({start.month}/{start.day}~{end.month}/{end.day})",
+        "",
+    ]
+
+    # 급상승 (신규 또는 +50% 이상)
+    rising = [(kw, d) for kw, d in analysis["kw_delta"].items()
+              if d["change_pct"] >= 50 and d["count"] >= 3]
+    rising.sort(key=lambda x: -x[1]["change_pct"])
+
+    if rising:
+        lines.append("📈 급상승")
+        for kw, d in rising[:5]:
+            if d["prev"] == 0:
+                pct = "신규"
+            else:
+                pct = f"+{d['change_pct']:.0f}%"
+            lines.append(f"  #{_escape_html(kw)} ({d['count']}회, {pct})")
+        lines.append("")
+
+    # 꾸준한 관심 (전주와 비슷, 3회 이상)
+    steady = [(kw, d) for kw, d in analysis["kw_delta"].items()
+              if -30 < d["change_pct"] < 50 and d["count"] >= 3 and d["prev"] > 0]
+    steady.sort(key=lambda x: -x[1]["count"])
+
+    if steady:
+        lines.append("📊 꾸준한 관심")
+        for kw, d in steady[:5]:
+            lines.append(f"  #{_escape_html(kw)} ({d['count']}회)")
+        lines.append("")
+
+    # 키워드-부처 연결 (TOP 3 키워드에 대해)
+    if analysis["keywords"]:
+        lines.append("🔗 키워드 연결")
+        # DB에서 키워드-부처 매핑은 items_by_cat에서 추출
+        all_items = []
+        for cat_items in analysis["items_by_cat"].values():
+            all_items.extend(cat_items)
+
+        for kw, _ in analysis["keywords"].most_common(3):
+            sources = Counter()
+            for it in all_items:
+                if it.get("keywords") and kw in it["keywords"]:
+                    sources[it["source"]] += 1
+            if sources:
+                src_str = ", ".join(f"{s}({c})" for s, c in sources.most_common(3))
+                lines.append(f"  #{_escape_html(kw)} ← {_escape_html(src_str)}")
+
+    return "\n".join(lines)
+
+
+def send_weekly_briefing(target: date) -> bool:
+    """주간 브리핑 3건 연속 발송 (메인 함수)"""
+    import time as _time
+
+    print(f"\n{'═' * 60}")
+    print(f"[주간 브리핑 발송]")
+
+    # 1. 주간 분석
+    print("  [1/4] 주간 데이터 분석 중...")
+    analysis = analyze_weekly(target)
+    if analysis["total"] == 0:
+        print("  주간 데이터 없음 → 스킵")
+        return False
+    print(f"  이번 주: {analysis['total']}건 / 전주: {analysis['prev_total']}건")
+
+    # 2. 분야별 TOP 1 선정 (Google News RSS 검색)
+    print("  [2/4] 분야별 TOP 1 선정 (뉴스 검색 중)...")
+    selected = _select_weekly_top(analysis)
+    print(f"  선정 완료: {len(selected)}개 분야")
+
+    # 3. 메시지 포맷
+    print("  [3/4] 메시지 생성 중...")
+    msg_main = format_weekly_main(analysis, selected, target)
+    msg_ranking = format_weekly_ranking(analysis)
+    msg_keywords = format_weekly_keywords(analysis)
+
+    print(f"  메인: {len(msg_main)}자 / 랭킹: {len(msg_ranking)}자 / 키워드: {len(msg_keywords)}자")
+
+    # 4. 발송
+    print("  [4/4] 텔레그램 발송...")
+    ok = True
+    for label, text in [("메인", msg_main), ("랭킹", msg_ranking), ("키워드", msg_keywords)]:
+        result = send_telegram(text)
+        if not result:
+            ok = False
+            print(f"  ❌ {label} 발송 실패")
+        _time.sleep(1)
+
+    return ok
