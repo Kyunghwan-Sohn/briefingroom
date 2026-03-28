@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2019101622583347" crossorigin="anonymous"></script>
 <title>브리핑룸 — 51개 정부 부처 보도자료 AI 요약</title>
 <meta name="description" content="대한민국 51개 정부 부처 + 금융기관 보도자료를 매일 자동 수집하고 AI가 요약합니다. 텔레그램 채널에서도 받아보세요.">
 <meta name="robots" content="index, follow">
@@ -25,13 +24,13 @@
 <link rel="apple-touch-icon" href="/icon-192.svg">
 <link rel="alternate" type="application/rss+xml" title="브리핑룸 RSS" href="https://govbrief.kr/feed/rss.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Pretendard:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f5f4f0;--bg2:#eceae5;--surface:#fff;--border:#e0ddd7;--border2:#ccc9c2;--text:#1c1b18;--text2:#4a4844;--muted:#96938c;--accent:#2f54eb;--accent-l:#eef0fd;--c-fin:#2f54eb;--c-soc:#16a34a;--c-ind:#d97706;--c-dip:#dc2626;--c-adm:#7c3aed;--serif:'Noto Serif KR',serif;--sans:'Pretendard',sans-serif;--mono:'DM Mono',monospace}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 1px 1px,var(--border) 1px,transparent 0);background-size:24px 24px;opacity:.5;pointer-events:none;z-index:0}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 1px 1px,var(--border) 1px,transparent 0);background-size:24px 24px;opacity:.5;pointer-events:none;z-index:0;will-change:transform}
 .header{position:sticky;top:0;z-index:10;background:rgba(245,244,240,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
 .logo-mark{width:30px;height:30px;background:var(--text);border-radius:7px;display:grid;place-items:center;font-size:14px}
@@ -40,7 +39,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .header-sub-label{font-size:12px;color:var(--text2);white-space:nowrap;font-weight:500}
 .header-sub-btn{padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s}
 .header-sub-btn:hover{background:#1a3fd4}
-.body-wrap{display:flex;flex:1;position:relative;z-index:1}
+.body-wrap{display:flex;flex:1;position:relative;z-index:1;overflow-x:hidden;min-width:0}
 .sidebar{position:fixed;top:56px;left:0;width:216px;height:calc(100vh - 56px);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:8;overflow-y:auto}
 .sb-top{padding:14px 12px;border-bottom:1px solid var(--border)}
 .date-nav{display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;gap:8px}
@@ -167,7 +166,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .hero-left h2{font-size:16px}
   .hero-stats{justify-content:center}
   .mobile-date-nav{display:flex;height:46px}
-  .mob-filter{display:flex;top:calc(56px + 46px)}
+  .mob-filter{display:flex;top:calc(56px + 46px + 1px)}
   .sub-bar{flex-wrap:nowrap;overflow:hidden}
   .sidebar{display:none}.main{margin-left:0;max-width:100vw;width:100%}
   .cards-grid{grid-template-columns:1fr}
@@ -179,7 +178,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .header{padding:0 16px}
   .mobile-cta{display:flex;padding-bottom:max(12px, env(safe-area-inset-bottom))}
   .topbar{position:relative;top:auto}
-  .content{padding:16px;max-width:100vw;overflow-x:hidden}
+  .content{padding:16px;padding-bottom:80px;max-width:100vw;overflow-x:hidden}
   .d-close{width:44px;height:44px}
 }
 @media(min-width:769px) and (max-width:1024px){
@@ -235,13 +234,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="hero-stat"><div class="hero-stat-num">금융</div><div class="hero-stat-label">특화 분석</div></div>
     <div class="hero-stat"><div class="hero-stat-num">AI</div><div class="hero-stat-label">자동 요약</div></div>
   </div>
-  <button class="hero-dismiss" onclick="dismissHero()" title="닫기">✕</button>
+  <button class="hero-dismiss" onclick="dismissHero()" title="닫기" aria-label="배너 닫기">✕</button>
 </div>
 
 <div class="mobile-date-nav">
-  <button class="mob-date-arrow" onclick="changeDate(-1)">◀</button>
+  <button class="mob-date-arrow" onclick="changeDate(-1)" aria-label="이전 날짜">◀</button>
   <span class="mob-date-label" id="mobile-date-label"></span>
-  <button class="mob-date-arrow" onclick="changeDate(1)">▶</button>
+  <button class="mob-date-arrow" onclick="changeDate(1)" aria-label="다음 날짜">▶</button>
 </div>
 
 <div class="mob-filter" id="mob-filter">
@@ -258,9 +257,9 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   <aside class="sidebar">
     <div class="sb-top">
       <div class="date-nav">
-        <button class="date-arrow" onclick="changeDate(-1)">◀</button>
+        <button class="date-arrow" onclick="changeDate(-1)" aria-label="이전 날짜">◀</button>
         <span class="date-nav-label" id="date-label"></span>
-        <button class="date-arrow" onclick="changeDate(1)">▶</button>
+        <button class="date-arrow" onclick="changeDate(1)" aria-label="다음 날짜">▶</button>
       </div>
     </div>
     <div class="sb-section">
@@ -293,11 +292,11 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="topbar">
       <div class="search-wrap">
         <span class="search-ico">🔍</span>
-        <input class="search-in" type="text" id="search-in" placeholder="보도자료 검색..." oninput="handleSearch(this.value)">
+        <input class="search-in" type="text" id="search-in" aria-label="보도자료 검색" placeholder="보도자료 검색..." oninput="handleSearch(this.value)">
       </div>
       <div class="view-toggle">
-        <button class="v-btn active" onclick="setView('grid',this)">⊞</button>
-        <button class="v-btn" onclick="setView('list',this)">☰</button>
+        <button class="v-btn active" onclick="setView('grid',this)" aria-label="그리드 보기">⊞</button>
+        <button class="v-btn" onclick="setView('list',this)" aria-label="목록 보기">☰</button>
       </div>
     </div>
     <div class="content">
@@ -312,7 +311,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
         <div style="font-family:var(--serif);font-size:15px;font-weight:700;color:var(--text);margin-bottom:10px">🔥 오늘의 핵심 보도자료</div>
         <div id="top-picks-list" style="display:flex;flex-direction:column;gap:8px"></div>
       </div>
-      <div id="source-badges" style="display:none;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:5px"></div>
+      <div id="source-badges" style="display:none;margin-bottom:14px;flex-wrap:wrap;gap:5px"></div>
       <div id="main-content">
         <div class="loading"><div class="loading-spinner"></div><div>데이터 불러오는 중...</div></div>
       </div>
@@ -334,7 +333,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 <div class="detail" id="detail">
   <div class="detail-hdr">
     <span id="d-hdr-min" style="font-family:var(--mono);font-size:11px;color:var(--muted)"></span>
-    <button class="d-close" onclick="closeDetail()">✕</button>
+    <button class="d-close" onclick="closeDetail()" aria-label="닫기">✕</button>
   </div>
   <div class="detail-body">
     <div class="d-badge" id="d-badge"></div>
@@ -347,9 +346,8 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       <a class="d-btn sec" id="d-src" href="#" target="_blank">↗ 원문 보기</a>
     </div>
     <div style="display:flex;gap:6px;margin-top:8px">
-      <button onclick="shareNative()" style="flex:1;padding:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:6px;font-size:12px;cursor:pointer;font-weight:500">📤 공유</button>
-      <button onclick="shareTelegram()" style="flex:1;padding:8px;border:1px solid #0088cc;background:#0088cc;color:#fff;border-radius:6px;font-size:12px;cursor:pointer;font-weight:500">✈ 텔레그램</button>
-      <button onclick="copyLink()" style="flex:1;padding:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:6px;font-size:12px;cursor:pointer;font-weight:500" id="copy-btn">🔗 링크 복사</button>
+      <button onclick="shareNative()" class="c-btn primary" style="flex:1;padding:10px;font-size:12px;justify-content:center">📤 공유</button>
+      <button onclick="copyLink()" class="c-btn" style="flex:1;padding:10px;font-size:12px;justify-content:center" id="copy-btn">🔗 링크 복사</button>
     </div>
   </div>
 </div>
@@ -358,7 +356,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 const SITE_URL='https://govbrief.kr';
 const CC={'금융경제':'var(--c-fin)','사회복지':'var(--c-soc)','산업기술':'var(--c-ind)','외교안보':'var(--c-dip)','행정법제':'var(--c-adm)'};
 const CB={'금융경제':'rgba(47,84,235,.08)','사회복지':'rgba(22,163,74,.08)','산업기술':'rgba(217,119,6,.08)','외교안보':'rgba(220,38,38,.08)','행정법제':'rgba(124,58,237,.08)'};
-const CN={'금융경제':'금융·경제','사회복지':'사회·복지','산업기술':'산업·기술','외교안보':'외교·✕보','행정법제':'행정·법제'};
+const CN={'금융경제':'금융·경제','사회복지':'사회·복지','산업기술':'산업·기술','외교안보':'외교·안보','행정법제':'행정·법제'};
 const CO=['금융경제','사회복지','산업기술','외교안보','행정법제'];
 let allItems=[],curFilter='all',curView='grid',curSearch='',curDate=new Date(),expanded={};
 let groupedByCat={},countsByCat={},countsBySource={},countsByFinSub={},sortedSources=[];
@@ -368,8 +366,8 @@ const FIN_SUB_MAP={
   '금융감독원':'감독규제','공정거래위원회':'감독규제','예금보험공사':'감독규제',
   '한국은행':'시장통화','한국거래소':'시장통화','한국예탁결제원':'시장통화','한국투자공사':'시장통화',
   '금융결제원':'금융인프라','금융보안원':'금융인프라','한국신용정보원':'금융인프라',
-  '한국산업은행':'정✕금융','한국수출입은행':'정책금융','한국주택금융공사':'정책금융','신용보증기금':'정책금융','기술보증기금':'정책금융','서민금융진흥원':'정책금융','한국자산관리공사':'정책금융',
-  '은행연합✕':'업계동향','금융투자협회':'업계동향','보험개발원':'업계동향','한국증권금융':'업계동향',
+  '한국산업은행':'정책금융','한국수출입은행':'정책금융','한국주택금융공사':'정책금융','신용보증기금':'정책금융','기술보증기금':'정책금융','서민금융진흥원':'정책금융','한국자산관리공사':'정책금융',
+  '은행연합회':'업계동향','금융투자협회':'업계동향','보험개발원':'업계동향','한국증권금융':'업계동향',
   '산업통상자원부':'금융정책','산업통상부':'금융정책','조달청':'금융정책',
 };
 
@@ -391,23 +389,23 @@ async function loadData(){
   } else if(wd===0){
     const mon=new Date(curDate);mon.setDate(curDate.getDate()-6);
     dateFiles=[];for(let d=new Date(mon);d<=curDate;d.setDate(d.getDate()+1))dateFiles.push(fmtDate(d));
-    titleSuffix=' (주✕ 종합)';
+    titleSuffix=' (주간 종합)';
   }
 
   document.getElementById('date-label').textContent=ds;
   const mbl=document.getElementById('mobile-date-label');
   if(mbl) mbl.textContent=curDate.getMonth()+1+'월 '+curDate.getDate()+'일';
-  document.getElementById('page-title').textContent=`${curDate.getMonth()+1}월 ${curDate.getDate()}일 보도자료${titleSuffix}`;
+  const _today=new Date();const _isToday=fmtDate(curDate)===fmtDate(_today);const _yest=new Date(_today);_yest.setDate(_today.getDate()-1);const _isYesterday=fmtDate(curDate)===fmtDate(_yest);const _dayLabel=_isToday?' (오늘)':_isYesterday?' (어제)':'';
+  document.getElementById('page-title').textContent=`${curDate.getMonth()+1}월 ${curDate.getDate()}일 보도자료${_dayLabel}${titleSuffix}`;
   document.getElementById('page-sub').textContent=titleSuffix ? `${dateFiles[0]} ~ ${dateFiles[dateFiles.length-1]}` : fmtDateKo(curDate);
 
   try{
     let items=[];
-    for(const df of dateFiles){
-      try{
-        const r=await fetch(`/data/${df}.json`);
-        if(!r.ok) continue;
-        const json=await r.json();
-        const dayItems=(json.items||[]).map(it=>({
+    const _results=await Promise.allSettled(dateFiles.map(df=>fetch(`/data/${df}.json`).then(r=>r.ok?r.json():null).catch(()=>null)));
+    for(const _r of _results){
+      if(_r.status!=='fulfilled'||!_r.value)continue;
+      const json=_r.value;const df=json.target_date||'';
+      const dayItems=(json.items||[]).map(it=>({
           id: `${it.date}_${it.source}_${(it.title||'').slice(0,30)}`.replace(/\s+/g,'_'),
           title: it.title||'',
           src: it.source||'',
@@ -418,14 +416,13 @@ async function loadData(){
           cat: it.category||'행정법제',
           finSub: it.finance_sub||FIN_SUB_MAP[it.source]||'',
         }));
-        items.push(...dayItems);
-      }catch(e){}
+      items.push(...dayItems);
     }
     // 중복 제거 (제목 기준)
     const seen=new Set();
     items=items.filter(it=>{if(seen.has(it.title))return false;seen.add(it.title);return true});
     allItems=items;rebuildIndexes();render();updateSidebar();renderTopPicks();renderSourceBadges();
-  }catch(e){document.getElementById('main-content').innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div>로드 실패: ${e.message}</div></div>`}
+  }catch(e){document.getElementById('main-content').innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div>로드 실패: ${escapeHtml(e.message)}</div></div>`}
 }
 
 function rebuildIndexes(){
@@ -474,7 +471,7 @@ function render(){
   const c=document.getElementById('main-content');c.innerHTML='';
   if(!items.length){c.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div>보도자료가 없습니다</div></div>';return}
   const sb=document.createElement('div');sb.className='sub-bar';
-  sb.innerHTML=`<span style="color:rgba(255,255,255,.85);font-size:13px;flex:1">✈ 텔레그램에서 매일 보도자료 받아보세요</span><a href="https://t.me/govbriefkr" target="_blank" class="sub-bar-btn">채널 입장하기</a>`;
+  sb.innerHTML=`<span style="color:rgba(255,255,255,.85);font-size:13px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">✈ 텔레그램에서 매일 보도자료 받아보세요</span><a href="https://t.me/govbriefkr" target="_blank" class="sub-bar-btn">채널 입장하기</a>`;
   c.appendChild(sb);
   if(curFilter!=='all'){const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;items.forEach((it,i)=>g.appendChild(mkCard(it,i)));c.appendChild(g)}
   else{CO.forEach(cat=>{if(!groupedByCat[cat]?.length)return;c.appendChild(mkBlock(cat,groupedByCat[cat]))})}
@@ -483,7 +480,7 @@ function mkBlock(cat,items){
   const SHOW=4;const isEx=expanded[cat];const shown=isEx?items:items.slice(0,SHOW);
   const b=document.createElement('div');b.className='cat-block';
   const dv=document.createElement('div');dv.className='cat-divider';
-  dv.innerHTML=`<div class="cat-divider-dot" style="background:${CC[cat]}"></div><span class="cat-divider-label">${CN[cat]||cat}</span><div class="cat-divider-line"></div><span class="cat-divider-info">${items.length}건</span>`;
+  dv.innerHTML=`<div class="cat-divider-dot" style="background:${CC[cat]}"></div><span class="cat-divider-label">${escapeHtml(CN[cat]||cat)}</span><div class="cat-divider-line"></div><span class="cat-divider-info">${items.length}건</span>`;
   b.appendChild(dv);
   const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;
   shown.forEach((it,i)=>g.appendChild(mkCard(it,i)));
@@ -521,7 +518,7 @@ function mkCard(it,idx){
 }
 function openDetail(id){
   const it=allItems.find(i=>i.id===id);if(!it)return;
-  _shareTitle=it.title;_shareUrl=it.orig||SITE_URL;
+  _shareTitle=it.title;_shareUrl=`${SITE_URL}?date=${fmtDate(curDate)}&article=${encodeURIComponent(it.title.slice(0,30))}`;
   const col=CC[it.cat]||'var(--accent)';const bg=CB[it.cat]||'rgba(47,84,235,.08)';
   document.getElementById('d-hdr-min').textContent=it.src;
   const b=document.getElementById('d-badge');b.textContent=it.src;b.style.cssText=`background:${bg};color:${col};border:1px solid ${col}44`;
@@ -531,14 +528,14 @@ function openDetail(id){
   const kwBox=document.getElementById('d-kws');kwBox.textContent='';
   it.kws.forEach(k=>{const span=document.createElement('span');span.className='kw';span.textContent=`# ${k}`;kwBox.appendChild(span)});
   document.getElementById('d-src').href=it.orig||'#';
-  document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.getElementById('detail').scrollTop=0;document.body.style.overflow='hidden';history.pushState({detail:true},'');
+  document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.getElementById('detail').scrollTop=0;document.body.style.overflow='hidden';history.pushState({detail:true},'',`?date=${fmtDate(curDate)}&article=${encodeURIComponent(it.title.slice(0,30))}`);
 }
 function closeDetail(){document.getElementById('d-overlay').classList.remove('open');document.getElementById('detail').classList.remove('open');document.body.style.overflow=''}
 function updateSidebar(){
   document.getElementById('cnt-all').textContent=allItems.length;
   CO.forEach(cat=>{const el=document.getElementById(`cnt-${cat}`);if(el)el.textContent=countsByCat[cat]||0});
   const el0=document.getElementById('cnt-금융경제-all');if(el0)el0.textContent=countsByCat['금융경제']||0;
-  ['금융정책','감독규제','시장통화','금융✕프라','정책금융','업계동향'].forEach(sub=>{
+  ['금융정책','감독규제','시장통화','금융인프라','정책금융','업계동향'].forEach(sub=>{
     const el=document.getElementById(`cnt-fin-${sub}`);if(el)el.textContent=countsByFinSub[sub]||0;
   });
   const sb=document.getElementById('ministry-sb');[...sb.querySelectorAll('.f-item')].forEach(e=>e.remove());
@@ -562,6 +559,17 @@ function setFilter(cat,el){
 }
 function setView(v,el){curView=v;document.querySelectorAll('.v-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');render()}
 function handleSearch(q){curSearch=q.toLowerCase();expanded={};render()}
+function dismissCta(){
+  document.getElementById('mobile-cta').style.display='none';
+  localStorage.setItem('cta_dismissed',Date.now());
+}
+(function(){
+  const d=localStorage.getItem('cta_dismissed');
+  if(d&&Date.now()-Number(d)<30*86400000){
+    const el=document.getElementById('mobile-cta');
+    if(el)el.style.display='none';
+  }
+})();
 function dismissHero(){document.getElementById('hero-banner').classList.add('hidden');localStorage.setItem('hero_dismissed',Date.now())}
 (function(){const d=localStorage.getItem('hero_dismissed');if(d&&Date.now()-Number(d)<7*86400000)document.getElementById('hero-banner')?.classList.add('hidden')})();
 function toggleFinSub(el){el.classList.toggle('expanded');document.getElementById('fin-sub').classList.toggle('open')}
@@ -592,6 +600,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();close
   if(dateParam){const parts=dateParam.split('-');if(parts.length===3)curDate=new Date(parts[0],parts[1]-1,parts[2])}
   await loadData();
   if(ministry){curFilter=ministry;render()}
+  const articleParam=params.get('article');
+  if(articleParam){
+    const match=allItems.find(i=>i.title.startsWith(decodeURIComponent(articleParam)));
+    if(match)setTimeout(()=>openDetail(match.id),300);
+  }
   if(catParam){curFilter=catParam;render()}
 })();
 
@@ -606,10 +619,10 @@ function renderTopPicks(){
   picked.forEach(it=>{
     const bg=CC[it.cat]||'var(--muted)';
     const row=document.createElement('div');
-    row.style.cssText=`display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid ${bg};cursor:pointer`;
+    row.style.cssText=`display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid ${bg};cursor:pointer;overflow:hidden;max-width:100%;min-width:0`;
     row.addEventListener('click',()=>openDetail(it.id));
     const src=document.createElement('span');src.style.cssText=`font-family:var(--mono);font-size:10px;color:${bg};white-space:nowrap;font-weight:600`;src.textContent=it.src;
-    const title=document.createElement('span');title.style.cssText='flex:1;font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap';title.textContent=it.title;
+    const title=document.createElement('span');title.style.cssText='flex:1;min-width:0;font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap';title.textContent=it.title;
     const kws=document.createElement('span');kws.style.cssText='font-size:10px;color:var(--muted);white-space:nowrap';kws.textContent=it.kws.slice(0,2).map(k=>`#${k}`).join(' ');
     row.append(src,title,kws);list.appendChild(row);
   });
@@ -683,8 +696,8 @@ function shareNative(){
 function copyLink(){navigator.clipboard.writeText(_shareUrl).then(()=>{const btn=document.getElementById('copy-btn');btn.textContent='✅ 복사됨';setTimeout(()=>{btn.textContent='🔗 링크 복사'},2000)})}
 </script>
 
-<div class="mobile-cta">
-  <span class="mobile-cta-text">51개 부처 보도자료</span>
+<div class="mobile-cta" id="mobile-cta">
+  <span class="mobile-cta-text">51개 부처 보도자료</span><button onclick="dismissCta()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:16px;cursor:pointer;padding:4px 8px;min-width:44px;min-height:44px">✕</button>
   <a class="mobile-cta-btn" href="https://t.me/govbriefkr" target="_blank" style="text-decoration:none">✈ 텔레그램 채널 →</a>
 </div>
 <script>
@@ -692,5 +705,6 @@ if('serviceWorker' in navigator){
   navigator.serviceWorker.register('/sw.js').catch(()=>{});
 }
 </script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2019101622583347" crossorigin="anonymous"></script>
 </body>
 </html>
