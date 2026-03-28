@@ -493,11 +493,11 @@ def _select_weekly_top(analysis: dict) -> dict:
             source_tops.append((src, src_items[0], len(src_items)))
         source_tops.sort(key=lambda x: -x[2])
 
-        # 상위 3개 부처 대표에 대해 Google News 검색
+        # 상위 5개 부처 대표에 대해 Google News 검색 (최대 100건까지 카운트)
         best = None
         best_news_count = -1
         for src, item, cnt in source_tops[:5]:
-            articles = search_related_news(item["title"], src, max_results=5)
+            articles = search_related_news(item["title"], src, max_results=100)
             news_count = len(articles)
             print(f"    [{cat}] {src}: \"{item['title'][:30]}...\" → 뉴스 {news_count}건")
             if news_count > best_news_count:
@@ -509,6 +509,34 @@ def _select_weekly_top(analysis: dict) -> dict:
             selected[cat] = best
 
     return selected
+
+
+def _clean_text(text: str) -> str:
+    """HTML 엔티티 디코딩 + 제목 중복 제거"""
+    import html as _html
+    text = _html.unescape(text)
+    # 제목 반복 제거 (예: "제목제목" → "제목")
+    half = len(text) // 2
+    if half > 15 and text[:half].strip() == text[half:half * 2].strip():
+        text = text[:half].strip()
+    return text
+
+
+def _cut_sentence(text: str, max_len: int = 200) -> str:
+    """문장 단위로 잘라서 반환 (마침표/다 기준)"""
+    if len(text) <= max_len:
+        return text
+    cut = text[:max_len]
+    # 마지막 마침표/다 위치 찾기
+    for end_char in ["다.", "다.\"", "다.'", "다)", "다, "]:
+        idx = cut.rfind(end_char)
+        if idx > max_len * 0.4:
+            return cut[:idx + len(end_char)]
+    # 못 찾으면 마지막 마침표
+    idx = cut.rfind(".")
+    if idx > max_len * 0.4:
+        return cut[:idx + 1]
+    return cut + "..."
 
 
 def format_weekly_main(analysis: dict, selected: dict, target: date) -> str:
@@ -554,11 +582,11 @@ def format_weekly_main(analysis: dict, selected: dict, target: date) -> str:
         cat_name = {"금융경제": "금융·경제", "사회복지": "사회·복지", "산업기술": "산업·기술",
                      "외교안보": "외교·안보", "행정법제": "행정·법제"}.get(cat, cat)
 
-        title = _escape_html(item.get("title", ""))[:50]
-        summary = item.get("summary", "")
+        title = _escape_html(_clean_text(item.get("title", "")))[:55]
+        summary = _clean_text(item.get("summary", ""))
         if summary.startswith("요약:"):
             summary = summary.replace("요약:", "").strip()
-        summary = _escape_html(summary.split("키워드:")[0].strip())[:120]
+        summary = _escape_html(_cut_sentence(summary.split("키워드:")[0].strip()))
 
         link = item.get("url", SITE_URL)
 
