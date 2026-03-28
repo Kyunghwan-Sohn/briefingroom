@@ -300,16 +300,16 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       </div>
     </div>
     <div class="content">
+      <div id="top-picks" style="display:none;margin-bottom:16px">
+        <div style="font-family:var(--serif);font-size:15px;font-weight:700;color:var(--text);margin-bottom:10px">🔥 오늘의 핵심 보도자료</div>
+        <div id="top-picks-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
       <div class="page-hdr">
         <div>
           <div class="page-title" id="page-title">보도자료</div>
           <div class="page-sub" id="page-sub"></div>
         </div>
         <span class="total-badge" id="total-badge">0건</span>
-      </div>
-      <div id="top-picks" style="display:none;margin-bottom:16px">
-        <div style="font-family:var(--serif);font-size:15px;font-weight:700;color:var(--text);margin-bottom:10px">🔥 오늘의 핵심 보도자료</div>
-        <div id="top-picks-list" style="display:flex;flex-direction:column;gap:8px"></div>
       </div>
       <div id="source-badges" style="display:none;margin-bottom:14px;flex-wrap:wrap;gap:5px"></div>
       <div id="main-content">
@@ -319,7 +319,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   </main>
 </div>
 
-<div class="ministry-sheet" id="ministry-sheet" onclick="if(event.target===this)closeMinistrySheet()">
+<div class="ministry-sheet" id="ministry-sheet" role="dialog" aria-modal="true" aria-label="부처별 필터" onclick="if(event.target===this)closeMinistrySheet()">
   <div class="ministry-sheet-inner">
     <div class="ministry-sheet-hdr">
       <span class="ministry-sheet-title">부처별 필터</span>
@@ -330,7 +330,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 </div>
 
 <div class="detail-overlay" id="d-overlay" onclick="closeDetail()"></div>
-<div class="detail" id="detail">
+<div class="detail" id="detail" role="dialog" aria-modal="true" aria-label="보도자료 상세">
   <div class="detail-hdr">
     <span id="d-hdr-min" style="font-family:var(--mono);font-size:11px;color:var(--muted)"></span>
     <button class="d-close" onclick="closeDetail()" aria-label="닫기">✕</button>
@@ -528,9 +528,9 @@ function openDetail(id){
   const kwBox=document.getElementById('d-kws');kwBox.textContent='';
   it.kws.forEach(k=>{const span=document.createElement('span');span.className='kw';span.textContent=`# ${k}`;kwBox.appendChild(span)});
   document.getElementById('d-src').href=it.orig||'#';
-  document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.getElementById('detail').scrollTop=0;document.body.style.overflow='hidden';history.pushState({detail:true},'',`?date=${fmtDate(curDate)}&article=${encodeURIComponent(it.title.slice(0,30))}`);
+  document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.getElementById('detail').scrollTop=0;document.body.style.overflow='hidden';document.getElementById('detail').querySelector('.d-close')?.focus();history.pushState({detail:true},'',`?date=${fmtDate(curDate)}&article=${encodeURIComponent(it.title.slice(0,30))}`);
 }
-function closeDetail(){document.getElementById('d-overlay').classList.remove('open');document.getElementById('detail').classList.remove('open');document.body.style.overflow=''}
+function closeDetail(){document.getElementById('d-overlay').classList.remove('open');document.getElementById('detail').classList.remove('open');document.body.style.overflow='';document.querySelector('.press-card')?.focus()}
 function updateSidebar(){
   document.getElementById('cnt-all').textContent=allItems.length;
   CO.forEach(cat=>{const el=document.getElementById(`cnt-${cat}`);if(el)el.textContent=countsByCat[cat]||0});
@@ -675,6 +675,7 @@ function openMinistrySheet(){
     list.appendChild(item);
   });
   sheet.classList.add('open');
+  sheet.querySelector('.ministry-sheet-close')?.focus();
   history.pushState({sheet:true},'');
   document.body.style.overflow='hidden';
 }

@@ -146,7 +146,7 @@ def generate_article_pages(target_date: str) -> int:
 }}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Pretendard:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
 :root{{--bg:#f5f4f0;--bg2:#eceae5;--surface:#fff;--border:#e0ddd7;--text:#1c1b18;--text2:#4a4844;--muted:#96938c;--accent:#2f54eb;--accent-l:#eef0fd;--serif:'Noto Serif KR',serif;--sans:'Pretendard',sans-serif;--mono:'DM Mono',monospace}}
 *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
@@ -206,9 +206,38 @@ body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient
     return count
 
 
+
+def generate_sitemap(target_date: str) -> Path:
+    """sitemap.xml 생성 — 날짜별 아카이브 + 기사 페이지 URL"""
+    import glob as _glob
+
+    urls = [f'  <url><loc>{SITE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>']
+
+    # 날짜별 JSON에서 기사 URL 수집
+    for json_file in sorted(Path(DATA_DIR).glob("20*.json")):
+        date_str = json_file.stem
+        data = json.loads(json_file.read_text(encoding="utf-8"))
+        items = data.get("items", [])
+        for idx in range(len(items)):
+            slug = f"{idx:03d}"
+            urls.append(f'  <url><loc>{SITE_URL}/articles/{date_str}/{slug}/</loc><lastmod>{date_str}</lastmod></url>')
+
+    sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{chr(10).join(urls)}
+</urlset>
+"""
+
+    out_path = Path(DATA_DIR).parent / "sitemap.xml"
+    out_path.write_text(sitemap_xml, encoding="utf-8")
+    print(f"  [Sitemap] {out_path} 생성 ({len(urls)}개 URL)")
+    return out_path
+
+
 def generate_static(target_date: str) -> None:
     """정적 사이트 전체 생성 (RSS + 기사 페이지)"""
     print(f"\n{'─' * 60}")
     print("[정적 사이트 생성 중...]")
     generate_rss(target_date)
     generate_article_pages(target_date)
+    generate_sitemap(target_date)

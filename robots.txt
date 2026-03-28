@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://govbrief.kr/sitemap.xml
 Sitemap: https://govbrief.kr/feed/rss.xml
