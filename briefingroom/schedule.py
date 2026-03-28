@@ -1,0 +1,432 @@
+"""차주 정부 일정 크롤링 + 텔레그램 발송
+
+소스:
+  1. 대통령실 캘린더 (president.go.kr/president/calendar_day)
+  2. 머니투데이 "정부부처 주간일정 및 보도계획" 기사
+
+매주 일요일 오후 실행 → 텔레그램 + HTML 포스트.
+"""
+from __future__ import annotations
+
+import html as _html
+import re
+import time
+from collections import defaultdict
+from datetime import date, timedelta
+from pathlib import Path
+
+import requests
+from bs4 import BeautifulSoup
+
+from briefingroom.config import BASE_DIR, HEADERS
+from briefingroom.telegram import SITE_URL, _escape_html, send_telegram, TELEGRAM_ENABLED
+
+ARTICLES_DIR = BASE_DIR / "articles"
+
+
+# ═══════════════════════════════════════════════════════════
+#  1. 대통령실 캘린더
+# ═══════════════════════════════════════════════════════════
+
+def crawl_president_schedule(start: date, end: date) -> list[dict]:
+    """대통령실 공개일정 크롤링 (날짜별 페이지)"""
+    items = []
+    s = requests.Session()
+    s.headers.update(HEADERS)
+
+    d = start
+    while d <= end:
+        url = f"https://www.president.go.kr/president/calendar_day?date={d.isoformat()}"
+        try:
+            r = s.get(url, timeout=15)
+            if r.status_code != 200:
+                d += timedelta(days=1)
+                continue
+
+            soup = BeautifulSoup(r.text, "lxml")
+
+            # 일정 텍스트 추출 — ul.txtList li
+            for el in soup.select("ul.txtList li, div.txt_wrap li, div.open_schedule li"):
+                text = el.get_text(strip=True)
+                if not text or len(text) < 3 or "등록된 일정이 없습니다" in text:
+                    continue
+
+                # "HH:MM 행사명 / 장소" 패턴 파싱
+                m = re.match(r"(\d{1,2}:\d{2})\s+(.+?)(?:\s*/\s*(.+))?$", text)
+                if m:
+                    items.append({
+                        "date": d.isoformat(),
+                        "dow": ["월", "화", "수", "목", "금", "토", "일"][d.weekday()],
+                        "time": m.group(1),
+                        "title": m.group(2).strip(),
+                        "location": (m.group(3) or "").strip(),
+                        "source": "대통령실",
+                    })
+                else:
+                    items.append({
+                        "date": d.isoformat(),
+                        "dow": ["월", "화", "수", "목", "금", "토", "일"][d.weekday()],
+                        "time": "",
+                        "title": text[:100],
+                        "location": "",
+                        "source": "대통령실",
+                    })
+
+        except Exception as e:
+            print(f"  [대통령실] {d} 크롤링 실패: {e}")
+
+        d += timedelta(days=1)
+        time.sleep(1)
+
+    print(f"  [대통령실] {len(items)}건 수집 ({start} ~ {end})")
+    return items
+
+
+# ═══════════════════════════════════════════════════════════
+#  2. 머니투데이 주간일정 기사
+# ═══════════════════════════════════════════════════════════
+
+def _find_mt_article_url() -> str | None:
+    """Google News RSS로 최신 '정부부처 주간일정' 기사 URL 찾기"""
+    from urllib.parse import quote
+    import xml.etree.ElementTree as ET
+
+    query = quote("정부부처 주간일정 보도계획")
+    rss_url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko"
+
+    try:
+        r = requests.get(rss_url, timeout=10,
+                         headers={"User-Agent": "Mozilla/5.0"})
+        if r.status_code != 200:
+            return None
+        root = ET.fromstring(r.text)
+
+        for item in root.findall(".//item"):
+            title = (item.find("title").text or "").strip()
+            source = item.find("source")
+            source_name = source.text if source is not None else ""
+
+            if "주간일정" in title:
+                # Google News RSS의 description에서 원본 URL 추출
+                desc = item.find("description")
+                if desc is not None and desc.text:
+                    soup = BeautifulSoup(desc.text, "lxml")
+                    a = soup.find("a", href=True)
+                    if a:
+                        print(f"  [머니투데이] 기사 발견: {title[:50]}")
+                        return a["href"]
+
+                # description에 없으면 link에서 리다이렉트 따라가기
+                link = (item.find("link").text or "").strip()
+                if link:
+                    try:
+                        rr = requests.get(link, timeout=10, allow_redirects=True,
+                                          headers={"User-Agent": "Mozilla/5.0"})
+                        if rr.status_code == 200 and "mt.co.kr" in rr.url:
+                            print(f"  [머니투데이] 기사 발견 (redirect): {title[:50]}")
+                            return rr.url
+                    except Exception:
+                        pass
+
+    except Exception as e:
+        print(f"  [머니투데이] RSS 검색 실패: {e}")
+
+    return None
+
+
+def _fetch_article_body(url: str) -> str:
+    """기사 URL에서 본문 텍스트 추출"""
+    try:
+        s = requests.Session()
+        s.headers.update({"User-Agent": "Mozilla/5.0"})
+        r = s.get(url, timeout=15, allow_redirects=True)
+        if r.status_code != 200:
+            return ""
+
+        soup = BeautifulSoup(r.text, "lxml")
+
+        # 머니투데이 본문 셀렉터
+        for sel in ["div#textBody", "div.article_body", "article",
+                     "div.view_cont", "div#article-view-content-div"]:
+            el = soup.select_one(sel)
+            if el and len(el.get_text(strip=True)) > 200:
+                return el.get_text(separator="\n", strip=True)
+
+        return ""
+    except Exception as e:
+        print(f"  [머니투데이] 본문 추출 실패: {e}")
+        return ""
+
+
+def _parse_mt_schedule(body: str, week_start: date) -> list[dict]:
+    """머니투데이 본문 텍스트 → 구조화된 일정 리스트"""
+    items = []
+    current_dept = None
+    current_day = None
+    month = week_start.month
+
+    for line in body.split("\n"):
+        line = line.strip()
+        if not line:
+            continue
+
+        # 부처 헤더: ◆기획재정부
+        m = re.match(r"[◆◇■□▶]?\s*([가-힣]{2,15}(?:부|처|실|청|원|위원회|은행))\s*$", line)
+        if m:
+            current_dept = m.group(1).strip()
+            current_day = None
+            continue
+
+        # 날짜 헤더: 7일(화) or 3월 7일(화)
+        m = re.match(r"(?:(\d{1,2})월\s*)?(\d{1,2})일\(([월화수목금토일])\)", line)
+        if m and current_dept:
+            day = int(m.group(2))
+            dow = m.group(3)
+            # 날짜 계산
+            try:
+                d = date(week_start.year, month, day)
+                current_day = d.isoformat()
+            except ValueError:
+                current_day = None
+            continue
+
+        # 일정 항목: *김윤상 2차관, 국무회의(오전 10시, 서울청사)
+        m = re.match(r"[*·\-•]\s*(.+)", line)
+        if m and current_dept and current_day:
+            item_text = m.group(1).strip()
+            if re.match(r"일정\s*없음", item_text):
+                continue
+
+            # 시간/장소 추출
+            time_str = ""
+            location = ""
+            tm = re.search(r"\(([오전오후]+\s*\d{1,2}시(?:\d{1,2}분)?),?\s*(.+?)\)$", item_text)
+            if tm:
+                time_str = tm.group(1)
+                location = tm.group(2)
+                item_text = item_text[:tm.start()].strip().rstrip(",")
+
+            items.append({
+                "date": current_day,
+                "dow": ["월", "화", "수", "목", "금", "토", "일"][
+                    date.fromisoformat(current_day).weekday()],
+                "time": time_str,
+                "title": item_text[:100],
+                "location": location,
+                "source": current_dept,
+            })
+
+    print(f"  [머니투데이] {len(items)}건 파싱 ({len(set(i['source'] for i in items))}개 부처)")
+    return items
+
+
+def crawl_mt_schedule(week_start: date) -> list[dict]:
+    """머니투데이 주간일정 기사 크롤링"""
+    print("  [머니투데이] 기사 검색 중...")
+    url = _find_mt_article_url()
+    if not url:
+        print("  [머니투데이] 기사 못 찾음")
+        return []
+
+    print(f"  [머니투데이] 본문 추출 중... {url[:60]}")
+    body = _fetch_article_body(url)
+    if not body:
+        print("  [머니투데이] 본문 추출 실패")
+        return []
+
+    return _parse_mt_schedule(body, week_start)
+
+
+# ═══════════════════════════════════════════════════════════
+#  3. 통합 + 포맷
+# ═══════════════════════════════════════════════════════════
+
+def collect_next_week_schedule(target: date) -> list[dict]:
+    """차주 정부 일정 통합 수집"""
+    # 차주 월~금
+    next_monday = target + timedelta(days=(7 - target.weekday()))
+    next_friday = next_monday + timedelta(days=4)
+
+    print(f"\n{'═' * 60}")
+    print(f"[차주 정부 일정 수집] {next_monday} ~ {next_friday}")
+
+    all_items = []
+
+    # 대통령실
+    president = crawl_president_schedule(next_monday, next_friday)
+    all_items.extend(president)
+
+    # 머니투데이
+    mt = crawl_mt_schedule(next_monday)
+    all_items.extend(mt)
+
+    # 날짜순 정렬
+    all_items.sort(key=lambda x: (x["date"], x["time"]))
+
+    print(f"  총 {len(all_items)}건 수집 완료")
+    return all_items
+
+
+def format_schedule_telegram(items: list[dict], target: date) -> str:
+    """텔레그램 메시지 포맷"""
+    next_monday = target + timedelta(days=(7 - target.weekday()))
+    next_friday = next_monday + timedelta(days=4)
+
+    lines = [
+        f"📅 <b>차주 정부 주요 일정</b>",
+        f"  {next_monday.month}/{next_monday.day}({['월','화','수','목','금','토','일'][next_monday.weekday()]}) ~ "
+        f"{next_friday.month}/{next_friday.day}({['월','화','수','목','금','토','일'][next_friday.weekday()]})",
+        "",
+    ]
+
+    if not items:
+        lines.append("  일정 정보 없음")
+        lines.append("")
+        lines.append(f'🔗 <a href="{SITE_URL}">govbrief.kr</a>')
+        return "\n".join(lines)
+
+    # 날짜별 그룹핑
+    by_date = defaultdict(list)
+    for it in items:
+        by_date[it["date"]].append(it)
+
+    for d in sorted(by_date.keys()):
+        day_items = by_date[d]
+        dt = date.fromisoformat(d)
+        dow = ["월", "화", "수", "목", "금", "토", "일"][dt.weekday()]
+
+        lines.append(f"━━━ {dt.month}/{dt.day}({dow}) ━━━")
+
+        for it in day_items:
+            src = _escape_html(it["source"])
+            title = _escape_html(it["title"])[:50]
+            time_str = it["time"]
+            loc = _escape_html(it["location"])
+
+            detail = f"{time_str} " if time_str else ""
+            detail += title
+            if loc:
+                detail += f" ({loc})"
+
+            lines.append(f"  <b>{src}</b>")
+            lines.append(f"  ▸ {detail}")
+
+        lines.append("")
+
+    lines.append("──────────────────")
+    post_url = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
+    lines.append(f'📄 <a href="{post_url}">전체 일정 보기</a>')
+
+    text = "\n".join(lines)
+    if len(text) > 4000:
+        text = text[:3950] + f'\n\n... <a href="{post_url}">더보기</a>'
+    return text
+
+
+def generate_schedule_post(items: list[dict], target: date) -> str:
+    """차주 일정 HTML 포스트 생성"""
+    next_monday = target + timedelta(days=(7 - target.weekday()))
+    next_friday = next_monday + timedelta(days=4)
+    post_url = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
+
+    h = _html.escape
+
+    # 날짜별 행
+    by_date = defaultdict(list)
+    for it in items:
+        by_date[it["date"]].append(it)
+
+    table_rows = ""
+    for d in sorted(by_date.keys()):
+        dt = date.fromisoformat(d)
+        dow = ["월", "화", "수", "목", "금", "토", "일"][dt.weekday()]
+        day_items = by_date[d]
+
+        for i, it in enumerate(day_items):
+            date_cell = f'<td rowspan="{len(day_items)}" class="date-cell">{dt.month}/{dt.day}({dow})</td>' if i == 0 else ""
+            time_str = h(it["time"]) if it["time"] else "-"
+            table_rows += f"""<tr>
+              {date_cell}
+              <td class="dept">{h(it['source'])}</td>
+              <td>{h(it['title'])}</td>
+              <td class="sub">{time_str}</td>
+              <td class="sub">{h(it['location'])}</td>
+            </tr>"""
+
+    page_html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>차주 정부 일정 ({next_monday.month}/{next_monday.day}~{next_friday.month}/{next_friday.day}) - 브리핑룸</title>
+<meta name="description" content="대한민국 정부 차주 주요 일정 ({next_monday} ~ {next_friday})">
+<link rel="canonical" href="{post_url}">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{{--bg:#f5f4f0;--surface:#fff;--border:#e0ddd7;--text:#1c1b18;--text2:#4a4844;--accent:#2a3c64;--accent-l:#eef0fd}}
+*{{box-sizing:border-box;margin:0;padding:0}}
+body{{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;line-height:1.7}}
+.wrap{{max-width:860px;margin:0 auto;padding:32px 24px}}
+.back{{color:#96938c;text-decoration:none;font-size:13px;margin-bottom:24px;display:inline-block}}
+h1{{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-bottom:8px}}
+.sub-title{{color:var(--text2);font-size:14px;margin-bottom:24px}}
+table{{width:100%;border-collapse:collapse;font-size:13px;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}}
+th{{background:var(--accent);color:#fff;font-weight:600;padding:10px 12px;text-align:left}}
+td{{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top}}
+td.date-cell{{font-weight:700;background:var(--accent-l);white-space:nowrap;width:80px}}
+td.dept{{font-weight:600;color:var(--accent);white-space:nowrap;width:100px}}
+td.sub{{color:#96938c;font-size:12px;white-space:nowrap}}
+tr:last-child td{{border-bottom:none}}
+.footer{{margin-top:32px;font-size:11px;color:#96938c;text-align:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">← 브리핑룸으로</a>
+<h1>차주 정부 주요 일정</h1>
+<div class="sub-title">{next_monday.year}년 {next_monday.month}월 {next_monday.day}일 ~ {next_friday.month}월 {next_friday.day}일</div>
+
+<table>
+<thead><tr><th>날짜</th><th>부처</th><th>일정</th><th>시간</th><th>장소</th></tr></thead>
+<tbody>{table_rows if table_rows else '<tr><td colspan="5" style="text-align:center;padding:20px">일정 정보 없음</td></tr>'}</tbody>
+</table>
+
+<div class="footer">govbrief.kr | 출처: 대통령실, 머니투데이 | {date.today()}</div>
+</div>
+</body>
+</html>"""
+
+    out_dir = ARTICLES_DIR / "schedule" / target.isoformat()
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / "index.html"
+    out_path.write_text(page_html, encoding="utf-8")
+    print(f"  [HTML] {out_path}")
+    return post_url
+
+
+# ═══════════════════════════════════════════════════════════
+#  4. 메인 실행
+# ═══════════════════════════════════════════════════════════
+
+def run_schedule(target: date) -> bool:
+    """차주 정부 일정 전체 파이프라인"""
+    print(f"\n{'═' * 60}")
+    print("[차주 정부 일정 크롤링]")
+
+    # 1. 수집
+    items = collect_next_week_schedule(target)
+
+    # 2. HTML 포스트
+    print("  [포스트 생성]")
+    post_url = generate_schedule_post(items, target)
+
+    # 3. 텔레그램
+    msg = format_schedule_telegram(items, target)
+    print(f"  메시지 길이: {len(msg)}자")
+
+    if TELEGRAM_ENABLED:
+        send_telegram(msg)
+    else:
+        print("  [텔레그램] TELEGRAM_ENABLED=false -> 스킵")
+
+    return True

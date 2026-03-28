@@ -2,12 +2,14 @@ name: briefingroom
 
 on:
   schedule:
-    # 오전: KST 11:40 = UTC 02:40 (월~금)
+    # 월~금 오전: KST 11:40 = UTC 02:40
     - cron: '40 2 * * 1-5'
-    # 오후: KST 18:00 = UTC 09:00 (월~금)
+    # 월~금 오후: KST 18:00 = UTC 09:00
     - cron: '0 9 * * 1-5'
-    # 주간: KST 일요일 10:00 = UTC 01:00
-    - cron: '0 1 * * 0'
+    # 토요일 주간요약: KST 09:00 = UTC 00:00
+    - cron: '0 0 * * 6'
+    # 일요일 차주일정: KST 17:00 = UTC 08:00
+    - cron: '0 8 * * 0'
   workflow_dispatch:
     inputs:
       date:

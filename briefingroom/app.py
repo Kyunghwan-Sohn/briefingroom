@@ -262,14 +262,23 @@ def main():
     # ── Phase 7: 텔레그램 일일 브리핑 발송 ──────────────────────
     send_daily_briefing(all_items, target)
 
-    # ── Phase 8: 주간 브리핑 (일요일 or WEEKLY_ENABLED=true) ──
+    # ── Phase 8: 토요일 → 주간 요약 / 일요일 → 차주 정부 일정 ──
     weekly_enabled = os.environ.get("WEEKLY_ENABLED", "false").lower() in ("true", "1", "yes")
-    if weekly_enabled or target.weekday() == 6:  # 일요일
+    schedule_enabled = os.environ.get("SCHEDULE_ENABLED", "false").lower() in ("true", "1", "yes")
+
+    if weekly_enabled or target.weekday() == 5:  # 토요일
         from briefingroom.weekly import run_weekly
         print(f"\n{'━' * 60}")
-        print("  Phase 8: 주간 브리핑")
+        print("  Phase 8a: 주간 보도자료 요약 (토요일)")
         print(f"{'━' * 60}")
         run_weekly(target)
+
+    if schedule_enabled or target.weekday() == 6:  # 일요일
+        from briefingroom.schedule import run_schedule
+        print(f"\n{'━' * 60}")
+        print("  Phase 8b: 차주 정부 일정 (일요일)")
+        print(f"{'━' * 60}")
+        run_schedule(target)
 
     # ── 완료 대시보드 ─────────────────────────────────────────
     print_dashboard(target.isoformat())
