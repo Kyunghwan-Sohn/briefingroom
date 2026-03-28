@@ -72,6 +72,8 @@ def main():
     today = date.today()
     run_date = os.environ.get("RUN_DATE", "")
     skip_individual = os.environ.get("SKIP_INDIVIDUAL", "").lower() in ("1", "true", "yes")
+    weekly_enabled = os.environ.get("WEEKLY_ENABLED", "false").lower() in ("true", "1", "yes")
+    schedule_enabled = os.environ.get("SCHEDULE_ENABLED", "false").lower() in ("true", "1", "yes")
 
     target = today
     if run_date:
@@ -79,6 +81,24 @@ def main():
             target = date.fromisoformat(run_date)
         except ValueError:
             pass
+
+    # ── 토요일: 크롤링 없이 주간 요약만 ──
+    if weekly_enabled or target.weekday() == 5:
+        print("=" * 60)
+        print(f"  브리핑룸  |  {target}  |  주간 보도자료 요약 (토요일)")
+        print("=" * 60)
+        from briefingroom.weekly import run_weekly
+        run_weekly(target)
+        return
+
+    # ── 일요일: 크롤링 없이 차주 정부 일정만 ──
+    if schedule_enabled or target.weekday() == 6:
+        print("=" * 60)
+        print(f"  브리핑룸  |  {target}  |  차주 정부 일정 (일요일)")
+        print("=" * 60)
+        from briefingroom.schedule import run_schedule
+        run_schedule(target)
+        return
 
     print("=" * 60)
     print(f"  브리핑룸  |  {target}  |  일별 보도자료")
@@ -261,24 +281,6 @@ def main():
 
     # ── Phase 7: 텔레그램 일일 브리핑 발송 ──────────────────────
     send_daily_briefing(all_items, target)
-
-    # ── Phase 8: 토요일 → 주간 요약 / 일요일 → 차주 정부 일정 ──
-    weekly_enabled = os.environ.get("WEEKLY_ENABLED", "false").lower() in ("true", "1", "yes")
-    schedule_enabled = os.environ.get("SCHEDULE_ENABLED", "false").lower() in ("true", "1", "yes")
-
-    if weekly_enabled or target.weekday() == 5:  # 토요일
-        from briefingroom.weekly import run_weekly
-        print(f"\n{'━' * 60}")
-        print("  Phase 8a: 주간 보도자료 요약 (토요일)")
-        print(f"{'━' * 60}")
-        run_weekly(target)
-
-    if schedule_enabled or target.weekday() == 6:  # 일요일
-        from briefingroom.schedule import run_schedule
-        print(f"\n{'━' * 60}")
-        print("  Phase 8b: 차주 정부 일정 (일요일)")
-        print(f"{'━' * 60}")
-        run_schedule(target)
 
     # ── 완료 대시보드 ─────────────────────────────────────────
     print_dashboard(target.isoformat())
