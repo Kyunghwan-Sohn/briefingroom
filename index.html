@@ -76,9 +76,9 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .v-btn{padding:5px 9px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px;transition:all .12s}
 .v-btn.active{background:var(--text);color:#fff}
 .content{padding:20px 24px;min-width:0;overflow-x:hidden}
-.page-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px;flex-wrap:nowrap}
+.page-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;margin-top:0;gap:12px;flex-wrap:nowrap}
 .page-title{font-family:var(--serif);font-size:20px;font-weight:700;letter-spacing:-.5px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.page-sub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px}
+.page-sub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:1px}
 .total-badge{font-family:var(--mono);font-size:12px;color:var(--accent);background:var(--accent-l);border:1px solid rgba(47,84,235,.2);padding:4px 12px;border-radius:20px;white-space:nowrap;flex-shrink:0}
 .loading{text-align:center;padding:60px 0;color:var(--muted)}
 .loading-spinner{width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
@@ -213,7 +213,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .mobile-cta{display:none!important}
   .hero-banner{margin-left:0;margin-top:calc(var(--mob-h) + var(--mob-tab));flex-direction:column;text-align:center;padding:16px}
   .main{padding-top:calc(var(--mob-h) + var(--mob-tab))}
-  .content{padding-top:8px}
+  .content{padding-top:4px}
   .m-header{display:flex}
   .m-cat-tabs[data-active]{display:grid;top:var(--mob-h)}
   .m-bottom-nav{display:grid}
@@ -450,7 +450,7 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab{
         </div>
         <span class="total-badge" id="total-badge">0건</span>
       </div>
-      <div id="source-badges" style="display:none;margin-bottom:14px;flex-wrap:wrap;gap:5px"></div>
+      <div id="source-badges" style="display:none;margin-bottom:8px;flex-wrap:wrap;gap:5px"></div>
       <div id="main-content">
         <div class="loading"><div class="loading-spinner"></div><div>데이터 불러오는 중...</div></div>
       </div>
@@ -749,7 +749,7 @@ function renderTopPicks(){/* 제거됨 */}
 function renderSourceBadges(){
   const box=document.getElementById('source-badges');
   if(!allItems.length){box.style.display='none';return}
-  const prioritySources=['금융위원회','국토교통부','산업통상자원부','산업통상부'];
+  const prioritySources=['국토교통부','금융위원회','산업통상자원부','산업통상부'];
   const sorted=Object.entries(countsBySource).sort((a,b)=>b[1]-a[1]);
   const priority=sorted.filter(([s])=>prioritySources.some(p=>s.includes(p)));
   const others=sorted.filter(([s])=>!prioritySources.some(p=>s.includes(p)));
@@ -765,6 +765,10 @@ function renderSourceBadges(){
     tag.addEventListener('click',()=>{curFilter=src;render();renderSourceBadges()});
     box.appendChild(tag);
   });
+  // 더보기 버튼 + 선택된 부처명 표시
+  const isPriorityFilter = prioritySources.some(p=>curFilter.includes(p));
+  const isOtherFilter = curFilter!=='all' && !isPriorityFilter && !['금융경제','사회복지','산업기술','외교안보','행정법제'].includes(curFilter);
+
   if(others.length>0){
     const more=document.createElement('span');
     more.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:12px;border:1px solid var(--border);color:var(--muted);cursor:pointer;white-space:nowrap';
@@ -781,7 +785,6 @@ function renderSourceBadges(){
         tag.addEventListener('click',()=>{curFilter=src;render();renderSourceBadges()});
         box.appendChild(tag);
       });
-      // 접기 버튼
       const fold=document.createElement('span');
       fold.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:12px;border:1px solid var(--border);color:var(--muted);cursor:pointer;white-space:nowrap';
       fold.textContent='접기 ▲';
@@ -789,6 +792,16 @@ function renderSourceBadges(){
       box.appendChild(fold);
     });
     box.appendChild(more);
+
+    // 선택된 부처가 우선부처가 아니면 옆에 표시
+    if(isOtherFilter){
+      const sel=document.createElement('span');
+      sel.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:12px;border:1px solid var(--accent);color:#fff;background:var(--accent);cursor:pointer;white-space:nowrap';
+      const cnt=countsBySource[curFilter]||0;
+      sel.textContent=`${curFilter} ${cnt}`;
+      sel.addEventListener('click',()=>{curFilter='all';render();renderSourceBadges()});
+      box.appendChild(sel);
+    }
   }
 }
 
