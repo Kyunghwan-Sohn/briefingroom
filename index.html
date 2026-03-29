@@ -749,7 +749,7 @@ function renderTopPicks(){/* 제거됨 */}
 function renderSourceBadges(){
   const box=document.getElementById('source-badges');
   if(!allItems.length){box.style.display='none';return}
-  const prioritySources=['국토교통부','금융위원회','산업통상자원부','산업통상부'];
+  const prioritySources=['대통령실','국토교통부','금융위원회','산업통상자원부','산업통상부'];
   const sorted=Object.entries(countsBySource).sort((a,b)=>b[1]-a[1]);
   const priority=sorted.filter(([s])=>prioritySources.some(p=>s.includes(p)));
   const others=sorted.filter(([s])=>!prioritySources.some(p=>s.includes(p)));

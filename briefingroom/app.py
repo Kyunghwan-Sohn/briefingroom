@@ -11,6 +11,7 @@ from urllib.parse import urlparse
 from briefingroom.config import DATA_DIR, NEWS_ENABLED, NEWS_MAX_ITEMS  # noqa: F401
 from briefingroom.crawlers.koreakr import crawl_koreakr
 from briefingroom.crawlers.finance import crawl_finance_all
+from briefingroom.crawlers.president import crawl_president
 from briefingroom.crawlers import CRAWLERS
 from briefingroom.llm import summarize
 from briefingroom.pipeline import process_item
@@ -174,6 +175,16 @@ def main():
             all_items.extend(finance_items)
         except Exception as e:
             print(f"  [금융기관 오류] {str(e)[:80]}")
+
+        # ── Phase 2-b: 대통령실 (president.go.kr) ────────────────
+        print(f"\n{'━' * 60}")
+        print("  Phase 2-b: 대통령실 크롤링")
+        print(f"{'━' * 60}")
+        try:
+            president_items = crawl_president(target)
+            all_items.extend(president_items)
+        except Exception as e:
+            print(f"  [대통령실 오류] {str(e)[:80]}")
 
         # ── Phase 3: 개별 부처 크롤러 (누락분 보완) ──────────────
         if not skip_individual:
