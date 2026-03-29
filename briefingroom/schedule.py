@@ -426,7 +426,10 @@ def format_schedule_telegram(items: list[dict], target: date) -> str:
     for it in items:
         by_date[it["date"]].append(it)
 
-    MAX_PER_DAY = 3  # 일자별 주요 일정 수
+    MAX_PER_DAY = 4  # 일자별 주요 일정 수
+    # 필수 포함 부처 (대통령실 + 주요 경제부처)
+    MUST_SOURCES = {"대통령실", "금융위원회", "국토교통부", "산업통상자원부",
+                    "산업통상부", "국토부", "금융위"}
 
     for d in sorted(by_date.keys()):
         day_items = by_date[d]
@@ -435,18 +438,28 @@ def format_schedule_telegram(items: list[dict], target: date) -> str:
 
         lines.append(f"━━━ {dt.month}/{dt.day}({dow}) ━━━")
 
-        # 우선순위: 대통령실 > 시간 있는 일정 > 나머지
-        priority = []
+        # 우선순위: 대통령실 > 필수부처 > 시간 있는 일정 > 나머지
+        must = []
+        timed = []
         others = []
+        seen = set()
         for it in day_items:
-            if it["source"] == "대통령실":
-                priority.append(it)
+            if it["source"] in MUST_SOURCES:
+                must.append(it)
             elif it["time"]:
-                priority.append(it)
+                timed.append(it)
             else:
                 others.append(it)
 
-        top_items = (priority + others)[:MAX_PER_DAY]
+        # 필수부처 먼저 + 나머지로 채우기
+        top_items = []
+        for it in must + timed + others:
+            key = it["title"][:30]
+            if key not in seen:
+                seen.add(key)
+                top_items.append(it)
+            if len(top_items) >= MAX_PER_DAY:
+                break
         remaining = len(day_items) - len(top_items)
 
         for it in top_items:
