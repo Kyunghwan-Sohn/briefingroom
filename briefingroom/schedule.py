@@ -464,17 +464,35 @@ def format_schedule_telegram(items: list[dict], target: date) -> str:
 
         for it in top_items:
             src = _escape_html(it["source"])
-            title = _escape_html(it["title"])[:45]
-            time_str = it["time"]
+            raw_title = it["title"]
+            time_str = it["time"] or ""
             loc = _escape_html(it["location"])
 
-            detail = f"{time_str} " if time_str else ""
-            detail += title
-            if loc:
-                detail += f" ({loc})"
+            # 제목에서 "부처명 차관/장관 HH:MM ..." 패턴 정리
+            import re as _re
+            # "산업부 차관 07:30 민주당 중동 특위" → "민주당 중동 특위"
+            clean = _re.sub(r'^[\w가-힣]+\s+(장관|차관|[12]차관|본부장|위원장|청장|처장)\s*', '', raw_title)
+            # 중복 시간 제거: "07:30 민주당..." 에서 시간 제거 (이미 time_str에 있음)
+            clean = _re.sub(r'^\d{1,2}:\d{2}\s*', '', clean).strip()
+            # 뒤에 붙은 다른 일정 제거 (여러 일정이 한 줄에 합쳐진 경우)
+            # "임시 국무회의(서울청사) 14:00 한국노총 면담" → "임시 국무회의"
+            multi = _re.search(r'\s+\d{1,2}:\d{2}\s+', clean)
+            if multi:
+                clean = clean[:multi.start()].strip()
+            # 괄호 안 장소를 loc으로 이동
+            loc_match = _re.search(r'\(([^)]+)\)\s*$', clean)
+            if loc_match and not loc:
+                loc = _escape_html(loc_match.group(1))
+                clean = clean[:loc_match.start()].strip()
 
-            lines.append(f"  🏛 <b>{src}</b>")
-            lines.append(f"  ▸ {detail}")
+            title = _escape_html(clean)[:45]
+            if not title:
+                title = _escape_html(raw_title)[:45]
+
+            # 포맷: 시간 | 부처 | 일정 (장소)
+            time_part = f"{time_str} " if time_str else "종일 "
+            loc_part = f" ({loc})" if loc else ""
+            lines.append(f"  ▸ {time_part}<b>{src}</b> {title}{loc_part}")
 
         if remaining > 0:
             lines.append(f"  <i>... 외 {remaining}건</i>")

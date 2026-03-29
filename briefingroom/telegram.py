@@ -599,7 +599,7 @@ def format_weekly_main(analysis: dict, selected: dict, target: date) -> str:
         cat_name = {"금융경제": "금융·경제", "사회복지": "사회·복지", "산업기술": "산업·기술",
                      "외교안보": "외교·안보", "행정법제": "행정·법제"}.get(cat, cat)
 
-        title = _escape_html(_clean_text(item.get("title", "")))[:55]
+        title = _escape_html(_clean_text(item.get("title", "")))[:70]
         summary = _clean_text(item.get("summary", ""))
         if summary.startswith("요약:"):
             summary = summary.replace("요약:", "").strip()
@@ -759,7 +759,7 @@ def send_weekly_briefing(target: date) -> bool:
     # 4. 발송
     print("  [4/4] 텔레그램 발송...")
     ok = True
-    for label, text in [("메인", msg_main), ("랭킹", msg_ranking), ("키워드", msg_keywords)]:
+    for label, text in [("메인", msg_main), ("키워드", msg_keywords)]:
         result = send_telegram(text)
         if not result:
             ok = False
