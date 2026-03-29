@@ -37,6 +37,23 @@ def _escape_html(text: str) -> str:
     return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+def _article_url(item: dict, all_items: list[dict] = None) -> str:
+    """govbrief.kr 상세 페이지 URL 생성"""
+    d = item.get("date", "")
+    if not d:
+        return SITE_URL
+    # 같은 날짜 아이템 목록에서 인덱스 찾기
+    if all_items:
+        same_date = [it for it in all_items if it.get("date") == d]
+        try:
+            idx = same_date.index(item)
+        except ValueError:
+            idx = 0
+    else:
+        idx = 0
+    return f"{SITE_URL}/articles/{d}/{idx:03d}/"
+
+
 # 분야별 필수 포함 부처
 MUST_INCLUDE = {
     "금융경제": ["금융위원회"],
@@ -134,7 +151,7 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
 
         for source, item, src_count in selected[cat]:
             title = _escape_html(item.get("title", ""))[:55]
-            link = item.get("wp_link") or (f"{SITE_URL}/?p={item.get('wp_post_id','')}" if item.get("wp_post_id") else SITE_URL)
+            link = _article_url(item, items)
 
             lines.append(f"🏛 <b>{_escape_html(source)}</b> ({src_count}건)")
             lines.append(f'▸ <a href="{link}">{title}</a>')

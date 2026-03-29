@@ -483,14 +483,15 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
         src, item, cnt, news_cnt, _ = selected[cat]
         title = h(_clean(item.get("title", "")))[:60]
         summary = h(_get_summary(item))
-        url = item.get("url", "")
+        d = item.get("date", "")
+        article_link = f"{SITE_URL}/articles/{d}/000/" if d else SITE_URL
         cat_total = analysis["by_cat"].get(cat, 0)
 
         sector_rows += f"""
         <div class="sector-card">
           <div class="sector-header">{h(CAT_NAMES.get(cat, cat))} ({cat_total}건)</div>
           <div class="sector-source">{h(src)} | 뉴스 인용 {news_cnt}건</div>
-          <div class="sector-title"><a href="{h(url)}" target="_blank" rel="noopener">{title}</a></div>
+          <div class="sector-title"><a href="{article_link}">{title}</a></div>
           <div class="sector-summary">{summary}</div>
         </div>"""
 
@@ -498,12 +499,13 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
     news_rows = ""
     for cat, (src, item, _, ncnt, _) in sorted(selected.items(), key=lambda x: -x[1][3]):
         title = h(_clean(item.get("title", "")))[:50]
-        url = item.get("url", "")
+        d = item.get("date", "")
+        article_link = f"{SITE_URL}/articles/{d}/000/" if d else SITE_URL
         news_rows += f"""
           <tr>
             <td>{h(CAT_NAMES.get(cat, cat))}</td>
             <td>{h(src)}</td>
-            <td><a href="{h(url)}" target="_blank" rel="noopener">{title}</a></td>
+            <td><a href="{article_link}">{title}</a></td>
             <td class="num">{ncnt}건</td>
           </tr>"""
 
@@ -644,11 +646,12 @@ def format_weekly_telegram(analysis: dict, selected: dict, post_url: str, target
             continue
         src, item, cnt, news_cnt, _ = selected[cat]
         title = _escape_html(_clean(item.get("title", "")))[:45]
-        url = item.get("url", SITE_URL)
+        d = item.get("date", "")
+        article_link = f"{SITE_URL}/articles/{d}/000/" if d else SITE_URL
         cat_name = CAT_NAMES.get(cat, cat)
 
         lines.append(f"<b>{cat_name}</b> | {_escape_html(src)} | 📰 {news_cnt}건")
-        lines.append(f'  ▸ <a href="{url}">{title}</a>')
+        lines.append(f'  ▸ <a href="{article_link}">{title}</a>')
         lines.append("")
 
     lines.append("━━━ 키워드 트렌드 ━━━")
