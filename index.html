@@ -218,6 +218,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .m-bottom-nav{display:grid}
   .m-search-slide{position:fixed;top:var(--mob-h);left:0;right:0;z-index:45}
   .press-card .card-actions{display:none}
+  .detail-hdr{display:none}
   .card-title{font-size:14px;font-weight:600}
 }
 @media(min-width:769px){.m-header,.m-cat-tabs,.m-bottom-nav,.m-search-slide{display:none!important}}
@@ -510,6 +511,7 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab{
       <a id="d-src" href="#" target="_blank" style="flex:2;padding:12px 8px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:600;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px">↗ 원문 보기</a>
       <button onclick="shareNative()" style="flex:1;padding:12px 8px;background:#f0f0ed;color:var(--text);border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px">📤 공유</button>
       <button onclick="copyLink()" id="copy-btn" style="flex:1;padding:12px 8px;background:#f0f0ed;color:var(--text);border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px">🔗 복사</button>
+      <button onclick="closeDetail()" style="flex:1;padding:12px 8px;background:#f0f0ed;color:var(--text);border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px" aria-label="닫기">✕ 닫기</button>
     </div>
   </div>
 </div>
