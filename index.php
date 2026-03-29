@@ -260,7 +260,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   </a>
   <div class="header-sub-area">
     <span class="header-sub-label">텔레그램에서 보도자료 받아보세요</span>
-    <a class="header-sub-btn" href="https://t.me/hotclipfolio" target="_blank" style="text-decoration:none">✈ 텔레그램 채널</a>
+    <a class="header-sub-btn" href="https://t.me/govbriefkr" target="_blank" style="text-decoration:none">✈ 텔레그램 채널</a>
   </div>
 </header>
 
@@ -270,7 +270,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 <div class="hero-banner" id="hero-banner">
   <div class="hero-left">
     <h2>51개 부처 + 7개 금융기관, AI가 요약합니다</h2>
-    <p>정부 보도자료 + 금융 유관기관까지 매일 자동 수집 · AI 요약 · <a href="https://t.me/hotclipfolio" target="_blank" style="color:#fff;text-decoration:underline">텔레그램 채널</a>에서도 받아보세요</p>
+    <p>정부 보도자료 + 금융 유관기관까지 매일 자동 수집 · AI 요약 · <a href="https://t.me/govbriefkr" target="_blank" style="color:#fff;text-decoration:underline">텔레그램 채널</a>에서도 받아보세요</p>
   </div>
   <div class="hero-stats">
     <div class="hero-stat"><div class="hero-stat-num">51+</div><div class="hero-stat-label">수집 기관</div></div>
@@ -521,7 +521,7 @@ function render(){
   if(!items.length){c.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div>보도자료가 없습니다</div></div>';return}
   // 구독 바 삽입 (항상 맨 위)
   const sb=document.createElement('div');sb.className='sub-bar';
-  sb.innerHTML=`<span style="color:rgba(255,255,255,.85);font-size:13px;flex:1">✈ 텔레그램에서 매일 보도자료 받아보세요</span><a href="https://t.me/hotclipfolio" target="_blank" class="sub-bar-btn" style="text-decoration:none">채널 입장하기</a>`;
+  sb.innerHTML=`<span style="color:rgba(255,255,255,.85);font-size:13px;flex:1">✈ 텔레그램에서 매일 보도자료 받아보세요</span><a href="https://t.me/govbriefkr" target="_blank" class="sub-bar-btn" style="text-decoration:none">채널 입장하기</a>`;
   c.appendChild(sb);
   if(curFilter!=='all'){const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;items.forEach((it,i)=>g.appendChild(mkCard(it,i)));c.appendChild(g)}
   else{CO.forEach(cat=>{if(!groupedByCat[cat]?.length)return;c.appendChild(mkBlock(cat,groupedByCat[cat]))})}
@@ -778,7 +778,7 @@ function copyLink(){
 <!-- 모바일 하단 고정 CTA -->
 <div class="mobile-cta">
   <span class="mobile-cta-text">51개 부처 보도자료</span>
-  <a class="mobile-cta-btn" href="https://t.me/hotclipfolio" target="_blank" style="text-decoration:none">✈ 텔레그램 채널 →</a>
+  <a class="mobile-cta-btn" href="https://t.me/govbriefkr" target="_blank" style="text-decoration:none">✈ 텔레그램 채널 →</a>
 </div>
 </body>
 </html>

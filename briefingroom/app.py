@@ -109,6 +109,7 @@ def main():
     skip_individual = os.environ.get("SKIP_INDIVIDUAL", "").lower() in ("1", "true", "yes")
     weekly_enabled = os.environ.get("WEEKLY_ENABLED", "false").lower() in ("true", "1", "yes")
     schedule_enabled = os.environ.get("SCHEDULE_ENABLED", "false").lower() in ("true", "1", "yes")
+    briefing_session = os.environ.get("BRIEFING_SESSION", "").strip().lower()
 
     target = today
     if run_date:
@@ -347,7 +348,7 @@ def main():
         run_weekly(target)
     else:
         # 월~금: 일일 브리핑
-        send_daily_briefing(all_items, target)
+        send_daily_briefing(all_items, target, session=briefing_session)
 
     # ── 완료 대시보드 ─────────────────────────────────────────
     print_dashboard(target.isoformat())

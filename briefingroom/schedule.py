@@ -1,9 +1,9 @@
 """차주 정부 일정 크롤링 + 텔레그램 발송
 
 소스:
-  1. 대통령실 캘린더 (president.go.kr/president/calendar_day)
-  2. 이투데이 "정부 주요 일정" 기사 (etoday.co.kr)
-  3. 머니투데이 "정부부처 주간일정 및 보도계획" 기사 (fallback)
+  1. 이투데이 "정부 주요 일정" 기사 (etoday.co.kr)
+  2. 머니투데이 "정부부처 주간일정 및 보도계획" 기사
+  3. 대통령실 캘린더 (president.go.kr/president/calendar_day)
 
 매주 일요일 오후 실행 → 텔레그램 + HTML 포스트.
 """
@@ -376,18 +376,17 @@ def collect_next_week_schedule(target: date) -> list[dict]:
 
     all_items = []
 
-    # 대통령실
-    president = crawl_president_schedule(next_monday, next_friday)
-    all_items.extend(president)
-
     # 이투데이 (1순위)
     etoday = crawl_etoday_schedule(next_monday)
     all_items.extend(etoday)
 
-    # 머니투데이 (이투데이 실패 시 fallback)
-    if not etoday:
-        mt = crawl_mt_schedule(next_monday)
-        all_items.extend(mt)
+    # 머니투데이 (2순위 보완 소스)
+    mt = crawl_mt_schedule(next_monday)
+    all_items.extend(mt)
+
+    # 대통령실 (항상 병합)
+    president = crawl_president_schedule(next_monday, next_friday)
+    all_items.extend(president)
 
     # 날짜 범위 필터링 (차주 월~금만)
     start_str = next_monday.isoformat()
@@ -397,8 +396,17 @@ def collect_next_week_schedule(target: date) -> list[dict]:
     # 날짜순 정렬
     all_items.sort(key=lambda x: (x["date"], x["time"]))
 
-    print(f"  총 {len(all_items)}건 수집 완료 ({start_str} ~ {end_str})")
-    return all_items
+    deduped = []
+    seen = set()
+    for item in all_items:
+        key = (item["date"], item["source"], item["time"], item["title"])
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(item)
+
+    print(f"  총 {len(deduped)}건 수집 완료 ({start_str} ~ {end_str})")
+    return deduped
 
 
 def format_schedule_telegram(items: list[dict], target: date) -> str:
@@ -576,7 +584,7 @@ tr:last-child td{{border-bottom:none}}
 <tbody>{table_rows if table_rows else '<tr><td colspan="5" style="text-align:center;padding:20px">일정 정보 없음</td></tr>'}</tbody>
 </table>
 
-<div class="footer">govbrief.kr | 출처: 대통령실, 머니투데이 | {date.today()}</div>
+<div class="footer">govbrief.kr | 출처: 이투데이, 머니투데이, 대통령실 | {date.today()}</div>
 </div>
 </body>
 </html>"""
