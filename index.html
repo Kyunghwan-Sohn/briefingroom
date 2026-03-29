@@ -76,10 +76,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .v-btn{padding:5px 9px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px;transition:all .12s}
 .v-btn.active{background:var(--text);color:#fff}
 .content{padding:20px 24px;min-width:0;overflow-x:hidden}
-.page-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px}
-.page-title{font-family:var(--serif);font-size:20px;font-weight:700;letter-spacing:-.5px;color:var(--text)}
+.page-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:8px;flex-wrap:nowrap}
+.page-title{font-family:var(--serif);font-size:20px;font-weight:700;letter-spacing:-.5px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .page-sub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px}
-.total-badge{font-family:var(--mono);font-size:12px;color:var(--accent);background:var(--accent-l);border:1px solid rgba(47,84,235,.2);padding:4px 12px;border-radius:20px}
+.total-badge{font-family:var(--mono);font-size:12px;color:var(--accent);background:var(--accent-l);border:1px solid rgba(47,84,235,.2);padding:4px 12px;border-radius:20px;white-space:nowrap;flex-shrink:0}
 .loading{text-align:center;padding:60px 0;color:var(--muted)}
 .loading-spinner{width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -137,8 +137,8 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .d-btn{flex:1;padding:10px 8px;border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;text-align:center;text-decoration:none;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px}
 .d-btn.primary{background:var(--accent);color:#fff;border:none}
 .d-btn.primary:hover{background:#1a3fd4}
-.d-btn.sec{background:var(--text);color:#fff;border:none}
-.d-btn.sec:hover{background:#333}
+.d-btn.sec{background:#f0f0ed;color:var(--text);border:1px solid var(--border)}
+.d-btn.sec:hover{background:var(--bg2)}
 .hero-banner{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:1;margin-left:216px}
 .hero-left h2{font-family:var(--serif);font-size:18px;font-weight:700;color:#fff;letter-spacing:-.5px;margin-bottom:4px}
 .hero-left p{font-size:12px;color:rgba(255,255,255,.7);line-height:1.5}
@@ -147,7 +147,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .hero-stat-num{font-family:var(--serif);font-size:18px;font-weight:700;color:#fff}
 .hero-stat-label{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.6);letter-spacing:.5px;margin-top:2px}
 .hero-dismiss{position:absolute;top:8px;right:12px;background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:14px;width:44px;height:44px;display:grid;place-items:center}
-.hero-banner.hidden{display:none}
+.hero-banner{display:none}.hero-banner.hidden{display:none}
 .sub-bar{background:linear-gradient(135deg,#0f172a,#2563eb);border-radius:10px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .sub-bar-btn{padding:8px 16px;background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:7px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .15s;text-decoration:none}
 .sub-bar-btn:hover{background:rgba(255,255,255,.28)}
@@ -226,7 +226,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .main{margin-left:180px}
   .hero-banner{margin-left:180px}
   .cards-grid{grid-template-columns:1fr}
-  .page-title{font-size:18px}
+  .page-title{font-size:15px}.page-sub{display:none}
 }
 .mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:15;background:linear-gradient(135deg,#0f172a,#1e40af);padding:12px 16px;padding-bottom:max(12px, env(safe-area-inset-bottom));gap:8px;align-items:center;box-shadow:0 -4px 20px rgba(0,0,0,.15)}
 .mobile-cta-text{color:rgba(255,255,255,.85);font-size:12px;white-space:nowrap}
@@ -385,10 +385,7 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab{
     <div class="logo-mark">📋</div>
     <span class="logo-text">브리핑룸</span>
   </a>
-  <div class="header-sub-area">
-    <span class="header-sub-label">텔레그램에서 보도자료 받아보세요</span>
-    <a class="header-sub-btn" href="https://t.me/govbriefkr" target="_blank" style="text-decoration:none">✈ 텔레그램 채널</a>
-  </div>
+
 </header>
 
 <div class="hero-banner" id="hero-banner">
@@ -509,12 +506,10 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab{
     <div class="d-sec-label">AI 요약</div>
     <div class="d-summary" id="d-summary"></div>
     <div class="d-kws" id="d-kws"></div>
-    <div class="d-actions">
-      <a class="d-btn sec" id="d-src" href="#" target="_blank">↗ 원문 보기</a>
-    </div>
-    <div style="display:flex;gap:6px;margin-top:8px">
-      <button onclick="shareNative()" class="c-btn primary" style="flex:1;padding:10px;font-size:12px;justify-content:center">📤 공유</button>
-      <button onclick="copyLink()" class="c-btn" style="flex:1;padding:10px;font-size:12px;justify-content:center" id="copy-btn">🔗 링크 복사</button>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <a id="d-src" href="#" target="_blank" style="flex:2;padding:12px 8px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:600;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px">↗ 원문 보기</a>
+      <button onclick="shareNative()" style="flex:1;padding:12px 8px;background:#f0f0ed;color:var(--text);border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px">📤 공유</button>
+      <button onclick="copyLink()" id="copy-btn" style="flex:1;padding:12px 8px;background:#f0f0ed;color:var(--text);border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px">🔗 복사</button>
     </div>
   </div>
 </div>
@@ -687,7 +682,7 @@ function mkCard(it,idx){
 function openDetail(id){
   const it=allItems.find(i=>i.id===id);if(!it)return;
   _shareTitle=it.title;_shareUrl=`${SITE_URL}?date=${fmtDate(curDate)}&article=${encodeURIComponent(it.title.slice(0,30))}`;
-  const col=CC[it.cat]||'var(--accent)';const bg=CB[it.cat]||'rgba(47,84,235,.08)';
+  const col=CC[it.cat]||'#2f54eb';const bg=col+'14';
   document.getElementById('d-hdr-min').textContent=it.src;
   const b=document.getElementById('d-badge');b.textContent=it.src;b.style.cssText=`background:${bg};color:${col};border:1px solid ${col}44`;
   document.getElementById('d-title').textContent=it.title;
@@ -805,13 +800,31 @@ function renderTopPicks(){
 function renderSourceBadges(){
   const box=document.getElementById('source-badges');
   if(!allItems.length){box.style.display='none';return}
-  const sorted=Object.entries(countsBySource).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  const prioritySources=['금융위원회','국토교통부','산업통상자원부','산업통상부'];
+  const sorted=Object.entries(countsBySource).sort((a,b)=>b[1]-a[1]);
+  const priority=sorted.filter(([s])=>prioritySources.some(p=>s.includes(p)));
+  const others=sorted.filter(([s])=>!prioritySources.some(p=>s.includes(p)));
+  const show=priority.slice(0,3);
   box.style.display='flex';box.textContent='';
-  sorted.forEach(([src,cnt])=>{
+  show.forEach(([src,cnt])=>{
     const tag=document.createElement('span');
-    tag.style.cssText='font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);color:var(--text2);cursor:pointer;white-space:nowrap';
+    tag.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:12px;border:1px solid var(--accent);color:var(--accent);cursor:pointer;white-space:nowrap;background:var(--accent-l)';
     tag.textContent=`${src} ${cnt}`;tag.addEventListener('click',()=>{curFilter=src;render()});box.appendChild(tag);
   });
+  if(others.length>0){
+    const more=document.createElement('span');
+    more.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:12px;border:1px solid var(--border);color:var(--muted);cursor:pointer;white-space:nowrap';
+    more.textContent=`+${others.length}개 부처 더보기`;
+    more.addEventListener('click',()=>{
+      box.textContent='';
+      sorted.forEach(([src,cnt])=>{
+        const tag=document.createElement('span');
+        tag.style.cssText='font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);color:var(--text2);cursor:pointer;white-space:nowrap';
+        tag.textContent=`${src} ${cnt}`;tag.addEventListener('click',()=>{curFilter=src;render()});box.appendChild(tag);
+      });
+    });
+    box.appendChild(more);
+  }
 }
 
 // 바텀시트 스와이프 다운 닫기
