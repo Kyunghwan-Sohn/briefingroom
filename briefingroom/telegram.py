@@ -150,29 +150,30 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
         lines.append("")
 
         for source, item, src_count in selected[cat]:
-            title = _escape_html(item.get("title", ""))[:55]
+            title = _escape_html(item.get("title", ""))
             link = _article_url(item, items)
 
             lines.append(f"🏛 <b>{_escape_html(source)}</b> ({src_count}건)")
             lines.append(f'▸ <a href="{link}">{title}</a>')
 
+            # 뉴스: 메이저 언론사만, 제목 전체 표시
             news = item.get("news_articles", [])
             if news:
-                for article in news[:2]:
-                    news_title = _escape_html(article.get("title", ""))[:40]
+                from briefingroom.news import MAJOR_NAMES
+                major_news = [a for a in news if a.get("source", "") in MAJOR_NAMES]
+                if not major_news:
+                    major_news = news[:1]  # 메이저 없으면 첫 번째만
+                for article in major_news[:2]:
+                    news_title = _escape_html(article.get("title", ""))
                     news_src = _escape_html(article.get("source", ""))
                     news_url = (article.get("link", "") or article.get("url", "")).strip()
-                    # URL 유효성 검증 + 이스케이프
                     if news_url and not news_url.startswith("http"):
                         news_url = ""
-                    news_url = news_url.replace("&", "&amp;").replace('"', "%22")
-                    news_summary = _escape_html(article.get("summary", ""))[:60]
                     if news_url:
+                        news_url = news_url.replace("&", "&amp;").replace('"', "%22")
                         lines.append(f'  📰 <a href="{news_url}">{news_src}: {news_title}</a>')
                     else:
                         lines.append(f"  📰 {news_src}: {news_title}")
-                    if news_summary:
-                        lines.append(f"     <i>{news_summary}</i>")
 
             lines.append("")
 
@@ -403,7 +404,7 @@ def _enrich_news(selected: dict) -> None:
         for source, item, src_count in top_items:
             if item.get("news_articles"):
                 continue
-            articles = search_related_news(item.get("title", ""), source, max_results=2)
+            articles = search_related_news(item.get("title", ""), source, max_results=5)
             item["news_articles"] = articles[:2]
             total += len(articles[:2])
             _time.sleep(0.3)
