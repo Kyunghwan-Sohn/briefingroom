@@ -164,7 +164,7 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
                 major_news = [a for a in news if a.get("source", "") in MAJOR_NAMES]
                 if not major_news:
                     major_news = news[:1]
-                for article in major_news[:2]:
+                for article in major_news[:1]:
                     news_title = _escape_html(article.get("title", ""))
                     news_src = _escape_html(article.get("source", ""))
                     news_url = (article.get("link", "") or article.get("url", "")).strip()
