@@ -161,7 +161,11 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
                 for article in news[:2]:
                     news_title = _escape_html(article.get("title", ""))[:40]
                     news_src = _escape_html(article.get("source", ""))
-                    news_url = article.get("link", "") or article.get("url", "")
+                    news_url = (article.get("link", "") or article.get("url", "")).strip()
+                    # URL 유효성 검증 + 이스케이프
+                    if news_url and not news_url.startswith("http"):
+                        news_url = ""
+                    news_url = news_url.replace("&", "&amp;").replace('"', "%22")
                     news_summary = _escape_html(article.get("summary", ""))[:60]
                     if news_url:
                         lines.append(f'  📰 <a href="{news_url}">{news_src}: {news_title}</a>')
@@ -177,7 +181,13 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
 
     text = "\n".join(lines)
     if len(text) > 4000:
-        text = text[:3950] + f'\n\n... <a href="{SITE_URL}">더보기</a>'
+        # 태그 안전하게 자르기: 마지막 완전한 줄에서 자르기
+        cut = text.rfind("\n", 0, 3900)
+        if cut > 0:
+            text = text[:cut]
+        else:
+            text = text[:3900]
+        text += f'\n\n... <a href="{SITE_URL}">더보기</a>'
 
     return text
 
@@ -187,12 +197,18 @@ def send_telegram(text: str, bot_token: str = "", chat_id: str = "") -> bool:
     token = bot_token or TELEGRAM_BOT_TOKEN
     cid = chat_id or TELEGRAM_CHAT_ID
 
-    # 발송 전 검증
+    # 발송 전 검증 + 자동 복구
     errors = _validate_message(text)
     if errors:
-        print(f"  ⚠️ 메시지 검증 경고:")
+        print(f"  ⚠️ 메시지 검증 경고 → 자동 복구 시도:")
         for err in errors:
             print(f"    - {err}")
+        text = _fix_html(text)
+        errors_after = _validate_message(text)
+        if errors_after:
+            print(f"  ⚠️ 복구 후에도 {len(errors_after)}건 남음")
+        else:
+            print(f"  ✅ 자동 복구 성공")
 
     if not TELEGRAM_ENABLED:
         print("  [텔레그램] TELEGRAM_ENABLED=false → 스킵")
@@ -314,7 +330,7 @@ def _validate_message(text: str) -> list[str]:
     errors = []
 
     # HTML 태그 쌍 검증
-    for tag in ["b", "a"]:
+    for tag in ["b", "a", "i"]:
         opens = len(_re.findall(f"<{tag}[ >]", text))
         closes = len(_re.findall(f"</{tag}>", text))
         if opens != closes:
@@ -325,11 +341,8 @@ def _validate_message(text: str) -> list[str]:
     for link in links:
         if not link or not link.startswith("http"):
             errors.append(f"잘못된 링크: {link[:50]}")
-        if "&amp;" not in link and "&" in link and "?" in link:
-            pass  # URL 파라미터의 & 는 정상
 
     # 이스케이프 안 된 HTML 특수문자
-    # <a> 태그 밖에서 < > 가 있으면 문제
     stripped = _re.sub(r'<[^>]+>', '', text)
     if '<' in stripped or '>' in stripped:
         errors.append("태그 밖에 이스케이프 안 된 <> 문자 존재")
@@ -339,6 +352,45 @@ def _validate_message(text: str) -> list[str]:
         errors.append(f"메시지 길이 초과: {len(text)}자 > 4096자")
 
     return errors
+
+
+def _fix_html(text: str) -> str:
+    """깨진 HTML 태그 자동 복구"""
+    import re as _re
+
+    # 1. 잘못된 <a> 태그 (닫히지 않은) 제거
+    # 닫는 태그 없는 <a>를 찾아 텍스트로 교체
+    for tag in ["a", "b", "i"]:
+        opens = len(_re.findall(f"<{tag}[ >]", text))
+        closes = len(_re.findall(f"</{tag}>", text))
+        if opens > closes:
+            # 마지막 열린 태그부터 역순으로 닫기
+            for _ in range(opens - closes):
+                # 가장 마지막 <a href="...">텍스트 를 찾아 태그 제거
+                m = list(_re.finditer(f'<{tag}[^>]*>([^<]*?)$', text))
+                if m:
+                    last = m[-1]
+                    text = text[:last.start()] + last.group(1) + text[last.end():]
+                else:
+                    text += f"</{tag}>"
+        elif closes > opens:
+            # 여분의 닫는 태그 제거
+            for _ in range(closes - opens):
+                idx = text.rfind(f"</{tag}>")
+                if idx >= 0:
+                    text = text[:idx] + text[idx + len(f"</{tag}>"):]
+
+    # 2. 태그 밖 < > 이스케이프
+    def _escape_outside_tags(t):
+        parts = _re.split(r'(<[^>]+>)', t)
+        for i, p in enumerate(parts):
+            if not p.startswith('<'):
+                parts[i] = p.replace('<', '&lt;').replace('>', '&gt;')
+        return ''.join(parts)
+
+    text = _escape_outside_tags(text)
+
+    return text
 
 
 def _enrich_news(selected: dict) -> None:
