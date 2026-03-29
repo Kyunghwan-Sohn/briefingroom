@@ -220,6 +220,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .m-search-slide{position:fixed;top:var(--mob-h);left:0;right:0;z-index:45}
   .press-card .card-actions{display:none}
   .detail-hdr{display:none}
+  .detail{top:calc(var(--mob-h) + var(--mob-tab));max-height:calc(100vh - var(--mob-h) - var(--mob-tab));border-radius:0}
   .card-title{font-size:14px;font-weight:600}
 }
 @media(min-width:769px){.m-header,.m-cat-tabs,.m-bottom-nav,.m-search-slide{display:none!important}}
@@ -862,14 +863,30 @@ function mSetTab(cat,el){
   document.querySelectorAll('.m-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
   expanded={};
-  // 전체 탭이면 top-picks, page-hdr, source-badges 표시, 아니면 숨기기
   const isAll = cat === 'all';
-  const tp = document.getElementById('top-picks');
   const ph = document.querySelector('.page-hdr');
   const sb = document.getElementById('source-badges');
-  if(tp) tp.style.display = isAll ? '' : 'none';
   if(ph) ph.style.display = isAll ? '' : 'none';
   if(sb) sb.style.display = isAll ? '' : 'none';
+  // 분류 탭에서는 날짜 인라인 표시
+  let dateBar = document.getElementById('m-cat-date');
+  if(!isAll){
+    if(!dateBar){
+      dateBar = document.createElement('div');
+      dateBar.id = 'm-cat-date';
+      dateBar.style.cssText = 'font-family:var(--mono);font-size:11px;color:var(--muted);padding:8px 16px 4px;';
+    }
+    const ds = fmtDate(curDate);
+    const _t=new Date();const _isT=ds===fmtDate(_t);const _y=new Date(_t);_y.setDate(_t.getDate()-1);const _isY=ds===fmtDate(_y);
+    const label=_isT?' (오늘)':_isY?' (어제)':'';
+    const CN2={'금융경제':'금융·경제','사회복지':'사회·복지','산업기술':'산업·기술','외교안보':'외교·안보','행정법제':'행정·법제'};
+    const catName = CN2[cat] || cat;
+    dateBar.textContent = `${curDate.getMonth()+1}/${curDate.getDate()}${label} ${catName}`;
+    const mc = document.getElementById('main-content');
+    mc.parentElement.insertBefore(dateBar, mc);
+  } else {
+    if(dateBar) dateBar.remove();
+  }
   render();
 }
 function openFilterSheet(){
