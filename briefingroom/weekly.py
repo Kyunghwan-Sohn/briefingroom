@@ -33,27 +33,43 @@ def _get_week_range(target: date) -> tuple[date, date]:
     return start, end
 
 
-def analyze_weekly(target: date) -> dict:
-    """DB에서 7일 + 전주 7일 집계"""
-    from briefingroom.db import DB_PATH
+def _load_items_from_json(start: date, end: date) -> list[dict]:
+    """data/ 디렉토리의 JSON 파일에서 기간 내 아이템 로드"""
+    items = []
+    d = start
+    while d <= end:
+        json_path = DATA_DIR / f"{d.isoformat()}.json"
+        if json_path.exists():
+            try:
+                data = json.loads(json_path.read_text(encoding="utf-8"))
+                for it in data.get("items", []):
+                    # keywords가 리스트면 쉼표 구분 문자열로 변환
+                    kw = it.get("keywords", "")
+                    if isinstance(kw, list):
+                        kw = ", ".join(kw)
+                    items.append({
+                        "source": it.get("source", ""),
+                        "title": it.get("title", ""),
+                        "url": it.get("url", ""),
+                        "date": it.get("date", d.isoformat()),
+                        "category": it.get("category", "") or CAT_MAP.get(it.get("source", ""), "행정법제"),
+                        "summary": it.get("summary", ""),
+                        "keywords": kw,
+                    })
+            except Exception as e:
+                print(f"  [JSON] {json_path.name} 로드 실패: {e}")
+        d += timedelta(days=1)
+    return items
 
+
+def analyze_weekly(target: date) -> dict:
+    """data/ JSON 파일에서 7일 + 전주 7일 집계"""
     start, end = _get_week_range(target)
     prev_start = start - timedelta(days=7)
     prev_end = start - timedelta(days=1)
 
-    conn = sqlite3.connect(str(DB_PATH))
-    conn.row_factory = sqlite3.Row
-
-    rows = conn.execute(
-        "SELECT * FROM articles WHERE date BETWEEN ? AND ?",
-        (start.isoformat(), end.isoformat()),
-    ).fetchall()
-
-    prev_rows = conn.execute(
-        "SELECT source, category, keywords FROM articles WHERE date BETWEEN ? AND ?",
-        (prev_start.isoformat(), prev_end.isoformat()),
-    ).fetchall()
-    conn.close()
+    rows = _load_items_from_json(start, end)
+    prev_rows = _load_items_from_json(prev_start, prev_end)
 
     total = len(rows)
     by_cat = Counter()
@@ -65,7 +81,7 @@ def analyze_weekly(target: date) -> dict:
         cat = r["category"] or CAT_MAP.get(r["source"], "행정법제")
         by_cat[cat] += 1
         by_source[r["source"]] += 1
-        items_by_cat[cat].append(dict(r))
+        items_by_cat[cat].append(r)
         if r["keywords"]:
             for kw in r["keywords"].split(","):
                 kw = kw.strip()
@@ -75,7 +91,7 @@ def analyze_weekly(target: date) -> dict:
     prev_total = len(prev_rows)
     prev_keywords = Counter()
     for r in prev_rows:
-        if r["keywords"]:
+        if r.get("keywords"):
             for kw in r["keywords"].split(","):
                 kw = kw.strip()
                 if kw and len(kw) > 1:
