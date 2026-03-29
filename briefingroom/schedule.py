@@ -389,10 +389,15 @@ def collect_next_week_schedule(target: date) -> list[dict]:
         mt = crawl_mt_schedule(next_monday)
         all_items.extend(mt)
 
+    # 날짜 범위 필터링 (차주 월~금만)
+    start_str = next_monday.isoformat()
+    end_str = next_friday.isoformat()
+    all_items = [it for it in all_items if start_str <= it["date"] <= end_str]
+
     # 날짜순 정렬
     all_items.sort(key=lambda x: (x["date"], x["time"]))
 
-    print(f"  총 {len(all_items)}건 수집 완료")
+    print(f"  총 {len(all_items)}건 수집 완료 ({start_str} ~ {end_str})")
     return all_items
 
 
@@ -408,6 +413,8 @@ def format_schedule_telegram(items: list[dict], target: date) -> str:
         "",
     ]
 
+    post_url = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
+
     if not items:
         lines.append("  일정 정보 없음")
         lines.append("")
@@ -419,6 +426,8 @@ def format_schedule_telegram(items: list[dict], target: date) -> str:
     for it in items:
         by_date[it["date"]].append(it)
 
+    MAX_PER_DAY = 3  # 일자별 주요 일정 수
+
     for d in sorted(by_date.keys()):
         day_items = by_date[d]
         dt = date.fromisoformat(d)
@@ -426,9 +435,23 @@ def format_schedule_telegram(items: list[dict], target: date) -> str:
 
         lines.append(f"━━━ {dt.month}/{dt.day}({dow}) ━━━")
 
+        # 우선순위: 대통령실 > 시간 있는 일정 > 나머지
+        priority = []
+        others = []
         for it in day_items:
+            if it["source"] == "대통령실":
+                priority.append(it)
+            elif it["time"]:
+                priority.append(it)
+            else:
+                others.append(it)
+
+        top_items = (priority + others)[:MAX_PER_DAY]
+        remaining = len(day_items) - len(top_items)
+
+        for it in top_items:
             src = _escape_html(it["source"])
-            title = _escape_html(it["title"])[:50]
+            title = _escape_html(it["title"])[:45]
             time_str = it["time"]
             loc = _escape_html(it["location"])
 
@@ -437,19 +460,21 @@ def format_schedule_telegram(items: list[dict], target: date) -> str:
             if loc:
                 detail += f" ({loc})"
 
-            lines.append(f"  <b>{src}</b>")
+            lines.append(f"  🏛 <b>{src}</b>")
             lines.append(f"  ▸ {detail}")
+
+        if remaining > 0:
+            lines.append(f"  <i>... 외 {remaining}건</i>")
 
         lines.append("")
 
     lines.append("──────────────────")
-    post_url = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
+    total = len(items)
+    dept_count = len(set(it["source"] for it in items))
+    lines.append(f"총 {total}건 · {dept_count}개 부처")
     lines.append(f'📄 <a href="{post_url}">전체 일정 보기</a>')
 
-    text = "\n".join(lines)
-    if len(text) > 4000:
-        text = text[:3950] + f'\n\n... <a href="{post_url}">더보기</a>'
-    return text
+    return "\n".join(lines)
 
 
 def generate_schedule_post(items: list[dict], target: date) -> str:
