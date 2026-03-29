@@ -76,7 +76,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .v-btn{padding:5px 9px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px;transition:all .12s}
 .v-btn.active{background:var(--text);color:#fff}
 .content{padding:20px 24px;min-width:0;overflow-x:hidden}
-.page-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:8px;flex-wrap:nowrap}
+.page-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px;flex-wrap:nowrap}
 .page-title{font-family:var(--serif);font-size:20px;font-weight:700;letter-spacing:-.5px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .page-sub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px}
 .total-badge{font-family:var(--mono);font-size:12px;color:var(--accent);background:var(--accent-l);border:1px solid rgba(47,84,235,.2);padding:4px 12px;border-radius:20px;white-space:nowrap;flex-shrink:0}
@@ -173,12 +173,12 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .m-search-row input{flex:1;background:none;border:none;outline:none;font-family:var(--sans);font-size:14px;color:var(--text);min-width:0}
 .m-search-row input::placeholder{color:var(--muted)}
 .m-cat-tabs{display:none;position:sticky;z-index:40;background:rgba(245,244,240,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);height:var(--mob-tab)}
-.m-cat-tabs[data-active]{display:grid;grid-template-columns:repeat(6,1fr)}
+.m-cat-tabs[data-active]{display:grid;grid-template-columns:repeat(5,1fr)}
 .m-tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:0;background:none;border:none;cursor:pointer;min-height:44px;color:var(--muted);position:relative;font-family:var(--sans);-webkit-tap-highlight-color:transparent}
 .m-tab.active{color:var(--text)}
 .m-tab.active::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:2px;background:var(--tab-c,var(--text));border-radius:1px 1px 0 0}
 .m-tab-dot{width:5px;height:5px;border-radius:50%;background:var(--tab-c,var(--muted))}
-.m-tab-label{font-size:11px;font-weight:500;line-height:1}
+.m-tab-label{font-size:14px;font-weight:600;line-height:1}
 .m-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:calc(var(--mob-nav) + var(--mob-safe));padding-bottom:var(--mob-safe);background:rgba(245,244,240,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);grid-template-columns:1fr 1fr 1.4fr 1fr 1fr;align-items:center}
 .m-nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:var(--mob-nav);background:none;border:none;cursor:pointer;color:var(--muted);-webkit-tap-highlight-color:transparent;font-family:var(--sans)}
 .m-nav-item.active{color:var(--accent)}
@@ -205,7 +205,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .header{padding:0 16px}
   .mobile-cta{display:flex;padding-bottom:max(12px, env(safe-area-inset-bottom))}
   .topbar{display:none}
-  .content{padding:12px 16px;padding-bottom:calc(var(--mob-nav) + var(--mob-safe) + 16px);max-width:100vw;overflow-x:hidden;min-width:0}
+  .content{padding:12px 16px;padding-bottom:calc(var(--mob-nav) + var(--mob-safe) + 16px);max-width:100vw;overflow-x:hidden;min-width:0;box-sizing:border-box}
   .d-close{width:44px;height:44px}
   .header{display:none}
   .mobile-date-nav{display:none!important}
@@ -213,6 +213,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .mobile-cta{display:none!important}
   .hero-banner{margin-left:0;margin-top:calc(var(--mob-h) + var(--mob-tab));flex-direction:column;text-align:center;padding:16px}
   .main{padding-top:calc(var(--mob-h) + var(--mob-tab))}
+  .content{padding-top:8px}
   .m-header{display:flex}
   .m-cat-tabs[data-active]{display:grid;top:var(--mob-h)}
   .m-bottom-nav{display:grid}
@@ -300,29 +301,8 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab{
 @keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .press-card{animation:fadeUp .22s ease both}
 
-/* [P1] 오늘의 핵심 섹션: 다크 배경으로 명확한 분리 */
-#top-picks{
-  background:var(--text);
-  border-radius:12px;
-  padding:16px 20px;
-  margin-bottom:20px;
-}
-#top-picks>div:first-child{  /* 현재 헤더 텍스트 */
-  font-family:var(--mono) !important;
-  font-size:10px !important;
-  font-weight:600;
-  color:rgba(255,255,255,.5) !important;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-}
-#top-picks-list>div{  /* top-picks row */
-  border-bottom:1px solid rgba(255,255,255,.08) !important;
-  padding:10px 0 !important;
-  background:none !important;
-  border-left:none !important;
-  border-radius:0 !important;
-  border-top:none !important;
-  border-right:none !important;
+/* top-picks 제거됨 */
+.top-picks-removed{
 }
 #top-picks-list>div:last-child{border-bottom:none !important}
 #top-picks-list>div span:nth-child(2){ /* 제목 */
@@ -330,9 +310,7 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab{
   font-size:13px !important;
   font-weight:600 !important;
 }
-#top-picks-list>div span:nth-child(3){ /* 키워드 */
-  color:rgba(255,255,255,.45) !important;
-}
+
 
 /* [P1] 로딩: 스피너 대신 pulse 애니메이션 */
 .loading{padding:48px 0}
@@ -373,11 +351,10 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab{
 <!-- 모바일 카테고리 탭 -->
 <nav class="m-cat-tabs" id="m-cat-tabs" data-active="true" role="tablist" aria-label="분야 필터">
   <button class="m-tab active" role="tab" onclick="mSetTab('all',this)"><span class="m-tab-label">전체</span></button>
-  <button class="m-tab" role="tab" onclick="mSetTab('금융경제',this)" style="--tab-c:var(--c-fin)"><span class="m-tab-dot"></span><span class="m-tab-label">금융</span></button>
-  <button class="m-tab" role="tab" onclick="mSetTab('사회복지',this)" style="--tab-c:var(--c-soc)"><span class="m-tab-dot"></span><span class="m-tab-label">사회</span></button>
-  <button class="m-tab" role="tab" onclick="mSetTab('산업기술',this)" style="--tab-c:var(--c-ind)"><span class="m-tab-dot"></span><span class="m-tab-label">산업</span></button>
-  <button class="m-tab" role="tab" onclick="mSetTab('외교안보',this)" style="--tab-c:var(--c-dip)"><span class="m-tab-dot"></span><span class="m-tab-label">외교</span></button>
-  <button class="m-tab" role="tab" onclick="openFilterSheet()"><span class="m-tab-label">더보기</span><span style="font-size:8px">▾</span></button>
+  <button class="m-tab" role="tab" onclick="mSetTab('금융경제',this)" style="--tab-c:var(--c-fin)"><span class="m-tab-label">금융</span></button>
+  <button class="m-tab" role="tab" onclick="mSetTab('사회복지',this)" style="--tab-c:var(--c-soc)"><span class="m-tab-label">사회</span></button>
+  <button class="m-tab" role="tab" onclick="mSetTab('산업기술',this)" style="--tab-c:var(--c-ind)"><span class="m-tab-label">산업</span></button>
+  <button class="m-tab" role="tab" onclick="openFilterSheet()"><span class="m-tab-label">더보기</span><span style="font-size:9px;margin-left:2px">▾</span></button>
 </nav>
 
 <!-- 기존 데스크톱 헤더 -->
@@ -465,9 +442,7 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab{
       </div>
     </div>
     <div class="content">
-      <div id="top-picks" style="display:none;margin-bottom:16px">
-        <div id="top-picks-list" style="display:flex;flex-direction:column;gap:8px"></div>
-      </div>
+
       <div class="page-hdr">
         <div>
           <div class="page-title" id="page-title">보도자료</div>
@@ -634,9 +609,7 @@ function render(){
   const items=filtered();document.getElementById('total-badge').textContent=`${items.length}건`;
   const c=document.getElementById('main-content');c.innerHTML='';
   if(!items.length){c.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div>보도자료가 없습니다</div></div>';return}
-  const sb=document.createElement('div');sb.className='sub-bar';
-  sb.innerHTML=`<span style="color:rgba(255,255,255,.85);font-size:13px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">✈ 텔레그램에서 매일 보도자료 받아보세요</span><a href="https://t.me/govbriefkr" target="_blank" class="sub-bar-btn">채널 입장하기</a>`;
-  c.appendChild(sb);
+  // sub-bar 완전 제거
   if(curFilter!=='all'){const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;items.forEach((it,i)=>g.appendChild(mkCard(it,i)));c.appendChild(g)}
   else{CO.forEach(cat=>{if(!groupedByCat[cat]?.length)return;c.appendChild(mkBlock(cat,groupedByCat[cat]))})}
 }
@@ -784,8 +757,13 @@ function renderSourceBadges(){
   box.style.display='flex';box.textContent='';
   show.forEach(([src,cnt])=>{
     const tag=document.createElement('span');
-    tag.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:12px;border:1px solid var(--accent);color:var(--accent);cursor:pointer;white-space:nowrap;background:var(--accent-l)';
-    tag.textContent=`${src} ${cnt}`;tag.addEventListener('click',()=>{curFilter=src;render()});box.appendChild(tag);
+    const isActive=curFilter===src;
+    tag.style.cssText=isActive
+      ?'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:12px;border:1px solid var(--accent);color:#fff;background:var(--accent);cursor:pointer;white-space:nowrap'
+      :'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:12px;border:1px solid var(--accent);color:var(--accent);cursor:pointer;white-space:nowrap;background:var(--accent-l)';
+    tag.textContent=`${src} ${cnt}`;
+    tag.addEventListener('click',()=>{curFilter=src;render();renderSourceBadges()});
+    box.appendChild(tag);
   });
   if(others.length>0){
     const more=document.createElement('span');
@@ -795,9 +773,20 @@ function renderSourceBadges(){
       box.textContent='';
       sorted.forEach(([src,cnt])=>{
         const tag=document.createElement('span');
-        tag.style.cssText='font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);color:var(--text2);cursor:pointer;white-space:nowrap';
-        tag.textContent=`${src} ${cnt}`;tag.addEventListener('click',()=>{curFilter=src;render()});box.appendChild(tag);
+        const isActive=curFilter===src;
+        tag.style.cssText=isActive
+          ?'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:12px;border:1px solid var(--accent);color:#fff;background:var(--accent);cursor:pointer;white-space:nowrap'
+          :'font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);color:var(--text2);cursor:pointer;white-space:nowrap';
+        tag.textContent=`${src} ${cnt}`;
+        tag.addEventListener('click',()=>{curFilter=src;render();renderSourceBadges()});
+        box.appendChild(tag);
       });
+      // 접기 버튼
+      const fold=document.createElement('span');
+      fold.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:12px;border:1px solid var(--border);color:var(--muted);cursor:pointer;white-space:nowrap';
+      fold.textContent='접기 ▲';
+      fold.addEventListener('click',()=>{renderSourceBadges()});
+      box.appendChild(fold);
     });
     box.appendChild(more);
   }
