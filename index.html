@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f5f4f0;--bg2:#eceae5;--surface:#fff;--border:#e0ddd7;--border2:#ccc9c2;--text:#1c1b18;--text2:#4a4844;--muted:#96938c;--accent:#2f54eb;--accent-l:#eef0fd;--c-fin:#2f54eb;--c-soc:#16a34a;--c-ind:#d97706;--c-dip:#dc2626;--c-adm:#7c3aed;--serif:'Noto Serif KR',serif;--sans:'Pretendard',sans-serif;--mono:'DM Mono',monospace}
+:root{--bg:#f5f4f0;--bg2:#eceae5;--surface:#fff;--border:#e0ddd7;--border2:#ccc9c2;--text:#1c1b18;--text2:#4a4844;--muted:#96938c;--accent:#2f54eb;--accent-l:#eef0fd;--c-fin:#2f54eb;--c-soc:#16a34a;--c-ind:#d97706;--c-dip:#dc2626;--c-adm:#7c3aed;--serif:'Noto Serif KR',serif;--sans:'Pretendard',sans-serif;--mono:'DM Mono',monospace;--mob-h:48px;--mob-tab:44px;--mob-nav:56px;--mob-safe:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
@@ -161,6 +161,33 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .mob-filter-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
 .mob-filter-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .mob-filter-btn.active .mob-filter-dot{background:#fff !important}
+
+/* ===== 모바일 전용 컴포넌트 ===== */
+.m-header{display:none;position:fixed;top:0;left:0;right:0;height:var(--mob-h);z-index:50;background:rgba(245,244,240,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 12px;align-items:center;gap:8px}
+.m-date-chip{display:flex;align-items:center;gap:4px;height:32px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:0 12px;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;white-space:nowrap}
+.m-icon-btn{width:40px;height:40px;min-width:40px;border-radius:10px;background:none;border:none;color:var(--text2);cursor:pointer;display:grid;place-items:center;font-size:16px}
+.m-icon-btn:active{background:var(--bg2)}
+.m-search-slide{display:none;background:var(--surface);border-bottom:1px solid var(--border);padding:8px 12px}
+.m-search-slide.open{display:block}
+.m-search-row{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:0 12px;height:40px}
+.m-search-row input{flex:1;background:none;border:none;outline:none;font-family:var(--sans);font-size:14px;color:var(--text);min-width:0}
+.m-search-row input::placeholder{color:var(--muted)}
+.m-cat-tabs{display:none;position:sticky;z-index:40;background:rgba(245,244,240,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);height:var(--mob-tab)}
+.m-cat-tabs[data-active]{display:grid;grid-template-columns:repeat(6,1fr)}
+.m-tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:0;background:none;border:none;cursor:pointer;min-height:44px;color:var(--muted);position:relative;font-family:var(--sans);-webkit-tap-highlight-color:transparent}
+.m-tab.active{color:var(--text)}
+.m-tab.active::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:2px;background:var(--tab-c,var(--text));border-radius:1px 1px 0 0}
+.m-tab-dot{width:5px;height:5px;border-radius:50%;background:var(--tab-c,var(--muted))}
+.m-tab-label{font-size:11px;font-weight:500;line-height:1}
+.m-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:calc(var(--mob-nav) + var(--mob-safe));padding-bottom:var(--mob-safe);background:rgba(245,244,240,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);grid-template-columns:1fr 1fr 1.4fr 1fr 1fr;align-items:center}
+.m-nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:var(--mob-nav);background:none;border:none;cursor:pointer;color:var(--muted);-webkit-tap-highlight-color:transparent;font-family:var(--sans)}
+.m-nav-item.active{color:var(--accent)}
+.m-nav-label{font-size:10px;font-weight:500}
+.m-nav-date-ctrl{display:flex;align-items:center;justify-content:center;gap:6px;min-height:var(--mob-nav)}
+.m-nav-date-btn{width:34px;height:34px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;cursor:pointer;color:var(--text2);font-size:11px;display:grid;place-items:center}
+.m-nav-date-btn:active{background:var(--border2)}
+.m-nav-date-label{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--text);min-width:40px;text-align:center}
+
 @media(max-width:768px){
   .hero-banner{margin-left:0;flex-direction:column;text-align:center;padding:16px}
   .hero-left h2{font-size:16px}
@@ -177,10 +204,23 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .header-sub-area{display:none}
   .header{padding:0 16px}
   .mobile-cta{display:flex;padding-bottom:max(12px, env(safe-area-inset-bottom))}
-  .topbar{position:relative;top:auto}
-  .content{padding:16px;padding-bottom:80px;max-width:100vw;overflow-x:hidden}
+  .topbar{display:none}
+  .content{padding:12px 16px;padding-bottom:calc(var(--mob-nav) + var(--mob-safe) + 16px);max-width:100vw;overflow-x:hidden;min-width:0}
   .d-close{width:44px;height:44px}
+  .header{display:none}
+  .mobile-date-nav{display:none!important}
+  .mob-filter{display:none!important}
+  .mobile-cta{display:none!important}
+  .hero-banner{margin-left:0;margin-top:calc(var(--mob-h) + var(--mob-tab));flex-direction:column;text-align:center;padding:16px}
+  .main{padding-top:calc(var(--mob-h) + var(--mob-tab))}
+  .m-header{display:flex}
+  .m-cat-tabs[data-active]{display:grid;top:var(--mob-h)}
+  .m-bottom-nav{display:grid}
+  .m-search-slide{position:fixed;top:var(--mob-h);left:0;right:0;z-index:45}
+  .press-card .card-actions{display:none}
+  .card-title{font-size:14px;font-weight:600}
 }
+@media(min-width:769px){.m-header,.m-cat-tabs,.m-bottom-nav,.m-search-slide{display:none!important}}
 @media(min-width:769px) and (max-width:1024px){
   .sidebar{width:180px}
   .main{margin-left:180px}
@@ -213,6 +253,37 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 </head>
 <body>
 
+<!-- 모바일 전용 헤더 -->
+<header class="m-header" id="m-header">
+  <a class="logo" href="/" style="flex-shrink:0">
+    <div class="logo-mark">📋</div>
+  </a>
+  <button class="m-date-chip" id="m-date-chip" onclick="openDateSheet()">
+    <span id="m-date-text"></span>
+    <span style="font-size:9px;color:var(--muted)">▾</span>
+  </button>
+  <button class="m-icon-btn" id="m-search-toggle" onclick="mToggleSearch()" aria-label="검색">🔍</button>
+</header>
+
+<!-- 모바일 검색 슬라이드 -->
+<div class="m-search-slide" id="m-search-slide">
+  <div class="m-search-row">
+    <span style="color:var(--muted);font-size:14px;flex-shrink:0">🔍</span>
+    <input type="search" id="m-search-input" inputmode="search" placeholder="제목, 기관, 키워드 검색..." aria-label="보도자료 검색" oninput="handleSearch(this.value)">
+  </div>
+</div>
+
+<!-- 모바일 카테고리 탭 -->
+<nav class="m-cat-tabs" id="m-cat-tabs" data-active="true" role="tablist" aria-label="분야 필터">
+  <button class="m-tab active" role="tab" onclick="mSetTab('all',this)"><span class="m-tab-label">전체</span></button>
+  <button class="m-tab" role="tab" onclick="mSetTab('금융경제',this)" style="--tab-c:var(--c-fin)"><span class="m-tab-dot"></span><span class="m-tab-label">금융</span></button>
+  <button class="m-tab" role="tab" onclick="mSetTab('사회복지',this)" style="--tab-c:var(--c-soc)"><span class="m-tab-dot"></span><span class="m-tab-label">사회</span></button>
+  <button class="m-tab" role="tab" onclick="mSetTab('산업기술',this)" style="--tab-c:var(--c-ind)"><span class="m-tab-dot"></span><span class="m-tab-label">산업</span></button>
+  <button class="m-tab" role="tab" onclick="mSetTab('외교안보',this)" style="--tab-c:var(--c-dip)"><span class="m-tab-dot"></span><span class="m-tab-label">외교</span></button>
+  <button class="m-tab" role="tab" onclick="openFilterSheet()"><span class="m-tab-label">더보기</span><span style="font-size:8px">▾</span></button>
+</nav>
+
+<!-- 기존 데스크톱 헤더 -->
 <header class="header">
   <a class="logo" href="/">
     <div class="logo-mark">📋</div>
@@ -421,7 +492,7 @@ async function loadData(){
     // 중복 제거 (제목 기준)
     const seen=new Set();
     items=items.filter(it=>{if(seen.has(it.title))return false;seen.add(it.title);return true});
-    allItems=items;rebuildIndexes();render();updateSidebar();renderTopPicks();renderSourceBadges();
+    allItems=items;rebuildIndexes();render();updateSidebar();renderTopPicks();renderSourceBadges();updateMobileUI();
   }catch(e){document.getElementById('main-content').innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div>로드 실패: ${escapeHtml(e.message)}</div></div>`}
 }
 
@@ -683,6 +754,34 @@ function closeMinistrySheet(){
   const sheet=document.getElementById('ministry-sheet');
   if(sheet)sheet.classList.remove('open');
   document.body.style.overflow='';
+}
+
+// 모바일 전용 함수
+function mToggleSearch(){
+  const sl=document.getElementById('m-search-slide');
+  sl.classList.toggle('open');
+  if(sl.classList.contains('open'))document.getElementById('m-search-input').focus();
+}
+function mSetTab(cat,el){
+  curFilter=cat;
+  document.querySelectorAll('.m-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  expanded={};render();
+}
+function openFilterSheet(){
+  // 행정법제 + 금융서브 + 부처별을 바텀시트로
+  openMinistrySheet();
+}
+function openDateSheet(){
+  // 간단히 날짜 입력 prompt
+  const d=prompt('날짜 입력 (YYYY-MM-DD)',fmtDate(curDate));
+  if(d){const parts=d.split('-');if(parts.length===3){curDate=new Date(parts[0],parts[1]-1,parts[2]);loadData()}}
+}
+function navHome(){curFilter='all';curDate=new Date();loadData()}
+function updateMobileUI(){
+  const mm=curDate.getMonth()+1;const dd=curDate.getDate();
+  const chip=document.getElementById('m-date-text');if(chip)chip.textContent=mm+'월 '+dd+'일';
+  const nav=document.getElementById('m-nav-date');if(nav)nav.textContent=mm+'/'+dd;
 }
 
 let _shareTitle='',_shareUrl='';
