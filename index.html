@@ -562,6 +562,24 @@ async function loadData(){
     const seen=new Set();
     items=items.filter(it=>{if(seen.has(it.title))return false;seen.add(it.title);return true});
     allItems=items;rebuildIndexes();render();updateSidebar();renderTopPicks();renderSourceBadges();updateMobileUI();
+    // 탭 필터 상태 복원
+    if(curFilter!=='all'){
+      const tabs=document.querySelectorAll('.m-tab');
+      tabs.forEach(t=>t.classList.remove('active'));
+      const catMap={'금융경제':1,'사회복지':2,'산업기술':3};
+      if(catMap[curFilter]!==undefined&&tabs[catMap[curFilter]])tabs[catMap[curFilter]].classList.add('active');
+      // 날짜 바 복원
+      let dateBar=document.getElementById('m-cat-date');
+      if(!dateBar){dateBar=document.createElement('div');dateBar.id='m-cat-date';dateBar.style.cssText='font-family:var(--mono);font-size:11px;color:var(--muted);padding:8px 16px 4px;'}
+      const _t2=new Date();const _isT2=fmtDate(curDate)===fmtDate(_t2);const _y2=new Date(_t2);_y2.setDate(_t2.getDate()-1);const _isY2=fmtDate(curDate)===fmtDate(_y2);
+      const lbl2=_isT2?' (오늘)':_isY2?' (어제)':'';
+      dateBar.textContent=`${curDate.getMonth()+1}월 ${curDate.getDate()}일 보도자료${lbl2}`;
+      const mc=document.getElementById('main-content');
+      mc.parentElement.insertBefore(dateBar,mc);
+      // page-hdr, source-badges 숨기기
+      const ph=document.querySelector('.page-hdr');if(ph)ph.style.display='none';
+      const sb=document.getElementById('source-badges');if(sb)sb.style.display='none';
+    }
   }catch(e){document.getElementById('main-content').innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div>로드 실패: ${escapeHtml(e.message)}</div></div>`}
 }
 
@@ -881,7 +899,7 @@ function mSetTab(cat,el){
     const label=_isT?' (오늘)':_isY?' (어제)':'';
     const CN2={'금융경제':'금융·경제','사회복지':'사회·복지','산업기술':'산업·기술','외교안보':'외교·안보','행정법제':'행정·법제'};
     const catName = CN2[cat] || cat;
-    dateBar.textContent = `${curDate.getMonth()+1}/${curDate.getDate()}${label} ${catName}`;
+    dateBar.textContent = `${curDate.getMonth()+1}월 ${curDate.getDate()}일 보도자료${label}`;
     const mc = document.getElementById('main-content');
     mc.parentElement.insertBefore(dateBar, mc);
   } else {
