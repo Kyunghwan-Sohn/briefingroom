@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-03-25T18:57:59",
   "target_date": "2026-03-25",
-  "count": 128,
+  "count": 131,
   "items": [
     {
       "source": "농촌진흥청",
@@ -3739,6 +3739,54 @@
       "raw_summary": "요약: 2026년 3월 소비자심리지수(CCSI)는 107.0으로 전월 대비 5.1p 하락, 장기평균(100)을 초과한 낙관적인 심리가 지속되나, 생활형편과 소득전망에 대한 우려가 확대됨. 현재생활형편과 생활형편전망이 각각 2p, 4p 하락하며, 소비지출전망은 전월과 동일한 111을 유지. 경제전망에서 현재 및 향후 경기판단이 각각 9p, 13p 하락, 금리수준전망은 전월 대비 4p 상승. 물가수준전망은 전월보다 2p 상승했으나, 주택가격과 임금전망은 각각 12p, 3p 하락.  \n키워드: 소비자심리지수, 생활형편, 경기전망, 금리전망, 물가전망",
       "has_text": true,
       "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-03-25_한국은행_2026년_3월_소비자동향조사_결과.txt"
+    },
+    {
+      "source": "대통령실",
+      "title": "이재명 대통령, 진주중앙시장 방문 관련 안귀령 부대변인 서면 브리핑",
+      "url": "https://www.president.go.krjavascript:move_detail('/newsroom/briefing/bDft51Xe');",
+      "date": "2026-03-25",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [],
+      "files": [],
+      "summary": "",
+      "keywords": [],
+      "raw_summary": "",
+      "has_text": false,
+      "text_path": ""
+    },
+    {
+      "source": "대통령실",
+      "title": "이재명 대통령, 한국항공우주산업(KAI) 생산 현장 시찰 관련 안귀령 부대변인 서면브리핑",
+      "url": "https://www.president.go.krjavascript:move_detail('/newsroom/briefing/F7HanG20');",
+      "date": "2026-03-25",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [],
+      "files": [],
+      "summary": "",
+      "keywords": [],
+      "raw_summary": "",
+      "has_text": false,
+      "text_path": ""
+    },
+    {
+      "source": "대통령실",
+      "title": "청와대 비상경제상황실 구성·운영 계획 관련 홍익표 정무수석 브리핑",
+      "url": "https://www.president.go.krjavascript:move_detail('/newsroom/briefing/GX5zwkEN');",
+      "date": "2026-03-25",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [],
+      "files": [],
+      "summary": "",
+      "keywords": [],
+      "raw_summary": "",
+      "has_text": false,
+      "text_path": ""
     }
   ]
 }

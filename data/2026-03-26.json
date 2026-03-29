@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-03-26T13:22:52",
   "target_date": "2026-03-26",
-  "count": 68,
+  "count": 69,
   "items": [
     {
       "source": "산림청",
@@ -1932,6 +1932,22 @@
       "summary": "",
       "keywords": [],
       "raw_summary": "[텍스트 없음]",
+      "has_text": false,
+      "text_path": ""
+    },
+    {
+      "source": "대통령실",
+      "title": "이재명 대통령, 석유공사 비축기지 현장 방문 관련 안귀령 부대변인 서면 브리핑",
+      "url": "https://www.president.go.krjavascript:move_detail('/newsroom/briefing/GD6SmUuE');",
+      "date": "2026-03-26",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [],
+      "files": [],
+      "summary": "",
+      "keywords": [],
+      "raw_summary": "",
       "has_text": false,
       "text_path": ""
     }

@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-03-27T10:54:19",
   "target_date": "2026-03-27",
-  "count": 158,
+  "count": 159,
   "items": [
     {
       "source": "외교부",
@@ -4362,6 +4362,22 @@
       "summary": "",
       "keywords": [],
       "raw_summary": "[텍스트 없음]",
+      "has_text": false,
+      "text_path": ""
+    },
+    {
+      "source": "대통령실",
+      "title": "전군주요지휘관회의 개최 관련 강유정 대변인 서면 브리핑",
+      "url": "https://www.president.go.krjavascript:move_detail('/newsroom/briefing/XlHY8STc');",
+      "date": "2026-03-27",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [],
+      "files": [],
+      "summary": "",
+      "keywords": [],
+      "raw_summary": "",
       "has_text": false,
       "text_path": ""
     }
