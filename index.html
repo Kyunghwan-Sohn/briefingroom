@@ -466,7 +466,6 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab{
     </div>
     <div class="content">
       <div id="top-picks" style="display:none;margin-bottom:16px">
-        <div style="font-family:var(--serif);font-size:15px;font-weight:700;color:var(--text);margin-bottom:10px">🔥 오늘의 핵심 보도자료</div>
         <div id="top-picks-list" style="display:flex;flex-direction:column;gap:8px"></div>
       </div>
       <div class="page-hdr">
@@ -773,32 +772,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();close
   if(catParam){curFilter=catParam;render()}
 })();
 
-function renderTopPicks(){
-  const box=document.getElementById('top-picks');const list=document.getElementById('top-picks-list');
-  if(!allItems.length){box.style.display='none';return}
-  const picked=[];const usedCat=new Set();
-  const sorted=[...allItems].filter(it=>it.sum&&it.kws.length>0).sort((a,b)=>b.kws.length-a.kws.length);
-  for(const it of sorted){if(!usedCat.has(it.cat)){usedCat.add(it.cat);picked.push(it)}if(picked.length>=3)break}
-  if(!picked.length){box.style.display='none';return}
-  box.style.display='block';list.textContent='';
-  /* 헤더 텍스트 업데이트 */
-  const _hdrEl=box.querySelector('div:first-child');
-  if(_hdrEl)_hdrEl.textContent=`TODAY\'S TOP 3 — ${curDate.getMonth()+1}월 ${curDate.getDate()}일`;
-  picked.forEach((it,_pi)=>{
-    const col=CC[it.cat]||'#6d28d9';
-    /* "why it matters": 요약 첫 문장 추출, 최대 50자 */
-    const why=(it.sum||'').split(/[.。!?]/)[0].trim().slice(0,50);
-    const row=document.createElement('div');
-    row.style.cssText='display:flex;align-items:flex-start;gap:12px;padding:10px 0;cursor:pointer;overflow:hidden;max-width:100%;min-width:0';
-    row.addEventListener('click',()=>openDetail(it.id));
-    const num=document.createElement('span');num.style.cssText=`font-family:var(--serif);font-size:18px;font-weight:700;color:rgba(255,255,255,.2);line-height:1;flex-shrink:0;width:20px;padding-top:2px`;num.textContent=_pi+1;
-    const body=document.createElement('div');body.style.cssText='flex:1;min-width:0';
-    const src=document.createElement('div');src.style.cssText=`font-family:var(--mono);font-size:10px;font-weight:600;color:${col};margin-bottom:3px;letter-spacing:.3px`;src.textContent=it.src;
-    const title=document.createElement('div');title.style.cssText='font-size:13px;font-weight:600;color:#fff;line-height:1.4;margin-bottom:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden';title.textContent=it.title;
-    const whyEl=document.createElement('div');whyEl.style.cssText='font-size:11px;color:rgba(255,255,255,.5);line-height:1.4;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden';whyEl.textContent=why;
-    body.append(src,title,whyEl);row.append(num,body);list.appendChild(row);
-  });
-}
+function renderTopPicks(){/* 제거됨 */}
 function renderSourceBadges(){
   const box=document.getElementById('source-badges');
   if(!allItems.length){box.style.display='none';return}
@@ -885,7 +859,16 @@ function mSetTab(cat,el){
   curFilter=cat;
   document.querySelectorAll('.m-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  expanded={};render();
+  expanded={};
+  // 전체 탭이면 top-picks, page-hdr, source-badges 표시, 아니면 숨기기
+  const isAll = cat === 'all';
+  const tp = document.getElementById('top-picks');
+  const ph = document.querySelector('.page-hdr');
+  const sb = document.getElementById('source-badges');
+  if(tp) tp.style.display = isAll ? '' : 'none';
+  if(ph) ph.style.display = isAll ? '' : 'none';
+  if(sb) sb.style.display = isAll ? '' : 'none';
+  render();
 }
 function openFilterSheet(){
   // 행정법제 + 금융서브 + 부처별을 바텀시트로
