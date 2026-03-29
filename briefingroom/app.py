@@ -56,12 +56,46 @@ def _clean_titles(items: list[dict]) -> int:
     for item in items:
         orig = item["title"]
         title = orig.replace("\u200b", "").replace("\xa0", " ").replace("&#038;", "&")
+        title = _re.sub(r"[\r\n\t]+", " ", title)
         title = _re.sub(r"\s{2,}", " ", title).strip()
+
+        # 제목 반복 제거
         half = len(title) // 2
         if half > 15 and title[:half].strip() == title[half:half * 2].strip():
             title = title[:half].strip()
-        if len(title) > 120:
-            title = title[:117] + "..."
+
+        # 본문 시작 패턴 이후 제거
+        for cut in ["□ ", "○ ", "◈ ", "※ "]:
+            idx = title.find(cut)
+            if idx > 10:
+                title = title[:idx].strip()
+
+        # 부처명(장관 ...) 이후 본문 제거
+        title = _re.sub(
+            r"(부|청|처|원|위원회|실)\((?:장관|청장|처장|위원장|실장)\s+[\w가-힣]+(?:,\s*이하\s+[\w가-힣]+)?\).*$",
+            r"\1", title,
+        )
+
+        # "- 부제" 중 본문 시작이면 자르기
+        dash_idx = title.find("- ")
+        if dash_idx > 10 and len(title) > 80:
+            after = title[dash_idx + 2:]
+            if _re.match(r"(\d+월|\d{4}년|['']?\d{2}년|지난|올해|금일|오늘|내일)", after):
+                title = title[:dash_idx].strip()
+            elif len(title) > 120:
+                title = title[:dash_idx].strip()
+
+        # 최종 70자 제한
+        if len(title) > 70:
+            for sep in [", ", "…", "·", " "]:
+                cut = title.rfind(sep, 0, 70)
+                if cut > 30:
+                    title = title[:cut].strip()
+                    break
+            else:
+                title = title[:67] + "..."
+
+        title = title.strip().rstrip(".")
         if title != orig:
             item["title"] = title
             cleaned += 1

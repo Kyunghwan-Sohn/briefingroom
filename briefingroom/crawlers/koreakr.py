@@ -40,19 +40,51 @@ def _new_session():
 
 
 def _clean_title(title: str) -> str:
-    """제목에서 불필요한 부분 제거"""
-    # '관련 보도자료 내용입니다' 이후 제거
-    for cut in ["관련 보도자료", "관련  보도자료", "*자세한 내용은"]:
+    """제목에서 불필요한 부분 제거 — 제목만 추출"""
+    # 1. 불필요한 본문 키워드 이후 잘라내기
+    for cut in ["관련 보도자료", "관련  보도자료", "*자세한 내용은",
+                 "□ ", "○ ", "◈ ", "※ "]:
         idx = title.find(cut)
         if idx > 10:
             title = title[:idx]
-    # 날짜+부처명 꼬리 제거 (예: '2026.03.18금융위원회')
+
+    # 2. 날짜+부처명 꼬리 제거 (예: '2026.03.18금융위원회')
     title = re.sub(r"\d{4}\.\d{2}\.\d{2}[\w가-힣]*$", "", title)
-    # 제목 반복 제거 (예: "제목제목본문..." → "제목")
+
+    # 3. 제목 반복 제거 (예: "제목제목본문..." → "제목")
     title = title.strip()
     half = len(title) // 2
-    if half > 15 and title[:half].strip() == title[half:half*2].strip():
+    if half > 15 and title[:half].strip() == title[half:half * 2].strip():
         title = title[:half].strip()
+
+    # 4. 부처명(장관 ...) 이후 본문 시작 패턴 제거
+    title = re.sub(r"(부|청|처|원|위원회|실)\((?:장관|청장|처장|위원장|실장)\s+[\w가-힣]+(?:,\s*이하\s+[\w가-힣]+)?\).*$", r"\1", title)
+
+    # 5. 줄바꿈/특수공백 정리
+    title = re.sub(r"[\r\n\t]+", " ", title)
+    title = re.sub(r"\s{2,}", " ", title).strip()
+
+    # 6. "- 부제" 패턴: 첫 번째 "- "에서 자르되, 본문이 시작되는 패턴인 경우만
+    dash_idx = title.find("- ")
+    if dash_idx > 10 and len(title) > 80:
+        after_dash = title[dash_idx + 2:]
+        # 부제가 아닌 본문 시작 패턴 (날짜, 부처명+은/는 등)
+        if re.match(r"(\d+월|\d{4}년|['']?\d{2}년|지난|올해|금일|오늘|내일)", after_dash):
+            title = title[:dash_idx].strip()
+        elif len(title) > 120:
+            title = title[:dash_idx].strip()
+
+    # 7. 최종 길이 제한 (70자 — 깔끔한 제목 기준)
+    if len(title) > 70:
+        # 문장 경계에서 자르기 시도
+        for sep in [", ", "…", "·", " "]:
+            cut = title.rfind(sep, 0, 70)
+            if cut > 30:
+                title = title[:cut].strip()
+                break
+        else:
+            title = title[:67] + "..."
+
     return title.strip().rstrip(".")
 
 
