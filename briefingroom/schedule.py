@@ -2,7 +2,8 @@
 
 소스:
   1. 대통령실 캘린더 (president.go.kr/president/calendar_day)
-  2. 머니투데이 "정부부처 주간일정 및 보도계획" 기사
+  2. 이투데이 "정부 주요 일정" 기사 (etoday.co.kr)
+  3. 머니투데이 "정부부처 주간일정 및 보도계획" 기사 (fallback)
 
 매주 일요일 오후 실행 → 텔레그램 + HTML 포스트.
 """
@@ -145,16 +146,17 @@ def _fetch_article_body(url: str) -> str:
 
         soup = BeautifulSoup(r.text, "lxml")
 
-        # 머니투데이 본문 셀렉터
-        for sel in ["div#textBody", "div.article_body", "article",
-                     "div.view_cont", "div#article-view-content-div"]:
+        # 기사 본문 셀렉터 (이투데이, 머니투데이, 일반 뉴스)
+        for sel in ["div.articleView", "div#textBody", "div.article_body",
+                     "div.view_cont", "div#article-view-content-div",
+                     "div.newsct_article", "div#newsViewArea"]:
             el = soup.select_one(sel)
             if el and len(el.get_text(strip=True)) > 200:
                 return el.get_text(separator="\n", strip=True)
 
         return ""
     except Exception as e:
-        print(f"  [머니투데이] 본문 추출 실패: {e}")
+        print(f"  [기사] 본문 추출 실패: {e}")
         return ""
 
 
@@ -238,6 +240,128 @@ def crawl_mt_schedule(week_start: date) -> list[dict]:
 
 
 # ═══════════════════════════════════════════════════════════
+#  2-b. 이투데이 주간일정 기사
+# ═══════════════════════════════════════════════════════════
+
+def _find_etoday_url(week_start: date) -> str | None:
+    """이투데이 '정부 주요 일정' 최신 기사 URL 검색"""
+    try:
+        r = requests.get(
+            "https://www.etoday.co.kr/search/",
+            params={"keyword": "정부 주요 일정 주간"},
+            timeout=10,
+            headers={"User-Agent": "Mozilla/5.0"},
+        )
+        if r.status_code != 200:
+            return None
+
+        soup = BeautifulSoup(r.text, "lxml")
+        for a in soup.select("a[href*='/news/']"):
+            title = a.get_text(strip=True)
+            if ("주간 일정" in title or "주요 일정" in title) and (
+                f"{week_start.month}월" in title
+                or f"{week_start.day}일" in title
+            ):
+                href = a.get("href", "")
+                if not href.startswith("http"):
+                    href = "https://www.etoday.co.kr" + href
+                print(f"  [이투데이] 기사 발견: {title[:50]}")
+                return href
+
+    except Exception as e:
+        print(f"  [이투데이] 검색 실패: {e}")
+    return None
+
+
+def _parse_etoday_schedule(body: str, week_start: date) -> list[dict]:
+    """이투데이 본문 → 구조화된 일정 (△ 마커 기반)"""
+    items = []
+    current_dept = None
+    current_day = None
+    month = week_start.month
+
+    for line in body.split("\n"):
+        line = line.strip()
+        if not line:
+            continue
+
+        # 부처 헤더: ◇재정경제부, ◆국토교통부 등
+        m = re.match(r"[◆◇■□▶●]?\s*([가-힣]{2,15}(?:부|처|실|청|원|위원회|은행|공사))\s*$", line)
+        if m:
+            current_dept = m.group(1).strip()
+            current_day = None
+            continue
+
+        # 날짜 헤더: 30일(월), 1일(수), 3월 30일(월)
+        m = re.match(r"(?:(\d{1,2})월\s*)?(\d{1,2})일\(([월화수목금토일])\)", line)
+        if m:
+            day = int(m.group(2))
+            mon = int(m.group(1)) if m.group(1) else month
+            # 월 넘김 처리: week_start가 3/30이고 day가 1~6이면 다음 달
+            if not m.group(1) and day < week_start.day and day <= 7:
+                mon = month + 1 if month < 12 else 1
+            try:
+                yr = week_start.year + (1 if mon < month else 0)
+                d = date(yr, mon, day)
+                current_day = d.isoformat()
+            except ValueError:
+                current_day = None
+            continue
+
+        # 일정 항목: △경제부총리 11:00 임시 국무회의(서울청사)
+        m = re.match(r"[△▲*·\-•]\s*(.+)", line)
+        if m and current_dept and current_day:
+            item_text = m.group(1).strip()
+            if re.match(r"일정\s*없음", item_text):
+                continue
+
+            # 시간 추출: "경제부총리 11:00 ..." 또는 "(오전 10시, ...)"
+            time_str = ""
+            location = ""
+
+            # HH:MM 패턴
+            tm = re.search(r"(\d{1,2}:\d{2})\s+", item_text)
+            if tm:
+                time_str = tm.group(1)
+
+            # (장소) 패턴
+            loc = re.search(r"\(([^)]+)\)\s*$", item_text)
+            if loc:
+                location = loc.group(1)
+                item_text = item_text[:loc.start()].strip()
+
+            items.append({
+                "date": current_day,
+                "dow": ["월", "화", "수", "목", "금", "토", "일"][
+                    date.fromisoformat(current_day).weekday()],
+                "time": time_str,
+                "title": item_text[:100],
+                "location": location,
+                "source": current_dept,
+            })
+
+    print(f"  [이투데이] {len(items)}건 파싱 ({len(set(i['source'] for i in items))}개 부처)")
+    return items
+
+
+def crawl_etoday_schedule(week_start: date) -> list[dict]:
+    """이투데이 주간일정 기사 크롤링"""
+    print("  [이투데이] 기사 검색 중...")
+    url = _find_etoday_url(week_start)
+    if not url:
+        print("  [이투데이] 기사 못 찾음")
+        return []
+
+    print(f"  [이투데이] 본문 추출 중... {url[:60]}")
+    body = _fetch_article_body(url)
+    if not body:
+        print("  [이투데이] 본문 추출 실패")
+        return []
+
+    return _parse_etoday_schedule(body, week_start)
+
+
+# ═══════════════════════════════════════════════════════════
 #  3. 통합 + 포맷
 # ═══════════════════════════════════════════════════════════
 
@@ -256,9 +380,14 @@ def collect_next_week_schedule(target: date) -> list[dict]:
     president = crawl_president_schedule(next_monday, next_friday)
     all_items.extend(president)
 
-    # 머니투데이
-    mt = crawl_mt_schedule(next_monday)
-    all_items.extend(mt)
+    # 이투데이 (1순위)
+    etoday = crawl_etoday_schedule(next_monday)
+    all_items.extend(etoday)
+
+    # 머니투데이 (이투데이 실패 시 fallback)
+    if not etoday:
+        mt = crawl_mt_schedule(next_monday)
+        all_items.extend(mt)
 
     # 날짜순 정렬
     all_items.sort(key=lambda x: (x["date"], x["time"]))
