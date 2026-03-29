@@ -517,74 +517,123 @@ def format_schedule_telegram(items: list[dict], target: date) -> str:
 
 
 def generate_schedule_post(items: list[dict], target: date) -> str:
-    """차주 일정 HTML 포스트 생성"""
+    """차주 일정 HTML 포스트 생성 — 카드 기반 비주얼 디자인"""
     next_monday = target + timedelta(days=(7 - target.weekday()))
     next_friday = next_monday + timedelta(days=4)
     post_url = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
 
     h = _html.escape
+    dows = ["월", "화", "수", "목", "금", "토", "일"]
+    day_colors = {"월": "#2f54eb", "화": "#16a34a", "수": "#d97706", "목": "#dc2626", "금": "#7c3aed"}
 
-    # 날짜별 행
+    # 날짜별 그룹
     by_date = defaultdict(list)
     for it in items:
         by_date[it["date"]].append(it)
 
-    table_rows = ""
+    # 통계
+    total = len(items)
+    dept_count = len(set(it["source"] for it in items))
+    dept_top = defaultdict(int)
+    for it in items:
+        dept_top[it["source"]] += 1
+    top5 = sorted(dept_top.items(), key=lambda x: -x[1])[:5]
+
+    # 날짜별 카드 HTML
+    day_cards = ""
     for d in sorted(by_date.keys()):
         dt = date.fromisoformat(d)
-        dow = ["월", "화", "수", "목", "금", "토", "일"][dt.weekday()]
+        dow = dows[dt.weekday()]
+        color = day_colors.get(dow, "#2f54eb")
         day_items = by_date[d]
 
-        for i, it in enumerate(day_items):
-            date_cell = f'<td rowspan="{len(day_items)}" class="date-cell">{dt.month}/{dt.day}({dow})</td>' if i == 0 else ""
-            time_str = h(it["time"]) if it["time"] else "-"
-            table_rows += f"""<tr>
-              {date_cell}
-              <td class="dept">{h(it['source'])}</td>
-              <td>{h(it['title'])}</td>
-              <td class="sub">{time_str}</td>
-              <td class="sub">{h(it['location'])}</td>
-            </tr>"""
+        items_html = ""
+        for it in day_items:
+            time_str = h(it["time"]) if it["time"] else "종일"
+            loc = h(it["location"])
+            loc_html = f' <span style="color:#96938c;font-size:11px">({loc})</span>' if loc else ""
+            items_html += f'''<div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0eeea">
+  <div style="min-width:44px;font-family:'DM Mono',monospace;font-size:11px;color:{color};font-weight:600;padding-top:2px">{time_str}</div>
+  <div style="flex:1;min-width:0">
+    <div style="font-size:11px;font-weight:600;color:{color};margin-bottom:2px">{h(it["source"])}</div>
+    <div style="font-size:13px;color:#1c1b18;word-break:keep-all">{h(it["title"])}{loc_html}</div>
+  </div>
+</div>'''
+
+        day_cards += f'''<div style="margin-bottom:20px">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+    <div style="width:48px;height:48px;background:{color};border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0">
+      <span style="font-size:18px;font-weight:700;line-height:1">{dt.day}</span>
+      <span style="font-size:10px;font-weight:600">{dow}요일</span>
+    </div>
+    <div>
+      <div style="font-size:15px;font-weight:700;color:#1c1b18">{dt.month}월 {dt.day}일 ({dow})</div>
+      <div style="font-size:12px;color:#96938c">{len(day_items)}건</div>
+    </div>
+  </div>
+  <div style="background:#fff;border:1px solid #e0ddd7;border-radius:12px;padding:4px 16px;overflow:hidden">
+    {items_html}
+  </div>
+</div>'''
+
+    # 주요 부처 태그
+    dept_tags = " ".join(
+        f'<span style="font-size:11px;padding:4px 12px;border-radius:20px;background:#eef0fd;color:#2f54eb;border:1px solid rgba(47,84,235,.15)">{h(s)} {c}건</span>'
+        for s, c in top5
+    )
 
     page_html = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>차주 정부 일정 ({next_monday.month}/{next_monday.day}~{next_friday.month}/{next_friday.day}) - 브리핑룸</title>
-<meta name="description" content="대한민국 정부 차주 주요 일정 ({next_monday} ~ {next_friday})">
+<title>정부 주요 일정 ({next_monday.month}/{next_monday.day}~{next_friday.month}/{next_friday.day}) - 브리핑룸</title>
+<meta name="description" content="대한민국 정부 주요 일정 ({next_monday} ~ {next_friday}). 대통령실, 부처별 주간 계획, 국무회의 일정.">
+<meta property="og:title" content="정부 주요 일정 ({next_monday.month}/{next_monday.day}~{next_friday.month}/{next_friday.day}) - 브리핑룸">
+<meta property="og:description" content="총 {total}건 · {dept_count}개 부처 주요 일정">
+<meta property="og:url" content="{post_url}">
 <link rel="canonical" href="{post_url}">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-:root{{--bg:#f5f4f0;--surface:#fff;--border:#e0ddd7;--text:#1c1b18;--text2:#4a4844;--accent:#2a3c64;--accent-l:#eef0fd}}
 *{{box-sizing:border-box;margin:0;padding:0}}
-body{{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;line-height:1.7}}
-.wrap{{max-width:860px;margin:0 auto;padding:32px 24px}}
-.back{{color:#96938c;text-decoration:none;font-size:13px;margin-bottom:24px;display:inline-block}}
-h1{{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-bottom:8px}}
-.sub-title{{color:var(--text2);font-size:14px;margin-bottom:24px}}
-table{{width:100%;border-collapse:collapse;font-size:13px;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}}
-th{{background:var(--accent);color:#fff;font-weight:600;padding:10px 12px;text-align:left}}
-td{{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top}}
-td.date-cell{{font-weight:700;background:var(--accent-l);white-space:nowrap;width:80px}}
-td.dept{{font-weight:600;color:var(--accent);white-space:nowrap;width:100px}}
-td.sub{{color:#96938c;font-size:12px;white-space:nowrap}}
-tr:last-child td{{border-bottom:none}}
-.footer{{margin-top:32px;font-size:11px;color:#96938c;text-align:center}}
+body{{background:#f5f4f0;color:#1c1b18;font-family:'Pretendard',sans-serif;line-height:1.6}}
+body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 1px 1px,#e0ddd7 1px,transparent 0);background-size:24px 24px;opacity:.4;pointer-events:none;z-index:0}}
+.wrap{{max-width:720px;margin:0 auto;padding:32px 20px;position:relative;z-index:1}}
+.back{{display:inline-flex;align-items:center;gap:6px;color:#96938c;text-decoration:none;font-size:12px;margin-bottom:20px;padding:7px 14px;background:#fff;border:1px solid #e0ddd7;border-radius:8px}}
+.back:hover{{color:#1c1b18}}
+.hero{{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);border-radius:16px;padding:28px 24px;margin-bottom:24px;color:#fff}}
+.hero h1{{font-family:'Noto Serif KR',serif;font-size:24px;font-weight:700;margin-bottom:6px;letter-spacing:-.5px}}
+.hero .sub{{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:16px}}
+.stats{{display:flex;gap:10px;flex-wrap:wrap}}
+.stat{{text-align:center;padding:10px 16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;flex:1;min-width:80px}}
+.stat-num{{font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700}}
+.stat-label{{font-size:10px;color:rgba(255,255,255,.6);margin-top:2px}}
+.tags{{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}}
+.footer{{margin-top:32px;padding-top:16px;border-top:1px solid #e0ddd7;font-size:11px;color:#96938c;text-align:center}}
+@media(max-width:768px){{.wrap{{padding:20px 16px}}.hero h1{{font-size:20px}}.hero{{padding:20px 16px}}}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <a class="back" href="/">← 브리핑룸으로</a>
-<h1>차주 정부 주요 일정</h1>
-<div class="sub-title">{next_monday.year}년 {next_monday.month}월 {next_monday.day}일 ~ {next_friday.month}월 {next_friday.day}일</div>
 
-<table>
-<thead><tr><th>날짜</th><th>부처</th><th>일정</th><th>시간</th><th>장소</th></tr></thead>
-<tbody>{table_rows if table_rows else '<tr><td colspan="5" style="text-align:center;padding:20px">일정 정보 없음</td></tr>'}</tbody>
-</table>
+<div class="hero">
+  <h1>📅 정부 주요 일정</h1>
+  <div class="sub">{next_monday.year}년 {next_monday.month}월 {next_monday.day}일({dows[next_monday.weekday()]}) ~ {next_friday.month}월 {next_friday.day}일({dows[next_friday.weekday()]})</div>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">{total}</div><div class="stat-label">총 일정</div></div>
+    <div class="stat"><div class="stat-num">{dept_count}</div><div class="stat-label">부처</div></div>
+    <div class="stat"><div class="stat-num">{len(by_date)}</div><div class="stat-label">일</div></div>
+  </div>
+</div>
 
-<div class="footer">govbrief.kr | 출처: 이투데이, 머니투데이, 대통령실 | {date.today()}</div>
+<div class="tags">{dept_tags}</div>
+
+{day_cards}
+
+<div class="footer">
+  govbrief.kr · 출처: 이투데이, 머니투데이, 대통령실 · {date.today().isoformat()}
+</div>
 </div>
 </body>
 </html>"""
