@@ -368,7 +368,7 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .m-date-chip{display:flex;align-items:center;gap:4px;height:32px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:0 12px;font-family:var(--mono);font-size:12px;font-weight:500;color:rgba(255,255,255,.8);cursor:pointer;white-space:nowrap}
 .m-icon-btn{width:48px;height:48px;min-width:48px;border-radius:10px;background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;display:grid;place-items:center;font-size:16px}
 .m-icon-btn:active{background:rgba(255,255,255,.1)}
-.m-search-slide{display:none;background:var(--white);border-bottom:1px solid var(--border-light);padding:8px 12px}
+.m-search-slide{display:none;background:var(--white);border-bottom:1px solid var(--border-light);padding:8px 12px;position:fixed;top:var(--mob-h);left:0;right:0;z-index:45}
 .m-search-slide.open{display:block}
 .m-search-row{display:flex;align-items:center;gap:8px;background:var(--off-white);border:1px solid var(--border-light);border-radius:var(--r-md);padding:0 12px;height:40px}
 .m-search-row input{flex:1;background:none;border:none;outline:none;font-family:var(--sans);font-size:14px;color:var(--text-primary);min-width:0}
@@ -392,9 +392,9 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .m-nav-date-btn{width:36px;height:36px;background:var(--off-white);border:1px solid var(--border-light);border-radius:10px;cursor:pointer;color:var(--text-primary);font-size:12px;font-weight:600;display:grid;place-items:center}
 
 /* ===== MINISTRY SHEET ===== */
-.ministry-sheet{display:none;position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.4);backdrop-filter:blur(4px)}
-.ministry-sheet.open{display:flex;align-items:flex-end}
-.ministry-sheet-inner{width:100%;max-height:70vh;background:var(--white);border-radius:var(--r-xl) var(--r-xl) 0 0;overflow-y:auto;padding-bottom:max(16px, env(safe-area-inset-bottom))}
+.ministry-sheet{display:none;position:fixed;inset:0;z-index:60;background:var(--white)}
+.ministry-sheet.open{display:flex;flex-direction:column}
+.ministry-sheet-inner{width:100%;flex:1;overflow-y:auto;padding-bottom:max(16px, env(safe-area-inset-bottom))}
 .ministry-sheet-hdr{position:sticky;top:0;background:var(--white);padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;border-radius:var(--r-xl) var(--r-xl) 0 0}
 .ministry-sheet-hdr::before{content:'';display:block;width:36px;height:4px;background:var(--border-mid);border-radius:2px;position:absolute;top:8px;left:50%;transform:translateX(-50%)}
 .ministry-sheet-title{font-family:var(--serif);font-size:16px;font-weight:700}
@@ -402,6 +402,25 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .ministry-sheet-list{padding:8px 12px}
 .ministry-sheet-item{display:flex;align-items:center;justify-content:space-between;padding:12px 10px;border-radius:var(--r-md);cursor:pointer;min-height:44px}
 .ministry-sheet-item:hover{background:var(--off-white)}
+
+/* ===== DATE CALENDAR SHEET ===== */
+.date-sheet{display:none;position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.4);backdrop-filter:blur(4px)}
+.date-sheet.open{display:flex;align-items:flex-end}
+.date-sheet-inner{width:100%;max-height:80vh;background:var(--white);border-radius:var(--r-xl) var(--r-xl) 0 0;padding-bottom:max(16px,env(safe-area-inset-bottom))}
+.date-sheet-hdr{padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between}
+.date-sheet-hdr::before{content:'';display:block;width:36px;height:4px;background:var(--border-mid);border-radius:2px;position:absolute;top:8px;left:50%;transform:translateX(-50%)}
+.date-sheet-title{font-family:var(--serif);font-size:16px;font-weight:700}
+.cal-nav{display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 0}
+.cal-nav-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border-light);background:var(--white);cursor:pointer;font-size:14px;display:grid;place-items:center;color:var(--text-primary)}
+.cal-nav-label{font-family:var(--serif);font-size:15px;font-weight:700;min-width:120px;text-align:center}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:0 16px 16px}
+.cal-dow{text-align:center;font-size:11px;font-weight:600;color:var(--text-muted);padding:8px 0}
+.cal-day{text-align:center;padding:10px 0;border-radius:8px;font-size:13px;cursor:pointer;min-height:40px;display:grid;place-items:center}
+.cal-day:hover{background:var(--off-white)}
+.cal-day.today{font-weight:700;color:var(--navy)}
+.cal-day.selected{background:var(--navy);color:var(--white);font-weight:700}
+.cal-day.empty{cursor:default}
+.cal-day.has-data::after{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--gold);margin:-2px auto 0}
 .ministry-sheet-item.active{background:var(--navy);color:var(--white)}
 
 /* ===== MOBILE CTA ===== */
@@ -604,6 +623,21 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
       </div>
     </div>
   </main>
+</div>
+
+<div class="date-sheet" id="date-sheet" role="dialog" aria-modal="true" aria-label="날짜 선택" onclick="if(event.target===this)closeDateSheet()">
+  <div class="date-sheet-inner">
+    <div class="date-sheet-hdr">
+      <span class="date-sheet-title">날짜 선택</span>
+      <button class="ministry-sheet-close" onclick="closeDateSheet()" aria-label="닫기"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="cal-nav">
+      <button class="cal-nav-btn" onclick="calNav(-1)"><i class="ph ph-caret-left"></i></button>
+      <span class="cal-nav-label" id="cal-month-label"></span>
+      <button class="cal-nav-btn" onclick="calNav(1)"><i class="ph ph-caret-right"></i></button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+  </div>
 </div>
 
 <div class="ministry-sheet" id="ministry-sheet" role="dialog" aria-modal="true" aria-label="부처별 필터" onclick="if(event.target===this)closeMinistrySheet()">
@@ -1356,8 +1390,16 @@ function closeMinistrySheet(){
 // 모바일 전용 함수
 function mToggleSearch(){
   const sl=document.getElementById('m-search-slide');
+  const isOpen=sl.classList.contains('open');
   sl.classList.toggle('open');
-  if(sl.classList.contains('open'))document.getElementById('m-search-input').focus();
+  if(!isOpen){
+    // 화면 유지, 키보드만 올리기
+    const input=document.getElementById('m-search-input');
+    input.focus();
+    // 스크롤 위치 유지
+    const scrollY=window.scrollY;
+    setTimeout(()=>window.scrollTo(0,scrollY),50);
+  }
 }
 function mSetTab(cat,el){
   curFilter=cat;
@@ -1400,9 +1442,53 @@ function mFilterSource(src,cat){
 function openFilterSheet(){
   openMinistrySheet();
 }
+let calViewDate=null;
 function openDateSheet(){
-  const d=prompt('날짜 입력 (YYYY-MM-DD)',fmtDate(curDate));
-  if(d){const parts=d.split('-');if(parts.length===3){curDate=new Date(parts[0],parts[1]-1,parts[2]);loadData()}}
+  calViewDate=new Date(curDate);
+  renderCalendar();
+  document.getElementById('date-sheet').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDateSheet(){
+  document.getElementById('date-sheet').classList.remove('open');
+  document.body.style.overflow='';
+}
+function calNav(dir){
+  calViewDate.setMonth(calViewDate.getMonth()+dir);
+  renderCalendar();
+}
+function renderCalendar(){
+  const y=calViewDate.getFullYear(),m=calViewDate.getMonth();
+  document.getElementById('cal-month-label').textContent=`${y}년 ${m+1}월`;
+  const grid=document.getElementById('cal-grid');
+  grid.innerHTML='';
+  // 요일 헤더
+  ['일','월','화','수','목','금','토'].forEach(d=>{
+    const el=document.createElement('div');el.className='cal-dow';el.textContent=d;grid.appendChild(el);
+  });
+  const firstDay=new Date(y,m,1).getDay();
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  const today=new Date();
+  const todayStr=fmtDate(today);
+  const selStr=fmtDate(curDate);
+  // 빈칸
+  for(let i=0;i<firstDay;i++){const el=document.createElement('div');el.className='cal-day empty';grid.appendChild(el);}
+  // 날짜
+  for(let d=1;d<=daysInMonth;d++){
+    const el=document.createElement('div');
+    const dt=new Date(y,m,d);
+    const ds=fmtDate(dt);
+    el.className='cal-day';
+    if(ds===todayStr)el.classList.add('today');
+    if(ds===selStr)el.classList.add('selected');
+    el.textContent=d;
+    el.addEventListener('click',()=>{
+      curDate=new Date(y,m,d);
+      closeDateSheet();
+      loadData();
+    });
+    grid.appendChild(el);
+  }
 }
 function navHome(){curFilter='all';curDate=new Date();loadData()}
 function updateMobileUI(){
