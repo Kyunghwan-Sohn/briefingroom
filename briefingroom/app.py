@@ -338,12 +338,30 @@ def main():
     print(f"{'━' * 60}")
     _db_audit(target)
 
-    # ── Phase 7: 텔레그램 발송 ──────────────────────────────────
+    # ── Phase 7: 인스타그램 이미지 생성 + 포스팅 ──────────────────
+    ig_enabled = os.environ.get("INSTAGRAM_ENABLED", "false").lower() in ("true", "1", "yes")
+    ig_image_only = os.environ.get("INSTAGRAM_IMAGE_ONLY", "false").lower() in ("true", "1", "yes")
+    if ig_enabled or ig_image_only:
+        from briefingroom.instagram_image import generate_daily_carousels
+        from briefingroom.instagram import post_daily_carousels
+        print(f"\n{'━' * 60}")
+        print("  Phase 7: 인스타그램 캐러셀 이미지 생성")
+        print(f"{'━' * 60}")
+        carousel_results = generate_daily_carousels(target)
+        if carousel_results:
+            post_daily_carousels(carousel_results, target)
+        else:
+            print("  [Instagram] 생성할 캐러셀 없음")
+    else:
+        print(f"\n{'─' * 60}")
+        print("  (INSTAGRAM_ENABLED=false → 인스타그램 스킵)")
+
+    # ── Phase 8: 텔레그램 발송 ──────────────────────────────────
     if is_saturday:
         # 토요일: 일일 브리핑 대신 주간 요약 (월~토 전체)
         from briefingroom.weekly import run_weekly
         print(f"\n{'━' * 60}")
-        print("  Phase 7: 주간 보도자료 요약 (월~토)")
+        print("  Phase 8: 주간 보도자료 요약 (월~토)")
         print(f"{'━' * 60}")
         run_weekly(target)
     else:
