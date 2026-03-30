@@ -189,9 +189,9 @@ def _point_html(point: dict, point_idx: int,
     detail = point.get("detail", "")
     highlight = point.get("highlight", "")
 
-    # detail이 너무 길면 자르기
-    if len(detail) > 100:
-        detail = detail[:97] + "..."
+    # detail을 충분히 보여줌 (최대 180자)
+    if len(detail) > 180:
+        detail = detail[:177] + "..."
 
     highlight_html = ""
     if highlight:
@@ -205,45 +205,46 @@ def _point_html(point: dict, point_idx: int,
     {_base_style()}
     .card {{
       background: #FFFFFF;
-      padding: 64px 56px 120px;
+      padding: 56px 52px 100px;
     }}
     .num {{
-      position: absolute; top: 28px; right: 48px;
-      font-size: 140px; font-weight: 900;
-      color: {BRAND['blue']}; opacity: 0.08;
+      position: absolute; top: 24px; right: 44px;
+      font-size: 120px; font-weight: 900;
+      color: {BRAND['blue']}; opacity: 0.07;
       line-height: 1;
     }}
     .label {{
-      font-size: 20px; font-weight: 700;
+      font-size: 18px; font-weight: 700;
       color: {BRAND['blue']};
       letter-spacing: 3px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }}
     .point-title {{
-      font-size: 44px; font-weight: 800;
+      font-size: 38px; font-weight: 800;
       color: {BRAND['navy']};
       line-height: 1.35;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       word-break: keep-all;
     }}
     .point-detail {{
-      font-size: 26px;
+      font-size: 24px;
       color: {BRAND['dark_gray']};
-      line-height: 1.75;
+      line-height: 1.8;
       word-break: keep-all;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }}
     .highlight {{
-      padding: 20px 24px;
+      padding: 18px 22px;
       background: {BRAND['light']};
       border-left: 4px solid {BRAND['blue']};
       border-radius: 0 12px 12px 0;
       display: flex; align-items: center; gap: 12px;
     }}
-    .hl-icon {{ font-size: 24px; }}
+    .hl-icon {{ font-size: 22px; }}
     .hl-text {{
-      font-size: 24px; font-weight: 700;
+      font-size: 22px; font-weight: 700;
       color: {BRAND['navy']};
+      line-height: 1.4;
     }}
     </style></head><body>
     <div class="card">
