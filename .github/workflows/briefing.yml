@@ -79,7 +79,8 @@ jobs:
           git config user.email "bot@briefingroom.kr"
           git add briefing.py briefingroom/ data/ feed/ articles/ sitemap.xml .github/workflows/
           git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d) $(date +%H:%M)"
-          git push
+          git pull --rebase origin main || true
+          git push || echo "push failed, retrying..." && sleep 5 && git pull --rebase origin main && git push
 
       - name: notify-failure
         if: failure()
