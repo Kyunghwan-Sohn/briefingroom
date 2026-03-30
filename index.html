@@ -269,9 +269,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .sched-link{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:11px;color:var(--accent);text-decoration:none;padding:var(--sp-2) var(--sp-3);border:1px solid var(--accent-m);border-radius:var(--r-sm);margin-top:var(--sp-3);transition:background var(--t-fast)}
 .sched-link:hover{background:var(--accent-l)}
 @media(max-width:768px){
-  .sched-grid{grid-template-columns:1fr;gap:var(--sp-2)}
-  .sched-day{min-height:auto;padding:var(--sp-3)}
-  .sched-cal{padding:var(--sp-4)}
+  .sched-cal{padding:var(--sp-3)}
+  .sched-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:var(--sp-2);padding-bottom:var(--sp-1)}
+  .sched-grid::-webkit-scrollbar{display:none}
+  .sched-day{min-width:85vw;max-width:85vw;flex-shrink:0;scroll-snap-align:start;min-height:auto;padding:var(--sp-3)}
+  .sched-day:not(.today):not(.m-sched-show){display:none}
+  .sched-day.today{min-width:85vw;order:-1}
+  .sched-hdr{flex-direction:column;align-items:flex-start;gap:var(--sp-1)}
 }
 
 /* 타이포그래피 위계 강화 */
@@ -977,6 +981,22 @@ async function renderSpecialBlock(){
 
   cal.innerHTML=html;
   cal.classList.add('has-data');
+
+  // 모바일: 당일+이후 날짜만 표시, 가로 스크롤
+  if(window.innerWidth<=768){
+    const dayEls=cal.querySelectorAll('.sched-day');
+    let foundToday=false;
+    dayEls.forEach(el=>{
+      if(el.classList.contains('today')){foundToday=true;el.classList.add('m-sched-show')}
+      else if(foundToday){el.classList.add('m-sched-show')}
+      // 과거 날짜는 숨김 (CSS에서 display:none)
+    });
+    // today가 없으면 (일요일 등) 전부 표시
+    if(!foundToday) dayEls.forEach(el=>el.classList.add('m-sched-show'));
+    // today로 스크롤
+    const todayEl=cal.querySelector('.sched-day.today');
+    if(todayEl) todayEl.scrollIntoView({behavior:'smooth',inline:'start',block:'nearest'});
+  }
 }
 function renderSourceBadges(){
   const box=document.getElementById('source-badges');
