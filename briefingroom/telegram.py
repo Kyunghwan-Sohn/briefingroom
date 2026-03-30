@@ -6,13 +6,13 @@
 from __future__ import annotations
 
 import os
-import sqlite3
 from collections import Counter, defaultdict
 from datetime import date, timedelta
 
 import requests
 
 from briefingroom.config import CAT_MAP
+from briefingroom.weekly_analysis import analyze_weekly, select_weekly_top
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
@@ -42,6 +42,9 @@ def _article_url(item: dict, all_items: list[dict] = None) -> str:
     d = item.get("date", "")
     if not d:
         return SITE_URL
+    slug = item.get("slug", "")
+    if slug:
+        return f"{SITE_URL}/articles/{d}/{slug}/"
     # 같은 날짜 아이템 목록에서 인덱스 찾기
     if all_items:
         same_date = [it for it in all_items if it.get("date") == d]
@@ -438,150 +441,6 @@ def send_daily_briefing(items: list[dict], target: date, session: str = "") -> b
     return result
 
 
-# ═══════════════════════════════════════════════════════════
-#  주간 브리핑 (Weekly)
-# ═══════════════════════════════════════════════════════════
-
-def _get_week_range(target: date) -> tuple[date, date]:
-    """target 기준 직전 월~금 날짜 범위"""
-    # 일요일 발송 기준 → 직전 월~금
-    end = target - timedelta(days=target.weekday() + 2)  # 직전 금요일
-    start = end - timedelta(days=4)  # 직전 월요일
-    # 주말도 보도자료가 있을 수 있으므로 토~일 포함
-    return start, target - timedelta(days=1)  # 월~토
-
-
-def analyze_weekly(target: date) -> dict:
-    """DB에서 최근 7일 + 전주 7일 집계하여 주간 통계 생성"""
-    from briefingroom.db import DB_PATH
-
-    start, end = _get_week_range(target)
-    prev_start = start - timedelta(days=7)
-    prev_end = start - timedelta(days=1)
-
-    conn = sqlite3.connect(str(DB_PATH))
-    conn.row_factory = sqlite3.Row
-
-    # 이번 주 데이터
-    rows = conn.execute(
-        "SELECT * FROM articles WHERE date BETWEEN ? AND ?",
-        (start.isoformat(), end.isoformat()),
-    ).fetchall()
-
-    # 전주 데이터 (비교용)
-    prev_rows = conn.execute(
-        "SELECT source, category, keywords FROM articles WHERE date BETWEEN ? AND ?",
-        (prev_start.isoformat(), prev_end.isoformat()),
-    ).fetchall()
-    conn.close()
-
-    # 이번 주 통계
-    total = len(rows)
-    by_cat = Counter()
-    by_source = Counter()
-    keywords = Counter()
-    items_by_cat = defaultdict(list)
-
-    for r in rows:
-        cat = r["category"] or CAT_MAP.get(r["source"], "행정법제")
-        by_cat[cat] += 1
-        by_source[r["source"]] += 1
-        items_by_cat[cat].append(dict(r))
-        if r["keywords"]:
-            for kw in r["keywords"].split(","):
-                kw = kw.strip()
-                if kw and len(kw) > 1:
-                    keywords[kw] += 1
-
-    # 전주 통계 (비교)
-    prev_total = len(prev_rows)
-    prev_by_source = Counter(r["source"] for r in prev_rows)
-    prev_keywords = Counter()
-    for r in prev_rows:
-        if r["keywords"]:
-            for kw in r["keywords"].split(","):
-                kw = kw.strip()
-                if kw and len(kw) > 1:
-                    prev_keywords[kw] += 1
-
-    # 부처 증감
-    source_delta = {}
-    all_sources = set(by_source.keys()) | set(prev_by_source.keys())
-    for src in all_sources:
-        curr = by_source.get(src, 0)
-        prev = prev_by_source.get(src, 0)
-        source_delta[src] = curr - prev
-
-    # 키워드 증감
-    kw_delta = {}
-    for kw, cnt in keywords.most_common(30):
-        prev_cnt = prev_keywords.get(kw, 0)
-        if prev_cnt > 0:
-            change_pct = ((cnt - prev_cnt) / prev_cnt) * 100
-        else:
-            change_pct = 999  # 신규
-        kw_delta[kw] = {"count": cnt, "prev": prev_cnt, "change_pct": change_pct}
-
-    return {
-        "start": start,
-        "end": end,
-        "total": total,
-        "prev_total": prev_total,
-        "by_cat": dict(by_cat),
-        "by_source": by_source,
-        "prev_by_source": prev_by_source,
-        "source_delta": source_delta,
-        "keywords": keywords,
-        "kw_delta": kw_delta,
-        "items_by_cat": items_by_cat,
-        "sources_count": len(by_source),
-    }
-
-
-def _select_weekly_top(analysis: dict) -> dict:
-    """주간 분야별 TOP 1 선정 — Google News RSS 기사 수 기반"""
-    from briefingroom.news import search_related_news
-    import time as _time
-
-    selected = {}
-    for cat, emoji in CAT_ORDER:
-        items = analysis["items_by_cat"].get(cat, [])
-        if not items:
-            continue
-
-        # 요약 있는 건만 후보
-        candidates = [it for it in items if it.get("summary") and not it["summary"].startswith("[")]
-        if not candidates:
-            candidates = items[:5]
-
-        # 부처별 대표 1건 (건수 최다 부처 우선)
-        by_source = defaultdict(list)
-        for it in candidates:
-            by_source[it["source"]].append(it)
-
-        source_tops = []
-        for src, src_items in by_source.items():
-            source_tops.append((src, src_items[0], len(src_items)))
-        source_tops.sort(key=lambda x: -x[2])
-
-        # 상위 5개 부처 대표에 대해 Google News 검색 (최대 100건까지 카운트)
-        best = None
-        best_news_count = -1
-        for src, item, cnt in source_tops[:5]:
-            articles = search_related_news(item["title"], src, max_results=100)
-            news_count = len(articles)
-            print(f"    [{cat}] {src}: \"{item['title'][:30]}...\" → 뉴스 {news_count}건")
-            if news_count > best_news_count:
-                best_news_count = news_count
-                best = (src, item, cnt, news_count, articles[:2])
-            _time.sleep(0.3)
-
-        if best:
-            selected[cat] = best
-
-    return selected
-
-
 def _clean_text(text: str) -> str:
     """HTML 엔티티 디코딩 + 제목 중복 제거"""
     import html as _html
@@ -799,7 +658,7 @@ def send_weekly_briefing(target: date) -> bool:
 
     # 2. 분야별 TOP 1 선정 (Google News RSS 검색)
     print("  [2/4] 분야별 TOP 1 선정 (뉴스 검색 중)...")
-    selected = _select_weekly_top(analysis)
+    selected = select_weekly_top(analysis)
     print(f"  선정 완료: {len(selected)}개 분야")
 
     # 3. 메시지 포맷

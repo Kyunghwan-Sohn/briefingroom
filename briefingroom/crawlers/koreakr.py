@@ -157,15 +157,15 @@ def _parse_list_page(soup: BeautifulSoup, target_date: str):
 
 
 def _fetch_detail(session, news_id: str):
-    """상세 페이지에서 첨부파일 URL 추출 (korea.kr 본문은 전재 안내문만 있어 생략)"""
+    """상세 페이지에서 첨부파일 URL + 본문 텍스트 추출"""
     url = f"{BASE}/briefing/pressReleaseView.do?newsId={news_id}"
     try:
         r = session.get(url, timeout=15)
         if r.status_code != 200:
-            return [], []
+            return [], [], ""
         soup = BeautifulSoup(r.text, "lxml")
     except Exception:
-        return [], []
+        return [], [], ""
 
     pdfs, hwps, seen = [], [], set()
     for a in soup.find_all("a", href=re.compile(r"/common/download\.do")):
@@ -183,7 +183,34 @@ def _fetch_detail(session, news_id: str):
             # 확장자 불명 — 기본 PDF로
             pdfs.append(full)
 
-    return pdfs, hwps
+    # HTML 본문 텍스트 추출
+    body_text = ""
+    # korea.kr 상세 페이지 본문 영역 셀렉터 (우선순위)
+    for sel in [
+        "div.view_cont",       # korea.kr 표준 본문 영역
+        "div.article_view",
+        "div.detailCont",
+        "div#contentView",
+        "div.content_view",
+        "article",
+        "div.content",
+        "main",
+    ]:
+        el = soup.select_one(sel)
+        if el and len(el.get_text(strip=True)) > 50:
+            # 불필요한 요소 제거
+            for tag in el.find_all(["script", "style", "nav", "footer", "iframe"]):
+                tag.decompose()
+            body_text = re.sub(r"\s+", " ", el.get_text(strip=True))[:6000]
+            break
+
+    # og:description 폴백
+    if not body_text or len(body_text) < 30:
+        og = soup.find("meta", property="og:description")
+        if og and og.get("content") and len(og["content"]) > 30:
+            body_text = og["content"]
+
+    return pdfs, hwps, body_text
 
 
 def crawl_koreakr(target: date) -> list[dict]:
@@ -223,8 +250,8 @@ def crawl_koreakr(target: date) -> list[dict]:
                 continue
             seen_ids.add(item["news_id"])
 
-            # 첨부파일 수집
-            pdfs, hwps = _fetch_detail(s, item["news_id"])
+            # 첨부파일 + 본문 텍스트 수집
+            pdfs, hwps, body_text = _fetch_detail(s, item["news_id"])
             time.sleep(0.3)
 
             result = {
@@ -236,7 +263,7 @@ def crawl_koreakr(target: date) -> list[dict]:
                 "hwps": hwps,
                 "files": [],
                 "text": "",
-                "body_text": "",
+                "body_text": body_text,
                 "summary": "",
             }
             all_items.append(result)

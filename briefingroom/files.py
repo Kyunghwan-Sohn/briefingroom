@@ -34,42 +34,42 @@ def download_file(url, filename, session):
         print(f"    [스킵] {filename}")
         return path
     try:
-        r = session.get(url, timeout=30, stream=True)
-        r.raise_for_status()
-        ct = r.headers.get("Content-Type", "")
-        if "html" in ct:
-            print("    [스킵] HTML 응답")
-            return None
-        content_length = int(r.headers.get("Content-Length") or 0)
-        if content_length and content_length > MAX_DOWNLOAD_BYTES:
-            print(f"    [스킵] 파일 크기 초과 ({content_length // 1024}KB)")
-            return None
+        with session.get(url, timeout=30, stream=True) as r:
+            r.raise_for_status()
+            ct = r.headers.get("Content-Type", "")
+            if "html" in ct:
+                print("    [스킵] HTML 응답")
+                return None
+            content_length = int(r.headers.get("Content-Length") or 0)
+            if content_length and content_length > MAX_DOWNLOAD_BYTES:
+                print(f"    [스킵] 파일 크기 초과 ({content_length // 1024}KB)")
+                return None
 
-        cd = r.headers.get("Content-Disposition", "")
-        cd_name = ""
-        m = re.search(r"filename[^=]*=([^;\n]+)", cd, re.I)
-        if m:
-            cd_name = m.group(1).strip().lower()
-            stem = Path(filename).stem
-            if cd_name.endswith(".pdf"):
-                filename = stem + ".pdf"
-            elif re.search(r"\.hwp", cd_name):
-                filename = stem + (".hwpx" if cd_name.endswith(".hwpx") else ".hwp")
-            path = PDF_DIR / filename
+            cd = r.headers.get("Content-Disposition", "")
+            cd_name = ""
+            m = re.search(r"filename[^=]*=([^;\n]+)", cd, re.I)
+            if m:
+                cd_name = m.group(1).strip().lower()
+                stem = Path(filename).stem
+                if cd_name.endswith(".pdf"):
+                    filename = stem + ".pdf"
+                elif re.search(r"\.hwp", cd_name):
+                    filename = stem + (".hwpx" if cd_name.endswith(".hwpx") else ".hwp")
+                path = PDF_DIR / filename
 
-        if path.exists():
-            print(f"    [스킵] {filename}")
-            return path
+            if path.exists():
+                print(f"    [스킵] {filename}")
+                return path
 
-        total_bytes = 0
-        with open(path, "wb") as f:
-            for chunk in r.iter_content(8192):
-                if not chunk:
-                    continue
-                total_bytes += len(chunk)
-                if total_bytes > MAX_DOWNLOAD_BYTES:
-                    raise ValueError(f"파일 크기 초과: {total_bytes} bytes")
-                f.write(chunk)
+            total_bytes = 0
+            with open(path, "wb") as f:
+                for chunk in r.iter_content(8192):
+                    if not chunk:
+                        continue
+                    total_bytes += len(chunk)
+                    if total_bytes > MAX_DOWNLOAD_BYTES:
+                        raise ValueError(f"파일 크기 초과: {total_bytes} bytes")
+                    f.write(chunk)
         if not _looks_like_expected_file(path):
             with suppress(FileNotFoundError):
                 path.unlink()

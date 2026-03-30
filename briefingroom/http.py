@@ -28,6 +28,9 @@ def build_session(
 ) -> requests.Session:
     session = requests.Session()
     session.headers.update(DEFAULT_HEADERS)
+    default_adapter = HTTPAdapter(max_retries=retries)
+    session.mount("https://", default_adapter)
+    session.mount("http://", default_adapter)
     if headers:
         session.headers.update(headers)
     for prefix in legacy_tls_prefixes:

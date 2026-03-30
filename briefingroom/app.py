@@ -103,12 +103,16 @@ def _clean_titles(items: list[dict]) -> int:
     return cleaned
 
 
-def main():
+def _env_flag(name: str, default: str = "false") -> bool:
+    return os.environ.get(name, default).lower() in ("1", "true", "yes")
+
+
+def _resolve_run_context() -> tuple[date, date, bool, bool, bool, str]:
     today = date.today()
     run_date = os.environ.get("RUN_DATE", "")
-    skip_individual = os.environ.get("SKIP_INDIVIDUAL", "").lower() in ("1", "true", "yes")
-    weekly_enabled = os.environ.get("WEEKLY_ENABLED", "false").lower() in ("true", "1", "yes")
-    schedule_enabled = os.environ.get("SCHEDULE_ENABLED", "false").lower() in ("true", "1", "yes")
+    skip_individual = _env_flag("SKIP_INDIVIDUAL", "")
+    weekly_enabled = _env_flag("WEEKLY_ENABLED")
+    schedule_enabled = _env_flag("SCHEDULE_ENABLED")
     briefing_session = os.environ.get("BRIEFING_SESSION", "").strip().lower()
 
     target = today
@@ -116,7 +120,238 @@ def main():
         try:
             target = date.fromisoformat(run_date)
         except ValueError:
-            pass
+            raise SystemExit(f"RUN_DATE must be YYYY-MM-DD, got: {run_date}")
+    return today, target, skip_individual, weekly_enabled, schedule_enabled, briefing_session
+
+
+def _load_snapshot_items(json_path, target: date) -> list[dict]:
+    import json as _json
+
+    print(f"\n  [과거 날짜] {json_path.name} 에서 로드 (크롤링 스킵)")
+    data = _json.loads(json_path.read_text(encoding="utf-8"))
+    items = data.get("items", [])
+    for item in items:
+        item.setdefault("pdfs", [])
+        item.setdefault("hwps", [])
+        item.setdefault("files", [])
+        item.setdefault("text", "")
+        item.setdefault("body_text", "")
+    print(f"  {len(items)}건 로드 완료")
+    return items
+
+
+def _crawl_primary_sources(target: date) -> list[dict]:
+    all_items = []
+
+    print(f"\n{'━' * 60}")
+    print("  Phase 1: korea.kr 통합 크롤링")
+    print(f"{'━' * 60}")
+    try:
+        all_items.extend(crawl_koreakr(target))
+    except Exception as e:
+        print(f"  [korea.kr 오류] {str(e)[:80]}")
+
+    print(f"\n{'━' * 60}")
+    print("  Phase 2: 금융 유관기관 크롤링")
+    print(f"{'━' * 60}")
+    try:
+        all_items.extend(crawl_finance_all(target))
+    except Exception as e:
+        print(f"  [금융기관 오류] {str(e)[:80]}")
+
+    print(f"\n{'━' * 60}")
+    print("  Phase 2-b: 대통령실 크롤링")
+    print(f"{'━' * 60}")
+    try:
+        all_items.extend(crawl_president(target))
+    except Exception as e:
+        print(f"  [대통령실 오류] {str(e)[:80]}")
+
+    return all_items
+
+
+def _run_individual_crawlers(target: date, all_items: list[dict]) -> None:
+    print(f"\n{'━' * 60}")
+    print(f"  Phase 3: 개별 부처 크롤러 ({len(CRAWLERS)}개, 누락분 보완)")
+    print(f"{'━' * 60}")
+
+    kr_counts = Counter(item["source"] for item in all_items)
+    existing_keys = {(it["title"].strip(), it["date"]) for it in all_items}
+
+    for name, crawler in CRAWLERS:
+        try:
+            items = crawler(target)
+            new_count = 0
+            for item in items:
+                key = (item["title"].strip(), item["date"])
+                if key not in existing_keys:
+                    all_items.append(item)
+                    existing_keys.add(key)
+                    new_count += 1
+
+            kr_cnt = kr_counts.get(name, 0)
+            if new_count > 0:
+                print(f"  → {name}: +{new_count}건 추가 (korea.kr {kr_cnt}건)")
+            else:
+                print(f"  → {name}: 추가 없음 (korea.kr {kr_cnt}건으로 완전)")
+        except Exception as e:
+            print(f"  [{name}] 실패: {str(e)[:60]}")
+        time.sleep(random.randint(5, 15))
+
+
+def _collect_items(today: date, target: date, skip_individual: bool) -> tuple[list[dict], bool]:
+    json_path = DATA_DIR / f"{target.isoformat()}.json"
+    if target < today and json_path.exists():
+        return _load_snapshot_items(json_path, target), True
+
+    all_items = _crawl_primary_sources(target)
+    if skip_individual:
+        print(f"\n  (SKIP_INDIVIDUAL=true → 개별 부처 크롤링 생략)")
+    else:
+        _run_individual_crawlers(target, all_items)
+
+    all_items = _dedup(all_items)
+    mismatches = verify_counts(all_items, target)
+    if mismatches:
+        all_items = fill_missing(all_items, mismatches, target)
+        all_items = _dedup(all_items)
+
+    print(f"\n{'─' * 60}")
+    print("[제목 정제 중...]")
+    cleaned = _clean_titles(all_items)
+    if cleaned:
+        print(f"  제목 정제: {cleaned}건")
+
+    print(f"\n{'─' * 60}")
+    print(f"총 {len(all_items)}건 수집 (검증 완료)\n")
+    return all_items, False
+
+
+def _process_and_enrich_items(all_items: list[dict], target: date) -> None:
+    init_db()
+    bulk_upsert(all_items)
+    print(f"[DB 저장] 수집 {len(all_items)}건 → briefingroom.db")
+
+    print(f"\n{'─' * 60}")
+    print("[파일 처리 중...]")
+    for item in all_items:
+        if item.get("text") and len(item.get("text", "")) >= 200:
+            continue
+        if item.get("pdfs") or item.get("hwps") or item.get("body_text") or item.get("url"):
+            process_item(item)
+    bulk_upsert(all_items)
+
+    print(f"\n{'─' * 60}")
+    print("[LLM 요약 중...]")
+    for item in all_items:
+        item["summary"] = summarize(item)
+        print(f"  summary: {item['summary'][:60]}")
+        time.sleep(0.5)
+    bulk_upsert(all_items)
+
+    print(f"\n{'─' * 60}")
+    print("[관련 뉴스 검색 + 요약 중...]")
+    news_count = 0
+    news_candidates = all_items[:NEWS_MAX_ITEMS] if NEWS_ENABLED else []
+    for item in news_candidates:
+        try:
+            articles = get_news_for_item(item, llm_fn=summarize)
+            if articles:
+                item["news_html"] = format_news_html(articles)
+                news_count += 1
+        except Exception as e:
+            print(f"  [뉴스 연결 실패] {item.get('source','')} | {item.get('title','')[:50]} | {e}")
+    if NEWS_ENABLED and len(all_items) > len(news_candidates):
+        print(f"  [뉴스 검색 제한] 상위 {len(news_candidates)}건만 처리")
+    elif not NEWS_ENABLED:
+        print("  [뉴스 검색 비활성화] NEWS_ENABLED=false")
+    print(f"  관련 뉴스 연결: {news_count}/{len(all_items)}건")
+
+    snapshot_path = save_daily_snapshot(all_items, target)
+    print(f"\n{'─' * 60}")
+    print(f"[JSON 저장 완료] {snapshot_path}")
+
+    print(f"\n{'━' * 60}")
+    print("  Phase 5: DB 기반 최종 점검 (포스팅 전)")
+    print(f"{'━' * 60}")
+    bulk_upsert(all_items)
+    _db_audit(target)
+
+
+def _run_wordpress(all_items: list[dict], target: date) -> None:
+    wp_enabled = _env_flag("WP_ENABLED")
+    if not wp_enabled:
+        print(f"\n{'─' * 60}")
+        print("  (WP_ENABLED=false → WordPress 포스팅 스킵)")
+        return
+
+    from briefingroom.wordpress import wp_post
+
+    print(f"\n{'─' * 60}")
+    print("[WordPress 포스팅 중...]")
+    wp_count = 0
+    wp_updates = []
+    for item in all_items:
+        try:
+            result = wp_post(item)
+            if result:
+                wp_count += 1
+                if isinstance(result, tuple):
+                    post_id, post_link = result
+                else:
+                    post_id, post_link = (result if isinstance(result, int) else 0), ""
+                item["wp_post_id"] = post_id
+                item["wp_link"] = post_link
+                wp_updates.append((item["date"], item["title"], item["source"], post_id, "ok"))
+            else:
+                wp_updates.append((item["date"], item["title"], item["source"], 0, "skipped"))
+        except Exception as e:
+            print(f"  [WP 실패] {item.get('source','')} | {item.get('title','')[:50]} | {e}")
+            wp_updates.append((item["date"], item["title"], item["source"], 0, "failed"))
+    bulk_update_wp_status(wp_updates)
+    print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")
+
+    print(f"\n{'─' * 60}")
+    print("[실패 건 재처리: 요약 없는 포스트 보완]")
+    _retry_missing_summaries(target)
+    bulk_upsert(all_items)
+
+
+def _run_instagram(target: date) -> None:
+    ig_enabled = _env_flag("INSTAGRAM_ENABLED")
+    ig_image_only = _env_flag("INSTAGRAM_IMAGE_ONLY")
+    if not (ig_enabled or ig_image_only):
+        print(f"\n{'─' * 60}")
+        print("  (INSTAGRAM_ENABLED=false → 인스타그램 스킵)")
+        return
+
+    from briefingroom.instagram_image import generate_daily_carousels
+    from briefingroom.instagram import post_daily_carousels
+
+    print(f"\n{'━' * 60}")
+    print("  Phase 7: 인스타그램 캐러셀 이미지 생성")
+    print(f"{'━' * 60}")
+    carousel_results = generate_daily_carousels(target)
+    if carousel_results:
+        post_daily_carousels(carousel_results, target)
+    else:
+        print("  [Instagram] 생성할 캐러셀 없음")
+
+
+def _run_notifications(all_items: list[dict], target: date, is_saturday: bool, briefing_session: str) -> None:
+    if is_saturday:
+        from briefingroom.weekly import run_weekly
+
+        print(f"\n{'━' * 60}")
+        print("  Phase 8: 주간 보도자료 요약 (월~토)")
+        print(f"{'━' * 60}")
+        run_weekly(target)
+        return
+    send_daily_briefing(all_items, target, session=briefing_session)
+
+
+def main():
+    today, target, skip_individual, weekly_enabled, schedule_enabled, briefing_session = _resolve_run_context()
 
     # ── 일요일: 크롤링 없이 차주 정부 일정만 ──
     if (schedule_enabled or target.weekday() == 6) and not weekly_enabled:
@@ -134,241 +369,19 @@ def main():
     print(f"  브리핑룸  |  {target}  |  {mode}")
     print("=" * 60)
 
-    all_items = []
-
-    # ── 과거 날짜면 JSON에서 로드 (크롤링 스킵) ──────────────
-    json_path = DATA_DIR / f"{target.isoformat()}.json"
-    if target < today and json_path.exists():
-        import json as _json
-        print(f"\n  [과거 날짜] {json_path.name} 에서 로드 (크롤링 스킵)")
-        data = _json.loads(json_path.read_text(encoding="utf-8"))
-        all_items = data.get("items", [])
-        # 필수 필드 보정
-        for item in all_items:
-            if "pdfs" not in item:
-                item["pdfs"] = item.get("pdfs", [])
-            if "hwps" not in item:
-                item["hwps"] = item.get("hwps", [])
-            if "files" not in item:
-                item["files"] = []
-            if "text" not in item:
-                item["text"] = ""
-            if "body_text" not in item:
-                item["body_text"] = ""
-        print(f"  {len(all_items)}건 로드 완료")
-    else:
-        # ── Phase 1: korea.kr (빠름, IP 차단 없음) ──────────────
-        print(f"\n{'━' * 60}")
-        print("  Phase 1: korea.kr 통합 크롤링")
-        print(f"{'━' * 60}")
-        try:
-            items = crawl_koreakr(target)
-            all_items.extend(items)
-        except Exception as e:
-            print(f"  [korea.kr 오류] {str(e)[:80]}")
-
-        # ── Phase 2: 금융 유관기관 (korea.kr 미수록) ─────────────
-        print(f"\n{'━' * 60}")
-        print("  Phase 2: 금융 유관기관 크롤링")
-        print(f"{'━' * 60}")
-        try:
-            finance_items = crawl_finance_all(target)
-            all_items.extend(finance_items)
-        except Exception as e:
-            print(f"  [금융기관 오류] {str(e)[:80]}")
-
-        # ── Phase 2-b: 대통령실 (president.go.kr) ────────────────
-        print(f"\n{'━' * 60}")
-        print("  Phase 2-b: 대통령실 크롤링")
-        print(f"{'━' * 60}")
-        try:
-            president_items = crawl_president(target)
-            all_items.extend(president_items)
-        except Exception as e:
-            print(f"  [대통령실 오류] {str(e)[:80]}")
-
-        # ── Phase 3: 개별 부처 크롤러 (누락분 보완) ──────────────
-        if not skip_individual:
-            print(f"\n{'━' * 60}")
-            print(f"  Phase 3: 개별 부처 크롤러 ({len(CRAWLERS)}개, 누락분 보완)")
-            print(f"{'━' * 60}")
-
-            kr_counts = Counter(item["source"] for item in all_items)
-            existing_keys = {(it["title"].strip(), it["date"]) for it in all_items}
-
-            for name, crawler in CRAWLERS:
-                try:
-                    items = crawler(target)
-                    new_count = 0
-                    for item in items:
-                        key = (item["title"].strip(), item["date"])
-                        if key not in existing_keys:
-                            all_items.append(item)
-                            existing_keys.add(key)
-                            new_count += 1
-
-                    kr_cnt = kr_counts.get(name, 0)
-                    if new_count > 0:
-                        print(f"  → {name}: +{new_count}건 추가 (korea.kr {kr_cnt}건)")
-                    else:
-                        print(f"  → {name}: 추가 없음 (korea.kr {kr_cnt}건으로 완전)")
-                except Exception as e:
-                    print(f"  [{name}] 실패: {str(e)[:60]}")
-                time.sleep(random.randint(5, 15))
-        else:
-            print(f"\n  (SKIP_INDIVIDUAL=true → 개별 부처 크롤링 생략)")
-
-        # ── 최종 중복 제거 ───────────────────────────────────────
-        all_items = _dedup(all_items)
-
-        # ── Phase 4: 기관별 건수 검증 + 누락분 보완 ──────────────
-        mismatches = verify_counts(all_items, target)
-        if mismatches:
-            all_items = fill_missing(all_items, mismatches, target)
-            all_items = _dedup(all_items)
-
-        print(f"\n{'─' * 60}")
-        print("[제목 정제 중...]")
-        cleaned = _clean_titles(all_items)
-        if cleaned:
-            print(f"  제목 정제: {cleaned}건")
-
-        print(f"\n{'─' * 60}")
-        print(f"총 {len(all_items)}건 수집 (검증 완료)\n")
-
-        # ── DB 저장: 수집 완료 ────────────────────────────────────
-        init_db()
-        bulk_upsert(all_items)
-        print(f"[DB 저장] 수집 {len(all_items)}건 → briefingroom.db")
-
-        # ── 파일 처리 ────────────────────────────────────────────
-        print(f"\n{'─' * 60}")
-        print("[파일 처리 중...]")
-        for item in all_items:
-            if item.get("pdfs") or item.get("hwps"):
-                process_item(item)
-
-        # ── DB 업데이트: 파일 처리 결과 ───────────────────────────
-        bulk_upsert(all_items)
-
-        # ── LLM 요약 ─────────────────────────────────────────────
-        print(f"\n{'─' * 60}")
-        print("[LLM 요약 중...]")
-        for item in all_items:
-            item["summary"] = summarize(item)
-            print(f"  summary: {item['summary'][:60]}")
-            time.sleep(0.5)
-
-        # ── DB 업데이트: LLM 결과 ─────────────────────────────────
-        bulk_upsert(all_items)
-
-        # ── 관련 뉴스 기사 검색 ─────────────────────────────────────
-        print(f"\n{'─' * 60}")
-        print("[관련 뉴스 검색 + 요약 중...]")
-        news_count = 0
-        news_candidates = all_items[:NEWS_MAX_ITEMS] if NEWS_ENABLED else []
-        for item in news_candidates:
-            try:
-                articles = get_news_for_item(item, llm_fn=summarize)
-                if articles:
-                    item["news_html"] = format_news_html(articles)
-                    news_count += 1
-            except Exception as e:
-                print(f"  [뉴스 연결 실패] {item.get('source','')} | {item.get('title','')[:50]} | {e}")
-        if NEWS_ENABLED and len(all_items) > len(news_candidates):
-            print(f"  [뉴스 검색 제한] 상위 {len(news_candidates)}건만 처리")
-        elif not NEWS_ENABLED:
-            print("  [뉴스 검색 비활성화] NEWS_ENABLED=false")
-        print(f"  관련 뉴스 연결: {news_count}/{len(all_items)}건")
-
-        # ── JSON 스냅샷 저장 ──────────────────────────────────────
-        snapshot_path = save_daily_snapshot(all_items, target)
-        print(f"\n{'─' * 60}")
-        print(f"[JSON 저장 완료] {snapshot_path}")
-
-        # ── Phase 5: DB 기반 최종 점검 (포스팅 전) ────────────────
-        print(f"\n{'━' * 60}")
-        print("  Phase 5: DB 기반 최종 점검 (포스팅 전)")
-        print(f"{'━' * 60}")
-        bulk_upsert(all_items)
-        _db_audit(target)
-
-    # ── WordPress 포스팅 (선택적) ────────────────────────────
-    wp_enabled = os.environ.get("WP_ENABLED", "false").lower() in ("true", "1", "yes")
-    if wp_enabled:
-        from briefingroom.wordpress import wp_post
-        print(f"\n{'─' * 60}")
-        print("[WordPress 포스팅 중...]")
-        wp_count = 0
-        wp_updates = []
-        for item in all_items:
-            try:
-                result = wp_post(item)
-                if result:
-                    wp_count += 1
-                    if isinstance(result, tuple):
-                        post_id, post_link = result
-                    else:
-                        post_id, post_link = (result if isinstance(result, int) else 0), ""
-                    item["wp_post_id"] = post_id
-                    item["wp_link"] = post_link
-                    wp_updates.append((item["date"], item["title"], item["source"], post_id, "ok"))
-                else:
-                    wp_updates.append((item["date"], item["title"], item["source"], 0, "skipped"))
-            except Exception as e:
-                print(f"  [WP 실패] {item.get('source','')} | {item.get('title','')[:50]} | {e}")
-                wp_updates.append((item["date"], item["title"], item["source"], 0, "failed"))
-        bulk_update_wp_status(wp_updates)
-        print(f"  ✅ WordPress 포스팅 완료: {wp_count}건")
-
-        print(f"\n{'─' * 60}")
-        print("[실패 건 재처리: 요약 없는 포스트 보완]")
-        _retry_missing_summaries(target)
-        bulk_upsert(all_items)
-    else:
-        print(f"\n{'─' * 60}")
-        print("  (WP_ENABLED=false → WordPress 포스팅 스킵)")
-
-    # ── 정적 사이트 생성 (RSS + 기사 HTML) ─────────────────────
+    all_items, loaded_from_snapshot = _collect_items(today, target, skip_individual)
+    if not loaded_from_snapshot:
+        _process_and_enrich_items(all_items, target)
+    _run_wordpress(all_items, target)
     generate_static(target.isoformat())
 
-    # ── Phase 6: DB 최종 점검 ─────────────────────────────────
     print(f"\n{'━' * 60}")
     print("  Phase 6: 최종 점검")
     print(f"{'━' * 60}")
     _db_audit(target)
 
-    # ── Phase 7: 인스타그램 이미지 생성 + 포스팅 ──────────────────
-    ig_enabled = os.environ.get("INSTAGRAM_ENABLED", "false").lower() in ("true", "1", "yes")
-    ig_image_only = os.environ.get("INSTAGRAM_IMAGE_ONLY", "false").lower() in ("true", "1", "yes")
-    if ig_enabled or ig_image_only:
-        from briefingroom.instagram_image import generate_daily_carousels
-        from briefingroom.instagram import post_daily_carousels
-        print(f"\n{'━' * 60}")
-        print("  Phase 7: 인스타그램 캐러셀 이미지 생성")
-        print(f"{'━' * 60}")
-        carousel_results = generate_daily_carousels(target)
-        if carousel_results:
-            post_daily_carousels(carousel_results, target)
-        else:
-            print("  [Instagram] 생성할 캐러셀 없음")
-    else:
-        print(f"\n{'─' * 60}")
-        print("  (INSTAGRAM_ENABLED=false → 인스타그램 스킵)")
-
-    # ── Phase 8: 텔레그램 발송 ──────────────────────────────────
-    if is_saturday:
-        # 토요일: 일일 브리핑 대신 주간 요약 (월~토 전체)
-        from briefingroom.weekly import run_weekly
-        print(f"\n{'━' * 60}")
-        print("  Phase 8: 주간 보도자료 요약 (월~토)")
-        print(f"{'━' * 60}")
-        run_weekly(target)
-    else:
-        # 월~금: 일일 브리핑
-        send_daily_briefing(all_items, target, session=briefing_session)
-
-    # ── 완료 대시보드 ─────────────────────────────────────────
+    _run_instagram(target)
+    _run_notifications(all_items, target, is_saturday, briefing_session)
     print_dashboard(target.isoformat())
     print_dashboard()
 

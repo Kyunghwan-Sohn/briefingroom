@@ -56,9 +56,10 @@ def extract_summary_parts(summary: str) -> tuple[str, list[str], str]:
     return summary_text, keywords, impact
 
 
-def serialize_item(item: dict) -> dict:
+def serialize_item(item: dict, slug: str = "") -> dict:
     summary_text, keywords, impact = extract_summary_parts(item.get("summary", ""))
     return {
+        "slug": slug,
         "source": item.get("source", ""),
         "title": item.get("title", ""),
         "url": item.get("url", ""),
@@ -121,7 +122,7 @@ def _pick_top3(items: list[dict]) -> list[int]:
 
 
 def save_daily_snapshot(items: Iterable[dict], target: date) -> Path:
-    serialized = [serialize_item(item) for item in items]
+    serialized = [serialize_item(item, slug=f"{idx:03d}") for idx, item in enumerate(items)]
 
     # 오늘의 핵심 3건 선정
     top3_indices = _pick_top3(serialized)

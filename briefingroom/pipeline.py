@@ -3,8 +3,46 @@ from __future__ import annotations
 import re
 import time
 
+from bs4 import BeautifulSoup
+
 from briefingroom.crawlers.common import new_session
 from briefingroom.files import download_file, extract_hwp, extract_pdf, save_text
+
+
+def _fetch_body_from_url(url: str, session) -> str:
+    """원문 URL에서 HTML 본문 텍스트를 추출한다."""
+    if not url or not url.startswith("http"):
+        return ""
+    try:
+        r = session.get(url, timeout=15)
+        if r.status_code != 200:
+            return ""
+        r.encoding = r.apparent_encoding or "utf-8"
+        soup = BeautifulSoup(r.text, "lxml")
+
+        # 불필요한 태그 제거
+        for tag in soup.find_all(["script", "style", "nav", "footer", "iframe"]):
+            tag.decompose()
+
+        # 본문 영역 셀렉터 (한국 정부 사이트 공통)
+        for sel in [
+            "div.view_cont", "div.article_view", "div.detailCont",
+            "div#contentView", "div.content_view", "div.bbs_detail",
+            "div.view_con", "div.boardView", "div.board_view",
+            "div.view-body", "div.view_body", "div.data_view",
+            "article", "div.content", "main",
+        ]:
+            el = soup.select_one(sel)
+            if el and len(el.get_text(strip=True)) > 50:
+                return re.sub(r"\s+", " ", el.get_text(strip=True))[:6000]
+
+        # og:description 폴백
+        og = soup.find("meta", property="og:description")
+        if og and og.get("content") and len(og["content"]) > 30:
+            return og["content"]
+    except Exception as e:
+        print(f"    [원문 추출 실패] {e}")
+    return ""
 
 
 def process_item(item):
@@ -59,4 +97,12 @@ def process_item(item):
         print(f"    파일 추출 실패 → 짧은 본문 사용 ({len(body_text)}자)")
         item["text"] = body_text
     elif not item.get("text"):
-        print(f"    ⚠ 텍스트 추출 실패 (PDF:{len(item['pdfs'])} HWP:{len(item['hwps'])})")
+        # 최종 폴백: 원문 URL에서 직접 본문 추출 시도
+        print(f"    ⚠ 파일 추출 실패 → 원문 URL 본문 추출 시도")
+        fallback_text = _fetch_body_from_url(item.get("url", ""), s)
+        if fallback_text and len(fallback_text) > 30:
+            print(f"    원문 URL에서 본문 추출 성공 ({len(fallback_text)}자)")
+            item["text"] = fallback_text
+            item["body_text"] = fallback_text
+        else:
+            print(f"    ⚠ 텍스트 추출 실패 (PDF:{len(item['pdfs'])} HWP:{len(item['hwps'])})")

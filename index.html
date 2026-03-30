@@ -762,8 +762,9 @@ async function loadData(){
     for(const _r of _results){
       if(_r.status!=='fulfilled'||!_r.value)continue;
       const json=_r.value;const df=json.target_date||'';
-      const dayItems=(json.items||[]).map(it=>({
-          id: `${it.date}_${it.source}_${(it.title||'').slice(0,30)}`.replace(/\s+/g,'_'),
+      const dayItems=(json.items||[]).map((it, idx)=>({
+          id: `${it.date}_${it.slug || String(idx).padStart(3,'0')}`,
+          slug: it.slug || String(idx).padStart(3,'0'),
           title: cleanTitle(it.title||''),
           src: it.source||'',
           sum: it.summary||'',
@@ -779,8 +780,9 @@ async function loadData(){
     // 중복 제거 (제목 기준)
     const seen=new Set();
     items=items.filter(it=>{
-      if(seen.has(it.title))return false;
-      seen.add(it.title);
+      const key=`${it.date}::${it.src}::${it.title}`;
+      if(seen.has(key))return false;
+      seen.add(key);
       return true;
     });
     allItems=items;rebuildIndexes();render();updateSidebar();renderDailyHero();renderTopPicks();renderSourceBadges();updateMobileUI();
@@ -819,6 +821,13 @@ function rebuildIndexes(){
   sortedSources=Object.keys(countsBySource).sort((a,b)=>a.localeCompare(b,'ko'));
 }
 function escapeHtml(s){return String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;')}
+function safeUrl(url){
+  try{
+    const parsed=new URL(String(url??''),window.location.origin);
+    if(parsed.protocol==='http:'||parsed.protocol==='https:') return parsed.href;
+  }catch(e){}
+  return '';
+}
 function setHighlightedText(el,text,keywords=[]){
   const source=String(text||'');
   const terms=[...new Set((keywords||[]).filter(k=>k&&k.length>1))];
@@ -956,13 +965,13 @@ function mkCard(it,idx){
     });
     c.querySelector('.c-btn.primary').addEventListener('click',e=>{e.stopPropagation();openDetail(it.id)});
     const link=c.querySelector('.c-btn:not(.primary)');
-    link.href=it.orig||'#';link.addEventListener('click',e=>e.stopPropagation());
+    link.href=safeUrl(it.orig)||'#';link.addEventListener('click',e=>e.stopPropagation());
   }
   c.addEventListener('click',()=>openDetail(it.id));return c;
 }
 function openDetail(id){
   const it=allItems.find(i=>i.id===id);if(!it)return;
-  _shareTitle=it.title;_shareUrl=`${SITE_URL}?date=${fmtDate(curDate)}&article=${encodeURIComponent(it.title.slice(0,30))}`;
+  _shareTitle=it.title;_shareUrl=`${SITE_URL}?date=${fmtDate(curDate)}&slug=${encodeURIComponent(it.slug||'')}`;
   const col=CC[it.cat]||'#1a1a2e';const bg=col+'14';
   document.getElementById('d-hdr-min').textContent=it.src;
   const b=document.getElementById('d-badge');b.textContent=it.src;b.style.cssText=`background:${bg};color:${col};border:1px solid ${col}44`;
@@ -980,8 +989,8 @@ function openDetail(id){
   }
   const kwBox=document.getElementById('d-kws');kwBox.textContent='';
   it.kws.forEach(k=>{const span=document.createElement('span');span.className='kw';span.textContent=`# ${k}`;kwBox.appendChild(span)});
-  document.getElementById('d-src').href=it.orig||'#';
-  document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.getElementById('detail').scrollTop=0;document.body.style.overflow='hidden';document.querySelector('.m-bottom-nav')?.classList.add('detail-open');document.getElementById('detail').querySelector('.d-close')?.focus();history.pushState({detail:true},'',`?date=${fmtDate(curDate)}&article=${encodeURIComponent(it.title.slice(0,30))}`);
+  document.getElementById('d-src').href=safeUrl(it.orig)||'#';
+  document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.getElementById('detail').scrollTop=0;document.body.style.overflow='hidden';document.querySelector('.m-bottom-nav')?.classList.add('detail-open');document.getElementById('detail').querySelector('.d-close')?.focus();history.pushState({detail:true},'',`?date=${fmtDate(curDate)}&slug=${encodeURIComponent(it.slug||'')}`);
 }
 function closeDetail(){document.getElementById('d-overlay').classList.remove('open');document.getElementById('detail').classList.remove('open');document.body.style.overflow='';document.querySelector('.m-bottom-nav')?.classList.remove('detail-open');document.querySelector('.press-card')?.focus()}
 function updateSidebar(){
@@ -1082,9 +1091,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();close
   if(dateParam){const parts=dateParam.split('-');if(parts.length===3)curDate=new Date(parts[0],parts[1]-1,parts[2])}
   await loadData();
   if(ministry){curFilter=ministry;render()}
-  const articleParam=params.get('article');
-  if(articleParam){
-    const match=allItems.find(i=>i.title.startsWith(decodeURIComponent(articleParam)));
+  const slugParam=params.get('slug');
+  if(slugParam){
+    const match=allItems.find(i=>i.slug===decodeURIComponent(slugParam));
     if(match)setTimeout(()=>openDetail(match.id),300);
   }
   if(catParam){curFilter=catParam;render()}
@@ -1120,44 +1129,75 @@ function renderDailyHero() {
     }
   }
 
-  if (top3Items.length === 0) { heroEl.classList.remove('has-items'); return; }
+  if (top3Items.length === 0) { heroEl.classList.remove('has-items'); heroEl.textContent=''; return; }
 
   const col = (cat) => CC[cat] || '#1a1a2e';
   const catBg = {'금융경제':'var(--c-fin-l)','사회복지':'var(--c-soc-l)','산업기술':'var(--c-ind-l)','외교안보':'var(--c-dip-l)','행정법제':'var(--c-adm-l)'};
+  heroEl.textContent = '';
 
-  let html = '';
-
-  if (top3Items[0]) {
-    const it = top3Items[0];
+  function appendHeroCard(it, className, withLabel=false){
     const c = col(it.cat);
     const summary = getSummaryText(it);
-    html += '<div class="hero-main" style="--hero-accent:'+c+';--hero-bg:'+(catBg[it.cat]||'var(--c-fin-l)')+'" onclick="openDetail(\''+it.id+'\')">'
-      + '<div class="hero-label">오늘의 핵심</div>'
-      + '<div class="hero-title">'+escapeHtml(it.title)+'</div>'
-      + '<div class="hero-summary"'+(summary.isEmpty?' style="font-style:italic;color:var(--text-muted)"':'')+'>'
-      + escapeHtml(summary.text)+'</div>'
-      + '<div class="hero-footer">'
-      + '<span class="hero-badge" style="background:'+(catBg[it.cat]||'var(--c-fin-l)')+';color:'+c+'">'+escapeHtml(it.src)+'</span>'
-      + '<span class="hero-time">'+(CN[it.cat]||escapeHtml(it.cat))+'</span>'
-      + '</div></div>';
+    const card = document.createElement('div');
+    card.className = className;
+    card.style.setProperty('--hero-accent', c);
+    card.style.setProperty('--hero-bg', catBg[it.cat] || 'var(--c-fin-l)');
+    card.addEventListener('click', () => openDetail(it.id));
+
+    if(withLabel){
+      const label = document.createElement('div');
+      label.className = 'hero-label';
+      label.textContent = '오늘의 핵심';
+      card.appendChild(label);
+    }
+
+    const footer = document.createElement('div');
+    footer.className = 'hero-footer';
+    if(!withLabel) footer.style.marginTop = '0';
+
+    const badge = document.createElement('span');
+    badge.className = 'hero-badge';
+    badge.style.background = catBg[it.cat] || 'var(--c-fin-l)';
+    badge.style.color = c;
+    badge.textContent = it.src || '';
+
+    const time = document.createElement('span');
+    time.className = 'hero-time';
+    time.textContent = CN[it.cat] || it.cat || '';
+
+    footer.appendChild(badge);
+    footer.appendChild(time);
+
+    const title = document.createElement('div');
+    title.className = 'hero-title';
+    title.textContent = it.title || '';
+
+    const summaryEl = document.createElement('div');
+    summaryEl.className = 'hero-summary';
+    summaryEl.textContent = summary.text;
+    if(summary.isEmpty){
+      summaryEl.style.fontStyle = 'italic';
+      summaryEl.style.color = 'var(--text-muted)';
+    }
+
+    if(withLabel){
+      card.appendChild(title);
+      card.appendChild(summaryEl);
+      card.appendChild(footer);
+    } else {
+      card.appendChild(footer);
+      card.appendChild(title);
+      card.appendChild(summaryEl);
+    }
+
+    heroEl.appendChild(card);
   }
 
+  if (top3Items[0]) appendHeroCard(top3Items[0], 'hero-main', true);
   for (let i = 1; i < Math.min(top3Items.length, 3); i++) {
-    const it = top3Items[i];
-    const c = col(it.cat);
-    const summary = getSummaryText(it);
-    html += '<div class="hero-sub" style="--hero-accent:'+c+';--hero-bg:'+(catBg[it.cat]||'var(--c-fin-l)')+'" onclick="openDetail(\''+it.id+'\')">'
-      + '<div class="hero-footer" style="margin-top:0">'
-      + '<span class="hero-badge" style="background:'+(catBg[it.cat]||'var(--c-fin-l)')+';color:'+c+'">'+escapeHtml(it.src)+'</span>'
-      + '<span class="hero-time">'+(CN[it.cat]||escapeHtml(it.cat))+'</span>'
-      + '</div>'
-      + '<div class="hero-title">'+escapeHtml(it.title)+'</div>'
-      + '<div class="hero-summary"'+(summary.isEmpty?' style="font-style:italic;color:var(--text-muted)"':'')+'>'
-      + escapeHtml(summary.text)+'</div>'
-      + '</div>';
+    appendHeroCard(top3Items[i], 'hero-sub');
   }
 
-  heroEl.innerHTML = html;
   heroEl.classList.add('has-items');
 }
 

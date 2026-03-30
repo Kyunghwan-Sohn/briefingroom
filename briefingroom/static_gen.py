@@ -5,6 +5,7 @@ import html
 import json
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
 
 from briefingroom.config import DATA_DIR
@@ -15,6 +16,14 @@ SITE_DESC = "대한민국 51개 정부 부처 + 금융기관 보도자료를 매
 
 FEED_DIR = Path(DATA_DIR).parent / "feed"
 ARTICLES_DIR = Path(DATA_DIR).parent / "articles"
+
+
+def _safe_url(value: str) -> str:
+    url = str(value or "").strip()
+    parsed = urlparse(url)
+    if parsed.scheme in ("http", "https") and parsed.netloc:
+        return html.escape(url, quote=True)
+    return ""
 
 
 def generate_rss(target_date: str, max_items: int = 50) -> Path:
@@ -95,12 +104,12 @@ def generate_article_pages(target_date: str) -> int:
         title = it.get("title", "")
         source = it.get("source", "")
         summary = it.get("summary", "")
-        url = it.get("url", "")
+        url = _safe_url(it.get("url", ""))
         date_str = it.get("date", target_date)
         category = it.get("category", "")
         keywords = it.get("keywords", [])
 
-        slug = f"{idx:03d}"
+        slug = it.get("slug") or f"{idx:03d}"
         article_url = f"{SITE_URL}/articles/{target_date}/{slug}/"
         kw_json = json.dumps(keywords, ensure_ascii=False)
 
@@ -189,7 +198,7 @@ body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient
     {"<div class='keywords'>" + "".join(f"<span>#{html.escape(k)}</span>" for k in keywords) + "</div>" if keywords else ""}
     <div class="links">
       <h4>원문</h4>
-      <a href="{html.escape(url)}" target="_blank" rel="noopener noreferrer">↗ 원문 보기</a>
+      <a href="{url or '#'}" target="_blank" rel="noopener noreferrer">↗ 원문 보기</a>
     </div>
   </div>
 </div>

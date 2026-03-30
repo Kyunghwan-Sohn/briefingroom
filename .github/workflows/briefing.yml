@@ -54,6 +54,9 @@ jobs:
           playwright install chromium
           playwright install-deps chromium
 
+      - name: verify-python
+        run: python -m compileall briefing.py briefingroom
+
       - name: run
         env:
           WP_ENABLED: 'false'
@@ -80,7 +83,12 @@ jobs:
           git add briefing.py briefingroom/ data/ feed/ articles/ sitemap.xml .github/workflows/
           git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d) $(date +%H:%M)"
           git pull --rebase origin main || true
-          git push || echo "push failed, retrying..." && sleep 5 && git pull --rebase origin main && git push
+          if ! git push; then
+            echo "push failed, retrying..."
+            sleep 5
+            git pull --rebase origin main
+            git push
+          fi
 
       - name: notify-failure
         if: failure()

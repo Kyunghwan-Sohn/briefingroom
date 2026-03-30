@@ -6,154 +6,20 @@ McKinsey/BCG 스타일 애널리스트 리포트 자동 생성.
 from __future__ import annotations
 
 import html as _html
-import json
 import os
 import re
-import sqlite3
 from collections import Counter, defaultdict
 from datetime import date, timedelta
 from pathlib import Path
 
 from briefingroom.config import BASE_DIR, CAT_MAP, DATA_DIR
+from briefingroom.weekly_analysis import analyze_weekly, select_weekly_top
 from briefingroom.telegram import (
     CAT_ORDER, SITE_URL, _escape_html, send_telegram,
     TELEGRAM_ENABLED,
 )
 
 ARTICLES_DIR = BASE_DIR / "articles"
-
-# ═══════════════════════════════════════════════════════════
-#  1. 데이터 분석
-# ═══════════════════════════════════════════════════════════
-
-def _get_week_range(target: date) -> tuple[date, date]:
-    """target 기준 직전 월~토 날짜 범위"""
-    end = target - timedelta(days=1)
-    start = end - timedelta(days=6)
-    return start, end
-
-
-def _load_items_from_json(start: date, end: date) -> list[dict]:
-    """data/ 디렉토리의 JSON 파일에서 기간 내 아이템 로드"""
-    items = []
-    d = start
-    while d <= end:
-        json_path = DATA_DIR / f"{d.isoformat()}.json"
-        if json_path.exists():
-            try:
-                data = json.loads(json_path.read_text(encoding="utf-8"))
-                for it in data.get("items", []):
-                    # keywords가 리스트면 쉼표 구분 문자열로 변환
-                    kw = it.get("keywords", "")
-                    if isinstance(kw, list):
-                        kw = ", ".join(kw)
-                    items.append({
-                        "source": it.get("source", ""),
-                        "title": it.get("title", ""),
-                        "url": it.get("url", ""),
-                        "date": it.get("date", d.isoformat()),
-                        "category": it.get("category", "") or CAT_MAP.get(it.get("source", ""), "행정법제"),
-                        "summary": it.get("summary", ""),
-                        "keywords": kw,
-                    })
-            except Exception as e:
-                print(f"  [JSON] {json_path.name} 로드 실패: {e}")
-        d += timedelta(days=1)
-    return items
-
-
-def analyze_weekly(target: date) -> dict:
-    """data/ JSON 파일에서 7일 + 전주 7일 집계"""
-    start, end = _get_week_range(target)
-    prev_start = start - timedelta(days=7)
-    prev_end = start - timedelta(days=1)
-
-    rows = _load_items_from_json(start, end)
-    prev_rows = _load_items_from_json(prev_start, prev_end)
-
-    total = len(rows)
-    by_cat = Counter()
-    by_source = Counter()
-    keywords = Counter()
-    items_by_cat = defaultdict(list)
-
-    for r in rows:
-        cat = r["category"] or CAT_MAP.get(r["source"], "행정법제")
-        by_cat[cat] += 1
-        by_source[r["source"]] += 1
-        items_by_cat[cat].append(r)
-        if r["keywords"]:
-            for kw in r["keywords"].split(","):
-                kw = kw.strip()
-                if kw and len(kw) > 1:
-                    keywords[kw] += 1
-
-    prev_total = len(prev_rows)
-    prev_keywords = Counter()
-    for r in prev_rows:
-        if r.get("keywords"):
-            for kw in r["keywords"].split(","):
-                kw = kw.strip()
-                if kw and len(kw) > 1:
-                    prev_keywords[kw] += 1
-
-    kw_delta = {}
-    for kw, cnt in keywords.most_common(30):
-        prev_cnt = prev_keywords.get(kw, 0)
-        pct = ((cnt - prev_cnt) / prev_cnt * 100) if prev_cnt > 0 else 999
-        kw_delta[kw] = {"count": cnt, "prev": prev_cnt, "change_pct": pct}
-
-    return {
-        "start": start, "end": end,
-        "total": total, "prev_total": prev_total,
-        "by_cat": dict(by_cat), "by_source": by_source,
-        "keywords": keywords, "kw_delta": kw_delta,
-        "items_by_cat": items_by_cat,
-        "sources_count": len(by_source),
-    }
-
-
-def select_weekly_top(analysis: dict) -> dict:
-    """분야별 TOP 1 — Google News RSS 기사 수 기반"""
-    from briefingroom.news import search_related_news
-    import time as _time
-
-    selected = {}
-    for cat, emoji in CAT_ORDER:
-        items = analysis["items_by_cat"].get(cat, [])
-        if not items:
-            continue
-
-        candidates = [it for it in items
-                      if it.get("summary") and not it["summary"].startswith("[")]
-        if not candidates:
-            candidates = items[:5]
-
-        by_source = defaultdict(list)
-        for it in candidates:
-            by_source[it["source"]].append(it)
-
-        source_tops = sorted(
-            [(src, lst[0], len(lst)) for src, lst in by_source.items()],
-            key=lambda x: -x[2],
-        )
-
-        best = None
-        best_news = -1
-        for src, item, cnt in source_tops[:5]:
-            articles = search_related_news(item["title"], src, max_results=100)
-            n = len(articles)
-            print(f"    [{cat}] {src}: \"{item['title'][:30]}...\" -> 뉴스 {n}건")
-            if n > best_news:
-                best_news = n
-                best = (src, item, cnt, n, articles[:2])
-            _time.sleep(0.3)
-
-        if best:
-            selected[cat] = best
-
-    return selected
-
 
 # ═══════════════════════════════════════════════════════════
 #  2. 텍스트 유틸
