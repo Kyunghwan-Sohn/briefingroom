@@ -376,11 +376,11 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .m-cat-tabs{display:none;position:sticky;z-index:40;background:rgba(247,247,245,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-light);height:var(--mob-tab)}
 .m-cat-tabs[data-active]{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 var(--sp-3);gap:var(--sp-1);align-items:center}
 .m-cat-tabs::-webkit-scrollbar{display:none}
-.m-tab{border-radius:20px;border:1.5px solid var(--border-light);background:var(--white);padding:0 var(--sp-3);height:32px;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:4px;margin:0 2px;cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:var(--sans)}
+.m-tab{border-radius:20px;border:1.5px solid var(--border-light);background:var(--white);padding:0 10px;height:30px;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:3px;margin:0 1px;cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:var(--sans);flex-shrink:0;white-space:nowrap}
 .m-tab.active{background:var(--navy);border-color:var(--navy);color:var(--white)}
 .m-tab.active .m-tab-dot{background:var(--gold)!important}
-.m-tab-dot{width:5px;height:5px;border-radius:50%}
-.m-tab-label{font-size:13px;font-weight:600;line-height:1}
+.m-tab-dot{width:4px;height:4px;border-radius:50%}
+.m-tab-label{font-size:11px;font-weight:600;line-height:1}
 
 .m-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:calc(64px + var(--mob-safe));padding-bottom:var(--mob-safe);background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-top:1px solid var(--border-light);box-shadow:0 -2px 12px rgba(0,0,0,.04);grid-template-columns:repeat(5,1fr);align-items:center}
 .m-nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:64px;background:none;border:none;cursor:pointer;color:var(--text-muted);-webkit-tap-highlight-color:transparent;font-family:var(--sans);transition:color .15s;text-decoration:none}
@@ -832,15 +832,41 @@ function render(){
     if(srcBadges)srcBadges.style.display='none';
   }
   if(!items.length){c.innerHTML='<div class="empty"><div class="empty-icon"><i class="ph ph-folder-open" style="font-size:32px"></i></div><div style="font-size:14px;margin-bottom:4px">보도자료가 없습니다</div><div style="font-size:12px;color:var(--text-muted)">다른 날짜나 분야를 선택해 보세요</div></div>';return}
+  // 모바일 m-cat-hdr 제거 (render에서 통합 처리)
+  const _mCatHdr=document.getElementById('m-cat-hdr');
+  if(_mCatHdr)_mCatHdr.remove();
+
   if(curFilter!=='all'){
-    // 분야 필터 헤더 표시
     const cats=['금융경제','사회복지','산업기술','외교안보','행정법제'];
     const isCat=cats.includes(curFilter)||curFilter.startsWith('fin-');
     const catLabel=isCat?(CN[curFilter]||curFilter):curFilter;
+    // 헤더
     const hdr=document.createElement('div');
-    hdr.style.cssText='margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid var(--border-light)';
-    hdr.innerHTML=`<div class="filter-section-title">${curDate.getMonth()+1}월 ${curDate.getDate()}일 ${escapeHtml(catLabel)} 보도자료</div><div class="filter-section-sub">${items.length}건의 보도자료</div>`;
+    hdr.style.cssText='margin-bottom:12px;padding-bottom:12px;border-bottom:2px solid var(--border-light)';
+    hdr.innerHTML=`<div class="filter-section-title">${curDate.getMonth()+1}월 ${curDate.getDate()}일 ${escapeHtml(catLabel)} 보도자료</div><div class="filter-section-sub">${items.length}건</div>`;
     c.appendChild(hdr);
+    // 부처 배지 (가나다순) — 분야 필터일 때만
+    if(isCat){
+      const catSources={};
+      items.forEach(it=>{catSources[it.src]=(catSources[it.src]||0)+1});
+      const sortedSrc=Object.keys(catSources).sort();
+      if(sortedSrc.length>1){
+        const badges=document.createElement('div');
+        badges.style.cssText='display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px';
+        sortedSrc.forEach(src=>{
+          const cnt=catSources[src];
+          const isActive=curFilter===src;
+          const btn=document.createElement('span');
+          btn.style.cssText=isActive
+            ?'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--navy);color:var(--white);background:var(--navy);cursor:pointer;white-space:nowrap'
+            :'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-light);color:var(--text-secondary);cursor:pointer;white-space:nowrap;background:var(--white)';
+          btn.textContent=`${src} ${cnt}`;
+          btn.addEventListener('click',()=>{curFilter=src;render()});
+          badges.appendChild(btn);
+        });
+        c.appendChild(badges);
+      }
+    }
     const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;items.forEach((it,i)=>g.appendChild(mkCard(it,i)));c.appendChild(g);
   }
   else{CO.forEach(cat=>{if(!groupedByCat[cat]?.length)return;c.appendChild(mkBlock(cat,groupedByCat[cat]))})}
@@ -1338,46 +1364,6 @@ function mSetTab(cat,el){
   document.querySelectorAll('.m-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
   expanded={};
-
-  let catHdr=document.getElementById('m-cat-hdr');
-  if(!isAll){
-    const CN2={'금융경제':'금융','사회복지':'사회','산업기술':'산업','외교안보':'외교·안보','행정법제':'행정·법제'};
-    const catLabel=CN2[cat]||cat;
-    const ds=fmtDate(curDate);
-    const _t=new Date();const _isT=ds===fmtDate(_t);const _y=new Date(_t);_y.setDate(_t.getDate()-1);const _isY=ds===fmtDate(_y);
-    const dayLabel=_isT?' (오늘)':_isY?' (어제)':'';
-
-    if(!catHdr){
-      catHdr=document.createElement('div');
-      catHdr.id='m-cat-hdr';
-      catHdr.style.cssText='padding:8px 16px 4px';
-    }
-
-    const catSources={};
-    allItems.forEach(it=>{
-      if(it.cat===cat){catSources[it.src]=(catSources[it.src]||0)+1}
-    });
-    const sortedSrc=Object.entries(catSources).sort((a,b)=>b[1]-a[1]);
-
-    catHdr.innerHTML=`<div style="font-family:var(--serif);font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:6px">${curDate.getMonth()+1}월 ${curDate.getDate()}일 ${escapeHtml(catLabel)} 보도자료${dayLabel}</div><div id="m-cat-badges" style="display:flex;flex-wrap:wrap;gap:0"></div>`;
-
-    const mc=document.getElementById('main-content');
-    mc.parentElement.insertBefore(catHdr,mc);
-    const badgeDiv=catHdr.querySelector('#m-cat-badges');
-    sortedSrc.forEach(([src,cnt])=>{
-      const isActive=curFilter===src;
-      const span=document.createElement('span');
-      span.style.cssText=isActive
-        ?'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--navy);color:var(--white);background:var(--navy);cursor:pointer;white-space:nowrap;display:inline-block;margin:2px 3px 2px 0'
-        :'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-light);color:var(--text-secondary);cursor:pointer;white-space:nowrap;display:inline-block;margin:2px 3px 2px 0';
-      span.textContent=`${src} ${cnt}`;
-      span.addEventListener('click',()=>mFilterSource(src,cat));
-      badgeDiv.appendChild(span);
-    });
-  } else {
-    if(catHdr)catHdr.remove();
-    const old=document.getElementById('m-cat-date');if(old)old.remove();
-  }
   render();
 }
 
