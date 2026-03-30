@@ -58,5 +58,5 @@ def process_item(item):
         # 파일 추출 실패했지만 짧은 본문이라도 있으면 사용
         print(f"    파일 추출 실패 → 짧은 본문 사용 ({len(body_text)}자)")
         item["text"] = body_text
-    elif not item["text"]:
+    elif not item.get("text"):
         print(f"    ⚠ 텍스트 추출 실패 (PDF:{len(item['pdfs'])} HWP:{len(item['hwps'])})")

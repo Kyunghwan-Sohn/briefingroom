@@ -167,11 +167,8 @@ def wp_post(item):
     summary = ""
     keywords = []
     if has_summary:
-        for line in item["summary"].split("\n"):
-            if line.startswith("요약:"):
-                summary = line.replace("요약:", "").strip()
-            elif line.startswith("키워드:"):
-                keywords = [k.strip() for k in line.replace("키워드:", "").split(",")]
+        from briefingroom.storage import extract_summary_parts
+        summary, keywords, _ = extract_summary_parts(item["summary"])
     if not summary:
         summary = f'{item["source"]} 보도자료입니다. 원문 링크에서 상세 내용을 확인하세요.'
 

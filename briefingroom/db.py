@@ -82,16 +82,14 @@ def init_db():
 
 
 def _summary_parts(item: dict) -> tuple[str, str]:
-    summary_text = ""
-    keywords = ""
-    if item.get("summary") and not item["summary"].startswith("["):
-        for line in item["summary"].split("\n"):
-            if line.startswith("요약:"):
-                summary_text = line.replace("요약:", "").strip()
-            elif line.startswith("키워드:"):
-                keywords = line.replace("키워드:", "").strip()
-        if not summary_text:
-            summary_text = item["summary"]
+    from briefingroom.storage import extract_summary_parts
+    raw = item.get("summary", "")
+    if not raw or raw.startswith("["):
+        return "", ""
+    summary_text, kw_list, _ = extract_summary_parts(raw)
+    keywords = ", ".join(kw_list)
+    if not summary_text:
+        summary_text = raw
     return summary_text, keywords
 
 

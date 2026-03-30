@@ -10,26 +10,49 @@ from .config import CAT_MAP, DATA_DIR, FINANCE_SUB_MAP
 def extract_summary_parts(summary: str) -> tuple[str, list[str], str]:
     """LLM 응답에서 요약, 키워드, 영향도를 추출한다.
 
+    LLM이 '요약:  \\n내용...' 처럼 줄바꿈 후 내용을 쓰는 경우도 처리한다.
+
     Returns:
         (summary_text, keywords, impact)
         impact는 "상", "중", "하" 중 하나. 파싱 실패 시 "중".
     """
     if not summary:
         return "", [], "중"
+
+    # 섹션 기반 파싱: "요약:", "키워드:", "영향도:" 를 구분자로 분할
+    import re
     summary_text = ""
     keywords: list[str] = []
     impact = "중"
-    for line in summary.splitlines():
-        line = line.strip()
-        if line.startswith("요약:"):
-            summary_text = line.replace("요약:", "", 1).strip()
-        elif line.startswith("키워드:"):
-            raw = line.replace("키워드:", "", 1)
-            keywords = [kw.strip().lstrip("#") for kw in raw.split(",") if kw.strip()]
-        elif line.startswith("영향도:"):
-            raw_impact = line.replace("영향도:", "", 1).strip()
-            if raw_impact in ("상", "중", "하"):
-                impact = raw_impact
+
+    # 각 섹션의 시작 위치 찾기
+    markers = []
+    for m in re.finditer(r'^(요약|키워드|영향도):', summary, re.MULTILINE):
+        markers.append((m.start(), m.group(1), m.end()))
+
+    if not markers:
+        # 마커가 하나도 없으면 전체를 요약으로 취급
+        return summary.strip(), [], "중"
+
+    for i, (start, label, content_start) in enumerate(markers):
+        # 이 섹션의 끝 = 다음 마커의 시작 또는 문자열 끝
+        end = markers[i + 1][0] if i + 1 < len(markers) else len(summary)
+        content = summary[content_start:end].strip()
+
+        if label == "요약":
+            summary_text = content
+        elif label == "키워드":
+            keywords = [kw.strip().lstrip("#") for kw in content.split(",") if kw.strip()]
+        elif label == "영향도":
+            val = content.split()[0] if content else ""
+            if val in ("상", "중", "하"):
+                impact = val
+
+    # "[텍스트 없음]" 등 실패 마커는 빈 요약으로 처리
+    _fail_markers = ("[텍스트 없음]", "[한도 초과]", "[오류]")
+    if summary_text.startswith(_fail_markers):
+        summary_text = ""
+
     return summary_text, keywords, impact
 
 

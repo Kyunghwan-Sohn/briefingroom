@@ -650,6 +650,52 @@ body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient
 #  4. 메인 실행
 # ═══════════════════════════════════════════════════════════
 
+def _save_schedule_json(items: list[dict], target: date) -> str:
+    """일정 데이터를 JSON으로 저장 (프론트엔드 달력 UI용)"""
+    import json
+    from .config import DATA_DIR
+
+    # 날짜별 그룹핑
+    by_date = {}
+    for it in items:
+        d = it.get("date", "")
+        if d not in by_date:
+            by_date[d] = []
+        by_date[d].append({
+            "time": it.get("time", ""),
+            "title": it.get("title", ""),
+            "source": it.get("source", ""),
+            "location": it.get("location", ""),
+        })
+
+    # 날짜순 정렬
+    sorted_dates = sorted(by_date.keys())
+    week_start = sorted_dates[0] if sorted_dates else ""
+    week_end = sorted_dates[-1] if sorted_dates else ""
+
+    payload = {
+        "target_date": target.isoformat(),
+        "week_start": week_start,
+        "week_end": week_end,
+        "total": len(items),
+        "dept_count": len(set(it.get("source", "") for it in items)),
+        "days": {d: by_date[d] for d in sorted_dates},
+    }
+
+    out_path = DATA_DIR / f"schedule-{target.isoformat()}.json"
+    out_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    # latest 링크도 저장
+    (DATA_DIR / "schedule-latest.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    print(f"  [일정 JSON] {out_path.name} ({len(items)}건, {len(sorted_dates)}일)")
+    return str(out_path)
+
+
 def run_schedule(target: date) -> bool:
     """차주 정부 일정 전체 파이프라인"""
     print(f"\n{'═' * 60}")
@@ -658,11 +704,14 @@ def run_schedule(target: date) -> bool:
     # 1. 수집
     items = collect_next_week_schedule(target)
 
-    # 2. HTML 포스트
+    # 2. JSON 저장 (프론트엔드 달력 UI용)
+    _save_schedule_json(items, target)
+
+    # 3. HTML 포스트
     print("  [포스트 생성]")
     post_url = generate_schedule_post(items, target)
 
-    # 3. 텔레그램
+    # 4. 텔레그램
     msg = format_schedule_telegram(items, target)
     print(f"  메시지 길이: {len(msg)}자")
 
