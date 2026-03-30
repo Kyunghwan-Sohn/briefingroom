@@ -87,10 +87,11 @@ def _dedup_title(title: str) -> str:
 # ── 표지 카드 ────────────────────────────────────────────────
 
 def _cover_html(content: dict, total_slides: int) -> str:
-    """표지 카드 HTML — hook + subtitle 사용"""
+    """표지 카드 HTML — hook + 원제목(출처) + subtitle"""
     source = content.get("source", "")
     hook = content.get("hook", content.get("title", ""))
     subtitle = content.get("subtitle", "핵심 내용을 정리했습니다")
+    orig_title = _dedup_title(content.get("title", ""))
     target_date = content.get("date", "")
     category = content.get("category", CAT_MAP.get(source, "행정법제"))
     impact = content.get("impact", "중")
@@ -98,6 +99,14 @@ def _cover_html(content: dict, total_slides: int) -> str:
     emoji = CAT_EMOJI.get(category, "📋")
 
     hook = _dedup_title(hook)
+
+    # 원제목이 hook과 동일하면 중복 표시하지 않음
+    show_orig = orig_title and orig_title != hook and len(orig_title) > 5
+    # 원제목이 너무 길면 자르기
+    if show_orig and len(orig_title) > 45:
+        orig_title = orig_title[:42] + "..."
+
+    orig_title_html = f'<div class="orig-title">📋 {orig_title}</div>' if show_orig else ""
 
     # hook 줄바꿈 처리
     if len(hook) > 18:
@@ -123,16 +132,24 @@ def _cover_html(content: dict, total_slides: int) -> str:
       padding: 10px 28px;
       font-size: 22px; font-weight: 600;
       color: {BRAND['light_blue']};
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }}
     .hook {{
       font-size: {font_size}; font-weight: 800;
-      line-height: 1.35; margin-bottom: 20px;
+      line-height: 1.35; margin-bottom: 16px;
       word-break: keep-all;
+    }}
+    .orig-title {{
+      font-size: 18px; color: #64748b;
+      line-height: 1.4; margin-bottom: 20px;
+      word-break: keep-all;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 8px;
     }}
     .subtitle {{
       font-size: 26px; color: #94a3b8;
-      line-height: 1.5; margin-bottom: 40px;
+      line-height: 1.5; margin-bottom: 36px;
     }}
     .meta {{
       display: flex; align-items: center; gap: 20px;
@@ -148,6 +165,7 @@ def _cover_html(content: dict, total_slides: int) -> str:
     <div class="card">
       <div class="dept-badge">{emoji} {source}</div>
       <div class="hook">{hook_html}</div>
+      {orig_title_html}
       <div class="subtitle">{subtitle}</div>
       <div class="meta">
         <span class="date">{target_date}</span>

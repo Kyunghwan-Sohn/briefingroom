@@ -39,36 +39,48 @@ CAT_EMOJI = {
 DAYS_KO = ["월", "화", "수", "목", "금", "토", "일"]
 
 
-def _build_caption(item: dict, target_date: date | str) -> str:
-    """게시물 캡션 자동 생성 (요약 + 해시태그)"""
+def _build_caption(item: dict, target_date: date | str,
+                   content: dict | None = None) -> str:
+    """게시물 캡션 자동 생성 (출처 + 요약 + 해시태그)"""
     if isinstance(target_date, str):
         target_date = date.fromisoformat(target_date)
 
     source = item.get("source", "")
     title = item.get("title", "")
     summary = item.get("summary", "")
-    keywords = item.get("keywords", [])
+    url = item.get("url", "")
     category = item.get("category", CAT_MAP.get(source, ""))
     cat_emoji = CAT_EMOJI.get(category, "📋")
     day_ko = DAYS_KO[target_date.weekday()]
 
-    # 해시태그 (최대 5개: 키워드 3-4개 + 브랜드 1개)
+    # content가 있으면 LLM 생성 해시태그 우선 사용
+    if content and content.get("hashtags"):
+        tags = content["hashtags"]
+    else:
+        tags = item.get("keywords", [])[:4]
     hashtags = []
-    for kw in keywords[:4]:
+    for kw in tags:
         tag = kw.replace(" ", "").replace("-", "").replace("·", "")
         if tag:
             hashtags.append(f"#{tag}")
-    hashtags.append("#정책브리핑")
+    if "#정책브리핑" not in hashtags:
+        hashtags.append("#정책브리핑")
     hashtag_str = " ".join(hashtags[:5])
+
+    # impact_line이 있으면 추가
+    impact_line = ""
+    if content and content.get("impact_line"):
+        impact_line = f"\n💡 {content['impact_line']}\n"
 
     caption = (
         f"{cat_emoji} {source}\n"
-        f"{title}\n"
+        f"📋 {title}\n"
         f"\n"
         f"{summary}\n"
-        f"\n"
+        f"{impact_line}\n"
         f"📅 {target_date.isoformat()} ({day_ko})\n"
-        f"🔗 자세한 내용은 프로필 링크에서\n"
+        f"🔗 원문: {url}\n" if url else ""
+        f"👉 더 많은 정책 브리핑은 프로필 링크에서\n"
         f"\n"
         f"{hashtag_str}"
     )
