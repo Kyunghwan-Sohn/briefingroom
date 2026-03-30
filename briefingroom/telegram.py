@@ -83,11 +83,12 @@ def select_top_articles(items: list[dict], max_per_cat: int = 3) -> dict:
         for item in cat_items:
             by_source[item["source"]].append(item)
 
-        # 부처별 대표 1건 선정
+        # 부처별 대표 1건 선정 — 중요도 스코어링
         source_tops = []
         for source, src_items in by_source.items():
             best = max(src_items, key=lambda x: (
-                len(x.get("news_articles", [])),
+                len(x.get("news_articles", [])) * 3,  # 뉴스 인용 수 가중
+                len(x.get("summary", "")) if x.get("summary") and not x["summary"].startswith("[") else 0,  # 요약 길이
                 1 if x.get("summary") and not x["summary"].startswith("[") else 0,
             ))
             source_tops.append((source, best, len(src_items)))
@@ -153,29 +154,27 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
         lines.append("")
 
         for source, item, src_count in selected[cat]:
-            title = _escape_html(item.get("title", ""))
+            title = _escape_html(item.get("title", ""))[:55]
             link = _article_url(item, items)
 
             lines.append(f"🏛 <b>{_escape_html(source)}</b> ({src_count}건)")
-            lines.append(f"▸ {title}")
-            lines.append(f'  <a href="{link}">link</a>')
+            lines.append(f'▸ <a href="{link}">{title}</a>')
 
-            # 뉴스: 메이저 언론사만, 제목 전체 표시
             news = item.get("news_articles", [])
             if news:
                 from briefingroom.news import MAJOR_NAMES
                 major_news = [a for a in news if a.get("source", "") in MAJOR_NAMES]
                 if not major_news:
                     major_news = news[:1]
-                for article in major_news[:1]:
-                    news_title = _escape_html(article.get("title", ""))
+                for article in major_news[:2]:
+                    news_title = _escape_html(article.get("title", ""))[:45]
                     news_src = _escape_html(article.get("source", ""))
                     news_url = (article.get("link", "") or article.get("url", "")).strip()
                     if news_url and not news_url.startswith("http"):
                         news_url = ""
                     if news_url:
                         news_url = news_url.replace("&", "&amp;").replace('"', "%22")
-                        lines.append(f"  📰 {news_src}: {news_title} <a href=\"{news_url}\">link</a>")
+                        lines.append(f'  📰 {news_src}: <a href="{news_url}">{news_title}</a>')
                     else:
                         lines.append(f"  📰 {news_src}: {news_title}")
 
