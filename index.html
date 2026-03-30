@@ -694,23 +694,6 @@ function filterBarClick(cat, el) {
   // 사이드바 active 상태도 동기화
   document.querySelectorAll('.f-item').forEach(i => i.classList.remove('active'));
 
-  const isAll = cat === 'all';
-  const schedEl = document.getElementById('schedule-calendar');
-  const heroEl = document.getElementById('daily-hero');
-  const srcBadges = document.getElementById('source-badges');
-
-  if (isAll) {
-    // 전체: 일정 섹션 다시 보이기
-    if (schedEl) schedEl.style.display = '';
-    if (heroEl) heroEl.style.display = '';
-    if (srcBadges) srcBadges.style.display = 'flex';
-  } else {
-    // 분야 필터: 일정 섹션 숨기기
-    if (schedEl) schedEl.style.display = 'none';
-    if (heroEl) heroEl.style.display = 'none';
-    if (srcBadges) srcBadges.style.display = 'none';
-  }
-
   render();
 }
 
@@ -834,6 +817,20 @@ function filtered(){
 function render(){
   const items=filtered();const _tb=document.getElementById('total-badge-hdr');if(_tb)_tb.textContent=`${items.length}건`;
   const c=document.getElementById('main-content');c.innerHTML='';
+  // 전체가 아닌 모든 필터(분야/부처)에서 히어로·일정 숨기기
+  const isAll=curFilter==='all';
+  const schedEl=document.getElementById('schedule-calendar');
+  const heroEl=document.getElementById('daily-hero');
+  const srcBadges=document.getElementById('source-badges');
+  if(isAll){
+    if(schedEl)schedEl.style.display='';
+    if(heroEl)heroEl.style.display='';
+    if(srcBadges)srcBadges.style.display='flex';
+  } else {
+    if(schedEl)schedEl.style.display='none';
+    if(heroEl)heroEl.style.display='none';
+    if(srcBadges)srcBadges.style.display='none';
+  }
   if(!items.length){c.innerHTML='<div class="empty"><div class="empty-icon"><i class="ph ph-folder-open" style="font-size:32px"></i></div><div style="font-size:14px;margin-bottom:4px">보도자료가 없습니다</div><div style="font-size:12px;color:var(--text-muted)">다른 날짜나 분야를 선택해 보세요</div></div>';return}
   if(curFilter!=='all'){
     // 분야 필터 헤더 표시
@@ -950,20 +947,6 @@ function setFilter(cat,el){
   if(cat.startsWith('fin-')||cat==='금융경제'){
     document.getElementById('fin-sub').classList.add('open');
     document.getElementById('fin-toggle').classList.add('expanded');
-  }
-  // 분야 필터 클릭 시 일정/히어로 섹션 표시 제어
-  const isAll=cat==='all';
-  const schedEl=document.getElementById('schedule-calendar');
-  const heroEl=document.getElementById('daily-hero');
-  const srcBadges=document.getElementById('source-badges');
-  if(isAll){
-    if(schedEl) schedEl.style.display='';
-    if(heroEl) heroEl.style.display='';
-    if(srcBadges) srcBadges.style.display='flex';
-  } else {
-    if(schedEl) schedEl.style.display='none';
-    if(heroEl) heroEl.style.display='none';
-    if(srcBadges) srcBadges.style.display='none';
   }
   // 필터 바 동기화
   syncFilterBar(cat);
@@ -1355,18 +1338,6 @@ function mSetTab(cat,el){
   document.querySelectorAll('.m-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
   expanded={};
-  const isAll=cat==='all';
-  const sb=document.getElementById('source-badges');
-  if(sb)sb.style.display=isAll?'flex':'none';
-  const schedEl=document.getElementById('schedule-calendar');
-  const heroEl=document.getElementById('daily-hero');
-  if(isAll){
-    if(schedEl) schedEl.style.display='';
-    if(heroEl) heroEl.style.display='';
-  } else {
-    if(schedEl) schedEl.style.display='none';
-    if(heroEl) heroEl.style.display='none';
-  }
 
   let catHdr=document.getElementById('m-cat-hdr');
   if(!isAll){
