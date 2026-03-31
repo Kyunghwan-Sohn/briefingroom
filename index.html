@@ -557,11 +557,10 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
     <div class="logo-mark"><i class="ph ph-newspaper-clipping" style="color:var(--navy);font-size:16px"></i></div>
     <span class="logo-text">브리핑룸</span>
   </a>
-  <nav style="display:flex;align-items:center;gap:4px;margin-left:16px" aria-label="글로벌 메뉴">
-    <a href="/" style="font-family:var(--sans);font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;padding:6px 12px;border-radius:4px;background:rgba(201,168,76,.15)">보도자료</a>
-    <a href="/finlaw/" style="font-family:var(--sans);font-size:12px;font-weight:500;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 12px;border-radius:4px">금융법</a>
-    <a href="/articles/weekly/" style="font-family:var(--sans);font-size:12px;font-weight:500;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 12px;border-radius:4px">주간</a>
-    <a href="/tools/" style="font-family:var(--sans);font-size:12px;font-weight:500;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 12px;border-radius:4px">도구</a>
+  <nav style="display:flex;align-items:center;gap:2px;margin-left:16px" aria-label="글로벌 메뉴">
+    <a href="/" style="font-family:var(--sans);font-size:13px;font-weight:700;color:var(--gold);text-decoration:none;padding:6px 14px;border-radius:4px;background:rgba(201,168,76,.12)">정책브리핑</a>
+    <a href="/finlaw/" style="font-family:var(--sans);font-size:13px;font-weight:600;color:rgba(255,255,255,.75);text-decoration:none;padding:6px 14px;border-radius:4px">금융법령AI</a>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,.5);text-decoration:none;padding:6px 10px;border-radius:4px;display:flex;align-items:center;gap:4px"><i class="ph ph-bell" style="font-size:14px"></i>알림</a>
   </nav>
   <div class="header-center">
     <span class="header-date" id="header-date"></span>
@@ -594,9 +593,7 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
   <button class="mob-filter-btn" onclick="mobSetFilter('외교안보',this)"><span class="mob-filter-dot" style="background:var(--c-dip)"></span>외교·안보</button>
   <button class="mob-filter-btn" onclick="mobSetFilter('행정법제',this)"><span class="mob-filter-dot" style="background:var(--c-adm)"></span>행정·법제</button>
   <button class="mob-filter-btn" onclick="openMinistrySheet()" style="border-color:var(--navy);color:var(--navy)">부처별 &#9660;</button>
-  <a href="/finlaw/" class="mob-filter-btn" style="border-color:var(--gold);color:var(--navy);text-decoration:none">📜 금융법</a>
-  <a href="/articles/weekly/" class="mob-filter-btn" style="text-decoration:none">📊 주간</a>
-  <a href="/tools/" class="mob-filter-btn" style="text-decoration:none">🤖 도구</a>
+  <a href="/finlaw/" class="mob-filter-btn" style="border-color:var(--gold);color:var(--navy);text-decoration:none">📜 금융법령AI</a>
 </div>
 
 <div class="body-wrap">
@@ -633,15 +630,10 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
     </div>
     <div class="sb-min-section" id="ministry-sb"><div class="sb-label">부처별</div></div>
     <div class="sb-section" style="margin-top:16px;padding-top:12px;border-top:2px solid var(--border-light)">
-      <div class="sb-label">금융법령</div>
-      <a class="f-item" href="/finlaw/" style="text-decoration:none;color:inherit"><div class="f-left"><div class="f-dot" style="background:var(--c-fin)"></div>법령 허브</div><span class="f-cnt" style="font-size:10px">139</span></a>
+      <div class="sb-label">금융법령AI</div>
+      <a class="f-item" href="/finlaw/" style="text-decoration:none;color:inherit"><div class="f-left"><div class="f-dot" style="background:var(--c-fin)"></div>법령 검색</div><span class="f-cnt" style="font-size:10px">139</span></a>
       <a class="f-item" href="/finlaw/cases/" style="text-decoration:none;color:inherit"><div class="f-left"><div class="f-dot" style="background:#dc2626"></div>판례</div><span class="f-cnt" style="font-size:10px">526</span></a>
-      <a class="f-item" href="/finlaw/notices/" style="text-decoration:none;color:inherit"><div class="f-left"><div class="f-dot" style="background:#d97706"></div>입법예고</div><span class="f-cnt" style="font-size:10px">→</span></a>
-    </div>
-    <div class="sb-section" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-light)">
-      <div class="sb-label">도구</div>
-      <a class="f-item" href="/tools/gpt/" style="text-decoration:none;color:inherit"><div class="f-left"><div class="f-dot" style="background:#7c3aed"></div>FinLaw GPT</div><span class="f-cnt" style="font-size:10px">AI</span></a>
-      <a class="f-item" href="/tools/compare/" style="text-decoration:none;color:inherit"><div class="f-left"><div class="f-dot" style="background:#0891b2"></div>법령 비교</div><span class="f-cnt" style="font-size:10px">→</span></a>
+      <a class="f-item" href="/finlaw/notices/" style="text-decoration:none;color:inherit"><div class="f-left"><div class="f-dot" style="background:#d97706"></div>최근 변경</div><span class="f-cnt" style="font-size:10px">→</span></a>
     </div>
     <div style="margin-top:16px;padding:12px;background:var(--navy);border-radius:8px;text-align:center">
       <a href="https://t.me/govbrief" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:11px;color:var(--gold);text-decoration:none">📱 텔레그램 구독</a>
@@ -650,9 +642,21 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
 
   <main class="main">
     <div class="content">
+      <!-- 서비스 허브 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+        <a href="/" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--navy);border-radius:10px;text-decoration:none;color:var(--white);border:2px solid var(--gold)">
+          <span style="font-size:20px">📋</span>
+          <div><div style="font-size:13px;font-weight:700">정책브리핑</div><div style="font-size:10px;color:rgba(255,255,255,.6);margin-top:2px">보도자료 · 주간 · 일정</div></div>
+        </a>
+        <a href="/finlaw/" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--white);border-radius:10px;text-decoration:none;color:var(--text-primary);border:1px solid var(--border-light)">
+          <span style="font-size:20px">📜</span>
+          <div><div style="font-size:13px;font-weight:700">금융법령AI</div><div style="font-size:10px;color:var(--text-muted);margin-top:2px">법령 · 판례 · AI검색</div></div>
+        </a>
+      </div>
+
       <!-- 오늘 날짜 + 건수 -->
-      <div id="date-info-bar" style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;padding:8px 0;flex-wrap:wrap">
-        <span style="font-family:var(--serif);font-size:16px;font-weight:700;color:var(--text-primary)" id="date-info-title"></span>
+      <div id="date-info-bar" style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;padding:6px 0;flex-wrap:wrap">
+        <span style="font-family:var(--serif);font-size:15px;font-weight:700;color:var(--text-primary)" id="date-info-title"></span>
         <span style="font-family:var(--mono);font-size:11px;color:var(--text-muted)" id="date-info-count"></span>
       </div>
 
@@ -747,13 +751,13 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
     <span><i class="ph ph-calendar-blank" style="font-size:22px"></i></span>
     <span class="m-nav-label" id="m-nav-date">날짜</span>
   </button>
-  <a class="m-nav-item" href="/finlaw/" aria-label="금융법" style="text-decoration:none">
+  <a class="m-nav-item" href="/finlaw/" aria-label="금융법령AI" style="text-decoration:none">
     <span><i class="ph ph-scales" style="font-size:22px"></i></span>
-    <span class="m-nav-label">금융법</span>
+    <span class="m-nav-label">법령AI</span>
   </a>
-  <a class="m-nav-item" href="/tools/gpt/" aria-label="AI 도구" style="text-decoration:none">
-    <span><i class="ph ph-robot" style="font-size:22px"></i></span>
-    <span class="m-nav-label">AI</span>
+  <a class="m-nav-item" href="https://t.me/govbrief" target="_blank" rel="noopener" aria-label="알림" style="text-decoration:none">
+    <span><i class="ph ph-bell" style="font-size:22px"></i></span>
+    <span class="m-nav-label">알림</span>
   </a>
 </nav>
 
