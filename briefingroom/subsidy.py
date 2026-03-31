@@ -634,7 +634,12 @@ function subFilter(cat, el) {{
 </body>
 </html>"""
 
-    out_dir = ARTICLES_DIR / "subsidy"
+    # 루트 /subsidy/ 경로에 생성 (GitHub Pages용)
+    out_dir = BASE_DIR / "subsidy"
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "index.html").write_text(page_html, encoding="utf-8")
+    # articles/subsidy/에도 복사 (하위 호환)
+    art_dir = ARTICLES_DIR / "subsidy"
+    art_dir.mkdir(parents=True, exist_ok=True)
+    (art_dir / "index.html").write_text(page_html, encoding="utf-8")
     print(f"  [HTML] subsidy/index.html 생성 ({len(items)}건)")
