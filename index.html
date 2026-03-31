@@ -165,8 +165,11 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 /* ===== FILTER BAR (Desktop, inside content) ===== */
 .filter-bar{
   display:flex;align-items:center;gap:8px;
-  margin-bottom:24px;padding:12px 0;
+  padding:10px 0;
   border-bottom:1px solid var(--border-light);
+  position:sticky;top:60px;z-index:9;
+  background:var(--off-white);
+  margin-bottom:16px;
 }
 .filter-btn{
   padding:8px 18px;border-radius:4px;
@@ -918,11 +921,13 @@ function render(){
     const cats=['금융경제','사회복지','산업기술','외교안보','행정법제'];
     const isCat=cats.includes(curFilter)||curFilter.startsWith('fin-');
     const catLabel=isCat?(CN[curFilter]||curFilter):curFilter;
-    // 헤더
+    // sticky 헤더 + 부처 배지
+    const stickyWrap=document.createElement('div');
+    stickyWrap.style.cssText='position:sticky;top:105px;z-index:8;background:var(--off-white);padding-bottom:8px;margin-bottom:8px';
     const hdr=document.createElement('div');
-    hdr.style.cssText='margin-bottom:12px;padding-bottom:12px;border-bottom:2px solid var(--border-light)';
+    hdr.style.cssText='padding-bottom:8px;border-bottom:2px solid var(--border-light)';
     hdr.innerHTML=`<div class="filter-section-title">${curDate.getMonth()+1}월 ${curDate.getDate()}일 ${escapeHtml(catLabel)} 보도자료</div><div class="filter-section-sub">${items.length}건</div>`;
-    c.appendChild(hdr);
+    stickyWrap.appendChild(hdr);
     // 부처 배지 (가나다순) — 분야 필터일 때만
     if(isCat){
       const catSources={};
@@ -930,7 +935,7 @@ function render(){
       const sortedSrc=Object.keys(catSources).sort();
       if(sortedSrc.length>1){
         const badges=document.createElement('div');
-        badges.style.cssText='display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px';
+        badges.style.cssText='display:flex;flex-wrap:wrap;gap:4px;padding-top:8px';
         sortedSrc.forEach(src=>{
           const cnt=catSources[src];
           const isActive=curFilter===src;
@@ -942,9 +947,10 @@ function render(){
           btn.addEventListener('click',()=>{curFilter=src;render()});
           badges.appendChild(btn);
         });
-        c.appendChild(badges);
+        stickyWrap.appendChild(badges);
       }
     }
+    c.appendChild(stickyWrap);
     const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;items.forEach((it,i)=>g.appendChild(mkCard(it,i)));c.appendChild(g);
   }
   else{CO.forEach(cat=>{if(!groupedByCat[cat]?.length)return;c.appendChild(mkBlock(cat,groupedByCat[cat]))})}
