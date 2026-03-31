@@ -14,7 +14,7 @@ from pathlib import Path
 
 import requests
 
-from briefingroom.config import BASE_DIR
+from briefingroom.config import BASE_DIR, PROXIES
 
 LAW_OC = "sony0125"
 LAW_API_BASE = "http://www.law.go.kr/DRF"
@@ -29,6 +29,8 @@ def _get_session():
     if _session is None:
         _session = requests.Session()
         _session.headers.update({"User-Agent": "govbrief.kr/1.0"})
+        if PROXIES:
+            _session.proxies.update(PROXIES)
     return _session
 
 
