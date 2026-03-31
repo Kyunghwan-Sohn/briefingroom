@@ -455,6 +455,12 @@ def run_subsidy() -> bool:
     for item in all_items:
         _save(item)
 
+    # JSON 내보내기 (웹사이트용)
+    _export_json()
+
+    # HTML 페이지 생성
+    _generate_subsidy_page()
+
     # 텔레그램 발송
     if all_items and TELEGRAM_ENABLED:
         msg = format_subsidy_telegram(all_items)
@@ -467,3 +473,168 @@ def run_subsidy() -> bool:
         print("  [텔레그램] TELEGRAM_ENABLED=false → 스킵")
 
     return True
+
+
+def _export_json():
+    """활성 지원사업을 JSON으로 내보내기"""
+    import json
+    conn = sqlite3.connect(str(SUBSIDY_DB))
+    conn.row_factory = sqlite3.Row
+    rows = conn.execute("""
+        SELECT * FROM subsidies WHERE status='active'
+        ORDER BY apply_end ASC, created_at DESC
+    """).fetchall()
+    conn.close()
+
+    items = []
+    for r in rows:
+        d_day = _calc_dday(r["apply_end"]) if r["apply_end"] else -1
+        if d_day < -7:  # 마감 7일 이상 지난 건은 제외
+            continue
+        items.append({
+            "id": r["id"],
+            "source": r["source"],
+            "title": r["title"],
+            "category": r["category"],
+            "ministry": r["ministry"],
+            "apply_start": r["apply_start"],
+            "apply_end": r["apply_end"],
+            "detail_url": r["detail_url"],
+            "d_day": d_day,
+            "registered_at": r["registered_at"],
+        })
+
+    out = BASE_DIR / "data" / "subsidies.json"
+    out.write_text(json.dumps({
+        "generated_at": datetime.now().isoformat(),
+        "count": len(items),
+        "items": items,
+    }, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"  [JSON] {out.name}: {len(items)}건")
+
+
+def _generate_subsidy_page():
+    """지원사업 전용 정적 HTML 페이지 생성"""
+    import json
+
+    json_path = BASE_DIR / "data" / "subsidies.json"
+    if not json_path.exists():
+        return
+
+    data = json.loads(json_path.read_text(encoding="utf-8"))
+    items = data.get("items", [])
+
+    # 분야별 카운트
+    cats = {}
+    for it in items:
+        c = it.get("category", "기타") or "기타"
+        cats[c] = cats.get(c, 0) + 1
+
+    # 마감 임박 (D-14 이내)
+    urgent = [it for it in items if 0 <= it.get("d_day", -1) <= 14]
+
+    h = _html.escape
+
+    # 카드 HTML 생성
+    def card(it):
+        title = h(it["title"])[:55]
+        ministry = h(it.get("ministry", ""))
+        category = h(it.get("category", ""))
+        d_day = it.get("d_day", -1)
+        url = h(it.get("detail_url", ""))
+        end = it.get("apply_end", "")
+
+        d_class = "urgent" if 0 <= d_day <= 7 else ("soon" if 0 <= d_day <= 14 else "")
+        d_text = f"D-{d_day}" if d_day >= 0 else ("마감" if d_day < -1 else "상시")
+
+        return f"""<div class="sub-card" data-cat="{h(it.get('category',''))}">
+          <div class="sub-card-top">
+            <span class="sub-cat">{category}</span>
+            <span class="sub-dday {d_class}">{d_text}</span>
+          </div>
+          <a class="sub-title" href="{url}" target="_blank" rel="noopener">{title}</a>
+          <div class="sub-meta">{ministry}{(' | 마감 ' + end) if end else ''}</div>
+        </div>"""
+
+    cards_html = "\n".join(card(it) for it in items)
+
+    # 분야 탭
+    cat_tabs = '<button class="sub-tab active" onclick="subFilter(\'all\',this)">전체 ' + str(len(items)) + '</button>'
+    for c, cnt in sorted(cats.items(), key=lambda x: -x[1]):
+        cat_tabs += f'<button class="sub-tab" onclick="subFilter(\'{h(c)}\',this)">{h(c)} {cnt}</button>'
+
+    page_html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>정부 지원사업 - 브리핑룸</title>
+<meta name="description" content="중소벤처기업부, K-Startup, NTIS 등 정부 지원사업 공고를 매일 수집합니다.">
+<link rel="canonical" href="{SITE_URL}/subsidy/">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{{--navy:#1a1a2e;--gold:#c9a84c;--bg:#f7f7f5;--surface:#fff;--border:#e0ddd7;--text:#1c1b18;--text2:#4a4844;--muted:#96938c}}
+*{{box-sizing:border-box;margin:0;padding:0}}
+body{{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;min-height:100vh}}
+.wrap{{max-width:900px;margin:0 auto;padding:24px 16px 80px}}
+.back{{color:var(--muted);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:20px}}
+h1{{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-bottom:6px}}
+.desc{{color:var(--text2);font-size:14px;margin-bottom:20px}}
+.kpi-row{{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}}
+.kpi{{flex:1;min-width:100px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}}
+.kpi-val{{font-size:22px;font-weight:700;color:var(--navy)}}
+.kpi-label{{font-size:11px;color:var(--muted);margin-top:2px}}
+.sub-tabs{{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;padding-bottom:4px}}
+.sub-tab{{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface);font-size:12px;cursor:pointer;white-space:nowrap;font-family:'Pretendard',sans-serif}}
+.sub-tab.active{{background:var(--navy);color:#fff;border-color:var(--navy)}}
+.sub-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}}
+.sub-card{{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;transition:box-shadow .15s}}
+.sub-card:hover{{box-shadow:0 2px 8px rgba(0,0,0,.06)}}
+.sub-card-top{{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}}
+.sub-cat{{font-size:11px;padding:3px 8px;border-radius:4px;background:#eef0fd;color:var(--navy);font-weight:600}}
+.sub-dday{{font-size:12px;font-weight:700;color:var(--navy)}}
+.sub-dday.urgent{{color:#dc2626}}
+.sub-dday.soon{{color:#d97706}}
+.sub-title{{font-size:14px;font-weight:600;color:var(--text);text-decoration:none;display:block;line-height:1.5;margin-bottom:6px}}
+.sub-title:hover{{color:var(--navy);text-decoration:underline}}
+.sub-meta{{font-size:11px;color:var(--muted)}}
+.section-title{{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border)}}
+@media(max-width:600px){{.sub-grid{{grid-template-columns:1fr}}.kpi-row{{gap:8px}}.kpi{{padding:10px}}}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">← 브리핑룸으로</a>
+<h1>정부 지원사업</h1>
+<div class="desc">중소벤처기업부 · K-Startup · NTIS에서 매일 수집 | {data.get('generated_at','')[:10]}</div>
+
+<div class="kpi-row">
+  <div class="kpi"><div class="kpi-val">{len(items)}</div><div class="kpi-label">진행 중</div></div>
+  <div class="kpi"><div class="kpi-val">{len(urgent)}</div><div class="kpi-label">마감 임박 (2주 이내)</div></div>
+  <div class="kpi"><div class="kpi-val">{len(cats)}</div><div class="kpi-label">분야</div></div>
+</div>
+
+{'<div class="section-title">🔥 마감 임박</div><div class="sub-grid">' + "".join(card(it) for it in urgent) + '</div>' if urgent else ''}
+
+<div class="section-title">전체 지원사업</div>
+<div class="sub-tabs">{cat_tabs}</div>
+<div class="sub-grid" id="sub-list">{cards_html}</div>
+</div>
+
+<script>
+function subFilter(cat, el) {{
+  document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.sub-card').forEach(c => {{
+    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+  }});
+}}
+</script>
+</body>
+</html>"""
+
+    out_dir = ARTICLES_DIR / "subsidy"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "index.html").write_text(page_html, encoding="utf-8")
+    print(f"  [HTML] subsidy/index.html 생성 ({len(items)}건)")
