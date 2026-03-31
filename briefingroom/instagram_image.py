@@ -1,455 +1,358 @@
-"""인스타그램 캐러셀 이미지 자동 생성
+"""인스타그램 캐러셀 이미지 — BCG/맥킨지 보고서 스타일
 
-HTML 템플릿 + Playwright 스크린샷으로 1080x1080 카드뉴스를 생성한다.
-instagram_content.py에서 생성한 구조화 콘텐츠를 입력으로 받는다.
+4장: 핵심요약 / 기사 / 분석 / 참여유도
+1080x1350(4:5), 글자 크게, 빈 공간 없이, 인포그래픽 포함
 """
 from __future__ import annotations
 
-import json
-import re
-import textwrap
+import json, re
 from datetime import date
 from pathlib import Path
-
 from briefingroom.config import BASE_DIR, CAT_MAP, DATA_DIR
 
 IG_OUT_DIR = BASE_DIR / "instagram"
-
-# ── 디자인 토큰 ──────────────────────────────────────────────
-BRAND = {
-    "navy": "#1B2838",
-    "blue": "#3B82F6",
-    "amber": "#F59E0B",
-    "white": "#FFFFFF",
-    "light": "#F8FAFC",
-    "dark_gray": "#374151",
-    "light_blue": "#93c5fd",
-    "green": "#10B981",
-    "red": "#EF4444",
+CAT_EMOJI = {"금융경제":"💰","사회복지":"🏥","산업기술":"⚙️","외교안보":"🌏","행정법제":"📜"}
+IMP = {
+    "상":{"c":"#DC2626","b":"#FEE2E2","l":"HIGH"},
+    "중":{"c":"#D97706","b":"#FEF3C7","l":"MID"},
+    "하":{"c":"#6B7280","b":"#F3F4F6","l":"LOW"},
 }
 
-CAT_EMOJI = {
-    "금융경제": "💰",
-    "사회복지": "🏥",
-    "산업기술": "⚙️",
-    "외교안보": "🌏",
-    "행정법제": "📜",
-}
+def _d(t):
+    n=len(t)
+    if n<20: return t
+    p=t[:10]; s=t.find(p,10)
+    if s>10: return t[:s].rstrip()
+    h=n//2
+    if h>10 and t[:h].strip()==t[h:].strip(): return t[:h].strip()
+    return t
 
-IMPACT_STYLE = {
-    "상": {"color": "#EF4444", "bg": "#FEE2E2", "label": "영향도 높음"},
-    "중": {"color": "#F59E0B", "bg": "#FEF3C7", "label": "영향도 중간"},
-    "하": {"color": "#6B7280", "bg": "#F3F4F6", "label": "영향도 낮음"},
-}
+# ── 슬라이드 1: 핵심 요약 (맥킨지 Executive Summary 스타일) ──
 
+def _s1(c):
+    src=c.get("source",""); hook=_d(c.get("hook",c.get("title","")))
+    sub=c.get("subtitle",""); dt=c.get("date","")
+    cat=c.get("category",CAT_MAP.get(src,"")); em=CAT_EMOJI.get(cat,"📋")
+    imp=IMP.get(c.get("impact","중"),IMP["중"])
+    orig=_d(c.get("title",""));
+    if len(orig)>45: orig=orig[:42]+"..."
+    sm=c.get("summary",{}); pts=sm.get("points",c.get("points",[]))
 
-def _base_style() -> str:
-    return """
-    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      width: 1080px; height: 1080px;
-      font-family: 'Pretendard', -apple-system, sans-serif;
-      overflow: hidden;
-    }
-    .card {
-      width: 1080px; height: 1080px;
-      position: relative;
-      display: flex; flex-direction: column;
-    }
-    .brand-bar {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 72px;
-      background: linear-gradient(90deg, #1B2838, #2563EB);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px;
-    }
-    .brand-bar .logo { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 2px; }
-    .brand-bar .page { font-size: 16px; color: rgba(255,255,255,0.6); }
-    """
+    hs="48px" if len(hook)>14 else "56px"
 
-
-def _dedup_title(title: str) -> str:
-    """제목 내 반복 텍스트 제거."""
-    n = len(title)
-    if n < 20:
-        return title
-    probe = title[:10]
-    second = title.find(probe, 10)
-    if second > 10:
-        return title[:second].rstrip()
-    half = n // 2
-    if half > 10 and title[:half].strip() == title[half:].strip():
-        return title[:half].strip()
-    return title
-
-
-# ── 표지 카드 ────────────────────────────────────────────────
-
-def _cover_html(content: dict, total_slides: int) -> str:
-    """표지 카드 HTML — hook + 원제목(출처) + subtitle"""
-    source = content.get("source", "")
-    hook = content.get("hook", content.get("title", ""))
-    subtitle = content.get("subtitle", "핵심 내용을 정리했습니다")
-    orig_title = _dedup_title(content.get("title", ""))
-    target_date = content.get("date", "")
-    category = content.get("category", CAT_MAP.get(source, "행정법제"))
-    impact = content.get("impact", "중")
-    imp = IMPACT_STYLE.get(impact, IMPACT_STYLE["중"])
-    emoji = CAT_EMOJI.get(category, "📋")
-
-    hook = _dedup_title(hook)
-
-    # 원제목이 hook과 동일하면 중복 표시하지 않음
-    show_orig = orig_title and orig_title != hook and len(orig_title) > 5
-    # 원제목이 너무 길면 자르기
-    if show_orig and len(orig_title) > 45:
-        orig_title = orig_title[:42] + "..."
-
-    orig_title_html = f'<div class="orig-title">📋 {orig_title}</div>' if show_orig else ""
-
-    # hook 줄바꿈 처리
-    if len(hook) > 18:
-        lines = textwrap.wrap(hook, width=12)
-        hook_html = "<br>".join(lines[:3])
-        font_size = "52px" if len(hook) <= 30 else "44px"
-    else:
-        hook_html = hook
-        font_size = "60px"
-
-    return f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-    {_base_style()}
-    .card {{
-      background: linear-gradient(160deg, #1B2838 0%, #1e3a5f 100%);
-      justify-content: center; padding: 72px 64px 120px;
-      color: #fff;
-    }}
-    .dept-badge {{
-      display: inline-block;
-      background: rgba(59,130,246,0.2);
-      border: 1.5px solid rgba(59,130,246,0.5);
-      border-radius: 40px;
-      padding: 10px 28px;
-      font-size: 22px; font-weight: 600;
-      color: {BRAND['light_blue']};
-      margin-bottom: 28px;
-    }}
-    .hook {{
-      font-size: {font_size}; font-weight: 800;
-      line-height: 1.35; margin-bottom: 16px;
-      word-break: keep-all;
-    }}
-    .orig-title {{
-      font-size: 18px; color: #64748b;
-      line-height: 1.4; margin-bottom: 20px;
-      word-break: keep-all;
-      padding: 10px 16px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 8px;
-    }}
-    .subtitle {{
-      font-size: 26px; color: #94a3b8;
-      line-height: 1.5; margin-bottom: 36px;
-    }}
-    .meta {{
-      display: flex; align-items: center; gap: 20px;
-    }}
-    .meta .date {{ font-size: 20px; color: #64748b; letter-spacing: 1px; }}
-    .meta .impact {{
-      display: inline-block;
-      padding: 6px 16px; border-radius: 6px;
-      font-size: 16px; font-weight: 700;
-      background: {imp['bg']}; color: {imp['color']};
-    }}
-    </style></head><body>
-    <div class="card">
-      <div class="dept-badge">{emoji} {source}</div>
-      <div class="hook">{hook_html}</div>
-      {orig_title_html}
-      <div class="subtitle">{subtitle}</div>
-      <div class="meta">
-        <span class="date">{target_date}</span>
-        <span class="impact">{imp['label']}</span>
-      </div>
-      <div class="brand-bar">
-        <span class="logo">BRIEFINGROOM</span>
-        <span class="page">밀어서 보기 →</span>
-      </div>
-    </div>
-    </body></html>"""
-
-
-# ── 본문 포인트 카드 ─────────────────────────────────────────
-
-def _point_html(point: dict, point_idx: int,
-                slide_num: int, total_slides: int) -> str:
-    """본문 포인트 카드 HTML — title + detail + highlight 사용"""
-    num = f"{point_idx + 1:02d}"
-    title = point.get("title", f"핵심 {point_idx + 1}")
-    detail = point.get("detail", "")
-    highlight = point.get("highlight", "")
-
-    # detail을 충분히 보여줌 (최대 180자)
-    if len(detail) > 180:
-        detail = detail[:177] + "..."
-
-    highlight_html = ""
-    if highlight:
-        highlight_html = f"""
-        <div class="highlight">
-          <span class="hl-icon">💡</span>
-          <span class="hl-text">{highlight}</span>
+    rows=""
+    colors=["#2563EB","#059669","#D97706"]
+    for i,pt in enumerate(pts[:3]):
+        lb=pt.get("label",pt.get("title",""))
+        tx=pt.get("text",pt.get("detail",""))
+        st=pt.get("stat",pt.get("highlight",""))
+        cl=colors[i%3]
+        # 프로그레스 바 너비 (시각적 효과용)
+        bw=["92%","78%","65%"][i]
+        rows+=f"""
+        <div class="row">
+          <div class="row-left" style="border-left:5px solid {cl}">
+            <div class="row-num" style="background:{cl}">{i+1}</div>
+            <div class="row-label">{lb}</div>
+            <div class="row-text">{tx}</div>
+          </div>
+          <div class="row-right">
+            <div class="row-stat">{st}</div>
+            <div class="bar-track"><div class="bar-fill" style="width:{bw};background:{cl}"></div></div>
+          </div>
         </div>"""
 
     return f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-    {_base_style()}
-    .card {{
-      background: #FFFFFF;
-      padding: 56px 52px 100px;
-    }}
-    .num {{
-      position: absolute; top: 24px; right: 44px;
-      font-size: 120px; font-weight: 900;
-      color: {BRAND['blue']}; opacity: 0.07;
-      line-height: 1;
-    }}
-    .label {{
-      font-size: 18px; font-weight: 700;
-      color: {BRAND['blue']};
-      letter-spacing: 3px;
-      margin-bottom: 20px;
-    }}
-    .point-title {{
-      font-size: 38px; font-weight: 800;
-      color: {BRAND['navy']};
-      line-height: 1.35;
-      margin-bottom: 28px;
-      word-break: keep-all;
-    }}
-    .point-detail {{
-      font-size: 24px;
-      color: {BRAND['dark_gray']};
-      line-height: 1.8;
-      word-break: keep-all;
-      margin-bottom: 28px;
-    }}
-    .highlight {{
-      padding: 18px 22px;
-      background: {BRAND['light']};
-      border-left: 4px solid {BRAND['blue']};
-      border-radius: 0 12px 12px 0;
-      display: flex; align-items: center; gap: 12px;
-    }}
-    .hl-icon {{ font-size: 22px; }}
-    .hl-text {{
-      font-size: 22px; font-weight: 700;
-      color: {BRAND['navy']};
-      line-height: 1.4;
-    }}
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    *{{margin:0;padding:0;box-sizing:border-box}}
+    body{{width:1080px;height:1350px;font-family:'Pretendard',sans-serif;overflow:hidden}}
+    .c{{width:1080px;height:1350px;display:flex;flex-direction:column;background:#0f172a}}
+
+    .hdr{{padding:32px 48px 0;display:flex;justify-content:space-between;align-items:center}}
+    .hdr .bdg{{background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);
+      border-radius:24px;padding:7px 18px;font-size:17px;font-weight:700;color:#93c5fd}}
+    .hdr .info{{font-size:14px;color:#64748b;display:flex;align-items:center;gap:8px}}
+    .hdr .imp{{padding:3px 10px;border-radius:4px;font-size:12px;font-weight:800;
+      background:{imp['b']};color:{imp['c']}}}
+
+    .hero{{padding:24px 48px 16px;color:#fff}}
+    .hero h1{{font-size:{hs};font-weight:900;line-height:1.18;word-break:keep-all;margin-bottom:8px}}
+    .hero .sub{{font-size:22px;color:#94a3b8;margin-bottom:12px}}
+    .hero .orig{{font-size:15px;color:#475569;background:rgba(255,255,255,0.05);
+      border-radius:8px;padding:10px 16px;word-break:keep-all}}
+
+    .body{{flex:1;background:#f8fafc;padding:28px 48px 48px;display:flex;flex-direction:column}}
+    .body .sec-title{{font-size:15px;font-weight:800;color:#1e293b;letter-spacing:1px;
+      border-bottom:3px solid #1e293b;padding-bottom:8px;margin-bottom:20px;display:flex;align-items:center;gap:8px}}
+    .body .sec-title .dot{{width:8px;height:8px;border-radius:50%;background:#2563EB}}
+
+    .row{{display:flex;gap:20px;margin-bottom:18px;min-height:0}}
+    .row-left{{flex:2;padding:18px 20px 18px 24px;background:#fff;border-radius:12px;
+      box-shadow:0 1px 3px rgba(0,0,0,0.05)}}
+    .row-num{{display:inline-flex;width:32px;height:32px;border-radius:8px;
+      color:#fff;font-size:16px;font-weight:900;align-items:center;justify-content:center;
+      margin-bottom:8px}}
+    .row-label{{font-size:22px;font-weight:800;color:#0f172a;margin-bottom:6px;word-break:keep-all}}
+    .row-text{{font-size:18px;color:#475569;line-height:1.6;word-break:keep-all}}
+    .row-right{{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;
+      background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.05)}}
+    .row-stat{{font-size:36px;font-weight:900;color:#0f172a;margin-bottom:10px;text-align:center;word-break:keep-all}}
+    .bar-track{{width:100%;height:8px;background:#e2e8f0;border-radius:4px}}
+    .bar-fill{{height:8px;border-radius:4px}}
+
+    .ft{{position:absolute;bottom:0;left:0;right:0;height:36px;
+      background:linear-gradient(90deg,#1B2838,#2563EB);
+      display:flex;align-items:center;justify-content:space-between;padding:0 24px}}
+    .ft span{{font-size:11px;font-weight:700;color:#fff;letter-spacing:1px}}
+    .ft .pg{{color:rgba(255,255,255,0.5);font-weight:400}}
     </style></head><body>
-    <div class="card">
-      <div class="num">{num}</div>
-      <div class="label">POINT {num}</div>
-      <div class="point-title">{title}</div>
-      <div class="point-detail">{detail}</div>
-      {highlight_html}
-      <div class="brand-bar">
-        <span class="logo">BRIEFINGROOM</span>
-        <span class="page">{slide_num} / {total_slides}</span>
+    <div class="c" style="position:relative">
+      <div class="hdr">
+        <span class="bdg">{em} {src}</span>
+        <span class="info">📅 {dt} <span class="imp">{imp['l']}</span></span>
       </div>
-    </div>
-    </body></html>"""
+      <div class="hero">
+        <h1>{hook}</h1>
+        <div class="sub">{sub}</div>
+        <div class="orig">📋 {orig}</div>
+      </div>
+      <div class="body">
+        <div class="sec-title"><span class="dot"></span> EXECUTIVE SUMMARY</div>
+        {rows}
+      </div>
+      <div class="ft"><span>BRIEFINGROOM</span><span class="pg">1 / 4</span></div>
+    </div></body></html>"""
 
 
-# ── CTA 카드 ─────────────────────────────────────────────────
+# ── 슬라이드 2: 보도자료 기사 (매거진 에디토리얼) ──
 
-def _cta_html(content: dict, total_slides: int) -> str:
-    """CTA(마지막) 카드 HTML — impact_line 사용"""
-    impact_line = content.get("impact_line", "")
-    impact_html = f'<div class="impact-line">{impact_line}</div>' if impact_line else ""
+def _s2(c):
+    src=c.get("source",""); title=_d(c.get("title",""))
+    dt=c.get("date",""); em=CAT_EMOJI.get(c.get("category",""),"📋")
+    article=c.get("article","")
+    if len(article)>600: article=article[:597]+"..."
+    # 단락 분리
+    paras=article.split("\n")
+    body_html="".join(f'<p class="para">{p.strip()}</p>' for p in paras if p.strip())
+    if len(title)>50: title=title[:47]+"..."
 
     return f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-    {_base_style()}
-    .card {{
-      background: linear-gradient(160deg, #1B2838 0%, #0f172a 100%);
-      justify-content: center; align-items: center;
-      text-align: center;
-      padding: 80px 64px 120px;
-      color: #fff;
-    }}
-    .cta-icon {{
-      width: 96px; height: 96px; border-radius: 50%;
-      background: rgba(59,130,246,0.2);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 40px; font-size: 40px;
-    }}
-    .impact-line {{
-      font-size: 28px; font-weight: 600;
-      color: {BRAND['amber']};
-      margin-bottom: 32px;
-      line-height: 1.4;
-    }}
-    .cta-text {{
-      font-size: 40px; font-weight: 700;
-      line-height: 1.5; margin-bottom: 16px;
-    }}
-    .cta-sub {{
-      font-size: 24px; color: #94a3b8;
-      margin-bottom: 48px;
-    }}
-    .cta-handle {{
-      display: inline-block;
-      font-size: 26px; font-weight: 600;
-      color: {BRAND['blue']};
-      padding: 16px 40px;
-      border: 2px solid rgba(59,130,246,0.4);
-      border-radius: 48px;
-    }}
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    *{{margin:0;padding:0;box-sizing:border-box}}
+    body{{width:1080px;height:1350px;font-family:'Pretendard',sans-serif;overflow:hidden}}
+    .c{{width:1080px;height:1350px;display:flex;flex-direction:column;position:relative}}
+
+    .hdr{{background:#0f172a;padding:36px 48px 28px;color:#fff}}
+    .hdr .tag{{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;
+      color:#93c5fd;letter-spacing:2px;margin-bottom:14px}}
+    .hdr .tag .line{{flex:1;height:1px;background:rgba(255,255,255,0.1)}}
+    .hdr h1{{font-size:34px;font-weight:900;line-height:1.3;word-break:keep-all;margin-bottom:10px}}
+    .hdr .meta{{font-size:15px;color:#64748b}}
+
+    .art{{flex:1;background:#fff;padding:36px 48px 48px;
+      border-left:5px solid #2563EB;margin-left:48px;margin-right:48px;margin-top:0;
+      display:flex;flex-direction:column}}
+    .drop{{font-size:72px;font-weight:900;color:#2563EB;float:left;
+      line-height:0.8;margin-right:12px;margin-top:8px}}
+    .para{{font-size:24px;color:#1e293b;line-height:1.85;word-break:keep-all;margin-bottom:16px}}
+    .src{{margin-top:auto;font-size:14px;color:#94a3b8;padding-top:12px;
+      border-top:1px solid #e2e8f0}}
+
+    .side{{background:#f1f5f9;margin:0 48px;padding:0}}
+
+    .ft{{position:absolute;bottom:0;left:0;right:0;height:36px;
+      background:linear-gradient(90deg,#1B2838,#2563EB);
+      display:flex;align-items:center;justify-content:space-between;padding:0 24px}}
+    .ft span{{font-size:11px;font-weight:700;color:#fff;letter-spacing:1px}}
+    .ft .pg{{color:rgba(255,255,255,0.5);font-weight:400}}
     </style></head><body>
-    <div class="card">
-      <div class="cta-icon">📌</div>
-      {impact_html}
-      <div class="cta-text">더 자세한 내용은<br>프로필 링크에서<br>확인하세요</div>
-      <div class="cta-sub">매일 오전, AI가 요약한 정책 브리핑</div>
-      <div class="cta-handle">@govbrief.kr</div>
-      <div class="brand-bar">
-        <span class="logo">BRIEFINGROOM</span>
-        <span class="page">{total_slides} / {total_slides}</span>
+    <div class="c">
+      <div class="hdr">
+        <div class="tag">POLICY BRIEF <span class="line"></span></div>
+        <h1>{title}</h1>
+        <div class="meta">{em} {src} · {dt}</div>
       </div>
-    </div>
-    </body></html>"""
+      <div class="art">
+        {body_html}
+        <div class="src">📋 출처: {src} 보도자료 원문 | govbrief.kr</div>
+      </div>
+      <div class="ft"><span>BRIEFINGROOM</span><span class="pg">2 / 4</span></div>
+    </div></body></html>"""
 
 
-# ── 메인 생성 함수 ────────────────────────────────────────────
+# ── 슬라이드 3: 효과/영향 분석 (BCG 매트릭스 스타일) ──
 
-def generate_carousel_from_content(content: dict, out_dir: Path) -> list[Path]:
-    """구조화된 콘텐츠(instagram_content.py 출력)로 캐러셀 이미지를 생성한다.
+def _s3(c):
+    a=c.get("analysis",{})
+    pos=a.get("positive",""); con=a.get("concern",""); out=a.get("outlook","")
+    title=_d(c.get("title",""))
+    if len(title)>40: title=title[:37]+"..."
 
-    Args:
-        content: generate_carousel_content() 또는 _fallback_from_summary() 반환값
-        out_dir: 이미지 저장 디렉토리
+    sections=[
+        ("✅","긍정적 효과","POSITIVE IMPACT",pos,"#059669","#ECFDF5","#D1FAE5"),
+        ("⚠️","우려 사항","RISK FACTOR",con,"#D97706","#FFFBEB","#FEF3C7"),
+        ("🔭","향후 전망","FUTURE OUTLOOK",out,"#2563EB","#EFF6FF","#DBEAFE"),
+    ]
+    cards=""
+    for icon,label,eng,text,color,bg,border_bg in sections:
+        cards+=f"""
+        <div class="sec" style="background:{bg};border-left:6px solid {color}">
+          <div class="sec-hdr">
+            <span class="sec-icon">{icon}</span>
+            <div>
+              <div class="sec-eng" style="color:{color}">{eng}</div>
+              <div class="sec-label">{label}</div>
+            </div>
+          </div>
+          <div class="sec-text">{text}</div>
+        </div>"""
 
-    Returns:
-        생성된 이미지 파일 경로 리스트
-    """
+    return f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    *{{margin:0;padding:0;box-sizing:border-box}}
+    body{{width:1080px;height:1350px;font-family:'Pretendard',sans-serif;overflow:hidden}}
+    .c{{width:1080px;height:1350px;display:flex;flex-direction:column;position:relative;background:#f8fafc}}
+
+    .hdr{{background:#0f172a;padding:36px 48px 28px;color:#fff}}
+    .hdr .tag{{font-size:13px;font-weight:700;color:#93c5fd;letter-spacing:2px;margin-bottom:10px;
+      display:flex;align-items:center;gap:8px}}
+    .hdr .tag .line{{flex:1;height:1px;background:rgba(255,255,255,0.1)}}
+    .hdr h1{{font-size:36px;font-weight:900;line-height:1.25;margin-bottom:8px}}
+    .hdr .meta{{font-size:15px;color:#64748b}}
+
+    .body{{flex:1;padding:28px 48px 48px;display:flex;flex-direction:column;gap:18px}}
+
+    .sec{{border-radius:16px;padding:28px 28px;flex:1;display:flex;flex-direction:column}}
+    .sec-hdr{{display:flex;align-items:center;gap:14px;margin-bottom:14px}}
+    .sec-icon{{font-size:32px}}
+    .sec-eng{{font-size:11px;font-weight:700;letter-spacing:2px;margin-bottom:2px}}
+    .sec-label{{font-size:22px;font-weight:900;color:#0f172a}}
+    .sec-text{{font-size:22px;color:#334155;line-height:1.75;word-break:keep-all;flex:1}}
+
+    .ft{{position:absolute;bottom:0;left:0;right:0;height:36px;
+      background:linear-gradient(90deg,#1B2838,#2563EB);
+      display:flex;align-items:center;justify-content:space-between;padding:0 24px}}
+    .ft span{{font-size:11px;font-weight:700;color:#fff;letter-spacing:1px}}
+    .ft .pg{{color:rgba(255,255,255,0.5);font-weight:400}}
+    </style></head><body>
+    <div class="c">
+      <div class="hdr">
+        <div class="tag">IMPACT ANALYSIS <span class="line"></span></div>
+        <h1>📊 이 정책, 어떤 영향이 있을까?</h1>
+        <div class="meta">{title}</div>
+      </div>
+      <div class="body">
+        {cards}
+      </div>
+      <div class="ft"><span>BRIEFINGROOM</span><span class="pg">3 / 4</span></div>
+    </div></body></html>"""
+
+
+# ── 슬라이드 4: 참여 유도 ──
+
+def _s4(c):
+    tags="".join(f'<span class="tg">#{t}</span>' for t in c.get("hashtags",[])[:3])
+    hook=_d(c.get("hook",""))
+
+    return f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    *{{margin:0;padding:0;box-sizing:border-box}}
+    body{{width:1080px;height:1350px;font-family:'Pretendard',sans-serif;overflow:hidden}}
+    .c{{width:1080px;height:1350px;display:flex;flex-direction:column;position:relative;background:#0f172a;color:#fff}}
+
+    .top{{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;
+      text-align:center;padding:48px 56px}}
+
+    .icon{{font-size:64px;margin-bottom:32px}}
+    .q{{font-size:52px;font-weight:900;line-height:1.25;margin-bottom:20px}}
+    .desc{{font-size:26px;color:#94a3b8;line-height:1.65;margin-bottom:40px;max-width:800px}}
+
+    .box{{background:rgba(59,130,246,0.08);border:2px solid rgba(59,130,246,0.2);
+      border-radius:20px;padding:32px 40px;margin-bottom:36px;max-width:800px;width:100%}}
+    .box .t1{{font-size:26px;font-weight:800;color:#93c5fd;margin-bottom:10px}}
+    .box .t2{{font-size:20px;color:#64748b;line-height:1.55}}
+
+    .tags{{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}}
+    .tg{{padding:10px 22px;border-radius:24px;background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.1);font-size:18px;font-weight:600;color:#94a3b8}}
+
+    .handle{{font-size:24px;font-weight:800;color:#3B82F6}}
+
+    .ft{{position:absolute;bottom:0;left:0;right:0;height:36px;
+      background:linear-gradient(90deg,#1B2838,#2563EB);
+      display:flex;align-items:center;justify-content:space-between;padding:0 24px}}
+    .ft span{{font-size:11px;font-weight:700;color:#fff;letter-spacing:1px}}
+    .ft .pg{{color:rgba(255,255,255,0.5);font-weight:400}}
+    </style></head><body>
+    <div class="c">
+      <div class="top">
+        <div class="icon">💬</div>
+        <div class="q">이 정책,<br>어떻게 생각하시나요?</div>
+        <div class="desc">정부의 정책은 우리 모두의 삶에 영향을 줍니다.<br>관심을 갖고 함께 살펴봐요.</div>
+        <div class="box">
+          <div class="t1">💡 여러분의 의견을 들려주세요</div>
+          <div class="t2">댓글로 생각을 남겨주시면,<br>다음 브리핑에 반영하겠습니다.</div>
+        </div>
+        <div class="tags">{tags}</div>
+        <div class="handle">@govbrief.kr</div>
+      </div>
+      <div class="ft"><span>BRIEFINGROOM</span><span class="pg">4 / 4</span></div>
+    </div></body></html>"""
+
+
+# ── 생성 함수 ──
+
+def generate_carousel_from_content(content, out_dir):
     from playwright.sync_api import sync_playwright
-
-    points = content.get("points", [])
-    total_slides = 1 + len(points) + 1
-    html_pages: list[str] = []
-
-    # 1. 표지
-    html_pages.append(_cover_html(content, total_slides))
-
-    # 2. 본문 포인트들
-    for idx, pt in enumerate(points):
-        html_pages.append(_point_html(pt, idx, idx + 2, total_slides))
-
-    # 3. CTA
-    html_pages.append(_cta_html(content, total_slides))
-
-    out_dir.mkdir(parents=True, exist_ok=True)
-    image_paths: list[Path] = []
-
+    pages=[_s1(content),_s2(content),_s3(content),_s4(content)]
+    out_dir.mkdir(parents=True,exist_ok=True)
+    paths=[]
     with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page(viewport={"width": 1080, "height": 1080})
+        br=p.chromium.launch()
+        pg=br.new_page(viewport={"width":1080,"height":1350})
+        for i,html in enumerate(pages):
+            pg.set_content(html,wait_until="networkidle")
+            pg.wait_for_timeout(1200)
+            o=out_dir/f"slide_{i:02d}.png"
+            pg.screenshot(path=str(o),type="png")
+            paths.append(o)
+        br.close()
+    return paths
 
-        for slide_idx, html in enumerate(html_pages):
-            page.set_content(html, wait_until="networkidle")
-            page.wait_for_timeout(800)
-
-            out_path = out_dir / f"slide_{slide_idx:02d}.png"
-            page.screenshot(path=str(out_path), type="png")
-            image_paths.append(out_path)
-
-        browser.close()
-
-    return image_paths
-
-
-def generate_daily_carousels(target: date | str) -> list[dict]:
-    """일일 JSON에서 top3 기사의 콘텐츠를 생성하고 캐러셀 이미지를 만든다.
-
-    Returns:
-        [{"content": dict, "images": [Path, ...], "out_dir": Path}, ...]
-    """
+def generate_daily_carousels(target):
     from briefingroom.instagram_content import generate_carousel_content
-
-    if isinstance(target, str):
-        target = date.fromisoformat(target)
-
-    json_path = DATA_DIR / f"{target.isoformat()}.json"
-    if not json_path.exists():
-        print(f"  [Instagram] JSON 없음: {json_path}")
-        return []
-
-    data = json.loads(json_path.read_text(encoding="utf-8"))
-    items = data.get("items", [])
-    if not items:
-        print("  [Instagram] 기사 0건 → 스킵")
-        return []
-
-    # top3 선정
-    top3_indices = data.get("top3", [])
-    if not top3_indices:
-        scored = []
-        for i, it in enumerate(items):
-            imp_score = {"상": 3, "중": 2, "하": 1}.get(it.get("impact", "중"), 2)
-            has_sum = 1 if it.get("summary") else 0
-            scored.append((imp_score, has_sum, i))
-        scored.sort(key=lambda x: (-x[0], -x[1], x[2]))
-        top3_indices = [s[2] for s in scored[:3]]
-
-    day_dir = IG_OUT_DIR / target.isoformat()
-
-    results = []
-    for rank, idx in enumerate(top3_indices):
-        if idx >= len(items):
-            continue
-        item = items[idx]
-        if not item.get("summary"):
-            continue
-
-        print(f"  [Instagram] #{rank+1} {item['source']} | {item['title'][:40]}")
-
-        # 1단계: 콘텐츠 생성 (LLM 또는 fallback)
-        content = generate_carousel_content(item)
-        if not content:
-            continue
-
-        is_fb = " (fallback)" if content.get("_is_fallback") else ""
-        print(f"    콘텐츠: {content.get('hook', '')}{is_fb}")
-        for i, pt in enumerate(content.get("points", [])):
-            print(f"    P{i+1}: {pt.get('title', '')} — {pt.get('highlight', '')}")
-
-        # 2단계: 이미지 생성
-        article_dir = day_dir / f"{rank:02d}_{_safe_dirname(item.get('source', ''))}"
+    if isinstance(target,str): target=date.fromisoformat(target)
+    jp=DATA_DIR/f"{target.isoformat()}.json"
+    if not jp.exists(): return []
+    data=json.loads(jp.read_text(encoding="utf-8"))
+    items=data.get("items",[])
+    if not items: return []
+    t3=data.get("top3",[])
+    if not t3:
+        sc=[];
+        for i,it in enumerate(items):
+            s={"상":3,"중":2,"하":1}.get(it.get("impact","중"),2)
+            sc.append((s,1 if it.get("summary") else 0,i))
+        sc.sort(key=lambda x:(-x[0],-x[1],x[2]))
+        t3=[s[2] for s in sc[:3]]
+    dd=IG_OUT_DIR/target.isoformat(); res=[]
+    for rank,idx in enumerate(t3):
+        if idx>=len(items): continue
+        item=items[idx]
+        if not item.get("summary"): continue
+        print(f"  [IG] #{rank+1} {item['source']} | {item['title'][:40]}")
+        content=generate_carousel_content(item)
+        if not content: continue
+        ad=dd/f"{rank:02d}_{re.sub(r'[^w가-힣]','_',item.get('source',''))[:20]}"
         try:
-            images = generate_carousel_from_content(content, article_dir)
-            results.append({
-                "content": content,
-                "item": item,
-                "images": images,
-                "out_dir": article_dir,
-                "rank": rank,
-            })
-            print(f"    → {len(images)}장 생성: {article_dir}")
-        except Exception as e:
-            print(f"    → 생성 실패: {e}")
+            imgs=generate_carousel_from_content(content,ad)
+            res.append({"content":content,"item":item,"images":imgs,"out_dir":ad})
+            print(f"    → {len(imgs)}장: {ad}")
+        except Exception as e: print(f"    → 실패: {e}")
+    return res
 
-    return results
-
-
-def _safe_dirname(name: str) -> str:
-    return re.sub(r'[^\w가-힣]', '_', name).strip('_')[:20]
-
-
-if __name__ == "__main__":
+if __name__=="__main__":
     import sys
-    target_date = sys.argv[1] if len(sys.argv) > 1 else date.today().isoformat()
-    results = generate_daily_carousels(target_date)
-    print(f"\n총 {len(results)}건의 캐러셀 생성 완료")
-    for r in results:
-        src = r["content"].get("source", "")
-        print(f"  {src}: {len(r['images'])}장 → {r['out_dir']}")
+    t=sys.argv[1] if len(sys.argv)>1 else date.today().isoformat()
+    r=generate_daily_carousels(t)
+    print(f"\n{len(r)}건 생성")

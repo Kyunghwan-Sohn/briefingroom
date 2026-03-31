@@ -7,32 +7,32 @@ from typing import Iterable
 from .config import CAT_MAP, DATA_DIR, FINANCE_SUB_MAP
 
 
-def extract_summary_parts(summary: str) -> tuple[str, list[str], str]:
+def extract_summary_parts(summary: str) -> tuple[str, str, str, list[str], str]:
     """LLM 응답에서 요약, 키워드, 영향도를 추출한다.
 
     LLM이 '요약:  \\n내용...' 처럼 줄바꿈 후 내용을 쓰는 경우도 처리한다.
 
     Returns:
-        (summary_text, keywords, impact)
+        (summary_text, why_important, practical_impact, keywords, impact)
         impact는 "상", "중", "하" 중 하나. 파싱 실패 시 "중".
     """
     if not summary:
-        return "", [], "중"
+        return "", "", "", [], "중"
 
-    # 섹션 기반 파싱: "요약:", "키워드:", "영향도:" 를 구분자로 분할
-    import re
     summary_text = ""
+    why_important = ""
+    practical_impact = ""
     keywords: list[str] = []
     impact = "중"
 
     # 각 섹션의 시작 위치 찾기
     markers = []
-    for m in re.finditer(r'^(요약|키워드|영향도):', summary, re.MULTILINE):
+    for m in re.finditer(r'^(요약|왜 중요한가|실무 영향|키워드|영향도):', summary, re.MULTILINE):
         markers.append((m.start(), m.group(1), m.end()))
 
     if not markers:
         # 마커가 하나도 없으면 전체를 요약으로 취급
-        return summary.strip(), [], "중"
+        return summary.strip(), "", "", [], "중"
 
     for i, (start, label, content_start) in enumerate(markers):
         # 이 섹션의 끝 = 다음 마커의 시작 또는 문자열 끝
@@ -41,6 +41,10 @@ def extract_summary_parts(summary: str) -> tuple[str, list[str], str]:
 
         if label == "요약":
             summary_text = content
+        elif label == "왜 중요한가":
+            why_important = content
+        elif label == "실무 영향":
+            practical_impact = content
         elif label == "키워드":
             keywords = [kw.strip().lstrip("#") for kw in content.split(",") if kw.strip()]
         elif label == "영향도":
@@ -52,12 +56,14 @@ def extract_summary_parts(summary: str) -> tuple[str, list[str], str]:
     _fail_markers = ("[텍스트 없음]", "[한도 초과]", "[오류]")
     if summary_text.startswith(_fail_markers):
         summary_text = ""
+        why_important = ""
+        practical_impact = ""
 
-    return summary_text, keywords, impact
+    return summary_text, why_important, practical_impact, keywords, impact
 
 
 def serialize_item(item: dict, slug: str = "") -> dict:
-    summary_text, keywords, impact = extract_summary_parts(item.get("summary", ""))
+    summary_text, why_important, practical_impact, keywords, impact = extract_summary_parts(item.get("summary", ""))
     return {
         "slug": slug,
         "source": item.get("source", ""),
@@ -70,6 +76,8 @@ def serialize_item(item: dict, slug: str = "") -> dict:
         "hwps": item.get("hwps", []),
         "files": item.get("files", []),
         "summary": summary_text,
+        "why_important": why_important,
+        "practical_impact": practical_impact,
         "keywords": keywords,
         "impact": impact,
         "raw_summary": item.get("summary", ""),

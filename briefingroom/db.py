@@ -87,7 +87,7 @@ def _summary_parts(item: dict) -> tuple[str, str]:
     raw = item.get("summary", "")
     if not raw or raw.startswith("["):
         return "", ""
-    summary_text, kw_list, _ = extract_summary_parts(raw)
+    summary_text, _, _, kw_list, _ = extract_summary_parts(raw)
     keywords = ", ".join(kw_list)
     if not summary_text:
         summary_text = raw

@@ -13,6 +13,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from briefingroom.config import BASE_DIR, CAT_MAP, DATA_DIR
+from briefingroom.llm import generate_weekly_signals
 from briefingroom.site_templates import SITE_NAV_CSS, render_crosslinks, render_top_nav
 from briefingroom.weekly_analysis import analyze_weekly, select_weekly_top
 from briefingroom.telegram import (
@@ -86,6 +87,114 @@ def _get_summary(item: dict) -> str:
     return _cut(s.split("키워드:")[0].strip())
 
 
+def _article_link(item: dict, extra: dict | None = None) -> str:
+    d = item.get("date", "")
+    slug = item.get("slug", "000") or "000"
+    url = f"{SITE_URL}/articles/{d}/{slug}/" if d else SITE_URL
+    if not extra:
+        return url
+    from briefingroom.telegram import _append_query
+    return _append_query(url, **extra)
+
+
+def _find_item_by_title(analysis: dict, title: str) -> dict | None:
+    target = (title or "").strip()
+    if not target:
+        return None
+    for items in analysis["items_by_cat"].values():
+        for item in items:
+            if item.get("title", "").strip() == target:
+                return item
+    return None
+
+
+def _fallback_weekly_signals(analysis: dict, selected: dict) -> list[dict]:
+    top_kw = [kw for kw, _ in analysis["keywords"].most_common(8)]
+    source_rank = analysis["by_source"].most_common(3)
+    selected_items = [row[1] for row in selected.values() if row and row[1]]
+    signals: list[dict] = []
+
+    if top_kw:
+        anchor = selected_items[0] if selected_items else {}
+        signals.append({
+            "title": f"{top_kw[0]} 정책 확산",
+            "evidence": f"'{top_kw[0]}' 키워드 {analysis['keywords'].get(top_kw[0], 0)}회 등장, 전체 {analysis['sources_count']}개 부처 흐름과 연결",
+            "related_title": anchor.get("title", ""),
+        })
+
+    for cat, _ in CAT_ORDER:
+        if cat not in selected:
+            continue
+        src, item, count, news_cnt, _ = selected[cat]
+        signals.append({
+            "title": f"{CAT_NAMES.get(cat, cat)} 이슈 부상",
+            "evidence": f"{CAT_NAMES.get(cat, cat)} 보도자료 {analysis['by_cat'].get(cat, 0)}건, {src} 발표안 뉴스 인용 {news_cnt}건",
+            "related_title": item.get("title", ""),
+        })
+        if len(signals) >= 5:
+            break
+
+    if len(signals) < 5 and source_rank:
+        for source, count in source_rank:
+            related = next((it for it in selected_items if it.get("source") == source), selected_items[0] if selected_items else {})
+            signals.append({
+                "title": f"{source} 발표 집중",
+                "evidence": f"{source} 주간 보도자료 {count}건으로 상위권, 전주 대비 정책 노출 증가 흐름",
+                "related_title": related.get("title", ""),
+            })
+            if len(signals) >= 5:
+                break
+
+    return signals[:5]
+
+
+def build_weekly_signals(analysis: dict, selected: dict) -> list[dict]:
+    selected_payload = []
+    for cat, (src, item, count, news_cnt, articles) in selected.items():
+        selected_payload.append({
+            "category": cat,
+            "source": src,
+            "title": item.get("title", ""),
+            "date": item.get("date", ""),
+            "slug": item.get("slug", ""),
+            "news_count": news_cnt,
+            "summary": _get_summary(item),
+        })
+
+    payload = {
+        "period": {
+            "start": analysis["start"].isoformat(),
+            "end": analysis["end"].isoformat(),
+        },
+        "totals": {
+            "articles": analysis["total"],
+            "sources": analysis["sources_count"],
+            "prev_articles": analysis["prev_total"],
+        },
+        "by_category": analysis["by_cat"],
+        "top_keywords": [{"keyword": kw, "count": count} for kw, count in analysis["keywords"].most_common(10)],
+        "keyword_delta": analysis["kw_delta"],
+        "selected_articles": selected_payload,
+    }
+
+    signals = generate_weekly_signals(payload) or _fallback_weekly_signals(analysis, selected)
+    enriched = []
+    seen_titles = set()
+    for signal in signals:
+        related_title = signal.get("related_title", "")
+        related_item = _find_item_by_title(analysis, related_title)
+        if related_title in seen_titles and related_item is None:
+            continue
+        seen_titles.add(related_title)
+        enriched.append({
+            "title": signal.get("title", "").strip(),
+            "evidence": signal.get("evidence", "").strip(),
+            "related_title": related_title,
+            "related_item": related_item,
+        })
+    return enriched[:5]
+
+
 # ═══════════════════════════════════════════════════════════
 #  3. PDF 생성
 # ═══════════════════════════════════════════════════════════
@@ -106,14 +215,15 @@ def _ensure_fonts() -> tuple[str, str]:
 
 
 def generate_pdf(analysis: dict, selected: dict, target: date) -> Path:
-    """McKinsey/BCG 스타일 주간 리포트 PDF 생성"""
+    """시그널 중심 주간 리포트 PDF 생성"""
     from fpdf import FPDF
 
     reg, bold = _ensure_fonts()
     s = analysis["start"]
     e = analysis["end"]
     top_kw = [kw for kw, _ in analysis["keywords"].most_common(5)]
-    colors = [(47, 84, 235), (220, 38, 38), (22, 163, 74), (124, 58, 237), (217, 119, 6)]
+    signals = build_weekly_signals(analysis, selected)
+    colors = [(47, 84, 235), (196, 145, 53), (15, 107, 58), (154, 74, 10), (163, 21, 21)]
 
     class R(FPDF):
         def footer(self):
@@ -143,29 +253,6 @@ def generate_pdf(analysis: dict, selected: dict, target: date) -> Path:
         pdf.set_text_color(40, 40, 40)
         pdf.multi_cell(W(), sz * 0.6, _safe(text))
 
-    def insight(text):
-        pdf.set_fill_color(245, 247, 252)
-        pdf.set_draw_color(42, 60, 100); pdf.set_line_width(1.5)
-        y = pdf.get_y(); x = pdf.l_margin
-        pdf.line(x, y, x, y + 12)
-        pdf.set_x(x + 4)
-        pdf.set_font("NG", "", 8); pdf.set_text_color(42, 60, 100)
-        pdf.multi_cell(W() - 4, 4.5, _safe(text), fill=True)
-        pdf.set_text_color(40, 40, 40)
-        pdf.ln(2)
-
-    def table_header(cols):
-        pdf.set_font("NG", "B", 8); pdf.set_fill_color(235, 240, 250)
-        for label, w in cols:
-            pdf.cell(w, 6, label, border=1, fill=True, align="C")
-        pdf.ln()
-
-    def table_row(cells):
-        pdf.set_font("NG", "", 8)
-        for text, w, align in cells:
-            pdf.cell(w, 5.5, _safe(text), border=1, align=align)
-        pdf.ln()
-
     # -- COVER --
     pdf.add_page(); pdf.ln(50)
     pdf.set_font("NG", "", 10); pdf.set_text_color(120, 120, 120)
@@ -183,13 +270,13 @@ def generate_pdf(analysis: dict, selected: dict, target: date) -> Path:
     pdf.set_font("NG", "", 9); pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 5, f"govbrief.kr  |  {date.today()}", align="C", new_x="LMARGIN", new_y="NEXT")
 
-    # -- EXECUTIVE SUMMARY --
-    pdf.add_page(); sec("01", "Executive Summary")
+    # -- SIGNAL DASHBOARD --
+    pdf.add_page(); sec("01", "이번 주 정책 시그널 5개")
     td = analysis["total"] - analysis["prev_total"]
     y0 = pdf.get_y()
     for i, (l, v) in enumerate([("총 보도자료", f"{analysis['total']}건"),
                                  ("참여 부처", f"{analysis['sources_count']}개"),
-                                 ("5대 분야", "경제/사회/산업/외교/행정")]):
+                                 ("전주 대비", f"{td:+d}건")]):
         x = pdf.l_margin + i * 45
         pdf.set_xy(x, y0); pdf.set_font("NG", "", 7); pdf.set_text_color(120, 120, 120)
         pdf.cell(45, 4, l)
@@ -199,123 +286,53 @@ def generate_pdf(analysis: dict, selected: dict, target: date) -> Path:
     body(f"핵심 키워드:  {'  |  '.join(f'#{kw}' for kw in top_kw)}", sz=9, b=True)
     pdf.ln(4)
 
-    # 분석 코멘트 — 데이터 기반 자동 생성
-    top_cat = max(analysis["by_cat"], key=analysis["by_cat"].get) if analysis["by_cat"] else ""
-    top_cat_cnt = analysis["by_cat"].get(top_cat, 0)
-    news_sorted = sorted(selected.items(), key=lambda x: -x[1][3])
-    top_news_cat, (top_news_src, _, _, top_news_cnt, _) = news_sorted[0] if news_sorted else ("", ("", {}, 0, 0, []))
+    for idx, signal in enumerate(signals, start=1):
+        if pdf.get_y() > 235:
+            pdf.add_page()
+        item = signal.get("related_item") or {}
+        pdf.set_draw_color(*colors[(idx - 1) % len(colors)])
+        pdf.set_line_width(1.8)
+        x = pdf.l_margin
+        y = pdf.get_y()
+        pdf.line(x, y, x, y + 22)
+        pdf.set_xy(x + 5, y)
+        pdf.set_font("NG", "B", 12)
+        pdf.set_text_color(20, 20, 40)
+        pdf.multi_cell(W() - 5, 6, _safe(f"시그널 {idx}. {signal.get('title', '')}"))
+        pdf.set_x(x + 5)
+        pdf.set_font("NG", "", 8)
+        pdf.set_text_color(80, 80, 80)
+        pdf.multi_cell(W() - 5, 4.5, _safe(signal.get("evidence", "")))
+        if item:
+            pdf.set_x(x + 5)
+            pdf.set_font("NG", "B", 8)
+            pdf.set_text_color(42, 60, 100)
+            pdf.multi_cell(
+                W() - 5,
+                4.5,
+                _safe(
+                    f"관련 보도자료 | {item.get('source', '')} | {item.get('title', '')[:65]}"
+                ),
+            )
+        pdf.ln(5)
 
-    body(f"금주 정부 보도자료 {analysis['total']}건을 분석한 결과, "
-         f"{CAT_NAMES.get(top_cat, top_cat)} 분야가 {top_cat_cnt}건으로 가장 활발했다. "
-         f"언론 반응 측면에서는 {top_news_src}의 보도자료가 {top_news_cnt}건의 뉴스 인용으로 "
-         f"가장 높은 미디어 임팩트를 기록했다.")
-    pdf.ln(5)
-
-    # -- SECTOR DEEP-DIVE --
-    pdf.add_page(); sec("02", "Sector Deep-Dive")
-    total = analysis["total"] or 1
-
-    # 비중 바차트
-    pdf.set_font("NG", "B", 9); pdf.set_text_color(60, 60, 60)
-    pdf.cell(0, 6, "분야별 정책 활동 비중", new_x="LMARGIN", new_y="NEXT"); pdf.ln(2)
+    pdf.add_page(); sec("02", "시그널 근거 데이터")
     for i, (cat, _) in enumerate(CAT_ORDER):
         ct = analysis["by_cat"].get(cat, 0)
-        r = ct / total
-        pdf.set_font("NG", "", 8); pdf.set_text_color(80, 80, 80)
-        pdf.cell(30, 5, CAT_NAMES.get(cat, cat))
-        y = pdf.get_y(); x = pdf.l_margin + 30
-        pdf.set_fill_color(*colors[i])
-        pdf.rect(x, y + 0.5, r * 100, 4, style="F")
-        pdf.set_xy(x + r * 100 + 2, y)
-        pdf.set_font("NG", "B", 8)
-        pdf.cell(20, 5, f"{ct}건 ({r * 100:.0f}%)")
-        pdf.ln(6)
-    pdf.ln(5)
-
-    # 분야별 Top Story + 링크
-    for i, (cat, _) in enumerate(CAT_ORDER):
-        if cat not in selected:
-            continue
-        src, item, cnt, news_cnt, _ = selected[cat]
-        title = _safe(_clean(item.get("title", "")))[:60]
-        summary = _safe(_get_summary(item))
-        url = item.get("url", "")
-
-        pdf.set_font("NG", "B", 11)
-        pdf.set_text_color(*colors[i])
-        pdf.cell(0, 7, f"{CAT_NAMES.get(cat, cat)}  ({analysis['by_cat'].get(cat, 0)}건)",
-                 new_x="LMARGIN", new_y="NEXT")
+        pdf.set_font("NG", "B", 9); pdf.set_text_color(*colors[i % len(colors)])
+        pdf.cell(35, 6, CAT_NAMES.get(cat, cat))
         pdf.set_text_color(40, 40, 40)
-        pdf.set_font("NG", "B", 9)
-        pdf.cell(0, 5, f"Top Story  |  {src}  |  뉴스 인용 {news_cnt}건",
-                 new_x="LMARGIN", new_y="NEXT")
         pdf.set_font("NG", "", 8)
-        pdf.cell(0, 5, f"  {title}", new_x="LMARGIN", new_y="NEXT")
-        if summary:
-            body(f"  {summary}", sz=8)
-        if url:
-            pdf.set_font("NG", "", 7); pdf.set_text_color(42, 60, 100)
-            pdf.cell(0, 4, f"  -> {url[:80]}", new_x="LMARGIN", new_y="NEXT")
-            pdf.set_text_color(40, 40, 40)
-        pdf.ln(4)
-
-    # -- MEDIA & KEYWORDS --
-    pdf.add_page(); sec("03", "Media Impact & Keyword Trends")
-    pdf.set_font("NG", "B", 10); pdf.set_text_color(40, 40, 40)
-    pdf.cell(0, 7, "뉴스 인용 TOP 5 보도자료", new_x="LMARGIN", new_y="NEXT"); pdf.ln(2)
-
-    cols = [("분야", 25), ("부처", 25), ("보도자료 제목", 75), ("뉴스", 15), ("링크", 20)]
-    table_header(cols)
-    all_sel = sorted(selected.items(), key=lambda x: -x[1][3])
-    for cat, (src, item, _, ncnt, _) in all_sel:
-        title = _safe(_clean(item.get("title", "")))[:40]
-        url = item.get("url", "")
-        short_url = "원문" if url else ""
-        table_row([(CAT_NAMES.get(cat, cat), 25, "C"), (src, 25, "C"),
-                   (f" {title}", 75, "L"), (f"{ncnt}건", 15, "C"), (short_url, 20, "C")])
-
-    pdf.ln(5)
-    pdf.set_font("NG", "B", 10); pdf.set_text_color(40, 40, 40)
-    pdf.cell(0, 7, "정책 키워드 트렌드", new_x="LMARGIN", new_y="NEXT"); pdf.ln(2)
-
-    rising = [(kw, d) for kw, d in analysis["kw_delta"].items()
-              if d["change_pct"] >= 50 and d["count"] >= 3]
-    rising.sort(key=lambda x: -x[1]["count"])
-    all_items = [it for ci in analysis["items_by_cat"].values() for it in ci]
-
-    if rising:
-        cols2 = [("키워드", 35), ("횟수", 15), ("주요 관련 부처", 110)]
-        table_header(cols2)
-        for kw, d in rising[:8]:
-            sources = Counter()
-            for it in all_items:
-                if it.get("keywords") and kw in it["keywords"]:
-                    sources[it["source"]] += 1
-            ss = ", ".join(f"{s}({c})" for s, c in sources.most_common(3))
-            table_row([(f" #{kw}", 35, "L"), (f"{d['count']}회", 15, "C"), (f" {ss}", 110, "L")])
-
-    # -- IMPLICATIONS --
-    pdf.add_page(); sec("04", "Implications & Outlook")
-    pdf.ln(3)
-
-    # 데이터 기반 시사점 자동 생성
-    body("1. 주요 정책 테마", sz=11, b=True); pdf.ln(1)
-    kw_str = ", ".join(f"'{kw}'" for kw in top_kw[:3])
-    body(f"이번 주 핵심 키워드({kw_str})는 정부 정책의 현재 우선순위를 반영한다. "
-         f"특히 '{top_kw[0]}'이 {analysis['keywords'].most_common(1)[0][1]}회 등장하며 "
-         f"범부처 차원의 정책 흐름으로 자리잡고 있다.")
+        pdf.cell(0, 6, f"{ct}건", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(4)
-
-    body("2. 미디어 임팩트 분석", sz=11, b=True); pdf.ln(1)
-    body(f"뉴스 인용 상위 보도자료는 국민 생활 밀착형 정책일수록 언론 관심도가 높은 경향을 보였다. "
-         f"{top_news_src}({top_news_cnt}건)의 사례는 정책 커뮤니케이션에서 '체감형' 메시지의 "
-         f"미디어 확산 효과를 시사한다.")
+    body(f"주요 키워드: {' | '.join(f'#{kw}' for kw in top_kw)}", sz=9, b=True)
     pdf.ln(4)
-
-    body("3. 다음 주 관전 포인트", sz=11, b=True); pdf.ln(1)
-    body(f"금주 신규 등장한 키워드와 급상승 이슈의 후속 정책 발표 여부, "
-         f"그리고 {CAT_NAMES.get(top_cat, top_cat)} 분야의 정책 연속성을 주목할 필요가 있다.")
-    pdf.ln(6)
+    for cat, (src, item, _, news_cnt, _) in sorted(selected.items(), key=lambda x: -x[1][3]):
+        body(
+            f"{CAT_NAMES.get(cat, cat)} | {src} | 뉴스 인용 {news_cnt}건 | {_clean(item.get('title', ''))}",
+            sz=8,
+        )
+        pdf.ln(1)
 
     pdf.set_draw_color(42, 60, 100); pdf.set_line_width(0.3)
     pdf.line(pdf.l_margin, pdf.get_y(), pdf.w - pdf.r_margin, pdf.get_y())
@@ -338,63 +355,42 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
     s = analysis["start"]
     e = analysis["end"]
     top_kw = [kw for kw, _ in analysis["keywords"].most_common(5)]
+    signals = build_weekly_signals(analysis, selected)
     post_url = f"{SITE_URL}/articles/weekly/{target.isoformat()}/"
 
     h = _html.escape
     schedule_link = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
     subsidy_link = f"{SITE_URL}/subsidy/"
+    signal_cards = ""
+    for idx, signal in enumerate(signals, start=1):
+        related_item = signal.get("related_item") or {}
+        article_link = _article_link(
+            related_item,
+            {"ref": "weekly", "signal": str(idx)},
+        ) if related_item else post_url
+        source = h(related_item.get("source", "")) if related_item else "브리핑룸"
+        related_title = h(signal.get("related_title", "")) if signal.get("related_title") else "관련 보도자료 준비 중"
+        signal_cards += f"""
+        <article class="signal-card">
+          <div class="signal-index">Signal {idx:02d}</div>
+          <h2>{h(signal.get("title", ""))}</h2>
+          <p class="signal-evidence">{h(signal.get("evidence", ""))}</p>
+          <div class="signal-related">
+            <span>{source}</span>
+            <a href="{article_link}">{related_title} →</a>
+          </div>
+        </article>"""
 
-    # 분야별 Top Story 행
-    sector_rows = ""
-    for cat, _ in CAT_ORDER:
-        if cat not in selected:
-            continue
-        src, item, cnt, news_cnt, _ = selected[cat]
-        title = h(_clean(item.get("title", "")))[:60]
-        summary = h(_get_summary(item))
-        d = item.get("date", "")
-        slug = item.get("slug", "000") or "000"
-        article_link = f"{SITE_URL}/articles/{d}/{slug}/?ref=weekly&cat={cat}" if d else SITE_URL
-        cat_total = analysis["by_cat"].get(cat, 0)
-
-        sector_rows += f"""
-        <div class="sector-card">
-          <div class="sector-header">{h(CAT_NAMES.get(cat, cat))} ({cat_total}건)</div>
-          <div class="sector-source">{h(src)} | 뉴스 인용 {news_cnt}건</div>
-          <div class="sector-title"><a href="{article_link}">{title}</a></div>
-          <div class="sector-summary">{summary}</div>
-        </div>"""
-
-    # 뉴스 인용 TOP 5 테이블
-    news_rows = ""
+    evidence_rows = ""
     for cat, (src, item, _, ncnt, _) in sorted(selected.items(), key=lambda x: -x[1][3]):
-        title = h(_clean(item.get("title", "")))[:50]
-        d = item.get("date", "")
-        slug = item.get("slug", "000") or "000"
-        article_link = f"{SITE_URL}/articles/{d}/{slug}/?ref=weekly&rank=1" if d else SITE_URL
-        news_rows += f"""
+        article_link = _article_link(item, {"ref": "weekly", "detail": "evidence", "cat": cat})
+        evidence_rows += f"""
           <tr>
             <td>{h(CAT_NAMES.get(cat, cat))}</td>
             <td>{h(src)}</td>
-            <td><a href="{article_link}">{title}</a></td>
+            <td><a href="{article_link}">{h(_clean(item.get("title", "")))[:50]}</a></td>
             <td class="num">{ncnt}건</td>
           </tr>"""
-
-    # 키워드 테이블
-    all_items = [it for ci in analysis["items_by_cat"].values() for it in ci]
-    rising = [(kw, d) for kw, d in analysis["kw_delta"].items()
-              if d["change_pct"] >= 50 and d["count"] >= 3]
-    rising.sort(key=lambda x: -x[1]["count"])
-
-    kw_rows = ""
-    for kw, d in rising[:8]:
-        sources = Counter()
-        for it in all_items:
-            if it.get("keywords") and kw in it["keywords"]:
-                sources[it["source"]] += 1
-        ss = ", ".join(f"{s}({c})" for s, c in sources.most_common(3))
-        pct = "신규" if d["prev"] == 0 else f"+{d['change_pct']:.0f}%"
-        kw_rows += f"<tr><td>#{h(kw)}</td><td class='num'>{d['count']}회</td><td>{pct}</td><td>{h(ss)}</td></tr>"
 
     page_html = f"""<!DOCTYPE html>
 <html lang="ko">
@@ -410,73 +406,74 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{{--bg:#f5f4f0;--surface:#fff;--border:#e0ddd7;--text:#1c1b18;--text2:#4a4844;--accent:#2a3c64;--accent-l:#eef0fd}}
+:root{{--bg:#f3f0e8;--surface:#fff;--surface-soft:#f8f5ee;--border:#ddd6c8;--text:#161616;--text2:#4a4844;--accent:#16213d;--accent-soft:#c8a85d;--accent-l:#eef2ff}}
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;line-height:1.7}}
-.wrap{{max-width:780px;margin:0 auto;padding:32px 24px}}
+.wrap{{max-width:920px;margin:0 auto;padding:32px 24px}}
 .back{{color:#96938c;text-decoration:none;font-size:13px;margin-bottom:24px;display:inline-block}}
 {SITE_NAV_CSS}
-h1{{font-family:'Noto Serif KR',serif;font-size:28px;font-weight:700;margin-bottom:8px}}
+h1{{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:700;margin-bottom:8px;letter-spacing:-.03em}}
 .sub{{color:var(--text2);font-size:14px;margin-bottom:24px}}
+.hero{{background:linear-gradient(135deg,#10192f,#1f2945);color:#fff;border-radius:20px;padding:28px;margin-bottom:28px;box-shadow:0 12px 36px rgba(16,25,47,.14)}}
+.hero-kicker{{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:8px}}
+.hero-copy{{font-size:15px;color:rgba(255,255,255,.84);max-width:720px}}
 .kpi{{display:flex;gap:16px;margin-bottom:24px}}
-.kpi-box{{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}}
+.kpi-box{{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}}
 .kpi-val{{font-size:24px;font-weight:700;color:var(--accent)}}
 .kpi-label{{font-size:11px;color:#96938c;margin-top:4px}}
+.signals{{display:grid;gap:14px}}
+.signal-card{{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;position:relative;overflow:hidden}}
+.signal-card::before{{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent-soft)}}
+.signal-index{{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a7960;margin-bottom:10px}}
+.signal-card h2{{font-family:'Noto Serif KR',serif;font-size:22px;line-height:1.4;margin-bottom:10px}}
+.signal-evidence{{font-size:14px;color:var(--text2);margin-bottom:14px}}
+.signal-related{{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12px;color:#746f65;border-top:1px solid var(--border);padding-top:12px}}
+.signal-related a{{color:var(--accent);font-weight:600;text-decoration:none}}
+.signal-related a:hover{{text-decoration:underline}}
 .section{{margin-top:32px}}
 .section h2{{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:16px}}
-.sector-card{{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px}}
-.sector-header{{font-weight:700;font-size:15px;color:var(--accent);margin-bottom:4px}}
-.sector-source{{font-size:12px;color:#96938c;margin-bottom:6px}}
-.sector-title a{{color:var(--text);font-weight:600;font-size:14px;text-decoration:none}}
-.sector-title a:hover{{color:var(--accent);text-decoration:underline}}
-.sector-summary{{font-size:13px;color:var(--text2);margin-top:6px}}
 table{{width:100%;border-collapse:collapse;font-size:13px}}
 th{{background:var(--accent-l);color:var(--accent);font-weight:600;padding:8px 10px;text-align:left;border:1px solid var(--border)}}
 td{{padding:7px 10px;border:1px solid var(--border);vertical-align:top}}
 td a{{color:var(--accent);text-decoration:none}}
 td a:hover{{text-decoration:underline}}
 td.num{{text-align:center;white-space:nowrap}}
-.insight{{background:var(--accent-l);border-left:4px solid var(--accent);padding:12px 16px;margin:16px 0;font-size:13px;color:var(--accent);border-radius:0 8px 8px 0}}
 .keywords{{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}}
 .keywords span{{background:var(--accent);color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500}}
 .footer{{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:#96938c;text-align:center}}
-@media(max-width:600px){{.kpi{{flex-direction:column}}.wrap{{padding:20px 16px}}h1{{font-size:22px}}}}
+@media(max-width:600px){{.kpi{{flex-direction:column}}.wrap{{padding:20px 16px}}h1{{font-size:26px}}.hero{{padding:20px}}.signal-card h2{{font-size:18px}}.signal-related{{flex-direction:column;align-items:flex-start}}}}
 </style>
 </head>
 <body>
 <div class="wrap">
 {render_top_nav("weekly")}
 <a class="back" href="/">← 브리핑룸으로</a>
-<h1>주간 정책 브리핑</h1>
+<section class="hero">
+  <div class="hero-kicker">Weekly Policy Signals</div>
+  <h1>이번 주 정책 시그널 5개</h1>
+  <div class="hero-copy">{s.year}년 {s.month}월 {s.day}일부터 {e.month}월 {e.day}일까지의 정부 보도자료 흐름을 Bloomberg형 데이터 밀도와 브리핑 형식으로 정리했습니다.</div>
+</section>
 <div class="sub">{s.year}년 {s.month}월 {s.day}일 ~ {e.month}월 {e.day}일</div>
 {render_crosslinks((schedule_link, "차주 일정 보기"), (subsidy_link, "지원사업 보기"))}
 
 <div class="kpi">
   <div class="kpi-box"><div class="kpi-val">{analysis['total']}</div><div class="kpi-label">총 보도자료</div></div>
   <div class="kpi-box"><div class="kpi-val">{analysis['sources_count']}</div><div class="kpi-label">참여 부처</div></div>
-  <div class="kpi-box"><div class="kpi-val">{'#' + top_kw[0] if top_kw else '-'}</div><div class="kpi-label">핵심 키워드</div></div>
+  <div class="kpi-box"><div class="kpi-val">{analysis['total'] - analysis['prev_total']:+d}</div><div class="kpi-label">전주 대비</div></div>
 </div>
 
 <div class="keywords">{''.join(f'<span>#{h(kw)}</span>' for kw in top_kw)}</div>
 
 <div class="section">
-  <h2>분야별 Top Story</h2>
-  {sector_rows}
+  <h2>시그널 브리핑</h2>
+  <div class="signals">{signal_cards}</div>
 </div>
 
 <div class="section">
-  <h2>뉴스 인용 TOP 5</h2>
+  <h2>근거 데이터</h2>
   <table>
     <thead><tr><th>분야</th><th>부처</th><th>보도자료</th><th>뉴스</th></tr></thead>
-    <tbody>{news_rows}</tbody>
-  </table>
-</div>
-
-<div class="section">
-  <h2>정책 키워드 트렌드</h2>
-  <table>
-    <thead><tr><th>키워드</th><th>횟수</th><th>변화</th><th>관련 부처</th></tr></thead>
-    <tbody>{kw_rows}</tbody>
+    <tbody>{evidence_rows}</tbody>
   </table>
 </div>
 
@@ -500,44 +497,30 @@ td.num{{text-align:center;white-space:nowrap}}
 # ═══════════════════════════════════════════════════════════
 
 def format_weekly_telegram(analysis: dict, selected: dict, post_url: str, target: date) -> str:
-    """5페이지 리포트를 텔레그램용으로 압축 요약"""
+    """주간 리포트를 텔레그램용 시그널 브리핑으로 요약"""
     s = analysis["start"]
     e = analysis["end"]
     top_kw = [kw for kw, _ in analysis["keywords"].most_common(5)]
+    signals = build_weekly_signals(analysis, selected)
 
     lines = [
-        f"📊 <b>주간 정책 브리핑 | {s.month}/{s.day}~{e.month}/{e.day}</b>",
+        f"📊 <b>이번 주 정책 시그널 5개 | {s.month}/{s.day}~{e.month}/{e.day}</b>",
         "",
-        f"총 {analysis['total']}건 · {analysis['sources_count']}개 부처",
+        f"총 {analysis['total']}건 · {analysis['sources_count']}개 부처 · 전주 대비 {analysis['total'] - analysis['prev_total']:+d}건",
         f"키워드: {' '.join(f'#{kw}' for kw in top_kw)}",
         "",
-        "━━━ 분야별 Top Story ━━━",
+        "━━━ 정책 시그널 ━━━",
         "",
     ]
 
-    for cat, _ in CAT_ORDER:
-        if cat not in selected:
-            continue
-        src, item, cnt, news_cnt, _ = selected[cat]
-        title = _escape_html(_clean(item.get("title", "")))[:45]
-        d = item.get("date", "")
-        slug = item.get("slug", "000") or "000"
-        article_link = f"{SITE_URL}/articles/{d}/{slug}/?ref=telegram&detail=weekly&cat={cat}" if d else SITE_URL
-        cat_name = CAT_NAMES.get(cat, cat)
-
-        lines.append(f"<b>{cat_name}</b> | {_escape_html(src)} | 📰 {news_cnt}건")
-        lines.append(f'  ▸ <a href="{article_link}">{title}</a>')
+    for idx, signal in enumerate(signals, start=1):
+        item = signal.get("related_item") or {}
+        link = _article_link(item, {"ref": "telegram", "detail": "weekly", "signal": str(idx)}) if item else post_url
+        related_title = _escape_html(signal.get("related_title", "") or "관련 보도자료")
+        lines.append(f"<b>{idx}. {_escape_html(signal.get('title', ''))}</b>")
+        lines.append(f"  근거: {_escape_html(signal.get('evidence', ''))}")
+        lines.append(f'  관련: <a href="{link}">{related_title}</a>')
         lines.append("")
-
-    lines.append("━━━ 키워드 트렌드 ━━━")
-    lines.append("")
-
-    rising = [(kw, d) for kw, d in analysis["kw_delta"].items()
-              if d["change_pct"] >= 50 and d["count"] >= 3]
-    rising.sort(key=lambda x: -x[1]["count"])
-    for kw, d in rising[:5]:
-        pct = "신규" if d["prev"] == 0 else f"+{d['change_pct']:.0f}%"
-        lines.append(f"  #{_escape_html(kw)} ({d['count']}회, {pct})")
 
     lines.append("")
     lines.append("──────────────────")

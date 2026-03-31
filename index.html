@@ -279,6 +279,18 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .d-sec-label{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px;font-weight:600}
 .d-sec-label::before{content:'';width:16px;height:2px;background:var(--gold)}
 .d-summary{font-size:15px;line-height:1.8;color:var(--text-secondary);background:var(--off-white);border:1px solid var(--border-light);border-radius:var(--r-md);padding:20px;margin-bottom:18px}
+.d-context-box{font-size:14px;line-height:1.8;border-radius:var(--r-md);padding:16px 18px;margin-bottom:18px;border:1px solid var(--border-light);display:none}
+.d-context-box.show{display:block}
+.d-context-box.why{background:#eef2ff;border-left:4px solid var(--c-fin)}
+.d-context-box.impact{background:#fff7ed;border-left:4px solid #d97706}
+.d-law-box{display:none;margin-bottom:18px;background:#f3f2f1;border:1px solid #d8d4cb;border-radius:var(--r-md);padding:8px 16px}
+.d-law-box.show{display:block}
+.d-law-row{padding:10px 0;border-bottom:1px solid #d8d4cb}
+.d-law-row:last-child{border-bottom:none}
+.d-law-name{font-size:13px;font-weight:700;color:var(--text-primary)}
+.d-law-meta{font-size:11px;color:#6f6b63;margin-top:4px}
+.d-law-meta a{color:#1d70b8;text-decoration:none}
+.d-law-meta a:hover{text-decoration:underline}
 .d-kws{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px}
 .kw{font-family:var(--mono);font-size:11px;color:var(--white);background:var(--navy);padding:4px 10px;border-radius:3px;font-weight:500}
 .d-actions{display:flex;gap:8px}
@@ -331,6 +343,22 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .hero-sub .hero-title{font-size:14px;-webkit-line-clamp:2;font-family:var(--sans);font-weight:600}
 .hero-sub .hero-summary{-webkit-line-clamp:2;font-size:12px}
 .hero-time{font-family:var(--mono);font-size:10px;color:var(--text-muted)}
+.hero-why{font-size:12px;line-height:1.6;color:#27314f;background:#eef2ff;border-left:4px solid var(--c-fin);padding:10px 12px;border-radius:0 var(--r-sm) var(--r-sm) 0}
+.hero-why strong{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#1f376d;margin-bottom:4px}
+
+/* ===== BRIEFING + DATA STRIP ===== */
+.briefing-bar{display:none;align-items:center;gap:12px;padding:11px 14px;margin-bottom:12px;background:linear-gradient(90deg,var(--navy),#25304f);border:1px solid rgba(201,168,76,.24);border-radius:var(--r-md);color:var(--gold-light)}
+.briefing-bar.show{display:flex}
+.briefing-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.54);white-space:nowrap}
+.briefing-items{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+.briefing-item{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--gold-light);text-decoration:none;min-height:32px}
+.briefing-item:hover{color:#fff}
+.briefing-sep{color:rgba(255,255,255,.28)}
+.data-strip{display:none;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 12px;margin-bottom:16px;background:#171a24;color:#d7d0c0;border-radius:8px;font-family:var(--mono);font-size:11px;line-height:1.5}
+.data-strip.show{display:flex}
+.data-strip .delta-up{color:#7dd3a3}
+.data-strip .delta-down{color:#fca5a5}
+.data-strip .delta-flat{color:#d7d0c0}
 
 /* ===== SUBSCRIPTION BAR ===== */
 .sub-bar{background:var(--navy);border-radius:var(--r-md);padding:12px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
@@ -340,7 +368,10 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .ref-banner.show{display:flex}
 .ref-banner-copy{font-size:13px;line-height:1.6;color:rgba(255,255,255,.84)}
 .ref-banner-copy strong{color:var(--gold-light)}
-.ref-banner a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:10px;background:var(--gold);color:var(--navy);font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap}
+.ref-banner-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ref-banner a,.ref-banner button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap}
+.ref-banner a{background:var(--gold);color:var(--navy)}
+.ref-banner button{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);cursor:pointer}
 
 /* ===== LOADING / EMPTY ===== */
 .loading{text-align:center;padding:60px 0;color:var(--text-muted)}
@@ -463,10 +494,14 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
   .detail-hdr{border-radius:var(--r-xl) var(--r-xl) 0 0}
   .detail-hdr::before{content:'';display:block;width:36px;height:4px;background:var(--border-mid);border-radius:2px;position:absolute;top:8px;left:50%;transform:translateX(-50%)}
   .d-close{width:44px;height:44px}
+  .briefing-bar,.data-strip{margin-bottom:10px}
   .daily-hero{grid-template-columns:1fr;grid-template-rows:auto;margin-bottom:var(--sp-4)}
   .hero-main{grid-column:1;grid-row:auto;padding:var(--sp-4)}
   .hero-main .hero-title{font-size:16px}
   .hero-sub{padding:var(--sp-3) var(--sp-4)}
+  .ref-banner{flex-direction:column;align-items:flex-start}
+  .ref-banner-actions{width:100%}
+  .ref-banner a,.ref-banner button{width:100%}
   .sched-cal{padding:var(--sp-3)}
   .sched-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:var(--sp-2);padding-bottom:var(--sp-1)}
   .sched-grid::-webkit-scrollbar{display:none}
@@ -626,6 +661,8 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
 
       <!-- 일정 달력 블록 -->
       <div id="ref-banner" class="ref-banner" aria-live="polite"></div>
+      <div id="briefing-bar" class="briefing-bar" aria-label="오늘의 정책 한눈에"></div>
+      <div id="data-strip" class="data-strip" aria-live="polite"></div>
       <div id="schedule-calendar" class="sched-cal"></div>
       <div id="source-badges" style="display:none;margin-bottom:16px;flex-wrap:wrap;gap:5px"></div>
       <div class="daily-hero" id="daily-hero"></div>
@@ -682,7 +719,13 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
     <div class="d-meta" id="d-meta"></div>
     <div class="d-sec-label">AI 요약</div>
     <div class="d-summary" id="d-summary"></div>
+    <div class="d-sec-label" id="d-why-label" style="display:none">왜 중요한가</div>
+    <div class="d-context-box why" id="d-why"></div>
     <div class="d-kws" id="d-kws"></div>
+    <div class="d-sec-label" id="d-laws-label" style="display:none">관련 법령</div>
+    <div class="d-law-box" id="d-laws"></div>
+    <div class="d-sec-label" id="d-impact-label" style="display:none">실무 영향</div>
+    <div class="d-context-box impact" id="d-impact"></div>
     <div style="display:flex;gap:8px;margin-top:4px">
       <a id="d-src" href="#" target="_blank" style="flex:2;padding:12px 8px;background:var(--navy);color:var(--white);border:none;border-radius:var(--r-md);font-size:13px;font-weight:600;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px"><i class="ph ph-arrow-square-out"></i> 원문 보기</a>
       <button onclick="shareNative()" style="flex:1;padding:12px 8px;background:var(--off-white);color:var(--text-primary);border:1px solid var(--border-light);border-radius:var(--r-md);font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px"><i class="ph ph-share-network"></i> 공유</button>
@@ -724,6 +767,7 @@ let allItems=[],curFilter='all',curView='grid',curSearch='',curDate=new Date(),e
 let groupedByCat={},countsByCat={},countsBySource={},countsByFinSub={},sortedSources=[];
 let lastFocusedEl=null,lastBodyOverflow='';
 let trafficRef='',trafficSession='',trafficCat='';
+let prevDayStats={total:0,byCat:{}};
 
 const FIN_SUB_MAP={
   '금융위원회':'금융정책','재정경제부':'금융정책','기획재정부':'금융정책','국세청':'금융정책','관세청':'금융정책',
@@ -791,6 +835,8 @@ async function loadData(){
           title: cleanTitle(it.title||''),
           src: it.source||'',
           sum: it.summary||'',
+          why: it.why_important||'',
+          practical: it.practical_impact||'',
           kws: it.keywords||[],
           orig: it.url||'',
           date: it.date||df,
@@ -809,6 +855,17 @@ async function loadData(){
       seen.add(key);
       return true;
     });
+    const prevDate=new Date(curDate);
+    prevDate.setDate(curDate.getDate()-1);
+    prevDayStats={total:0,byCat:{}};
+    try{
+      const prevResp=await fetch(`/data/${fmtDate(prevDate)}.json`);
+      if(prevResp.ok){
+        const prevJson=await prevResp.json();
+        const prevItems=(prevJson.items||[]).map(it=>({cat:it.category||'행정법제'}));
+        prevDayStats={total:prevItems.length,byCat:countByCategoryFor(prevItems)};
+      }
+    }catch(e){}
     allItems=items;rebuildIndexes();render();updateSidebar();renderDailyHero();renderTopPicks();renderSourceBadges();updateMobileUI();
     renderSpecialBlock();
     // 탭 필터 상태 복원
@@ -877,6 +934,41 @@ function safeUrl(url){
   }catch(e){}
   return '';
 }
+function getOptionalText(value){
+  const text=String(value||'').trim();
+  if(!text||text.startsWith('[')) return '';
+  return text;
+}
+function countByCategoryFor(items){
+  const byCat={};
+  (items||[]).forEach(it=>{byCat[it.cat]=(byCat[it.cat]||0)+1});
+  return byCat;
+}
+function buildTop3Items(){
+  let top3Items = [];
+  const highImpact = allItems.filter(it => it.impact === '상');
+  const midImpact = allItems.filter(it => it.impact === '중');
+  if (highImpact.length >= 3) {
+    for (const it of highImpact) {
+      if (top3Items.length >= 3) break;
+      const catCount = top3Items.filter(t => t.cat === it.cat).length;
+      if (catCount < 2) top3Items.push(it);
+    }
+  }
+  if (top3Items.length < 3) {
+    for (const it of [...highImpact, ...midImpact]) {
+      if (top3Items.length >= 3) break;
+      if (!top3Items.includes(it)) top3Items.push(it);
+    }
+  }
+  if (top3Items.length < 3) {
+    for (const it of allItems) {
+      if (top3Items.length >= 3) break;
+      if (!top3Items.includes(it)) top3Items.push(it);
+    }
+  }
+  return top3Items;
+}
 function lockBodyScroll(){
   lastBodyOverflow=document.body.style.overflow;
   document.body.style.overflow='hidden';
@@ -923,13 +1015,53 @@ function renderReferralBanner(){
   }
   const sessionLabel=trafficSession==='am'?'오전':trafficSession==='pm'?'오후':'';
   const catLabel=CN[trafficCat]||trafficCat||'전체';
-  el.innerHTML=`<div class="ref-banner-copy"><strong>텔레그램에서 넘어왔습니다.</strong> ${sessionLabel?sessionLabel+' 브리핑 · ':''}${escapeHtml(catLabel)} 흐름으로 이어서 볼 수 있습니다.</div><a href="https://t.me/govbriefkr" target="_blank" rel="noopener noreferrer">채널 열기</a>`;
+  const relatedCount=trafficCat?allItems.filter(it=>it.cat===trafficCat).length:allItems.length;
+  const moreCount=Math.max(0,relatedCount-1);
+  const lead=`📋 ${sessionLabel?sessionLabel+' 브리핑에서 이어보기':'텔레그램 브리핑에서 이어보기'} | ${escapeHtml(catLabel)} ${moreCount||relatedCount}건 더 →`;
+  el.innerHTML=`<div class="ref-banner-copy"><strong>${lead}</strong><br>${escapeHtml(catLabel)} 흐름을 바로 펼쳐서 볼 수 있습니다.</div><div class="ref-banner-actions">${trafficCat?'<button type="button" onclick="applyTrafficCategoryFilter()">이 분야만 보기</button>':''}<a href="https://t.me/govbriefkr" target="_blank" rel="noopener noreferrer">채널 열기</a></div>`;
+  el.classList.add('show');
+}
+function applyTrafficCategoryFilter(){
+  if(!trafficCat)return;
+  curFilter=trafficCat;
+  syncFilterBar(trafficCat);
+  const mobBtns=document.querySelectorAll('.mob-filter-btn');
+  mobBtns.forEach(btn=>btn.classList.remove('active'));
+  render();
+}
+function renderDataStrip(){
+  const el=document.getElementById('data-strip');
+  if(!el)return;
+  if(!allItems.length){
+    el.classList.remove('show');
+    el.textContent='';
+    return;
+  }
+  const delta=allItems.length-(prevDayStats.total||0);
+  const deltaClass=delta>0?'delta-up':delta<0?'delta-down':'delta-flat';
+  const catBits=CO.map(cat=>`${CN[cat]} ${(countsByCat[cat]||0)}건`).join(' | ');
+  el.innerHTML=`<span>총 ${allItems.length}건</span><span>|</span><span>${catBits}</span><span>|</span><span class="${deltaClass}">전일 대비 ${delta>=0?'+':''}${delta}건</span>`;
+  el.classList.add('show');
+}
+function renderBriefingBar(){
+  const el=document.getElementById('briefing-bar');
+  if(!el)return;
+  const top3Items=buildTop3Items();
+  if(!top3Items.length){
+    el.classList.remove('show');
+    el.textContent='';
+    return;
+  }
+  const itemsHtml=top3Items.map((it,idx)=>`<a class="briefing-item" href="${SITE_URL}?date=${fmtDate(curDate)}&slug=${encodeURIComponent(it.slug||'')}" onclick="event.preventDefault();openDetail('${it.id}')">${escapeHtml(it.title)}</a>${idx<top3Items.length-1?'<span class="briefing-sep">|</span>':''}`).join('');
+  el.innerHTML=`<div class="briefing-kicker">오늘의 정책 한눈에</div><div class="briefing-items">${itemsHtml}</div>`;
   el.classList.add('show');
 }
 function render(){
   const items=filtered();const _tb=document.getElementById('total-badge-hdr');if(_tb)_tb.textContent=`${items.length}건`;
   const c=document.getElementById('main-content');c.innerHTML='';
   renderReferralBanner();
+  renderDataStrip();
+  renderBriefingBar();
   // 전체가 아닌 모든 필터(분야/부처)에서 히어로·일정 숨기기
   const isAll=curFilter==='all';
   const schedEl=document.getElementById('schedule-calendar');
@@ -1073,26 +1205,38 @@ function openDetail(id){
     document.getElementById('d-summary').style.color = '';
     setHighlightedText(document.getElementById('d-summary'), summary.text, it.kws);
   }
+  const whyText=getOptionalText(it.why);
+  const whyBox=document.getElementById('d-why');
+  const whyLabel=document.getElementById('d-why-label');
+  whyBox.textContent=whyText;
+  whyBox.classList.toggle('show',!!whyText);
+  whyLabel.style.display=whyText?'':'none';
   const kwBox=document.getElementById('d-kws');kwBox.textContent='';
   it.kws.forEach(k=>{const span=document.createElement('span');span.className='kw';span.textContent=`# ${k}`;kwBox.appendChild(span)});
-  // 관련 법령 섹션
-  let lawSec=document.getElementById('d-laws');
-  if(!lawSec){
-    lawSec=document.createElement('div');lawSec.id='d-laws';
-    kwBox.after(lawSec);
-  }
+  const lawSec=document.getElementById('d-laws');
+  const lawLabel=document.getElementById('d-laws-label');
   lawSec.innerHTML='';
   if(it.laws&&it.laws.length){
-    lawSec.innerHTML='<div style="font-family:var(--serif);font-size:13px;font-weight:700;color:var(--text-primary);margin:12px 0 6px">📜 관련 법령</div>';
+    lawSec.classList.add('show');
+    lawLabel.style.display='';
     it.laws.forEach(l=>{
       const name=escapeHtml(l.law_name||'');
       const ref=l.article_ref?' '+escapeHtml(l.article_ref):'';
       const ministry=escapeHtml(l.ministry||'');
       const link=safeUrl(l.detail_link?(l.detail_link.startsWith('http')?l.detail_link:'https://www.law.go.kr'+l.detail_link):'');
-      const linkHtml=link?` <a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:var(--navy);text-decoration:none">↗ 법령 전문</a>`:'';
-      lawSec.innerHTML+=`<div style="padding:6px 0;border-bottom:1px solid var(--border-light);font-size:12px"><b>${name}${ref}</b><span style="color:var(--text-muted);margin-left:6px">${ministry}</span>${linkHtml}</div>`;
+      const linkHtml=link?` <a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer">법령 전문 보기 →</a>`:'';
+      lawSec.innerHTML+=`<div class="d-law-row"><div class="d-law-name">${name}${ref}</div><div class="d-law-meta">${ministry}${linkHtml}</div></div>`;
     });
+  }else{
+    lawSec.classList.remove('show');
+    lawLabel.style.display='none';
   }
+  const impactText=getOptionalText(it.practical);
+  const impactBox=document.getElementById('d-impact');
+  const impactLabel=document.getElementById('d-impact-label');
+  impactBox.textContent=impactText;
+  impactBox.classList.toggle('show',!!impactText);
+  impactLabel.style.display=impactText?'':'none';
   const sourceLink=safeUrl(it.orig);
   const srcBtn=document.getElementById('d-src');
   srcBtn.href=sourceLink||'#';
@@ -1215,32 +1359,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();close
 function renderDailyHero() {
   const heroEl = document.getElementById('daily-hero');
   if (!heroEl) return;
-
-  let top3Items = [];
-
-  const highImpact = allItems.filter(it => it.impact === '상');
-  const midImpact = allItems.filter(it => it.impact === '중');
-
-  if (highImpact.length >= 3) {
-    const used = new Set();
-    for (const it of highImpact) {
-      if (top3Items.length >= 3) break;
-      const catCount = top3Items.filter(t => t.cat === it.cat).length;
-      if (catCount < 2) { top3Items.push(it); used.add(it.cat); }
-    }
-  }
-  if (top3Items.length < 3) {
-    for (const it of [...highImpact, ...midImpact]) {
-      if (top3Items.length >= 3) break;
-      if (!top3Items.includes(it)) top3Items.push(it);
-    }
-  }
-  if (top3Items.length < 3) {
-    for (const it of allItems) {
-      if (top3Items.length >= 3) break;
-      if (!top3Items.includes(it)) top3Items.push(it);
-    }
-  }
+  const top3Items = buildTop3Items();
 
   if (top3Items.length === 0) { heroEl.classList.remove('has-items'); heroEl.textContent=''; return; }
 
@@ -1294,8 +1413,15 @@ function renderDailyHero() {
     }
 
     if(withLabel){
+      const whyText=getOptionalText(it.why);
       card.appendChild(title);
       card.appendChild(summaryEl);
+      if(whyText){
+        const why=document.createElement('div');
+        why.className='hero-why';
+        why.innerHTML=`<strong>Why It Matters</strong>${escapeHtml(whyText)}`;
+        card.appendChild(why);
+      }
       card.appendChild(footer);
     } else {
       card.appendChild(footer);

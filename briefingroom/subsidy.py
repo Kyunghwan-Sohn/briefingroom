@@ -570,34 +570,39 @@ def _generate_subsidy_page():
 
     h = _html.escape
 
-    # 카드 HTML 생성
-    def card(it):
-        title = h(it["title"])[:55]
+    def row(it):
+        title = h(it["title"])[:90]
         ministry = h(it.get("ministry", ""))
         category = h(_normalize_subsidy_category(it.get("category", "")))
         d_day = it.get("d_day", -1)
         url = h(_safe_detail_url(it.get("detail_url", "")))
-        end = it.get("apply_end", "")
+        end = h(it.get("apply_end", "") or "상시")
+        reg = h(it.get("registered_at", ""))
+        source = h(it.get("source", ""))
 
         d_class = "urgent" if 0 <= d_day <= 7 else ("soon" if 0 <= d_day <= 14 else "")
         d_text = f"D-{d_day}" if d_day >= 0 else ("마감" if d_day < -1 else "상시")
-
         link_attr = f' href="{url}" target="_blank" rel="noopener noreferrer"' if url else ' href="#" aria-disabled="true" tabindex="-1"'
-        return f"""<div class="sub-card" data-cat="{category or '기타'}">
-          <div class="sub-card-top">
-            <span class="sub-cat">{category}</span>
-            <span class="sub-dday {d_class}">{d_text}</span>
+        return f"""<article class="sub-row" data-cat="{category or '기타'}" data-dday="{d_day}" data-registered="{reg}" data-title="{title.lower()}" data-ministry="{ministry.lower()}">
+          <div class="sub-row-main">
+            <a class="sub-row-title"{link_attr}>{title}</a>
+            <div class="sub-row-meta">{ministry} | 등록 {reg or '-'} | 출처 {source}</div>
           </div>
-          <a class="sub-title"{link_attr}>{title}</a>
-          <div class="sub-meta">{ministry}{(' | 마감 ' + end) if end else ''}</div>
-        </div>"""
+          <div class="sub-row-col">{end}</div>
+          <div class="sub-row-col">{category}</div>
+          <div class="sub-row-col"><span class="sub-dday {d_class}">{d_text}</span></div>
+        </article>"""
 
-    cards_html = "\n".join(card(it) for it in items)
+    rows_html = "\n".join(row(it) for it in items)
 
-    # 분야 탭
-    cat_tabs = '<button class="sub-tab active" onclick="subFilter(\'all\',this)">전체 ' + str(len(items)) + '</button>'
-    for c, cnt in sorted(cats.items(), key=lambda x: -x[1]):
-        cat_tabs += f'<button class="sub-tab" onclick="subFilter(\'{h(c)}\',this)">{h(c)} {cnt}</button>'
+    cat_tabs = '<button class="sub-tab active" type="button" data-cat="all">전체 ' + str(len(items)) + '</button>'
+    checkbox_html = ""
+    for c, cnt in sorted(cats.items(), key=lambda x: (-x[1], x[0])):
+        cat_tabs += f'<button class="sub-tab" type="button" data-cat="{h(c)}">{h(c)} {cnt}</button>'
+        checkbox_html += f"""<label class="check-item">
+          <input type="checkbox" value="{h(c)}">
+          <span>{h(c)} <em>{cnt}</em></span>
+        </label>"""
 
     page_html = f"""<!DOCTYPE html>
 <html lang="ko">
@@ -613,42 +618,57 @@ def _generate_subsidy_page():
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{{--navy:#1a1a2e;--gold:#c9a84c;--bg:#f7f7f5;--surface:#fff;--border:#e0ddd7;--text:#1c1b18;--text2:#4a4844;--muted:#96938c}}
+:root{{--navy:#0b0c0c;--gold:#c9a84c;--bg:#f3f2f1;--surface:#fff;--border:#b1b4b6;--border-light:#d8d8d8;--text:#0b0c0c;--text2:#505a5f;--muted:#6f777b;--link:#1d70b8}}
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;min-height:100vh}}
-.wrap{{max-width:900px;margin:0 auto;padding:24px 16px 80px}}
+.wrap{{max-width:1080px;margin:0 auto;padding:24px 16px 80px}}
 {SITE_NAV_CSS}
-.hero{{background:linear-gradient(135deg,#1a1a2e,#2d2d4a);color:#fff;border-radius:16px;padding:20px;margin-bottom:20px}}
-.hero-kicker{{font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.7);text-transform:uppercase;margin-bottom:8px}}
-.hero-copy{{font-size:14px;line-height:1.6;color:rgba(255,255,255,.82);max-width:680px}}
+.hero{{background:var(--surface);border:1px solid var(--border);padding:24px;margin-bottom:20px}}
+.hero-kicker{{font-size:11px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}}
+.hero-copy{{font-size:15px;line-height:1.7;color:var(--text2);max-width:760px}}
 .hero-actions{{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}}
-.hero-btn{{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.18)}}
-.hero-btn.primary{{background:var(--gold);color:var(--navy);border-color:var(--gold)}}
-.hero-btn.secondary{{background:rgba(255,255,255,.08);color:#fff}}
+.hero-btn{{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:0;font-size:14px;font-weight:600;text-decoration:none;border:2px solid var(--navy)}}
+.hero-btn.primary{{background:var(--navy);color:#fff}}
+.hero-btn.secondary{{background:#fff;color:var(--navy)}}
 .back{{color:var(--muted);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:20px}}
-h1{{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-bottom:6px}}
+h1{{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:700;margin-bottom:6px}}
 .desc{{color:var(--text2);font-size:14px;margin-bottom:20px}}
 .kpi-row{{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}}
-.kpi{{flex:1;min-width:100px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}}
-.kpi-val{{font-size:22px;font-weight:700;color:var(--navy)}}
-.kpi-label{{font-size:11px;color:var(--muted);margin-top:2px}}
+.kpi{{flex:1;min-width:100px;background:var(--surface);border:1px solid var(--border);padding:14px;text-align:left}}
+.kpi-val{{font-size:24px;font-weight:700;color:var(--navy)}}
+.kpi-label{{font-size:12px;color:var(--muted);margin-top:4px}}
+.layout{{display:grid;grid-template-columns:280px minmax(0,1fr);gap:18px;align-items:start}}
+.filter-panel{{background:var(--surface);border:1px solid var(--border);padding:18px;position:sticky;top:24px}}
+.panel-title{{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;margin-bottom:12px}}
+.gov-input{{width:100%;min-height:44px;padding:10px 12px;border:2px solid var(--navy);font-size:14px;font-family:'Pretendard',sans-serif;outline:none}}
+.gov-help{{font-size:12px;color:var(--muted);margin-top:6px}}
+.sort-toggle{{display:flex;gap:8px;margin:14px 0 18px}}
+.sort-btn{{flex:1;min-height:44px;border:2px solid var(--navy);background:#fff;color:var(--navy);font-size:13px;font-weight:700;cursor:pointer}}
+.sort-btn.active{{background:var(--navy);color:#fff}}
+.check-list{{display:flex;flex-direction:column;gap:10px;margin-top:12px}}
+.check-item{{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text);cursor:pointer}}
+.check-item input{{margin-top:4px;width:18px;height:18px}}
+.check-item em{{font-style:normal;color:var(--muted);font-size:12px;margin-left:6px}}
+.results{{background:var(--surface);border:1px solid var(--border);padding:18px}}
 .sub-tabs{{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;padding-bottom:4px}}
-.sub-tab{{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface);font-size:12px;cursor:pointer;white-space:nowrap;font-family:'Pretendard',sans-serif}}
-.sub-tab.active{{background:var(--navy);color:#fff;border-color:var(--navy)}}
-.sub-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}}
-.sub-card{{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;transition:box-shadow .15s}}
-.sub-card:hover{{box-shadow:0 2px 8px rgba(0,0,0,.06)}}
-.sub-card-top{{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}}
-.sub-cat{{font-size:11px;padding:3px 8px;border-radius:4px;background:#eef0fd;color:var(--navy);font-weight:600}}
+.sub-tab{{padding:9px 14px;border:2px solid var(--navy);background:#fff;font-size:13px;cursor:pointer;white-space:nowrap;font-family:'Pretendard',sans-serif;font-weight:700}}
+.sub-tab.active{{background:var(--navy);color:#fff}}
+.sub-head{{display:grid;grid-template-columns:minmax(0,1fr) 140px 120px 96px;gap:14px;padding:0 0 10px;border-bottom:2px solid var(--navy);font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}}
+.sub-list{{display:flex;flex-direction:column}}
+.sub-row{{display:grid;grid-template-columns:minmax(0,1fr) 140px 120px 96px;gap:14px;padding:16px 0;border-bottom:1px solid var(--border-light);align-items:start}}
+.sub-row-main{{min-width:0}}
+.sub-row-title{{font-size:16px;font-weight:700;color:var(--link);text-decoration:none;line-height:1.5}}
+.sub-row-title:hover{{text-decoration:underline}}
+.sub-row-title[aria-disabled="true"]{{color:var(--muted);pointer-events:none;text-decoration:none}}
+.sub-row-meta{{font-size:12px;color:var(--text2);margin-top:6px}}
+.sub-row-col{{font-size:13px;color:var(--text2)}}
 .sub-dday{{font-size:12px;font-weight:700;color:var(--navy)}}
 .sub-dday.urgent{{color:#dc2626}}
 .sub-dday.soon{{color:#d97706}}
-.sub-title{{font-size:14px;font-weight:600;color:var(--text);text-decoration:none;display:block;line-height:1.5;margin-bottom:6px;min-height:44px}}
-.sub-title:hover{{color:var(--navy);text-decoration:underline}}
-.sub-title[aria-disabled="true"]{{color:var(--muted);pointer-events:none;text-decoration:none}}
-.sub-meta{{font-size:11px;color:var(--muted)}}
 .section-title{{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border)}}
-@media(max-width:600px){{.sub-grid{{grid-template-columns:1fr}}.kpi-row{{gap:8px}}.kpi{{padding:10px}}.hero{{padding:16px}}.hero-actions{{flex-direction:column}}.hero-btn{{width:100%}}}}
+.results-count{{font-size:13px;color:var(--muted);margin-bottom:12px}}
+@media(max-width:860px){{.layout{{grid-template-columns:1fr}}.filter-panel{{position:static}}.sub-head,.sub-row{{grid-template-columns:1fr}}.sub-row-col{{font-size:12px}}}}
+@media(max-width:600px){{.kpi-row{{gap:8px}}.kpi{{padding:10px}}.hero{{padding:16px}}.hero-actions{{flex-direction:column}}.hero-btn{{width:100%}}h1{{font-size:28px}}}}
 </style>
 </head>
 <body>
@@ -673,21 +693,84 @@ h1{{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-bott
   <div class="kpi"><div class="kpi-val">{len(cats)}</div><div class="kpi-label">분야</div></div>
 </div>
 
-{'<div class="section-title">🔥 마감 임박</div><div class="sub-grid">' + "".join(card(it) for it in urgent) + '</div>' if urgent else ''}
+<div class="layout">
+  <aside class="filter-panel" aria-label="지원사업 필터">
+    <div class="panel-title">검색과 필터</div>
+    <input id="sub-search" class="gov-input" type="search" placeholder="사업명, 기관명 검색">
+    <div class="gov-help">마감 임박 사업을 먼저 보고, 필요하면 등록일 기준으로도 정렬할 수 있습니다.</div>
+    <div class="sort-toggle">
+      <button class="sort-btn active" type="button" data-sort="deadline">마감순</button>
+      <button class="sort-btn" type="button" data-sort="latest">최신순</button>
+    </div>
+    <div class="panel-title" style="font-size:16px;margin-top:12px">분야 체크박스</div>
+    <div class="check-list" id="cat-checks">
+      {checkbox_html}
+    </div>
+  </aside>
 
-<div class="section-title">전체 지원사업</div>
-<div class="sub-tabs">{cat_tabs}</div>
-<div class="sub-grid" id="sub-list">{cards_html}</div>
+  <section class="results">
+    {'<div class="section-title">마감 임박</div><div class="results-count">2주 이내 마감 공고 ' + str(len(urgent)) + '건</div>' if urgent else ''}
+    <div class="sub-tabs">{cat_tabs}</div>
+    <div class="results-count" id="results-count">전체 {len(items)}건</div>
+    <div class="sub-head"><div>제목 / 기관</div><div>마감일</div><div>분야</div><div>D-day</div></div>
+    <div class="sub-list" id="sub-list">{rows_html}</div>
+  </section>
+</div>
 </div>
 
 <script>
-function subFilter(cat, el) {{
-  document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  document.querySelectorAll('.sub-card').forEach(c => {{
-    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
-  }});
+let activeCat='all';
+let activeSort='deadline';
+
+function getCheckedCategories() {{
+  return [...document.querySelectorAll('#cat-checks input:checked')].map(el => el.value);
 }}
+
+function applyFilters() {{
+  const q=(document.getElementById('sub-search').value||'').trim().toLowerCase();
+  const checked=getCheckedCategories();
+  const rows=[...document.querySelectorAll('.sub-row')];
+
+  rows.forEach(row => {{
+    const matchesTab = activeCat === 'all' || row.dataset.cat === activeCat;
+    const matchesCheck = !checked.length || checked.includes(row.dataset.cat);
+    const haystack = `${{row.dataset.title}} ${{row.dataset.ministry}}`;
+    const matchesSearch = !q || haystack.includes(q);
+    row.style.display = (matchesTab && matchesCheck && matchesSearch) ? '' : 'none';
+  }});
+
+  rows.sort((a,b) => {{
+    if (activeSort === 'latest') {{
+      return (b.dataset.registered || '').localeCompare(a.dataset.registered || '');
+    }}
+    return Number(a.dataset.dday || 9999) - Number(b.dataset.dday || 9999);
+  }}).forEach(row => document.getElementById('sub-list').appendChild(row));
+
+  const visible=rows.filter(row => row.style.display !== 'none').length;
+  document.getElementById('results-count').textContent=`현재 조건 ${{visible}}건`;
+}}
+
+document.querySelectorAll('.sub-tab').forEach(btn => {{
+  btn.addEventListener('click', () => {{
+    document.querySelectorAll('.sub-tab').forEach(tab => tab.classList.remove('active'));
+    btn.classList.add('active');
+    activeCat = btn.dataset.cat || 'all';
+    applyFilters();
+  }});
+}});
+
+document.querySelectorAll('.sort-btn').forEach(btn => {{
+  btn.addEventListener('click', () => {{
+    document.querySelectorAll('.sort-btn').forEach(tab => tab.classList.remove('active'));
+    btn.classList.add('active');
+    activeSort = btn.dataset.sort || 'deadline';
+    applyFilters();
+  }});
+}});
+
+document.getElementById('sub-search').addEventListener('input', applyFilters);
+document.querySelectorAll('#cat-checks input').forEach(input => input.addEventListener('change', applyFilters));
+applyFilters();
 </script>
 </body>
 </html>"""

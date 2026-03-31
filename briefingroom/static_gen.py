@@ -43,16 +43,52 @@ def _build_law_section(laws: list) -> str:
 
         ref_text = f" {ref}" if ref else ""
         date_text = f" · 시행 {ef_date[:4]}.{ef_date[4:6]}.{ef_date[6:]}" if len(ef_date) == 8 else ""
-        link_html = f' <a href="{html.escape(link)}" target="_blank" rel="noopener" style="font-family:var(--mono,monospace);font-size:11px;color:#2f54eb;text-decoration:none">↗ 법령 전문</a>' if link else ""
+        link_html = f' <a href="{html.escape(link)}" target="_blank" rel="noopener" style="font-family:var(--mono,monospace);font-size:11px;color:#1d70b8;text-decoration:none">법령 전문 보기 →</a>' if link else ""
 
-        rows += f"""<div style="padding:8px 0;border-bottom:1px solid #e0ddd7">
-          <div style="font-size:13px;font-weight:600;color:#1c1b18">📜 {name}{ref_text}</div>
-          <div style="font-size:11px;color:#96938c;margin-top:2px">{ministry}{date_text}{link_html}</div>
+        rows += f"""<div style="padding:10px 0;border-bottom:1px solid #d8d4cb">
+          <div style="font-size:14px;font-weight:600;color:#1c1b18">{name}{ref_text}</div>
+          <div style="font-size:11px;color:#6f6b63;margin-top:3px">{ministry}{date_text}{link_html}</div>
         </div>"""
 
-    return f"""<div style="margin-top:16px">
-      <h3 style="font-family:var(--serif,'Noto Serif KR',serif);font-size:14px;font-weight:600;color:#1c1b18;margin:0 0 8px">📜 관련 법령</h3>
-      {rows}
+    return f"""<section class="info-section law-section">
+      <div class="section-kicker">Related Laws</div>
+      <h3>관련 법령</h3>
+      <div class="law-box">
+        {rows}
+      </div>
+    </section>"""
+
+
+def _build_context_section(title: str, body: str, class_name: str, kicker: str) -> str:
+    text = (body or "").strip()
+    if not text:
+        return ""
+    return f"""<section class="info-section {class_name}">
+      <div class="section-kicker">{html.escape(kicker)}</div>
+      <h3>{html.escape(title)}</h3>
+      <p>{html.escape(text)}</p>
+    </section>"""
+
+
+def _build_keyword_section(keywords: list[str]) -> str:
+    if not keywords:
+        return ""
+    return f"""<div class='keywords'>{"".join(f"<span>#{html.escape(k)}</span>" for k in keywords)}</div>"""
+
+
+def _build_summary_section(summary: str) -> str:
+    text = (summary or "").strip() or "요약이 준비 중입니다."
+    return f"""<section class="summary">
+      <div class="section-kicker">Briefing Summary</div>
+      <h3>요약</h3>
+      <p>{html.escape(text)}</p>
+    </section>"""
+
+
+def _build_original_link(url: str) -> str:
+    return f"""<div class="links">
+      <h4>원문</h4>
+      <a href="{url or '#'}" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>"""
 
 
@@ -134,6 +170,8 @@ def generate_article_pages(target_date: str) -> int:
         title = it.get("title", "")
         source = it.get("source", "")
         summary = it.get("summary", "")
+        why_important = it.get("why_important", "")
+        practical_impact = it.get("practical_impact", "")
         url = _safe_url(it.get("url", ""))
         date_str = it.get("date", target_date)
         category = it.get("category", "")
@@ -205,12 +243,18 @@ body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient
 .meta-i{{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:3px}}
 .meta-i strong{{color:var(--text2);font-weight:500}}
 .post-content{{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}}
-.summary h3{{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);margin:16px 0 10px}}
+.summary h3,.info-section h3{{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);margin:0 0 10px}}
+.section-kicker{{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7a735f;margin-bottom:8px}}
 .summary p{{font-size:14px;color:var(--text2);line-height:1.8;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px}}
+.info-section{{margin-top:18px}}
+.info-section p{{font-size:14px;line-height:1.8;padding:14px 16px;border-radius:8px;border:1px solid var(--border);background:#fff}}
+.why-box p{{border-left:4px solid var(--accent);background:#f4f7ff}}
+.impact-box p{{border-left:4px solid #d97706;background:#fff7ed}}
+.law-box{{background:#f3f2f1;border:1px solid #d8d4cb;border-radius:8px;padding:4px 14px}}
 .keywords{{display:flex;flex-wrap:wrap;gap:5px;margin:16px 0}}
 .keywords span{{font-family:var(--mono);font-size:11px;color:#fff;background:#2f54eb;padding:4px 10px;border-radius:4px;font-weight:500}}
 .links h4{{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--text);margin:16px 0 8px}}
-.links a{{color:var(--accent);text-decoration:none;font-size:13px;font-family:var(--mono)}}
+.links a{{color:#1d70b8;text-decoration:none;font-size:13px;font-family:var(--mono)}}
 .links a:hover{{text-decoration:underline}}
 @media(max-width:768px){{.wrap{{padding:20px 16px}}.post-title{{font-size:20px}}}}
 </style>
@@ -228,16 +272,12 @@ body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient
     <div class="meta-i"><span>기관</span><strong>{h_source}</strong></div>
   </div>
   <div class="post-content">
-    <div class="summary">
-      <h3>AI 요약</h3>
-      <p>{h_summary if h_summary else '요약이 준비 중입니다.'}</p>
-    </div>
-    {"<div class='keywords'>" + "".join(f"<span>#{html.escape(k)}</span>" for k in keywords) + "</div>" if keywords else ""}
+    {_build_summary_section(summary)}
+    {_build_context_section("왜 중요한가", why_important, "why-box", "Why It Matters")}
+    {_build_keyword_section(keywords)}
     {_build_law_section(it.get("related_laws", []))}
-    <div class="links">
-      <h4>원문</h4>
-      <a href="{url or '#'}" target="_blank" rel="noopener noreferrer">↗ 원문 보기</a>
-    </div>
+    {_build_context_section("실무 영향", practical_impact, "impact-box", "Practical Impact")}
+    {_build_original_link(url)}
   </div>
 </div>
 </body>
