@@ -167,9 +167,7 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
   display:flex;align-items:center;gap:8px;
   padding:10px 0;
   border-bottom:1px solid var(--border-light);
-  position:sticky;top:60px;z-index:9;
-  background:var(--off-white);
-  margin-bottom:20px;
+  margin-bottom:16px;
 }
 .filter-btn{
   padding:8px 18px;border-radius:4px;
@@ -186,11 +184,11 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .filter-btn .f-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .filter-btn.active .f-dot{background:var(--gold)!important}
 .filter-section-title{
-  font-family:var(--serif);font-size:22px;font-weight:700;
+  font-family:var(--serif);font-size:20px;font-weight:700;
   color:var(--text-primary);margin-bottom:4px;letter-spacing:-.5px;
 }
 .filter-section-sub{
-  font-family:var(--mono);font-size:12px;color:var(--text-muted);margin-bottom:20px;
+  font-family:var(--mono);font-size:12px;color:var(--text-muted);
 }
 
 /* ===== CARDS GRID ===== */
@@ -1062,8 +1060,11 @@ function render(){
     c.appendChild(hdr);
 
     // 부처 배지 (가나다순) — 분야/부처 필터 모두 표시
-    const parentCat = isCat ? curFilter : (cats.find(cat => items.some(it => it.cat === cat)) || '');
-    const catItemsForBadge = parentCat ? allItems.filter(it => it.cat === parentCat || it.cat === curFilter) : items;
+    // 부처 필터 시: 해당 부처가 속한 분야의 모든 부처를 표시
+    const parentCat = isCat ? curFilter.replace(/^fin-/,'').replace(/금융정책|감독규제|시장통화|금융인프라|정책금융|업계동향/,'금융경제')
+      : (allItems.find(it => it.src === curFilter)?.cat || '');
+    const realParentCat = isCat ? (curFilter.startsWith('fin-') ? '금융경제' : curFilter) : parentCat;
+    const catItemsForBadge = realParentCat ? allItems.filter(it => it.cat === realParentCat) : items;
     const catSources={};
     catItemsForBadge.forEach(it=>{catSources[it.src]=(catSources[it.src]||0)+1});
     const sortedSrc=Object.keys(catSources).sort();
@@ -1071,11 +1072,11 @@ function render(){
       const badges=document.createElement('div');
       badges.style.cssText='display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px';
       // "전체" 버튼 (분야로 돌아가기)
-      if(!isCat && parentCat){
+      if(!isCat && realParentCat){
         const allBtn=document.createElement('span');
-        allBtn.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-light);color:var(--text-secondary);cursor:pointer;white-space:nowrap;background:var(--white)';
-        allBtn.textContent='전체';
-        allBtn.addEventListener('click',()=>{curFilter=parentCat;render()});
+        allBtn.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--gold);color:var(--navy);cursor:pointer;white-space:nowrap;background:var(--gold-light);font-weight:600';
+        allBtn.textContent=`← ${CN[realParentCat]||realParentCat} 전체`;
+        allBtn.addEventListener('click',()=>{curFilter=realParentCat;render()});
         badges.appendChild(allBtn);
       }
       sortedSrc.forEach(src=>{
