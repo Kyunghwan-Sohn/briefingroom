@@ -1065,13 +1065,12 @@ function render(){
     const cats=['금융경제','사회복지','산업기술','외교안보','행정법제'];
     const isCat=cats.includes(curFilter)||curFilter.startsWith('fin-');
     const catLabel=isCat?(CN[curFilter]||curFilter):curFilter;
-    // 헤더 + 부처 배지 (sticky 제거 — 겹침 방지)
-    const hdr=document.createElement('div');
-    hdr.style.cssText='padding-bottom:10px;margin-bottom:12px;border-bottom:2px solid var(--border-light)';
-    hdr.innerHTML=`<div class="filter-section-title">${curDate.getMonth()+1}월 ${curDate.getDate()}일 ${escapeHtml(catLabel)} 보도자료</div><div class="filter-section-sub">${items.length}건</div>`;
-    c.appendChild(hdr);
 
-    // 부처 배지 (가나다순) — 분야/부처 필터 모두 표시
+    // 날짜 정보 바에 분야명 반영 (별도 헤더 없이)
+    if(_diTitle) _diTitle.textContent=`${curDate.getFullYear()}년 ${curDate.getMonth()+1}월 ${curDate.getDate()}일 (${_dowNames[curDate.getDay()]})${_dayLabel} ${escapeHtml(catLabel)} 보도자료`;
+    if(_diCount) _diCount.textContent=`${items.length}건`;
+
+    // 부처 배지 (가나다순) — 바로 표시
     // 부처 필터 시: 해당 부처가 속한 분야의 모든 부처를 표시
     const parentCat = isCat ? curFilter.replace(/^fin-/,'').replace(/금융정책|감독규제|시장통화|금융인프라|정책금융|업계동향/,'금융경제')
       : (allItems.find(it => it.src === curFilter)?.cat || '');
