@@ -35,12 +35,28 @@ def _safe_html_url(value) -> str:
     return ""
 
 
+def _normalize_title(title: str) -> str:
+    """제목 정규화 — 유사 제목 중복 제거용"""
+    import re as _re
+    t = title.strip()
+    # 특수 유니코드 문자 통일 (중점, 따옴표 등)
+    t = t.replace('\u2027', '.').replace('\u00B7', '.').replace('\u2019', "'").replace('\u2018', "'")
+    t = t.replace('\u201C', '"').replace('\u201D', '"').replace('\uFF62', '[').replace('\uFF63', ']')
+    t = t.replace('‧', '.').replace('·', '.')
+    # 부제(- 이하) 제거
+    t = _re.split(r'\s*[-–—]\s*(?:\d|[가-힣])', t)[0]
+    # 공백/특수문자 정규화
+    t = _re.sub(r'\s+', ' ', t).strip()
+    return t
+
+
 def _dedup(items: list[dict]) -> list[dict]:
-    """제목+날짜 기준 중복 제거 (먼저 들어온 것 유지)"""
+    """제목+날짜 기준 중복 제거 (유사 제목 포함, 먼저 들어온 것 유지)"""
     seen = set()
     unique = []
     for item in items:
-        key = (item["title"].strip(), item["date"])
+        norm = _normalize_title(item["title"])
+        key = (norm, item["date"])
         if key not in seen:
             seen.add(key)
             unique.append(item)
