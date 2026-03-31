@@ -93,11 +93,11 @@
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
-body{background:var(--off-white);color:var(--text-primary);font-family:var(--sans);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{background:var(--off-white);color:var(--text-primary);font-family:var(--sans);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-top:62px}
 
 /* ===== HEADER — Navy top bar ===== */
 .header{
-  position:sticky;top:0;z-index:10;
+  position:fixed;top:0;left:0;right:0;z-index:10;
   background:var(--navy);
   border-bottom:2px solid var(--gold);
   padding:0 32px;height:60px;
