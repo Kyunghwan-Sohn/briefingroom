@@ -17,6 +17,17 @@
 body{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;line-height:1.7}
 .wrap{max-width:780px;margin:0 auto;padding:32px 24px}
 .back{color:#96938c;text-decoration:none;font-size:13px;margin-bottom:24px;display:inline-block}
+
+.topnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;padding:12px 14px;background:#fff;border:1px solid #e0ddd7;border-radius:12px}
+.topnav-brand{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:#1c1b18;text-decoration:none}
+.topnav-links{display:flex;flex-wrap:wrap;gap:8px}
+.topnav-link{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 12px;border-radius:999px;border:1px solid #e0ddd7;background:#fff;color:#4a4844;font-size:12px;font-weight:600;text-decoration:none}
+.topnav-link.active{background:#1a1a2e;border-color:#1a1a2e;color:#fff}
+.crosslinks{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 24px}
+.crosslink{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 12px;border-radius:10px;border:1px solid #e0ddd7;background:#fff;color:#1c1b18;font-size:12px;font-weight:600;text-decoration:none}
+.crosslink:hover,.topnav-link:hover{border-color:#c9a84c;color:#1a1a2e}
+@media(max-width:768px){.topnav{align-items:flex-start;flex-direction:column}.topnav-links{width:100%}.topnav-link,.crosslink{flex:1}}
+
 h1{font-family:'Noto Serif KR',serif;font-size:28px;font-weight:700;margin-bottom:8px}
 .sub{color:var(--text2);font-size:14px;margin-bottom:24px}
 .kpi{display:flex;gap:16px;margin-bottom:24px}
@@ -46,50 +57,52 @@ td.num{text-align:center;white-space:nowrap}
 </head>
 <body>
 <div class="wrap">
+<nav class="topnav" aria-label="페이지 탐색"><a class="topnav-brand" href="/">브리핑룸</a><div class="topnav-links"><a class="topnav-link" href="/">메인</a><a class="topnav-link" href="/subsidy/">지원사업</a><a class="topnav-link active" href="/articles/weekly/">주간 리포트</a><a class="topnav-link" href="/articles/schedule/">차주 일정</a></div></nav>
 <a class="back" href="/">← 브리핑룸으로</a>
 <h1>주간 정책 브리핑</h1>
 <div class="sub">2026년 3월 22일 ~ 3월 28일</div>
+<div class="crosslinks" aria-label="관련 페이지 링크"><a class="crosslink" href="https://govbrief.kr/articles/schedule/2026-03-29/">차주 일정 보기</a><a class="crosslink" href="https://govbrief.kr/subsidy/">지원사업 보기</a></div>
 
 <div class="kpi">
-  <div class="kpi-box"><div class="kpi-val">599</div><div class="kpi-label">총 보도자료</div></div>
-  <div class="kpi-box"><div class="kpi-val">54</div><div class="kpi-label">참여 부처</div></div>
+  <div class="kpi-box"><div class="kpi-val">608</div><div class="kpi-label">총 보도자료</div></div>
+  <div class="kpi-box"><div class="kpi-val">57</div><div class="kpi-label">참여 부처</div></div>
   <div class="kpi-box"><div class="kpi-val">#인공지능</div><div class="kpi-label">핵심 키워드</div></div>
 </div>
 
-<div class="keywords"><span>#인공지능</span><span>#AI</span><span>#중소기업</span><span>#금속가공</span><span>#안전점검</span></div>
+<div class="keywords"><span>#인공지능</span><span>#국민안전</span><span>#AI</span><span>#소상공인</span><span>#중동전쟁</span></div>
 
 <div class="section">
   <h2>분야별 Top Story</h2>
   
         <div class="sector-card">
-          <div class="sector-header">금융·경제 (107건)</div>
-          <div class="sector-source">금융감독원 | 뉴스 인용 55건</div>
-          <div class="sector-title"><a href="https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=215644&amp;menuNo=200218&amp;pageIndex=2" target="_blank" rel="noopener">금융감독원, 제1차 소비자위험대응협의회 개최</a></div>
-          <div class="sector-summary">금융감독원은 2026년 3월 20일 제1차 소비자위험대응협의회를 개최해, 중동 불안 등으로 야기된 금융시장 변동성에 따른 소비자 피해 위험을 사전에 예방하기 위한 리스크 기반 감독체계를 구축하고 있다.</div>
+          <div class="sector-header">금융·경제 (101건)</div>
+          <div class="sector-source">재정경제부 | 뉴스 인용 0건</div>
+          <div class="sector-title"><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&cat=금융경제">중동상황에 따른 고유가 대응 관계장관 간담회 개최구윤철 부총리 겸 재정경</a></div>
+          <div class="sector-summary">중동 상황으로 인한 고유가 상승에 대비해 정부는 추경 신속 편성과 함께 금융·세제·규제를 활용한 종합적 대응을 강화하며, 에너지 수급관리 계획을 구체화하고 공표하는 등 다각적 대책을 시행한다.</div>
         </div>
         <div class="sector-card">
-          <div class="sector-header">사회·복지 (116건)</div>
-          <div class="sector-source">보건복지부 | 뉴스 인용 59건</div>
-          <div class="sector-title"><a href="https://www.mohw.go.kr/board.es?mid=a10503000000&amp;bid=0027&amp;act=view&amp;list_no=1489720&amp;tag=&amp;nPage=1" target="_blank" rel="noopener">정은경 장관, 위기가구 사망 사건 관련 긴급 점검회의 개최</a></div>
-          <div class="sector-summary">보건복지부는 2026년 3월 22일 정은경 장관 주재로 위기가구 사망 사건 관련 긴급 점검회를 개최하고, 직권 신청 활성화와 신청주의 개선, 긴급복지 선정 기준 완화, 위기가구 발굴 시스템 고도화 등 5대 개선 방안을 논의했다. 울주군·임실군·군산시 현장 방문을 통해 지자체와 현장 관계자들의 의견을 수렴하며, 직권 신청 금융실명제 예외 적용, 한부모 가족 지원 등 구체적 정책 개선 방안 마련을 계획 중이다.</div>
+          <div class="sector-header">사회·복지 (112건)</div>
+          <div class="sector-source">보건복지부 | 뉴스 인용 0건</div>
+          <div class="sector-title"><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&cat=사회복지">정은경 장관, 위기가구 사망 사건 관련 긴급 점검회의 개최</a></div>
+          <div class="sector-summary"></div>
         </div>
         <div class="sector-card">
-          <div class="sector-header">산업·기술 (256건)</div>
-          <div class="sector-source">과학기술정보통신부 | 뉴스 인용 8건</div>
-          <div class="sector-title"><a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750204" target="_blank" rel="noopener">휴먼프론티어사이언스프로그램에 한국 연구자 7명 선정</a></div>
-          <div class="sector-summary">2026년 휴먼프론티어사이언스프로그램(HFSP)에 한국 연구자 7명이 선정, 이중 연구비 지원 그랜트 분야 3명, 액셀러레이터 분야 2명, 연수지원 분야 2명으로 구성. 선정 연구자들은 향후 3년간 연간 약 30~40만 달러 연구비를 지원받아 국제 공동연구를 수행하며, 이는 HFSP 역사상 가장 많은 제안 접수(1,180건)와 함께 치열한 경쟁 결과. 한국 연구자들이 세계 최고 수준의 생명과학 연구 프로그램에서 연구 역량을 인정받았음을 나타냄.</div>
+          <div class="sector-header">산업·기술 (242건)</div>
+          <div class="sector-source">중소벤처기업부 | 뉴스 인용 0건</div>
+          <div class="sector-title"><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&cat=산업기술">중기부, 중견기업으로 도약(Jump-Up)할유망 중소기업 100개사 최종 선정!중소벤처기업부</a></div>
+          <div class="sector-summary">중소벤처기업부는 &#x27;도약(Jump-Up) 프로그램&#x27;을 통해 업력 7년 이상의 중견기업 100개사를 3월 23일 최종 선정, 2024년 평균 매출 466억원, 고용 126명, 매출액 증가율 13.8%를 기록한 기업들을 대상으로 3년간 신사업 전략 수립·기술 자문·해외진출 네트워킹 등을 지원하며, 최대 7.5억원의 바우처를 제공한다.</div>
         </div>
         <div class="sector-card">
-          <div class="sector-header">외교·안보 (52건)</div>
-          <div class="sector-source">국방부 | 뉴스 인용 43건</div>
-          <div class="sector-title"><a href="https://www.mnd.go.kr/user/newsInUserRecord.action?siteId=mnd&amp;newsId=I_669&amp;newsSeq=I_109322&amp;page=1&amp;command=view&amp;id=mnd_020500000000" target="_blank" rel="noopener">해군참모총장 인사 단행</a></div>
-          <div class="sector-summary">2025년 3월 24일부터 시행되는 해군참모총장 인사에서 김경률 해군중장이 신임받는 인사로 보직되며, 해군 작전 및 방위정책 분야에서 풍부한 경험을 바탕으로 한반도 안보와 해양 주권 강화를 위해 지휘할 예정이다. 해군참모총장은 해군작전사령관, 해군사관학교장 등 여러 군사 지휘 역할을 역임한 전문가로, 3월 23일 내정, 24일 국무회의 심의 후 대통령 임명 예정.</div>
+          <div class="sector-header">외교·안보 (67건)</div>
+          <div class="sector-source">외교부 | 뉴스 인용 0건</div>
+          <div class="sector-title"><a href="https://govbrief.kr/articles/2026-03-23/000/?ref=weekly&cat=외교안보">한-네덜란드 외교장관 통화(3.23.) 결과</a></div>
+          <div class="sector-summary">한-네덜란드 외교장관은 2026년 3월 23일 전화 통화를 통해 양국의 &#x27;전략적 동반자 관계&#x27;를 기반으로 우호협력을 강화하기로 합의하며, 교역·투자 및 반도체 분야 협력 확대를 중점으로 제시하였다. 특히 중동과 우크라이나 지역의 지정학적 불안이 심화되면서 에너지 공급망 안정에 대한 협력과 소통의 필요성을 공감하고, 통상국가로서의 공통점을 바탕으로 국제정세 대응에 공동으로 기여할 계획이다.</div>
         </div>
         <div class="sector-card">
-          <div class="sector-header">행정·법제 (68건)</div>
-          <div class="sector-source">인사혁신처 | 뉴스 인용 89건</div>
-          <div class="sector-title"><a href="https://www.mpm.go.kr/?boardId=bbs_0000000000000029&amp;mode=view&amp;cntId=4226&amp;category=&amp;pageIdx=" target="_blank" rel="noopener">지역 거주 인재 공직 진출 확대 등 채용제도 개선</a></div>
-          <div class="sector-summary">정부는 지역 거주 인재의 공직 진출을 확대하기 위해 채용제도를 개선하고, 지역인재를 대상으로 7급, 9급 수습직원 선발을 추진하며, 2026년 3월부터 시행되는 제도로 지역사회와의 유기적 연결을 강화한다. 지역 거주 인재를 위한 공고 및 시험 일정은 2026년 3월부터 지속적으로 공개되며, 5급, 7급, 9급 등 다양한 경력 수준의 인재를 대상으로 공개경쟁채용 및 수습직원 선발이 진행된다.</div>
+          <div class="sector-header">행정·법제 (86건)</div>
+          <div class="sector-source">행정안전부 | 뉴스 인용 0건</div>
+          <div class="sector-title"><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&cat=행정법제">대전 대덕구 공장화재 구호활동을 위한 재난구호사업비 긴급 지원</a></div>
+          <div class="sector-summary">행정안전부는 2026년 3월 20일 대전 대덕구 공장화재 피해자 및 유가족 지원을 위해 총 7천만 원의 재난구호사업비를 긴급으로 지원했다. 이는 숙박·구호물품 제공과 자원봉사활동 지원을 포함하며, 중앙합동재난피해자지원센터 운영 경비로 사용된다. 32개 기관(행안부, 고용부, 복지부 등)이 연계하여 현장 구호활동을 수행할 예정이다.</div>
         </div>
 </div>
 
@@ -99,34 +112,34 @@ td.num{text-align:center;white-space:nowrap}
     <thead><tr><th>분야</th><th>부처</th><th>보도자료</th><th>뉴스</th></tr></thead>
     <tbody>
           <tr>
+            <td>금융·경제</td>
+            <td>재정경제부</td>
+            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&rank=1">중동상황에 따른 고유가 대응 관계장관 간담회 개최구윤철 부총리 겸 재정경</a></td>
+            <td class="num">0건</td>
+          </tr>
+          <tr>
             <td>행정·법제</td>
-            <td>인사혁신처</td>
-            <td><a href="https://www.mpm.go.kr/?boardId=bbs_0000000000000029&amp;mode=view&amp;cntId=4226&amp;category=&amp;pageIdx=" target="_blank" rel="noopener">지역 거주 인재 공직 진출 확대 등 채용제도 개선</a></td>
-            <td class="num">89건</td>
+            <td>행정안전부</td>
+            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&rank=1">대전 대덕구 공장화재 구호활동을 위한 재난구호사업비 긴급 지원</a></td>
+            <td class="num">0건</td>
+          </tr>
+          <tr>
+            <td>산업·기술</td>
+            <td>중소벤처기업부</td>
+            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&rank=1">중기부, 중견기업으로 도약(Jump-Up)할유망 중소기업 100개사 최종 선정!중소벤처기업</a></td>
+            <td class="num">0건</td>
           </tr>
           <tr>
             <td>사회·복지</td>
             <td>보건복지부</td>
-            <td><a href="https://www.mohw.go.kr/board.es?mid=a10503000000&amp;bid=0027&amp;act=view&amp;list_no=1489720&amp;tag=&amp;nPage=1" target="_blank" rel="noopener">정은경 장관, 위기가구 사망 사건 관련 긴급 점검회의 개최</a></td>
-            <td class="num">59건</td>
-          </tr>
-          <tr>
-            <td>금융·경제</td>
-            <td>금융감독원</td>
-            <td><a href="https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=215644&amp;menuNo=200218&amp;pageIndex=2" target="_blank" rel="noopener">금융감독원, 제1차 소비자위험대응협의회 개최</a></td>
-            <td class="num">55건</td>
+            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&rank=1">정은경 장관, 위기가구 사망 사건 관련 긴급 점검회의 개최</a></td>
+            <td class="num">0건</td>
           </tr>
           <tr>
             <td>외교·안보</td>
-            <td>국방부</td>
-            <td><a href="https://www.mnd.go.kr/user/newsInUserRecord.action?siteId=mnd&amp;newsId=I_669&amp;newsSeq=I_109322&amp;page=1&amp;command=view&amp;id=mnd_020500000000" target="_blank" rel="noopener">해군참모총장 인사 단행</a></td>
-            <td class="num">43건</td>
-          </tr>
-          <tr>
-            <td>산업·기술</td>
-            <td>과학기술정보통신부</td>
-            <td><a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750204" target="_blank" rel="noopener">휴먼프론티어사이언스프로그램에 한국 연구자 7명 선정</a></td>
-            <td class="num">8건</td>
+            <td>외교부</td>
+            <td><a href="https://govbrief.kr/articles/2026-03-23/000/?ref=weekly&rank=1">한-네덜란드 외교장관 통화(3.23.) 결과</a></td>
+            <td class="num">0건</td>
           </tr></tbody>
   </table>
 </div>
@@ -135,12 +148,12 @@ td.num{text-align:center;white-space:nowrap}
   <h2>정책 키워드 트렌드</h2>
   <table>
     <thead><tr><th>키워드</th><th>횟수</th><th>변화</th><th>관련 부처</th></tr></thead>
-    <tbody><tr><td>#중소기업</td><td class='num'>7회</td><td>+133%</td><td>고용노동부(4), 중소벤처기업부(2), 조달청(2)</td></tr><tr><td>#금속가공</td><td class='num'>6회</td><td>신규</td><td>국토교통부(2), 고용노동부(2), 소방청(2)</td></tr><tr><td>#안전점검</td><td class='num'>6회</td><td>신규</td><td>국토교통부(2), 고용노동부(2), 행정안전부(1)</td></tr><tr><td>#국민안전</td><td class='num'>5회</td><td>신규</td><td>경찰청(2), 지식재산처(1), 산림청(1)</td></tr><tr><td>#처우개선</td><td class='num'>5회</td><td>신규</td><td>고용노동부(2), 교육부(2), 성평등가족부(1)</td></tr><tr><td>#화재 예방</td><td class='num'>5회</td><td>신규</td><td>고용노동부(2), 소방청(2), 국토교통부(1)</td></tr><tr><td>#노·정 협의체</td><td class='num'>4회</td><td>신규</td><td>고용노동부(2), 교육부(1), 성평등가족부(1)</td></tr><tr><td>#근로조건</td><td class='num'>4회</td><td>신규</td><td>고용노동부(2), 성평등가족부(1), 교육부(1)</td></tr></tbody>
+    <tbody><tr><td>#국민안전</td><td class='num'>7회</td><td>+600%</td><td>경찰청(2), 행정안전부(1), 국무조정실(1)</td></tr><tr><td>#소상공인</td><td class='num'>7회</td><td>+75%</td><td>중소벤처기업부(5), 금융위원회(1), 식품의약품안전처(1)</td></tr><tr><td>#중동전쟁</td><td class='num'>7회</td><td>신규</td><td>산업통상부(2), 농림축산식품부(2), 행정안전부(1)</td></tr><tr><td>#산림청</td><td class='num'>7회</td><td>+600%</td><td>산림청(9)</td></tr><tr><td>#취약계층</td><td class='num'>6회</td><td>+500%</td><td>금융위원회(2), 금융감독원(1), 과학기술정보통신부(1)</td></tr><tr><td>#기후변화</td><td class='num'>6회</td><td>+50%</td><td>농촌진흥청(3), 기상청(1), 해양수산부(1)</td></tr><tr><td>#공공기관</td><td class='num'>6회</td><td>+50%</td><td>개인정보보호위원회(3), 인사혁신처(1), 행정안전부(1)</td></tr><tr><td>#안전점검</td><td class='num'>6회</td><td>+100%</td><td>고용노동부(2), 행정안전부(1), 국무조정실(1)</td></tr></tbody>
   </table>
 </div>
 
 <div class="footer">
-  govbrief.kr | 정부 보도자료 AI 분석 | 2026-03-28
+  govbrief.kr | 정부 보도자료 AI 분석 | 2026-03-31
 </div>
 </div>
 </body>

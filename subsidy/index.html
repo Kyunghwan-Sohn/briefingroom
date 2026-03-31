@@ -6,6 +6,9 @@
 <title>정부 지원사업 - 브리핑룸</title>
 <meta name="description" content="중소벤처기업부, K-Startup, NTIS 등 정부 지원사업 공고를 매일 수집합니다.">
 <link rel="canonical" href="https://govbrief.kr/subsidy/">
+<meta property="og:title" content="정부 지원사업 - 브리핑룸">
+<meta property="og:description" content="정부 지원사업 공고를 매일 모아 마감일 중심으로 확인하세요.">
+<meta property="og:url" content="https://govbrief.kr/subsidy/">
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -13,6 +16,24 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;min-height:100vh}
 .wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px}
+
+.topnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;padding:12px 14px;background:#fff;border:1px solid #e0ddd7;border-radius:12px}
+.topnav-brand{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:#1c1b18;text-decoration:none}
+.topnav-links{display:flex;flex-wrap:wrap;gap:8px}
+.topnav-link{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 12px;border-radius:999px;border:1px solid #e0ddd7;background:#fff;color:#4a4844;font-size:12px;font-weight:600;text-decoration:none}
+.topnav-link.active{background:#1a1a2e;border-color:#1a1a2e;color:#fff}
+.crosslinks{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 24px}
+.crosslink{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 12px;border-radius:10px;border:1px solid #e0ddd7;background:#fff;color:#1c1b18;font-size:12px;font-weight:600;text-decoration:none}
+.crosslink:hover,.topnav-link:hover{border-color:#c9a84c;color:#1a1a2e}
+@media(max-width:768px){.topnav{align-items:flex-start;flex-direction:column}.topnav-links{width:100%}.topnav-link,.crosslink{flex:1}}
+
+.hero{background:linear-gradient(135deg,#1a1a2e,#2d2d4a);color:#fff;border-radius:16px;padding:20px;margin-bottom:20px}
+.hero-kicker{font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.7);text-transform:uppercase;margin-bottom:8px}
+.hero-copy{font-size:14px;line-height:1.6;color:rgba(255,255,255,.82);max-width:680px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.hero-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.18)}
+.hero-btn.primary{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.hero-btn.secondary{background:rgba(255,255,255,.08);color:#fff}
 .back{color:var(--muted);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:20px}
 h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-bottom:6px}
 .desc{color:var(--text2);font-size:14px;margin-bottom:20px}
@@ -31,17 +52,28 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
 .sub-dday{font-size:12px;font-weight:700;color:var(--navy)}
 .sub-dday.urgent{color:#dc2626}
 .sub-dday.soon{color:#d97706}
-.sub-title{font-size:14px;font-weight:600;color:var(--text);text-decoration:none;display:block;line-height:1.5;margin-bottom:6px}
+.sub-title{font-size:14px;font-weight:600;color:var(--text);text-decoration:none;display:block;line-height:1.5;margin-bottom:6px;min-height:44px}
 .sub-title:hover{color:var(--navy);text-decoration:underline}
+.sub-title[aria-disabled="true"]{color:var(--muted);pointer-events:none;text-decoration:none}
 .sub-meta{font-size:11px;color:var(--muted)}
 .section-title{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border)}
-@media(max-width:600px){.sub-grid{grid-template-columns:1fr}.kpi-row{gap:8px}.kpi{padding:10px}}
+@media(max-width:600px){.sub-grid{grid-template-columns:1fr}.kpi-row{gap:8px}.kpi{padding:10px}.hero{padding:16px}.hero-actions{flex-direction:column}.hero-btn{width:100%}}
 </style>
 </head>
 <body>
 <div class="wrap">
+<nav class="topnav" aria-label="페이지 탐색"><a class="topnav-brand" href="/">브리핑룸</a><div class="topnav-links"><a class="topnav-link" href="/">메인</a><a class="topnav-link active" href="/subsidy/">지원사업</a><a class="topnav-link" href="/articles/weekly/">주간 리포트</a><a class="topnav-link" href="/articles/schedule/">차주 일정</a></div></nav>
 <a class="back" href="/">← 브리핑룸으로</a>
-<h1>정부 지원사업</h1>
+<div class="crosslinks" aria-label="관련 페이지 링크"><a class="crosslink" href="https://govbrief.kr/articles/weekly/">주간 리포트</a><a class="crosslink" href="https://govbrief.kr/articles/schedule/">차주 일정</a></div>
+<section class="hero" aria-label="지원사업 안내">
+  <div class="hero-kicker">GovBrief Subsidy Radar</div>
+  <h1>정부 지원사업</h1>
+  <div class="hero-copy">마감일 임박 공고를 먼저 보여주고, 원문 공고로 바로 이동할 수 있게 정리했습니다. 텔레그램 채널과 메인 브리핑을 함께 보면 정책 발표와 지원사업을 같은 흐름에서 추적할 수 있습니다.</div>
+  <div class="hero-actions">
+    <a class="hero-btn primary" href="https://t.me/govbriefkr" target="_blank" rel="noopener noreferrer">텔레그램 채널</a>
+    <a class="hero-btn secondary" href="/">보도자료 메인으로</a>
+  </div>
+</section>
 <div class="desc">중소벤처기업부 · K-Startup · NTIS에서 매일 수집 | 2026-03-31</div>
 
 <div class="kpi-row">
@@ -55,68 +87,68 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday urgent">D-3</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259671" target="_blank" rel="noopener">2026년 산학연 연계 중소벤처 RBD 지원사업</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259671" target="_blank" rel="noopener noreferrer">2026년 산학연 연계 중소벤처 RBD 지원사업</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-03</div>
         </div><div class="sub-card" data-cat="R&amp;D">
           <div class="sub-card-top">
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259526" target="_blank" rel="noopener">2026년도 한국철도기술연구원 기본사업 신규 위탁과제 수행기관 공모</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259526" target="_blank" rel="noopener noreferrer">2026년도 한국철도기술연구원 기본사업 신규 위탁과제 수행기관 공모</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-10</div>
         </div><div class="sub-card" data-cat="R&amp;D">
           <div class="sub-card-top">
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259525" target="_blank" rel="noopener">2026년도 한국철도기술연구원 기본사업 신규 공동과제 수행기관 공모</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259525" target="_blank" rel="noopener noreferrer">2026년도 한국철도기술연구원 기본사업 신규 공동과제 수행기관 공모</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-10</div>
         </div><div class="sub-card" data-cat="R&amp;D">
           <div class="sub-card-top">
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259428" target="_blank" rel="noopener">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(3차)</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259428" target="_blank" rel="noopener noreferrer">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(3차)</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-10</div>
         </div><div class="sub-card" data-cat="R&amp;D">
           <div class="sub-card-top">
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259426" target="_blank" rel="noopener">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(2차)</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259426" target="_blank" rel="noopener noreferrer">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(2차)</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-10</div>
         </div><div class="sub-card" data-cat="R&amp;D">
           <div class="sub-card-top">
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259424" target="_blank" rel="noopener">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(1차)</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259424" target="_blank" rel="noopener noreferrer">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(1차)</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-10</div>
         </div><div class="sub-card" data-cat="R&amp;D">
           <div class="sub-card-top">
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259418" target="_blank" rel="noopener">2026년 경기도 양자-반도체 팹 융합활용 RD 지원사업 참여기관(기업·대학) 모집 공고</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259418" target="_blank" rel="noopener noreferrer">2026년 경기도 양자-반도체 팹 융합활용 RD 지원사업 참여기관(기업·대학) 모집 공고</a>
           <div class="sub-meta"> | 마감 2026-04-10</div>
         </div></div>
 
 <div class="section-title">전체 지원사업</div>
 <div class="sub-tabs"><button class="sub-tab active" onclick="subFilter('all',this)">전체 35</button><button class="sub-tab" onclick="subFilter('R&amp;D',this)">R&amp;D 10</button><button class="sub-tab" onclick="subFilter('사업화',this)">사업화 6</button><button class="sub-tab" onclick="subFilter('정책자금',this)">정책자금 3</button><button class="sub-tab" onclick="subFilter('글로벌',this)">글로벌 2</button><button class="sub-tab" onclick="subFilter('인력',this)">인력 2</button><button class="sub-tab" onclick="subFilter('2039',this)">2039 1</button><button class="sub-tab" onclick="subFilter('2037',this)">2037 1</button><button class="sub-tab" onclick="subFilter('창업교육',this)">창업교육 1</button><button class="sub-tab" onclick="subFilter('멘토링ㆍ컨설팅ㆍ교육',this)">멘토링ㆍ컨설팅ㆍ교육 1</button><button class="sub-tab" onclick="subFilter('2041',this)">2041 1</button><button class="sub-tab" onclick="subFilter('2036',this)">2036 1</button><button class="sub-tab" onclick="subFilter('2032',this)">2032 1</button><button class="sub-tab" onclick="subFilter('2034',this)">2034 1</button><button class="sub-tab" onclick="subFilter('2035',this)">2035 1</button><button class="sub-tab" onclick="subFilter('2033',this)">2033 1</button><button class="sub-tab" onclick="subFilter('2040',this)">2040 1</button><button class="sub-tab" onclick="subFilter('2038',this)">2038 1</button></div>
-<div class="sub-grid" id="sub-list"><div class="sub-card" data-cat="2039">
+<div class="sub-grid" id="sub-list"><div class="sub-card" data-cat="기타">
           <div class="sub-card-top">
-            <span class="sub-cat">2039</span>
+            <span class="sub-cat">기타</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066788" target="_blank" rel="noopener">2026년 중소기업 기술분쟁 소송보험 지원사업 공고</a>
+          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066788" target="_blank" rel="noopener noreferrer">2026년 중소기업 기술분쟁 소송보험 지원사업 공고</a>
           <div class="sub-meta">중소벤처기업부</div>
         </div>
-<div class="sub-card" data-cat="2037">
+<div class="sub-card" data-cat="기타">
           <div class="sub-card-top">
-            <span class="sub-cat">2037</span>
+            <span class="sub-cat">기타</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066726" target="_blank" rel="noopener">올해의 K-스타트업 2026 부처 통합 창업경진대회 공고</a>
+          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066726" target="_blank" rel="noopener noreferrer">올해의 K-스타트업 2026 부처 통합 창업경진대회 공고</a>
           <div class="sub-meta">중소벤처기업부</div>
         </div>
 <div class="sub-card" data-cat="글로벌">
@@ -124,7 +156,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">글로벌</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176981" target="_blank" rel="noopener">2026년 투자연계형 GMEP 창업기업 모집 공고</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176981" target="_blank" rel="noopener noreferrer">2026년 투자연계형 GMEP 창업기업 모집 공고</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="인력">
@@ -132,7 +164,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">인력</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176937" target="_blank" rel="noopener">2026 여성발명진흥 사업 위한 전문가 평가위원 Pool 모집 공고</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176937" target="_blank" rel="noopener noreferrer">2026 여성발명진흥 사업 위한 전문가 평가위원 Pool 모집 공고</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="사업화">
@@ -140,7 +172,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">사업화</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176939" target="_blank" rel="noopener">2026년 소상공인 도약 지원 사업 공고 (舊 로컬크리에이터, 강한 소상공인)</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176939" target="_blank" rel="noopener noreferrer">2026년 소상공인 도약 지원 사업 공고 (舊 로컬크리에이터, 강한 소상공인)</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="사업화">
@@ -148,7 +180,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">사업화</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176940" target="_blank" rel="noopener">2026년 소상공인 투자연계 지원사업 립스 프로그램 참여 소상공인 모집 공고</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176940" target="_blank" rel="noopener noreferrer">2026년 소상공인 투자연계 지원사업 립스 프로그램 참여 소상공인 모집 공고</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="창업교육">
@@ -156,7 +188,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">창업교육</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176931" target="_blank" rel="noopener">파주청년창업지원센터  상반기 청년 창업아카데미 참여기업/팀 모집 공고</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176931" target="_blank" rel="noopener noreferrer">파주청년창업지원센터  상반기 청년 창업아카데미 참여기업/팀 모집 공고</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="글로벌">
@@ -164,7 +196,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">글로벌</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176913" target="_blank" rel="noopener">울산시 바이오 디지털 헬스케어 글로벌 진출 지원 사업</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176913" target="_blank" rel="noopener noreferrer">울산시 바이오 디지털 헬스케어 글로벌 진출 지원 사업</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="사업화">
@@ -172,7 +204,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">사업화</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176943" target="_blank" rel="noopener">2026년 양산시 로컬크리에이터 육성사업 참여기업 모집공고</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176943" target="_blank" rel="noopener noreferrer">2026년 양산시 로컬크리에이터 육성사업 참여기업 모집공고</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="멘토링ㆍ컨설팅ㆍ교육">
@@ -180,7 +212,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">멘토링ㆍ컨설팅ㆍ교육</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176912" target="_blank" rel="noopener">2026년 우수기술 사업화 지원사업 「SPROUT Invest Up」 참여기업 모집 공고</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176912" target="_blank" rel="noopener noreferrer">2026년 우수기술 사업화 지원사업 「SPROUT Invest Up」 참여기업 모집 공고</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="사업화">
@@ -188,7 +220,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">사업화</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176944" target="_blank" rel="noopener">2026년 울산 창업 L(Learn)시리즈 모집 수정 연장 공고</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176944" target="_blank" rel="noopener noreferrer">2026년 울산 창업 L(Learn)시리즈 모집 수정 연장 공고</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="정책자금">
@@ -196,7 +228,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">정책자금</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176908" target="_blank" rel="noopener">「2026년 경기 레벨업 프로그램」 지원기업 통합 모집공고</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176908" target="_blank" rel="noopener noreferrer">「2026년 경기 레벨업 프로그램」 지원기업 통합 모집공고</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="정책자금">
@@ -204,7 +236,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">정책자금</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176833" target="_blank" rel="noopener">2026년 상반기 화성시 벤처인증 비용 지원사업</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176833" target="_blank" rel="noopener noreferrer">2026년 상반기 화성시 벤처인증 비용 지원사업</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="정책자금">
@@ -212,7 +244,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">정책자금</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176915" target="_blank" rel="noopener">2026년 금융 클라우드 지원사업 참여기업 모집</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176915" target="_blank" rel="noopener noreferrer">2026년 금융 클라우드 지원사업 참여기업 모집</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="인력">
@@ -220,7 +252,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">인력</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176898" target="_blank" rel="noopener">2026 게임인재 맞춤형 인턴십 지원사업 모집공고</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176898" target="_blank" rel="noopener noreferrer">2026 게임인재 맞춤형 인턴십 지원사업 모집공고</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="사업화">
@@ -228,7 +260,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">사업화</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176899" target="_blank" rel="noopener">2026 「전북글로벌게임센터」 시장진출게임 제작지원사업 모집공고</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176899" target="_blank" rel="noopener noreferrer">2026 「전북글로벌게임센터」 시장진출게임 제작지원사업 모집공고</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="사업화">
@@ -236,7 +268,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">사업화</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176900" target="_blank" rel="noopener">2026 「전북글로벌게임센터」인공지능 활용 인디게임 제작지원사업 모집공고</a>
+          <a class="sub-title" href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176900" target="_blank" rel="noopener noreferrer">2026 「전북글로벌게임센터」인공지능 활용 인디게임 제작지원사업 모집공고</a>
           <div class="sub-meta">스크랩</div>
         </div>
 <div class="sub-card" data-cat="R&amp;D">
@@ -244,7 +276,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday ">상시</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1258814" target="_blank" rel="noopener">2026년도 한국과학기술정보연구원 기본사업 위탁연구과제 공모(1차 재공모)</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1258814" target="_blank" rel="noopener noreferrer">2026년도 한국과학기술정보연구원 기본사업 위탁연구과제 공모(1차 재공모)</a>
           <div class="sub-meta">과학기술정보통신부</div>
         </div>
 <div class="sub-card" data-cat="R&amp;D">
@@ -252,7 +284,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday urgent">D-3</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259671" target="_blank" rel="noopener">2026년 산학연 연계 중소벤처 RBD 지원사업</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259671" target="_blank" rel="noopener noreferrer">2026년 산학연 연계 중소벤처 RBD 지원사업</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-03</div>
         </div>
 <div class="sub-card" data-cat="R&amp;D">
@@ -260,7 +292,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259526" target="_blank" rel="noopener">2026년도 한국철도기술연구원 기본사업 신규 위탁과제 수행기관 공모</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259526" target="_blank" rel="noopener noreferrer">2026년도 한국철도기술연구원 기본사업 신규 위탁과제 수행기관 공모</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-10</div>
         </div>
 <div class="sub-card" data-cat="R&amp;D">
@@ -268,7 +300,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259525" target="_blank" rel="noopener">2026년도 한국철도기술연구원 기본사업 신규 공동과제 수행기관 공모</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259525" target="_blank" rel="noopener noreferrer">2026년도 한국철도기술연구원 기본사업 신규 공동과제 수행기관 공모</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-10</div>
         </div>
 <div class="sub-card" data-cat="R&amp;D">
@@ -276,7 +308,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259428" target="_blank" rel="noopener">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(3차)</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259428" target="_blank" rel="noopener noreferrer">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(3차)</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-10</div>
         </div>
 <div class="sub-card" data-cat="R&amp;D">
@@ -284,7 +316,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259426" target="_blank" rel="noopener">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(2차)</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259426" target="_blank" rel="noopener noreferrer">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(2차)</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-10</div>
         </div>
 <div class="sub-card" data-cat="R&amp;D">
@@ -292,7 +324,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259424" target="_blank" rel="noopener">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(1차)</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259424" target="_blank" rel="noopener noreferrer">한국기초과학지원연구원 2026년도 주요사업 위탁연구개발과제(신규) 선정계획 공고(1차)</a>
           <div class="sub-meta">과학기술정보통신부 | 마감 2026-04-10</div>
         </div>
 <div class="sub-card" data-cat="R&amp;D">
@@ -300,31 +332,31 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday soon">D-10</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259418" target="_blank" rel="noopener">2026년 경기도 양자-반도체 팹 융합활용 RD 지원사업 참여기관(기업·대학) 모집 공고</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259418" target="_blank" rel="noopener noreferrer">2026년 경기도 양자-반도체 팹 융합활용 RD 지원사업 참여기관(기업·대학) 모집 공고</a>
           <div class="sub-meta"> | 마감 2026-04-10</div>
         </div>
-<div class="sub-card" data-cat="2041">
+<div class="sub-card" data-cat="기타">
           <div class="sub-card-top">
-            <span class="sub-cat">2041</span>
+            <span class="sub-cat">기타</span>
             <span class="sub-dday ">D-15</span>
           </div>
-          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066810" target="_blank" rel="noopener">2026년도 도약(Jumo-Up)프로그램 연계 스마트공장 구축 지원사업 공고</a>
+          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066810" target="_blank" rel="noopener noreferrer">2026년도 도약(Jumo-Up)프로그램 연계 스마트공장 구축 지원사업 공고</a>
           <div class="sub-meta">중소벤처기업부 | 마감 2026-04-15</div>
         </div>
-<div class="sub-card" data-cat="2036">
+<div class="sub-card" data-cat="기타">
           <div class="sub-card-top">
-            <span class="sub-cat">2036</span>
+            <span class="sub-cat">기타</span>
             <span class="sub-dday ">D-15</span>
           </div>
-          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066715" target="_blank" rel="noopener">2026년도 기술개발제품 공공기관 실증지원 사업 수정 공고</a>
+          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066715" target="_blank" rel="noopener noreferrer">2026년도 기술개발제품 공공기관 실증지원 사업 수정 공고</a>
           <div class="sub-meta">중소벤처기업부 | 마감 2026-04-15</div>
         </div>
-<div class="sub-card" data-cat="2032">
+<div class="sub-card" data-cat="기타">
           <div class="sub-card-top">
-            <span class="sub-cat">2032</span>
+            <span class="sub-cat">기타</span>
             <span class="sub-dday ">D-17</span>
           </div>
-          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066647" target="_blank" rel="noopener">2026년 K-스카우터 모집공고</a>
+          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066647" target="_blank" rel="noopener noreferrer">2026년 K-스카우터 모집공고</a>
           <div class="sub-meta">중소벤처기업부 | 마감 2026-04-17</div>
         </div>
 <div class="sub-card" data-cat="R&amp;D">
@@ -332,7 +364,7 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday ">D-20</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259527" target="_blank" rel="noopener">2026년 경기도 양자-반도체 융합산업 경쟁력 강화 사업 참여기업 모집 공고</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1259527" target="_blank" rel="noopener noreferrer">2026년 경기도 양자-반도체 융합산업 경쟁력 강화 사업 참여기업 모집 공고</a>
           <div class="sub-meta"> | 마감 2026-04-20</div>
         </div>
 <div class="sub-card" data-cat="R&amp;D">
@@ -340,47 +372,47 @@ h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-botto
             <span class="sub-cat">R&amp;D</span>
             <span class="sub-dday ">D-21</span>
           </div>
-          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1258890" target="_blank" rel="noopener">2026년도 경찰청 연구개발(RD) 기술수요조사 실시 공고</a>
+          <a class="sub-title" href="https://www.ntis.go.kr/rndgate/eg/un/ra/view.do?roRndUid=1258890" target="_blank" rel="noopener noreferrer">2026년도 경찰청 연구개발(RD) 기술수요조사 실시 공고</a>
           <div class="sub-meta">경찰청 | 마감 2026-04-21</div>
         </div>
-<div class="sub-card" data-cat="2034">
+<div class="sub-card" data-cat="기타">
           <div class="sub-card-top">
-            <span class="sub-cat">2034</span>
+            <span class="sub-cat">기타</span>
             <span class="sub-dday ">D-24</span>
           </div>
-          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066669" target="_blank" rel="noopener">2026년 명문장수기업 모집 공고</a>
+          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066669" target="_blank" rel="noopener noreferrer">2026년 명문장수기업 모집 공고</a>
           <div class="sub-meta">중소벤처기업부 | 마감 2026-04-24</div>
         </div>
-<div class="sub-card" data-cat="2035">
+<div class="sub-card" data-cat="기타">
           <div class="sub-card-top">
-            <span class="sub-cat">2035</span>
+            <span class="sub-cat">기타</span>
             <span class="sub-dday ">D-29</span>
           </div>
-          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066673" target="_blank" rel="noopener">2026년도 창업성장기술개발사업(디딤돌) 제3차 시행계획 공고_도약과제</a>
+          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066673" target="_blank" rel="noopener noreferrer">2026년도 창업성장기술개발사업(디딤돌) 제3차 시행계획 공고_도약과제</a>
           <div class="sub-meta">중소벤처기업부 | 마감 2026-04-29</div>
         </div>
-<div class="sub-card" data-cat="2033">
+<div class="sub-card" data-cat="기타">
           <div class="sub-card-top">
-            <span class="sub-cat">2033</span>
+            <span class="sub-cat">기타</span>
             <span class="sub-dday ">D-37</span>
           </div>
-          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066648" target="_blank" rel="noopener">2026년 도메인 특화 AI 모델 개발 사업 공고</a>
+          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066648" target="_blank" rel="noopener noreferrer">2026년 도메인 특화 AI 모델 개발 사업 공고</a>
           <div class="sub-meta">중소벤처기업부 | 마감 2026-05-07</div>
         </div>
-<div class="sub-card" data-cat="2040">
+<div class="sub-card" data-cat="기타">
           <div class="sub-card-top">
-            <span class="sub-cat">2040</span>
+            <span class="sub-cat">기타</span>
             <span class="sub-dday ">D-52</span>
           </div>
-          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066801" target="_blank" rel="noopener">2026년 중소기업 스마트서비스 지원사업 참여기업 모집 공고</a>
+          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066801" target="_blank" rel="noopener noreferrer">2026년 중소기업 스마트서비스 지원사업 참여기업 모집 공고</a>
           <div class="sub-meta">중소벤처기업부 | 마감 2026-05-22</div>
         </div>
-<div class="sub-card" data-cat="2038">
+<div class="sub-card" data-cat="기타">
           <div class="sub-card-top">
-            <span class="sub-cat">2038</span>
+            <span class="sub-cat">기타</span>
             <span class="sub-dday ">D-275</span>
           </div>
-          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066759" target="_blank" rel="noopener">「2026년 스타트업 법률지원사업」 참여기업 모집공고</a>
+          <a class="sub-title" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&amp;bcIdx=1066759" target="_blank" rel="noopener noreferrer">「2026년 스타트업 법률지원사업」 참여기업 모집공고</a>
           <div class="sub-meta">중소벤처기업부 | 마감 2026-12-31</div>
         </div></div>
 </div>

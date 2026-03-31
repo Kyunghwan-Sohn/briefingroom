@@ -20,6 +20,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from briefingroom.config import BASE_DIR, HEADERS
+from briefingroom.site_templates import SITE_NAV_CSS, render_crosslinks, render_top_nav
 from briefingroom.telegram import SITE_URL, _escape_html, send_telegram, TELEGRAM_ENABLED
 
 ARTICLES_DIR = BASE_DIR / "articles"
@@ -421,7 +422,7 @@ def format_schedule_telegram(items: list[dict], target: date) -> str:
         "",
     ]
 
-    post_url = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
+    post_url = f"{SITE_URL}/articles/schedule/{target.isoformat()}/?ref=telegram&detail=schedule"
 
     if not items:
         lines.append("  일정 정보 없음")
@@ -521,6 +522,8 @@ def generate_schedule_post(items: list[dict], target: date) -> str:
     next_monday = target + timedelta(days=(7 - target.weekday()))
     next_friday = next_monday + timedelta(days=4)
     post_url = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
+    weekly_link = f"{SITE_URL}/articles/weekly/{target.isoformat()}/"
+    subsidy_link = f"{SITE_URL}/subsidy/"
 
     h = _html.escape
     dows = ["월", "화", "수", "목", "금", "토", "일"]
@@ -601,6 +604,7 @@ body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient
 .wrap{{max-width:720px;margin:0 auto;padding:32px 20px;position:relative;z-index:1}}
 .back{{display:inline-flex;align-items:center;gap:6px;color:#96938c;text-decoration:none;font-size:12px;margin-bottom:20px;padding:7px 14px;background:#fff;border:1px solid #e0ddd7;border-radius:8px}}
 .back:hover{{color:#1c1b18}}
+{SITE_NAV_CSS}
 .hero{{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);border-radius:16px;padding:28px 24px;margin-bottom:24px;color:#fff}}
 .hero h1{{font-family:'Noto Serif KR',serif;font-size:24px;font-weight:700;margin-bottom:6px;letter-spacing:-.5px}}
 .hero .sub{{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:16px}}
@@ -615,7 +619,9 @@ body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient
 </head>
 <body>
 <div class="wrap">
+{render_top_nav("schedule")}
 <a class="back" href="/">← 브리핑룸으로</a>
+{render_crosslinks((weekly_link, "주간 리포트 보기"), (subsidy_link, "지원사업 보기"))}
 
 <div class="hero">
   <h1>📅 정부 주요 일정</h1>

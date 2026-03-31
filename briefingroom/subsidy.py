@@ -23,10 +23,25 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.ssl_ import create_urllib3_context
 
 from briefingroom.config import BASE_DIR
+from briefingroom.site_templates import SITE_NAV_CSS, render_crosslinks, render_top_nav
 from briefingroom.telegram import SITE_URL, _escape_html, send_telegram, TELEGRAM_ENABLED
 
 SUBSIDY_DB = BASE_DIR / "subsidy.db"
 ARTICLES_DIR = BASE_DIR / "articles"
+
+KNOWN_SUBSIDY_CATEGORIES = {
+    "R&D",
+    "사업화",
+    "정책자금",
+    "글로벌",
+    "인력",
+    "창업교육",
+    "시설",
+    "판로",
+    "행사",
+    "멘토링",
+    "멘토링ㆍ컨설팅ㆍ교육",
+}
 
 
 # ═══════════════════════════════════════════════════════════
@@ -131,6 +146,26 @@ def _calc_dday(end_date: str) -> int:
         return (end - date.today()).days
     except (ValueError, TypeError):
         return -1
+
+
+def _normalize_subsidy_category(raw: str) -> str:
+    category = (raw or "").strip()
+    if not category:
+        return "기타"
+    if re.fullmatch(r"\d{4,}", category):
+        return "기타"
+    if category in KNOWN_SUBSIDY_CATEGORIES:
+        return category
+    if "멘토링" in category or "컨설팅" in category or "교육" in category:
+        return "멘토링ㆍ컨설팅ㆍ교육" if "컨설팅" in category else "창업교육"
+    return category
+
+
+def _safe_detail_url(url: str) -> str:
+    value = str(url or "").strip()
+    if value.startswith("http://") or value.startswith("https://"):
+        return value
+    return ""
 
 
 # ═══════════════════════════════════════════════════════════
@@ -263,7 +298,7 @@ def crawl_kstartup() -> list[dict]:
                 if text.startswith("D-") or text.startswith("D+"):
                     d_day_text = text
                 elif re.match(r"^(글로벌|인력|사업화|창업교육|시설|R&D|멘토링|정책자금|판로|행사)", text):
-                    category = text
+                    category = _normalize_subsidy_category(text)
                 elif "등록일자" in text:
                     reg_match = re.search(r"(\d{4}-\d{2}-\d{2})", text)
                     if reg_match:
@@ -279,7 +314,7 @@ def crawl_kstartup() -> list[dict]:
                     "id": f"kstartup_{pbanc_sn}",
                     "source": "kstartup",
                     "title": title,
-                    "category": category,
+                    "category": category or "기타",
                     "ministry": ministry or "창업진흥원",
                     "apply_start": "",
                     "apply_end": "",
@@ -499,7 +534,7 @@ def _export_json():
             "ministry": r["ministry"],
             "apply_start": r["apply_start"],
             "apply_end": r["apply_end"],
-            "detail_url": r["detail_url"],
+            "detail_url": _safe_detail_url(r["detail_url"]),
             "d_day": d_day,
             "registered_at": r["registered_at"],
         })
@@ -539,20 +574,21 @@ def _generate_subsidy_page():
     def card(it):
         title = h(it["title"])[:55]
         ministry = h(it.get("ministry", ""))
-        category = h(it.get("category", ""))
+        category = h(_normalize_subsidy_category(it.get("category", "")))
         d_day = it.get("d_day", -1)
-        url = h(it.get("detail_url", ""))
+        url = h(_safe_detail_url(it.get("detail_url", "")))
         end = it.get("apply_end", "")
 
         d_class = "urgent" if 0 <= d_day <= 7 else ("soon" if 0 <= d_day <= 14 else "")
         d_text = f"D-{d_day}" if d_day >= 0 else ("마감" if d_day < -1 else "상시")
 
-        return f"""<div class="sub-card" data-cat="{h(it.get('category',''))}">
+        link_attr = f' href="{url}" target="_blank" rel="noopener noreferrer"' if url else ' href="#" aria-disabled="true" tabindex="-1"'
+        return f"""<div class="sub-card" data-cat="{category or '기타'}">
           <div class="sub-card-top">
             <span class="sub-cat">{category}</span>
             <span class="sub-dday {d_class}">{d_text}</span>
           </div>
-          <a class="sub-title" href="{url}" target="_blank" rel="noopener">{title}</a>
+          <a class="sub-title"{link_attr}>{title}</a>
           <div class="sub-meta">{ministry}{(' | 마감 ' + end) if end else ''}</div>
         </div>"""
 
@@ -571,6 +607,9 @@ def _generate_subsidy_page():
 <title>정부 지원사업 - 브리핑룸</title>
 <meta name="description" content="중소벤처기업부, K-Startup, NTIS 등 정부 지원사업 공고를 매일 수집합니다.">
 <link rel="canonical" href="{SITE_URL}/subsidy/">
+<meta property="og:title" content="정부 지원사업 - 브리핑룸">
+<meta property="og:description" content="정부 지원사업 공고를 매일 모아 마감일 중심으로 확인하세요.">
+<meta property="og:url" content="{SITE_URL}/subsidy/">
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -578,6 +617,14 @@ def _generate_subsidy_page():
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;min-height:100vh}}
 .wrap{{max-width:900px;margin:0 auto;padding:24px 16px 80px}}
+{SITE_NAV_CSS}
+.hero{{background:linear-gradient(135deg,#1a1a2e,#2d2d4a);color:#fff;border-radius:16px;padding:20px;margin-bottom:20px}}
+.hero-kicker{{font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.7);text-transform:uppercase;margin-bottom:8px}}
+.hero-copy{{font-size:14px;line-height:1.6;color:rgba(255,255,255,.82);max-width:680px}}
+.hero-actions{{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}}
+.hero-btn{{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.18)}}
+.hero-btn.primary{{background:var(--gold);color:var(--navy);border-color:var(--gold)}}
+.hero-btn.secondary{{background:rgba(255,255,255,.08);color:#fff}}
 .back{{color:var(--muted);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:20px}}
 h1{{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-bottom:6px}}
 .desc{{color:var(--text2);font-size:14px;margin-bottom:20px}}
@@ -596,17 +643,28 @@ h1{{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;margin-bott
 .sub-dday{{font-size:12px;font-weight:700;color:var(--navy)}}
 .sub-dday.urgent{{color:#dc2626}}
 .sub-dday.soon{{color:#d97706}}
-.sub-title{{font-size:14px;font-weight:600;color:var(--text);text-decoration:none;display:block;line-height:1.5;margin-bottom:6px}}
+.sub-title{{font-size:14px;font-weight:600;color:var(--text);text-decoration:none;display:block;line-height:1.5;margin-bottom:6px;min-height:44px}}
 .sub-title:hover{{color:var(--navy);text-decoration:underline}}
+.sub-title[aria-disabled="true"]{{color:var(--muted);pointer-events:none;text-decoration:none}}
 .sub-meta{{font-size:11px;color:var(--muted)}}
 .section-title{{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border)}}
-@media(max-width:600px){{.sub-grid{{grid-template-columns:1fr}}.kpi-row{{gap:8px}}.kpi{{padding:10px}}}}
+@media(max-width:600px){{.sub-grid{{grid-template-columns:1fr}}.kpi-row{{gap:8px}}.kpi{{padding:10px}}.hero{{padding:16px}}.hero-actions{{flex-direction:column}}.hero-btn{{width:100%}}}}
 </style>
 </head>
 <body>
 <div class="wrap">
+{render_top_nav("subsidy")}
 <a class="back" href="/">← 브리핑룸으로</a>
-<h1>정부 지원사업</h1>
+{render_crosslinks((f"{SITE_URL}/articles/weekly/", "주간 리포트"), (f"{SITE_URL}/articles/schedule/", "차주 일정"))}
+<section class="hero" aria-label="지원사업 안내">
+  <div class="hero-kicker">GovBrief Subsidy Radar</div>
+  <h1>정부 지원사업</h1>
+  <div class="hero-copy">마감일 임박 공고를 먼저 보여주고, 원문 공고로 바로 이동할 수 있게 정리했습니다. 텔레그램 채널과 메인 브리핑을 함께 보면 정책 발표와 지원사업을 같은 흐름에서 추적할 수 있습니다.</div>
+  <div class="hero-actions">
+    <a class="hero-btn primary" href="https://t.me/govbriefkr" target="_blank" rel="noopener noreferrer">텔레그램 채널</a>
+    <a class="hero-btn secondary" href="/">보도자료 메인으로</a>
+  </div>
+</section>
 <div class="desc">중소벤처기업부 · K-Startup · NTIS에서 매일 수집 | {data.get('generated_at','')[:10]}</div>
 
 <div class="kpi-row">

@@ -57,6 +57,9 @@ jobs:
       - name: verify-python
         run: python -m compileall briefing.py briefingroom
 
+      - name: unit-tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+
       - name: run
         env:
           WP_ENABLED: 'false'
@@ -82,7 +85,7 @@ jobs:
           git config user.email "bot@briefingroom.kr"
           git add briefing.py briefingroom/ data/ feed/ articles/ subsidy/ sitemap.xml .github/workflows/
           git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d) $(date +%H:%M)"
-          git pull --rebase origin main || true
+          git pull --rebase origin main
           if ! git push; then
             echo "push failed, retrying..."
             sleep 5

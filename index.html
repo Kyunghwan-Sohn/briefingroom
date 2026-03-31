@@ -336,6 +336,11 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .sub-bar{background:var(--navy);border-radius:var(--r-md);padding:12px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
 .sub-bar-btn{padding:8px 18px;background:var(--gold);color:var(--navy);border:none;border-radius:var(--r-sm);font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all var(--t-fast);text-decoration:none}
 .sub-bar-btn:hover{background:var(--gold-light)}
+.ref-banner{display:none;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;margin-bottom:16px;background:linear-gradient(135deg,#1a1a2e,#2d2d4a);border:1px solid rgba(201,168,76,.25);border-radius:var(--r-md);color:var(--white)}
+.ref-banner.show{display:flex}
+.ref-banner-copy{font-size:13px;line-height:1.6;color:rgba(255,255,255,.84)}
+.ref-banner-copy strong{color:var(--gold-light)}
+.ref-banner a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:10px;background:var(--gold);color:var(--navy);font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap}
 
 /* ===== LOADING / EMPTY ===== */
 .loading{text-align:center;padding:60px 0;color:var(--text-muted)}
@@ -499,6 +504,7 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
 </style>
 </head>
 <body>
+<a href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">본문으로 건너뛰기</a>
 
 <!-- 모바일 전용 헤더 -->
 <header class="m-header" id="m-header">
@@ -523,12 +529,12 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
 
 <!-- 모바일 카테고리 탭 -->
 <nav class="m-cat-tabs" id="m-cat-tabs" data-active="true" role="tablist" aria-label="분야 필터">
-  <button class="m-tab active" role="tab" onclick="mSetTab('all',this)"><span class="m-tab-label">전체</span></button>
-  <button class="m-tab" role="tab" onclick="mSetTab('금융경제',this)" style="--tab-c:var(--c-fin)"><span class="m-tab-dot" style="background:var(--c-fin)"></span><span class="m-tab-label">금융</span></button>
-  <button class="m-tab" role="tab" onclick="mSetTab('사회복지',this)" style="--tab-c:var(--c-soc)"><span class="m-tab-dot" style="background:var(--c-soc)"></span><span class="m-tab-label">사회</span></button>
-  <button class="m-tab" role="tab" onclick="mSetTab('산업기술',this)" style="--tab-c:var(--c-ind)"><span class="m-tab-dot" style="background:var(--c-ind)"></span><span class="m-tab-label">산업</span></button>
-  <button class="m-tab" role="tab" onclick="mSetTab('외교안보',this)" style="--tab-c:var(--c-dip)"><span class="m-tab-dot" style="background:var(--c-dip)"></span><span class="m-tab-label">외교</span></button>
-  <button class="m-tab" role="tab" onclick="mSetTab('행정법제',this)" style="--tab-c:var(--c-adm)"><span class="m-tab-dot" style="background:var(--c-adm)"></span><span class="m-tab-label">행정</span></button>
+  <button class="m-tab active" role="tab" aria-selected="true" onclick="mSetTab('all',this)"><span class="m-tab-label">전체</span></button>
+  <button class="m-tab" role="tab" aria-selected="false" onclick="mSetTab('금융경제',this)" style="--tab-c:var(--c-fin)"><span class="m-tab-dot" style="background:var(--c-fin)"></span><span class="m-tab-label">금융</span></button>
+  <button class="m-tab" role="tab" aria-selected="false" onclick="mSetTab('사회복지',this)" style="--tab-c:var(--c-soc)"><span class="m-tab-dot" style="background:var(--c-soc)"></span><span class="m-tab-label">사회</span></button>
+  <button class="m-tab" role="tab" aria-selected="false" onclick="mSetTab('산업기술',this)" style="--tab-c:var(--c-ind)"><span class="m-tab-dot" style="background:var(--c-ind)"></span><span class="m-tab-label">산업</span></button>
+  <button class="m-tab" role="tab" aria-selected="false" onclick="mSetTab('외교안보',this)" style="--tab-c:var(--c-dip)"><span class="m-tab-dot" style="background:var(--c-dip)"></span><span class="m-tab-label">외교</span></button>
+  <button class="m-tab" role="tab" aria-selected="false" onclick="mSetTab('행정법제',this)" style="--tab-c:var(--c-adm)"><span class="m-tab-dot" style="background:var(--c-adm)"></span><span class="m-tab-label">행정</span></button>
 </nav>
 
 <!-- 데스크톱 헤더 -->
@@ -610,19 +616,20 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
     <div class="content">
       <!-- 분야 필터 바 (데스크톱) -->
       <div class="filter-bar" id="filter-bar">
-        <button class="filter-btn active" onclick="filterBarClick('all',this)">전체</button>
-        <button class="filter-btn" onclick="filterBarClick('금융경제',this)"><span class="f-dot" style="background:var(--c-fin)"></span>금융·경제</button>
-        <button class="filter-btn" onclick="filterBarClick('사회복지',this)"><span class="f-dot" style="background:var(--c-soc)"></span>사회·복지</button>
-        <button class="filter-btn" onclick="filterBarClick('산업기술',this)"><span class="f-dot" style="background:var(--c-ind)"></span>산업·기술</button>
-        <button class="filter-btn" onclick="filterBarClick('외교안보',this)"><span class="f-dot" style="background:var(--c-dip)"></span>외교·안보</button>
-        <button class="filter-btn" onclick="filterBarClick('행정법제',this)"><span class="f-dot" style="background:var(--c-adm)"></span>행정·법제</button>
+        <button class="filter-btn active" aria-pressed="true" onclick="filterBarClick('all',this)">전체</button>
+        <button class="filter-btn" aria-pressed="false" onclick="filterBarClick('금융경제',this)"><span class="f-dot" style="background:var(--c-fin)"></span>금융·경제</button>
+        <button class="filter-btn" aria-pressed="false" onclick="filterBarClick('사회복지',this)"><span class="f-dot" style="background:var(--c-soc)"></span>사회·복지</button>
+        <button class="filter-btn" aria-pressed="false" onclick="filterBarClick('산업기술',this)"><span class="f-dot" style="background:var(--c-ind)"></span>산업·기술</button>
+        <button class="filter-btn" aria-pressed="false" onclick="filterBarClick('외교안보',this)"><span class="f-dot" style="background:var(--c-dip)"></span>외교·안보</button>
+        <button class="filter-btn" aria-pressed="false" onclick="filterBarClick('행정법제',this)"><span class="f-dot" style="background:var(--c-adm)"></span>행정·법제</button>
       </div>
 
       <!-- 일정 달력 블록 -->
+      <div id="ref-banner" class="ref-banner" aria-live="polite"></div>
       <div id="schedule-calendar" class="sched-cal"></div>
       <div id="source-badges" style="display:none;margin-bottom:16px;flex-wrap:wrap;gap:5px"></div>
       <div class="daily-hero" id="daily-hero"></div>
-      <div id="main-content">
+      <div id="main-content" tabindex="-1">
         <div class="loading"><div class="loading-spinner"></div><div>데이터 불러오는 중...</div></div>
       </div>
 
@@ -715,6 +722,8 @@ const CN={'금융경제':'금융·경제','사회복지':'사회·복지','산�
 const CO=['금융경제','사회복지','산업기술','외교안보','행정법제'];
 let allItems=[],curFilter='all',curView='grid',curSearch='',curDate=new Date(),expanded={};
 let groupedByCat={},countsByCat={},countsBySource={},countsByFinSub={},sortedSources=[];
+let lastFocusedEl=null,lastBodyOverflow='';
+let trafficRef='',trafficSession='',trafficCat='';
 
 const FIN_SUB_MAP={
   '금융위원회':'금융정책','재정경제부':'금융정책','기획재정부':'금융정책','국세청':'금융정책','관세청':'금융정책',
@@ -736,6 +745,7 @@ function filterBarClick(cat, el) {
   curFilter = cat;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
+  document.querySelectorAll('.filter-btn').forEach(btn=>btn.setAttribute('aria-pressed',btn.classList.contains('active')?'true':'false'));
   expanded = {};
 
   // 사이드바 active 상태도 동기화
@@ -863,9 +873,16 @@ function escapeHtml(s){return String(s??'').replaceAll('&','&amp;').replaceAll('
 function safeUrl(url){
   try{
     const parsed=new URL(String(url??''),window.location.origin);
-    if(parsed.protocol==='http:'||parsed.protocol==='https:') return parsed.href;
+    if((parsed.protocol==='http:'||parsed.protocol==='https:')&&parsed.hostname) return parsed.href;
   }catch(e){}
   return '';
+}
+function lockBodyScroll(){
+  lastBodyOverflow=document.body.style.overflow;
+  document.body.style.overflow='hidden';
+}
+function unlockBodyScroll(){
+  document.body.style.overflow=lastBodyOverflow;
 }
 function setHighlightedText(el,text,keywords=[]){
   const source=String(text||'');
@@ -896,9 +913,23 @@ function filtered(){
   if(curSearch){const q=curSearch.toLowerCase();it=it.filter(i=>i.title.toLowerCase().includes(q)||i.src.toLowerCase().includes(q)||i.sum.toLowerCase().includes(q))}
   return it;
 }
+function renderReferralBanner(){
+  const el=document.getElementById('ref-banner');
+  if(!el)return;
+  if(trafficRef!=='telegram'){
+    el.classList.remove('show');
+    el.textContent='';
+    return;
+  }
+  const sessionLabel=trafficSession==='am'?'오전':trafficSession==='pm'?'오후':'';
+  const catLabel=CN[trafficCat]||trafficCat||'전체';
+  el.innerHTML=`<div class="ref-banner-copy"><strong>텔레그램에서 넘어왔습니다.</strong> ${sessionLabel?sessionLabel+' 브리핑 · ':''}${escapeHtml(catLabel)} 흐름으로 이어서 볼 수 있습니다.</div><a href="https://t.me/govbriefkr" target="_blank" rel="noopener noreferrer">채널 열기</a>`;
+  el.classList.add('show');
+}
 function render(){
   const items=filtered();const _tb=document.getElementById('total-badge-hdr');if(_tb)_tb.textContent=`${items.length}건`;
   const c=document.getElementById('main-content');c.innerHTML='';
+  renderReferralBanner();
   // 전체가 아닌 모든 필터(분야/부처)에서 히어로·일정 숨기기
   const isAll=curFilter==='all';
   const schedEl=document.getElementById('schedule-calendar');
@@ -1025,6 +1056,7 @@ function mkCard(it,idx){
 }
 function openDetail(id){
   const it=allItems.find(i=>i.id===id);if(!it)return;
+  lastFocusedEl=document.activeElement;
   _shareTitle=it.title;_shareUrl=`${SITE_URL}?date=${fmtDate(curDate)}&slug=${encodeURIComponent(it.slug||'')}`;
   const col=CC[it.cat]||'#1a1a2e';const bg=col+'14';
   document.getElementById('d-hdr-min').textContent=it.src;
@@ -1056,15 +1088,20 @@ function openDetail(id){
       const name=escapeHtml(l.law_name||'');
       const ref=l.article_ref?' '+escapeHtml(l.article_ref):'';
       const ministry=escapeHtml(l.ministry||'');
-      const link=l.detail_link?(l.detail_link.startsWith('http')?l.detail_link:'https://www.law.go.kr'+l.detail_link):'';
-      const linkHtml=link?` <a href="${escapeHtml(link)}" target="_blank" rel="noopener" style="font-size:11px;color:var(--navy);text-decoration:none">↗ 법령 전문</a>`:'';
+      const link=safeUrl(l.detail_link?(l.detail_link.startsWith('http')?l.detail_link:'https://www.law.go.kr'+l.detail_link):'');
+      const linkHtml=link?` <a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:var(--navy);text-decoration:none">↗ 법령 전문</a>`:'';
       lawSec.innerHTML+=`<div style="padding:6px 0;border-bottom:1px solid var(--border-light);font-size:12px"><b>${name}${ref}</b><span style="color:var(--text-muted);margin-left:6px">${ministry}</span>${linkHtml}</div>`;
     });
   }
-  document.getElementById('d-src').href=safeUrl(it.orig)||'#';
-  document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.getElementById('detail').scrollTop=0;document.body.style.overflow='hidden';document.querySelector('.m-bottom-nav')?.classList.add('detail-open');document.getElementById('detail').querySelector('.d-close')?.focus();history.pushState({detail:true},'',`?date=${fmtDate(curDate)}&slug=${encodeURIComponent(it.slug||'')}`);
+  const sourceLink=safeUrl(it.orig);
+  const srcBtn=document.getElementById('d-src');
+  srcBtn.href=sourceLink||'#';
+  srcBtn.setAttribute('aria-disabled',sourceLink?'false':'true');
+  srcBtn.style.pointerEvents=sourceLink?'':'none';
+  srcBtn.style.opacity=sourceLink?'1':'.5';
+  document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.getElementById('detail').scrollTop=0;lockBodyScroll();document.querySelector('.m-bottom-nav')?.classList.add('detail-open');document.getElementById('detail').querySelector('.d-close')?.focus();history.pushState({detail:true},'',`?date=${fmtDate(curDate)}&slug=${encodeURIComponent(it.slug||'')}`);
 }
-function closeDetail(){document.getElementById('d-overlay').classList.remove('open');document.getElementById('detail').classList.remove('open');document.body.style.overflow='';document.querySelector('.m-bottom-nav')?.classList.remove('detail-open');document.querySelector('.press-card')?.focus()}
+function closeDetail(){document.getElementById('d-overlay').classList.remove('open');document.getElementById('detail').classList.remove('open');unlockBodyScroll();document.querySelector('.m-bottom-nav')?.classList.remove('detail-open');(lastFocusedEl&&typeof lastFocusedEl.focus==='function'?lastFocusedEl:document.querySelector('.press-card'))?.focus()}
 function updateSidebar(){
   document.getElementById('cnt-all').textContent=allItems.length;
   CO.forEach(cat=>{const el=document.getElementById(`cnt-${cat}`);if(el)el.textContent=countsByCat[cat]||0});
@@ -1104,6 +1141,7 @@ function syncFilterBar(cat) {
     const idx = cats.indexOf(cat);
     if (idx >= 0) filterBtns[idx + 1]?.classList.add('active');
   }
+  filterBtns.forEach(btn=>btn.setAttribute('aria-pressed',btn.classList.contains('active')?'true':'false'));
 }
 
 function setView(v,el){curView=v;document.querySelectorAll('.v-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');render()}
@@ -1160,6 +1198,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();close
   const ministry=params.get('ministry');
   const dateParam=params.get('date');
   const catParam=params.get('cat');
+  trafficRef=params.get('ref')||'';
+  trafficSession=params.get('session')||'';
+  trafficCat=params.get('cat')||'';
   if(dateParam){const parts=dateParam.split('-');if(parts.length===3)curDate=new Date(parts[0],parts[1]-1,parts[2])}
   await loadData();
   if(ministry){curFilter=ministry;render()}
@@ -1491,12 +1532,12 @@ function openMinistrySheet(){
   sheet.classList.add('open');
   sheet.querySelector('.ministry-sheet-close')?.focus();
   history.pushState({sheet:true},'');
-  document.body.style.overflow='hidden';
+  lockBodyScroll();
 }
 function closeMinistrySheet(){
   const sheet=document.getElementById('ministry-sheet');
   if(sheet)sheet.classList.remove('open');
-  document.body.style.overflow='';
+  unlockBodyScroll();
 }
 
 // 모바일 전용 함수
@@ -1517,6 +1558,7 @@ function mSetTab(cat,el){
   curFilter=cat;
   document.querySelectorAll('.m-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
+  document.querySelectorAll('.m-tab').forEach(t=>t.setAttribute('aria-selected',t.classList.contains('active')?'true':'false'));
   expanded={};
   render();
 }
@@ -1559,11 +1601,11 @@ function openDateSheet(){
   calViewDate=new Date(curDate);
   renderCalendar();
   document.getElementById('date-sheet').classList.add('open');
-  document.body.style.overflow='hidden';
+  lockBodyScroll();
 }
 function closeDateSheet(){
   document.getElementById('date-sheet').classList.remove('open');
-  document.body.style.overflow='';
+  unlockBodyScroll();
 }
 function calNav(dir){
   calViewDate.setMonth(calViewDate.getMonth()+dir);
@@ -1618,7 +1660,18 @@ function shareNative(){
     shareTelegram();
   }
 }
-function copyLink(){navigator.clipboard.writeText(_shareUrl).then(()=>{const btn=document.getElementById('copy-btn');if(btn){btn.innerHTML='<i class="ph ph-check"></i> 복사됨';setTimeout(()=>{btn.innerHTML='<i class="ph ph-link"></i> 복사'},2000)}})}
+function copyLink(){
+  const btn=document.getElementById('copy-btn');
+  const onDone=()=>{if(btn){btn.innerHTML='<i class="ph ph-check"></i> 복사됨';setTimeout(()=>{btn.innerHTML='<i class="ph ph-link"></i> 복사'},2000)}};
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(_shareUrl).then(onDone).catch(()=>{});
+    return;
+  }
+  const ta=document.createElement('textarea');
+  ta.value=_shareUrl;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');onDone()}catch(e){}finally{ta.remove()}
+}
 
 // 모바일 스크롤 은닉
 (function(){

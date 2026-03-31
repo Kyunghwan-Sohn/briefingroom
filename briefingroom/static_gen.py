@@ -9,6 +9,7 @@ from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
 
 from briefingroom.config import DATA_DIR
+from briefingroom.site_templates import SITE_NAV_CSS, render_crosslinks, render_top_nav
 
 SITE_URL = "https://govbrief.kr"
 SITE_TITLE = "브리핑룸 — 정부 보도자료 AI 요약"
@@ -141,11 +142,15 @@ def generate_article_pages(target_date: str) -> int:
         slug = it.get("slug") or f"{idx:03d}"
         article_url = f"{SITE_URL}/articles/{target_date}/{slug}/"
         kw_json = json.dumps(keywords, ensure_ascii=False)
+        weekly_link = f"{SITE_URL}/articles/weekly/{target_date}/"
+        schedule_link = f"{SITE_URL}/articles/schedule/{target_date}/"
+        subsidy_link = f"{SITE_URL}/subsidy/"
 
         h_title = html.escape(title)
         h_source = html.escape(source)
         h_summary = html.escape(summary)
-        h_desc = html.escape(f"[{source}] {summary[:120]}" if summary else f"[{source}] {title}")
+        desc = f"[{source}] {summary[:120]}" if summary else f"[{source}] {title}"
+        h_desc = html.escape(desc)
 
         article_html = f"""<!DOCTYPE html>
 <html lang="ko">
@@ -172,7 +177,7 @@ def generate_article_pages(target_date: str) -> int:
   "@type": "NewsArticle",
   "headline": {json.dumps(title, ensure_ascii=False)},
   "datePublished": "{date_str}T09:00:00+09:00",
-  "description": {json.dumps(h_desc, ensure_ascii=False)},
+  "description": {json.dumps(desc, ensure_ascii=False)},
   "url": "{article_url}",
   "publisher": {{
     "@type": "Organization",
@@ -193,6 +198,7 @@ body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient
 .wrap{{max-width:720px;margin:0 auto;padding:32px 24px;position:relative;z-index:1}}
 .back{{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:12px;margin-bottom:24px;padding:7px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:all .15s}}
 .back:hover{{color:var(--text)}}
+{SITE_NAV_CSS}
 .post-badge{{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--accent-l);color:var(--accent);border:1px solid rgba(47,84,235,.2);margin-bottom:14px}}
 .post-title{{font-family:var(--serif);font-size:26px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--text);margin-bottom:20px}}
 .post-meta{{display:flex;gap:20px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:24px}}
@@ -211,7 +217,9 @@ body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient
 </head>
 <body>
 <div class="wrap">
+  {render_top_nav("")}
   <a class="back" href="/">&#8592; 브리핑룸으로</a>
+  {render_crosslinks((weekly_link, "주간 리포트"), (schedule_link, "차주 일정"), (subsidy_link, "지원사업"))}
   <div class="post-badge">🏛 {h_source} 보도자료</div>
   <h1 class="post-title">{h_title}</h1>
   <div class="post-meta">
@@ -257,8 +265,8 @@ def generate_sitemap(target_date: str) -> Path:
         date_str = json_file.stem
         data = json.loads(json_file.read_text(encoding="utf-8"))
         items = data.get("items", [])
-        for idx in range(len(items)):
-            slug = f"{idx:03d}"
+        for idx, item in enumerate(items):
+            slug = item.get("slug") or f"{idx:03d}"
             urls.append(f'  <url><loc>{SITE_URL}/articles/{date_str}/{slug}/</loc><lastmod>{date_str}</lastmod></url>')
 
     sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>

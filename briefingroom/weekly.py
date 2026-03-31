@@ -13,6 +13,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from briefingroom.config import BASE_DIR, CAT_MAP, DATA_DIR
+from briefingroom.site_templates import SITE_NAV_CSS, render_crosslinks, render_top_nav
 from briefingroom.weekly_analysis import analyze_weekly, select_weekly_top
 from briefingroom.telegram import (
     CAT_ORDER, SITE_URL, _escape_html, send_telegram,
@@ -340,6 +341,8 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
     post_url = f"{SITE_URL}/articles/weekly/{target.isoformat()}/"
 
     h = _html.escape
+    schedule_link = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
+    subsidy_link = f"{SITE_URL}/subsidy/"
 
     # 분야별 Top Story 행
     sector_rows = ""
@@ -350,7 +353,8 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
         title = h(_clean(item.get("title", "")))[:60]
         summary = h(_get_summary(item))
         d = item.get("date", "")
-        article_link = f"{SITE_URL}/articles/{d}/000/" if d else SITE_URL
+        slug = item.get("slug", "000") or "000"
+        article_link = f"{SITE_URL}/articles/{d}/{slug}/?ref=weekly&cat={cat}" if d else SITE_URL
         cat_total = analysis["by_cat"].get(cat, 0)
 
         sector_rows += f"""
@@ -366,7 +370,8 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
     for cat, (src, item, _, ncnt, _) in sorted(selected.items(), key=lambda x: -x[1][3]):
         title = h(_clean(item.get("title", "")))[:50]
         d = item.get("date", "")
-        article_link = f"{SITE_URL}/articles/{d}/000/" if d else SITE_URL
+        slug = item.get("slug", "000") or "000"
+        article_link = f"{SITE_URL}/articles/{d}/{slug}/?ref=weekly&rank=1" if d else SITE_URL
         news_rows += f"""
           <tr>
             <td>{h(CAT_NAMES.get(cat, cat))}</td>
@@ -410,6 +415,7 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
 body{{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;line-height:1.7}}
 .wrap{{max-width:780px;margin:0 auto;padding:32px 24px}}
 .back{{color:#96938c;text-decoration:none;font-size:13px;margin-bottom:24px;display:inline-block}}
+{SITE_NAV_CSS}
 h1{{font-family:'Noto Serif KR',serif;font-size:28px;font-weight:700;margin-bottom:8px}}
 .sub{{color:var(--text2);font-size:14px;margin-bottom:24px}}
 .kpi{{display:flex;gap:16px;margin-bottom:24px}}
@@ -439,9 +445,11 @@ td.num{{text-align:center;white-space:nowrap}}
 </head>
 <body>
 <div class="wrap">
+{render_top_nav("weekly")}
 <a class="back" href="/">← 브리핑룸으로</a>
 <h1>주간 정책 브리핑</h1>
 <div class="sub">{s.year}년 {s.month}월 {s.day}일 ~ {e.month}월 {e.day}일</div>
+{render_crosslinks((schedule_link, "차주 일정 보기"), (subsidy_link, "지원사업 보기"))}
 
 <div class="kpi">
   <div class="kpi-box"><div class="kpi-val">{analysis['total']}</div><div class="kpi-label">총 보도자료</div></div>
@@ -513,7 +521,8 @@ def format_weekly_telegram(analysis: dict, selected: dict, post_url: str, target
         src, item, cnt, news_cnt, _ = selected[cat]
         title = _escape_html(_clean(item.get("title", "")))[:45]
         d = item.get("date", "")
-        article_link = f"{SITE_URL}/articles/{d}/000/" if d else SITE_URL
+        slug = item.get("slug", "000") or "000"
+        article_link = f"{SITE_URL}/articles/{d}/{slug}/?ref=telegram&detail=weekly&cat={cat}" if d else SITE_URL
         cat_name = CAT_NAMES.get(cat, cat)
 
         lines.append(f"<b>{cat_name}</b> | {_escape_html(src)} | 📰 {news_cnt}건")

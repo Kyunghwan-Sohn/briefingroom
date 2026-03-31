@@ -35,6 +35,7 @@ def _load_items_from_json(start: date, end: date) -> list[dict]:
                     if isinstance(keywords, list):
                         keywords = ", ".join(keywords)
                     items.append({
+                        "slug": item.get("slug", ""),
                         "source": item.get("source", ""),
                         "title": item.get("title", ""),
                         "url": item.get("url", ""),

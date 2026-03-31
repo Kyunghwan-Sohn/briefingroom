@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import os
+import re
 from collections import Counter, defaultdict
 from datetime import date, timedelta
 
@@ -55,6 +56,43 @@ def _article_url(item: dict, all_items: list[dict] = None) -> str:
     else:
         idx = 0
     return f"{SITE_URL}/articles/{d}/{idx:03d}/"
+
+
+def _append_query(url: str, **params: str) -> str:
+    from urllib.parse import urlencode, urlparse, parse_qsl, urlunparse
+
+    parsed = urlparse(url)
+    query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    for key, value in params.items():
+        if value:
+            query[key] = value
+    return urlunparse(parsed._replace(query=urlencode(query)))
+
+
+def _split_telegram_html(text: str, limit: int = 4096) -> list[str]:
+    """HTML 태그를 깨지 않도록 메시지를 분할한다."""
+    if len(text) <= limit:
+        return [text]
+
+    chunks: list[str] = []
+    remaining = text.strip()
+    while remaining:
+        if len(remaining) <= limit:
+            chunks.append(remaining)
+            break
+
+        split_at = remaining.rfind("\n", 0, limit - 32)
+        if split_at < 0:
+            split_at = limit - 32
+
+        candidate = remaining[:split_at].rstrip()
+        if not candidate:
+            candidate = remaining[: limit - 32].rstrip()
+
+        chunks.append(_fix_html(candidate))
+        remaining = remaining[len(candidate):].lstrip()
+
+    return chunks
 
 
 # 분야별 필수 포함 부처
@@ -155,7 +193,12 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
 
         for source, item, src_count in selected[cat]:
             title = _escape_html(item.get("title", ""))[:55]
-            link = _article_url(item, items)
+            link = _append_query(
+                _article_url(item, items),
+                ref="telegram",
+                session=session or "auto",
+                cat=cat,
+            )
 
             lines.append(f"🏛 <b>{_escape_html(source)}</b> ({src_count}건)")
             lines.append(f'▸ <a href="{link}">{title}</a>')
@@ -232,43 +275,46 @@ def send_telegram(text: str, bot_token: str = "", chat_id: str = "") -> bool:
         return False
 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
-    payload = {
-        "chat_id": cid,
-        "text": text,
-        "parse_mode": "HTML",
-        "disable_web_page_preview": True,
-        "reply_markup": {
-            "inline_keyboard": [
-                [
-                    {"text": "📋 전체 보기", "url": SITE_URL},
-                ],
-                [
-                    {"text": "💰 금융·경제", "url": f"{SITE_URL}/?cat=금융경제"},
-                    {"text": "🏥 사회·복지", "url": f"{SITE_URL}/?cat=사회복지"},
-                ],
-                [
-                    {"text": "⚙️ 산업·기술", "url": f"{SITE_URL}/?cat=산업기술"},
-                    {"text": "🌏 외교·안보", "url": f"{SITE_URL}/?cat=외교안보"},
-                ],
-                [
-                    {"text": "📜 행정·법제", "url": f"{SITE_URL}/?cat=행정법제"},
-                ],
-            ]
-        },
-    }
+    chunks = _split_telegram_html(text)
+    for idx, chunk in enumerate(chunks):
+        payload = {
+            "chat_id": cid,
+            "text": chunk,
+            "parse_mode": "HTML",
+            "disable_web_page_preview": True,
+        }
+        if idx == 0:
+            payload["reply_markup"] = {
+                "inline_keyboard": [
+                    [
+                        {"text": "📋 전체 보기", "url": SITE_URL},
+                    ],
+                    [
+                        {"text": "💰 금융·경제", "url": f"{SITE_URL}/?cat=금융경제"},
+                        {"text": "🏥 사회·복지", "url": f"{SITE_URL}/?cat=사회복지"},
+                    ],
+                    [
+                        {"text": "⚙️ 산업·기술", "url": f"{SITE_URL}/?cat=산업기술"},
+                        {"text": "🌏 외교·안보", "url": f"{SITE_URL}/?cat=외교안보"},
+                    ],
+                    [
+                        {"text": "📜 행정·법제", "url": f"{SITE_URL}/?cat=행정법제"},
+                    ],
+                ]
+            }
 
-    try:
-        r = requests.post(url, json=payload, timeout=15)
-        if r.status_code == 200 and r.json().get("ok"):
-            msg_id = r.json().get("result", {}).get("message_id")
-            print(f"  ✅ 텔레그램 발송 완료 (message_id: {msg_id})")
-            return True
-        else:
+        try:
+            r = requests.post(url, json=payload, timeout=15)
+            if r.status_code == 200 and r.json().get("ok"):
+                msg_id = r.json().get("result", {}).get("message_id")
+                print(f"  ✅ 텔레그램 발송 완료 ({idx + 1}/{len(chunks)}, message_id: {msg_id})")
+                continue
             print(f"  ❌ 텔레그램 발송 실패: {r.status_code} {r.text[:100]}")
             return False
-    except Exception as e:
-        print(f"  ❌ 텔레그램 오류: {e}")
-        return False
+        except Exception as e:
+            print(f"  ❌ 텔레그램 오류: {e}")
+            return False
+    return True
 
 
 def format_category_detail(items: list[dict], cat: str, target: date, max_items: int = 8) -> str:
@@ -316,7 +362,7 @@ def format_category_detail(items: list[dict], cat: str, target: date, max_items:
 
     for it in selected:
         title = _escape_html(it.get("title", ""))[:55]
-        link = it.get("wp_link") or (f"{SITE_URL}/?p={it.get('wp_post_id','')}" if it.get("wp_post_id") else SITE_URL)
+        link = _append_query(_article_url(it, items), ref="telegram", detail="category", cat=cat)
         lines.append(f"🏛 <b>{_escape_html(it['source'])}</b>")
         lines.append(f'▸ <a href="{link}">{title}</a>')
         lines.append("")
@@ -527,7 +573,12 @@ def format_weekly_main(analysis: dict, selected: dict, target: date) -> str:
             summary = summary.replace("요약:", "").strip()
         summary = _escape_html(_cut_sentence(summary.split("키워드:")[0].strip()))
 
-        link = item.get("url", SITE_URL)
+        link = _append_query(
+            _article_url(item),
+            ref="telegram",
+            detail="weekly",
+            cat=cat,
+        )
 
         lines.append(f"{emoji} <b>{cat_name}</b> ({cat_total}건)")
         lines.append(f"  {_escape_html(src)} | 📰 뉴스 {news_cnt}건")
