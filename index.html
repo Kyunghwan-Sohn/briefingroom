@@ -626,10 +626,23 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
       <div class="f-item" onclick="setFilter('행정법제',this)"><div class="f-left"><div class="f-dot" style="background:var(--c-adm)"></div>행정·법제</div><span class="f-cnt" id="cnt-행정법제">0</span></div>
     </div>
     <div class="sb-min-section" id="ministry-sb"><div class="sb-label">부처별</div></div>
+    <div class="sb-section" style="margin-top:16px;padding-top:12px;border-top:2px solid var(--border-light)">
+      <div class="sb-label">지원사업</div>
+      <a class="f-item" href="/subsidy/" style="text-decoration:none;color:inherit">
+        <div class="f-left"><div class="f-dot" style="background:var(--gold)"></div>전체 지원사업</div>
+        <span class="f-cnt" style="font-size:10px">→</span>
+      </a>
+    </div>
   </aside>
 
   <main class="main">
     <div class="content">
+      <!-- 오늘 날짜 + 건수 -->
+      <div id="date-info-bar" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:10px 0">
+        <div style="font-family:var(--serif);font-size:18px;font-weight:700;color:var(--text-primary)" id="date-info-title"></div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text-muted)" id="date-info-count"></div>
+      </div>
+
       <!-- 분야 필터 바 (데스크톱) -->
       <div class="filter-bar" id="filter-bar">
         <button class="filter-btn active" aria-pressed="true" onclick="filterBarClick('all',this)">전체</button>
@@ -651,14 +664,7 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
         <div class="loading"><div class="loading-spinner"></div><div>데이터 불러오는 중...</div></div>
       </div>
 
-      <!-- 지원사업 섹션 -->
-      <div id="subsidy-section" style="margin-top:24px;display:none">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border-light)">
-          <div style="font-family:var(--serif);font-size:16px;font-weight:700;color:var(--text-primary)">💰 정부 지원사업</div>
-          <a href="/subsidy/" style="font-family:var(--mono);font-size:11px;color:var(--navy);text-decoration:none;padding:4px 10px;border:1px solid var(--border-light);border-radius:4px">전체 보기 →</a>
-        </div>
-        <div id="subsidy-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px"></div>
-      </div>
+      <!-- 지원사업은 사이드바에서 /subsidy/로 이동 -->
     </div>
   </main>
 </div>
@@ -870,30 +876,10 @@ async function loadData(){
   }catch(e){document.getElementById('main-content').innerHTML=`<div class="empty"><div class="empty-icon">!</div><div>로드 실패: ${escapeHtml(e.message)}</div></div>`}
 
   // 지원사업 로드
-  loadSubsidies();
+  // 지원사업은 사이드바 링크로 분리
 }
 
-async function loadSubsidies(){
-  try{
-    const r=await fetch('/data/subsidies.json');
-    if(!r.ok)return;
-    const d=await r.json();
-    const items=(d.items||[]).filter(it=>it.d_day>=0).slice(0,6);
-    const sec=document.getElementById('subsidy-section');
-    const box=document.getElementById('subsidy-cards');
-    if(!items.length||!sec||!box)return;
-    sec.style.display='';
-    box.innerHTML='';
-    items.forEach(it=>{
-      const dClass=it.d_day<=7?'color:#dc2626;font-weight:700':(it.d_day<=14?'color:#d97706;font-weight:700':'color:var(--navy);font-weight:600');
-      const card=document.createElement('div');
-      card.style.cssText='background:var(--white);border:1px solid var(--border-light);border-radius:8px;padding:12px;cursor:pointer';
-      card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:10px;padding:2px 8px;border-radius:4px;background:#eef0fd;color:var(--navy);font-weight:600">${escapeHtml(it.category||'')}</span><span style="font-size:11px;${dClass}">D-${it.d_day}</span></div><div style="font-size:13px;font-weight:600;color:var(--text-primary);line-height:1.4;margin-bottom:4px">${escapeHtml(it.title).slice(0,45)}</div><div style="font-size:10px;color:var(--text-muted)">${escapeHtml(it.ministry||'')}</div>`;
-      card.onclick=()=>window.open(it.detail_url,'_blank');
-      box.appendChild(card);
-    });
-  }catch(e){}
-}
+// 지원사업은 사이드바 링크로 /subsidy/에서 별도 제공
 
 function rebuildIndexes(){
   groupedByCat={};countsByCat={};countsBySource={};countsByFinSub={};sortedSources=[];
@@ -1039,6 +1025,16 @@ function renderBriefingBar(){
 function render(){
   const items=filtered();const _tb=document.getElementById('total-badge-hdr');if(_tb)_tb.textContent=`${items.length}건`;
   const c=document.getElementById('main-content');c.innerHTML='';
+  // 날짜 정보 바 업데이트
+  const _diTitle=document.getElementById('date-info-title');
+  const _diCount=document.getElementById('date-info-count');
+  const _today=new Date();const _isToday=fmtDate(curDate)===fmtDate(_today);
+  const _yest=new Date(_today);_yest.setDate(_today.getDate()-1);const _isYest=fmtDate(curDate)===fmtDate(_yest);
+  const _dayLabel=_isToday?' (오늘)':_isYest?' (어제)':'';
+  const _dowNames=['일','월','화','수','목','금','토'];
+  if(_diTitle)_diTitle.textContent=`${curDate.getFullYear()}년 ${curDate.getMonth()+1}월 ${curDate.getDate()}일 (${_dowNames[curDate.getDay()]})${_dayLabel} 보도자료`;
+  if(_diCount)_diCount.textContent=`${allItems.length}건 · ${Object.keys(countsBySource).length}개 부처`;
+
   // 전체가 아닌 모든 필터(분야/부처)에서 히어로·일정 숨기기
   const isAll=curFilter==='all';
   const schedEl=document.getElementById('schedule-calendar');
@@ -1059,36 +1055,42 @@ function render(){
     const cats=['금융경제','사회복지','산업기술','외교안보','행정법제'];
     const isCat=cats.includes(curFilter)||curFilter.startsWith('fin-');
     const catLabel=isCat?(CN[curFilter]||curFilter):curFilter;
-    // sticky 헤더 + 부처 배지
-    const stickyWrap=document.createElement('div');
-    stickyWrap.style.cssText='position:sticky;top:100px;z-index:8;background:var(--off-white);padding-bottom:8px;margin-bottom:8px';
+    // 헤더 + 부처 배지 (sticky 제거 — 겹침 방지)
     const hdr=document.createElement('div');
-    hdr.style.cssText='padding-bottom:8px;border-bottom:2px solid var(--border-light)';
+    hdr.style.cssText='padding-bottom:10px;margin-bottom:12px;border-bottom:2px solid var(--border-light)';
     hdr.innerHTML=`<div class="filter-section-title">${curDate.getMonth()+1}월 ${curDate.getDate()}일 ${escapeHtml(catLabel)} 보도자료</div><div class="filter-section-sub">${items.length}건</div>`;
-    stickyWrap.appendChild(hdr);
-    // 부처 배지 (가나다순) — 분야 필터일 때만
-    if(isCat){
-      const catSources={};
-      items.forEach(it=>{catSources[it.src]=(catSources[it.src]||0)+1});
-      const sortedSrc=Object.keys(catSources).sort();
-      if(sortedSrc.length>1){
-        const badges=document.createElement('div');
-        badges.style.cssText='display:flex;flex-wrap:wrap;gap:4px;padding-top:8px';
-        sortedSrc.forEach(src=>{
-          const cnt=catSources[src];
-          const isActive=curFilter===src;
-          const btn=document.createElement('span');
-          btn.style.cssText=isActive
-            ?'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--navy);color:var(--white);background:var(--navy);cursor:pointer;white-space:nowrap'
-            :'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-light);color:var(--text-secondary);cursor:pointer;white-space:nowrap;background:var(--white)';
-          btn.textContent=`${src} ${cnt}`;
-          btn.addEventListener('click',()=>{curFilter=src;render()});
-          badges.appendChild(btn);
-        });
-        stickyWrap.appendChild(badges);
+    c.appendChild(hdr);
+
+    // 부처 배지 (가나다순) — 분야/부처 필터 모두 표시
+    const parentCat = isCat ? curFilter : (cats.find(cat => items.some(it => it.cat === cat)) || '');
+    const catItemsForBadge = parentCat ? allItems.filter(it => it.cat === parentCat || it.cat === curFilter) : items;
+    const catSources={};
+    catItemsForBadge.forEach(it=>{catSources[it.src]=(catSources[it.src]||0)+1});
+    const sortedSrc=Object.keys(catSources).sort();
+    if(sortedSrc.length>1){
+      const badges=document.createElement('div');
+      badges.style.cssText='display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px';
+      // "전체" 버튼 (분야로 돌아가기)
+      if(!isCat && parentCat){
+        const allBtn=document.createElement('span');
+        allBtn.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-light);color:var(--text-secondary);cursor:pointer;white-space:nowrap;background:var(--white)';
+        allBtn.textContent='전체';
+        allBtn.addEventListener('click',()=>{curFilter=parentCat;render()});
+        badges.appendChild(allBtn);
       }
+      sortedSrc.forEach(src=>{
+        const cnt=catSources[src];
+        const isActive=curFilter===src;
+        const btn=document.createElement('span');
+        btn.style.cssText=isActive
+          ?'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--navy);color:var(--white);background:var(--navy);cursor:pointer;white-space:nowrap'
+          :'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-light);color:var(--text-secondary);cursor:pointer;white-space:nowrap;background:var(--white)';
+        btn.textContent=`${src} ${cnt}`;
+        btn.addEventListener('click',()=>{curFilter=src;render()});
+        badges.appendChild(btn);
+      });
+      c.appendChild(badges);
     }
-    c.appendChild(stickyWrap);
     const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;items.forEach((it,i)=>g.appendChild(mkCard(it,i)));c.appendChild(g);
   }
   else{CO.forEach(cat=>{if(!groupedByCat[cat]?.length)return;c.appendChild(mkBlock(cat,groupedByCat[cat]))})}
