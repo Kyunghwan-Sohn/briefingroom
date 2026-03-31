@@ -75,6 +75,7 @@ def serialize_item(item: dict, slug: str = "") -> dict:
         "raw_summary": item.get("summary", ""),
         "has_text": bool(item.get("text")),
         "text_path": item.get("text_path", ""),
+        "related_laws": item.get("related_laws", []),
     }
 
 

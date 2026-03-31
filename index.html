@@ -787,6 +787,7 @@ async function loadData(){
           cat: it.category||'행정법제',
           finSub: it.finance_sub||FIN_SUB_MAP[it.source]||'',
           impact: it.impact||'중',
+          laws: it.related_laws||[],
         }));
       items.push(...dayItems);
     }
@@ -1004,6 +1005,18 @@ function mkCard(it,idx){
       const span=document.createElement('span');span.className='kw-tag';span.textContent=k;
       kwWrap.appendChild(document.createTextNode(' '));kwWrap.appendChild(span);
     });
+    // 관련 법령 표시
+    if(it.laws&&it.laws.length){
+      const lawDiv=document.createElement('div');
+      lawDiv.style.cssText='margin-top:6px;display:flex;flex-wrap:wrap;gap:3px';
+      it.laws.slice(0,2).forEach(l=>{
+        const tag=document.createElement('span');
+        tag.style.cssText='font-size:10px;padding:2px 6px;border-radius:3px;background:#fef3c7;color:#92400e;white-space:nowrap';
+        tag.textContent='📜 '+(l.law_name||'')+(l.article_ref?' '+l.article_ref:'');
+        lawDiv.appendChild(tag);
+      });
+      c.querySelector('.card-meta').before(lawDiv);
+    }
     c.querySelector('.c-btn.primary').addEventListener('click',e=>{e.stopPropagation();openDetail(it.id)});
     const link=c.querySelector('.c-btn:not(.primary)');
     link.href=safeUrl(it.orig)||'#';link.addEventListener('click',e=>e.stopPropagation());
@@ -1030,6 +1043,24 @@ function openDetail(id){
   }
   const kwBox=document.getElementById('d-kws');kwBox.textContent='';
   it.kws.forEach(k=>{const span=document.createElement('span');span.className='kw';span.textContent=`# ${k}`;kwBox.appendChild(span)});
+  // 관련 법령 섹션
+  let lawSec=document.getElementById('d-laws');
+  if(!lawSec){
+    lawSec=document.createElement('div');lawSec.id='d-laws';
+    kwBox.after(lawSec);
+  }
+  lawSec.innerHTML='';
+  if(it.laws&&it.laws.length){
+    lawSec.innerHTML='<div style="font-family:var(--serif);font-size:13px;font-weight:700;color:var(--text-primary);margin:12px 0 6px">📜 관련 법령</div>';
+    it.laws.forEach(l=>{
+      const name=escapeHtml(l.law_name||'');
+      const ref=l.article_ref?' '+escapeHtml(l.article_ref):'';
+      const ministry=escapeHtml(l.ministry||'');
+      const link=l.detail_link?(l.detail_link.startsWith('http')?l.detail_link:'https://www.law.go.kr'+l.detail_link):'';
+      const linkHtml=link?` <a href="${escapeHtml(link)}" target="_blank" rel="noopener" style="font-size:11px;color:var(--navy);text-decoration:none">↗ 법령 전문</a>`:'';
+      lawSec.innerHTML+=`<div style="padding:6px 0;border-bottom:1px solid var(--border-light);font-size:12px"><b>${name}${ref}</b><span style="color:var(--text-muted);margin-left:6px">${ministry}</span>${linkHtml}</div>`;
+    });
+  }
   document.getElementById('d-src').href=safeUrl(it.orig)||'#';
   document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.getElementById('detail').scrollTop=0;document.body.style.overflow='hidden';document.querySelector('.m-bottom-nav')?.classList.add('detail-open');document.getElementById('detail').querySelector('.d-close')?.focus();history.pushState({detail:true},'',`?date=${fmtDate(curDate)}&slug=${encodeURIComponent(it.slug||'')}`);
 }
