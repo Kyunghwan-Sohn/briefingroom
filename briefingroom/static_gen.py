@@ -26,6 +26,35 @@ def _safe_url(value: str) -> str:
     return ""
 
 
+def _build_law_section(laws: list) -> str:
+    """관련 법령 HTML 섹션 생성"""
+    if not laws:
+        return ""
+    rows = ""
+    for law in laws:
+        name = html.escape(law.get("law_name", ""))
+        ref = html.escape(law.get("article_ref", ""))
+        ministry = html.escape(law.get("ministry", ""))
+        ef_date = law.get("enforcement_date", "")
+        link = law.get("detail_link", "")
+        if link and not link.startswith("http"):
+            link = f"https://www.law.go.kr{link}"
+
+        ref_text = f" {ref}" if ref else ""
+        date_text = f" · 시행 {ef_date[:4]}.{ef_date[4:6]}.{ef_date[6:]}" if len(ef_date) == 8 else ""
+        link_html = f' <a href="{html.escape(link)}" target="_blank" rel="noopener" style="font-family:var(--mono,monospace);font-size:11px;color:#2f54eb;text-decoration:none">↗ 법령 전문</a>' if link else ""
+
+        rows += f"""<div style="padding:8px 0;border-bottom:1px solid #e0ddd7">
+          <div style="font-size:13px;font-weight:600;color:#1c1b18">📜 {name}{ref_text}</div>
+          <div style="font-size:11px;color:#96938c;margin-top:2px">{ministry}{date_text}{link_html}</div>
+        </div>"""
+
+    return f"""<div style="margin-top:16px">
+      <h3 style="font-family:var(--serif,'Noto Serif KR',serif);font-size:14px;font-weight:600;color:#1c1b18;margin:0 0 8px">📜 관련 법령</h3>
+      {rows}
+    </div>"""
+
+
 def generate_rss(target_date: str, max_items: int = 50) -> Path:
     """일별 JSON에서 RSS 2.0 XML 생성"""
     json_path = DATA_DIR / f"{target_date}.json"
@@ -196,6 +225,7 @@ body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient
       <p>{h_summary if h_summary else '요약이 준비 중입니다.'}</p>
     </div>
     {"<div class='keywords'>" + "".join(f"<span>#{html.escape(k)}</span>" for k in keywords) + "</div>" if keywords else ""}
+    {_build_law_section(it.get("related_laws", []))}
     <div class="links">
       <h4>원문</h4>
       <a href="{url or '#'}" target="_blank" rel="noopener noreferrer">↗ 원문 보기</a>

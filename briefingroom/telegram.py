@@ -178,6 +178,16 @@ def format_daily_message(items: list[dict], target: date, session: str = "") -> 
                     else:
                         lines.append(f"  📰 {news_src}: {news_title}")
 
+            # 관련 법령
+            related_laws = item.get("related_laws", [])
+            if related_laws:
+                law_parts = []
+                for law in related_laws[:2]:
+                    name = _escape_html(law.get("law_name", ""))
+                    ref = law.get("article_ref", "")
+                    law_parts.append(f"{name} {ref}".strip())
+                lines.append(f"  📜 {', '.join(law_parts)}")
+
             lines.append("")
 
     lines.append("──────────────────")

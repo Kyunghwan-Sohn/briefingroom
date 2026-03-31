@@ -267,6 +267,18 @@ def _process_and_enrich_items(all_items: list[dict], target: date) -> None:
         print("  [뉴스 검색 비활성화] NEWS_ENABLED=false")
     print(f"  관련 뉴스 연결: {news_count}/{len(all_items)}건")
 
+    # ── 법령 연동 ──────────────────────────────────────────
+    law_enabled = os.environ.get("LAW_ENABLED", "true").lower() in ("true", "1", "yes")
+    if law_enabled:
+        print(f"\n{'─' * 60}")
+        print("[관련 법령 연동 중...]")
+        try:
+            from briefingroom.law import process_laws_for_items
+            law_count = process_laws_for_items(all_items, max_api_calls=50)
+            print(f"  법령 연동: {law_count}건")
+        except Exception as e:
+            print(f"  [법령 연동 실패] {e}")
+
     snapshot_path = save_daily_snapshot(all_items, target)
     print(f"\n{'─' * 60}")
     print(f"[JSON 저장 완료] {snapshot_path}")
