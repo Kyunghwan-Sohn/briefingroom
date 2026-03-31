@@ -37,32 +37,51 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f5f4f0;--bg2:#eceae5;--surface:#fff;--border:#e0ddd7;--text:#1c1b18;--text2:#4a4844;--muted:#96938c;--accent:#2f54eb;--accent-l:#eef0fd;--serif:'Noto Serif KR',serif;--sans:'Pretendard',sans-serif;--mono:'DM Mono',monospace}
+:root{--bg:#f4f1ea;--surface:#fff;--border:#d9d5cc;--text:#1c1b18;--text2:#4a4844;--muted:#7b776d;--accent:#16213d;--accent-l:#eef2f7;--serif:'Noto Serif KR',serif;--sans:'Pretendard',sans-serif;--mono:'DM Mono',monospace}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh}
-body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 1px 1px,var(--border) 1px,transparent 0);background-size:24px 24px;opacity:.5;pointer-events:none;z-index:0}
-.wrap{max-width:720px;margin:0 auto;padding:32px 24px;position:relative;z-index:1}
-.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:12px;margin-bottom:24px;padding:7px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:all .15s}
+.wrap{max-width:960px;margin:0 auto;padding:24px 20px 72px;position:relative;z-index:1}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:12px;margin-bottom:20px;padding:7px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:all .15s}
 .back:hover{color:var(--text)}
-.post-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--accent-l);color:var(--accent);border:1px solid rgba(47,84,235,.2);margin-bottom:14px}
-.post-title{font-family:var(--serif);font-size:26px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--text);margin-bottom:20px}
+
+.topnav{position:sticky;top:16px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;padding:14px 18px;background:rgba(255,255,255,.96);border:1px solid #d9d5cc;border-radius:14px;backdrop-filter:blur(10px);box-shadow:0 8px 24px rgba(0,0,0,.04)}
+.topnav-brand{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;color:#16213d;text-decoration:none;letter-spacing:-.02em}
+.topnav-links{display:flex;flex-wrap:wrap;gap:8px}
+.topnav-link{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;border-radius:8px;border:1px solid transparent;background:transparent;color:#4b5563;font-size:13px;font-weight:600;text-decoration:none}
+.topnav-link.active{background:#16213d;border-color:#16213d;color:#fff}
+.topnav-link:hover{background:#f5f3ee;border-color:#d9d5cc;color:#16213d}
+.crosslinks{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 24px}
+.crosslink{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;border-radius:8px;border:1px solid #d9d5cc;background:#fff;color:#16213d;font-size:13px;font-weight:600;text-decoration:none}
+.crosslink:hover{background:#f5f3ee}
+@media(max-width:768px){.topnav{top:8px;align-items:flex-start;flex-direction:column;padding:12px 14px}.topnav-links{width:100%}.topnav-link,.crosslink{flex:1}}
+
+.post-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--accent-l);color:var(--accent);border:1px solid #d7dde8;margin-bottom:14px}
+.post-title{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--text);margin-bottom:20px}
 .post-meta{display:flex;gap:20px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:24px}
 .meta-i{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
 .meta-i strong{color:var(--text2);font-weight:500}
-.post-content{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}
-.summary h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);margin:16px 0 10px}
+.post-content{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px}
+.summary h3,.info-section h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);margin:0 0 10px}
+.section-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7a735f;margin-bottom:8px}
 .summary p{font-size:14px;color:var(--text2);line-height:1.8;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.info-section{margin-top:18px}
+.info-section p{font-size:14px;line-height:1.8;padding:14px 16px;border-radius:8px;border:1px solid var(--border);background:#fff}
+.why-box p{border-left:4px solid var(--accent);background:#f4f7ff}
+.impact-box p{border-left:4px solid #d97706;background:#fff7ed}
+.law-box{background:#f3f2f1;border:1px solid #d8d4cb;border-radius:8px;padding:4px 14px}
 .keywords{display:flex;flex-wrap:wrap;gap:5px;margin:16px 0}
 .keywords span{font-family:var(--mono);font-size:11px;color:#fff;background:#2f54eb;padding:4px 10px;border-radius:4px;font-weight:500}
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--text);margin:16px 0 8px}
-.links a{color:var(--accent);text-decoration:none;font-size:13px;font-family:var(--mono)}
+.links a{color:#1d70b8;text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:20px 16px}.post-title{font-size:20px}}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <nav class="topnav" aria-label="페이지 탐색"><a class="topnav-brand" href="/">브리핑룸</a><div class="topnav-links"><a class="topnav-link active" href="/">메인</a><a class="topnav-link" href="/subsidy/">지원사업</a><a class="topnav-link" href="/articles/weekly/">주간 리포트</a><a class="topnav-link" href="/articles/schedule/">차주 일정</a></div></nav>
   <a class="back" href="/">&#8592; 브리핑룸으로</a>
+  <div class="crosslinks" aria-label="관련 페이지 링크"><a class="crosslink" href="https://govbrief.kr/articles/weekly/2026-03-31/">주간 리포트</a><a class="crosslink" href="https://govbrief.kr/articles/schedule/2026-03-31/">차주 일정</a><a class="crosslink" href="https://govbrief.kr/subsidy/">지원사업</a></div>
   <div class="post-badge">🏛 행정안전부 보도자료</div>
   <h1 class="post-title">행정안전부, 고유가·고물가 부담 경감 및 지역활력 제고를 위한 추가경정예산안 9조 5,240억원 편성</h1>
   <div class="post-meta">
@@ -71,14 +90,18 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="meta-i"><span>기관</span><strong>행정안전부</strong></div>
   </div>
   <div class="post-content">
-    <div class="summary">
-      <h3>AI 요약</h3>
+    <section class="summary">
+      <div class="section-kicker">Briefing Summary</div>
+      <h3>요약</h3>
       <p>행정안전부가 고유가와 고물가 부담 경감 및 지역활력 제고를 위해 9조 5,240억원 규모의 추가경정예산안을 편성했습니다. 이 예산안은 2026 년 3 월 31 일 국무회의를 통해 확정되었으며, 지역 경제 활성화와 물가 완화 정책 지원을 목표로 합니다. 해당 예산은 전 국민을 대상으로 하는 물가 안정 조치와 지방 정부의 지역활력 증진 사업 등 광범위한 정책 효과를 기대할 수 있습니다.</p>
-    </div>
+    </section>
+    
     <div class='keywords'><span>#추가경정예산</span><span>#지역활력</span><span>#물가경감</span><span>#9조 5240 억</span><span>#고유가</span></div>
+    
+    
     <div class="links">
       <h4>원문</h4>
-      <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156751994" target="_blank" rel="noopener noreferrer">↗ 원문 보기</a>
+      <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156751994" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
 </div>

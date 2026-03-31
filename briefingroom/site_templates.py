@@ -3,15 +3,16 @@ from __future__ import annotations
 import html
 
 SITE_NAV_CSS = """
-.topnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;padding:12px 14px;background:#fff;border:1px solid #e0ddd7;border-radius:12px}
-.topnav-brand{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:#1c1b18;text-decoration:none}
+.topnav{position:sticky;top:16px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;padding:14px 18px;background:rgba(255,255,255,.96);border:1px solid #d9d5cc;border-radius:14px;backdrop-filter:blur(10px);box-shadow:0 8px 24px rgba(0,0,0,.04)}
+.topnav-brand{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;color:#16213d;text-decoration:none;letter-spacing:-.02em}
 .topnav-links{display:flex;flex-wrap:wrap;gap:8px}
-.topnav-link{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 12px;border-radius:999px;border:1px solid #e0ddd7;background:#fff;color:#4a4844;font-size:12px;font-weight:600;text-decoration:none}
-.topnav-link.active{background:#1a1a2e;border-color:#1a1a2e;color:#fff}
-.crosslinks{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 24px}
-.crosslink{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 12px;border-radius:10px;border:1px solid #e0ddd7;background:#fff;color:#1c1b18;font-size:12px;font-weight:600;text-decoration:none}
-.crosslink:hover,.topnav-link:hover{border-color:#c9a84c;color:#1a1a2e}
-@media(max-width:768px){.topnav{align-items:flex-start;flex-direction:column}.topnav-links{width:100%}.topnav-link,.crosslink{flex:1}}
+.topnav-link{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;border-radius:8px;border:1px solid transparent;background:transparent;color:#4b5563;font-size:13px;font-weight:600;text-decoration:none}
+.topnav-link.active{background:#16213d;border-color:#16213d;color:#fff}
+.topnav-link:hover{background:#f5f3ee;border-color:#d9d5cc;color:#16213d}
+.crosslinks{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 24px}
+.crosslink{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;border-radius:8px;border:1px solid #d9d5cc;background:#fff;color:#16213d;font-size:13px;font-weight:600;text-decoration:none}
+.crosslink:hover{background:#f5f3ee}
+@media(max-width:768px){.topnav{top:8px;align-items:flex-start;flex-direction:column;padding:12px 14px}.topnav-links{width:100%}.topnav-link,.crosslink{flex:1}}
 """
 
 

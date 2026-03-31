@@ -12,143 +12,160 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f5f4f0;--surface:#fff;--border:#e0ddd7;--text:#1c1b18;--text2:#4a4844;--accent:#2a3c64;--accent-l:#eef0fd}
+:root{--bg:#f4f1ea;--surface:#fff;--surface-soft:#f8f5ee;--border:#d9d5cc;--text:#161616;--text2:#4a4844;--accent:#16213d;--accent-soft:#c8a85d;--accent-l:#eef2ff}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;line-height:1.7}
-.wrap{max-width:780px;margin:0 auto;padding:32px 24px}
+.wrap{max-width:960px;margin:0 auto;padding:24px 20px 72px}
 .back{color:#96938c;text-decoration:none;font-size:13px;margin-bottom:24px;display:inline-block}
 
-.topnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;padding:12px 14px;background:#fff;border:1px solid #e0ddd7;border-radius:12px}
-.topnav-brand{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:#1c1b18;text-decoration:none}
+.topnav{position:sticky;top:16px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;padding:14px 18px;background:rgba(255,255,255,.96);border:1px solid #d9d5cc;border-radius:14px;backdrop-filter:blur(10px);box-shadow:0 8px 24px rgba(0,0,0,.04)}
+.topnav-brand{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;color:#16213d;text-decoration:none;letter-spacing:-.02em}
 .topnav-links{display:flex;flex-wrap:wrap;gap:8px}
-.topnav-link{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 12px;border-radius:999px;border:1px solid #e0ddd7;background:#fff;color:#4a4844;font-size:12px;font-weight:600;text-decoration:none}
-.topnav-link.active{background:#1a1a2e;border-color:#1a1a2e;color:#fff}
-.crosslinks{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 24px}
-.crosslink{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 12px;border-radius:10px;border:1px solid #e0ddd7;background:#fff;color:#1c1b18;font-size:12px;font-weight:600;text-decoration:none}
-.crosslink:hover,.topnav-link:hover{border-color:#c9a84c;color:#1a1a2e}
-@media(max-width:768px){.topnav{align-items:flex-start;flex-direction:column}.topnav-links{width:100%}.topnav-link,.crosslink{flex:1}}
+.topnav-link{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;border-radius:8px;border:1px solid transparent;background:transparent;color:#4b5563;font-size:13px;font-weight:600;text-decoration:none}
+.topnav-link.active{background:#16213d;border-color:#16213d;color:#fff}
+.topnav-link:hover{background:#f5f3ee;border-color:#d9d5cc;color:#16213d}
+.crosslinks{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 24px}
+.crosslink{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;border-radius:8px;border:1px solid #d9d5cc;background:#fff;color:#16213d;font-size:13px;font-weight:600;text-decoration:none}
+.crosslink:hover{background:#f5f3ee}
+@media(max-width:768px){.topnav{top:8px;align-items:flex-start;flex-direction:column;padding:12px 14px}.topnav-links{width:100%}.topnav-link,.crosslink{flex:1}}
 
-h1{font-family:'Noto Serif KR',serif;font-size:28px;font-weight:700;margin-bottom:8px}
+h1{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:700;margin-bottom:8px;letter-spacing:-.03em}
 .sub{color:var(--text2);font-size:14px;margin-bottom:24px}
+.hero{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px}
+.hero-kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7b776d;margin-bottom:8px}
+.hero-copy{font-size:15px;color:var(--text2);max-width:720px}
 .kpi{display:flex;gap:16px;margin-bottom:24px}
-.kpi-box{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.kpi-box{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
 .kpi-val{font-size:24px;font-weight:700;color:var(--accent)}
 .kpi-label{font-size:11px;color:#96938c;margin-top:4px}
+.signals{display:grid;gap:14px}
+.signal-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;position:relative;overflow:hidden}
+.signal-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent-soft)}
+.signal-index{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a7960;margin-bottom:10px}
+.signal-card h2{font-family:'Noto Serif KR',serif;font-size:22px;line-height:1.4;margin-bottom:10px}
+.signal-evidence{font-size:14px;color:var(--text2);margin-bottom:14px}
+.signal-related{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12px;color:#746f65;border-top:1px solid var(--border);padding-top:12px}
+.signal-related a{color:var(--accent);font-weight:600;text-decoration:none}
+.signal-related a:hover{text-decoration:underline}
 .section{margin-top:32px}
 .section h2{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:16px}
-.sector-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px}
-.sector-header{font-weight:700;font-size:15px;color:var(--accent);margin-bottom:4px}
-.sector-source{font-size:12px;color:#96938c;margin-bottom:6px}
-.sector-title a{color:var(--text);font-weight:600;font-size:14px;text-decoration:none}
-.sector-title a:hover{color:var(--accent);text-decoration:underline}
-.sector-summary{font-size:13px;color:var(--text2);margin-top:6px}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{background:var(--accent-l);color:var(--accent);font-weight:600;padding:8px 10px;text-align:left;border:1px solid var(--border)}
 td{padding:7px 10px;border:1px solid var(--border);vertical-align:top}
 td a{color:var(--accent);text-decoration:none}
 td a:hover{text-decoration:underline}
 td.num{text-align:center;white-space:nowrap}
-.insight{background:var(--accent-l);border-left:4px solid var(--accent);padding:12px 16px;margin:16px 0;font-size:13px;color:var(--accent);border-radius:0 8px 8px 0}
 .keywords{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
 .keywords span{background:var(--accent);color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500}
 .footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:#96938c;text-align:center}
-@media(max-width:600px){.kpi{flex-direction:column}.wrap{padding:20px 16px}h1{font-size:22px}}
+@media(max-width:600px){.kpi{flex-direction:column}.wrap{padding:16px 16px 64px}h1{font-size:26px}.hero{padding:18px}.signal-card h2{font-size:18px}.signal-related{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <nav class="topnav" aria-label="페이지 탐색"><a class="topnav-brand" href="/">브리핑룸</a><div class="topnav-links"><a class="topnav-link" href="/">메인</a><a class="topnav-link" href="/subsidy/">지원사업</a><a class="topnav-link active" href="/articles/weekly/">주간 리포트</a><a class="topnav-link" href="/articles/schedule/">차주 일정</a></div></nav>
 <a class="back" href="/">← 브리핑룸으로</a>
-<h1>주간 정책 브리핑</h1>
+<section class="hero">
+  <div class="hero-kicker">Weekly Policy Signals</div>
+  <h1>이번 주 정책 시그널 5개</h1>
+  <div class="hero-copy">2026년 3월 22일부터 3월 28일까지의 정부 보도자료 흐름을 Bloomberg형 데이터 밀도와 브리핑 형식으로 정리했습니다.</div>
+</section>
 <div class="sub">2026년 3월 22일 ~ 3월 28일</div>
 <div class="crosslinks" aria-label="관련 페이지 링크"><a class="crosslink" href="https://govbrief.kr/articles/schedule/2026-03-29/">차주 일정 보기</a><a class="crosslink" href="https://govbrief.kr/subsidy/">지원사업 보기</a></div>
 
 <div class="kpi">
   <div class="kpi-box"><div class="kpi-val">608</div><div class="kpi-label">총 보도자료</div></div>
   <div class="kpi-box"><div class="kpi-val">57</div><div class="kpi-label">참여 부처</div></div>
-  <div class="kpi-box"><div class="kpi-val">#인공지능</div><div class="kpi-label">핵심 키워드</div></div>
+  <div class="kpi-box"><div class="kpi-val">-67</div><div class="kpi-label">전주 대비</div></div>
 </div>
 
 <div class="keywords"><span>#인공지능</span><span>#국민안전</span><span>#AI</span><span>#소상공인</span><span>#중동전쟁</span></div>
 
 <div class="section">
-  <h2>분야별 Top Story</h2>
-  
-        <div class="sector-card">
-          <div class="sector-header">금융·경제 (101건)</div>
-          <div class="sector-source">재정경제부 | 뉴스 인용 0건</div>
-          <div class="sector-title"><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&cat=금융경제">중동상황에 따른 고유가 대응 관계장관 간담회 개최구윤철 부총리 겸 재정경</a></div>
-          <div class="sector-summary">중동 상황으로 인한 고유가 상승에 대비해 정부는 추경 신속 편성과 함께 금융·세제·규제를 활용한 종합적 대응을 강화하며, 에너지 수급관리 계획을 구체화하고 공표하는 등 다각적 대책을 시행한다.</div>
-        </div>
-        <div class="sector-card">
-          <div class="sector-header">사회·복지 (112건)</div>
-          <div class="sector-source">보건복지부 | 뉴스 인용 0건</div>
-          <div class="sector-title"><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&cat=사회복지">정은경 장관, 위기가구 사망 사건 관련 긴급 점검회의 개최</a></div>
-          <div class="sector-summary"></div>
-        </div>
-        <div class="sector-card">
-          <div class="sector-header">산업·기술 (242건)</div>
-          <div class="sector-source">중소벤처기업부 | 뉴스 인용 0건</div>
-          <div class="sector-title"><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&cat=산업기술">중기부, 중견기업으로 도약(Jump-Up)할유망 중소기업 100개사 최종 선정!중소벤처기업부</a></div>
-          <div class="sector-summary">중소벤처기업부는 &#x27;도약(Jump-Up) 프로그램&#x27;을 통해 업력 7년 이상의 중견기업 100개사를 3월 23일 최종 선정, 2024년 평균 매출 466억원, 고용 126명, 매출액 증가율 13.8%를 기록한 기업들을 대상으로 3년간 신사업 전략 수립·기술 자문·해외진출 네트워킹 등을 지원하며, 최대 7.5억원의 바우처를 제공한다.</div>
-        </div>
-        <div class="sector-card">
-          <div class="sector-header">외교·안보 (67건)</div>
-          <div class="sector-source">외교부 | 뉴스 인용 0건</div>
-          <div class="sector-title"><a href="https://govbrief.kr/articles/2026-03-23/000/?ref=weekly&cat=외교안보">한-네덜란드 외교장관 통화(3.23.) 결과</a></div>
-          <div class="sector-summary">한-네덜란드 외교장관은 2026년 3월 23일 전화 통화를 통해 양국의 &#x27;전략적 동반자 관계&#x27;를 기반으로 우호협력을 강화하기로 합의하며, 교역·투자 및 반도체 분야 협력 확대를 중점으로 제시하였다. 특히 중동과 우크라이나 지역의 지정학적 불안이 심화되면서 에너지 공급망 안정에 대한 협력과 소통의 필요성을 공감하고, 통상국가로서의 공통점을 바탕으로 국제정세 대응에 공동으로 기여할 계획이다.</div>
-        </div>
-        <div class="sector-card">
-          <div class="sector-header">행정·법제 (86건)</div>
-          <div class="sector-source">행정안전부 | 뉴스 인용 0건</div>
-          <div class="sector-title"><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&cat=행정법제">대전 대덕구 공장화재 구호활동을 위한 재난구호사업비 긴급 지원</a></div>
-          <div class="sector-summary">행정안전부는 2026년 3월 20일 대전 대덕구 공장화재 피해자 및 유가족 지원을 위해 총 7천만 원의 재난구호사업비를 긴급으로 지원했다. 이는 숙박·구호물품 제공과 자원봉사활동 지원을 포함하며, 중앙합동재난피해자지원센터 운영 경비로 사용된다. 32개 기관(행안부, 고용부, 복지부 등)이 연계하여 현장 구호활동을 수행할 예정이다.</div>
-        </div>
+  <h2>시그널 브리핑</h2>
+  <div class="signals">
+        <article class="signal-card">
+          <div class="signal-index">Signal 01</div>
+          <h2>인공지능 정책 확산</h2>
+          <p class="signal-evidence">&#x27;인공지능&#x27; 키워드 9회 등장, 전체 57개 부처 흐름과 연결</p>
+          <div class="signal-related">
+            <span>재정경제부</span>
+            <a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&signal=1">중동상황에 따른 고유가 대응 관계장관 간담회 개최구윤철 부총리 겸 재정경 →</a>
+          </div>
+        </article>
+        <article class="signal-card">
+          <div class="signal-index">Signal 02</div>
+          <h2>금융·경제 이슈 부상</h2>
+          <p class="signal-evidence">금융·경제 보도자료 101건, 재정경제부 발표안 뉴스 인용 0건</p>
+          <div class="signal-related">
+            <span>재정경제부</span>
+            <a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&signal=2">중동상황에 따른 고유가 대응 관계장관 간담회 개최구윤철 부총리 겸 재정경 →</a>
+          </div>
+        </article>
+        <article class="signal-card">
+          <div class="signal-index">Signal 03</div>
+          <h2>사회·복지 이슈 부상</h2>
+          <p class="signal-evidence">사회·복지 보도자료 112건, 보건복지부 발표안 뉴스 인용 0건</p>
+          <div class="signal-related">
+            <span>보건복지부</span>
+            <a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&signal=3">정은경 장관, 위기가구 사망 사건 관련 긴급 점검회의 개최 →</a>
+          </div>
+        </article>
+        <article class="signal-card">
+          <div class="signal-index">Signal 04</div>
+          <h2>산업·기술 이슈 부상</h2>
+          <p class="signal-evidence">산업·기술 보도자료 242건, 중소벤처기업부 발표안 뉴스 인용 0건</p>
+          <div class="signal-related">
+            <span>중소벤처기업부</span>
+            <a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&signal=4">중기부, 중견기업으로 도약(Jump-Up)할유망 중소기업 100개사 최종 선정!중소벤처기업부 →</a>
+          </div>
+        </article>
+        <article class="signal-card">
+          <div class="signal-index">Signal 05</div>
+          <h2>외교·안보 이슈 부상</h2>
+          <p class="signal-evidence">외교·안보 보도자료 67건, 외교부 발표안 뉴스 인용 0건</p>
+          <div class="signal-related">
+            <span>외교부</span>
+            <a href="https://govbrief.kr/articles/2026-03-23/000/?ref=weekly&signal=5">한-네덜란드 외교장관 통화(3.23.) 결과 →</a>
+          </div>
+        </article></div>
 </div>
 
 <div class="section">
-  <h2>뉴스 인용 TOP 5</h2>
+  <h2>근거 데이터</h2>
   <table>
     <thead><tr><th>분야</th><th>부처</th><th>보도자료</th><th>뉴스</th></tr></thead>
     <tbody>
           <tr>
             <td>금융·경제</td>
             <td>재정경제부</td>
-            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&rank=1">중동상황에 따른 고유가 대응 관계장관 간담회 개최구윤철 부총리 겸 재정경</a></td>
-            <td class="num">0건</td>
-          </tr>
-          <tr>
-            <td>행정·법제</td>
-            <td>행정안전부</td>
-            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&rank=1">대전 대덕구 공장화재 구호활동을 위한 재난구호사업비 긴급 지원</a></td>
-            <td class="num">0건</td>
-          </tr>
-          <tr>
-            <td>산업·기술</td>
-            <td>중소벤처기업부</td>
-            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&rank=1">중기부, 중견기업으로 도약(Jump-Up)할유망 중소기업 100개사 최종 선정!중소벤처기업</a></td>
+            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&detail=evidence&cat=%EA%B8%88%EC%9C%B5%EA%B2%BD%EC%A0%9C">중동상황에 따른 고유가 대응 관계장관 간담회 개최구윤철 부총리 겸 재정경</a></td>
             <td class="num">0건</td>
           </tr>
           <tr>
             <td>사회·복지</td>
             <td>보건복지부</td>
-            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&rank=1">정은경 장관, 위기가구 사망 사건 관련 긴급 점검회의 개최</a></td>
+            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&detail=evidence&cat=%EC%82%AC%ED%9A%8C%EB%B3%B5%EC%A7%80">정은경 장관, 위기가구 사망 사건 관련 긴급 점검회의 개최</a></td>
+            <td class="num">0건</td>
+          </tr>
+          <tr>
+            <td>산업·기술</td>
+            <td>중소벤처기업부</td>
+            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&detail=evidence&cat=%EC%82%B0%EC%97%85%EA%B8%B0%EC%88%A0">중기부, 중견기업으로 도약(Jump-Up)할유망 중소기업 100개사 최종 선정!중소벤처기업</a></td>
             <td class="num">0건</td>
           </tr>
           <tr>
             <td>외교·안보</td>
             <td>외교부</td>
-            <td><a href="https://govbrief.kr/articles/2026-03-23/000/?ref=weekly&rank=1">한-네덜란드 외교장관 통화(3.23.) 결과</a></td>
+            <td><a href="https://govbrief.kr/articles/2026-03-23/000/?ref=weekly&detail=evidence&cat=%EC%99%B8%EA%B5%90%EC%95%88%EB%B3%B4">한-네덜란드 외교장관 통화(3.23.) 결과</a></td>
+            <td class="num">0건</td>
+          </tr>
+          <tr>
+            <td>행정·법제</td>
+            <td>행정안전부</td>
+            <td><a href="https://govbrief.kr/articles/2026-03-22/000/?ref=weekly&detail=evidence&cat=%ED%96%89%EC%A0%95%EB%B2%95%EC%A0%9C">대전 대덕구 공장화재 구호활동을 위한 재난구호사업비 긴급 지원</a></td>
             <td class="num">0건</td>
           </tr></tbody>
-  </table>
-</div>
-
-<div class="section">
-  <h2>정책 키워드 트렌드</h2>
-  <table>
-    <thead><tr><th>키워드</th><th>횟수</th><th>변화</th><th>관련 부처</th></tr></thead>
-    <tbody><tr><td>#국민안전</td><td class='num'>7회</td><td>+600%</td><td>경찰청(2), 행정안전부(1), 국무조정실(1)</td></tr><tr><td>#소상공인</td><td class='num'>7회</td><td>+75%</td><td>중소벤처기업부(5), 금융위원회(1), 식품의약품안전처(1)</td></tr><tr><td>#중동전쟁</td><td class='num'>7회</td><td>신규</td><td>산업통상부(2), 농림축산식품부(2), 행정안전부(1)</td></tr><tr><td>#산림청</td><td class='num'>7회</td><td>+600%</td><td>산림청(9)</td></tr><tr><td>#취약계층</td><td class='num'>6회</td><td>+500%</td><td>금융위원회(2), 금융감독원(1), 과학기술정보통신부(1)</td></tr><tr><td>#기후변화</td><td class='num'>6회</td><td>+50%</td><td>농촌진흥청(3), 기상청(1), 해양수산부(1)</td></tr><tr><td>#공공기관</td><td class='num'>6회</td><td>+50%</td><td>개인정보보호위원회(3), 인사혁신처(1), 행정안전부(1)</td></tr><tr><td>#안전점검</td><td class='num'>6회</td><td>+100%</td><td>고용노동부(2), 행정안전부(1), 국무조정실(1)</td></tr></tbody>
   </table>
 </div>
 

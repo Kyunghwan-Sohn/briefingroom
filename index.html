@@ -347,14 +347,14 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .hero-why strong{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#1f376d;margin-bottom:4px}
 
 /* ===== BRIEFING + DATA STRIP ===== */
-.briefing-bar{display:none;align-items:center;gap:12px;padding:11px 14px;margin-bottom:12px;background:linear-gradient(90deg,var(--navy),#25304f);border:1px solid rgba(201,168,76,.24);border-radius:var(--r-md);color:var(--gold-light)}
+.briefing-bar{display:none;align-items:center;gap:12px;padding:14px 16px;margin-bottom:12px;background:var(--white);border:1px solid var(--border-light);border-left:4px solid var(--navy);border-radius:var(--r-md);color:var(--text-primary)}
 .briefing-bar.show{display:flex}
-.briefing-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.54);white-space:nowrap}
+.briefing-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap}
 .briefing-items{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
-.briefing-item{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--gold-light);text-decoration:none;min-height:32px}
-.briefing-item:hover{color:#fff}
-.briefing-sep{color:rgba(255,255,255,.28)}
-.data-strip{display:none;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 12px;margin-bottom:16px;background:#171a24;color:#d7d0c0;border-radius:8px;font-family:var(--mono);font-size:11px;line-height:1.5}
+.briefing-item{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--text-primary);text-decoration:none;min-height:24px}
+.briefing-item:hover{color:var(--c-fin)}
+.briefing-sep{color:var(--border-mid)}
+.data-strip{display:none;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 16px;margin-bottom:16px;background:var(--white);color:var(--text-secondary);border:1px solid var(--border-light);border-radius:var(--r-md);font-family:var(--mono);font-size:11px;line-height:1.5}
 .data-strip.show{display:flex}
 .data-strip .delta-up{color:#7dd3a3}
 .data-strip .delta-down{color:#fca5a5}
@@ -364,14 +364,14 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .sub-bar{background:var(--navy);border-radius:var(--r-md);padding:12px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
 .sub-bar-btn{padding:8px 18px;background:var(--gold);color:var(--navy);border:none;border-radius:var(--r-sm);font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all var(--t-fast);text-decoration:none}
 .sub-bar-btn:hover{background:var(--gold-light)}
-.ref-banner{display:none;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;margin-bottom:16px;background:linear-gradient(135deg,#1a1a2e,#2d2d4a);border:1px solid rgba(201,168,76,.25);border-radius:var(--r-md);color:var(--white)}
+.ref-banner{display:none;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;margin-bottom:16px;background:var(--white);border:1px solid var(--border-light);border-left:4px solid var(--gold);border-radius:var(--r-md);color:var(--text-primary)}
 .ref-banner.show{display:flex}
-.ref-banner-copy{font-size:13px;line-height:1.6;color:rgba(255,255,255,.84)}
-.ref-banner-copy strong{color:var(--gold-light)}
+.ref-banner-copy{font-size:13px;line-height:1.6;color:var(--text-secondary)}
+.ref-banner-copy strong{color:var(--text-primary)}
 .ref-banner-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .ref-banner a,.ref-banner button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap}
-.ref-banner a{background:var(--gold);color:var(--navy)}
-.ref-banner button{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);cursor:pointer}
+.ref-banner a{background:var(--navy);color:#fff}
+.ref-banner button{background:#fff;color:var(--navy);border:1px solid var(--border-mid);cursor:pointer}
 
 /* ===== LOADING / EMPTY ===== */
 .loading{text-align:center;padding:60px 0;color:var(--text-muted)}

@@ -618,10 +618,10 @@ def _generate_subsidy_page():
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{{--navy:#0b0c0c;--gold:#c9a84c;--bg:#f3f2f1;--surface:#fff;--border:#b1b4b6;--border-light:#d8d8d8;--text:#0b0c0c;--text2:#505a5f;--muted:#6f777b;--link:#1d70b8}}
+:root{{--navy:#16213d;--gold:#c9a84c;--bg:#f4f1ea;--surface:#fff;--border:#b1b4b6;--border-light:#d8d8d8;--text:#0b0c0c;--text2:#505a5f;--muted:#6f777b;--link:#1d70b8}}
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;min-height:100vh}}
-.wrap{{max-width:1080px;margin:0 auto;padding:24px 16px 80px}}
+.wrap{{max-width:1080px;margin:0 auto;padding:24px 20px 72px}}
 {SITE_NAV_CSS}
 .hero{{background:var(--surface);border:1px solid var(--border);padding:24px;margin-bottom:20px}}
 .hero-kicker{{font-size:11px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}}
@@ -638,7 +638,7 @@ h1{{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:700;margin-bott
 .kpi-val{{font-size:24px;font-weight:700;color:var(--navy)}}
 .kpi-label{{font-size:12px;color:var(--muted);margin-top:4px}}
 .layout{{display:grid;grid-template-columns:280px minmax(0,1fr);gap:18px;align-items:start}}
-.filter-panel{{background:var(--surface);border:1px solid var(--border);padding:18px;position:sticky;top:24px}}
+.filter-panel{{background:var(--surface);border:1px solid var(--border);padding:18px;position:sticky;top:92px}}
 .panel-title{{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;margin-bottom:12px}}
 .gov-input{{width:100%;min-height:44px;padding:10px 12px;border:2px solid var(--navy);font-size:14px;font-family:'Pretendard',sans-serif;outline:none}}
 .gov-help{{font-size:12px;color:var(--muted);margin-top:6px}}
@@ -668,7 +668,7 @@ h1{{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:700;margin-bott
 .section-title{{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border)}}
 .results-count{{font-size:13px;color:var(--muted);margin-bottom:12px}}
 @media(max-width:860px){{.layout{{grid-template-columns:1fr}}.filter-panel{{position:static}}.sub-head,.sub-row{{grid-template-columns:1fr}}.sub-row-col{{font-size:12px}}}}
-@media(max-width:600px){{.kpi-row{{gap:8px}}.kpi{{padding:10px}}.hero{{padding:16px}}.hero-actions{{flex-direction:column}}.hero-btn{{width:100%}}h1{{font-size:28px}}}}
+@media(max-width:600px){{.wrap{{padding:16px 16px 64px}}.kpi-row{{gap:8px}}.kpi{{padding:10px}}.hero{{padding:16px}}.hero-actions{{flex-direction:column}}.hero-btn{{width:100%}}h1{{font-size:28px}}}}
 </style>
 </head>
 <body>

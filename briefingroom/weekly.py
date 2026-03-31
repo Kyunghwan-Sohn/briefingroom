@@ -406,17 +406,17 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{{--bg:#f3f0e8;--surface:#fff;--surface-soft:#f8f5ee;--border:#ddd6c8;--text:#161616;--text2:#4a4844;--accent:#16213d;--accent-soft:#c8a85d;--accent-l:#eef2ff}}
+:root{{--bg:#f4f1ea;--surface:#fff;--surface-soft:#f8f5ee;--border:#d9d5cc;--text:#161616;--text2:#4a4844;--accent:#16213d;--accent-soft:#c8a85d;--accent-l:#eef2ff}}
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;line-height:1.7}}
-.wrap{{max-width:920px;margin:0 auto;padding:32px 24px}}
+.wrap{{max-width:960px;margin:0 auto;padding:24px 20px 72px}}
 .back{{color:#96938c;text-decoration:none;font-size:13px;margin-bottom:24px;display:inline-block}}
 {SITE_NAV_CSS}
 h1{{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:700;margin-bottom:8px;letter-spacing:-.03em}}
 .sub{{color:var(--text2);font-size:14px;margin-bottom:24px}}
-.hero{{background:linear-gradient(135deg,#10192f,#1f2945);color:#fff;border-radius:20px;padding:28px;margin-bottom:28px;box-shadow:0 12px 36px rgba(16,25,47,.14)}}
-.hero-kicker{{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:8px}}
-.hero-copy{{font-size:15px;color:rgba(255,255,255,.84);max-width:720px}}
+.hero{{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px}}
+.hero-kicker{{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7b776d;margin-bottom:8px}}
+.hero-copy{{font-size:15px;color:var(--text2);max-width:720px}}
 .kpi{{display:flex;gap:16px;margin-bottom:24px}}
 .kpi-box{{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}}
 .kpi-val{{font-size:24px;font-weight:700;color:var(--accent)}}
@@ -441,7 +441,7 @@ td.num{{text-align:center;white-space:nowrap}}
 .keywords{{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}}
 .keywords span{{background:var(--accent);color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500}}
 .footer{{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:#96938c;text-align:center}}
-@media(max-width:600px){{.kpi{{flex-direction:column}}.wrap{{padding:20px 16px}}h1{{font-size:26px}}.hero{{padding:20px}}.signal-card h2{{font-size:18px}}.signal-related{{flex-direction:column;align-items:flex-start}}}}
+@media(max-width:600px){{.kpi{{flex-direction:column}}.wrap{{padding:16px 16px 64px}}h1{{font-size:26px}}.hero{{padding:18px}}.signal-card h2{{font-size:18px}}.signal-related{{flex-direction:column;align-items:flex-start}}}}
 </style>
 </head>
 <body>
