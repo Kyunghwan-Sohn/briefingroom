@@ -394,6 +394,16 @@ def main():
 
     _run_instagram(target)
     _run_notifications(all_items, target, is_saturday, briefing_session)
+
+    # ── 지원사업 수집 (매일 1회) ──
+    subsidy_enabled = _env_flag("SUBSIDY_ENABLED", "true")
+    if subsidy_enabled and not is_saturday:
+        try:
+            from briefingroom.subsidy import run_subsidy
+            run_subsidy()
+        except Exception as e:
+            print(f"  [지원사업 수집 실패] {e}")
+
     print_dashboard(target.isoformat())
     print_dashboard()
 
