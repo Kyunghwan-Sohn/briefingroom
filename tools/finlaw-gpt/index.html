@@ -217,21 +217,62 @@ async function sendMessage() {
     const r = await fetch(LLM_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: q }),
+      body: JSON.stringify({ question: q, stream: true }),
     });
 
     hideLoading();
-    const data = await r.json();
-    if (data.error) {
-      addMessage('오류: ' + data.error, 'bot');
+
+    if (!r.ok) {
+      const err = await r.json().catch(() => ({}));
+      addMessage('오류: ' + (err.error || r.statusText), 'bot');
     } else {
-      const botDiv = addMessage(data.answer || '응답을 받지 못했습니다.', 'bot');
-      const src = data.sources || {};
-      const srcCount = (src.laws||0) + (src.articles||0) + (src.precedents||0) + (src.interpretations||0);
+      // SSE 스트리밍 수신
+      const botDiv = document.createElement('div');
+      botDiv.className = 'msg bot';
+      messagesEl.appendChild(botDiv);
+      let fullText = '';
+      let sources = {};
+
+      const reader = r.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          const payload = line.slice(6).trim();
+          if (payload === '[DONE]') continue;
+          try {
+            const obj = JSON.parse(payload);
+            if (obj.sources) {
+              sources = obj.sources;
+            }
+            if (obj.chunk) {
+              fullText += obj.chunk;
+              botDiv.innerHTML = fullText
+                .replace(/### (.*)/g, '<h3>$1</h3>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/`(.*?)`/g, '<code>$1</code>')
+                .replace(/\n- /g, '\n<br>- ')
+                .replace(/\n\n/g, '<br><br>')
+                .replace(/\n/g, '<br>');
+              messagesEl.scrollTop = messagesEl.scrollHeight;
+            }
+          } catch (e) {}
+        }
+      }
+
+      // 출처 표시
+      const srcCount = (sources.laws||0) + (sources.articles||0) + (sources.precedents||0) + (sources.interpretations||0);
       if (srcCount > 0) {
         const srcDiv = document.createElement('div');
         srcDiv.className = 'msg-sources';
-        srcDiv.textContent = '참조: 법령 ' + (src.laws||0) + '건, 조문 ' + (src.articles||0) + '건, 판례 ' + (src.precedents||0) + '건, 해석례 ' + (src.interpretations||0) + '건';
+        srcDiv.textContent = '참조: 법령 ' + (sources.laws||0) + '건, 조문 ' + (sources.articles||0) + '건, 판례 ' + (sources.precedents||0) + '건, 해석례 ' + (sources.interpretations||0) + '건';
         botDiv.appendChild(srcDiv);
       }
     }
