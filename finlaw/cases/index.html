@@ -4,39 +4,89 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>금융 판례 - 브리핑룸</title>
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#1a1a2e;--gold:#c9a84c;--bg:#f7f7f5;--surface:#fff;--border:#e0ddd7;--text:#1c1b18;--muted:#96938c}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif}
-.wrap{max-width:960px;margin:0 auto;padding:24px 16px 80px}
-.back{color:var(--muted);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px}
-h1{font-family:'Noto Serif KR',serif;font-size:26px;margin-bottom:8px}
-.desc{color:#4a4844;font-size:14px;margin-bottom:20px}
-.nav{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.nav a{padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:13px;font-weight:600;color:var(--text);text-decoration:none}
-.nav a:hover{border-color:var(--navy)}
-.nav a.active{background:var(--navy);color:#fff;border-color:var(--navy)}
-table{width:100%;border-collapse:collapse;font-size:13px;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-th{background:#1a1a2e;color:#fff;padding:10px 12px;text-align:left;font-size:12px}
-td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
+.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
+.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
+.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-size:14px;font-weight:600;margin-left:auto;flex-shrink:0}
+.wrap{padding:24px 20px 80px}
+.back{color:var(--m);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px}
+h1{font-family:var(--serif);font-size:26px;margin-bottom:8px}
+.desc{color:var(--t2);font-size:14px;margin-bottom:16px}
+.nav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.nav a{padding:8px 16px;border-radius:8px;border:1px solid var(--b);background:var(--s);font-size:13px;font-weight:600;color:var(--t);text-decoration:none}
+.nav a:hover{border-color:var(--a)}
+.nav a.active{background:var(--a);color:#fff;border-color:var(--a)}
+.filter-bar{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.filter-bar label{font-size:12px;color:var(--t2);font-weight:600}
+.filter-bar input[type=date]{font-family:var(--mono);font-size:12px;padding:6px 10px;border:1px solid var(--b);border-radius:6px;background:var(--s);color:var(--t);outline:none}
+.filter-bar input[type=date]:focus{border-color:var(--a)}
+.filter-bar button{padding:6px 14px;border-radius:6px;border:1px solid var(--a);background:var(--a);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans)}
+table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:13px;background:var(--s);border:1px solid var(--b);border-radius:10px;overflow:hidden}
+col.c-date{width:90px}
+col.c-court{width:60px}
+col.c-case{width:auto}
+col.c-link{width:52px}
+th{background:var(--a);color:#fff;padding:10px 8px;text-align:left;font-size:12px;white-space:nowrap}
+td{padding:10px 8px;border-bottom:1px solid var(--b);vertical-align:top}
+td:first-child{white-space:nowrap;font-family:var(--mono);font-size:11px;color:var(--t2)}
+td:nth-child(2){white-space:nowrap;font-size:12px}
+td:nth-child(4){white-space:nowrap;text-align:center}
+td:nth-child(3) div:first-child{word-break:keep-all;overflow-wrap:break-word}
 tr:last-child td{border-bottom:none}
-@media(max-width:600px){table{font-size:11px}td,th{padding:8px 6px}}
+@media(max-width:768px){
+  body{padding-top:52px}
+  .hdr{height:50px;padding:0 14px}
+  .logo{font-size:17px;margin-right:10px}
+  .hnav a{font-size:11px;padding:5px 8px}
+  table{font-size:11px}
+  td,th{padding:8px 6px}
+  .filter-bar{gap:6px}
+}
 </style>
 </head>
 <body>
+
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">정책 AI 요약</a>
+    <a class="on" href="/finlaw/">금융법령 AI 모니터링</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
 <div class="wrap">
-<a class="back" href="/finlaw/">← 금융법령 허브</a>
+<a class="back" href="/finlaw/">← 금융법령 AI 모니터링</a>
 <h1>금융 판례</h1>
 <div class="desc">금융 관련 대법원/고등법원 판례 526건</div>
 <div class="nav">
   <a href="/finlaw/">법령 목록</a>
   <a class="active" href="/finlaw/cases/">판례 526건</a>
-  <a href="/finlaw/notices/">입법예고</a>
-  <a href="/">보도자료</a>
+  <a href="/finlaw/notices/">법령 개정 이력</a>
+</div>
+<div style="position:relative;margin-bottom:12px">
+  <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:14px">⌕</span>
+  <input id="case-search" type="text" placeholder="사건명, 사건번호, 법원으로 검색..." style="width:100%;padding:12px 14px 12px 36px;font-size:14px;border:2px solid var(--b);border-radius:10px;background:var(--s);color:var(--t);outline:none;font-family:var(--sans)">
+</div>
+<div class="filter-bar">
+  <label>기간</label>
+  <input type="date" id="date-from" value="2025-01-01"> <span style="color:var(--m)">~</span> <input type="date" id="date-to" value="2026-04-01">
+  <button onclick="filterByDate()">조회</button>
+  <span id="result-count" style="font-family:var(--mono);font-size:11px;color:var(--m);margin-left:8px"></span>
 </div>
 <table>
+<colgroup><col class="c-date"><col class="c-court"><col class="c-case"><col class="c-link"></colgroup>
 <thead><tr><th>선고일</th><th>법원</th><th>사건명 / 사건번호</th><th>원문</th></tr></thead>
 <tbody><tr>
       <td style="white-space:nowrap">2026.01.15</td>
@@ -2671,5 +2721,42 @@ tr:last-child td{border-bottom:none}
     </tr></tbody>
 </table>
 </div>
+
+<script>
+const rows = document.querySelectorAll('table tbody tr');
+const searchInput = document.getElementById('case-search');
+const countEl = document.getElementById('result-count');
+
+function updateCount() {
+  const visible = document.querySelectorAll('table tbody tr:not([style*="display: none"])').length;
+  countEl.textContent = visible + '건 표시';
+}
+
+searchInput.addEventListener('input', function() {
+  const val = this.value.trim().toLowerCase();
+  if (!val) { rows.forEach(r => r.style.display = ''); updateCount(); return; }
+  const terms = val.split(/\s+/);
+  rows.forEach(r => {
+    const text = r.textContent.toLowerCase();
+    const match = terms.every(t => text.includes(t));
+    r.style.display = match ? '' : 'none';
+  });
+  updateCount();
+});
+
+function filterByDate() {
+  const from = document.getElementById('date-from').value.replace(/-/g, '.');
+  const to = document.getElementById('date-to').value.replace(/-/g, '.');
+  rows.forEach(r => {
+    const dateCell = r.cells[0].textContent.trim();
+    const show = dateCell >= from && dateCell <= to;
+    const searchMatch = r.style.display !== 'none' || !searchInput.value;
+    r.style.display = show ? '' : 'none';
+  });
+  updateCount();
+}
+
+updateCount();
+</script>
 </body>
 </html>

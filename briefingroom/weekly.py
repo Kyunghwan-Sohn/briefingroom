@@ -14,7 +14,7 @@ from pathlib import Path
 
 from briefingroom.config import BASE_DIR, CAT_MAP, DATA_DIR
 from briefingroom.llm import generate_weekly_signals
-from briefingroom.site_templates import SITE_NAV_CSS, render_crosslinks, render_top_nav
+from briefingroom.site_templates import SITE_BASE_CSS, SITE_FONT_LINKS, SITE_NAV_CSS, render_crosslinks, render_top_nav
 from briefingroom.weekly_analysis import analyze_weekly, select_weekly_top
 from briefingroom.telegram import (
     CAT_ORDER, SITE_URL, _escape_html, send_telegram,
@@ -403,44 +403,41 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
 <meta property="og:type" content="article">
 <meta property="og:title" content="주간 정책 브리핑 ({s.month}/{s.day}~{e.month}/{e.day})">
 <meta property="og:url" content="{post_url}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
+{SITE_FONT_LINKS}
 <style>
-:root{{--bg:#f4f1ea;--surface:#fff;--surface-soft:#f8f5ee;--border:#d9d5cc;--text:#161616;--text2:#4a4844;--accent:#16213d;--accent-soft:#c8a85d;--accent-l:#eef2ff}}
-*{{box-sizing:border-box;margin:0;padding:0}}
-body{{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;line-height:1.7}}
+{SITE_BASE_CSS}
 .wrap{{max-width:960px;margin:0 auto;padding:24px 20px 72px}}
-.back{{color:#96938c;text-decoration:none;font-size:13px;margin-bottom:24px;display:inline-block}}
+.back{{color:var(--m);text-decoration:none;font-size:13px;margin-bottom:24px;display:inline-block}}
 {SITE_NAV_CSS}
-h1{{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:700;margin-bottom:8px;letter-spacing:-.03em}}
-.sub{{color:var(--text2);font-size:14px;margin-bottom:24px}}
-.hero{{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px}}
-.hero-kicker{{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7b776d;margin-bottom:8px}}
-.hero-copy{{font-size:15px;color:var(--text2);max-width:720px}}
+h1{{font-family:var(--serif);font-size:34px;font-weight:700;margin-bottom:8px;letter-spacing:-.03em}}
+.sub{{color:var(--t2);font-size:14px;margin-bottom:24px}}
+.hero{{background:var(--s);color:var(--t);border:1px solid var(--b);border-radius:14px;padding:24px;margin-bottom:24px}}
+.hero-kicker{{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--m);margin-bottom:8px}}
+.hero-copy{{font-size:15px;color:var(--t2);max-width:720px}}
 .kpi{{display:flex;gap:16px;margin-bottom:24px}}
-.kpi-box{{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}}
-.kpi-val{{font-size:24px;font-weight:700;color:var(--accent)}}
-.kpi-label{{font-size:11px;color:#96938c;margin-top:4px}}
+.kpi-box{{flex:1;background:var(--s);border:1px solid var(--b);border-radius:12px;padding:16px;text-align:center}}
+.kpi-val{{font-size:24px;font-weight:700;color:var(--a)}}
+.kpi-label{{font-size:11px;color:var(--m);margin-top:4px}}
 .signals{{display:grid;gap:14px}}
-.signal-card{{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;position:relative;overflow:hidden}}
-.signal-card::before{{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent-soft)}}
-.signal-index{{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a7960;margin-bottom:10px}}
-.signal-card h2{{font-family:'Noto Serif KR',serif;font-size:22px;line-height:1.4;margin-bottom:10px}}
-.signal-evidence{{font-size:14px;color:var(--text2);margin-bottom:14px}}
-.signal-related{{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12px;color:#746f65;border-top:1px solid var(--border);padding-top:12px}}
-.signal-related a{{color:var(--accent);font-weight:600;text-decoration:none}}
+.signal-card{{background:var(--s);border:1px solid var(--b);border-radius:16px;padding:22px;position:relative;overflow:hidden}}
+.signal-card::before{{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--a)}}
+.signal-index{{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--m);margin-bottom:10px}}
+.signal-card h2{{font-family:var(--serif);font-size:22px;line-height:1.4;margin-bottom:10px}}
+.signal-evidence{{font-size:14px;color:var(--t2);margin-bottom:14px}}
+.signal-related{{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12px;color:var(--m);border-top:1px solid var(--b);padding-top:12px}}
+.signal-related a{{color:var(--a);font-weight:600;text-decoration:none}}
 .signal-related a:hover{{text-decoration:underline}}
 .section{{margin-top:32px}}
-.section h2{{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:16px}}
+.section h2{{font-family:var(--serif);font-size:18px;font-weight:700;border-bottom:2px solid var(--a);padding-bottom:6px;margin-bottom:16px}}
 table{{width:100%;border-collapse:collapse;font-size:13px}}
-th{{background:var(--accent-l);color:var(--accent);font-weight:600;padding:8px 10px;text-align:left;border:1px solid var(--border)}}
-td{{padding:7px 10px;border:1px solid var(--border);vertical-align:top}}
-td a{{color:var(--accent);text-decoration:none}}
+th{{background:var(--al);color:var(--a);font-weight:600;padding:8px 10px;text-align:left;border:1px solid var(--b)}}
+td{{padding:7px 10px;border:1px solid var(--b);vertical-align:top}}
+td a{{color:var(--a);text-decoration:none}}
 td a:hover{{text-decoration:underline}}
 td.num{{text-align:center;white-space:nowrap}}
 .keywords{{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}}
-.keywords span{{background:var(--accent);color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500}}
-.footer{{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:#96938c;text-align:center}}
+.keywords span{{background:var(--a);color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500}}
+.footer{{margin-top:40px;padding-top:16px;border-top:1px solid var(--b);font-size:11px;color:var(--m);text-align:center}}
 @media(max-width:600px){{.kpi{{flex-direction:column}}.wrap{{padding:16px 16px 64px}}h1{{font-size:26px}}.hero{{padding:18px}}.signal-card h2{{font-size:18px}}.signal-related{{flex-direction:column;align-items:flex-start}}}}
 </style>
 </head>

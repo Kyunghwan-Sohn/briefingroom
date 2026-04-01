@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
 
 from briefingroom.config import DATA_DIR
-from briefingroom.site_templates import SITE_NAV_CSS, render_crosslinks, render_top_nav
+from briefingroom.site_templates import SITE_BASE_CSS, SITE_FONT_LINKS, SITE_NAV_CSS, render_crosslinks, render_top_nav
 
 SITE_URL = "https://govbrief.kr"
 SITE_TITLE = "브리핑룸 — 정부 보도자료 AI 요약"
@@ -226,34 +226,31 @@ def generate_article_pages(target_date: str) -> int:
   "mainEntityOfPage": "{article_url}"
 }}
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+{SITE_FONT_LINKS}
 <style>
-:root{{--bg:#f4f1ea;--surface:#fff;--border:#d9d5cc;--text:#1c1b18;--text2:#4a4844;--muted:#7b776d;--accent:#16213d;--accent-l:#eef2f7;--serif:'Noto Serif KR',serif;--sans:'Pretendard',sans-serif;--mono:'DM Mono',monospace}}
-*,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
-body{{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh}}
+{SITE_BASE_CSS}
 .wrap{{max-width:960px;margin:0 auto;padding:24px 20px 72px;position:relative;z-index:1}}
-.back{{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:12px;margin-bottom:20px;padding:7px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:all .15s}}
-.back:hover{{color:var(--text)}}
+.back{{display:inline-flex;align-items:center;gap:6px;color:var(--m);text-decoration:none;font-family:var(--mono);font-size:12px;margin-bottom:20px;padding:7px 14px;background:var(--s);border:1px solid var(--b);border-radius:8px;transition:all .15s}}
+.back:hover{{color:var(--t)}}
 {SITE_NAV_CSS}
-.post-badge{{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--accent-l);color:var(--accent);border:1px solid #d7dde8;margin-bottom:14px}}
-.post-title{{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--text);margin-bottom:20px}}
-.post-meta{{display:flex;gap:20px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:24px}}
-.meta-i{{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:3px}}
-.meta-i strong{{color:var(--text2);font-weight:500}}
-.post-content{{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px}}
-.summary h3,.info-section h3{{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);margin:0 0 10px}}
-.section-kicker{{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7a735f;margin-bottom:8px}}
-.summary p{{font-size:14px;color:var(--text2);line-height:1.8;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px}}
+.post-badge{{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--al);color:var(--a);border:1px solid var(--ab);margin-bottom:14px}}
+.post-title{{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--t);margin-bottom:20px}}
+.post-meta{{display:flex;gap:20px;padding:14px 0;border-top:1px solid var(--b);border-bottom:1px solid var(--b);margin-bottom:24px}}
+.meta-i{{font-family:var(--mono);font-size:11px;color:var(--m);display:flex;flex-direction:column;gap:3px}}
+.meta-i strong{{color:var(--t2);font-weight:500}}
+.post-content{{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:28px}}
+.summary h3,.info-section h3{{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--t);margin:0 0 10px}}
+.section-kicker{{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:8px}}
+.summary p{{font-size:14px;color:var(--t2);line-height:1.8;background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:14px 16px}}
 .info-section{{margin-top:18px}}
-.info-section p{{font-size:14px;line-height:1.8;padding:14px 16px;border-radius:8px;border:1px solid var(--border);background:#fff}}
-.why-box p{{border-left:4px solid var(--accent);background:#f4f7ff}}
-.impact-box p{{border-left:4px solid #d97706;background:#fff7ed}}
-.law-box{{background:#f3f2f1;border:1px solid #d8d4cb;border-radius:8px;padding:4px 14px}}
+.info-section p{{font-size:14px;line-height:1.8;padding:14px 16px;border-radius:8px;border:1px solid var(--b);background:#fff}}
+.why-box p{{border-left:4px solid #4a6cf7;background:#eef2ff}}
+.impact-box p{{border-left:4px solid var(--a);background:var(--al)}}
+.law-box{{background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:4px 14px}}
 .keywords{{display:flex;flex-wrap:wrap;gap:5px;margin:16px 0}}
-.keywords span{{font-family:var(--mono);font-size:11px;color:#fff;background:#2f54eb;padding:4px 10px;border-radius:4px;font-weight:500}}
-.links h4{{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--text);margin:16px 0 8px}}
-.links a{{color:#1d70b8;text-decoration:none;font-size:13px;font-family:var(--mono)}}
+.keywords span{{font-family:var(--mono);font-size:11px;color:#fff;background:var(--a);padding:4px 10px;border-radius:4px;font-weight:500}}
+.links h4{{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}}
+.links a{{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}}
 .links a:hover{{text-decoration:underline}}
 @media(max-width:768px){{.wrap{{padding:16px 16px 64px}}.post-title{{font-size:24px}}}}
 </style>

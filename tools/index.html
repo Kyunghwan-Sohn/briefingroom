@@ -1,57 +1,172 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>도구 - 브리핑룸</title>
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 도구 - 브리핑룸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#f7f7f5;color:#1c1b18;font-family:'Pretendard',sans-serif}
-.wrap{max-width:720px;margin:0 auto;padding:24px 16px 80px}
-.back{color:#96938c;text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px}
-h1{font-family:'Noto Serif KR',serif;font-size:26px;margin-bottom:8px}
-.desc{color:#4a4844;font-size:14px;margin-bottom:24px}
-.tool-card{background:#fff;border:1px solid #e0ddd7;border-radius:12px;padding:20px;margin-bottom:12px}
-.tool-card h3{font-size:16px;font-weight:700;margin-bottom:6px}
-.tool-card p{font-size:13px;color:#4a4844;line-height:1.6;margin-bottom:10px}
-.tool-badge{display:inline-block;font-size:10px;padding:3px 8px;border-radius:4px;font-weight:600}
-.coming{background:#fff7ed;color:#92400e}
-.live{background:#ecfdf5;color:#065f46}
-</style></head><body>
-<div class="wrap">
-<a class="back" href="/">← 브리핑룸 메인</a>
-<h1>도구</h1>
-<div class="desc">정책 분석과 법률 검토를 위한 AI 도구</div>
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
 
-<div class="tool-card">
-  <h3>🤖 FinLaw GPT</h3>
-  <p>금융법령 5,613건 데이터베이스 기반 AI 법률 어시스턴트. "자본시장법상 불공정거래 요건은?" 같은 질문에 법조문 근거와 함께 답변합니다.</p>
-  <span class="tool-badge coming">준비 중</span>
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
+.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
+.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
+.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-size:14px;font-weight:600;margin-left:auto;flex-shrink:0}
+
+.hero{background:#efefef;padding:48px 24px 40px;text-align:center;border-bottom:1px solid var(--b)}
+.hero h1{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--t);margin-bottom:8px;line-height:1.35}
+.hero p{font-size:15px;color:var(--t2);max-width:540px;margin:0 auto;line-height:1.7}
+
+.sec{padding:0 24px;margin-top:32px}
+.sec-label{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.sec-title{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:16px}
+
+/* Featured tool */
+.featured{background:var(--s);border:2px solid var(--a);border-radius:16px;padding:28px;margin:0 24px;margin-top:28px}
+.featured-label{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.featured h2{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:8px;line-height:1.4}
+.featured p{font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:16px}
+.featured-stats{display:flex;gap:20px;margin-bottom:16px}
+.featured-stat{text-align:center}
+.featured-stat .n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--a)}
+.featured-stat .l{font-size:11px;color:var(--m);margin-top:2px}
+.featured-cta{display:inline-block;padding:12px 24px;background:var(--a);color:#fff;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none}
+.featured-cta:hover{opacity:.9}
+
+/* Tool cards */
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tool{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:24px;display:flex;flex-direction:column}
+.tool-status{font-family:var(--mono);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.tool-status.live{color:#059669}
+.tool-status.soon{color:var(--a)}
+.tool h3{font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:8px;line-height:1.4}
+.tool p{font-size:13px;color:var(--t2);line-height:1.7;flex:1;margin-bottom:12px}
+.tool-use{font-size:12px;color:var(--t2);line-height:1.6;padding:10px 12px;background:var(--bg);border-radius:8px;margin-bottom:12px}
+.tool-use strong{display:block;font-size:10px;color:var(--m);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.tool-link{font-size:13px;color:var(--a);text-decoration:none;font-weight:600}
+
+/* Comparison */
+.compare{background:var(--s);border:1px solid var(--b);border-radius:14px;overflow:hidden}
+.compare-head{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:10px 16px;background:var(--a);color:#fff;font-size:11px;font-weight:700}
+.compare-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:10px 16px;border-bottom:1px solid var(--bl);font-size:13px;align-items:center}
+.compare-row:last-child{border-bottom:none}
+.compare-row .name{font-weight:600}
+.check{color:#059669;font-weight:700;text-align:center}
+.dash{color:var(--bl);text-align:center}
+
+.divider{height:1px;background:var(--b);margin:32px 24px 0}
+
+.cta{margin:32px 24px;padding:24px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+
+.footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}
+.footer a{color:var(--t);text-decoration:none;font-weight:600}
+
+@media(max-width:768px){
+  body{padding-top:52px}
+  .hdr{height:50px;padding:0 14px}
+  .logo{font-size:17px;margin-right:10px}
+  .hnav a{font-size:11px;padding:5px 8px}
+  .hero{padding:32px 16px 24px}
+  .hero h1{font-size:24px}
+  .hero p{font-size:13px}
+  .featured{margin:20px 16px;padding:20px}
+  .featured h2{font-size:20px}
+  .sec{padding:0 16px;margin-top:24px}
+  .tools-grid{grid-template-columns:1fr;gap:10px}
+  .compare-head,.compare-row{grid-template-columns:2fr 1fr 1fr 1fr;font-size:11px;padding:8px 10px}
+  .divider{margin:24px 16px 0}
+  .cta{margin:24px 16px;padding:18px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">정책 AI 요약</a>
+    <a href="/finlaw/">금융법령 AI 모니터링</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<!-- 히어로 -->
+<section class="hero">
+  <h1>정책과 법령을 읽는<br>가장 빠른 방법</h1>
+  <p>govbrief.kr은 51개 정부 부처의 정책 발표와 139개 금융법령 변동을 실시간으로 수집하고, AI가 분석합니다.</p>
+</section>
+
+<!-- Featured: 정책 AI 요약 -->
+<div class="featured">
+  <div class="featured-label">Core Service — Live</div>
+  <h2>정책 AI 요약</h2>
+  <p>대한민국 51개 정부 부처의 보도자료를 매일 자동 수집합니다. AI가 분야별로 종합 요약하고, 영향도를 분석하며, 관련 법령을 자동 연결합니다. 텔레그램 채널로 매일 3분 브리핑을 받아보세요.</p>
+  <div class="featured-stats">
+    <div class="featured-stat"><div class="n">51</div><div class="l">부처</div></div>
+    <div class="featured-stat"><div class="n">150+</div><div class="l">일 수집</div></div>
+    <div class="featured-stat"><div class="n">5</div><div class="l">분야 요약</div></div>
+    <div class="featured-stat"><div class="n">365</div><div class="l">일 운영</div></div>
+  </div>
+  <a class="featured-cta" href="/">브리핑 보기</a>
 </div>
 
-<div class="tool-card">
-  <h3>📊 법령 비교 (LawDiff)</h3>
-  <p>법령 개정 전후 조문을 나란히 비교합니다. GitHub diff 스타일로 변경된 내용을 한눈에 파악할 수 있습니다.</p>
-  <span class="tool-badge coming">준비 중</span>
+<!-- Tools Grid -->
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-label">AI Tools</div>
+  <div class="sec-title">금융법령 분석 도구</div>
+
+  <div class="tools-grid">
+    <div class="tool">
+      <div class="tool-status live">Live</div>
+      <h3>금융법령 AI 모니터링</h3>
+      <p>139개 금융법령의 개정, 판례 526건, 해석례 193건을 추적합니다. 오늘 바뀐 것을 AI가 요약하고 영향을 분석합니다.</p>
+      <div class="tool-use"><strong>활용 예시</strong>"오늘 자본시장법 뭐가 바뀌었지?" — 개정 내용 + 영향 분석 즉시 확인</div>
+      <a class="tool-link" href="/finlaw/">모니터링 보기 →</a>
+    </div>
+
+    <div class="tool">
+      <div class="tool-status soon">Coming Q2 2026</div>
+      <h3>FinLaw GPT</h3>
+      <p>금융법령 5,613건 데이터베이스 기반 AI 법률 어시스턴트. 법조문 근거와 함께 답변합니다. 자연어로 질문하세요.</p>
+      <div class="tool-use"><strong>활용 예시</strong>"자본시장법상 불공정거래 요건은?" — 관련 조문 + 판례 근거 제시</div>
+    </div>
+
+    <div class="tool">
+      <div class="tool-status soon">Coming Q3 2026</div>
+      <h3>LawDiff — 법령 비교</h3>
+      <p>법령 개정 전후 조문을 나란히 비교합니다. 삭제·추가·변경된 내용을 diff 형식으로 한눈에 파악합니다.</p>
+      <div class="tool-use"><strong>활용 예시</strong>자본시장법 시행령 2026.03.17 개정 → 변경 조문 하이라이트</div>
+    </div>
+
+    <div class="tool">
+      <div class="tool-status soon">Coming Q3 2026</div>
+      <h3>내법찾기</h3>
+      <p>상황을 설명하면 관련 법조문과 행동 가이드를 알려드립니다. 법률 전문 용어를 몰라도 괜찮습니다.</p>
+      <div class="tool-use"><strong>활용 예시</strong>"전세보증금 못 돌려받고 있어요" — 관련 법률 + 행동 절차 안내</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+  <a href="https://t.me/govbrief" target="_blank">구독</a>
 </div>
 
-<div class="tool-card">
-  <h3>🔍 내법찾기</h3>
-  <p>"퇴직금 안 줘요", "전세보증금 못 돌려받고 있어요" — 상황을 말하면 관련 법조문과 행동 가이드를 알려드립니다.</p>
-  <span class="tool-badge coming">준비 중</span>
-</div>
+<div class="footer"><a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융법령 AI 모니터링</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
-<div class="tool-card">
-  <h3>📋 보도자료 피드</h3>
-  <p>51개 정부 부처 보도자료를 매일 수집하고 AI가 요약합니다. 관련 법령과 뉴스도 자동 연결됩니다.</p>
-  <a href="/" style="font-size:12px;color:#1d70b8;text-decoration:none;font-weight:600">메인으로 →</a>
-  <span class="tool-badge live">운영 중</span>
-</div>
-
-<div class="tool-card">
-  <h3>📜 금융법령 허브</h3>
-  <p>한국 금융 법령 139건, 조문 3,893건, 판례 526건을 체계적으로 정리합니다.</p>
-  <a href="/finlaw/" style="font-size:12px;color:#1d70b8;text-decoration:none;font-weight:600">법령 허브 →</a>
-  <span class="tool-badge live">운영 중</span>
-</div>
-
-</div></body></html>
+</body>
+</html>

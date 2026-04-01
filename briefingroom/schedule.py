@@ -20,7 +20,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from briefingroom.config import BASE_DIR, HEADERS
-from briefingroom.site_templates import SITE_NAV_CSS, render_crosslinks, render_top_nav
+from briefingroom.site_templates import SITE_BASE_CSS, SITE_FONT_LINKS, SITE_NAV_CSS, render_crosslinks, render_top_nav
 from briefingroom.telegram import SITE_URL, _escape_html, send_telegram, TELEGRAM_ENABLED
 
 ARTICLES_DIR = BASE_DIR / "articles"
@@ -596,24 +596,22 @@ def generate_schedule_post(items: list[dict], target: date) -> str:
 <meta property="og:description" content="총 {total}건 · {dept_count}개 부처 주요 일정">
 <meta property="og:url" content="{post_url}">
 <link rel="canonical" href="{post_url}">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+{SITE_FONT_LINKS}
 <style>
-*{{box-sizing:border-box;margin:0;padding:0}}
-body{{background:#f5f4f0;color:#1c1b18;font-family:'Pretendard',sans-serif;line-height:1.6}}
-body::before{{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 1px 1px,#e0ddd7 1px,transparent 0);background-size:24px 24px;opacity:.4;pointer-events:none;z-index:0}}
+{SITE_BASE_CSS}
 .wrap{{max-width:720px;margin:0 auto;padding:32px 20px;position:relative;z-index:1}}
-.back{{display:inline-flex;align-items:center;gap:6px;color:#96938c;text-decoration:none;font-size:12px;margin-bottom:20px;padding:7px 14px;background:#fff;border:1px solid #e0ddd7;border-radius:8px}}
-.back:hover{{color:#1c1b18}}
+.back{{display:inline-flex;align-items:center;gap:6px;color:var(--m);text-decoration:none;font-size:12px;margin-bottom:20px;padding:7px 14px;background:var(--s);border:1px solid var(--b);border-radius:8px}}
+.back:hover{{color:var(--t)}}
 {SITE_NAV_CSS}
-.hero{{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);border-radius:16px;padding:28px 24px;margin-bottom:24px;color:#fff}}
-.hero h1{{font-family:'Noto Serif KR',serif;font-size:24px;font-weight:700;margin-bottom:6px;letter-spacing:-.5px}}
+.hero{{background:var(--a);border-radius:16px;padding:28px 24px;margin-bottom:24px;color:#fff}}
+.hero h1{{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:6px;letter-spacing:-.5px}}
 .hero .sub{{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:16px}}
 .stats{{display:flex;gap:10px;flex-wrap:wrap}}
-.stat{{text-align:center;padding:10px 16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;flex:1;min-width:80px}}
-.stat-num{{font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700}}
+.stat{{text-align:center;padding:10px 16px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:10px;flex:1;min-width:80px}}
+.stat-num{{font-family:var(--serif);font-size:20px;font-weight:700}}
 .stat-label{{font-size:10px;color:rgba(255,255,255,.6);margin-top:2px}}
 .tags{{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}}
-.footer{{margin-top:32px;padding-top:16px;border-top:1px solid #e0ddd7;font-size:11px;color:#96938c;text-align:center}}
+.footer{{margin-top:32px;padding-top:16px;border-top:1px solid var(--b);font-size:11px;color:var(--m);text-align:center}}
 @media(max-width:768px){{.wrap{{padding:20px 16px}}.hero h1{{font-size:20px}}.hero{{padding:20px 16px}}}}
 </style>
 </head>

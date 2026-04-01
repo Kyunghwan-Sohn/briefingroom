@@ -17,9 +17,9 @@
 <meta name="twitter:title" content="브리핑룸 — 정부 보도자료 AI 요약">
 <meta name="twitter:description" content="51개 부처 + 금융기관 보도자료 매일 수집 + AI 요약 + 텔레그램 채널">
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#1a1a2e">
+<meta name="theme-color" content="#fafafa">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="브리핑룸">
 <link rel="apple-touch-icon" href="/icon-192.svg">
 <link rel="alternate" type="application/rss+xml" title="브리핑룸 RSS" href="https://govbrief.kr/feed/rss.xml">
@@ -28,1799 +28,313 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 <style>
-/* ===== GOVBRIEF REDESIGN — Reuters/Bloomberg Inspired ===== */
-:root {
-  /* Core palette — G03 소프트그레이+오렌지 */
-  --navy: #f5f5f5;
-  --navy-deep: #efefef;
-  --navy-light: #e8e8e8;
-  --gold: #d96c2c;
-  --gold-light: rgba(217,108,44,.06);
-  --gold-muted: rgba(217,108,44,.08);
-  --white: #ffffff;
-  --off-white: #fafafa;
-  --warm-gray: #e0e0e0;
-  --mid-gray: #999999;
-  --dark-gray: #444444;
-  --text-primary: #222222;
-  --text-secondary: #555555;
-  --text-muted: #999999;
-  --border-light: #c8c8c8;
-  --border-mid: #b0b0b0;
-  --surface: #ffffff;
-  --surface-hover: #f8f8f8;
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
 
-  /* Category colors */
-  --c-fin: #1a47cc;
-  --c-soc: #0f6b3a;
-  --c-ind: #9a4a0a;
-  --c-dip: #a31515;
-  --c-adm: #5b20b8;
-  --c-fin-l: #eef1fd;
-  --c-soc-l: #ecfdf5;
-  --c-ind-l: #fff7ed;
-  --c-dip-l: #fef2f2;
-  --c-adm-l: #f5f3ff;
+/* ===== 헤더 ===== */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
+.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
+.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
+.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-size:16px;margin-left:auto;flex-shrink:0}
 
-  /* Typography */
-  --serif: 'Gowun Batang', 'Georgia', serif;
-  --sans: 'Wanted Sans Variable', 'Wanted Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --mono: 'JetBrains Mono', monospace;
+/* ===== 히어로 ===== */
+.hero{background:#efefef;padding:36px 24px 28px;text-align:center;border-bottom:1px solid var(--b)}
+.hero h1{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--t);margin-bottom:6px;line-height:1.35}
+.hero p{font-size:14px;color:var(--m);margin-bottom:18px}
+.sbox{max-width:560px;margin:0 auto;position:relative}.sbox input{width:100%;padding:15px 16px 15px 42px;font-size:16px;border:2px solid var(--b);border-radius:12px;background:#fff;color:var(--t);outline:none;font-family:var(--sans)}.sbox input::placeholder{color:var(--m)}.sbox input:focus{border-color:var(--a)}
+.si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--m);font-size:16px}
+.tags{display:flex;gap:6px;margin-top:10px;justify-content:center;flex-wrap:wrap}.tags span{font-size:12px;color:var(--t2);border:1px solid var(--b);padding:5px 14px;border-radius:18px;background:#fff;cursor:pointer}.tags span:hover{border-color:var(--a);color:var(--a)}
 
-  /* Spacing */
-  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;
-  --r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;
+/* 서비스 카드 */
+.svcs{display:flex;gap:12px;padding:18px 24px 0}
+.svc{flex:1;background:var(--s);border:2px solid var(--b);border-radius:12px;padding:18px;text-decoration:none;color:var(--t);display:flex;gap:12px;align-items:center;justify-content:center;text-align:center}
+.svc:first-child{border-color:var(--a)}
+.svc .e{font-size:28px;flex-shrink:0}.svc .tt{font-size:20px;font-weight:700;font-family:var(--serif)}.svc .dd{font-size:12px;color:var(--t2);margin-top:3px}
 
-  /* Shadows */
-  --shadow-1:0 1px 3px rgba(0,0,0,.04);
-  --shadow-2:0 2px 8px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.03);
-  --shadow-3:0 4px 16px rgba(0,0,0,.08);
-  --shadow-4:0 8px 32px rgba(0,0,0,.12);
+/* 공통 */
+.sec{padding:0 24px;margin-top:24px}
+.sec-hdr{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:14px;display:flex;align-items:baseline;justify-content:space-between}
+.sec-more{font-size:11px;color:var(--a);text-decoration:none;font-weight:600}
+.divider{height:1px;background:var(--b);margin:24px 24px 0}
 
-  /* Transitions */
-  --t-fast:100ms ease;
-  --t-base:200ms ease;
-  --t-slow:300ms ease;
+/* ===== 슬라이드 ===== */
+.carousel{position:relative;overflow:hidden;border-radius:14px;border:2px solid var(--b);background:var(--s)}
+.carousel-track{display:flex;transition:transform .3s ease}
+.carousel-card{min-width:100%;padding:24px}
+.carousel-dots{display:flex;justify-content:center;gap:6px;padding:10px 0}
+.carousel-dot{width:8px;height:8px;border-radius:50%;background:var(--bl);cursor:pointer;transition:background .2s}
+.carousel-dot.on{background:var(--a)}
 
-  /* Mobile */
-  --mob-h:56px;
-  --mob-tab:48px;
-  --mob-nav:64px;
-  --mob-safe:env(safe-area-inset-bottom,0px);
-}
+/* ① 정책 요약 */
+.sum-label{font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.sum-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.5;margin-bottom:10px}
+.sum-kw{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.sum-kw span{font-size:12px;font-weight:700;color:var(--a);background:var(--al);border:1px solid var(--ab);padding:4px 12px;border-radius:16px}
+.sum-body{font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:12px}
+.sum-box{font-size:13px;padding:12px 14px;border-radius:8px;margin-bottom:12px;line-height:1.6}
+.sum-box.impact{background:#eef2ff;border-left:3px solid #4a6cf7;color:#2d4a8a}
+.sum-box.num{background:#f0fdf4;border-left:3px solid #16a34a;color:#15803d}
+.sum-box strong{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.sum-foot{display:flex;align-items:center;justify-content:space-between}
+.sum-foot a{font-size:12px;color:var(--a);text-decoration:none;font-weight:600}
+.sum-foot span{font-family:var(--mono);font-size:10px;color:var(--m)}
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
-body{background:var(--off-white);color:var(--text-primary);font-family:var(--sans);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-top:62px}
+/* ② 금융법령 */
+.law-wrap{background:#f0f0ee;border:2px solid var(--b);border-radius:14px;overflow:hidden}
+.law-item{background:var(--s);border:1px solid var(--bl);border-radius:10px;padding:14px;margin-bottom:8px}
+.law-item:last-child{margin-bottom:0}
+.law-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:5px}
+.law-tag.edit{background:#eef2ff;color:#3730a3}
+.law-tag.case{background:#fff7ed;color:#9a3412}
+.law-tag.new{background:#ecfdf5;color:#065f46}
+.law-t{font-size:14px;font-weight:700;line-height:1.5;margin-bottom:3px}
+.law-d{font-size:12px;color:var(--t2);line-height:1.5}
+.law-date{font-family:var(--mono);font-size:10px;color:var(--m);margin-top:3px}
 
-/* ===== HEADER — Navy top bar ===== */
-.header{
-  position:fixed;top:0;left:0;right:0;z-index:10;
-  background:#f5f5f5;
-  border-bottom:3px solid #d96c2c;
-  padding:0 32px;height:60px;
-  display:flex;align-items:center;gap:20px;
-  box-shadow:0 1px 4px rgba(0,0,0,.06);
-}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.logo-mark{width:32px;height:32px;background:#d96c2c;border-radius:6px;display:grid;place-items:center;font-size:15px}
-.logo-text{font-family:var(--serif);font-size:19px;font-weight:700;color:#222;letter-spacing:-.5px}
-.header-center{display:flex;align-items:center;gap:var(--sp-3);margin-left:auto}
-.header-date{font-family:var(--mono);font-size:12px;color:#888;white-space:nowrap}
-.total-badge{font-family:var(--mono);font-size:11px;color:#d96c2c;background:rgba(217,108,44,.06);border:1px solid rgba(217,108,44,.15);padding:3px 10px;border-radius:4px;white-space:nowrap}
-.header-right{display:flex;align-items:center;gap:var(--sp-3)}
-.search-wrap-hdr{position:relative;display:flex;align-items:center}
-.search-in{width:100%;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--r-md);padding:8px 12px 8px 32px;font-family:var(--sans);font-size:13px;color:var(--text-primary);outline:none;transition:all var(--t-base)}
-.search-in::placeholder{color:var(--text-muted)}
-.search-in:focus{border-color:var(--c-fin);box-shadow:0 0 0 3px rgba(26,71,204,.12)}
-.search-wrap-hdr .search-in{width:200px;background:#fff;border:2px solid #c8c8c8;color:#222;padding-left:32px;padding-right:30px;transition:width var(--t-slow),border-color var(--t-base),box-shadow var(--t-base)}
-.search-wrap-hdr .search-in::placeholder{color:#999}
-.search-wrap-hdr .search-in:focus{width:280px;background:#fff;border-color:#d96c2c;box-shadow:0 0 0 3px rgba(217,108,44,.12)}
-.search-kbd{position:absolute;right:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:3px;padding:1px 5px;font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);pointer-events:none;transition:opacity var(--t-base)}
-.search-wrap-hdr .search-in:focus~.search-kbd{opacity:0}
-.view-toggle{display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;overflow:hidden}
-.v-btn{padding:6px 10px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);font-size:14px;transition:all var(--t-fast)}
-.v-btn.active{background:var(--gold);color:var(--navy)}
-.v-btn:hover:not(.active){color:rgba(255,255,255,.7)}
+/* ③ 부처별 */
+.dept-tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:10px;padding-bottom:4px}.dept-tabs::-webkit-scrollbar{display:none}
+.dept-tab{padding:7px 14px;border-radius:20px;border:2px solid var(--bl);background:var(--s);font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer}
+.dept-tab.on{background:var(--a);color:#fff;border-color:var(--a)}
+.dept-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bl)}
+.dept-item:last-child{border-bottom:none}
+.dept-item-t{font-size:14px;font-weight:600;flex:1;margin-right:8px;line-height:1.4}
+.dept-item-imp{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;background:var(--al);color:var(--a);white-space:nowrap}
 
-/* ===== BODY LAYOUT ===== */
-.body-wrap{display:flex;flex:1;position:relative;z-index:1;overflow-x:hidden;min-width:0}
+/* ④ 레이더 */
+.radar-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--bl)}
+.radar-item:last-child{border-bottom:none}
+.radar-dot{width:8px;height:8px;border-radius:50%;background:var(--a);flex-shrink:0;margin-top:5px}
+.radar-date{font-family:var(--mono);font-size:10px;color:var(--m);margin-bottom:2px}
+.radar-text{font-size:13px;line-height:1.5}
+.radar-tag{font-size:10px;color:var(--a);font-weight:600;margin-top:2px}
+.radar-teaser{background:var(--al);border:1px solid var(--ab);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:12px;color:var(--a);font-weight:600;text-align:center}
 
-/* ===== SIDEBAR ===== */
-.sidebar{
-  position:fixed;top:60px;left:0;width:240px;height:calc(100vh - 60px);
-  background:var(--white);border-right:1px solid var(--border-light);
-  display:flex;flex-direction:column;z-index:8;overflow-y:auto;
-}
-.sb-top{padding:16px 14px;border-bottom:1px solid var(--border-light)}
-.date-nav{display:flex;align-items:center;background:var(--off-white);border:1px solid var(--border-light);border-radius:var(--r-md);padding:8px 12px;gap:8px}
-.date-nav-label{flex:1;font-family:var(--mono);font-size:12px;color:var(--text-secondary);text-align:center}
-.date-arrow{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:12px;padding:2px 4px;border-radius:4px;transition:all var(--t-fast)}
-.date-arrow:hover{color:var(--text-primary);background:var(--warm-gray)}
-.sb-section{padding:12px 8px;border-bottom:1px solid var(--border-light)}
-.sb-label{font-family:var(--mono);font-size:9px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;padding:0 8px;margin-bottom:6px;font-weight:500}
-.f-item{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;transition:background var(--t-fast);user-select:none}
-.f-item:hover{background:var(--off-white)}
-.f-item.active{background:var(--navy);color:var(--white)}
-.f-left{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary)}
-.f-item.active .f-left{color:var(--white);font-weight:600}
-.f-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.f-cnt{font-family:var(--mono);font-size:10px;color:var(--text-muted);background:var(--off-white);padding:2px 7px;border-radius:10px}
-.f-item.active .f-cnt{background:rgba(255,255,255,.2);color:rgba(255,255,255,.8)}
-.sb-min-section{padding:12px 8px;flex:1}
-.sb-sub{padding:0 0 0 18px;max-height:0;overflow:hidden;transition:max-height .25s ease}
-.sb-sub.open{max-height:300px}
-.sb-sub .f-item{padding:5px 8px}
-.sb-sub .f-left{font-size:12px}
-.sb-sub .f-dot{width:6px;height:6px}
-.fin-toggle{cursor:pointer;position:relative}
-.fin-toggle::after{content:'';position:absolute;right:10px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--text-muted);transition:transform .2s}
-.fin-toggle.expanded::after{transform:translateY(-50%) rotate(180deg)}
+.cta{margin:24px;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
 
-/* ===== MAIN CONTENT ===== */
-.main{margin-left:240px;flex:1;min-height:calc(100vh - 60px);max-width:calc(100vw - 240px);overflow-x:hidden;min-width:0}
-.content{padding:28px 32px;min-width:0;overflow-x:hidden;max-width:1200px;margin:0 auto}
+.footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.footer a{color:var(--t);text-decoration:none;font-weight:600}
 
-/* ===== FILTER BAR (Desktop, inside content) ===== */
-.filter-bar{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 0;
-  border-bottom:1px solid var(--border-light);
-  margin-bottom:16px;
-}
-.filter-btn{
-  padding:8px 18px;border-radius:4px;
-  border:1px solid var(--border-light);
-  background:var(--white);
-  font-family:var(--sans);font-size:13px;font-weight:500;
-  color:var(--text-secondary);cursor:pointer;
-  transition:all var(--t-fast);
-  display:flex;align-items:center;gap:6px;
-  white-space:nowrap;
-}
-.filter-btn:hover{border-color:var(--navy);color:var(--navy);background:var(--off-white)}
-.filter-btn.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
-.filter-btn .f-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.filter-btn.active .f-dot{background:var(--gold)!important}
-.filter-section-title{
-  font-family:var(--serif);font-size:20px;font-weight:700;
-  color:var(--text-primary);margin-bottom:4px;letter-spacing:-.5px;
-}
-.filter-section-sub{
-  font-family:var(--mono);font-size:12px;color:var(--text-muted);
-}
+/* 하단 네비 (모바일만) */
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(5,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}.bnav a.on{color:var(--a)}.bnav a span:first-child{font-size:22px}
 
-/* ===== CARDS GRID ===== */
-.cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:100%}
-.cards-grid.list-view{grid-template-columns:1fr;gap:6px}
-.more-btn{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;background:var(--white);border:1px dashed var(--border-mid);border-radius:var(--r-md);cursor:pointer;font-family:var(--mono);font-size:11px;color:var(--text-muted);transition:all var(--t-fast)}
-.more-btn:hover{border-color:var(--navy);color:var(--navy);background:var(--off-white)}
-
-/* ===== PRESS CARD — clean, editorial ===== */
-.press-card{
-  background:var(--white);
-  border:1px solid var(--border-light);
-  border-radius:var(--r-md);
-  padding:18px 20px;
-  cursor:pointer;
-  overflow:hidden;word-break:break-word;
-  transition:border-color var(--t-base),box-shadow var(--t-base),background var(--t-fast);
-  animation:fadeUp .25s ease both;
-  position:relative;
-}
-.press-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--card-accent,var(--navy));opacity:0;transition:opacity var(--t-base);
-}
-.press-card:hover{border-color:var(--border-mid);box-shadow:var(--shadow-2);background:var(--surface-hover)}
-.press-card:hover::before{opacity:1}
-.press-card:active{background:var(--off-white)}
-
-.list-view .press-card{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:var(--r-sm)}
-.list-view .card-body{flex:1;min-width:0}
-.list-view .card-actions{flex-shrink:0;margin-top:0}
-.list-view .card-title{font-size:14px;-webkit-line-clamp:1}
-.list-view .card-summary{display:none}
-.list-view .card-meta{margin-top:2px}
-
-.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.m-badge{
-  font-family:var(--mono);font-size:10px;font-weight:600;
-  padding:3px 8px;border-radius:3px;letter-spacing:.3px;
-}
-.card-time{font-family:var(--mono);font-size:10px;color:var(--text-muted)}
-.card-title{
-  font-family:var(--serif);font-size:15px;font-weight:700;
-  line-height:1.55;color:var(--text-primary);margin-bottom:8px;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-  word-break:break-word;letter-spacing:-.3px;
-}
-.card-summary{
-  font-family:var(--sans);font-size:12.5px;color:var(--text-secondary);
-  line-height:1.65;margin-bottom:10px;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-}
-.card-summary.no-summary{color:var(--text-muted);font-style:italic}
-.card-summary mark,.d-summary mark{background:none;color:var(--c-fin);font-weight:600}
-.card-meta{display:flex;align-items:center;gap:10px;margin-top:8px}
-.card-meta-i{font-family:var(--mono);font-size:10px;color:var(--text-muted)}
-.card-meta-i .kw-tag{color:var(--c-fin);font-weight:600;background:var(--c-fin-l);padding:1px 5px;border-radius:3px;margin:0 1px}
-.card-actions{display:flex;gap:5px;margin-top:10px}
-.c-btn{display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:var(--r-sm);min-height:32px;font-family:var(--mono);font-size:10px;cursor:pointer;transition:all var(--t-fast);text-decoration:none;border:1px solid var(--border-light);color:var(--text-muted);background:none}
-.c-btn:hover{color:var(--text-primary);border-color:var(--border-mid);background:var(--off-white)}
-.c-btn.primary{background:var(--navy);color:var(--white);border-color:var(--navy)}
-.c-btn.primary:hover{background:var(--navy-light)}
-
-/* ===== CATEGORY BLOCKS ===== */
-.cat-block{margin-bottom:28px;margin-top:8px}
-.cat-divider{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--border-light)}
-.cat-divider-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
-.cat-divider-label{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--text-primary);letter-spacing:-.3px}
-.cat-divider-line{flex:1;height:0}
-.cat-divider-info{font-family:var(--mono);font-size:11px;color:var(--text-muted);white-space:nowrap;background:var(--off-white);padding:2px 8px;border-radius:3px}
-
-/* ===== DETAIL PANEL ===== */
-.detail-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:20;backdrop-filter:blur(4px)}
-.detail-overlay.open{display:block}
-.detail{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.95);width:680px;max-width:92vw;max-height:88vh;background:var(--white);border-radius:var(--r-xl);box-shadow:var(--shadow-4);z-index:21;overflow-y:auto;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.4,0,.2,1)}
-.detail.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
-.detail-hdr{position:sticky;top:0;background:var(--white);border-bottom:1px solid var(--border-light);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1}
-.d-close{width:40px;height:40px;border-radius:var(--r-md);background:var(--off-white);border:1px solid var(--border-light);cursor:pointer;color:var(--text-muted);font-size:16px;display:grid;place-items:center;transition:all var(--t-fast)}
-.d-close:hover{color:var(--text-primary);background:var(--warm-gray)}
-.detail-body{padding:24px;flex:1;overflow-y:auto;padding-bottom:24px}
-.d-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:4px;margin-bottom:14px}
-.d-title{font-family:var(--serif);font-size:22px;font-weight:700;letter-spacing:-.5px;line-height:1.45;margin-bottom:16px;color:var(--text-primary)}
-.d-meta{display:flex;flex-wrap:wrap;gap:16px;padding:14px 0;border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light);margin-bottom:20px}
-.d-meta-i{font-family:var(--mono);font-size:11px;color:var(--text-muted);display:flex;flex-direction:column;gap:2px}
-.d-meta-i strong{color:var(--text-secondary);font-weight:500}
-.d-sec-label{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px;font-weight:600}
-.d-sec-label::before{content:'';width:16px;height:2px;background:var(--gold)}
-.d-summary{font-size:15px;line-height:1.8;color:var(--text-secondary);background:var(--off-white);border:1px solid var(--border-light);border-radius:var(--r-md);padding:20px;margin-bottom:18px}
-.d-context-box{font-size:14px;line-height:1.8;border-radius:var(--r-md);padding:16px 18px;margin-bottom:18px;border:1px solid var(--border-light);display:none}
-.d-context-box.show{display:block}
-.d-context-box.why{background:#eef2ff;border-left:4px solid var(--c-fin)}
-.d-context-box.impact{background:#fff7ed;border-left:4px solid #d97706}
-.d-law-box{display:none;margin-bottom:18px;background:#f3f2f1;border:1px solid #d8d4cb;border-radius:var(--r-md);padding:8px 16px}
-.d-law-box.show{display:block}
-.d-law-row{padding:10px 0;border-bottom:1px solid #d8d4cb}
-.d-law-row:last-child{border-bottom:none}
-.d-law-name{font-size:13px;font-weight:700;color:var(--text-primary)}
-.d-law-meta{font-size:11px;color:#6f6b63;margin-top:4px}
-.d-law-meta a{color:#1d70b8;text-decoration:none}
-.d-law-meta a:hover{text-decoration:underline}
-.d-kws{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px}
-.kw{font-family:var(--mono);font-size:11px;color:var(--white);background:var(--navy);padding:4px 10px;border-radius:3px;font-weight:500}
-.d-actions{display:flex;gap:8px}
-.d-btn{flex:1;padding:12px 8px;border-radius:var(--r-md);font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;text-align:center;text-decoration:none;transition:all var(--t-fast);display:flex;align-items:center;justify-content:center;gap:5px}
-.d-btn.primary{background:var(--navy);color:var(--white);border:none}
-.d-btn.primary:hover{background:var(--navy-light)}
-.d-btn.sec{background:var(--off-white);color:var(--text-primary);border:1px solid var(--border-light)}
-.d-btn.sec:hover{background:var(--warm-gray)}
-
-/* ===== SCHEDULE CALENDAR ===== */
-.sched-cal{display:none;background:var(--white);border:1px solid var(--border-light);border-radius:var(--r-md);padding:var(--sp-4) var(--sp-5);margin-bottom:var(--sp-4);overflow:hidden}
-.sched-cal.has-data{display:block}
-.sched-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-5)}
-.sched-title{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:var(--sp-2)}
-.sched-range{font-family:var(--mono);font-size:11px;color:var(--text-muted)}
-.sched-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-2)}
-.sched-day{background:var(--off-white);border:1px solid var(--border-light);border-radius:var(--r-md);padding:var(--sp-3);min-height:100px;transition:border-color var(--t-base)}
-.sched-day:hover{border-color:var(--border-mid)}
-.sched-day.today{border-color:var(--navy);background:rgba(26,26,46,.04);border-width:2px}
-.sched-day.past{opacity:.5}
-.sched-day-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-2)}
-.sched-day-num{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text-primary);line-height:1}
-.sched-day-dow{font-family:var(--mono);font-size:10px;color:var(--text-muted);text-transform:uppercase}
-.sched-day-cnt{font-family:var(--mono);font-size:9px;color:var(--navy);background:rgba(26,26,46,.08);padding:1px 6px;border-radius:8px}
-.sched-items{display:flex;flex-direction:column;gap:3px}
-.sched-item{font-size:11px;color:var(--text-secondary);line-height:1.4;display:flex;gap:4px;align-items:flex-start}
-.sched-item-time{font-family:var(--mono);font-size:10px;color:var(--text-muted);flex-shrink:0;min-width:32px}
-.sched-item-src{font-family:var(--mono);font-size:10px;color:var(--navy);flex-shrink:0;max-width:50px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sched-item-title{font-size:11px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
-.sched-more{font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:var(--sp-1);cursor:pointer}
-.sched-more:hover{color:var(--navy)}
-.sched-link{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:11px;color:var(--navy);text-decoration:none;padding:var(--sp-2) var(--sp-3);border:1px solid rgba(26,26,46,.2);border-radius:var(--r-sm);margin-top:var(--sp-3);transition:background var(--t-fast)}
-.sched-link:hover{background:rgba(26,26,46,.05)}
-
-/* ===== HERO SECTION — compact top 3 ===== */
-.daily-hero{display:none;grid-template-columns:1fr 1fr 1fr;gap:var(--sp-3);margin-bottom:var(--sp-5)}
-.daily-hero.has-items{display:grid}
-.hero-main{background:var(--white);border:1px solid var(--border-light);border-radius:var(--r-md);padding:var(--sp-4) var(--sp-5);cursor:pointer;transition:box-shadow var(--t-base),border-color var(--t-base);display:flex;flex-direction:column;gap:var(--sp-2);position:relative;overflow:hidden}
-.hero-main::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);border-radius:var(--r-md) var(--r-md) 0 0}
-.hero-main:hover{box-shadow:var(--shadow-2);border-color:var(--border-mid)}
-.hero-label{font-family:var(--mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:var(--sp-2);font-weight:600}
-.hero-label::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold)}
-.hero-title{font-family:var(--serif);font-size:15px;font-weight:700;line-height:1.45;letter-spacing:-.3px;color:var(--text-primary);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.hero-summary{font-size:12px;color:var(--text-secondary);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
-.hero-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
-.hero-badge{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:3px}
-.hero-sub{background:var(--white);border:1px solid var(--border-light);border-radius:var(--r-md);padding:var(--sp-4) var(--sp-5);cursor:pointer;transition:box-shadow var(--t-base),border-color var(--t-base);display:flex;flex-direction:column;gap:var(--sp-2);position:relative}
-.hero-sub::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--hero-accent,var(--navy));border-radius:var(--r-md) var(--r-md) 0 0}
-.hero-sub:hover{box-shadow:var(--shadow-2);border-color:var(--border-mid)}
-.hero-sub .hero-title{font-size:14px;-webkit-line-clamp:2;font-family:var(--sans);font-weight:600}
-.hero-sub .hero-summary{-webkit-line-clamp:2;font-size:12px}
-.hero-time{font-family:var(--mono);font-size:10px;color:var(--text-muted)}
-.hero-why{display:none}
-
-/* ===== BRIEFING + DATA STRIP (simplified) ===== */
-.briefing-bar{display:none}
-.briefing-bar.show{display:none}
-.data-strip{display:none}
-.data-strip.show{display:none}
-
-/* ===== SUBSCRIPTION BAR (hidden) ===== */
-.sub-bar{display:none}
-.ref-banner{display:none}
-.ref-banner.show{display:none}
-
-/* ===== LOADING / EMPTY ===== */
-.loading{text-align:center;padding:60px 0;color:var(--text-muted)}
-.loading-spinner{width:28px;height:28px;border:2px solid var(--border-light);border-top-color:var(--navy);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.empty{text-align:center;padding:60px 24px;color:var(--text-muted);grid-column:1/-1}
-.empty-icon{font-size:28px;margin-bottom:12px;opacity:.4}
-
-/* ===== ANIMATIONS ===== */
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.skeleton{background:linear-gradient(90deg,var(--off-white) 25%,var(--warm-gray) 50%,var(--off-white) 75%);background-size:200% 100%;animation:shimmer 1.6s ease-in-out infinite;border-radius:var(--r-sm)}
-
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border-mid);border-radius:5px}
-::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
-
-/* ===== MOBILE COMPONENTS ===== */
-.mobile-date-nav{display:none;align-items:center;justify-content:space-between;background:var(--white);border-bottom:1px solid var(--border-light);padding:6px 12px;position:sticky;top:56px;z-index:7}
-.mob-date-label{font-family:var(--mono);font-size:13px;color:var(--text-secondary);font-weight:500}
-.mob-date-arrow{background:var(--off-white);border:1px solid var(--border-light);border-radius:var(--r-md);padding:10px 18px;cursor:pointer;color:var(--text-primary);font-size:13px;min-height:44px;min-width:44px;display:grid;place-items:center}
-.mob-filter{display:none;overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);border-bottom:1px solid var(--border-light);padding:6px 10px;gap:5px;position:sticky;top:90px;z-index:6;scrollbar-width:none;max-width:100vw;width:100%}
-.mob-filter::-webkit-scrollbar{display:none}
-.mob-filter-btn{flex-shrink:0;padding:10px 16px;border-radius:20px;min-height:44px;border:1.5px solid var(--border-light);background:var(--white);font-family:var(--mono);font-size:11px;color:var(--text-secondary);cursor:pointer;transition:all var(--t-fast);white-space:nowrap;display:flex;align-items:center;gap:5px}
-.mob-filter-btn:hover{border-color:var(--border-mid);background:var(--off-white)}
-.mob-filter-btn.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
-.mob-filter-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.mob-filter-btn.active .mob-filter-dot{background:var(--gold)!important}
-
-.m-header{display:none;position:fixed;top:0;left:0;right:0;height:var(--mob-h);z-index:50;background:#f5f5f5;border-bottom:3px solid #d96c2c;padding:0 12px;align-items:center;gap:8px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.m-date-chip{display:flex;align-items:center;gap:4px;height:32px;background:#fff;border:1px solid #c8c8c8;border-radius:20px;padding:0 12px;font-family:var(--mono);font-size:12px;font-weight:500;color:#444;cursor:pointer;white-space:nowrap}
-.m-icon-btn{width:48px;height:48px;min-width:48px;border-radius:10px;background:none;border:none;color:#666;cursor:pointer;display:grid;place-items:center;font-size:16px}
-.m-icon-btn:active{background:rgba(0,0,0,.05)}
-.m-search-slide{display:none;background:var(--white);border-bottom:1px solid var(--border-light);padding:8px 12px;position:fixed;top:var(--mob-h);left:0;right:0;z-index:45}
-.m-search-slide.open{display:block}
-.m-search-row{display:flex;align-items:center;gap:8px;background:var(--off-white);border:1px solid var(--border-light);border-radius:var(--r-md);padding:0 12px;height:40px}
-.m-search-row input{flex:1;background:none;border:none;outline:none;font-family:var(--sans);font-size:14px;color:var(--text-primary);min-width:0}
-.m-search-row input::placeholder{color:var(--text-muted)}
-.m-cat-tabs{display:none;position:sticky;z-index:40;background:rgba(247,247,245,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-light);height:var(--mob-tab)}
-.m-cat-tabs[data-active]{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 var(--sp-3);gap:var(--sp-1);align-items:center}
-.m-cat-tabs::-webkit-scrollbar{display:none}
-.m-tab{border-radius:20px;border:1.5px solid var(--border-light);background:var(--white);padding:0 10px;height:30px;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:3px;margin:0 1px;cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:var(--sans);flex-shrink:0;white-space:nowrap}
-.m-tab.active{background:var(--navy);border-color:var(--navy);color:var(--white)}
-.m-tab.active .m-tab-dot{background:var(--gold)!important}
-.m-tab-dot{width:4px;height:4px;border-radius:50%}
-.m-tab-label{font-size:11px;font-weight:600;line-height:1}
-
-.m-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:calc(64px + var(--mob-safe));padding-bottom:var(--mob-safe);background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-top:1px solid var(--border-light);box-shadow:0 -2px 12px rgba(0,0,0,.04);grid-template-columns:repeat(5,1fr);align-items:center}
-.m-nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:64px;background:none;border:none;cursor:pointer;color:var(--text-muted);-webkit-tap-highlight-color:transparent;font-family:var(--sans);transition:color .15s;text-decoration:none}
-.m-nav-item.active{color:var(--navy)}
-.m-nav-item span:first-child{font-size:22px;line-height:1}
-.m-bottom-nav.detail-open{display:none!important}
-.m-nav-label{font-size:11px;font-weight:600;letter-spacing:-.2px}
-.m-nav-date-ctrl{display:flex;align-items:center;justify-content:center;gap:8px;min-height:64px}
-.m-nav-date-btn{width:36px;height:36px;background:var(--off-white);border:1px solid var(--border-light);border-radius:10px;cursor:pointer;color:var(--text-primary);font-size:12px;font-weight:600;display:grid;place-items:center}
-
-/* ===== MINISTRY SHEET ===== */
-.ministry-sheet{display:none;position:fixed;inset:0;z-index:60;background:var(--white)}
-.ministry-sheet.open{display:flex;flex-direction:column}
-.ministry-sheet-inner{width:100%;flex:1;overflow-y:auto;padding-bottom:max(16px, env(safe-area-inset-bottom))}
-.ministry-sheet-hdr{position:sticky;top:0;background:var(--white);padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;border-radius:var(--r-xl) var(--r-xl) 0 0}
-.ministry-sheet-hdr::before{content:'';display:block;width:36px;height:4px;background:var(--border-mid);border-radius:2px;position:absolute;top:8px;left:50%;transform:translateX(-50%)}
-.ministry-sheet-title{font-family:var(--serif);font-size:16px;font-weight:700}
-.ministry-sheet-close{width:44px;height:44px;border-radius:var(--r-md);background:var(--off-white);border:1px solid var(--border-light);cursor:pointer;color:var(--text-muted);font-size:16px;display:grid;place-items:center}
-.ministry-sheet-list{padding:8px 12px}
-.ministry-sheet-item{display:flex;align-items:center;justify-content:space-between;padding:12px 10px;border-radius:var(--r-md);cursor:pointer;min-height:44px}
-.ministry-sheet-item:hover{background:var(--off-white)}
-
-/* ===== DATE CALENDAR SHEET ===== */
-.date-sheet{display:none;position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.4);backdrop-filter:blur(4px)}
-.date-sheet.open{display:flex;align-items:flex-end}
-.date-sheet-inner{width:100%;max-height:80vh;background:var(--white);border-radius:var(--r-xl) var(--r-xl) 0 0;padding-bottom:max(16px,env(safe-area-inset-bottom))}
-.date-sheet-hdr{padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between}
-.date-sheet-hdr::before{content:'';display:block;width:36px;height:4px;background:var(--border-mid);border-radius:2px;position:absolute;top:8px;left:50%;transform:translateX(-50%)}
-.date-sheet-title{font-family:var(--serif);font-size:16px;font-weight:700}
-.cal-nav{display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 0}
-.cal-nav-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border-light);background:var(--white);cursor:pointer;font-size:14px;display:grid;place-items:center;color:var(--text-primary)}
-.cal-nav-label{font-family:var(--serif);font-size:15px;font-weight:700;min-width:120px;text-align:center}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:0 16px 16px}
-.cal-dow{text-align:center;font-size:11px;font-weight:600;color:var(--text-muted);padding:8px 0}
-.cal-day{text-align:center;padding:10px 0;border-radius:8px;font-size:13px;cursor:pointer;min-height:40px;display:grid;place-items:center}
-.cal-day:hover{background:var(--off-white)}
-.cal-day.today{font-weight:700;color:var(--navy)}
-.cal-day.selected{background:var(--navy);color:var(--white);font-weight:700}
-.cal-day.empty{cursor:default}
-.cal-day.has-data::after{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--gold);margin:-2px auto 0}
-.ministry-sheet-item.active{background:var(--navy);color:var(--white)}
-
-/* ===== MOBILE CTA (removed — overlaps with bottom nav) ===== */
-.mobile-cta{display:none!important}
-
-/* ===== TOUCH OPTIMIZATION ===== */
-button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-
-/* ===== RESPONSIVE ===== */
+/* ===== 모바일 ===== */
 @media(max-width:768px){
-  .sidebar{display:none}
-  .filter-bar{display:none}
-  .main{margin-left:0;max-width:100vw;width:100%;min-width:0;padding-top:calc(var(--mob-h) + var(--mob-tab))}
-  .cards-grid{grid-template-columns:1fr}
-  .header{display:none}
-  .mobile-date-nav{display:none!important}
-  .mob-filter{display:none!important}
-  .m-header{display:flex}
-  .m-cat-tabs[data-active]{display:flex;top:var(--mob-h)}
-  .m-bottom-nav{display:grid}
-  .m-search-slide{position:fixed;top:var(--mob-h);left:0;right:0;z-index:45}
-  .content{padding:12px 16px;padding-top:4px;padding-bottom:calc(var(--mob-nav) + var(--mob-safe) + 16px);max-width:100vw;overflow-x:hidden;min-width:0;box-sizing:border-box}
-  .press-card .card-actions{display:none}
-  .card-title{font-size:14px}
-  .detail{width:100%;max-width:100vw;top:0;bottom:0;left:0;right:0;max-height:none;height:100%;border-radius:0;transform:translateY(100%);box-shadow:0 -8px 40px rgba(0,0,0,.2)}
-  .detail.open{transform:translateY(0)}
-  .detail-hdr{border-radius:0}
-  .detail-hdr::before{display:none}
-  .d-close{width:44px;height:44px}
-  .daily-hero{grid-template-columns:1fr;gap:var(--sp-2);margin-bottom:var(--sp-3)}
-  .hero-main{padding:var(--sp-3) var(--sp-4)}
-  .hero-main .hero-title{font-size:14px}
-  .hero-sub{padding:var(--sp-3) var(--sp-4)}
-  .sched-cal{padding:var(--sp-3)}
-  .sched-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:var(--sp-2);padding-bottom:var(--sp-1)}
-  .sched-grid::-webkit-scrollbar{display:none}
-  .sched-day{min-width:85vw;max-width:85vw;flex-shrink:0;scroll-snap-align:start;min-height:auto;padding:var(--sp-3)}
-  .sched-day:not(.today):not(.m-sched-show){display:none}
-  .sched-day.today{min-width:85vw;order:-1}
-  .sched-hdr{flex-direction:column;align-items:flex-start;gap:var(--sp-1)}
-}
-@media(min-width:769px){.m-header,.m-cat-tabs,.m-bottom-nav,.m-search-slide{display:none!important}}
-@media(min-width:769px) and (max-width:1024px){
-  .sidebar{width:200px}.main{margin-left:200px;max-width:calc(100vw - 200px)}
-  .cards-grid{grid-template-columns:1fr}
-  .search-wrap-hdr .search-in{width:150px}.search-wrap-hdr .search-in:focus{width:200px}
-}
-
-/* Desktop detail as side panel */
-@media(min-width:769px){
-  .detail{top:60px;right:0;left:auto;width:440px;max-width:42vw;max-height:none;height:calc(100vh - 60px);border-radius:0;border-left:1px solid var(--border-light);box-shadow:var(--shadow-4);transform:translateX(100%);transition:transform var(--t-slow)}
-  .detail.open{transform:translateX(0);opacity:1;pointer-events:auto}
-  .detail-overlay{display:none!important}
-}
-
-/* Mobile scroll hide */
-.m-header{transition:transform var(--t-slow)}
-.m-header.scrolled-down{transform:translateY(-100%)}
-.m-cat-tabs{transition:transform var(--t-slow)}
-.m-cat-tabs.scrolled-down{transform:translateY(calc(-1 * var(--mob-h) - 100%))}
-
-/* 3-column on wide screens */
-@media(min-width:1400px){
-  .sidebar{width:260px}
-  .main{margin-left:260px;max-width:calc(100vw - 260px)}
-  .cards-grid{grid-template-columns:repeat(3,1fr)}
-}
-/* Hero 3-col on narrow screens falls back to 1-col */
-@media(max-width:1024px){
-  .daily-hero.has-items{grid-template-columns:1fr 1fr}
-}
-@media(max-width:768px){
-  .daily-hero.has-items{grid-template-columns:1fr}
+  body{padding-top:52px;padding-bottom:62px}
+  .hdr{height:50px;padding:0 14px}
+  .logo{font-size:17px;margin-right:10px}
+  .hnav a{font-size:11px;padding:5px 8px}
+  .hero{padding:24px 16px 18px}
+  .hero h1{font-size:22px}
+  .hero p{font-size:12px;margin-bottom:14px}
+  .sbox input{padding:12px 14px 12px 38px;font-size:14px}
+  .tags span{font-size:11px;padding:4px 10px}
+  .svcs{padding:12px 16px 0;gap:8px}
+  .svc{padding:12px;gap:8px}
+  .svc .tt{font-size:13px}
+  .svc .dd{font-size:9px}
+  .sec{padding:0 16px;margin-top:18px}
+  .sec-hdr{font-size:17px;margin-bottom:10px}
+  .divider{margin:18px 16px 0}
+  .carousel-card{padding:18px 16px}
+  .sum-title{font-size:16px}
+  .sum-body{font-size:13px}
+  .sum-box{font-size:12px;padding:10px 12px}
+  .law-item{padding:12px}
+  .cta{margin:18px 16px;padding:16px}
+  .cta h3{font-size:14px}
+  .bnav{display:grid}
 }
 </style>
 </head>
 <body>
-<a href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">본문으로 건너뛰기</a>
 
-<!-- 모바일 전용 헤더 -->
-<header class="m-header" id="m-header">
-  <a class="logo" href="/" style="flex-shrink:0">
-    <div class="logo-mark"><i class="ph ph-newspaper-clipping" style="color:var(--navy);font-size:16px"></i></div>
-    <span class="logo-text">브리핑룸</span>
-  </a>
-  <button class="m-date-chip" id="m-date-chip" onclick="openDateSheet()">
-    <span id="m-date-text"></span>
-    <span style="font-size:9px;color:rgba(255,255,255,.4)">&#9662;</span>
-  </button>
-  <button class="m-icon-btn" id="m-search-toggle" onclick="mToggleSearch()" aria-label="검색"><i class="ph ph-magnifying-glass"></i></button>
-</header>
-
-<!-- 모바일 검색 슬라이드 -->
-<div class="m-search-slide" id="m-search-slide">
-  <div class="m-search-row">
-    <i class="ph ph-magnifying-glass" style="color:var(--text-muted);font-size:14px;flex-shrink:0"></i>
-    <input type="search" id="m-search-input" inputmode="search" placeholder="제목, 기관, 키워드 검색..." aria-label="보도자료 검색" oninput="handleSearch(this.value)">
-  </div>
-</div>
-
-<!-- 모바일 카테고리 탭 -->
-<nav class="m-cat-tabs" id="m-cat-tabs" data-active="true" role="tablist" aria-label="분야 필터">
-  <button class="m-tab active" role="tab" aria-selected="true" onclick="mSetTab('all',this)"><span class="m-tab-label">전체</span></button>
-  <button class="m-tab" role="tab" aria-selected="false" onclick="mSetTab('금융경제',this)" style="--tab-c:var(--c-fin)"><span class="m-tab-dot" style="background:var(--c-fin)"></span><span class="m-tab-label">금융</span></button>
-  <button class="m-tab" role="tab" aria-selected="false" onclick="mSetTab('사회복지',this)" style="--tab-c:var(--c-soc)"><span class="m-tab-dot" style="background:var(--c-soc)"></span><span class="m-tab-label">사회</span></button>
-  <button class="m-tab" role="tab" aria-selected="false" onclick="mSetTab('산업기술',this)" style="--tab-c:var(--c-ind)"><span class="m-tab-dot" style="background:var(--c-ind)"></span><span class="m-tab-label">산업</span></button>
-  <button class="m-tab" role="tab" aria-selected="false" onclick="mSetTab('외교안보',this)" style="--tab-c:var(--c-dip)"><span class="m-tab-dot" style="background:var(--c-dip)"></span><span class="m-tab-label">외교</span></button>
-  <button class="m-tab" role="tab" aria-selected="false" onclick="mSetTab('행정법제',this)" style="--tab-c:var(--c-adm)"><span class="m-tab-dot" style="background:var(--c-adm)"></span><span class="m-tab-label">행정</span></button>
-</nav>
-
-<!-- 데스크톱 헤더 -->
-<header class="header">
-  <a class="logo" href="/">
-    <div class="logo-mark"><i class="ph ph-newspaper-clipping" style="color:var(--navy);font-size:16px"></i></div>
-    <span class="logo-text">브리핑룸</span>
-  </a>
-  <nav style="display:flex;align-items:center;gap:2px;margin-left:16px" aria-label="글로벌 메뉴">
-    <a href="/" style="font-family:var(--sans);font-size:13px;font-weight:700;color:#d96c2c;text-decoration:none;padding:6px 14px;border-radius:5px;background:rgba(217,108,44,.06)">정책브리핑</a>
-    <a href="/finlaw/" style="font-family:var(--sans);font-size:13px;font-weight:600;color:#666;text-decoration:none;padding:6px 14px;border-radius:5px">금융법령AI</a>
-    <a href="https://t.me/govbrief" target="_blank" rel="noopener" style="font-family:var(--sans);font-size:13px;font-weight:500;color:#999;text-decoration:none;padding:6px 10px;border-radius:5px;display:flex;align-items:center;gap:4px"><i class="ph ph-bell" style="font-size:14px"></i>알림</a>
+<!-- 헤더 -->
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a class="on" href="/">정책 AI 요약</a>
+    <a href="/finlaw/">금융법령 AI 모니터링</a>
   </nav>
-  <div class="header-center">
-    <span class="header-date" id="header-date"></span>
-    <span class="total-badge" id="total-badge-hdr">0건</span>
-  </div>
-  <div class="header-right">
-    <div class="search-wrap-hdr">
-      <i class="ph ph-magnifying-glass" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4);font-size:13px;pointer-events:none"></i>
-      <input class="search-in" type="text" id="search-in-hdr" aria-label="보도자료 검색" placeholder="검색..." oninput="handleSearch(this.value)">
-      <kbd class="search-kbd">/</kbd>
-    </div>
-    <div class="view-toggle">
-      <button class="v-btn active" onclick="setView('grid',this)" aria-label="그리드 보기"><i class="ph ph-squares-four"></i></button>
-      <button class="v-btn" onclick="setView('list',this)" aria-label="목록 보기"><i class="ph ph-list"></i></button>
-    </div>
-  </div>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
 
-<div class="mobile-date-nav">
-  <button class="mob-date-arrow" onclick="changeDate(-1)" aria-label="이전 날짜"><i class="ph ph-caret-left"></i></button>
-  <span class="mob-date-label" id="mobile-date-label"></span>
-  <button class="mob-date-arrow" onclick="changeDate(1)" aria-label="다음 날짜"><i class="ph ph-caret-right"></i></button>
+<!-- 히어로 -->
+<section class="hero">
+  <h1>정부가 발표하면,<br>AI가 해석합니다</h1>
+  <p>정부 정책 · 금융 법령 · 입법 예고, 핵심만 브리핑</p>
+  <div class="sbox"><span class="si">⌕</span><input placeholder="정책이나 법령에 대해 물어보세요..."></div>
+  <div class="tags"><span>#추경</span><span>#자본시장법</span><span>#AI기본법</span><span>#청년정책</span></div>
+</section>
+
+<!-- 서비스 카드 -->
+<div class="svcs">
+  <a class="svc" href="/"><div><div class="tt">정책 AI 요약</div><div class="dd">51개 부처 · 일 150건 · AI 분석</div></div></a>
+  <a class="svc" href="/finlaw/"><div><div class="tt">금융법령 AI 모니터링</div><div class="dd">139법령 · 526판례 · 검색</div></div></a>
 </div>
 
-<div class="mob-filter" id="mob-filter">
-  <button class="mob-filter-btn active" onclick="mobSetFilter('all',this)">전체</button>
-  <button class="mob-filter-btn" onclick="mobSetFilter('금융경제',this)"><span class="mob-filter-dot" style="background:var(--c-fin)"></span>금융·경제</button>
-  <button class="mob-filter-btn" onclick="mobSetFilter('사회복지',this)"><span class="mob-filter-dot" style="background:var(--c-soc)"></span>사회·복지</button>
-  <button class="mob-filter-btn" onclick="mobSetFilter('산업기술',this)"><span class="mob-filter-dot" style="background:var(--c-ind)"></span>산업·기술</button>
-  <button class="mob-filter-btn" onclick="mobSetFilter('외교안보',this)"><span class="mob-filter-dot" style="background:var(--c-dip)"></span>외교·안보</button>
-  <button class="mob-filter-btn" onclick="mobSetFilter('행정법제',this)"><span class="mob-filter-dot" style="background:var(--c-adm)"></span>행정·법제</button>
-  <button class="mob-filter-btn" onclick="openMinistrySheet()" style="border-color:var(--navy);color:var(--navy)">부처별 &#9660;</button>
-  <a href="/finlaw/" class="mob-filter-btn" style="border-color:var(--gold);color:var(--navy);text-decoration:none">📜 금융법령AI</a>
-</div>
+<!-- ① 오늘의 정책 요약 -->
+<div class="divider"></div>
+<section class="sec" id="policy-summary">
+  <div class="sec-hdr">오늘의 정책 요약 <span style="font-family:var(--mono);font-size:11px;color:var(--m);font-weight:400;margin-left:6px">2026.04.01</span><a class="sec-more" href="#">전체 144건 →</a></div>
+  <div class="carousel" id="c1">
+    <div class="carousel-track" id="c1-track">
 
-<div class="body-wrap">
-  <aside class="sidebar">
-    <div class="sb-top">
-      <div class="date-nav">
-        <button class="date-arrow" onclick="changeDate(-1)" aria-label="이전 날짜"><i class="ph ph-caret-left"></i></button>
-        <span class="date-nav-label" id="date-label"></span>
-        <button class="date-arrow" onclick="changeDate(1)" aria-label="다음 날짜"><i class="ph ph-caret-right"></i></button>
-      </div>
-    </div>
-    <div class="sb-section">
-      <div class="f-item active" onclick="setFilter('all',this)">
-        <div class="f-left"><div class="f-dot" style="background:var(--navy)"></div>전체</div>
-        <span class="f-cnt" id="cnt-all">0</span>
-      </div>
-    </div>
-    <div class="sb-section">
-      <div class="sb-label">분야</div>
-      <div class="f-item fin-toggle" id="fin-toggle" onclick="toggleFinSub(this)"><div class="f-left"><div class="f-dot" style="background:var(--c-fin)"></div>금융·경제</div><span class="f-cnt" id="cnt-금융경제">0</span></div>
-      <div class="sb-sub" id="fin-sub">
-        <div class="f-item" onclick="setFilter('금융경제',this)"><div class="f-left"><div class="f-dot" style="background:var(--c-fin)"></div>전체</div><span class="f-cnt" id="cnt-금융경제-all">0</span></div>
-        <div class="f-item" onclick="setFilter('fin-금융정책',this)"><div class="f-left"><div class="f-dot" style="background:#2f54eb"></div>금융정책</div><span class="f-cnt" id="cnt-fin-금융정책">0</span></div>
-        <div class="f-item" onclick="setFilter('fin-감독규제',this)"><div class="f-left"><div class="f-dot" style="background:#dc2626"></div>감독·규제</div><span class="f-cnt" id="cnt-fin-감독규제">0</span></div>
-        <div class="f-item" onclick="setFilter('fin-시장통화',this)"><div class="f-left"><div class="f-dot" style="background:#16a34a"></div>시장·통화</div><span class="f-cnt" id="cnt-fin-시장통화">0</span></div>
-        <div class="f-item" onclick="setFilter('fin-금융인프라',this)"><div class="f-left"><div class="f-dot" style="background:#7c3aed"></div>금융인프라</div><span class="f-cnt" id="cnt-fin-금융인프라">0</span></div>
-        <div class="f-item" onclick="setFilter('fin-정책금융',this)"><div class="f-left"><div class="f-dot" style="background:#d97706"></div>정책금융</div><span class="f-cnt" id="cnt-fin-정책금융">0</span></div>
-        <div class="f-item" onclick="setFilter('fin-업계동향',this)"><div class="f-left"><div class="f-dot" style="background:#0891b2"></div>업계동향</div><span class="f-cnt" id="cnt-fin-업계동향">0</span></div>
-      </div>
-      <div class="f-item" onclick="setFilter('사회복지',this)"><div class="f-left"><div class="f-dot" style="background:var(--c-soc)"></div>사회·복지</div><span class="f-cnt" id="cnt-사회복지">0</span></div>
-      <div class="f-item" onclick="setFilter('산업기술',this)"><div class="f-left"><div class="f-dot" style="background:var(--c-ind)"></div>산업·기술</div><span class="f-cnt" id="cnt-산업기술">0</span></div>
-      <div class="f-item" onclick="setFilter('외교안보',this)"><div class="f-left"><div class="f-dot" style="background:var(--c-dip)"></div>외교·안보</div><span class="f-cnt" id="cnt-외교안보">0</span></div>
-      <div class="f-item" onclick="setFilter('행정법제',this)"><div class="f-left"><div class="f-dot" style="background:var(--c-adm)"></div>행정·법제</div><span class="f-cnt" id="cnt-행정법제">0</span></div>
-    </div>
-    <div class="sb-min-section" id="ministry-sb"><div class="sb-label">부처별</div></div>
-    <div class="sb-section" style="margin-top:16px;padding-top:12px;border-top:2px solid var(--border-light)">
-      <div class="sb-label">금융법령AI</div>
-      <a class="f-item" href="/finlaw/" style="text-decoration:none;color:inherit"><div class="f-left"><div class="f-dot" style="background:var(--c-fin)"></div>법령 검색</div><span class="f-cnt" style="font-size:10px">139</span></a>
-      <a class="f-item" href="/finlaw/cases/" style="text-decoration:none;color:inherit"><div class="f-left"><div class="f-dot" style="background:#dc2626"></div>판례</div><span class="f-cnt" style="font-size:10px">526</span></a>
-      <a class="f-item" href="/finlaw/notices/" style="text-decoration:none;color:inherit"><div class="f-left"><div class="f-dot" style="background:#d97706"></div>최근 변경</div><span class="f-cnt" style="font-size:10px">→</span></a>
-    </div>
-    <div style="margin-top:16px;padding:12px;background:var(--navy);border-radius:8px;text-align:center">
-      <a href="https://t.me/govbrief" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:11px;color:var(--gold);text-decoration:none">📱 텔레그램 구독</a>
-    </div>
-  </aside>
-
-  <main class="main">
-    <div class="content">
-      <!-- 서비스 허브 -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-        <a href="/" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:12px;text-decoration:none;color:#222;border:2px solid #d96c2c">
-          <span style="font-size:22px">📋</span>
-          <div><div style="font-size:14px;font-weight:700">정책브리핑</div><div style="font-size:10px;color:#999;margin-top:2px">보도자료 · 주간 · 일정</div></div>
-        </a>
-        <a href="/finlaw/" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:12px;text-decoration:none;color:#222;border:2px solid #c8c8c8">
-          <span style="font-size:22px">📜</span>
-          <div><div style="font-size:14px;font-weight:700">금융법령AI</div><div style="font-size:10px;color:#999;margin-top:2px">법령 · 판례 · AI검색</div></div>
-        </a>
+      <div class="carousel-card">
+        <div class="sum-label">종합 1/4</div>
+        <div class="sum-title">저출산 금융 지원 · AI 기본법 정착 · 복지 사각지대 점검</div>
+        <div class="sum-kw"><span>#저출산지원</span><span>#AI기본법</span><span>#복지사각지대</span></div>
+        <div class="sum-body">오늘 51개 부처에서 144건이 발표되었습니다. 금융위의 보험 지원 3종 세트, 과기부의 AI 기본법 시행 10주차 성과, 복지부의 위기가구 긴급 점검이 핵심입니다. 금융·기술·복지 3개 분야에서 동시에 영향도 '상' 정책이 발표된 점이 특징입니다.</div>
+        <div class="sum-foot"><a href="#">상세 브리핑 →</a><span>영향도 상 12건</span></div>
       </div>
 
-      <!-- 오늘 날짜 + 건수 -->
-      <div id="date-info-bar" style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;padding:6px 0;flex-wrap:wrap">
-        <span style="font-family:var(--serif);font-size:15px;font-weight:700;color:var(--text-primary)" id="date-info-title"></span>
-        <span style="font-family:var(--mono);font-size:11px;color:var(--text-muted)" id="date-info-count"></span>
+      <div class="carousel-card">
+        <div class="sum-label">금융·경제 2/4</div>
+        <div class="sum-title">보험료 면제 2년 · 어린이 할인 15% · 체납 감면 50%</div>
+        <div class="sum-kw"><span>#보험료면제</span><span>#저출산3종</span><span>#금융위원회</span></div>
+        <div class="sum-body">금융위원회가 '저출산 극복 지원 3종 세트'를 시행합니다. 출산·육아 기간 보험료 납부 최대 2년 면제, 어린이 보험료 15% 할인, 체납 보험료 50% 감면이 핵심입니다. 금융권 최초의 체계적 출산 지원 패키지입니다.</div>
+        <div class="sum-box impact"><strong>핵심 임팩트</strong>보험사 비용 구조와 마케팅 전략 변화 예상. 타 금융권(은행·카드)으로 확대 가능성.</div>
+        <div class="sum-foot"><a href="#">금융·경제 28건 →</a><span>금융위 외 5개 부처</span></div>
       </div>
 
-      <!-- 분야 필터 바 (데스크톱) -->
-      <div class="filter-bar" id="filter-bar">
-        <button class="filter-btn active" aria-pressed="true" onclick="filterBarClick('all',this)">전체</button>
-        <button class="filter-btn" aria-pressed="false" onclick="filterBarClick('금융경제',this)"><span class="f-dot" style="background:var(--c-fin)"></span>금융·경제</button>
-        <button class="filter-btn" aria-pressed="false" onclick="filterBarClick('사회복지',this)"><span class="f-dot" style="background:var(--c-soc)"></span>사회·복지</button>
-        <button class="filter-btn" aria-pressed="false" onclick="filterBarClick('산업기술',this)"><span class="f-dot" style="background:var(--c-ind)"></span>산업·기술</button>
-        <button class="filter-btn" aria-pressed="false" onclick="filterBarClick('외교안보',this)"><span class="f-dot" style="background:var(--c-dip)"></span>외교·안보</button>
-        <button class="filter-btn" aria-pressed="false" onclick="filterBarClick('행정법제',this)"><span class="f-dot" style="background:var(--c-adm)"></span>행정·법제</button>
+      <div class="carousel-card">
+        <div class="sum-label">산업·기술 3/4</div>
+        <div class="sum-title">AI 상담 552건 · 고위험 판정 38% · 데이터 의무 27%</div>
+        <div class="sum-kw"><span>#AI기본법</span><span>#고위험AI</span><span>#전기차배터리</span></div>
+        <div class="sum-body">과기부 AI 기본법 지원 데스크에 552건 상담 접수. 기업의 관심은 고위험 AI 판정 기준(38%)과 데이터 처리 의무(27%)에 집중됩니다. 국토부는 전기차 배터리 정보 공개 제도를 시행했습니다.</div>
+        <div class="sum-box impact"><strong>핵심 임팩트</strong>AI 기본법이 산업 현장에서 실질적 규제로 작동하기 시작한 지표.</div>
+        <div class="sum-foot"><a href="#">산업·기술 42건 →</a><span>과기부 외 8개 부처</span></div>
       </div>
 
-      <!-- 일정 달력 블록 -->
-      <div id="ref-banner" class="ref-banner" style="display:none"></div>
-      <div id="briefing-bar" class="briefing-bar" style="display:none"></div>
-      <div id="data-strip" class="data-strip" style="display:none"></div>
-      <div id="schedule-calendar" class="sched-cal"></div>
-      <div id="source-badges" style="display:none"></div>
-      <div class="daily-hero" id="daily-hero"></div>
-      <div id="main-content" tabindex="-1">
-        <div class="loading"><div class="loading-spinner"></div><div>데이터 불러오는 중...</div></div>
+      <div class="carousel-card">
+        <div class="sum-label">사회·복지 4/4</div>
+        <div class="sum-title">범부처 합동 점검 · 위기 감지 강화 · 공무원 역할 재정립</div>
+        <div class="sum-kw"><span>#위기가구</span><span>#복지전달체계</span><span>#긴급점검</span></div>
+        <div class="sum-body">위기가구 사망 사건을 계기로 복지부·행안부·교육부 합동 긴급 점검이 시작됩니다. 지자체 위기 감지 시스템 강화와 사회복지 공무원 역할 재정립이 논의됩니다.</div>
+        <div class="sum-box impact"><strong>핵심 임팩트</strong>복지 전달 체계 전면 재점검. 행안부 화재 대응과 맞물려 안전 정책 전반이 움직이고 있습니다.</div>
+        <div class="sum-foot"><a href="#">사회·복지 35건 →</a><span>복지부 외 6개 부처</span></div>
       </div>
 
-      <!-- 지원사업은 사이드바에서 /subsidy/로 이동 -->
     </div>
-  </main>
-</div>
-
-<div class="date-sheet" id="date-sheet" role="dialog" aria-modal="true" aria-label="날짜 선택" onclick="if(event.target===this)closeDateSheet()">
-  <div class="date-sheet-inner">
-    <div class="date-sheet-hdr">
-      <span class="date-sheet-title">날짜 선택</span>
-      <button class="ministry-sheet-close" onclick="closeDateSheet()" aria-label="닫기"><i class="ph ph-x"></i></button>
-    </div>
-    <div class="cal-nav">
-      <button class="cal-nav-btn" onclick="calNav(-1)"><i class="ph ph-caret-left"></i></button>
-      <span class="cal-nav-label" id="cal-month-label"></span>
-      <button class="cal-nav-btn" onclick="calNav(1)"><i class="ph ph-caret-right"></i></button>
-    </div>
-    <div class="cal-grid" id="cal-grid"></div>
-  </div>
-</div>
-
-<div class="ministry-sheet" id="ministry-sheet" role="dialog" aria-modal="true" aria-label="부처별 필터" onclick="if(event.target===this)closeMinistrySheet()">
-  <div class="ministry-sheet-inner">
-    <div class="ministry-sheet-hdr">
-      <span class="ministry-sheet-title">부처별 필터</span>
-      <button class="ministry-sheet-close" onclick="closeMinistrySheet()" aria-label="부처별 필터 닫기"><i class="ph ph-x"></i></button>
-    </div>
-    <div class="ministry-sheet-list"></div>
-  </div>
-</div>
-
-<div class="detail-overlay" id="d-overlay" onclick="closeDetail()"></div>
-<div class="detail" id="detail" role="dialog" aria-modal="true" aria-label="보도자료 상세">
-  <div class="detail-hdr">
-    <span id="d-hdr-min" style="font-family:var(--mono);font-size:11px;color:var(--text-muted)"></span>
-    <button class="d-close" onclick="closeDetail()" aria-label="닫기"><i class="ph ph-x"></i></button>
-  </div>
-  <div class="detail-body">
-    <div class="d-badge" id="d-badge"></div>
-    <div class="d-title" id="d-title"></div>
-    <div class="d-meta" id="d-meta"></div>
-    <div class="d-sec-label">AI 요약</div>
-    <div class="d-summary" id="d-summary"></div>
-    <div class="d-sec-label" id="d-why-label" style="display:none">왜 중요한가</div>
-    <div class="d-context-box why" id="d-why"></div>
-    <div class="d-kws" id="d-kws"></div>
-    <div class="d-sec-label" id="d-laws-label" style="display:none">관련 법령</div>
-    <div class="d-law-box" id="d-laws"></div>
-    <div class="d-sec-label" id="d-impact-label" style="display:none">실무 영향</div>
-    <div class="d-context-box impact" id="d-impact"></div>
-    <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
-      <a id="d-src" href="#" target="_blank" style="flex:1 1 100%;padding:12px 8px;background:var(--navy);color:var(--white);border:none;border-radius:var(--r-md);font-size:13px;font-weight:600;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;min-height:44px"><i class="ph ph-arrow-square-out"></i> 원문 보기</a>
-      <button onclick="shareNative()" style="flex:1;padding:10px 8px;background:var(--off-white);color:var(--text-primary);border:1px solid var(--border-light);border-radius:var(--r-md);font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;min-height:44px"><i class="ph ph-share-network"></i> 공유</button>
-      <button onclick="copyLink()" id="copy-btn" style="flex:1;padding:10px 8px;background:var(--off-white);color:var(--text-primary);border:1px solid var(--border-light);border-radius:var(--r-md);font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;min-height:44px"><i class="ph ph-link"></i> 복사</button>
+    <div class="carousel-dots" id="c1-dots">
+      <span class="carousel-dot on"></span><span class="carousel-dot"></span><span class="carousel-dot"></span><span class="carousel-dot"></span>
     </div>
   </div>
-</div>
+</section>
 
-<nav class="m-bottom-nav" aria-label="모바일 하단 탐색">
-  <button class="m-nav-item" type="button" onclick="navHome()" aria-label="홈">
-    <span><i class="ph ph-house" style="font-size:22px"></i></span>
-    <span class="m-nav-label">홈</span>
-  </button>
-  <button class="m-nav-item" type="button" onclick="mToggleSearch()" aria-label="검색">
-    <span><i class="ph ph-magnifying-glass" style="font-size:22px"></i></span>
-    <span class="m-nav-label">검색</span>
-  </button>
-  <button class="m-nav-item" type="button" onclick="openDateSheet()" aria-label="날짜 선택">
-    <span><i class="ph ph-calendar-blank" style="font-size:22px"></i></span>
-    <span class="m-nav-label" id="m-nav-date">날짜</span>
-  </button>
-  <a class="m-nav-item" href="/finlaw/" aria-label="금융법령AI" style="text-decoration:none">
-    <span><i class="ph ph-scales" style="font-size:22px"></i></span>
-    <span class="m-nav-label">법령AI</span>
-  </a>
-  <a class="m-nav-item" href="https://t.me/govbrief" target="_blank" rel="noopener" aria-label="알림" style="text-decoration:none">
-    <span><i class="ph ph-bell" style="font-size:22px"></i></span>
-    <span class="m-nav-label">알림</span>
-  </a>
-</nav>
+<!-- ② 금융법령, 오늘 바뀐 것 -->
+<div class="divider"></div>
+<section class="sec" id="finlaw-today">
+  <div class="sec-hdr">금융법령, 오늘 바뀐 것 <span style="font-family:var(--mono);font-size:11px;color:var(--m);font-weight:400;margin-left:6px">2026.04.01</span><a class="sec-more" href="/finlaw/notices/">더보기 →</a></div>
+  <div class="carousel law-wrap" id="c2">
+    <div class="carousel-track" id="c2-track">
+
+      <div class="carousel-card" style="padding:20px">
+        <div class="sum-label">종합 1/3</div>
+        <div class="sum-title">자본시장법 공시 강화 · 가상자산 보호 확대 · 불완전판매 판례</div>
+        <div class="sum-kw"><span>#자본시장법</span><span>#가상자산</span><span>#불완전판매</span></div>
+        <div class="sum-body">오늘 금융 법령 2건이 개정 시행되었고, 대법원 판례 1건과 법제처 해석례 1건이 새로 등록되었습니다. 자기주식 소각 의무화에 따른 공시 강화와 가상자산 이용자 보호가 핵심 변화입니다.</div>
+        <div class="sum-foot"><a href="/finlaw/notices/">상세 보기 →</a><span>개정 2건 · 판례 1건 · 해석례 1건</span></div>
+      </div>
+
+      <div class="carousel-card" style="padding:20px">
+        <div class="sum-label">법령 개정 2/3</div>
+        <div class="law-item" style="margin-bottom:10px">
+          <span class="law-tag edit">법령 개정</span>
+          <div class="law-t">자본시장법 시행령 일부개정</div>
+          <div class="law-d">자기주식 소각 의무화에 따른 공시 제도 강화. 보유 및 처분 공시 기준 변경.</div>
+          <div class="law-date">2026.04.01 시행</div>
+        </div>
+        <div class="law-item">
+          <span class="law-tag edit">법령 개정</span>
+          <div class="law-t">가상자산 이용자 보호법 시행령</div>
+          <div class="law-d">예치금 분리보관 의무 강화, 공시 항목 확대.</div>
+          <div class="law-date">2026.03.28 시행</div>
+        </div>
+      </div>
+
+      <div class="carousel-card" style="padding:20px">
+        <div class="sum-label">판례 · 해석례 3/3</div>
+        <div class="law-item" style="margin-bottom:10px">
+          <span class="law-tag case">판례 등록</span>
+          <div class="law-t">금융투자상품 불완전판매 손해배상</div>
+          <div class="law-d">대법원, 투자 권유 시 설명 의무 범위를 구체적으로 판시.</div>
+          <div class="law-date">2026.03.27 판결</div>
+        </div>
+        <div class="law-item">
+          <span class="law-tag new">새 해석례</span>
+          <div class="law-t">전자금융거래법상 접근매체 관리 책임</div>
+          <div class="law-d">비대면 본인확인 시 금융사 과실 판단 기준.</div>
+          <div class="law-date">2026.03.25 회신</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="carousel-dots" id="c2-dots">
+      <span class="carousel-dot on"></span><span class="carousel-dot"></span><span class="carousel-dot"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ③ 부처별 브리핑 -->
+<div class="divider"></div>
+<section class="sec" id="dept-briefing">
+  <div class="sec-hdr">부처별 브리핑</div>
+  <div class="dept-tabs">
+    <span class="dept-tab on">금융위</span><span class="dept-tab">기재부</span><span class="dept-tab">국토부</span><span class="dept-tab">과기부</span><span class="dept-tab">복지부</span><span class="dept-tab">산업부</span><span class="dept-tab">고용부</span>
+  </div>
+  <div>
+    <div class="dept-item"><div class="dept-item-t">보험업권이 출산·육아에 따른 보험료 부담을 덜어드립니다</div><span class="dept-item-imp">상</span></div>
+    <div class="dept-item"><div class="dept-item-t">시장 변동성 확대에 편승한 불공정거래 집중 감시</div><span class="dept-item-imp">중</span></div>
+    <div class="dept-item"><div class="dept-item-t">금융위원회 인사 보도(팀장급)</div><span class="dept-item-imp">하</span></div>
+  </div>
+</section>
+
+<!-- ④ 법령 레이더 -->
+<div class="divider"></div>
+<section class="sec" id="law-radar">
+  <div class="sec-hdr">법령 레이더<a class="sec-more" href="/finlaw/notices/">더보기 →</a></div>
+  <div class="radar-item"><div class="radar-dot"></div><div><div class="radar-date">2026.04.01</div><div class="radar-text">자본시장법 시행령 일부개정 — 자기주식 소각 의무화</div><div class="radar-tag">법령 개정</div></div></div>
+  <div class="radar-item"><div class="radar-dot" style="background:#4a6cf7"></div><div><div class="radar-date">2026.03.28</div><div class="radar-text">가상자산법 시행령 개정 — 이용자 보호 강화</div><div class="radar-tag">법령 개정</div></div></div>
+  <div class="radar-item"><div class="radar-dot" style="background:#0f6b3a"></div><div><div class="radar-date">2026.03.27</div><div class="radar-text">대법원 — 금융투자상품 불완전판매 손해배상</div><div class="radar-tag">판례 등록</div></div></div>
+  <div class="radar-teaser">입법예고 모니터링 곧 출시</div>
+</section>
+
+<!-- CTA -->
+<div class="cta"><div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div><a href="https://t.me/govbrief" target="_blank">구독</a></div>
+
+<div class="footer"><a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융법령 AI 모니터링</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+
+<nav class="bnav"><a class="on" href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="#"><span style="font-size:16px">⌕</span>검색</a><a href="#"><span style="font-size:16px">≡</span>달력</a><a href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
 
 <script>
-const SITE_URL='https://govbrief.kr';
-const CC={'금융경제':'#1a47cc','사회복지':'#0f6b3a','산업기술':'#9a4a0a','외교안보':'#a31515','행정법제':'#5b20b8'};
-const CN={'금융경제':'금융·경제','사회복지':'사회·복지','산업기술':'산업·기술','외교안보':'외교·안보','행정법제':'행정·법제'};
-const CO=['금융경제','사회복지','산업기술','외교안보','행정법제'];
-let allItems=[],curFilter='all',curView='grid',curSearch='',curDate=new Date(),expanded={};
-let groupedByCat={},countsByCat={},countsBySource={},countsByFinSub={},sortedSources=[];
-let lastFocusedEl=null,lastBodyOverflow='';
-let trafficRef='',trafficSession='',trafficCat='';
-let prevDayStats={total:0,byCat:{}};
-
-const FIN_SUB_MAP={
-  '금융위원회':'금융정책','재정경제부':'금융정책','기획재정부':'금융정책','국세청':'금융정책','관세청':'금융정책',
-  '금융감독원':'감독규제','공정거래위원회':'감독규제','예금보험공사':'감독규제',
-  '한국은행':'시장통화','한국거래소':'시장통화','한국예탁결제원':'시장통화','한국투자공사':'시장통화',
-  '금융결제원':'금융인프라','금융보안원':'금융인프라','한국신용정보원':'금융인프라',
-  '한국산업은행':'정책금융','한국수출입은행':'정책금융','한국주택금융공사':'정책금융','신용보증기금':'정책금융','기술보증기금':'정책금융','서민금융진흥원':'정책금융','한국자산관리공사':'정책금융',
-  '은행연합회':'업계동향','금융투자협회':'업계동향','보험개발원':'업계동향','한국증권금융':'업계동향',
-  '산업통상자원부':'금융정책','산업통상부':'금융정책','조달청':'금융정책',
-};
-
-function cleanTitle(t){return t.replace(/^\s*(\[[^\]]*\]|\([^)]*\))\s*/,'').replace(/새글$/,'').trim()}
-function fmtDate(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-function fmtDateKo(d){const days=['일','월','화','수','목','금','토'];return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 ${days[d.getDay()]}요일`}
-function changeDate(dir){curDate.setDate(curDate.getDate()+dir);loadData()}
-
-/* ===== 분야 필터 바 (데스크톱) ===== */
-function filterBarClick(cat, el) {
-  curFilter = cat;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  document.querySelectorAll('.filter-btn').forEach(btn=>btn.setAttribute('aria-pressed',btn.classList.contains('active')?'true':'false'));
-  expanded = {};
-
-  // 사이드바 active 상태도 동기화
-  document.querySelectorAll('.f-item').forEach(i => i.classList.remove('active'));
-
-  render();
-}
-
-/* JSON 데이터 로드 */
-async function loadData(){
-  const _skels=Array(4).fill(0).map(()=>`<div class="press-card" style="animation:none;cursor:default"><div style="display:flex;gap:8px;margin-bottom:12px"><div style="height:20px;width:64px;background:var(--off-white);border-radius:4px;animation:shimmer 1.4s infinite"></div></div><div style="height:16px;width:85%;background:var(--off-white);border-radius:4px;margin-bottom:10px;animation:shimmer 1.4s infinite"></div><div style="height:12px;width:70%;background:var(--off-white);border-radius:4px;margin-bottom:8px;animation:shimmer 1.4s infinite"></div><div style="height:10px;width:40%;background:var(--off-white);border-radius:4px;animation:shimmer 1.4s infinite"></div></div>`).join('');
-  document.getElementById('main-content').innerHTML=`<style>@keyframes shimmer{0%{background-position:200% 0}to{background-position:-200% 0}}[style*="shimmer"]{background:linear-gradient(90deg,var(--off-white) 25%,var(--border-light) 50%,var(--off-white) 75%);background-size:200% 100%}</style><div class="cards-grid">${_skels}</div>`;
-  const ds=fmtDate(curDate);
-  const wd=curDate.getDay();
-
-  let dateFiles=[ds], titleSuffix='';
-  if(wd===6){
-    const mon=new Date(curDate);mon.setDate(curDate.getDate()-(curDate.getDay()-1));
-    dateFiles=[];for(let d=new Date(mon);d<=curDate;d.setDate(d.getDate()+1))dateFiles.push(fmtDate(d));
-    titleSuffix=' (주간 종합)';
-  } else if(wd===0){
-    const mon=new Date(curDate);mon.setDate(curDate.getDate()-6);
-    dateFiles=[];for(let d=new Date(mon);d<=curDate;d.setDate(d.getDate()+1))dateFiles.push(fmtDate(d));
-    titleSuffix=' (주간 종합)';
+function makeCarousel(id, count) {
+  let cur = 0;
+  const track = document.getElementById(id + '-track');
+  const dots = document.getElementById(id + '-dots').children;
+  const el = document.getElementById(id);
+  function go(n) {
+    cur = Math.max(0, Math.min(count - 1, n));
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    Array.from(dots).forEach((d, i) => d.classList.toggle('on', i === cur));
   }
-
-  document.getElementById('date-label').textContent=ds;
-  const mbl=document.getElementById('mobile-date-label');
-  if(mbl) mbl.textContent=curDate.getMonth()+1+'월 '+curDate.getDate()+'일';
-  const _today=new Date();const _isToday=fmtDate(curDate)===fmtDate(_today);const _yest=new Date(_today);_yest.setDate(_today.getDate()-1);const _isYesterday=fmtDate(curDate)===fmtDate(_yest);const _dayLabel=_isToday?' (오늘)':_isYesterday?' (어제)':'';
-  const hdrDate=document.getElementById('header-date');
-  if(hdrDate) hdrDate.textContent=`${curDate.getMonth()+1}월 ${curDate.getDate()}일${_dayLabel}${titleSuffix}`;
-
-  try{
-    let items=[];
-    const _results=await Promise.allSettled(dateFiles.map(df=>fetch(`/data/${df}.json`).then(r=>r.ok?r.json():null).catch(()=>null)));
-    for(const _r of _results){
-      if(_r.status!=='fulfilled'||!_r.value)continue;
-      const json=_r.value;const df=json.target_date||'';
-      const dayItems=(json.items||[]).map((it, idx)=>({
-          id: `${it.date}_${it.slug || String(idx).padStart(3,'0')}`,
-          slug: it.slug || String(idx).padStart(3,'0'),
-          title: cleanTitle(it.title||''),
-          src: it.source||'',
-          sum: it.summary||'',
-          why: it.why_important||'',
-          practical: it.practical_impact||'',
-          kws: it.keywords||[],
-          orig: it.url||'',
-          date: it.date||df,
-          cat: it.category||'행정법제',
-          finSub: it.finance_sub||FIN_SUB_MAP[it.source]||'',
-          impact: it.impact||'중',
-          laws: it.related_laws||[],
-        }));
-      items.push(...dayItems);
-    }
-    // 중복 제거 (제목 기준)
-    const seen=new Set();
-    items=items.filter(it=>{
-      const key=`${it.date}::${it.src}::${it.title}`;
-      if(seen.has(key))return false;
-      seen.add(key);
-      return true;
-    });
-    const prevDate=new Date(curDate);
-    prevDate.setDate(curDate.getDate()-1);
-    prevDayStats={total:0,byCat:{}};
-    try{
-      const prevResp=await fetch(`/data/${fmtDate(prevDate)}.json`);
-      if(prevResp.ok){
-        const prevJson=await prevResp.json();
-        const prevItems=(prevJson.items||[]).map(it=>({cat:it.category||'행정법제'}));
-        prevDayStats={total:prevItems.length,byCat:countByCategoryFor(prevItems)};
-      }
-    }catch(e){}
-    allItems=items;rebuildIndexes();render();updateSidebar();renderDailyHero();updateMobileUI();
-    renderSpecialBlock();
-    // 탭 필터 상태 복원
-    if(curFilter!=='all'){
-      const cats=['금융경제','사회복지','산업기술','외교안보','행정법제'];
-      let activeCat=curFilter;
-      if(!cats.includes(curFilter)){
-        const match=allItems.find(i=>i.src===curFilter);
-        if(match)activeCat=match.cat;
-      }
-      const catIdx={'금융경제':1,'사회복지':2,'산업기술':3,'외교안보':4,'행정법제':5}[activeCat];
-      const tabs=document.querySelectorAll('.m-tab');
-      tabs.forEach(t=>t.classList.remove('active'));
-      if(catIdx!==undefined&&tabs[catIdx])tabs[catIdx].classList.add('active');
-      if(catIdx!==undefined&&tabs[catIdx]){
-        const savedFilter=curFilter;
-        mSetTab(activeCat,tabs[catIdx]);
-        curFilter=savedFilter;
-        render();
-      }
-    }
-  }catch(e){document.getElementById('main-content').innerHTML=`<div class="empty"><div class="empty-icon">!</div><div>로드 실패: ${escapeHtml(e.message)}</div></div>`}
-
-  // 지원사업 로드
-  // 지원사업은 사이드바 링크로 분리
+  Array.from(dots).forEach((d, i) => d.addEventListener('click', () => go(i)));
+  let startX = 0;
+  el.addEventListener('touchstart', e => { startX = e.touches[0].clientX }, { passive: true });
+  el.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) go(cur + (diff > 0 ? 1 : -1));
+  }, { passive: true });
 }
-
-// 지원사업은 사이드바 링크로 /subsidy/에서 별도 제공
-
-function rebuildIndexes(){
-  groupedByCat={};countsByCat={};countsBySource={};countsByFinSub={};sortedSources=[];
-  allItems.forEach(it=>{
-    (groupedByCat[it.cat]=groupedByCat[it.cat]||[]).push(it);
-    countsByCat[it.cat]=(countsByCat[it.cat]||0)+1;
-    countsBySource[it.src]=(countsBySource[it.src]||0)+1;
-    const finSub=it.finSub||FIN_SUB_MAP[it.src];
-    if(finSub) countsByFinSub[finSub]=(countsByFinSub[finSub]||0)+1;
-  });
-  sortedSources=Object.keys(countsBySource).sort((a,b)=>a.localeCompare(b,'ko'));
-}
-function escapeHtml(s){return String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;')}
-function safeUrl(url){
-  try{
-    const parsed=new URL(String(url??''),window.location.origin);
-    if((parsed.protocol==='http:'||parsed.protocol==='https:')&&parsed.hostname) return parsed.href;
-  }catch(e){}
-  return '';
-}
-function getOptionalText(value){
-  const text=String(value||'').trim();
-  if(!text||text.startsWith('[')) return '';
-  return text;
-}
-function countByCategoryFor(items){
-  const byCat={};
-  (items||[]).forEach(it=>{byCat[it.cat]=(byCat[it.cat]||0)+1});
-  return byCat;
-}
-function buildTop3Items(){
-  let top3Items = [];
-  const highImpact = allItems.filter(it => it.impact === '상');
-  const midImpact = allItems.filter(it => it.impact === '중');
-  if (highImpact.length >= 3) {
-    for (const it of highImpact) {
-      if (top3Items.length >= 3) break;
-      const catCount = top3Items.filter(t => t.cat === it.cat).length;
-      if (catCount < 2) top3Items.push(it);
-    }
-  }
-  if (top3Items.length < 3) {
-    for (const it of [...highImpact, ...midImpact]) {
-      if (top3Items.length >= 3) break;
-      if (!top3Items.includes(it)) top3Items.push(it);
-    }
-  }
-  if (top3Items.length < 3) {
-    for (const it of allItems) {
-      if (top3Items.length >= 3) break;
-      if (!top3Items.includes(it)) top3Items.push(it);
-    }
-  }
-  return top3Items;
-}
-function lockBodyScroll(){
-  lastBodyOverflow=document.body.style.overflow;
-  document.body.style.overflow='hidden';
-}
-function unlockBodyScroll(){
-  document.body.style.overflow=lastBodyOverflow;
-}
-function setHighlightedText(el,text,keywords=[]){
-  const source=String(text||'');
-  const terms=[...new Set((keywords||[]).filter(k=>k&&k.length>1))];
-  el.textContent='';
-  if(!terms.length){el.textContent=source;return}
-  const parts=terms.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
-  const re=new RegExp(`(${parts.join('|')})`,'gi');
-  let last=0;
-  source.replace(re,(match,_g,offset)=>{
-    if(offset>last)el.appendChild(document.createTextNode(source.slice(last,offset)));
-    const mark=document.createElement('mark');mark.textContent=match;el.appendChild(mark);
-    last=offset+match.length;return match;
-  });
-  if(last<source.length)el.appendChild(document.createTextNode(source.slice(last)));
-}
-function makeMetaHtml(label,value){return `<div class="d-meta-i"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`}
-function filtered(){
-  let it=allItems;
-  if(curFilter!=='all'){
-    if(curFilter.startsWith('fin-')){
-      const sub=curFilter.slice(4);
-      it=it.filter(i=>(i.finSub||FIN_SUB_MAP[i.src])===sub);
-    } else {
-      it=it.filter(i=>i.cat===curFilter||i.src===curFilter);
-    }
-  }
-  if(curSearch){const q=curSearch.toLowerCase();it=it.filter(i=>i.title.toLowerCase().includes(q)||i.src.toLowerCase().includes(q)||i.sum.toLowerCase().includes(q))}
-  return it;
-}
-function renderReferralBanner(){
-  const el=document.getElementById('ref-banner');
-  if(!el)return;
-  if(trafficRef!=='telegram'){
-    el.classList.remove('show');
-    el.textContent='';
-    return;
-  }
-  const sessionLabel=trafficSession==='am'?'오전':trafficSession==='pm'?'오후':'';
-  const catLabel=CN[trafficCat]||trafficCat||'전체';
-  const relatedCount=trafficCat?allItems.filter(it=>it.cat===trafficCat).length:allItems.length;
-  const moreCount=Math.max(0,relatedCount-1);
-  const lead=`📋 ${sessionLabel?sessionLabel+' 브리핑에서 이어보기':'텔레그램 브리핑에서 이어보기'} | ${escapeHtml(catLabel)} ${moreCount||relatedCount}건 더 →`;
-  el.innerHTML=`<div class="ref-banner-copy"><strong>${lead}</strong><br>${escapeHtml(catLabel)} 흐름을 바로 펼쳐서 볼 수 있습니다.</div><div class="ref-banner-actions">${trafficCat?'<button type="button" onclick="applyTrafficCategoryFilter()">이 분야만 보기</button>':''}<a href="https://t.me/govbriefkr" target="_blank" rel="noopener noreferrer">채널 열기</a></div>`;
-  el.classList.add('show');
-}
-function applyTrafficCategoryFilter(){
-  if(!trafficCat)return;
-  curFilter=trafficCat;
-  syncFilterBar(trafficCat);
-  const mobBtns=document.querySelectorAll('.mob-filter-btn');
-  mobBtns.forEach(btn=>btn.classList.remove('active'));
-  render();
-}
-function renderDataStrip(){
-  const el=document.getElementById('data-strip');
-  if(!el)return;
-  if(!allItems.length){
-    el.classList.remove('show');
-    el.textContent='';
-    return;
-  }
-  const delta=allItems.length-(prevDayStats.total||0);
-  const deltaClass=delta>0?'delta-up':delta<0?'delta-down':'delta-flat';
-  const catBits=CO.map(cat=>`${CN[cat]} ${(countsByCat[cat]||0)}건`).join(' | ');
-  el.innerHTML=`<span>총 ${allItems.length}건</span><span>|</span><span>${catBits}</span><span>|</span><span class="${deltaClass}">전일 대비 ${delta>=0?'+':''}${delta}건</span>`;
-  el.classList.add('show');
-}
-function renderBriefingBar(){
-  const el=document.getElementById('briefing-bar');
-  if(!el)return;
-  const top3Items=buildTop3Items();
-  if(!top3Items.length){
-    el.classList.remove('show');
-    el.textContent='';
-    return;
-  }
-  const itemsHtml=top3Items.map((it,idx)=>`<a class="briefing-item" href="${SITE_URL}?date=${fmtDate(curDate)}&slug=${encodeURIComponent(it.slug||'')}" onclick="event.preventDefault();openDetail('${it.id}')">${escapeHtml(it.title)}</a>${idx<top3Items.length-1?'<span class="briefing-sep">|</span>':''}`).join('');
-  el.innerHTML=`<div class="briefing-kicker">오늘의 정책 한눈에</div><div class="briefing-items">${itemsHtml}</div>`;
-  el.classList.add('show');
-}
-function render(){
-  const items=filtered();const _tb=document.getElementById('total-badge-hdr');if(_tb)_tb.textContent=`${items.length}건`;
-  const c=document.getElementById('main-content');c.innerHTML='';
-  // 날짜 정보 바 업데이트
-  const _diTitle=document.getElementById('date-info-title');
-  const _diCount=document.getElementById('date-info-count');
-  const _today=new Date();const _isToday=fmtDate(curDate)===fmtDate(_today);
-  const _yest=new Date(_today);_yest.setDate(_today.getDate()-1);const _isYest=fmtDate(curDate)===fmtDate(_yest);
-  const _dayLabel=_isToday?' (오늘)':_isYest?' (어제)':'';
-  const _dowNames=['일','월','화','수','목','금','토'];
-  if(_diTitle)_diTitle.textContent=`${curDate.getFullYear()}년 ${curDate.getMonth()+1}월 ${curDate.getDate()}일 (${_dowNames[curDate.getDay()]})${_dayLabel} 보도자료`;
-  if(_diCount)_diCount.textContent=`${allItems.length}건 · ${Object.keys(countsBySource).length}개 부처`;
-
-  // 전체가 아닌 모든 필터(분야/부처)에서 히어로·일정 숨기기
-  const isAll=curFilter==='all';
-  const schedEl=document.getElementById('schedule-calendar');
-  const heroEl=document.getElementById('daily-hero');
-  if(isAll){
-    if(schedEl)schedEl.style.display='';
-    if(heroEl)heroEl.style.display='';
-  } else {
-    if(schedEl)schedEl.style.display='none';
-    if(heroEl)heroEl.style.display='none';
-  }
-  if(!items.length){c.innerHTML='<div class="empty"><div class="empty-icon"><i class="ph ph-folder-open" style="font-size:32px"></i></div><div style="font-size:14px;margin-bottom:4px">보도자료가 없습니다</div><div style="font-size:12px;color:var(--text-muted)">다른 날짜나 분야를 선택해 보세요</div></div>';return}
-  // 모바일 m-cat-hdr 제거 (render에서 통합 처리)
-  const _mCatHdr=document.getElementById('m-cat-hdr');
-  if(_mCatHdr)_mCatHdr.remove();
-
-  if(curFilter!=='all'){
-    const cats=['금융경제','사회복지','산업기술','외교안보','행정법제'];
-    const isCat=cats.includes(curFilter)||curFilter.startsWith('fin-');
-    const catLabel=isCat?(CN[curFilter]||curFilter):curFilter;
-
-    // 날짜 정보 바에 분야명 반영 (별도 헤더 없이)
-    if(_diTitle) _diTitle.textContent=`${curDate.getFullYear()}년 ${curDate.getMonth()+1}월 ${curDate.getDate()}일 (${_dowNames[curDate.getDay()]})${_dayLabel} ${escapeHtml(catLabel)} 보도자료`;
-    if(_diCount) _diCount.textContent=`${items.length}건`;
-
-    // 부처 배지 (가나다순) — 바로 표시
-    // 부처 필터 시: 해당 부처가 속한 분야의 모든 부처를 표시
-    const parentCat = isCat ? curFilter.replace(/^fin-/,'').replace(/금융정책|감독규제|시장통화|금융인프라|정책금융|업계동향/,'금융경제')
-      : (allItems.find(it => it.src === curFilter)?.cat || '');
-    const realParentCat = isCat ? (curFilter.startsWith('fin-') ? '금융경제' : curFilter) : parentCat;
-    const catItemsForBadge = realParentCat ? allItems.filter(it => it.cat === realParentCat) : items;
-    const catSources={};
-    catItemsForBadge.forEach(it=>{catSources[it.src]=(catSources[it.src]||0)+1});
-    const sortedSrc=Object.keys(catSources).sort();
-    if(sortedSrc.length>1){
-      const badges=document.createElement('div');
-      badges.style.cssText='display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px';
-      // "전체" 버튼 (분야로 돌아가기)
-      if(!isCat && realParentCat){
-        const allBtn=document.createElement('span');
-        allBtn.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--gold);color:var(--navy);cursor:pointer;white-space:nowrap;background:var(--gold-light);font-weight:600';
-        allBtn.textContent=`← ${CN[realParentCat]||realParentCat} 전체`;
-        allBtn.addEventListener('click',()=>{curFilter=realParentCat;render()});
-        badges.appendChild(allBtn);
-      }
-      sortedSrc.forEach(src=>{
-        const cnt=catSources[src];
-        const isActive=curFilter===src;
-        const btn=document.createElement('span');
-        btn.style.cssText=isActive
-          ?'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--navy);color:var(--white);background:var(--navy);cursor:pointer;white-space:nowrap'
-          :'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-light);color:var(--text-secondary);cursor:pointer;white-space:nowrap;background:var(--white)';
-        btn.textContent=`${src} ${cnt}`;
-        btn.addEventListener('click',()=>{curFilter=src;render()});
-        badges.appendChild(btn);
-      });
-      c.appendChild(badges);
-    }
-    const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;items.forEach((it,i)=>g.appendChild(mkCard(it,i)));c.appendChild(g);
-  }
-  else{CO.forEach(cat=>{if(!groupedByCat[cat]?.length)return;c.appendChild(mkBlock(cat,groupedByCat[cat]))})}
-}
-function mkBlock(cat,items){
-  const SHOW=4;const isEx=expanded[cat];const shown=isEx?items:items.slice(0,SHOW);
-  const b=document.createElement('div');b.className='cat-block';
-  const dv=document.createElement('div');dv.className='cat-divider';
-  dv.innerHTML=`<div class="cat-divider-dot" style="background:${CC[cat]}"></div><span class="cat-divider-label">${escapeHtml(CN[cat]||cat)}</span><div class="cat-divider-line"></div><span class="cat-divider-info">${items.length}건</span>`;
-  b.appendChild(dv);
-  const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;
-  shown.forEach((it,i)=>g.appendChild(mkCard(it,i)));
-  const h=items.length-SHOW;
-  if(!isEx&&h>0){const btn=document.createElement('button');btn.className='more-btn';btn.innerHTML=`<i class="ph ph-caret-down"></i> ${h}개 더보기`;btn.onclick=()=>{expanded[cat]=true;render()};g.appendChild(btn)}
-  else if(isEx&&items.length>SHOW){const btn=document.createElement('button');btn.className='more-btn';btn.innerHTML='<i class="ph ph-caret-up"></i> 접기';btn.onclick=()=>{expanded[cat]=false;render()};g.appendChild(btn)}
-  b.appendChild(g);return b;
-}
-
-function getSummaryText(it) {
-  // 요약이 없거나 placeholder인 경우 "요약 준비 중" 표시
-  if (!it.sum || it.sum.length < 5 || it.sum.startsWith('[텍스트 없음]') || it.sum.startsWith('[한도 초과]') || it.sum.startsWith('[오류]')) {
-    return { text: '요약 준비 중', isEmpty: true };
-  }
-  return { text: it.sum, isEmpty: false };
-}
-
-function mkCard(it,idx){
-  const col=CC[it.cat]||'#1a1a2e';const bg=col+'14';
-  const c=document.createElement('div');c.className='press-card';
-  c.style.cssText=`--card-accent:${col};animation-delay:${Math.min(idx,8)*.04}s`;
-  const summary = getSummaryText(it);
-  if(curView==='list'){
-    c.innerHTML=`<div style="width:72px;flex-shrink:0;text-align:center"><span class="m-badge" style="background:${bg};color:${col}"></span></div><div class="card-body" style="flex:1;min-width:0"><div class="card-title" style="-webkit-line-clamp:1;margin-bottom:0"></div><div class="card-meta"><span class="card-meta-i"></span></div></div><div class="card-actions" style="margin-top:0"><button class="c-btn primary" type="button">보기</button></div>`;
-    c.querySelector('.m-badge').textContent=it.src||'정부';
-    c.querySelector('.card-title').textContent=it.title||'';
-    c.querySelector('.card-meta-i').textContent=it.date||'';
-    c.querySelector('.c-btn.primary').addEventListener('click',e=>{e.stopPropagation();openDetail(it.id)});
-  }else{
-    c.innerHTML=`<div class="card-top"><span class="m-badge" style="background:${bg};color:${col}"></span><span class="card-time"></span></div><div class="card-title"></div><div class="card-summary${summary.isEmpty?' no-summary':''}"></div><div class="card-meta"><span class="card-meta-i"></span></div><div class="card-actions"><button class="c-btn primary" type="button">상세보기</button><a class="c-btn" target="_blank" rel="noopener noreferrer"><i class="ph ph-arrow-square-out"></i> 원문</a></div>`;
-    c.querySelector('.m-badge').textContent=it.src||'정부';
-    c.querySelector('.card-time').textContent=it.date||'';
-    c.querySelector('.card-title').textContent=it.title||'';
-    const sumEl = c.querySelector('.card-summary');
-    if (summary.isEmpty) {
-      sumEl.textContent = summary.text;
-    } else {
-      setHighlightedText(sumEl, summary.text, it.kws);
-    }
-    const kwWrap=c.querySelector('.card-meta-i');
-    it.kws.slice(0,3).forEach(k=>{
-      const span=document.createElement('span');span.className='kw-tag';span.textContent=k;
-      kwWrap.appendChild(document.createTextNode(' '));kwWrap.appendChild(span);
-    });
-    // 관련 법령 표시
-    if(it.laws&&it.laws.length){
-      const lawDiv=document.createElement('div');
-      lawDiv.style.cssText='margin-top:6px;display:flex;flex-wrap:wrap;gap:3px';
-      it.laws.slice(0,2).forEach(l=>{
-        const tag=document.createElement('span');
-        tag.style.cssText='font-size:10px;padding:2px 6px;border-radius:3px;background:#fef3c7;color:#92400e;white-space:nowrap';
-        tag.textContent='📜 '+(l.law_name||'')+(l.article_ref?' '+l.article_ref:'');
-        lawDiv.appendChild(tag);
-      });
-      c.querySelector('.card-meta').before(lawDiv);
-    }
-    c.querySelector('.c-btn.primary').addEventListener('click',e=>{e.stopPropagation();openDetail(it.id)});
-    const link=c.querySelector('.c-btn:not(.primary)');
-    link.href=safeUrl(it.orig)||'#';link.addEventListener('click',e=>e.stopPropagation());
-  }
-  c.addEventListener('click',()=>openDetail(it.id));return c;
-}
-function openDetail(id){
-  const it=allItems.find(i=>i.id===id);if(!it)return;
-  lastFocusedEl=document.activeElement;
-  _shareTitle=it.title;_shareUrl=`${SITE_URL}?date=${fmtDate(curDate)}&slug=${encodeURIComponent(it.slug||'')}`;
-  const col=CC[it.cat]||'#1a1a2e';const bg=col+'14';
-  document.getElementById('d-hdr-min').textContent=it.src;
-  const b=document.getElementById('d-badge');b.textContent=it.src;b.style.cssText=`background:${bg};color:${col};border:1px solid ${col}44`;
-  document.getElementById('d-title').textContent=it.title;
-  document.getElementById('d-meta').innerHTML=[makeMetaHtml('날짜',it.date),makeMetaHtml('기관',it.src),makeMetaHtml('분야',CN[it.cat]||it.cat)].join('');
-  const summary = getSummaryText(it);
-  if (summary.isEmpty) {
-    document.getElementById('d-summary').textContent = summary.text;
-    document.getElementById('d-summary').style.fontStyle = 'italic';
-    document.getElementById('d-summary').style.color = 'var(--text-muted)';
-  } else {
-    document.getElementById('d-summary').style.fontStyle = '';
-    document.getElementById('d-summary').style.color = '';
-    setHighlightedText(document.getElementById('d-summary'), summary.text, it.kws);
-  }
-  const whyText=getOptionalText(it.why);
-  const whyBox=document.getElementById('d-why');
-  const whyLabel=document.getElementById('d-why-label');
-  whyBox.textContent=whyText;
-  whyBox.classList.toggle('show',!!whyText);
-  whyLabel.style.display=whyText?'':'none';
-  const kwBox=document.getElementById('d-kws');kwBox.textContent='';
-  it.kws.forEach(k=>{const span=document.createElement('span');span.className='kw';span.textContent=`# ${k}`;kwBox.appendChild(span)});
-  const lawSec=document.getElementById('d-laws');
-  const lawLabel=document.getElementById('d-laws-label');
-  lawSec.innerHTML='';
-  if(it.laws&&it.laws.length){
-    lawSec.classList.add('show');
-    lawLabel.style.display='';
-    it.laws.forEach(l=>{
-      const name=escapeHtml(l.law_name||'');
-      const ref=l.article_ref?' '+escapeHtml(l.article_ref):'';
-      const ministry=escapeHtml(l.ministry||'');
-      const link=safeUrl(l.detail_link?(l.detail_link.startsWith('http')?l.detail_link:'https://www.law.go.kr'+l.detail_link):'');
-      const linkHtml=link?` <a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer">법령 전문 보기 →</a>`:'';
-      lawSec.innerHTML+=`<div class="d-law-row"><div class="d-law-name">${name}${ref}</div><div class="d-law-meta">${ministry}${linkHtml}</div></div>`;
-    });
-  }else{
-    lawSec.classList.remove('show');
-    lawLabel.style.display='none';
-  }
-  const impactText=getOptionalText(it.practical);
-  const impactBox=document.getElementById('d-impact');
-  const impactLabel=document.getElementById('d-impact-label');
-  impactBox.textContent=impactText;
-  impactBox.classList.toggle('show',!!impactText);
-  impactLabel.style.display=impactText?'':'none';
-  const sourceLink=safeUrl(it.orig);
-  const srcBtn=document.getElementById('d-src');
-  srcBtn.href=sourceLink||'#';
-  srcBtn.setAttribute('aria-disabled',sourceLink?'false':'true');
-  srcBtn.style.pointerEvents=sourceLink?'':'none';
-  srcBtn.style.opacity=sourceLink?'1':'.5';
-  document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.getElementById('detail').scrollTop=0;lockBodyScroll();document.querySelector('.m-bottom-nav')?.classList.add('detail-open');document.getElementById('detail').querySelector('.d-close')?.focus();history.pushState({detail:true},'',`?date=${fmtDate(curDate)}&slug=${encodeURIComponent(it.slug||'')}`);
-}
-function closeDetail(){const det=document.getElementById('detail');det.style.transform='';det.classList.remove('open');document.getElementById('d-overlay').classList.remove('open');unlockBodyScroll();document.querySelector('.m-bottom-nav')?.classList.remove('detail-open');if(history.state?.detail)history.back();(lastFocusedEl&&typeof lastFocusedEl.focus==='function'?lastFocusedEl:document.querySelector('.press-card'))?.focus()}
-function updateSidebar(){
-  document.getElementById('cnt-all').textContent=allItems.length;
-  CO.forEach(cat=>{const el=document.getElementById(`cnt-${cat}`);if(el)el.textContent=countsByCat[cat]||0});
-  const el0=document.getElementById('cnt-금융경제-all');if(el0)el0.textContent=countsByCat['금융경제']||0;
-  ['금융정책','감독규제','시장통화','금융인프라','정책금융','업계동향'].forEach(sub=>{
-    const el=document.getElementById(`cnt-fin-${sub}`);if(el)el.textContent=countsByFinSub[sub]||0;
-  });
-  const sb=document.getElementById('ministry-sb');[...sb.querySelectorAll('.f-item')].forEach(e=>e.remove());
-  sortedSources.forEach(m=>{
-    const cnt=countsBySource[m]||0;const cat=allItems.find(i=>i.src===m)?.cat||'행정법제';
-    const el=document.createElement('div');el.className='f-item';
-    el.innerHTML=`<div class="f-left"><div class="f-dot" style="background:${CC[cat]}"></div><span class="f-label"></span></div><span class="f-cnt"></span>`;
-    el.querySelector('.f-label').textContent=m;el.querySelector('.f-cnt').textContent=cnt;
-    el.addEventListener('click',()=>setFilter(m,el));sb.appendChild(el);
-  });
-}
-function setFilter(cat,el){
-  curFilter=cat;
-  document.querySelectorAll('.f-item').forEach(i=>i.classList.remove('active'));
-  el.classList.add('active');expanded={};
-  if(cat.startsWith('fin-')||cat==='금융경제'){
-    document.getElementById('fin-sub').classList.add('open');
-    document.getElementById('fin-toggle').classList.add('expanded');
-  }
-  // 필터 바 동기화
-  syncFilterBar(cat);
-  render();
-}
-
-function syncFilterBar(cat) {
-  const cats=['금융경제','사회복지','산업기술','외교안보','행정법제'];
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  filterBtns.forEach(b => b.classList.remove('active'));
-  if (cat === 'all') {
-    filterBtns[0]?.classList.add('active');
-  } else {
-    const idx = cats.indexOf(cat);
-    if (idx >= 0) filterBtns[idx + 1]?.classList.add('active');
-  }
-  filterBtns.forEach(btn=>btn.setAttribute('aria-pressed',btn.classList.contains('active')?'true':'false'));
-}
-
-function setView(v,el){curView=v;document.querySelectorAll('.v-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');render()}
-function handleSearch(q){
-  curSearch=q.toLowerCase();expanded={};render();
-  const hdr=document.getElementById('search-in-hdr');
-  const mob=document.getElementById('m-search-input');
-  if(hdr&&hdr!==document.activeElement)hdr.value=q;
-  if(mob&&mob!==document.activeElement)mob.value=q;
-}
-function dismissCta(){
-  const _cta=document.getElementById('mobile-cta');if(_cta)_cta.style.display='none';
-  localStorage.setItem('cta_dismissed',Date.now());
-}
-document.addEventListener('DOMContentLoaded',function(){
-  const d=localStorage.getItem('cta_dismissed');
-  if(d&&Date.now()-Number(d)<30*86400000){
-    const el=document.getElementById('mobile-cta');
-    if(el)el.style.display='none';
-  }
-});
-function toggleFinSub(el){el.classList.toggle('expanded');document.getElementById('fin-sub').classList.toggle('open')}
-function mobSetFilter(cat,el){
-  curFilter=cat;
-  document.querySelectorAll('.mob-filter-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  document.querySelectorAll('.f-item').forEach(i=>i.classList.remove('active'));
-  expanded={};
-  const isAll=cat==='all';
-  const schedEl=document.getElementById('schedule-calendar');
-  const heroEl=document.getElementById('daily-hero');
-  if(isAll){
-    if(schedEl) schedEl.style.display='';
-    if(heroEl) heroEl.style.display='';
-  } else {
-    if(schedEl) schedEl.style.display='none';
-    if(heroEl) heroEl.style.display='none';
-  }
-  render();
-}
-window.addEventListener('popstate',e=>{
-  if(document.getElementById('detail').classList.contains('open')){closeDetail();return}
-  if(document.querySelector('.ministry-sheet.open')){closeMinistrySheet();return}
-});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();closeMinistrySheet()}if(e.key==='/'&&!e.target.matches('input,textarea')){e.preventDefault();const si=document.getElementById('search-in-hdr');if(si)si.focus()}});
-
-// 초기화
-(async()=>{
-  const today=new Date();
-  const hour=today.getHours();
-  if(hour<12){const yesterday=new Date(today);yesterday.setDate(today.getDate()-1);curDate=yesterday}
-  else{curDate=new Date(today)}
-  const params=new URLSearchParams(window.location.search);
-  const ministry=params.get('ministry');
-  const dateParam=params.get('date');
-  const catParam=params.get('cat');
-  trafficRef=params.get('ref')||'';
-  trafficSession=params.get('session')||'';
-  trafficCat=params.get('cat')||'';
-  if(dateParam){const parts=dateParam.split('-');if(parts.length===3)curDate=new Date(parts[0],parts[1]-1,parts[2])}
-  await loadData();
-  if(ministry){curFilter=ministry;render()}
-  const slugParam=params.get('slug');
-  if(slugParam){
-    const match=allItems.find(i=>i.slug===decodeURIComponent(slugParam));
-    if(match)setTimeout(()=>openDetail(match.id),300);
-  }
-  if(catParam){curFilter=catParam;render()}
-})();
-
-function renderDailyHero() {
-  const heroEl = document.getElementById('daily-hero');
-  if (!heroEl) return;
-  const top3Items = buildTop3Items();
-
-  if (top3Items.length === 0) { heroEl.classList.remove('has-items'); heroEl.textContent=''; return; }
-
-  const col = (cat) => CC[cat] || '#1a1a2e';
-  const catBg = {'금융경제':'var(--c-fin-l)','사회복지':'var(--c-soc-l)','산업기술':'var(--c-ind-l)','외교안보':'var(--c-dip-l)','행정법제':'var(--c-adm-l)'};
-  heroEl.textContent = '';
-
-  function appendHeroCard(it, className, withLabel=false){
-    const c = col(it.cat);
-    const summary = getSummaryText(it);
-    const card = document.createElement('div');
-    card.className = className;
-    card.style.setProperty('--hero-accent', c);
-    card.style.setProperty('--hero-bg', catBg[it.cat] || 'var(--c-fin-l)');
-    card.addEventListener('click', () => openDetail(it.id));
-
-    if(withLabel){
-      const label = document.createElement('div');
-      label.className = 'hero-label';
-      label.textContent = '오늘의 핵심';
-      card.appendChild(label);
-    }
-
-    const footer = document.createElement('div');
-    footer.className = 'hero-footer';
-    if(!withLabel) footer.style.marginTop = '0';
-
-    const badge = document.createElement('span');
-    badge.className = 'hero-badge';
-    badge.style.background = catBg[it.cat] || 'var(--c-fin-l)';
-    badge.style.color = c;
-    badge.textContent = it.src || '';
-
-    const time = document.createElement('span');
-    time.className = 'hero-time';
-    time.textContent = CN[it.cat] || it.cat || '';
-
-    footer.appendChild(badge);
-    footer.appendChild(time);
-
-    const title = document.createElement('div');
-    title.className = 'hero-title';
-    title.textContent = it.title || '';
-
-    const summaryEl = document.createElement('div');
-    summaryEl.className = 'hero-summary';
-    summaryEl.textContent = summary.text;
-    if(summary.isEmpty){
-      summaryEl.style.fontStyle = 'italic';
-      summaryEl.style.color = 'var(--text-muted)';
-    }
-
-    if(withLabel){
-      const whyText=getOptionalText(it.why);
-      card.appendChild(title);
-      card.appendChild(summaryEl);
-      if(whyText){
-        const why=document.createElement('div');
-        why.className='hero-why';
-        why.innerHTML=`<strong>Why It Matters</strong>${escapeHtml(whyText)}`;
-        card.appendChild(why);
-      }
-      card.appendChild(footer);
-    } else {
-      card.appendChild(footer);
-      card.appendChild(title);
-      card.appendChild(summaryEl);
-    }
-
-    heroEl.appendChild(card);
-  }
-
-  for (let i = 0; i < Math.min(top3Items.length, 3); i++) {
-    appendHeroCard(top3Items[i], i===0?'hero-main':'hero-sub', i===0);
-  }
-
-  heroEl.classList.add('has-items');
-}
-
-function renderTopPicks(){/* 제거됨 */}
-
-async function renderSpecialBlock(){
-  const cal=document.getElementById('schedule-calendar');
-  if(!cal)return;
-  const wd=curDate.getDay();
-  const todayStr=fmtDate(new Date());
-  const DOW_COLORS={'월':'#1a47cc','화':'#0f6b3a','수':'#9a4a0a','목':'#a31515','금':'#5b20b8'};
-
-  let schedData=null;
-  const schedFiles=['schedule-latest.json'];
-  if(wd===0) schedFiles.unshift(`schedule-${fmtDate(curDate)}.json`);
-  else {
-    const prevSun=new Date(curDate);prevSun.setDate(curDate.getDate()-wd);
-    schedFiles.unshift(`schedule-${fmtDate(prevSun)}.json`);
-  }
-  for(const sf of schedFiles){
-    try{
-      const r=await fetch(`/data/${sf}`);
-      if(r.ok){schedData=await r.json();break}
-    }catch(e){}
-  }
-  if(!schedData||!schedData.days||Object.keys(schedData.days).length===0){
-    cal.classList.remove('has-data');return;
-  }
-
-  const days=schedData.days;
-  const dates=Object.keys(days).sort();
-  const dows=['일','월','화','수','목','금','토'];
-
-  const first=new Date(dates[0]+'T00:00:00');
-  const last=new Date(dates[dates.length-1]+'T00:00:00');
-  const rangeLabel=`${first.getMonth()+1}/${first.getDate()}(${dows[first.getDay()]}) ~ ${last.getMonth()+1}/${last.getDate()}(${dows[last.getDay()]})`;
-  const isNextWeek=wd===0;
-  const titleText=isNextWeek?'다음주 주요 일정':'이번주 주요 일정';
-
-  let html=`<div class="sched-hdr">
-    <div class="sched-title"><i class="ph ph-calendar-blank"></i> ${titleText}</div>
-    <span class="sched-range">${rangeLabel} · ${schedData.total}건</span>
-  </div>`;
-
-  html+='<div class="sched-grid">';
-  for(const d of dates){
-    const dt=new Date(d+'T00:00:00');
-    const dow=dows[dt.getDay()];
-    const items=days[d]||[];
-    const isToday=d===todayStr;
-    const isPast=d<todayStr;
-    const dayClass='sched-day'+(isToday?' today':'')+(isPast?' past':'');
-    const dowColor=DOW_COLORS[dow]||'var(--navy)';
-
-    html+=`<div class="${dayClass}">`;
-    html+=`<div class="sched-day-hdr">
-      <div><span class="sched-day-num" style="color:${dowColor}">${dt.getDate()}</span>
-      <span class="sched-day-dow" style="color:${dowColor}">${dow}</span></div>
-      ${items.length?`<span class="sched-day-cnt">${items.length}건</span>`:''}
-    </div>`;
-
-    html+='<div class="sched-items">';
-    const show=items.slice(0,3);
-    for(const it of show){
-      const time=it.time||'';
-      const src=(it.source||'').replace(/부$/,'').slice(0,4);
-      html+=`<div class="sched-item">
-        ${time?`<span class="sched-item-time">${time}</span>`:''}
-        <span class="sched-item-src" style="color:${dowColor}">${escapeHtml(src)}</span>
-        <span class="sched-item-title">${escapeHtml(it.title||'')}</span>
-      </div>`;
-    }
-    if(items.length>3){
-      html+=`<span class="sched-more">+${items.length-3}건 더</span>`;
-    }
-    if(!items.length){
-      html+=`<span style="font-size:11px;color:var(--text-muted)">일정 없음</span>`;
-    }
-    html+='</div></div>';
-  }
-  html+='</div>';
-
-  const schedDate=wd===0?fmtDate(curDate):fmtDate((()=>{const s=new Date(curDate);s.setDate(curDate.getDate()-wd);return s})());
-  html+=`<a class="sched-link" href="/articles/schedule/${schedDate}/"><i class="ph ph-arrow-square-out"></i> 전체 일정 보기</a>`;
-
-  cal.innerHTML=html;
-  cal.classList.add('has-data');
-
-  if(window.innerWidth<=768){
-    const dayEls=cal.querySelectorAll('.sched-day');
-    let foundToday=false;
-    dayEls.forEach(el=>{
-      if(el.classList.contains('today')){foundToday=true;el.classList.add('m-sched-show')}
-      else if(foundToday){el.classList.add('m-sched-show')}
-    });
-    if(!foundToday) dayEls.forEach(el=>el.classList.add('m-sched-show'));
-    const todayEl=cal.querySelector('.sched-day.today');
-    if(todayEl) todayEl.scrollIntoView({behavior:'smooth',inline:'start',block:'nearest'});
-  }
-}
-function renderSourceBadges(){
-  const box=document.getElementById('source-badges');
-  if(!allItems.length){box.style.display='none';return}
-  const prioritySources=['국토교통부','금융위원회','산업통상자원부','산업통상부'];
-  const sorted=Object.entries(countsBySource).sort((a,b)=>b[1]-a[1]);
-  const priority=[];
-  prioritySources.forEach(src=>{
-    const found=sorted.find(([s])=>s===src);
-    if(found && !priority.some(([s])=>s===found[0])) priority.push(found);
-  });
-  const others=sorted.filter(([s])=>!prioritySources.some(p=>s.includes(p)));
-  const show=priority.slice(0,3);
-  box.style.display='flex';box.textContent='';
-  show.forEach(([src,cnt])=>{
-    const tag=document.createElement('span');
-    const isActive=curFilter===src;
-    tag.style.cssText=isActive
-      ?'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--navy);color:var(--white);background:var(--navy);cursor:pointer;white-space:nowrap'
-      :'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-mid);color:var(--text-secondary);cursor:pointer;white-space:nowrap;background:var(--white)';
-    tag.textContent=`${src} ${cnt}`;
-    tag.addEventListener('click',()=>{curFilter=src;render();renderSourceBadges()});
-    box.appendChild(tag);
-  });
-  const isPriorityFilter = prioritySources.some(p=>curFilter===p);
-  const isOtherFilter = curFilter!=='all' && !isPriorityFilter && !['금융경제','사회복지','산업기술','외교안보','행정법제'].includes(curFilter);
-
-  if(others.length>0){
-    const more=document.createElement('span');
-    more.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-light);color:var(--text-muted);cursor:pointer;white-space:nowrap';
-    more.textContent=`+${others.length}개 부처 더보기`;
-    more.addEventListener('click',()=>{
-      box.textContent='';
-      sorted.forEach(([src,cnt])=>{
-        const tag=document.createElement('span');
-        const isActive=curFilter===src;
-        tag.style.cssText=isActive
-          ?'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--navy);color:var(--white);background:var(--navy);cursor:pointer;white-space:nowrap'
-          :'font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--border-light);color:var(--text-secondary);cursor:pointer;white-space:nowrap';
-        tag.textContent=`${src} ${cnt}`;
-        tag.addEventListener('click',()=>{curFilter=src;render();renderSourceBadges()});
-        box.appendChild(tag);
-      });
-      const fold=document.createElement('span');
-      fold.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-light);color:var(--text-muted);cursor:pointer;white-space:nowrap';
-      fold.textContent='접기';
-      fold.addEventListener('click',()=>{renderSourceBadges()});
-      box.appendChild(fold);
-    });
-    box.appendChild(more);
-
-    if(isOtherFilter){
-      const sel=document.createElement('span');
-      sel.style.cssText='font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--navy);color:var(--white);background:var(--navy);cursor:pointer;white-space:nowrap';
-      const cnt=countsBySource[curFilter]||0;
-      sel.textContent=`${curFilter} ${cnt}`;
-      sel.addEventListener('click',()=>{curFilter='all';render();renderSourceBadges()});
-      box.appendChild(sel);
-    }
-  }
-}
-
-// 모달 스와이프 다운 닫기 (모바일 전용)
-(function(){
-  const det=document.getElementById('detail');
-  const hdr=det.querySelector('.detail-hdr');
-  let startY=0,dragging=false,currentDy=0;
-  // 헤더 영역에서만 스와이프 시작
-  hdr.addEventListener('touchstart',e=>{
-    startY=e.touches[0].clientY;dragging=true;currentDy=0;
-  },{passive:true});
-  det.addEventListener('touchmove',e=>{
-    if(!dragging)return;
-    currentDy=e.touches[0].clientY-startY;
-    if(currentDy>0){
-      det.style.transition='none';
-      det.style.transform=`translateY(${currentDy}px)`;
-    }
-  },{passive:true});
-  det.addEventListener('touchend',()=>{
-    if(!dragging)return;dragging=false;
-    det.style.transition='';
-    if(currentDy>100){closeDetail()}
-    det.style.transform='';
-    currentDy=0;
-  });
-})();
-
-(function(){
-  const sheet=document.getElementById('ministry-sheet');
-  const inner=sheet?.querySelector('.ministry-sheet-inner');
-  if(!sheet||!inner)return;
-  let startY=0,dragging=false;
-  inner.addEventListener('touchstart',e=>{
-    if(inner.scrollTop<=0){startY=e.touches[0].clientY;dragging=true}
-  },{passive:true});
-  inner.addEventListener('touchmove',e=>{
-    if(!dragging)return;
-    const dy=e.touches[0].clientY-startY;
-    if(dy>0)inner.style.transform=`translateY(${dy}px)`;
-  },{passive:true});
-  inner.addEventListener('touchend',()=>{
-    if(!dragging)return;
-    dragging=false;
-    const dy=parseInt(inner.style.transform.replace(/[^0-9-]/g,''))||0;
-    if(dy>80)closeMinistrySheet();
-    inner.style.transform='';
-  });
-})();
-
-// 부처별 필터 바텀시트
-function openMinistrySheet(){
-  const sheet=document.getElementById('ministry-sheet');
-  if(!sheet)return;
-  const list=sheet.querySelector('.ministry-sheet-list');
-  list.innerHTML='';
-  sortedSources.forEach(m=>{
-    const cnt=countsBySource[m]||0;
-    const cat=allItems.find(i=>i.src===m)?.cat||'행정법제';
-    const item=document.createElement('div');
-    item.className='ministry-sheet-item'+(curFilter===m?' active':'');
-    item.innerHTML='<div style="display:flex;align-items:center;gap:8px"><div class="f-dot" style="background:'+CC[cat]+'"></div><span style="font-size:13px;color:'+(curFilter===m?'var(--white)':'var(--text-secondary)')+'">'+escapeHtml(m)+'</span></div><span class="f-cnt" style="'+(curFilter===m?'background:rgba(255,255,255,.2);color:rgba(255,255,255,.8)':'')+'">'+escapeHtml(String(cnt))+'</span>';
-    item.addEventListener('click',()=>{curFilter=m;render();closeMinistrySheet()});
-    list.appendChild(item);
-  });
-  sheet.classList.add('open');
-  sheet.querySelector('.ministry-sheet-close')?.focus();
-  history.pushState({sheet:true},'');
-  lockBodyScroll();
-}
-function closeMinistrySheet(){
-  const sheet=document.getElementById('ministry-sheet');
-  if(sheet)sheet.classList.remove('open');
-  unlockBodyScroll();
-}
-
-// 모바일 전용 함수
-function mToggleSearch(){
-  const sl=document.getElementById('m-search-slide');
-  const isOpen=sl.classList.contains('open');
-  sl.classList.toggle('open');
-  if(!isOpen){
-    // 화면 유지, 키보드만 올리기
-    const input=document.getElementById('m-search-input');
-    input.focus();
-    // 스크롤 위치 유지
-    const scrollY=window.scrollY;
-    setTimeout(()=>window.scrollTo(0,scrollY),50);
-  }
-}
-function mSetTab(cat,el){
-  curFilter=cat;
-  document.querySelectorAll('.m-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  document.querySelectorAll('.m-tab').forEach(t=>t.setAttribute('aria-selected',t.classList.contains('active')?'true':'false'));
-  expanded={};
-  render();
-}
-
-function mFilterSource(src,cat){
-  if(curFilter===src){curFilter=cat}else{curFilter=src}
-  const tabs=document.querySelectorAll('.m-tab');
-  const catIdx={'금융경제':1,'사회복지':2,'산업기술':3,'외교안보':4,'행정법제':5}[cat];
-  if(catIdx!==undefined){
-    tabs.forEach(t=>t.classList.remove('active'));
-    tabs[catIdx].classList.add('active');
-  }
-  const catSources={};
-  allItems.forEach(it=>{if(it.cat===cat){catSources[it.src]=(catSources[it.src]||0)+1}});
-  const sortedSrc=Object.entries(catSources).sort((a,b)=>b[1]-a[1]);
-  const hdr=document.getElementById('m-cat-hdr');
-  if(hdr){
-    const badgeDiv=hdr.querySelector('div:last-child');
-    if(badgeDiv){
-      badgeDiv.innerHTML='';
-      sortedSrc.forEach(([s,cnt])=>{
-        const isActive=curFilter===s;
-        const span=document.createElement('span');
-        span.style.cssText=isActive
-          ?'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--navy);color:var(--white);background:var(--navy);cursor:pointer;white-space:nowrap;display:inline-block;margin:2px 3px 2px 0'
-          :'font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-light);color:var(--text-secondary);cursor:pointer;white-space:nowrap;display:inline-block;margin:2px 3px 2px 0';
-        span.textContent=`${s} ${cnt}`;
-        span.addEventListener('click',()=>mFilterSource(s,cat));
-        badgeDiv.appendChild(span);
-      });
-    }
-  }
-  render();
-}
-function openFilterSheet(){
-  openMinistrySheet();
-}
-let calViewDate=null;
-function openDateSheet(){
-  calViewDate=new Date(curDate);
-  renderCalendar();
-  document.getElementById('date-sheet').classList.add('open');
-  lockBodyScroll();
-}
-function closeDateSheet(){
-  document.getElementById('date-sheet').classList.remove('open');
-  unlockBodyScroll();
-}
-function calNav(dir){
-  calViewDate.setMonth(calViewDate.getMonth()+dir);
-  renderCalendar();
-}
-function renderCalendar(){
-  const y=calViewDate.getFullYear(),m=calViewDate.getMonth();
-  document.getElementById('cal-month-label').textContent=`${y}년 ${m+1}월`;
-  const grid=document.getElementById('cal-grid');
-  grid.innerHTML='';
-  // 요일 헤더
-  ['일','월','화','수','목','금','토'].forEach(d=>{
-    const el=document.createElement('div');el.className='cal-dow';el.textContent=d;grid.appendChild(el);
-  });
-  const firstDay=new Date(y,m,1).getDay();
-  const daysInMonth=new Date(y,m+1,0).getDate();
-  const today=new Date();
-  const todayStr=fmtDate(today);
-  const selStr=fmtDate(curDate);
-  // 빈칸
-  for(let i=0;i<firstDay;i++){const el=document.createElement('div');el.className='cal-day empty';grid.appendChild(el);}
-  // 날짜
-  for(let d=1;d<=daysInMonth;d++){
-    const el=document.createElement('div');
-    const dt=new Date(y,m,d);
-    const ds=fmtDate(dt);
-    el.className='cal-day';
-    if(ds===todayStr)el.classList.add('today');
-    if(ds===selStr)el.classList.add('selected');
-    el.textContent=d;
-    el.addEventListener('click',()=>{
-      curDate=new Date(y,m,d);
-      closeDateSheet();
-      loadData();
-    });
-    grid.appendChild(el);
-  }
-}
-function navHome(){curFilter='all';curDate=new Date();loadData()}
-function updateMobileUI(){
-  const mm=curDate.getMonth()+1;const dd=curDate.getDate();
-  const chip=document.getElementById('m-date-text');if(chip)chip.textContent=mm+'월 '+dd+'일';
-  const nav=document.getElementById('m-nav-date');if(nav)nav.textContent=mm+'/'+dd;
-}
-
-let _shareTitle='',_shareUrl='';
-function shareTelegram(){window.open('https://t.me/share/url?url='+encodeURIComponent(_shareUrl)+'&text='+encodeURIComponent(_shareTitle),'_blank')}
-function shareNative(){
-  if(navigator.share){
-    navigator.share({title:_shareTitle,text:_shareTitle+' - 브리핑룸',url:_shareUrl}).catch(()=>{});
-  } else {
-    shareTelegram();
-  }
-}
-function copyLink(){
-  const btn=document.getElementById('copy-btn');
-  const onDone=()=>{if(btn){btn.innerHTML='<i class="ph ph-check"></i> 복사됨';setTimeout(()=>{btn.innerHTML='<i class="ph ph-link"></i> 복사'},2000)}};
-  if(navigator.clipboard&&window.isSecureContext){
-    navigator.clipboard.writeText(_shareUrl).then(onDone).catch(()=>{});
-    return;
-  }
-  const ta=document.createElement('textarea');
-  ta.value=_shareUrl;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';
-  document.body.appendChild(ta);ta.select();
-  try{document.execCommand('copy');onDone()}catch(e){}finally{ta.remove()}
-}
-
-// 모바일 스크롤 은닉
-(function(){
-  let lastY=0;
-  window.addEventListener('scroll',function(){
-    if(window.innerWidth>768)return;
-    const y=window.scrollY;
-    const mh=document.getElementById('m-header');
-    const mt=document.getElementById('m-cat-tabs');
-    if(y<60){mh&&mh.classList.remove('scrolled-down');mt&&mt.classList.remove('scrolled-down');lastY=y;return}
-    if(y-lastY>4){mh&&mh.classList.add('scrolled-down');mt&&mt.classList.add('scrolled-down')}
-    else if(lastY-y>4){mh&&mh.classList.remove('scrolled-down');mt&&mt.classList.remove('scrolled-down')}
-    lastY=y;
-  },{passive:true});
-})();
+makeCarousel('c1', 4);
+makeCarousel('c2', 3);
 </script>
 
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/sw.js').catch(()=>{});
-}
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2019101622583347" crossorigin="anonymous"></script>
 </body>
 </html>
