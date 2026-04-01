@@ -74,9 +74,17 @@ def sync_amendment_reasons(limit: int = 200):
 
             data = r.json()
             law_data = data.get("법령", {})
-            reason = law_data.get("개정문", {}).get("개정이유", "")
-            if not reason:
-                reason = law_data.get("개정문", {}).get("제개정이유", "")
+            amend = law_data.get("개정문", {})
+            # 개정문내용은 배열의 배열 형태 [[제목, 내용, ...]]
+            raw = amend.get("개정문내용", "")
+            reason = ""
+            if isinstance(raw, list):
+                # 첫 번째 배열에서 텍스트 합치기 (제목 제외, 본문만)
+                flat = raw[0] if raw and isinstance(raw[0], list) else raw
+                texts = [s for s in flat if isinstance(s, str) and len(s) > 20]
+                reason = " ".join(texts[:3]) if texts else ""
+            elif isinstance(raw, str):
+                reason = raw
 
             if reason:
                 # 앞 500자만 저장 (개정이유가 매우 길 수 있음)
