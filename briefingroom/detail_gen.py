@@ -196,8 +196,8 @@ def generate_article_details(target_date: str = "", max_items: int = 20):
     items = data.get("items", data) if isinstance(data, dict) else data
     generated = 0
 
-    for item in items[:max_items]:
-        slug = item.get("slug", "000")
+    for idx, item in enumerate(items[:max_items]):
+        slug = item.get("slug") or f"{idx:03d}"
         item_date = item.get("date", target_date)
         detail_dir = ARTICLES_DIR / item_date / slug
         detail_path = detail_dir / "detail.html"

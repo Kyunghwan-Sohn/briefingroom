@@ -403,6 +403,18 @@ def main():
     _run_wordpress(all_items, target)
     generate_static(target.isoformat())
 
+    # 상세 브리핑 생성 (붙임 PDF 원문 기반 LLM 분석)
+    detail_enabled = os.environ.get("DETAIL_ENABLED", "true").lower() in ("true", "1", "yes")
+    if detail_enabled:
+        try:
+            from briefingroom.detail_gen import generate_article_details
+            print(f"\n{'─' * 60}")
+            print("[상세 브리핑 생성 중...]")
+            detail_count = generate_article_details(target.isoformat(), max_items=20)
+            print(f"  상세 브리핑: {detail_count}건")
+        except Exception as e:
+            print(f"  [상세 브리핑 실패] {e}")
+
     print(f"\n{'━' * 60}")
     print("  Phase 6: 최종 점검")
     print(f"{'━' * 60}")
