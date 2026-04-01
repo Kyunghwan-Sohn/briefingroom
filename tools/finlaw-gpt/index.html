@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinLaw GPT - 브리핑룸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+html,body{height:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;display:flex;flex-direction:column}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
+.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
+.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
+.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-size:14px;font-weight:600;margin-left:auto;flex-shrink:0}
+
+.chat-wrap{flex:1;display:flex;flex-direction:column;padding:58px 0 0;overflow:hidden}
+
+.chat-intro{padding:40px 24px;text-align:center}
+.chat-intro h1{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:8px}
+.chat-intro p{font-size:14px;color:var(--t2);line-height:1.6;max-width:480px;margin:0 auto 20px}
+.examples{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.examples button{padding:10px 16px;border:1px solid var(--b);border-radius:10px;background:var(--s);font-size:13px;color:var(--t2);cursor:pointer;font-family:var(--sans);text-align:left;line-height:1.4}
+.examples button:hover{border-color:var(--a);color:var(--a)}
+
+.messages{flex:1;overflow-y:auto;padding:16px 24px}
+.msg{margin-bottom:16px;max-width:85%}
+.msg.user{margin-left:auto;background:var(--a);color:#fff;border-radius:14px 14px 4px 14px;padding:12px 16px;font-size:14px;line-height:1.6}
+.msg.bot{background:var(--s);border:1px solid var(--b);border-radius:14px 14px 14px 4px;padding:14px 18px;font-size:14px;line-height:1.8;color:var(--t)}
+.msg.bot h3{font-family:var(--serif);font-size:15px;font-weight:700;margin:12px 0 6px}
+.msg.bot h3:first-child{margin-top:0}
+.msg.bot ul,.msg.bot ol{margin:6px 0 6px 18px}
+.msg.bot li{margin-bottom:4px}
+.msg.bot strong{color:var(--a)}
+.msg.bot code{font-family:var(--mono);font-size:12px;background:var(--bg);padding:2px 6px;border-radius:4px}
+.msg-sources{margin-top:10px;padding-top:8px;border-top:1px solid var(--bl);font-size:11px;color:var(--m)}
+.msg-loading{color:var(--m);font-size:13px;padding:12px 18px}
+.msg-loading span{animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.input-bar{padding:12px 24px 20px;border-top:1px solid var(--b);background:var(--bg);display:flex;gap:8px}
+.input-bar input{flex:1;padding:14px 16px;border:2px solid var(--b);border-radius:12px;font-size:15px;font-family:var(--sans);color:var(--t);outline:none;background:var(--s)}
+.input-bar input:focus{border-color:var(--a)}
+.input-bar button{padding:14px 20px;background:var(--a);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--sans);white-space:nowrap}
+.input-bar button:disabled{opacity:.5;cursor:not-allowed}
+
+.disclaimer{text-align:center;font-size:10px;color:var(--m);padding:0 24px 12px;line-height:1.5}
+
+@media(max-width:768px){
+  body{padding:0}
+  .hdr{height:50px;padding:0 14px}
+  .logo{font-size:17px;margin-right:10px}
+  .hnav a{font-size:11px;padding:5px 8px}
+  .chat-wrap{padding-top:52px}
+  .chat-intro{padding:24px 16px}
+  .chat-intro h1{font-size:20px}
+  .messages{padding:12px 16px}
+  .input-bar{padding:10px 16px 16px}
+  .input-bar input{font-size:14px;padding:12px 14px}
+  .examples button{font-size:12px;padding:8px 12px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">정책 AI 요약</a>
+    <a href="/finlaw/">금융법령 AI 모니터링</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<div class="chat-wrap">
+  <div class="chat-intro" id="intro">
+    <h1>FinLaw GPT</h1>
+    <p>금융법령 5,613건 데이터베이스 기반 AI 어시스턴트.<br>법조문 근거와 함께 답변합니다.</p>
+    <div class="examples">
+      <button onclick="askExample(this)">보험업법상 보험사기 신고 의무는?</button>
+      <button onclick="askExample(this)">자본시장법 시행령 최근 개정 내용</button>
+      <button onclick="askExample(this)">전자금융거래법상 접근매체 관리 책임</button>
+      <button onclick="askExample(this)">신용정보법 목적 외 이용 제한</button>
+    </div>
+  </div>
+
+  <div class="messages" id="messages"></div>
+
+  <div class="input-bar">
+    <input id="input" type="text" placeholder="금융법령에 대해 물어보세요..." autocomplete="off">
+    <button id="send" onclick="sendMessage()">전송</button>
+  </div>
+  <div class="disclaimer">법률 자문이 아닌 정보 제공 목적입니다. 구체적 사안은 전문가에게 문의하세요.</div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://jxoghnttelexnfoeepbz.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_r3eTQXF419LfIiPdE17gyw_zvAQFd5s';
+const LLM_URL = 'https://govbrief-api.vercel.app/api/chat';
+
+const messagesEl = document.getElementById('messages');
+const inputEl = document.getElementById('input');
+const sendBtn = document.getElementById('send');
+const introEl = document.getElementById('intro');
+
+const SYSTEM_PROMPT = `당신은 한국 금융법령 전문 AI 어시스턴트 'FinLaw GPT'입니다.
+역할: 금융법령, 조문, 판례, 해석례에 대한 질문에 정확하게 답변합니다.
+반드시 제공된 컨텍스트(검색 결과)를 근거로 답변하세요.
+컨텍스트에 없는 내용은 "해당 정보를 찾지 못했습니다"라고 답하세요.
+법조문을 인용할 때는 법령명과 조문 번호를 명시하세요.
+답변은 마크다운 형식으로 작성하세요.
+본 답변은 법률 자문이 아닌 정보 제공 목적입니다.`;
+
+async function searchSupabase(query) {
+  const headers = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' };
+  const results = { laws: [], articles: [], precedents: [], interpretations: [] };
+
+  const calls = [
+    fetch(SUPABASE_URL + '/rest/v1/rpc/search_laws', { method: 'POST', headers, body: JSON.stringify({ query, match_count: 3 }) }),
+    fetch(SUPABASE_URL + '/rest/v1/rpc/search_articles', { method: 'POST', headers, body: JSON.stringify({ query, match_count: 5 }) }),
+    fetch(SUPABASE_URL + '/rest/v1/rpc/search_precedents', { method: 'POST', headers, body: JSON.stringify({ query, match_count: 3 }) }),
+    fetch(SUPABASE_URL + '/rest/v1/rpc/search_interpretations', { method: 'POST', headers, body: JSON.stringify({ query, match_count: 3 }) }),
+  ];
+
+  try {
+    const [lawsR, artR, precR, interpR] = await Promise.all(calls);
+    results.laws = await lawsR.json().catch(() => []);
+    results.articles = await artR.json().catch(() => []);
+    results.precedents = await precR.json().catch(() => []);
+    results.interpretations = await interpR.json().catch(() => []);
+  } catch (e) { console.error('Search error:', e); }
+
+  return results;
+}
+
+function buildContext(ctx) {
+  let parts = [];
+  if (ctx.laws?.length) {
+    parts.push('## 관련 법령');
+    ctx.laws.forEach(l => {
+      parts.push('- ' + l.name + ' (' + (l.ministry||'') + ', ' + (l.revision_type||'') + ')');
+      if (l.amendment_reason) parts.push('  개정이유: ' + l.amendment_reason.slice(0, 200));
+    });
+  }
+  if (ctx.articles?.length) {
+    parts.push('\n## 관련 조문');
+    ctx.articles.forEach(a => parts.push('- ' + (a.article_title||'') + ': ' + (a.content||'').slice(0, 300)));
+  }
+  if (ctx.precedents?.length) {
+    parts.push('\n## 관련 판례');
+    ctx.precedents.forEach(p => {
+      parts.push('- [' + (p.court||'') + ' ' + (p.decision_date||'') + '] ' + p.case_name);
+      if (p.summary) parts.push('  요지: ' + p.summary.slice(0, 200));
+    });
+  }
+  if (ctx.interpretations?.length) {
+    parts.push('\n## 관련 해석례');
+    ctx.interpretations.forEach(i => {
+      parts.push('- ' + i.title);
+      if (i.summary) parts.push('  요지: ' + i.summary.slice(0, 200));
+    });
+  }
+  return parts.length ? parts.join('\n') : '검색 결과 없음';
+}
+
+function addMessage(text, type) {
+  const div = document.createElement('div');
+  div.className = 'msg ' + type;
+  if (type === 'bot') {
+    div.innerHTML = text.replace(/### (.*)/g, '<h3>$1</h3>')
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/`(.*?)`/g, '<code>$1</code>')
+                        .replace(/\n- /g, '\n<br>- ')
+                        .replace(/\n\n/g, '<br><br>')
+                        .replace(/\n/g, '<br>');
+  } else {
+    div.textContent = text;
+  }
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return div;
+}
+
+function showLoading() {
+  const div = document.createElement('div');
+  div.className = 'msg-loading';
+  div.id = 'loading';
+  div.innerHTML = '<span>검색 중</span>...';
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function hideLoading() {
+  const el = document.getElementById('loading');
+  if (el) el.remove();
+}
+
+async function sendMessage() {
+  const q = inputEl.value.trim();
+  if (!q) return;
+
+  introEl.style.display = 'none';
+  addMessage(q, 'user');
+  inputEl.value = '';
+  sendBtn.disabled = true;
+  showLoading();
+
+  // 1. Supabase 검색
+  const ctx = await searchSupabase(q);
+  const ctxText = buildContext(ctx);
+
+  // 2. LLM 호출
+  const userMsg = '다음 검색 결과를 참고하여 질문에 답변하세요.\n\n' + ctxText + '\n\n질문: ' + q;
+
+  try {
+    const r = await fetch(LLM_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: userMsg },
+        ],
+      }),
+    });
+
+    hideLoading();
+    const data = await r.json();
+    const answer = data.answer || data.choices?.[0]?.message?.content || '응답을 받지 못했습니다.';
+
+    const srcCount = (ctx.laws?.length||0) + (ctx.articles?.length||0) + (ctx.precedents?.length||0) + (ctx.interpretations?.length||0);
+    const botDiv = addMessage(answer, 'bot');
+    if (srcCount > 0) {
+      const srcDiv = document.createElement('div');
+      srcDiv.className = 'msg-sources';
+      srcDiv.textContent = '참조: 법령 ' + (ctx.laws?.length||0) + '건, 조문 ' + (ctx.articles?.length||0) + '건, 판례 ' + (ctx.precedents?.length||0) + '건, 해석례 ' + (ctx.interpretations?.length||0) + '건';
+      botDiv.appendChild(srcDiv);
+    }
+  } catch (e) {
+    hideLoading();
+    addMessage('응답 중 오류가 발생했습니다: ' + e.message, 'bot');
+  }
+
+  sendBtn.disabled = false;
+  inputEl.focus();
+}
+
+function askExample(btn) {
+  inputEl.value = btn.textContent;
+  sendMessage();
+}
+
+inputEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.isComposing) sendMessage();
+});
+</script>
+
+</body>
+</html>
