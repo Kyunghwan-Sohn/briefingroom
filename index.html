@@ -169,7 +169,11 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 <section class="hero">
   <h1>정부가 발표하면,<br>AI가 해석합니다</h1>
   <p>정부 정책 · 금융 법령 · 입법 예고, 핵심만 브리핑</p>
-  <div class="sbox"><span class="si">⌕</span><input placeholder="정책이나 법령에 대해 물어보세요..."></div>
+  <div class="sbox" style="position:relative">
+    <span class="si">⌕</span>
+    <input id="search-input" placeholder="정책이나 법령에 대해 물어보세요..." autocomplete="off">
+    <div id="search-results" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:40;margin-top:6px;background:#fff;border:1px solid var(--b);border-radius:10px;max-height:360px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.1)"></div>
+  </div>
   <div class="tags"><span>#추경</span><span>#자본시장법</span><span>#AI기본법</span><span>#청년정책</span></div>
 </section>
 
@@ -334,6 +338,56 @@ function makeCarousel(id, count) {
 }
 makeCarousel('c1', 4);
 makeCarousel('c2', 3);
+
+// 통합 검색
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+let searchTimer;
+
+searchInput.addEventListener('input', function() {
+  clearTimeout(searchTimer);
+  const q = this.value.trim();
+  if (q.length < 2) { searchResults.style.display = 'none'; return; }
+  searchTimer = setTimeout(() => doSearch(q), 300);
+});
+
+searchInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.isComposing) {
+    const q = this.value.trim();
+    if (q) window.location.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(q);
+  }
+});
+
+async function doSearch(query) {
+  try {
+    const r = await fetch('https://govbrief-api.vercel.app/api/search', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({query}),
+    });
+    const data = await r.json();
+    if (data.results && data.results.length) {
+      const typeLabel = {law: '법령', article: '조문', precedent: '판례'};
+      searchResults.innerHTML = data.results.map(r =>
+        '<a href="' + r.link + '" style="display:block;padding:12px 16px;border-bottom:1px solid #e0e0e0;text-decoration:none;color:#222">' +
+        '<div style="display:flex;align-items:center;gap:8px">' +
+        '<span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(217,108,44,.06);color:#d96c2c">' + (typeLabel[r.type] || '') + '</span>' +
+        '<span style="font-size:14px;font-weight:600">' + r.title.slice(0,50) + '</span></div>' +
+        '<div style="font-size:12px;color:#999;margin-top:3px">' + r.subtitle.slice(0,60) + '</div></a>'
+      ).join('') +
+      '<a href="/tools/finlaw-gpt/?q=' + encodeURIComponent(query) + '" style="display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none">FinLaw GPT에서 상세 질문 →</a>';
+      searchResults.style.display = 'block';
+    } else {
+      searchResults.innerHTML = '<div style="padding:16px;text-align:center;font-size:13px;color:#999">검색 결과 없음</div>' +
+      '<a href="/tools/finlaw-gpt/?q=' + encodeURIComponent(query) + '" style="display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none">FinLaw GPT에게 질문하기 →</a>';
+      searchResults.style.display = 'block';
+    }
+  } catch(e) { console.error(e); }
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.sbox')) searchResults.style.display = 'none';
+});
 </script>
 
 </body>
