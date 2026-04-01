@@ -213,36 +213,27 @@ async function sendMessage() {
   sendBtn.disabled = true;
   showLoading();
 
-  // 1. Supabase 검색
-  const ctx = await searchSupabase(q);
-  const ctxText = buildContext(ctx);
-
-  // 2. LLM 호출
-  const userMsg = '다음 검색 결과를 참고하여 질문에 답변하세요.\n\n' + ctxText + '\n\n질문: ' + q;
-
   try {
     const r = await fetch(LLM_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: userMsg },
-        ],
-      }),
+      body: JSON.stringify({ question: q }),
     });
 
     hideLoading();
     const data = await r.json();
-    const answer = data.answer || data.choices?.[0]?.message?.content || '응답을 받지 못했습니다.';
-
-    const srcCount = (ctx.laws?.length||0) + (ctx.articles?.length||0) + (ctx.precedents?.length||0) + (ctx.interpretations?.length||0);
-    const botDiv = addMessage(answer, 'bot');
-    if (srcCount > 0) {
-      const srcDiv = document.createElement('div');
-      srcDiv.className = 'msg-sources';
-      srcDiv.textContent = '참조: 법령 ' + (ctx.laws?.length||0) + '건, 조문 ' + (ctx.articles?.length||0) + '건, 판례 ' + (ctx.precedents?.length||0) + '건, 해석례 ' + (ctx.interpretations?.length||0) + '건';
-      botDiv.appendChild(srcDiv);
+    if (data.error) {
+      addMessage('오류: ' + data.error, 'bot');
+    } else {
+      const botDiv = addMessage(data.answer || '응답을 받지 못했습니다.', 'bot');
+      const src = data.sources || {};
+      const srcCount = (src.laws||0) + (src.articles||0) + (src.precedents||0) + (src.interpretations||0);
+      if (srcCount > 0) {
+        const srcDiv = document.createElement('div');
+        srcDiv.className = 'msg-sources';
+        srcDiv.textContent = '참조: 법령 ' + (src.laws||0) + '건, 조문 ' + (src.articles||0) + '건, 판례 ' + (src.precedents||0) + '건, 해석례 ' + (src.interpretations||0) + '건';
+        botDiv.appendChild(srcDiv);
+      }
     }
   } catch (e) {
     hideLoading();
