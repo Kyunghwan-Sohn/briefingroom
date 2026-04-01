@@ -26,31 +26,31 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 <style>
 /* ===== GOVBRIEF REDESIGN — Reuters/Bloomberg Inspired ===== */
 :root {
-  /* Core palette */
-  --navy: #1a1a2e;
-  --navy-deep: #12122a;
-  --navy-light: #2d2d4a;
-  --gold: #c9a84c;
-  --gold-light: #f5e6b8;
-  --gold-muted: rgba(201,168,76,.15);
+  /* Core palette — G03 소프트그레이+오렌지 */
+  --navy: #f5f5f5;
+  --navy-deep: #efefef;
+  --navy-light: #e8e8e8;
+  --gold: #d96c2c;
+  --gold-light: rgba(217,108,44,.06);
+  --gold-muted: rgba(217,108,44,.08);
   --white: #ffffff;
-  --off-white: #f7f7f5;
-  --warm-gray: #e8e6e1;
-  --mid-gray: #9a9790;
-  --dark-gray: #4a4843;
-  --text-primary: #1a1a1e;
-  --text-secondary: #555550;
-  --text-muted: #8a8880;
-  --border-light: #e2e0db;
-  --border-mid: #d0cdc6;
+  --off-white: #fafafa;
+  --warm-gray: #e0e0e0;
+  --mid-gray: #999999;
+  --dark-gray: #444444;
+  --text-primary: #222222;
+  --text-secondary: #555555;
+  --text-muted: #999999;
+  --border-light: #c8c8c8;
+  --border-mid: #b0b0b0;
   --surface: #ffffff;
-  --surface-hover: #fafaf8;
+  --surface-hover: #f8f8f8;
 
   /* Category colors */
   --c-fin: #1a47cc;
@@ -65,8 +65,8 @@
   --c-adm-l: #f5f3ff;
 
   /* Typography */
-  --serif: 'Noto Serif KR', 'Georgia', serif;
-  --sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Gowun Batang', 'Georgia', serif;
+  --sans: 'Wanted Sans Variable', 'Wanted Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --mono: 'JetBrains Mono', monospace;
 
   /* Spacing */
@@ -98,25 +98,26 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 /* ===== HEADER — Navy top bar ===== */
 .header{
   position:fixed;top:0;left:0;right:0;z-index:10;
-  background:var(--navy);
-  border-bottom:2px solid var(--gold);
+  background:#f5f5f5;
+  border-bottom:3px solid #d96c2c;
   padding:0 32px;height:60px;
   display:flex;align-items:center;gap:20px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
 }
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.logo-mark{width:32px;height:32px;background:var(--gold);border-radius:6px;display:grid;place-items:center;font-size:15px}
-.logo-text{font-family:var(--serif);font-size:18px;font-weight:900;color:var(--white);letter-spacing:-.5px}
+.logo-mark{width:32px;height:32px;background:#d96c2c;border-radius:6px;display:grid;place-items:center;font-size:15px}
+.logo-text{font-family:var(--serif);font-size:19px;font-weight:700;color:#222;letter-spacing:-.5px}
 .header-center{display:flex;align-items:center;gap:var(--sp-3);margin-left:auto}
-.header-date{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
-.total-badge{font-family:var(--mono);font-size:11px;color:var(--gold);background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);padding:3px 10px;border-radius:4px;white-space:nowrap}
+.header-date{font-family:var(--mono);font-size:12px;color:#888;white-space:nowrap}
+.total-badge{font-family:var(--mono);font-size:11px;color:#d96c2c;background:rgba(217,108,44,.06);border:1px solid rgba(217,108,44,.15);padding:3px 10px;border-radius:4px;white-space:nowrap}
 .header-right{display:flex;align-items:center;gap:var(--sp-3)}
 .search-wrap-hdr{position:relative;display:flex;align-items:center}
 .search-in{width:100%;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--r-md);padding:8px 12px 8px 32px;font-family:var(--sans);font-size:13px;color:var(--text-primary);outline:none;transition:all var(--t-base)}
 .search-in::placeholder{color:var(--text-muted)}
 .search-in:focus{border-color:var(--c-fin);box-shadow:0 0 0 3px rgba(26,71,204,.12)}
-.search-wrap-hdr .search-in{width:200px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--white);padding-left:32px;padding-right:30px;transition:width var(--t-slow),border-color var(--t-base),box-shadow var(--t-base)}
-.search-wrap-hdr .search-in::placeholder{color:rgba(255,255,255,.4)}
-.search-wrap-hdr .search-in:focus{width:280px;background:rgba(255,255,255,.15);border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.2)}
+.search-wrap-hdr .search-in{width:200px;background:#fff;border:2px solid #c8c8c8;color:#222;padding-left:32px;padding-right:30px;transition:width var(--t-slow),border-color var(--t-base),box-shadow var(--t-base)}
+.search-wrap-hdr .search-in::placeholder{color:#999}
+.search-wrap-hdr .search-in:focus{width:280px;background:#fff;border-color:#d96c2c;box-shadow:0 0 0 3px rgba(217,108,44,.12)}
 .search-kbd{position:absolute;right:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:3px;padding:1px 5px;font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);pointer-events:none;transition:opacity var(--t-base)}
 .search-wrap-hdr .search-in:focus~.search-kbd{opacity:0}
 .view-toggle{display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;overflow:hidden}
@@ -384,10 +385,10 @@ body{background:var(--off-white);color:var(--text-primary);font-family:var(--san
 .mob-filter-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .mob-filter-btn.active .mob-filter-dot{background:var(--gold)!important}
 
-.m-header{display:none;position:fixed;top:0;left:0;right:0;height:var(--mob-h);z-index:50;background:var(--navy);border-bottom:2px solid var(--gold);padding:0 12px;align-items:center;gap:8px}
-.m-date-chip{display:flex;align-items:center;gap:4px;height:32px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:0 12px;font-family:var(--mono);font-size:12px;font-weight:500;color:rgba(255,255,255,.8);cursor:pointer;white-space:nowrap}
-.m-icon-btn{width:48px;height:48px;min-width:48px;border-radius:10px;background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;display:grid;place-items:center;font-size:16px}
-.m-icon-btn:active{background:rgba(255,255,255,.1)}
+.m-header{display:none;position:fixed;top:0;left:0;right:0;height:var(--mob-h);z-index:50;background:#f5f5f5;border-bottom:3px solid #d96c2c;padding:0 12px;align-items:center;gap:8px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.m-date-chip{display:flex;align-items:center;gap:4px;height:32px;background:#fff;border:1px solid #c8c8c8;border-radius:20px;padding:0 12px;font-family:var(--mono);font-size:12px;font-weight:500;color:#444;cursor:pointer;white-space:nowrap}
+.m-icon-btn{width:48px;height:48px;min-width:48px;border-radius:10px;background:none;border:none;color:#666;cursor:pointer;display:grid;place-items:center;font-size:16px}
+.m-icon-btn:active{background:rgba(0,0,0,.05)}
 .m-search-slide{display:none;background:var(--white);border-bottom:1px solid var(--border-light);padding:8px 12px;position:fixed;top:var(--mob-h);left:0;right:0;z-index:45}
 .m-search-slide.open{display:block}
 .m-search-row{display:flex;align-items:center;gap:8px;background:var(--off-white);border:1px solid var(--border-light);border-radius:var(--r-md);padding:0 12px;height:40px}
@@ -558,9 +559,9 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
     <span class="logo-text">브리핑룸</span>
   </a>
   <nav style="display:flex;align-items:center;gap:2px;margin-left:16px" aria-label="글로벌 메뉴">
-    <a href="/" style="font-family:var(--sans);font-size:13px;font-weight:700;color:var(--gold);text-decoration:none;padding:6px 14px;border-radius:4px;background:rgba(201,168,76,.12)">정책브리핑</a>
-    <a href="/finlaw/" style="font-family:var(--sans);font-size:13px;font-weight:600;color:rgba(255,255,255,.75);text-decoration:none;padding:6px 14px;border-radius:4px">금융법령AI</a>
-    <a href="https://t.me/govbrief" target="_blank" rel="noopener" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,.5);text-decoration:none;padding:6px 10px;border-radius:4px;display:flex;align-items:center;gap:4px"><i class="ph ph-bell" style="font-size:14px"></i>알림</a>
+    <a href="/" style="font-family:var(--sans);font-size:13px;font-weight:700;color:#d96c2c;text-decoration:none;padding:6px 14px;border-radius:5px;background:rgba(217,108,44,.06)">정책브리핑</a>
+    <a href="/finlaw/" style="font-family:var(--sans);font-size:13px;font-weight:600;color:#666;text-decoration:none;padding:6px 14px;border-radius:5px">금융법령AI</a>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener" style="font-family:var(--sans);font-size:13px;font-weight:500;color:#999;text-decoration:none;padding:6px 10px;border-radius:5px;display:flex;align-items:center;gap:4px"><i class="ph ph-bell" style="font-size:14px"></i>알림</a>
   </nav>
   <div class="header-center">
     <span class="header-date" id="header-date"></span>
@@ -644,13 +645,13 @@ button,[role="button"],.press-card,.f-item,.mob-filter-btn,.m-tab,.filter-btn{-w
     <div class="content">
       <!-- 서비스 허브 -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-        <a href="/" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--navy);border-radius:10px;text-decoration:none;color:var(--white);border:2px solid var(--gold)">
-          <span style="font-size:20px">📋</span>
-          <div><div style="font-size:13px;font-weight:700">정책브리핑</div><div style="font-size:10px;color:rgba(255,255,255,.6);margin-top:2px">보도자료 · 주간 · 일정</div></div>
+        <a href="/" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:12px;text-decoration:none;color:#222;border:2px solid #d96c2c">
+          <span style="font-size:22px">📋</span>
+          <div><div style="font-size:14px;font-weight:700">정책브리핑</div><div style="font-size:10px;color:#999;margin-top:2px">보도자료 · 주간 · 일정</div></div>
         </a>
-        <a href="/finlaw/" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--white);border-radius:10px;text-decoration:none;color:var(--text-primary);border:1px solid var(--border-light)">
-          <span style="font-size:20px">📜</span>
-          <div><div style="font-size:13px;font-weight:700">금융법령AI</div><div style="font-size:10px;color:var(--text-muted);margin-top:2px">법령 · 판례 · AI검색</div></div>
+        <a href="/finlaw/" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:12px;text-decoration:none;color:#222;border:2px solid #c8c8c8">
+          <span style="font-size:22px">📜</span>
+          <div><div style="font-size:14px;font-weight:700">금융법령AI</div><div style="font-size:10px;color:#999;margin-top:2px">법령 · 판례 · AI검색</div></div>
         </a>
       </div>
 
