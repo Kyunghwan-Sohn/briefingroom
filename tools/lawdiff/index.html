@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LawDiff — 법령 비교 - 브리핑룸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
+.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
+.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
+.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-size:14px;font-weight:600;margin-left:auto;flex-shrink:0}
+
+.wrap{padding:24px 20px 80px}
+h1{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:6px}
+.desc{font-size:14px;color:var(--t2);margin-bottom:24px}
+
+/* 검색 */
+.search-box{position:relative;margin-bottom:16px}
+.search-box input{width:100%;padding:14px 16px 14px 42px;font-size:15px;border:2px solid var(--b);border-radius:12px;background:var(--s);color:var(--t);outline:none;font-family:var(--sans)}
+.search-box input:focus{border-color:var(--a)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--m);font-size:16px}
+.search-results{background:var(--s);border:1px solid var(--b);border-radius:10px;margin-top:6px;overflow:hidden;display:none}
+.search-item{padding:12px 16px;border-bottom:1px solid var(--bl);cursor:pointer;font-size:13px}
+.search-item:last-child{border-bottom:none}
+.search-item:hover{background:var(--al)}
+.search-item .name{font-weight:600;margin-bottom:2px}
+.search-item .meta{font-size:11px;color:var(--m)}
+
+/* 날짜 선택 */
+.date-bar{display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
+.date-bar label{font-size:12px;font-weight:600;color:var(--t2)}
+.date-bar input[type=date]{font-family:var(--mono);font-size:12px;padding:8px 10px;border:1px solid var(--b);border-radius:6px;background:var(--s);color:var(--t);outline:none}
+.date-bar input:focus{border-color:var(--a)}
+.date-bar button{padding:8px 20px;background:var(--a);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+.date-bar button:disabled{opacity:.5;cursor:not-allowed}
+
+.selected-law{background:var(--s);border:2px solid var(--a);border-radius:12px;padding:14px 18px;margin-bottom:16px;display:none}
+.selected-law .name{font-family:var(--serif);font-size:18px;font-weight:700}
+.selected-law .meta{font-size:12px;color:var(--m);margin-top:4px}
+
+/* Diff 결과 */
+.diff-summary{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:16px;margin-bottom:16px;display:none}
+.diff-summary .stats{display:flex;gap:16px;font-family:var(--mono);font-size:13px}
+.diff-summary .stat-mod{color:var(--a);font-weight:700}
+.diff-summary .stat-add{color:#059669;font-weight:700}
+.diff-summary .stat-del{color:#dc2626;font-weight:700}
+
+.diff-card{background:var(--s);border:1px solid var(--b);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.diff-head{padding:12px 16px;border-bottom:1px solid var(--bl);display:flex;align-items:center;gap:8px}
+.diff-tag{font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px}
+.diff-tag.modified{background:#fff7ed;color:#9a3412}
+.diff-tag.added{background:#ecfdf5;color:#065f46}
+.diff-tag.deleted{background:#fef2f2;color:#991b1b}
+.diff-title{font-size:14px;font-weight:600}
+.diff-body{padding:0}
+.diff-row{display:flex;font-family:var(--mono);font-size:12px;line-height:1.6;border-bottom:1px solid var(--bl)}
+.diff-row:last-child{border-bottom:none}
+.diff-old,.diff-new{flex:1;padding:8px 12px;white-space:pre-wrap;word-break:break-all}
+.diff-old{background:#fef2f2;color:#991b1b}
+.diff-new{background:#ecfdf5;color:#065f46;border-left:1px solid var(--bl)}
+.diff-same{background:var(--s);color:var(--t2)}
+.diff-label{font-size:10px;font-weight:700;color:var(--m);padding:6px 12px;background:var(--bg);text-align:center}
+
+.loading{text-align:center;padding:40px;color:var(--m);font-size:14px;display:none}
+
+@media(max-width:768px){
+  body{padding-top:52px}
+  .hdr{height:50px;padding:0 14px}
+  .logo{font-size:17px;margin-right:10px}
+  .hnav a{font-size:11px;padding:5px 8px}
+  .wrap{padding:20px 16px 80px}
+  h1{font-size:22px}
+  .diff-row{flex-direction:column}
+  .diff-new{border-left:none;border-top:1px solid var(--bl)}
+  .date-bar{gap:8px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">정책 AI 요약</a>
+    <a href="/finlaw/">금융법령 AI 모니터링</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<div class="wrap">
+  <h1>LawDiff</h1>
+  <div class="desc">법령 개정 전후 조문을 나란히 비교합니다</div>
+
+  <div class="search-box">
+    <span class="search-icon">⌕</span>
+    <input id="search" type="text" placeholder="비교할 법령을 검색하세요 (예: 자본시장법, 보험업법)" autocomplete="off">
+    <div class="search-results" id="results"></div>
+  </div>
+
+  <div class="selected-law" id="selected">
+    <div class="name" id="sel-name"></div>
+    <div class="meta" id="sel-meta"></div>
+  </div>
+
+  <div class="date-bar" id="datebar" style="display:none">
+    <label>이전 시점</label>
+    <input type="date" id="old-date" value="">
+    <label>현행</label>
+    <input type="date" id="new-date" value="">
+    <button id="compare-btn" onclick="compare()">비교</button>
+  </div>
+
+  <div class="loading" id="loading">법령 조문을 비교하고 있습니다...</div>
+
+  <div class="diff-summary" id="summary">
+    <div class="stats">
+      <span>전체 <span id="total-articles">0</span>개 조문</span>
+      <span class="stat-mod">변경 <span id="count-mod">0</span></span>
+      <span class="stat-add">추가 <span id="count-add">0</span></span>
+      <span class="stat-del">삭제 <span id="count-del">0</span></span>
+    </div>
+  </div>
+
+  <div id="diff-list"></div>
+</div>
+
+<script>
+const API = 'https://govbrief-api.vercel.app/api/lawdiff';
+let selectedMST = '';
+
+const searchInput = document.getElementById('search');
+const resultsEl = document.getElementById('results');
+let searchTimer;
+
+searchInput.addEventListener('input', () => {
+  clearTimeout(searchTimer);
+  const q = searchInput.value.trim();
+  if (q.length < 2) { resultsEl.style.display = 'none'; return; }
+  searchTimer = setTimeout(() => searchLaw(q), 300);
+});
+
+async function searchLaw(query) {
+  try {
+    const r = await fetch(API, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'search', query}),
+    });
+    const data = await r.json();
+    if (data.laws && data.laws.length) {
+      resultsEl.innerHTML = data.laws.map(l => `
+        <div class="search-item" onclick="selectLaw('${l.law_mst}','${l.name}','${l.name_abbr || ''}','${l.ministry}','${l.promulgation_date}')">
+          <div class="name">${l.name}</div>
+          <div class="meta">${l.name_abbr ? l.name_abbr + ' · ' : ''}${l.ministry} · 공포 ${l.promulgation_date}</div>
+        </div>
+      `).join('');
+      resultsEl.style.display = 'block';
+    } else {
+      resultsEl.innerHTML = '<div class="search-item"><div class="meta">검색 결과 없음</div></div>';
+      resultsEl.style.display = 'block';
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function selectLaw(mst, name, abbr, ministry, date) {
+  selectedMST = mst;
+  document.getElementById('sel-name').textContent = name;
+  document.getElementById('sel-meta').textContent = (abbr ? abbr + ' · ' : '') + ministry + ' · 최근 공포 ' + date;
+  document.getElementById('selected').style.display = 'block';
+  resultsEl.style.display = 'none';
+  searchInput.value = name;
+
+  // 날짜 기본값 설정
+  if (date && date.length === 8) {
+    const d = date.slice(0,4) + '-' + date.slice(4,6) + '-' + date.slice(6,8);
+    document.getElementById('new-date').value = d;
+    // 이전 시점은 1년 전
+    const prev = new Date(d);
+    prev.setFullYear(prev.getFullYear() - 1);
+    document.getElementById('old-date').value = prev.toISOString().slice(0,10);
+  }
+  document.getElementById('datebar').style.display = 'flex';
+}
+
+async function compare() {
+  if (!selectedMST) return;
+  const oldDate = document.getElementById('old-date').value.replace(/-/g, '');
+  const newDate = document.getElementById('new-date').value.replace(/-/g, '');
+
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('summary').style.display = 'none';
+  document.getElementById('diff-list').innerHTML = '';
+  document.getElementById('compare-btn').disabled = true;
+
+  try {
+    const r = await fetch(API, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'diff', mst: selectedMST, old_date: oldDate, new_date: newDate}),
+    });
+    const data = await r.json();
+    document.getElementById('loading').style.display = 'none';
+
+    if (data.error) {
+      document.getElementById('diff-list').innerHTML = '<div style="padding:20px;color:var(--a)">' + data.error + '</div>';
+      document.getElementById('compare-btn').disabled = false;
+      return;
+    }
+
+    // 요약
+    const mods = data.diffs.filter(d => d.type === 'modified').length;
+    const adds = data.diffs.filter(d => d.type === 'added').length;
+    const dels = data.diffs.filter(d => d.type === 'deleted').length;
+    document.getElementById('total-articles').textContent = data.total_articles;
+    document.getElementById('count-mod').textContent = mods;
+    document.getElementById('count-add').textContent = adds;
+    document.getElementById('count-del').textContent = dels;
+    document.getElementById('summary').style.display = 'block';
+
+    if (data.diffs.length === 0) {
+      document.getElementById('diff-list').innerHTML = '<div style="padding:20px;text-align:center;color:var(--m)">두 시점 간 변경된 조문이 없습니다.</div>';
+    } else {
+      document.getElementById('diff-list').innerHTML = data.diffs.map(d => {
+        const tagClass = d.type === 'modified' ? 'modified' : d.type === 'added' ? 'added' : 'deleted';
+        const tagText = d.type === 'modified' ? '변경' : d.type === 'added' ? '추가' : '삭제';
+        return `
+          <div class="diff-card">
+            <div class="diff-head">
+              <span class="diff-tag ${tagClass}">${tagText}</span>
+              <span class="diff-title">제${d.article_no}조 ${d.title}</span>
+            </div>
+            <div class="diff-body">
+              <div class="diff-row">
+                <div class="diff-label" style="flex:1">이전</div>
+                <div class="diff-label" style="flex:1">현행</div>
+              </div>
+              <div class="diff-row">
+                <div class="diff-old${d.type === 'added' ? ' diff-same' : ''}">${escapeHtml(d.old_content || '(없음)')}</div>
+                <div class="diff-new${d.type === 'deleted' ? ' diff-same' : ''}">${escapeHtml(d.new_content || '(삭제)')}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+  } catch (e) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('diff-list').innerHTML = '<div style="padding:20px;color:var(--a)">오류: ' + e.message + '</div>';
+  }
+  document.getElementById('compare-btn').disabled = false;
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+</script>
+
+</body>
+</html>
