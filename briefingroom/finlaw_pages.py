@@ -392,7 +392,7 @@ def generate_finlaw_index():
     # 최근 법령 변경 (30일)
     month_ago = (today - timedelta(days=30)).strftime("%Y%m%d")
     recent_laws = conn.execute(
-        "SELECT name, promulgation_date, revision_type, ministry, amendment_reason "
+        "SELECT name, promulgation_date, revision_type, ministry, amendment_reason, law_mst "
         "FROM laws WHERE promulgation_date >= ? ORDER BY promulgation_date DESC LIMIT 5",
         (month_ago,),
     ).fetchall()
@@ -443,14 +443,16 @@ def generate_finlaw_index():
             d = f"{d[:4]}.{d[4:6]}.{d[6:]}"
         reason = _clean_html(r["amendment_reason"] or "")
         desc = reason if reason and reason != "-" else f"{r['ministry']} 소관 법령"
-        change_cards.append(f"""  <div class="change-card">
+        mst = r["law_mst"] or ""
+        link = f"/finlaw/detail/{mst}/" if mst else "/finlaw/notices/"
+        change_cards.append(f"""  <a href="{link}" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
     <div class="change-head">
       <span class="change-tag edit">{html.escape(r['revision_type'])}</span>
       <span class="change-date">{d}</span>
     </div>
     <div class="change-title">{html.escape(r['name'])}</div>
     <div class="change-desc">{html.escape(desc)}</div>
-  </div>""")
+  </div></a>""")
 
     # 판례 카드 생성
     case_cards = []
