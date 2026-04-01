@@ -10,3 +10,4 @@ texts/
 *.hwpx
 *.db
 .env
+.env.*
