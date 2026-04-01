@@ -10,12 +10,35 @@ from __future__ import annotations
 import html
 import re
 import sqlite3
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 from briefingroom.config import BASE_DIR
 
 DB_PATH = BASE_DIR / "finance_law.db"
 FINLAW_DIR = BASE_DIR / "finlaw"
+
+# CSS는 별도 파일로 관리하지 않고 인라인
+# finlaw/index.html의 <style> 블록을 읽어서 재사용
+_FINLAW_CSS_FILE = FINLAW_DIR / "index.html"
+
+_WEEKDAYS = ["월", "화", "수", "목", "금", "토", "일"]
+
+# 법령 카테고리 요약 (정적)
+_LAW_CATEGORIES = [
+    ("금융감독 기본법", "3건", "금융소비자보호법, 금융위설치법 등"),
+    ("은행", "10건", "은행법, 예금자보호법, 한국은행법 등"),
+    ("자본시장 / 증권", "5건", "자본시장법, 증권거래세법 등"),
+    ("보험", "2건", "보험업법, 보험사기방지특별법"),
+    ("여신 / 신용", "7건", "여신전문금융업법, 신용정보법 등"),
+    ("전자금융 / 핀테크", "3건", "전자금융거래법, 가상자산법 등"),
+    ("개인정보 / 정보보호", "4건", "개인정보보호법, 정보통신망법 등"),
+    ("금융지주 / 지배구조", "2건", "금융지주회사법, 지배구조법"),
+    ("외환", "1건", "외국환거래법"),
+    ("자금세탁방지", "1건", "특정금융거래정보법"),
+    ("정책금융", "3건", "한국주택금융공사법 등"),
+    ("기타 금융", "12건", "금융실명거래법, 금융혁신지원법 등"),
+]
 
 
 def _clean_html(text: str) -> str:
@@ -356,7 +379,187 @@ updateCount();
     print(f"[finlaw_pages] notices/index.html 생성 — {len(rows)}건")
 
 
+def generate_finlaw_index():
+    """finlaw/index.html 재생성 — DB 기반 동적 데이터"""
+    conn = sqlite3.connect(str(DB_PATH))
+    conn.row_factory = sqlite3.Row
+    today = date.today()
+    today_str = today.strftime("%Y%m%d")
+    week_ago = (today - timedelta(days=7)).strftime("%Y%m%d")
+    today_dot = today.strftime("%Y. %m. %d")
+    dow = _WEEKDAYS[today.weekday()]
+
+    # 최근 법령 변경 (30일)
+    month_ago = (today - timedelta(days=30)).strftime("%Y%m%d")
+    recent_laws = conn.execute(
+        "SELECT name, promulgation_date, revision_type, ministry, amendment_reason "
+        "FROM laws WHERE promulgation_date >= ? ORDER BY promulgation_date DESC LIMIT 5",
+        (month_ago,),
+    ).fetchall()
+
+    # 최근 판례 (summary 있는 것)
+    recent_precs = conn.execute(
+        "SELECT case_name, decision_date, court, case_number, summary, related_law "
+        "FROM precedents WHERE summary IS NOT NULL AND summary != '' AND summary != '-' "
+        "ORDER BY decision_date DESC LIMIT 3",
+    ).fetchall()
+
+    # 카운트
+    law_count = len(conn.execute(
+        "SELECT 1 FROM laws WHERE promulgation_date >= ?", (month_ago,)
+    ).fetchall())
+    prec_count = len(conn.execute(
+        "SELECT 1 FROM precedents WHERE decision_date >= '2026.01.01'"
+    ).fetchall())
+    interp_count = len(conn.execute(
+        "SELECT 1 FROM interpretations"
+    ).fetchall())
+    total_laws = conn.execute("SELECT COUNT(*) FROM laws").fetchone()[0]
+    conn.close()
+
+    # 헤드라인: 가장 최근 법령 변경
+    headline_title = ""
+    headline_sub = ""
+    if recent_laws:
+        rl = recent_laws[0]
+        headline_title = f"{rl['name']} — {rl['revision_type']}"
+        reason = _clean_html(rl["amendment_reason"] or "")
+        headline_sub = reason[:80] if reason and reason != "-" else f"{rl['ministry']} 소관"
+
+    # 변경 카드 생성
+    change_cards = []
+    for r in recent_laws:
+        d = r["promulgation_date"]
+        if len(d) == 8:
+            d = f"{d[:4]}.{d[4:6]}.{d[6:]}"
+        reason = _clean_html(r["amendment_reason"] or "")
+        desc = reason if reason and reason != "-" else f"{r['ministry']} 소관 법령"
+        change_cards.append(f"""  <div class="change-card">
+    <div class="change-head">
+      <span class="change-tag edit">{html.escape(r['revision_type'])}</span>
+      <span class="change-date">{d}</span>
+    </div>
+    <div class="change-title">{html.escape(r['name'])}</div>
+    <div class="change-desc">{html.escape(desc)}</div>
+  </div>""")
+
+    # 판례 카드 생성
+    case_cards = []
+    for r in recent_precs:
+        summary = _clean_html(r["summary"] or "")
+        law = html.escape(r["related_law"] or "")
+        law_html = f'<div class="case-laws"><span>{law}</span></div>' if law else ""
+        case_cards.append(f"""  <div class="case-card">
+    <div class="case-court">{html.escape(r['court'] or '')} · {r['decision_date']} · {html.escape(r['case_number'] or '')}</div>
+    <div class="case-title">{html.escape(r['case_name'])}</div>
+    <div class="case-summary">{html.escape(summary)}</div>
+    {law_html}
+  </div>""")
+
+    # 법령 DB 카테고리 카드
+    db_cards = []
+    for name, count, desc in _LAW_CATEGORIES:
+        db_cards.append(f'    <div class="fl-card"><div class="fl-name">{name}</div><div class="fl-meta">{count} · {desc}</div></div>')
+
+    # CSS 읽기 (현재 파일에서)
+    css = ""
+    if _FINLAW_CSS_FILE.exists():
+        content = _FINLAW_CSS_FILE.read_text(encoding="utf-8")
+        m = re.search(r"<style>(.*?)</style>", content, re.DOTALL)
+        if m:
+            css = m.group(1)
+
+    dot_class = '<div class="dot"></div>' if law_count > 0 else ""
+
+    page = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>금융법령 AI 모니터링 - 브리핑룸</title>
+<meta name="description" content="한국 금융 법령 {total_laws}건, 판례, 해석례 모니터링. 오늘 바뀐 법령을 AI가 분석합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>{css}</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">정책 AI 요약</a>
+    <a class="on" href="/finlaw/">금융법령 AI 모니터링</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<section class="hero">
+  <div class="hero-top">
+    <h1>금융법령 AI 모니터링</h1>
+    <p style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:700;letter-spacing:.02em">{today_dot} ({dow})</p>
+    <p style="margin-top:2px">최근 법령 변동 현황</p>
+  </div>
+
+  <div class="hero-dash">
+    <div class="hero-stat alert">{dot_class}<div class="num">{law_count}</div><div class="label">법령 개정</div></div>
+    <div class="hero-stat warn"><div class="num">{prec_count}</div><div class="label">판례</div></div>
+    <div class="hero-stat info"><div class="num">{interp_count}</div><div class="label">해석례</div></div>
+    <div class="hero-stat ok"><div class="num">{total_laws}</div><div class="label">전체 법령</div></div>
+  </div>
+
+  {"" if not headline_title else f'''<div class="hero-headline">
+    <div class="icon" style="font-size:14px;font-weight:900;color:var(--a);background:var(--al);border:1px solid var(--ab);width:36px;height:36px;border-radius:8px;display:grid;place-items:center">!</div>
+    <div class="text">
+      <div class="title">{html.escape(headline_title)}</div>
+      <div class="sub">{html.escape(headline_sub)}</div>
+    </div>
+  </div>'''}
+
+  <div class="sbox"><span class="si">⌕</span><input placeholder="법령명, 조문, 판례를 검색하세요..."></div>
+</section>
+
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">최근 법령 변경<a class="sec-more" href="/finlaw/notices/">전체 보기 →</a></div>
+{"".join(change_cards) if change_cards else '  <p style="font-size:13px;color:var(--m)">최근 30일간 변경된 법령이 없습니다.</p>'}
+</section>
+
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">최근 판례<a class="sec-more" href="/finlaw/cases/">전체 보기 →</a></div>
+{"".join(case_cards) if case_cards else '  <p style="font-size:13px;color:var(--m)">최근 판례가 없습니다.</p>'}
+</section>
+
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">법령 데이터베이스<span class="sec-date">{total_laws}개 법령</span></div>
+  <div class="fl-grid">
+{"".join(db_cards)}
+  </div>
+</section>
+
+<div style="margin:24px;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+  <div><h3 style="font-family:var(--serif);font-size:16px;color:#fff">법령 변경 알림</h3><p style="font-size:11px;color:rgba(255,255,255,.6)">텔레그램으로 실시간 알림</p></div>
+  <a href="https://t.me/govbrief" target="_blank" style="padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap">구독</a>
+</div>
+
+<div class="footer"><a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융법령 AI 모니터링</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+
+<nav class="bnav"><a href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="#"><span style="font-size:16px">⌕</span>검색</a><a href="#"><span style="font-size:16px">≡</span>달력</a><a class="on" href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
+
+</body>
+</html>"""
+
+    out = FINLAW_DIR / "index.html"
+    out.write_text(page, encoding="utf-8")
+    print(f"[finlaw_pages] index.html 생성 — 법령 {law_count}건 변경, 판례 {prec_count}건")
+
+
 def main():
+    generate_finlaw_index()
     generate_cases_page()
     generate_notices_page()
     print("finlaw 페이지 재생성 완료")
