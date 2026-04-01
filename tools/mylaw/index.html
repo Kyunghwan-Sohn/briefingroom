@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내법찾기 - 브리핑룸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+html,body{height:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;display:flex;flex-direction:column}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
+.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
+.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
+.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-size:14px;font-weight:600;margin-left:auto;flex-shrink:0}
+
+.chat-wrap{flex:1;display:flex;flex-direction:column;padding:58px 0 0;overflow:hidden}
+
+.chat-intro{padding:40px 24px;text-align:center}
+.chat-intro h1{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:8px}
+.chat-intro p{font-size:14px;color:var(--t2);line-height:1.6;max-width:480px;margin:0 auto 20px}
+.examples{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.examples button{padding:10px 16px;border:1px solid var(--b);border-radius:10px;background:var(--s);font-size:13px;color:var(--t2);cursor:pointer;font-family:var(--sans);text-align:left;line-height:1.4}
+.examples button:hover{border-color:var(--a);color:var(--a)}
+
+.messages{flex:1;overflow-y:auto;padding:16px 24px}
+.msg{margin-bottom:16px;max-width:85%}
+.msg.user{margin-left:auto;background:var(--a);color:#fff;border-radius:14px 14px 4px 14px;padding:12px 16px;font-size:14px;line-height:1.6}
+.msg.bot{background:var(--s);border:1px solid var(--b);border-radius:14px 14px 14px 4px;padding:14px 18px;font-size:14px;line-height:1.8;color:var(--t)}
+.msg.bot h3{font-family:var(--serif);font-size:15px;font-weight:700;margin:14px 0 6px;color:var(--a)}
+.msg.bot h3:first-child{margin-top:0}
+.msg.bot ol,.msg.bot ul{margin:6px 0 6px 18px}
+.msg.bot li{margin-bottom:4px}
+.msg.bot strong{color:var(--t)}
+.msg-sources{margin-top:10px;padding-top:8px;border-top:1px solid var(--bl);font-size:11px;color:var(--m)}
+.msg-loading{color:var(--m);font-size:13px;padding:12px 18px}
+.msg-loading span{animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.input-bar{padding:12px 24px 20px;border-top:1px solid var(--b);background:var(--bg);display:flex;gap:8px}
+.input-bar input{flex:1;padding:14px 16px;border:2px solid var(--b);border-radius:12px;font-size:15px;font-family:var(--sans);color:var(--t);outline:none;background:var(--s)}
+.input-bar input:focus{border-color:var(--a)}
+.input-bar button{padding:14px 20px;background:var(--a);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--sans);white-space:nowrap}
+.input-bar button:disabled{opacity:.5;cursor:not-allowed}
+
+.disclaimer{text-align:center;font-size:10px;color:var(--m);padding:0 24px 12px;line-height:1.5}
+
+@media(max-width:768px){
+  body{padding:0}
+  .hdr{height:50px;padding:0 14px}
+  .logo{font-size:17px;margin-right:10px}
+  .hnav a{font-size:11px;padding:5px 8px}
+  .chat-wrap{padding-top:52px}
+  .chat-intro{padding:24px 16px}
+  .chat-intro h1{font-size:20px}
+  .messages{padding:12px 16px}
+  .input-bar{padding:10px 16px 16px}
+  .input-bar input{font-size:14px;padding:12px 14px}
+  .examples button{font-size:12px;padding:8px 12px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">정책 AI 요약</a>
+    <a href="/finlaw/">금융법령 AI 모니터링</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<div class="chat-wrap">
+  <div class="chat-intro" id="intro">
+    <h1>내법찾기</h1>
+    <p>상황을 말씀해주세요. 관련 법률과 행동 가이드를 쉬운 말로 안내해드립니다.</p>
+    <div class="examples">
+      <button onclick="askExample(this)">퇴직금을 안 줘요</button>
+      <button onclick="askExample(this)">전세보증금 못 돌려받고 있어요</button>
+      <button onclick="askExample(this)">보험금 청구했는데 거절당했어요</button>
+      <button onclick="askExample(this)">카드값 독촉 전화가 너무 심해요</button>
+      <button onclick="askExample(this)">개인정보가 유출된 것 같아요</button>
+      <button onclick="askExample(this)">보이스피싱 당했어요</button>
+    </div>
+  </div>
+
+  <div class="messages" id="messages"></div>
+
+  <div class="input-bar">
+    <input id="input" type="text" placeholder="어떤 상황인지 편하게 말씀해주세요..." autocomplete="off">
+    <button id="send" onclick="sendMessage()">전송</button>
+  </div>
+  <div class="disclaimer">법률 자문이 아닌 정보 안내 목적입니다. 구체적 사안은 변호사 또는 법률구조공단(132)에 문의하세요.</div>
+</div>
+
+<script>
+const API_URL = 'https://govbrief-api.vercel.app/api/mylaw';
+const messagesEl = document.getElementById('messages');
+const inputEl = document.getElementById('input');
+const sendBtn = document.getElementById('send');
+const introEl = document.getElementById('intro');
+
+function addMessage(text, type) {
+  const div = document.createElement('div');
+  div.className = 'msg ' + type;
+  if (type === 'bot') {
+    div.innerHTML = text
+      .replace(/### (.*)/g, '<h3>$1</h3>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/`(.*?)`/g, '<code>$1</code>')
+      .replace(/\n(\d+)\. /g, '<br>$1. ')
+      .replace(/\n- /g, '<br>- ')
+      .replace(/\n\n/g, '<br><br>')
+      .replace(/\n/g, '<br>');
+  } else {
+    div.textContent = text;
+  }
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return div;
+}
+
+function showLoading() {
+  const div = document.createElement('div');
+  div.className = 'msg-loading';
+  div.id = 'loading';
+  div.innerHTML = '<span>관련 법률을 찾고 있습니다</span>...';
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function hideLoading() {
+  const el = document.getElementById('loading');
+  if (el) el.remove();
+}
+
+async function sendMessage() {
+  const q = inputEl.value.trim();
+  if (!q) return;
+
+  introEl.style.display = 'none';
+  addMessage(q, 'user');
+  inputEl.value = '';
+  sendBtn.disabled = true;
+  showLoading();
+
+  try {
+    const r = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question: q }),
+    });
+
+    hideLoading();
+
+    if (!r.ok) {
+      const err = await r.json().catch(() => ({}));
+      addMessage('죄송합니다. 오류가 발생했습니다: ' + (err.error || r.statusText), 'bot');
+    } else {
+      const botDiv = document.createElement('div');
+      botDiv.className = 'msg bot';
+      messagesEl.appendChild(botDiv);
+      let fullText = '';
+      let sources = {};
+
+      const reader = r.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          const payload = line.slice(6).trim();
+          if (payload === '[DONE]') continue;
+          try {
+            const obj = JSON.parse(payload);
+            if (obj.sources) sources = obj.sources;
+            if (obj.chunk) {
+              fullText += obj.chunk;
+              botDiv.innerHTML = fullText
+                .replace(/### (.*)/g, '<h3>$1</h3>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n(\d+)\. /g, '<br>$1. ')
+                .replace(/\n- /g, '<br>- ')
+                .replace(/\n\n/g, '<br><br>')
+                .replace(/\n/g, '<br>');
+              messagesEl.scrollTop = messagesEl.scrollHeight;
+            }
+          } catch (e) {}
+        }
+      }
+
+      const srcCount = (sources.laws||0) + (sources.articles||0) + (sources.precedents||0) + (sources.interpretations||0);
+      if (srcCount > 0) {
+        const srcDiv = document.createElement('div');
+        srcDiv.className = 'msg-sources';
+        srcDiv.textContent = '참조: 법령 ' + (sources.laws||0) + '건, 조문 ' + (sources.articles||0) + '건, 판례 ' + (sources.precedents||0) + '건';
+        botDiv.appendChild(srcDiv);
+      }
+    }
+  } catch (e) {
+    hideLoading();
+    addMessage('죄송합니다. 오류가 발생했습니다: ' + e.message, 'bot');
+  }
+
+  sendBtn.disabled = false;
+  inputEl.focus();
+}
+
+function askExample(btn) {
+  inputEl.value = btn.textContent;
+  sendMessage();
+}
+
+inputEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.isComposing) sendMessage();
+});
+</script>
+
+</body>
+</html>
