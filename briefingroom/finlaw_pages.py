@@ -404,6 +404,17 @@ def generate_finlaw_index():
         "ORDER BY decision_date DESC LIMIT 3",
     ).fetchall()
 
+    # 입법예고 (D-day > 0 = 진행 중)
+    leg_notices = []
+    try:
+        leg_notices = conn.execute(
+            "SELECT title, department, law_type, period_start, period_end, "
+            "days, opinion_count, detail_link FROM leg_notices "
+            "WHERE days > 0 ORDER BY days ASC LIMIT 5"
+        ).fetchall()
+    except sqlite3.OperationalError:
+        pass  # 테이블 없으면 무시
+
     # 카운트
     law_count = len(conn.execute(
         "SELECT 1 FROM laws WHERE promulgation_date >= ?", (month_ago,)
@@ -411,9 +422,7 @@ def generate_finlaw_index():
     prec_count = len(conn.execute(
         "SELECT 1 FROM precedents WHERE decision_date >= '2026.01.01'"
     ).fetchall())
-    interp_count = len(conn.execute(
-        "SELECT 1 FROM interpretations"
-    ).fetchall())
+    notice_count = len(leg_notices)
     total_laws = conn.execute("SELECT COUNT(*) FROM laws").fetchone()[0]
     conn.close()
 
@@ -454,6 +463,24 @@ def generate_finlaw_index():
     <div class="case-title">{html.escape(r['case_name'])}</div>
     <div class="case-summary">{html.escape(summary)}</div>
     {law_html}
+  </div>""")
+
+    # 입법예고 카드
+    notice_cards = []
+    for n in leg_notices:
+        d = n["days"]
+        if d <= 7:
+            cls = "soon"
+        elif d <= 20:
+            cls = "mid"
+        else:
+            cls = "far"
+        notice_cards.append(f"""  <div class="notice-card">
+    <div class="notice-dday {cls}"><span class="d">D-</span><span class="n">{d}</span></div>
+    <div class="notice-body">
+      <div class="notice-title">{html.escape(n['title'])}</div>
+      <div class="notice-meta">{html.escape(n['department'])} · {n['period_start']} ~ {n['period_end']} · 의견 {n['opinion_count']}건</div>
+    </div>
   </div>""")
 
     # 법령 DB 카테고리 카드
@@ -506,8 +533,8 @@ def generate_finlaw_index():
   <div class="hero-dash">
     <div class="hero-stat alert">{dot_class}<div class="num">{law_count}</div><div class="label">법령 개정</div></div>
     <div class="hero-stat warn"><div class="num">{prec_count}</div><div class="label">판례</div></div>
-    <div class="hero-stat info"><div class="num">{interp_count}</div><div class="label">해석례</div></div>
-    <div class="hero-stat ok"><div class="num">{total_laws}</div><div class="label">전체 법령</div></div>
+    <div class="hero-stat ok"><div class="num">{notice_count}</div><div class="label">입법예고 중</div></div>
+    <div class="hero-stat info"><div class="num">{total_laws}</div><div class="label">전체 법령</div></div>
   </div>
 
   {"" if not headline_title else f'''<div class="hero-headline">
@@ -532,6 +559,12 @@ def generate_finlaw_index():
   <div class="sec-hdr">최근 판례<a class="sec-more" href="/finlaw/cases/">전체 보기 →</a></div>
 {"".join(case_cards) if case_cards else '  <p style="font-size:13px;color:var(--m)">최근 판례가 없습니다.</p>'}
 </section>
+
+{"" if not notice_cards else f'''<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">입법예고 트래커<span class="sec-date">{notice_count}건 진행 중</span></div>
+{"".join(notice_cards)}
+</section>'''}
 
 <div class="divider"></div>
 <section class="sec">
