@@ -370,57 +370,82 @@ searchInput.addEventListener('keydown', function(e) {
     if (q) window.location.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(q);
   }
 });
+var SB_URL = 'https://jxoghnttelexnfoeepbz.supabase.co';
+var SB_KEY = 'sb_publishable_r3eTQXF419LfIiPdE17gyw_zvAQFd5s';
+var SB_HDR = {'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY};
+
+function renderResults(items, query) {
+  var typeLabel = {law: '법령', article: '조문', precedent: '판례'};
+  searchResults.textContent = '';
+  var cta = document.createElement('a');
+  cta.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
+  cta.style.cssText = 'display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none';
+  cta.textContent = items.length ? 'FinLaw GPT에서 상세 질문 \u2192' : 'FinLaw GPT에게 질문하기 \u2192';
+  if (items.length) {
+    items.forEach(function(item) {
+      var link = document.createElement('a');
+      link.href = item.link || '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
+      link.style.cssText = 'display:block;padding:12px 16px;border-bottom:1px solid #e0e0e0;text-decoration:none;color:#222';
+      var top = document.createElement('div');
+      top.style.cssText = 'display:flex;align-items:center;gap:8px';
+      var badge = document.createElement('span');
+      badge.style.cssText = 'font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(217,108,44,.06);color:#d96c2c';
+      badge.textContent = typeLabel[item.type] || item.type || '';
+      var title = document.createElement('span');
+      title.style.cssText = 'font-size:14px;font-weight:600';
+      title.textContent = String(item.title || '').slice(0, 60);
+      top.appendChild(badge);
+      top.appendChild(title);
+      var sub = document.createElement('div');
+      sub.style.cssText = 'font-size:12px;color:#999;margin-top:3px';
+      sub.textContent = String(item.subtitle || '').slice(0, 80);
+      link.appendChild(top);
+      link.appendChild(sub);
+      searchResults.appendChild(link);
+    });
+  } else {
+    var empty = document.createElement('div');
+    empty.style.cssText = 'padding:16px;text-align:center;font-size:13px;color:#999';
+    empty.textContent = '검색 결과 없음';
+    searchResults.appendChild(empty);
+  }
+  searchResults.appendChild(cta);
+  searchResults.style.display = 'block';
+}
+
+function searchSupabase(query) {
+  var kw = '%' + query + '%';
+  return Promise.all([
+    fetch(SB_URL + '/rest/v1/laws?or=(name.ilike.' + encodeURIComponent(kw) + ',amendment_reason.ilike.' + encodeURIComponent(kw) + ')&select=law_id,name,ministry,law_type&limit=5', {headers: SB_HDR}).then(function(r){return r.json();}),
+    fetch(SB_URL + '/rest/v1/articles?or=(article_title.ilike.' + encodeURIComponent(kw) + ',content.ilike.' + encodeURIComponent(kw) + ')&select=id,law_id,article_no,article_title&limit=5', {headers: SB_HDR}).then(function(r){return r.json();}),
+    fetch(SB_URL + '/rest/v1/precedents?or=(case_name.ilike.' + encodeURIComponent(kw) + ',summary.ilike.' + encodeURIComponent(kw) + ')&select=prec_id,case_name,court,decision_date&limit=5', {headers: SB_HDR}).then(function(r){return r.json();})
+  ]).then(function(res) {
+    var items = [];
+    (res[0] || []).forEach(function(r) { items.push({type:'law', title:r.name, subtitle:r.ministry + ' · ' + (r.law_type||''), link:'/finlaw/detail/' + r.law_id + '/'}); });
+    (res[1] || []).forEach(function(r) { items.push({type:'article', title:(r.article_no ? '제'+r.article_no+'조 ':'') + (r.article_title||''), subtitle:'', link:'/finlaw/detail/' + r.law_id + '/'}); });
+    (res[2] || []).forEach(function(r) { items.push({type:'precedent', title:r.case_name, subtitle:(r.court||'') + ' ' + (r.decision_date||''), link:'/finlaw/cases/' + r.prec_id + '/'}); });
+    return items;
+  });
+}
+
 function doSearch(query) {
   fetch('https://govbrief-api.vercel.app/api/search', {
     method: 'POST', headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({query: query}),
   }).then(function(r) { return r.json(); }).then(function(data) {
-    var typeLabel = {law: '법령', article: '조문', precedent: '판례'};
-    function safeUrl(value) {
-      try {
-        var url = new URL(String(value || ''), window.location.origin);
-        if (url.protocol === 'http:' || url.protocol === 'https:') return url.href;
-      } catch (e) {}
-      return '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
-    }
-    var cta = document.createElement('a');
-    cta.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
-    cta.style.cssText = 'display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none';
-    cta.textContent = data.results && data.results.length ? 'FinLaw GPT에서 상세 질문 \u2192' : 'FinLaw GPT에게 질문하기 \u2192';
-    searchResults.textContent = '';
     if (data.results && data.results.length) {
-      data.results.forEach(function(item) {
-        var link = document.createElement('a');
-        link.href = safeUrl(item.link);
-        link.style.cssText = 'display:block;padding:12px 16px;border-bottom:1px solid #e0e0e0;text-decoration:none;color:#222';
-        var top = document.createElement('div');
-        top.style.cssText = 'display:flex;align-items:center;gap:8px';
-        var badge = document.createElement('span');
-        badge.style.cssText = 'font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(217,108,44,.06);color:#d96c2c';
-        badge.textContent = typeLabel[item.type] || '';
-        var title = document.createElement('span');
-        title.style.cssText = 'font-size:14px;font-weight:600';
-        title.textContent = String(item.title || '').slice(0,50);
-        top.appendChild(badge);
-        top.appendChild(title);
-        var subtitle = document.createElement('div');
-        subtitle.style.cssText = 'font-size:12px;color:#999;margin-top:3px';
-        subtitle.textContent = String(item.subtitle || '').slice(0,60);
-        link.appendChild(top);
-        link.appendChild(subtitle);
-        searchResults.appendChild(link);
+      var items = data.results.map(function(item) {
+        var link = '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
+        try { var u = new URL(String(item.link||''), window.location.origin); if(u.protocol==='http:'||u.protocol==='https:') link=u.href; } catch(e){}
+        return {type:item.type, title:item.title, subtitle:item.subtitle, link:link};
       });
-      searchResults.appendChild(cta);
-      searchResults.style.display = 'block';
+      renderResults(items, query);
     } else {
-      var empty = document.createElement('div');
-      empty.style.cssText = 'padding:16px;text-align:center;font-size:13px;color:#999';
-      empty.textContent = '검색 결과 없음';
-      searchResults.appendChild(empty);
-      searchResults.appendChild(cta);
-      searchResults.style.display = 'block';
+      searchSupabase(query).then(function(items) { renderResults(items, query); });
     }
-  }).catch(function(e) { console.error(e); });
+  }).catch(function() {
+    searchSupabase(query).then(function(items) { renderResults(items, query); }).catch(function() { renderResults([], query); });
+  });
 }
 document.addEventListener('click', function(e) {
   if (!e.target.closest('.sbox')) searchResults.style.display = 'none';
