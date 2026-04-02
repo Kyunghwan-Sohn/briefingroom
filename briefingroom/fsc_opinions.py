@@ -1,0 +1,246 @@
+"""금융위원회 비조치의견서 + 과거회신사례 크롤러
+
+better.fsc.go.kr에서 비조치의견서(1,669건)와 과거회신사례(4,256건)를
+수집하여 finance_law.db에 저장합니다.
+
+카테고리: 비조치의견서, 법령해석, 행정지도, 감독행정
+분야: 공통, 자본시장, 보험, 은행, 저축은행, 여전, 신용정보 등
+
+실행: python -m briefingroom.fsc_opinions
+"""
+from __future__ import annotations
+
+import json
+import sqlite3
+import time
+from datetime import datetime
+from pathlib import Path
+
+import requests
+import urllib3
+
+from briefingroom.config import BASE_DIR
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+DB_PATH = BASE_DIR / "finance_law.db"
+BASE_URL = "https://better.fsc.go.kr/fsc_new/replyCase"
+DETAIL_URL = "https://better.fsc.go.kr/fsc_new/replyCase/OpinionView.do"
+BATCH_SIZE = 100
+
+
+def _init_tables(conn: sqlite3.Connection):
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS fsc_opinions (
+            opinion_id INTEGER PRIMARY KEY,
+            opinion_number TEXT,
+            gubun TEXT,
+            category TEXT,
+            title TEXT NOT NULL,
+            status TEXT,
+            reg_date TEXT,
+            content TEXT,
+            reply TEXT,
+            related_law TEXT,
+            detail_link TEXT,
+            crawled_at TEXT
+        )
+    """)
+    conn.commit()
+
+
+def _fetch_list(endpoint: str, page: int = 0, size: int = BATCH_SIZE) -> dict:
+    """DataTables API 호출"""
+    r = requests.post(
+        f"{BASE_URL}/{endpoint}",
+        headers={
+            "User-Agent": "Mozilla/5.0 (compatible; govbrief/1.0)",
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-Requested-With": "XMLHttpRequest",
+        },
+        data={
+            "draw": str(page + 1),
+            "start": str(page * size),
+            "length": str(size),
+        },
+        timeout=15,
+        verify=False,
+    )
+    if r.status_code != 200:
+        return {"data": [], "recordsTotal": 0}
+    return r.json()
+
+
+def _fetch_detail(opinion_id: int) -> dict:
+    """비조치의견서 상세 조회"""
+    try:
+        r = requests.get(
+            f"{DETAIL_URL}?opinionIdx={opinion_id}",
+            headers={"User-Agent": "Mozilla/5.0"},
+            timeout=15,
+            verify=False,
+        )
+        if r.status_code != 200:
+            return {}
+        import re
+        text = r.text
+        # 질의 내용
+        content_m = re.search(r'<div[^>]*class="[^"]*content[^"]*"[^>]*>(.*?)</div>', text, re.DOTALL)
+        content = re.sub(r'<[^>]+>', '', content_m.group(1)).strip() if content_m else ""
+        # 회신 내용
+        reply_m = re.search(r'<div[^>]*class="[^"]*reply[^"]*"[^>]*>(.*?)</div>', text, re.DOTALL)
+        reply = re.sub(r'<[^>]+>', '', reply_m.group(1)).strip() if reply_m else ""
+        return {"content": content[:2000], "reply": reply[:2000]}
+    except Exception:
+        return {}
+
+
+def crawl_opinions(fetch_details: bool = False) -> int:
+    """비조치의견서 목록 전체 크롤링"""
+    conn = sqlite3.connect(str(DB_PATH))
+    _init_tables(conn)
+
+    total_saved = 0
+    page = 0
+
+    while True:
+        data = _fetch_list("selectReplyCaseOpinionList.do", page, BATCH_SIZE)
+        items = data.get("data", [])
+        total = data.get("recordsTotal", 0)
+
+        if not items:
+            break
+
+        now = datetime.now().isoformat()
+        for item in items:
+            opinion_id = item.get("opinionIdx", 0)
+            if not opinion_id:
+                continue
+
+            # 상세 조회 (선택적)
+            content = ""
+            reply = ""
+            if fetch_details:
+                detail = _fetch_detail(opinion_id)
+                content = detail.get("content", "")
+                reply = detail.get("reply", "")
+                time.sleep(0.3)
+
+            conn.execute("""
+                INSERT OR REPLACE INTO fsc_opinions
+                (opinion_id, opinion_number, gubun, category, title, status,
+                 reg_date, content, reply, related_law, detail_link, crawled_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                opinion_id,
+                item.get("opinionNumber", ""),
+                "비조치의견서",
+                item.get("category", ""),
+                item.get("title", ""),
+                item.get("status", ""),
+                item.get("regDate", ""),
+                content,
+                reply,
+                "",
+                f"https://better.fsc.go.kr/fsc_new/replyCase/OpinionView.do?opinionIdx={opinion_id}",
+                now,
+            ))
+            total_saved += 1
+
+        conn.commit()
+        print(f"  [비조치의견서] 페이지 {page+1} — {len(items)}건 (누적 {total_saved}/{total})")
+        page += 1
+
+        if page * BATCH_SIZE >= total:
+            break
+        time.sleep(0.5)
+
+    conn.close()
+    return total_saved
+
+
+def crawl_past_replies() -> int:
+    """과거회신사례 전체 크롤링 (비조치의견서 + 법령해석 + 행정지도 등)"""
+    conn = sqlite3.connect(str(DB_PATH))
+    _init_tables(conn)
+
+    total_saved = 0
+    page = 0
+
+    while True:
+        data = _fetch_list("selectReplyCasePastReplyList.do", page, BATCH_SIZE)
+        items = data.get("data", [])
+        total = data.get("recordsTotal", 0)
+
+        if not items:
+            break
+
+        now = datetime.now().isoformat()
+        for item in items:
+            idx = item.get("idx", 0)
+            if not idx:
+                continue
+
+            conn.execute("""
+                INSERT OR IGNORE INTO fsc_opinions
+                (opinion_id, opinion_number, gubun, category, title, status,
+                 reg_date, content, reply, related_law, detail_link, crawled_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                idx,
+                item.get("opinionNumber", ""),
+                item.get("gubun", ""),
+                item.get("category", ""),
+                item.get("title", ""),
+                item.get("status", "완료"),
+                item.get("regDate", ""),
+                "",
+                "",
+                "",
+                f"https://better.fsc.go.kr/fsc_new/replyCase/OpinionView.do?opinionIdx={idx}",
+                now,
+            ))
+            total_saved += 1
+
+        conn.commit()
+        print(f"  [과거회신] 페이지 {page+1} — {len(items)}건 (누적 {total_saved}/{total})")
+        page += 1
+
+        if page * BATCH_SIZE >= total:
+            break
+        time.sleep(0.5)
+
+    conn.close()
+    return total_saved
+
+
+def main():
+    print("=" * 50)
+    print("금융위원회 비조치의견서 + 과거회신사례 크롤링")
+    print("=" * 50)
+
+    n1 = crawl_opinions()
+    print(f"\n비조치의견서: {n1}건 저장")
+
+    n2 = crawl_past_replies()
+    print(f"과거회신사례: {n2}건 저장")
+
+    # 최종 통계
+    conn = sqlite3.connect(str(DB_PATH))
+    total = conn.execute("SELECT COUNT(*) FROM fsc_opinions").fetchone()[0]
+    by_gubun = conn.execute("SELECT gubun, COUNT(*) FROM fsc_opinions GROUP BY gubun").fetchall()
+    by_cat = conn.execute("SELECT category, COUNT(*) FROM fsc_opinions GROUP BY category ORDER BY COUNT(*) DESC").fetchall()
+    conn.close()
+
+    print(f"\n{'='*50}")
+    print(f"전체: {total}건")
+    print("유형별:")
+    for g, c in by_gubun:
+        print(f"  {g}: {c}건")
+    print("분야별:")
+    for cat, c in by_cat[:10]:
+        print(f"  {cat}: {c}건")
+
+
+if __name__ == "__main__":
+    main()
