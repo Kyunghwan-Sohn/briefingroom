@@ -150,11 +150,11 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 
 <!-- 검색 -->
 <section class="hero">
-  <h1>정책과 법령, 뭐든 물어보세요</h1>
-  <p>보도자료 1,796건 · 금융법령 8,772건 · 비조치의견서 3,151건</p>
+  <h1>정부 정책과 금융 법령, 뭐든 물어보세요</h1>
+  <p>정부 보도자료 1,796건 · 금융 법령 139건 · 조문 3,893건 · 판례 526건</p>
   <div class="sbox">
     <span class="si">&#x2315;</span>
-    <input id="search-input" placeholder="자본시장법 불공정거래, 전세보증금 못 돌려받아요..." autocomplete="off">
+    <input id="search-input" placeholder="금융법령 검색: 자본시장법, 불공정거래, 보험업법..." autocomplete="off">
     <div id="search-results" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:40;margin-top:6px;background:#fff;border:1px solid var(--b);border-radius:10px;max-height:360px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.1)"></div>
   </div>
 </section>
@@ -406,7 +406,7 @@ function renderResults(items, query) {
   } else {
     var empty = document.createElement('div');
     empty.style.cssText = 'padding:16px;text-align:center;font-size:13px;color:#999';
-    empty.textContent = '검색 결과 없음';
+    empty.textContent = '금융법령(139건) 내 검색 결과 없음. 일반 법령은 법제처 국가법령정보센터를 이용하세요.';
     searchResults.appendChild(empty);
   }
   searchResults.appendChild(cta);
