@@ -112,6 +112,9 @@ const inputEl = document.getElementById('input');
 const sendBtn = document.getElementById('send');
 const introEl = document.getElementById('intro');
 
+// 대화 히스토리 (이전 맥락 유지)
+var chatHistory = [];
+
 function escapeHtml(value) {
   return String(value ?? '')
     .replaceAll('&', '&amp;')
@@ -191,10 +194,18 @@ function renderBotContent(container, text) {
 }
 
 const SYSTEM_PROMPT = `당신은 한국 금융법령 전문 AI 어시스턴트 'FinLaw GPT'입니다.
-역할: 금융법령, 조문, 판례, 해석례에 대한 질문에 정확하게 답변합니다.
+
+역할: 금융법령 139건, 조문, 판례, 해석례에 대한 질문에 정확하게 답변합니다.
 반드시 제공된 컨텍스트(검색 결과)를 근거로 답변하세요.
-컨텍스트에 없는 내용은 "해당 정보를 찾지 못했습니다"라고 답하세요.
-법조문을 인용할 때는 법령명과 조문 번호를 명시하세요.
+
+답변 규칙:
+1. 법조문 인용 시 법령명과 조문 번호를 명시하세요.
+2. 관련 법령 상세 페이지가 있으면 "자세히 보기: /finlaw/detail/{법령ID}/" 형태로 사이트 내 링크를 제공하세요.
+3. 원본 법령은 "원문: https://www.law.go.kr" 법제처 국가법령정보센터 링크를 안내하세요.
+4. 이전 대화 맥락이 제공되면 해당 맥락을 이어서 답변하세요. "더 자세히", "좀 더 알려줘" 등은 바로 이전 주제를 이어가는 것입니다.
+5. 금융법령 범위(자본시장법, 보험업법, 은행법 등 139건) 밖의 질문(예: 주택임대차보호법, 근로기준법)에는 "금융법령 AI의 분석 범위 밖입니다. 법제처 국가법령정보센터(https://www.law.go.kr)에서 확인하세요."라고 안내하세요.
+6. 컨텍스트에 없는 내용은 추측하지 말고 솔직히 "해당 정보를 찾지 못했습니다"라고 답하세요.
+
 답변은 마크다운 형식으로 작성하세요.
 본 답변은 법률 자문이 아닌 정보 제공 목적입니다.`;
 
@@ -290,11 +301,26 @@ async function sendMessage() {
   sendBtn.disabled = true;
   showLoading();
 
+  // 대화 히스토리에 추가
+  chatHistory.push({role: 'user', text: q});
+
+  // 이전 맥락을 포함한 질문 구성 (최근 4턴까지)
+  var contextQuestion = q;
+  if (chatHistory.length > 1) {
+    var recent = chatHistory.slice(-6); // 최근 3쌍(user+bot)
+    var parts = [];
+    for (var i = 0; i < recent.length - 1; i++) {
+      parts.push((recent[i].role === 'user' ? '[질문] ' : '[답변] ') + recent[i].text.slice(0, 300));
+    }
+    parts.push('[현재 질문] ' + q);
+    contextQuestion = '이전 대화 맥락:\n' + parts.join('\n') + '\n\n위 맥락을 참고하여 현재 질문에 답변하세요.';
+  }
+
   try {
     const r = await fetch(LLM_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: q, stream: true }),
+      body: JSON.stringify({ question: contextQuestion, stream: true }),
     });
 
     hideLoading();
@@ -337,6 +363,9 @@ async function sendMessage() {
           } catch (e) {}
         }
       }
+
+      // 봇 응답을 히스토리에 저장
+      chatHistory.push({role: 'bot', text: fullText});
 
       // 출처 표시
       const srcCount = (sources.laws||0) + (sources.articles||0) + (sources.precedents||0) + (sources.interpretations||0);
