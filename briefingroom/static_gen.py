@@ -281,10 +281,10 @@ def generate_article_pages(target_date: str) -> int:
   <div class="post-content">
     {_build_easy_summary(it.get("easy_summary", ""))}
     {_build_summary_section(summary)}
-    {_build_context_section("왜 중요한가", why_important, "why-box", "Why It Matters")}
+    {_build_context_section("왜 알아야 하나?", why_important, "why-box", "Why It Matters")}
     {_build_keyword_section(keywords)}
     {_build_law_section(it.get("related_laws", []))}
-    {_build_context_section("실무 영향", practical_impact, "impact-box", "Practical Impact")}
+    {_build_context_section("그래서 뭐가 달라지나?", practical_impact, "impact-box", "What Changes")}
     {_build_original_link(url)}
   </div>
 </div>

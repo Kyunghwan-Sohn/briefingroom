@@ -26,7 +26,7 @@ def extract_summary_parts(summary: str) -> tuple[str, str, str, list[str], str, 
 
     # 각 섹션의 시작 위치 찾기
     markers = []
-    for m in re.finditer(r'^(요약|쉬운요약|왜 중요한가|실무 영향|키워드|영향도):', summary, re.MULTILINE):
+    for m in re.finditer(r'^(요약|쉬운요약|왜 중요한가|왜 알아야 하나|실무 영향|그래서 뭐가 달라지나|키워드|영향도):', summary, re.MULTILINE):
         markers.append((m.start(), m.group(1), m.end()))
 
     if not markers:
@@ -40,9 +40,9 @@ def extract_summary_parts(summary: str) -> tuple[str, str, str, list[str], str, 
             summary_text = content
         elif label == "쉬운요약":
             easy_summary = content
-        elif label == "왜 중요한가":
+        elif label in ("왜 중요한가", "왜 알아야 하나"):
             why_important = content
-        elif label == "실무 영향":
+        elif label in ("실무 영향", "그래서 뭐가 달라지나"):
             practical_impact = content
         elif label == "키워드":
             keywords = [kw.strip().lstrip("#") for kw in content.split(",") if kw.strip()]
