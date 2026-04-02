@@ -51,18 +51,10 @@ def process_item(item):
     src = re.sub(r"[^\w가-힣]", "", item["source"])[:4]
     safe = re.sub(r"[^\w가-힣]", "_", item["title"])[:30]
 
-    # 본문 텍스트가 충분하면 파일 추출 생략
     body_text = item.get("body_text", "")
-    if body_text and len(body_text) >= 200:
-        print(f"    본문 텍스트 사용 ({len(body_text)}자)")
-        item["text"] = body_text
-        save_text(item, body_text)
-        return
-
-    # 본문 부족 → 첨부파일에서 추출
     file_texts = []
 
-    # PDF 전부 열기
+    # 붙임 PDF가 있으면 반드시 추출 (본문과 합침)
     for i, url in enumerate(item["pdfs"], 1):
         fname = f"{item['date']}_{src}_{safe}_{i}.pdf"
         path = download_file(url, fname, s)
@@ -90,11 +82,16 @@ def process_item(item):
             time.sleep(0.3)
 
     if file_texts:
-        item["text"] = "\n\n".join(file_texts)
+        # 본문 + 붙임파일 합침 (본문이 있으면 앞에 추가)
+        all_text = []
+        if body_text:
+            all_text.append(body_text)
+        all_text.extend(file_texts)
+        item["text"] = "\n\n".join(all_text)
         save_text(item, item["text"])
+        print(f"    텍스트 완성 ({len(item['text'])}자, 본문+붙임 {len(file_texts)}개)")
     elif body_text:
-        # 파일 추출 실패했지만 짧은 본문이라도 있으면 사용
-        print(f"    파일 추출 실패 → 짧은 본문 사용 ({len(body_text)}자)")
+        print(f"    본문만 사용 ({len(body_text)}자, 붙임파일 없음)")
         item["text"] = body_text
     elif not item.get("text"):
         # 최종 폴백: 원문 URL에서 직접 본문 추출 시도

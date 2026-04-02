@@ -4,7 +4,7 @@ from pathlib import Path
 API_KEY = os.environ.get("LLM_API_KEY", "")
 API_URL = os.environ.get("LLM_API_URL", "https://abcllm-api.brut.bot/v1/chat/completions")
 MODEL = os.environ.get("LLM_MODEL", "qwen3.5:35b")
-MAX_TEXT = 3000  # 토큰 절약 (6000→3000, 일일 500만 토큰 한도 대응)
+MAX_TEXT = 15000  # 붙임 PDF/HWP 전문 기반 요약 (토큰 무제한)
 TIMEOUT = 20
 DELAY = 1.5
 NEWS_ENABLED = os.environ.get("NEWS_ENABLED", "true").lower() in ("true", "1", "yes")

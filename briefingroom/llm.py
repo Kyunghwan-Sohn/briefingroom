@@ -49,8 +49,9 @@ def _chat_completion(messages: list[dict], temperature: float = 0.3) -> str:
                     "messages": messages,
                     "stream": False,
                     "temperature": temperature,
+                    "options": {"num_ctx": 65536},
                 },
-                timeout=120,
+                timeout=180,
             )
             if resp.status_code == 200:
                 return _parse_response(resp)
