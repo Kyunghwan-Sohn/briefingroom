@@ -33,17 +33,9 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .hero-top h1{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--t);margin-bottom:4px;line-height:1.35}
 .hero-top p{font-size:13px;color:var(--m)}
 .hero-dash{display:flex;gap:10px;margin-bottom:18px}
-.hero-stat{flex:1;background:var(--s);border:1px solid var(--b);border-radius:12px;padding:16px;text-align:center;position:relative}
-.hero-stat .num{font-family:var(--mono);font-size:28px;font-weight:700;line-height:1}
-.hero-stat .label{font-size:12px;font-weight:700;margin-top:6px}
-.hero-stat.alert .num{color:#dc2626}
-.hero-stat.alert .label{color:#dc2626}
-.hero-stat.warn .num{color:var(--a)}
-.hero-stat.warn .label{color:var(--a)}
-.hero-stat.info .num{color:#1e40af}
-.hero-stat.info .label{color:#1e40af}
-.hero-stat.ok .num{color:#047857}
-.hero-stat.ok .label{color:#047857}
+.hero-stat{flex:1;background:var(--s);border:1px solid var(--law-border);border-radius:12px;padding:16px;text-align:center;position:relative}
+.hero-stat .num{font-family:var(--mono);font-size:28px;font-weight:700;line-height:1;color:var(--law)}
+.hero-stat .label{font-size:12px;font-weight:700;margin-top:6px;color:var(--law)}
 .hero-stat .dot{position:absolute;top:10px;right:10px;width:6px;height:6px;border-radius:50%;background:#dc2626;animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .hero-headline{background:var(--s);border:2px solid var(--a);border-radius:12px;padding:16px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
@@ -176,10 +168,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   </div>
 
   <div class="hero-dash">
-    <div class="hero-stat alert"><div class="dot"></div><div class="num">12</div><div class="label">법령 개정</div></div>
-    <div class="hero-stat warn"><div class="num">3</div><div class="label">판례</div></div>
-    <div class="hero-stat ok"><div class="num">5</div><div class="label">입법예고 중</div></div>
-    <div class="hero-stat info"><div class="num">139</div><div class="label">전체 법령</div></div>
+    <div class="hero-stat"><div class="num">12</div><div class="label">법령 개정</div></div>
+    <div class="hero-stat"><div class="num">3</div><div class="label">판례</div></div>
+    <div class="hero-stat"><div class="num">5</div><div class="label">입법예고 중</div></div>
+    <div class="hero-stat"><div class="num">139</div><div class="label">전체 법령</div></div>
   </div>
 
   <div class="hero-headline">
