@@ -363,6 +363,11 @@ function askExample(btn) {
 inputEl.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.isComposing) sendMessage();
 });
+
+// URL ?q= 파라미터 자동 질문
+const params = new URLSearchParams(location.search);
+const initQ = params.get('q');
+if (initQ) { inputEl.value = initQ; sendMessage(); }
 </script>
 
 </body>
