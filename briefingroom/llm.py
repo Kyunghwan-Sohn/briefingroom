@@ -38,6 +38,7 @@ def _parse_response(resp: requests.Response) -> str:
 
 
 def _chat_completion(messages: list[dict], temperature: float = 0.3) -> str:
+    global _quota_exhausted
     for attempt in range(MAX_RETRIES):
         try:
             resp = requests.post(

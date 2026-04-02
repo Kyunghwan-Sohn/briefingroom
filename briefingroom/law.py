@@ -17,7 +17,7 @@ import requests
 from briefingroom.config import BASE_DIR, PROXIES
 
 LAW_OC = "sony0125"
-LAW_API_BASE = "http://www.law.go.kr/DRF"
+LAW_API_BASE = "https://www.law.go.kr/DRF"
 LAW_CACHE_DB = BASE_DIR / "law_cache.db"
 CACHE_DAYS = 30
 

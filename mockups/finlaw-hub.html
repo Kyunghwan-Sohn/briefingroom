@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>금융법령 AI 모니터링 - 브리핑룸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
+
+/* 헤더 */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
+.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
+.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
+.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-size:16px;margin-left:auto;flex-shrink:0}
+
+/* 히어로 */
+.hero{background:#efefef;padding:32px 24px 24px;border-bottom:1px solid var(--b)}
+.hero-top{text-align:center;margin-bottom:20px}
+.hero-top h1{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--t);margin-bottom:4px;line-height:1.35}
+.hero-top p{font-size:13px;color:var(--m)}
+.hero-dash{display:flex;gap:10px;margin-bottom:18px}
+.hero-stat{flex:1;background:var(--s);border:1px solid var(--b);border-radius:12px;padding:16px;text-align:center;position:relative}
+.hero-stat .num{font-family:var(--mono);font-size:28px;font-weight:700;line-height:1}
+.hero-stat .label{font-size:12px;font-weight:700;margin-top:6px}
+.hero-stat.alert .num{color:#dc2626}
+.hero-stat.alert .label{color:#dc2626}
+.hero-stat.warn .num{color:var(--a)}
+.hero-stat.warn .label{color:var(--a)}
+.hero-stat.info .num{color:#1e40af}
+.hero-stat.info .label{color:#1e40af}
+.hero-stat.ok .num{color:#047857}
+.hero-stat.ok .label{color:#047857}
+.hero-stat .dot{position:absolute;top:10px;right:10px;width:6px;height:6px;border-radius:50%;background:#dc2626;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-headline{background:var(--s);border:2px solid var(--a);border-radius:12px;padding:16px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.hero-headline .icon{font-size:24px;flex-shrink:0}
+.hero-headline .text{flex:1}
+.hero-headline .title{font-family:var(--serif);font-size:16px;font-weight:700;line-height:1.4;margin-bottom:2px}
+.hero-headline .sub{font-size:12px;color:var(--t2);line-height:1.5}
+.sbox{max-width:100%;position:relative}
+.sbox input{width:100%;padding:14px 16px 14px 42px;font-size:15px;border:2px solid var(--b);border-radius:12px;background:#fff;color:var(--t);outline:none;font-family:var(--sans)}
+.sbox input::placeholder{color:var(--m)}
+.sbox input:focus{border-color:var(--a)}
+.si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--m);font-size:16px}
+
+/* 공통 */
+.sec{padding:0 24px;margin-top:24px}
+.sec-hdr{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:14px;display:flex;align-items:baseline;justify-content:space-between}
+.sec-more{font-size:11px;color:var(--a);text-decoration:none;font-weight:600}
+.sec-date{font-family:var(--mono);font-size:11px;color:var(--m);font-weight:400;margin-left:6px}
+.divider{height:1px;background:var(--b);margin:24px 24px 0}
+
+/* 변경사항 카드 */
+.change-card{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:18px;margin-bottom:10px}
+.change-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.change-tag{display:inline-block;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px}
+.change-tag.edit{background:#eef2ff;color:#3730a3}
+.change-tag.case{background:#fff7ed;color:#9a3412}
+.change-tag.new{background:#ecfdf5;color:#065f46}
+.change-tag.notice{background:#fef3c7;color:#92400e}
+.change-date{font-family:var(--mono);font-size:10px;color:var(--m)}
+.change-title{font-family:var(--serif);font-size:16px;font-weight:700;line-height:1.5;margin-bottom:6px}
+.change-desc{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:8px}
+.change-impact{font-size:12px;padding:10px 12px;border-radius:8px;background:#eef2ff;border-left:3px solid #4a6cf7;color:#2d4a8a;line-height:1.6}
+.change-impact strong{font-size:9px;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px}
+.change-kw{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.change-kw span{font-size:10px;font-weight:600;color:var(--a);background:var(--al);border:1px solid var(--ab);padding:3px 10px;border-radius:12px}
+
+/* 입법예고 */
+.notice-card{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:16px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start}
+.notice-dday{flex-shrink:0;width:52px;height:52px;border-radius:10px;background:var(--a);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700}
+.notice-dday .d{font-size:9px;opacity:.7}
+.notice-dday .n{font-size:18px;line-height:1}
+.notice-dday.soon{background:#dc2626}
+.notice-dday.mid{background:var(--t2)}
+.notice-dday.far{background:var(--m)}
+.notice-body{flex:1;min-width:0}
+.notice-title{font-size:14px;font-weight:700;line-height:1.4;margin-bottom:4px}
+.notice-meta{font-size:11px;color:var(--m);margin-bottom:4px}
+.notice-ai{font-size:12px;color:var(--t2);line-height:1.6;padding:8px 10px;background:var(--al);border-radius:6px;margin-top:6px}
+
+/* 판례 하이라이트 */
+.case-card{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:16px;margin-bottom:10px}
+.case-court{font-family:var(--mono);font-size:10px;color:var(--m);margin-bottom:4px}
+.case-title{font-size:14px;font-weight:700;line-height:1.4;margin-bottom:6px}
+.case-summary{font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:6px}
+.case-laws{display:flex;gap:4px;flex-wrap:wrap}
+.case-laws span{font-size:10px;color:#3730a3;background:#eef2ff;padding:2px 8px;border-radius:4px}
+
+/* 법령 DB */
+.db-tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:12px;padding-bottom:4px}
+.db-tabs::-webkit-scrollbar{display:none}
+.db-tab{padding:7px 14px;border-radius:20px;border:2px solid var(--bl);background:var(--s);font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer}
+.db-tab.on{background:var(--a);color:#fff;border-color:var(--a)}
+.db-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.db-card{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:14px;transition:box-shadow .15s}
+.db-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.db-name{font-size:14px;font-weight:600;color:var(--t);margin-bottom:4px}
+.db-meta{font-size:11px;color:var(--m);display:flex;gap:12px}
+.db-meta span{display:flex;align-items:center;gap:3px}
+
+.footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.footer a{color:var(--t);text-decoration:none;font-weight:600}
+
+/* 하단 네비 (모바일만) */
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(5,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}.bnav a.on{color:var(--a)}.bnav a span:first-child{font-size:22px}
+
+@media(max-width:768px){
+  body{padding-top:52px;padding-bottom:62px}
+  .hdr{height:50px;padding:0 14px}
+  .logo{font-size:17px;margin-right:10px}
+  .hnav a{font-size:11px;padding:5px 8px}
+  .hero{padding:20px 16px 16px}
+  .hero-top h1{font-size:22px}
+  .hero-top p{font-size:11px}
+  .hero-dash{gap:6px}
+  .hero-stat{padding:12px 6px}
+  .hero-stat .num{font-size:22px}
+  .hero-stat .label{font-size:9px}
+  .hero-headline{padding:12px 14px;gap:8px}
+  .hero-headline .title{font-size:14px}
+  .hero-headline .sub{font-size:11px}
+  .sbox input{padding:12px 14px 12px 38px;font-size:14px}
+  .sec{padding:0 16px;margin-top:18px}
+  .sec-hdr{font-size:17px;margin-bottom:10px}
+  .divider{margin:18px 16px 0}
+  .change-title{font-size:15px}
+  .notice-card{gap:10px}
+  .notice-dday{width:44px;height:44px}
+  .notice-dday .n{font-size:15px}
+  .db-grid{grid-template-columns:1fr}
+  .bnav{display:grid}
+}
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">정책 AI 요약</a>
+    <a class="on" href="/finlaw/">금융법령 AI 모니터링</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<!-- 히어로: 오늘의 변동 대시보드 -->
+<section class="hero">
+  <div class="hero-top">
+    <h1>금융법령 AI 모니터링</h1>
+    <p style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:700;letter-spacing:.02em">2026. 04. 01 (화)</p>
+    <p style="margin-top:2px">오늘의 법령 변동 현황</p>
+  </div>
+
+  <div class="hero-dash">
+    <div class="hero-stat alert"><div class="dot"></div><div class="num">2</div><div class="label">법령 개정</div></div>
+    <div class="hero-stat warn"><div class="num">1</div><div class="label">새 판례</div></div>
+    <div class="hero-stat info"><div class="num">1</div><div class="label">해석례</div></div>
+    <div class="hero-stat ok"><div class="num">3</div><div class="label">입법예고 중</div></div>
+  </div>
+
+  <div class="hero-headline">
+    <div class="icon" style="font-size:14px;font-weight:900;color:var(--a);background:var(--al);border:1px solid var(--ab);width:36px;height:36px;border-radius:8px;display:grid;place-items:center">!</div>
+    <div class="text">
+      <div class="title">자본시장법 시행령 오늘부터 시행 — 자기주식 소각 의무화</div>
+      <div class="sub">상장사 공시 기준 5%→3% 강화. IR팀 즉시 대응 필요</div>
+    </div>
+  </div>
+
+  <div class="sbox"><span class="si">⌕</span><input placeholder="법령명, 조문, 판례를 검색하세요..."></div>
+</section>
+
+<!-- ① 오늘 바뀐 것 (상세) -->
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">오늘 바뀐 것 <span class="sec-date">2026.04.01</span><a class="sec-more" href="#">이번 주 전체 →</a></div>
+
+  <div class="change-card">
+    <div class="change-head">
+      <span class="change-tag edit">법령 개정</span>
+      <span class="change-date">2026.04.01 시행</span>
+    </div>
+    <div class="change-title">자본시장법 시행령 일부개정</div>
+    <div class="change-desc">자기주식 소각 의무화에 따른 공시 제도 강화. 상장법인의 자기주식 보유 및 처분 시 공시 기준이 변경됩니다. 기존 5% 이상에서 3% 이상으로 공시 기준이 강화되었습니다.</div>
+    <div class="change-impact"><strong>AI 영향 분석</strong>상장사 IR팀의 공시 의무 확대. 자기주식 전략 변경이 불가피하며, 특히 자사주 매입 후 소각하지 않고 보유 중인 기업에 직접 영향.</div>
+    <div class="change-kw"><span>#자본시장법</span><span>#자기주식소각</span><span>#공시강화</span></div>
+  </div>
+
+  <div class="change-card">
+    <div class="change-head">
+      <span class="change-tag edit">법령 개정</span>
+      <span class="change-date">2026.03.28 시행</span>
+    </div>
+    <div class="change-title">가상자산 이용자 보호법 시행령 개정</div>
+    <div class="change-desc">가상자산사업자의 이용자 예치금 분리보관 의무 강화 및 공시 항목 확대. 분기별 재무건전성 보고 의무 신설.</div>
+    <div class="change-impact"><strong>AI 영향 분석</strong>가상자산 거래소의 운영 비용 증가 예상. 소규모 거래소는 규제 준수 부담으로 시장 구조 재편 가능성.</div>
+    <div class="change-kw"><span>#가상자산</span><span>#이용자보호</span><span>#분리보관</span></div>
+  </div>
+
+  <div class="change-card">
+    <div class="change-head">
+      <span class="change-tag case">판례 등록</span>
+      <span class="change-date">2026.03.27 판결</span>
+    </div>
+    <div class="change-title">금융투자상품 불완전판매 손해배상 — 대법원 2025다12345</div>
+    <div class="change-desc">대법원이 투자 권유 시 설명 의무 범위를 구체적으로 판시. "상품의 위험성뿐 아니라 투자자의 투자 목적·경험에 비추어 개별적으로 적합한 수준의 설명"이 필요하다고 판단.</div>
+    <div class="change-impact"><strong>AI 영향 분석</strong>금융사 창구 판매 프로세스 전면 재검토 필요. 투자자 적합성 평가가 형식적 체크리스트를 넘어 실질적 개별 판단으로 강화.</div>
+    <div class="change-kw"><span>#불완전판매</span><span>#설명의무</span><span>#적합성</span></div>
+  </div>
+
+  <div class="change-card">
+    <div class="change-head">
+      <span class="change-tag new">새 해석례</span>
+      <span class="change-date">2026.03.25 회신</span>
+    </div>
+    <div class="change-title">전자금융거래법상 접근매체 관리 책임</div>
+    <div class="change-desc">비대면 본인확인 시 금융사의 과실 판단 기준에 대한 법제처 해석. 생체인증 우회 공격 발생 시 금융사의 시스템 보안 수준이 과실 판단의 핵심 기준.</div>
+    <div class="change-kw"><span>#전자금융</span><span>#접근매체</span><span>#비대면인증</span></div>
+  </div>
+</section>
+
+<!-- ② 입법예고 트래커 -->
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">입법예고 트래커<a class="sec-more" href="#">전체 보기 →</a></div>
+
+  <div class="notice-card">
+    <div class="notice-dday soon"><span class="d">D-</span><span class="n">3</span></div>
+    <div class="notice-body">
+      <div class="notice-title">금융소비자 보호법 시행령 일부개정안</div>
+      <div class="notice-meta">금융위원회 · 예고기간 2026.03.15 ~ 2026.04.04 · 의견 12건</div>
+      <div class="notice-ai">고위험 금융상품 판매 시 '숙려기간'을 기존 2일에서 5일로 확대하는 내용. 보험·펀드 판매 채널에 직접 영향.</div>
+    </div>
+  </div>
+
+  <div class="notice-card">
+    <div class="notice-dday mid"><span class="d">D-</span><span class="n">14</span></div>
+    <div class="notice-body">
+      <div class="notice-title">전자금융거래법 전부개정안</div>
+      <div class="notice-meta">금융위원회 · 예고기간 2026.03.20 ~ 2026.04.15 · 의견 28건</div>
+      <div class="notice-ai">핀테크 업체의 자본금 요건 차등화 + 오픈뱅킹 참여 기준 개선. 마이데이터 사업자 갱신 심사 기준 변경 포함.</div>
+    </div>
+  </div>
+
+  <div class="notice-card">
+    <div class="notice-dday far"><span class="d">D-</span><span class="n">31</span></div>
+    <div class="notice-body">
+      <div class="notice-title">보험업법 시행규칙 개정안</div>
+      <div class="notice-meta">금융위원회 · 예고기간 2026.03.25 ~ 2026.05.02 · 의견 5건</div>
+      <div class="notice-ai">보험모집인 자격 요건 강화 및 디지털 보험 판매 채널 규정 신설. GA(법인대리점) 수수료 공시 의무화.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ 최근 판례 하이라이트 -->
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">최근 판례 · 해석례<a class="sec-more" href="/finlaw/cases/">전체 526건 →</a></div>
+
+  <div class="case-card">
+    <div class="case-court">대법원 · 2026.03.27 · 2025다12345</div>
+    <div class="case-title">금융투자상품 불완전판매 손해배상</div>
+    <div class="case-summary">투자 권유 시 설명 의무는 투자자의 목적·경험에 비추어 개별적으로 적합한 수준이어야 한다고 판시. 정형화된 설명서 교부만으로는 부족.</div>
+    <div class="case-laws"><span>자본시장법 §47</span><span>금융소비자보호법 §19</span></div>
+  </div>
+
+  <div class="case-card">
+    <div class="case-court">서울고법 · 2026.03.20 · 2025나56789</div>
+    <div class="case-title">가상자산 거래소 해킹 손해배상 책임</div>
+    <div class="case-summary">거래소의 이상거래 탐지 시스템이 업계 표준에 미달한 경우, 해킹 피해에 대한 과실 책임을 인정.</div>
+    <div class="case-laws"><span>가상자산법 §8</span><span>전자금융거래법 §9</span></div>
+  </div>
+
+  <div class="case-card">
+    <div class="case-court">대법원 · 2026.03.14 · 2025다99887</div>
+    <div class="case-title">신용정보 목적 외 이용 시 손해배상 범위</div>
+    <div class="case-summary">신용정보회사가 수집 목적을 초과하여 정보를 이용한 경우, 정신적 손해를 포함한 배상 범위를 확대 인정.</div>
+    <div class="case-laws"><span>신용정보법 §32</span><span>개인정보보호법 §39</span></div>
+  </div>
+</section>
+
+<!-- ④ 법령 데이터베이스 -->
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">법령 데이터베이스<span class="sec-date">139개 법령</span></div>
+
+  <div class="db-tabs">
+    <span class="db-tab on">전체</span>
+    <span class="db-tab">금융감독 (3)</span>
+    <span class="db-tab">은행 (10)</span>
+    <span class="db-tab">자본시장 (5)</span>
+    <span class="db-tab">보험 (2)</span>
+    <span class="db-tab">여신/신용 (7)</span>
+    <span class="db-tab">전자금융 (3)</span>
+    <span class="db-tab">기타 (109)</span>
+  </div>
+
+  <div class="db-grid">
+    <div class="db-card">
+      <div class="db-name">자본시장과 금융투자업에 관한 법률</div>
+      <div class="db-meta">
+        <span>금융위원회</span>
+        <span>개정 2026.03.17</span>
+        <span>판례 84건</span>
+      </div>
+    </div>
+    <div class="db-card">
+      <div class="db-name">금융소비자 보호에 관한 법률</div>
+      <div class="db-meta">
+        <span>금융위원회</span>
+        <span>개정 2026.01.02</span>
+        <span>판례 23건</span>
+      </div>
+    </div>
+    <div class="db-card">
+      <div class="db-name">가상자산 이용자 보호 등에 관한 법률</div>
+      <div class="db-meta">
+        <span>금융위원회</span>
+        <span>시행 2024.07.19</span>
+        <span>판례 8건</span>
+      </div>
+    </div>
+    <div class="db-card">
+      <div class="db-name">은행법</div>
+      <div class="db-meta">
+        <span>금융위원회</span>
+        <span>시행 2023.09.22</span>
+        <span>판례 31건</span>
+      </div>
+    </div>
+    <div class="db-card">
+      <div class="db-name">보험업법</div>
+      <div class="db-meta">
+        <span>금융위원회</span>
+        <span>시행 2025.01.31</span>
+        <span>판례 45건</span>
+      </div>
+    </div>
+    <div class="db-card">
+      <div class="db-name">여신전문금융업법</div>
+      <div class="db-meta">
+        <span>금융위원회</span>
+        <span>시행 2025.10.01</span>
+        <span>판례 19건</span>
+      </div>
+    </div>
+    <div class="db-card">
+      <div class="db-name">전자금융거래법</div>
+      <div class="db-meta">
+        <span>금융위원회</span>
+        <span>시행 2025.09.14</span>
+        <span>판례 12건</span>
+      </div>
+    </div>
+    <div class="db-card">
+      <div class="db-name">신용정보의 이용 및 보호에 관한 법률</div>
+      <div class="db-meta">
+        <span>금융위원회</span>
+        <span>시행 2024.08.14</span>
+        <span>판례 15건</span>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:14px">
+    <a href="#" style="font-size:12px;color:var(--a);text-decoration:none;font-weight:600;padding:10px 24px;border:1px solid var(--a);border-radius:8px;display:inline-block">전체 139개 법령 보기 →</a>
+  </div>
+</section>
+
+<!-- 푸터 -->
+<div style="margin:24px;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+  <div><h3 style="font-family:var(--serif);font-size:16px;color:#fff">법령 변경 알림</h3><p style="font-size:11px;color:rgba(255,255,255,.6)">텔레그램으로 실시간 알림</p></div>
+  <a href="https://t.me/govbrief" target="_blank" style="padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap">구독</a>
+</div>
+
+<div class="footer"><a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융법령 AI 모니터링</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+
+<nav class="bnav"><a href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="#"><span style="font-size:16px">⌕</span>검색</a><a href="#"><span style="font-size:16px">≡</span>달력</a><a class="on" href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
+
+</body>
+</html>

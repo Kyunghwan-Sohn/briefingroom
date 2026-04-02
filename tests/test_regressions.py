@@ -8,6 +8,9 @@ from briefingroom import app as app_module
 from briefingroom import db as db_module
 from briefingroom import files as files_module
 from briefingroom import http as http_module
+from briefingroom import llm as llm_module
+from briefingroom import detail_gen as detail_gen_module
+from briefingroom import finlaw_gpt as finlaw_gpt_module
 from briefingroom import subsidy as subsidy_module
 from briefingroom import telegram as telegram_module
 from briefingroom import weekly_analysis as weekly_analysis_module
@@ -39,6 +42,15 @@ class FakeSession:
 
     def get(self, *_args, **_kwargs):
         return self.response
+
+
+class FakeQuotaResponse:
+    status_code = 429
+    text = "daily quota exceeded"
+    headers = {"Content-Type": "application/json"}
+
+    def json(self):
+        return {}
 
 
 class RegressionTests(unittest.TestCase):
@@ -123,6 +135,67 @@ class RegressionTests(unittest.TestCase):
 
         self.assertIsNone(result)
         self.assertFalse((files_module.PDF_DIR / "invalid_signature_test.pdf").exists())
+
+    def test_save_text_uses_stable_suffix_to_avoid_collisions(self):
+        item1 = {
+            "date": "2026-03-27",
+            "source": "금융위원회",
+            "title": "같은 제목",
+            "url": "https://example.com/a",
+        }
+        item2 = {
+            "date": "2026-03-27",
+            "source": "금융위원회",
+            "title": "같은 제목",
+            "url": "https://example.com/b",
+        }
+
+        path1 = files_module.save_text(item1, "본문1")
+        path2 = files_module.save_text(item2, "본문2")
+
+        try:
+            self.assertNotEqual(path1.name, path2.name)
+        finally:
+            path1.unlink(missing_ok=True)
+            path2.unlink(missing_ok=True)
+
+    def test_llm_quota_exhaustion_sets_global_flag(self):
+        original_post = llm_module.requests.post
+        original_quota = llm_module._quota_exhausted
+        llm_module.requests.post = lambda *args, **kwargs: FakeQuotaResponse()
+        llm_module._quota_exhausted = False
+        try:
+            result = llm_module._chat_completion([{"role": "user", "content": "테스트"}])
+            self.assertIn("한도 초과", result)
+            self.assertTrue(llm_module._quota_exhausted)
+        finally:
+            llm_module.requests.post = original_post
+            llm_module._quota_exhausted = original_quota
+
+    def test_detail_markdown_renderer_escapes_html(self):
+        html_out = detail_gen_module._md_to_html("### 제목\n- <script>alert(1)</script>\n**강조**")
+        self.assertIn("&lt;script&gt;alert(1)&lt;/script&gt;", html_out)
+        self.assertNotIn("<script>alert(1)</script>", html_out)
+        self.assertIn("<strong>강조</strong>", html_out)
+
+    def test_finlaw_gpt_returns_clear_error_without_llm_key(self):
+        original_llm_key = finlaw_gpt_module.LLM_API_KEY
+        original_search = finlaw_gpt_module.search_context
+        finlaw_gpt_module.LLM_API_KEY = ""
+        finlaw_gpt_module.search_context = lambda _q: {
+            "laws": [{"name": "자본시장법", "ministry": "금융위원회", "revision_type": "일부개정", "amendment_reason": ""}],
+            "articles": [],
+            "precedents": [],
+            "interpretations": [],
+            "errors": [],
+        }
+        try:
+            result = finlaw_gpt_module.ask("테스트 질문")
+            self.assertIn("LLM_API_KEY", result["answer"])
+            self.assertEqual(result["sources"]["laws"], 1)
+        finally:
+            finlaw_gpt_module.LLM_API_KEY = original_llm_key
+            finlaw_gpt_module.search_context = original_search
 
     def test_wp_post_fails_closed_on_duplicate_lookup_error(self):
         original_check = wordpress_module.wp_check_duplicate

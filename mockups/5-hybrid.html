@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시안 5: 통합형 (Perplexity+Elicit+Axios) — 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1a1a2e;--gold:#c9a84c;--gold-l:#f5e6b8;--bg:#f8f7f4;--surface:#fff;--border:#e5e2da;--text:#1c1b18;--text2:#5a5750;--muted:#9a9590;--blue:#2d4a8a;--blue-l:#eef2ff}
+body{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif}
+
+/* ===== 헤더 ===== */
+.header{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--navy);border-bottom:2px solid var(--gold);padding:0 24px;height:56px;display:flex;align-items:center;gap:16px}
+.logo{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:900;color:#fff;text-decoration:none}
+.gnav{display:flex;gap:2px;margin-left:12px}
+.gnav a{font-size:13px;font-weight:600;color:rgba(255,255,255,.6);text-decoration:none;padding:6px 14px;border-radius:5px;transition:all .15s}
+.gnav a.active{color:var(--gold);background:rgba(201,168,76,.1)}
+.gnav a:hover{color:#fff}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.h-search{width:180px;padding:7px 12px 7px 32px;font-size:12px;border:1px solid rgba(255,255,255,.12);border-radius:8px;background:rgba(255,255,255,.06);color:#fff;outline:none;font-family:'Pretendard',sans-serif}
+.h-search::placeholder{color:rgba(255,255,255,.35)}
+.h-search:focus{border-color:var(--gold);width:240px}
+.h-bell{color:rgba(255,255,255,.5);text-decoration:none;font-size:18px;padding:4px}
+body{padding-top:58px}
+
+/* ===== 1. AI 검색 히어로 (Perplexity) ===== */
+.search-hero{background:linear-gradient(180deg,var(--navy),#252540);padding:48px 20px 40px;text-align:center}
+.search-hero h1{font-family:'Noto Serif KR',serif;font-size:28px;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:-.03em}
+.search-hero p{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:24px}
+.ai-search{max-width:560px;margin:0 auto;position:relative}
+.ai-search input{width:100%;padding:14px 18px 14px 44px;font-size:14px;border:2px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.07);color:#fff;outline:none;font-family:'Pretendard',sans-serif}
+.ai-search input::placeholder{color:rgba(255,255,255,.35)}
+.ai-search input:focus{border-color:var(--gold)}
+.ai-search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4)}
+.quick-tags{display:flex;justify-content:center;gap:6px;margin-top:12px;flex-wrap:wrap}
+.quick-tags span{font-size:10px;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);padding:3px 10px;border-radius:16px;cursor:pointer}
+.quick-tags span:hover{color:var(--gold);border-color:rgba(201,168,76,.3)}
+
+/* ===== 2. 서비스 카드 (Elicit) ===== */
+.svc-section{max-width:920px;margin:-24px auto 0;padding:0 20px;position:relative;z-index:1}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.svc-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-decoration:none;color:var(--text);display:flex;gap:14px;align-items:flex-start;transition:all .2s}
+.svc-card:hover{border-color:var(--gold);box-shadow:0 4px 16px rgba(0,0,0,.04)}
+.svc-icon{font-size:24px;flex-shrink:0;width:44px;height:44px;display:grid;place-items:center;background:var(--bg);border-radius:10px}
+.svc-info{flex:1}
+.svc-title{font-size:14px;font-weight:700;margin-bottom:3px}
+.svc-desc{font-size:11px;color:var(--text2);line-height:1.5}
+.svc-nums{display:flex;gap:12px;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
+.svc-nums strong{color:var(--navy);font-size:13px}
+
+/* ===== 3. 오늘의 브리핑 (Axios) ===== */
+.brief-section{max-width:920px;margin:32px auto;padding:0 20px}
+.brief-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--navy)}
+.brief-title{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700}
+.brief-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+.brief-filters{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.bf{padding:5px 12px;border-radius:4px;border:1px solid var(--border);background:var(--surface);font-size:11px;font-weight:600;color:var(--text2);cursor:pointer}
+.bf.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* Axios 스타일 카드 */
+.ax-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:12px;border-left:4px solid transparent}
+.ax-card:hover{border-left-color:var(--gold)}
+.ax-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ax-source{font-size:11px;font-weight:700;color:var(--navy)}
+.ax-impact{font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px;border-radius:4px}
+.ax-impact-high{background:#fef2f2;color:#dc2626}
+.ax-impact-mid{background:#fffbeb;color:#d97706}
+.ax-title{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;line-height:1.5;margin-bottom:10px}
+.ax-summary{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:10px}
+.ax-why{background:var(--blue-l);border-left:3px solid var(--blue);padding:10px 14px;border-radius:0 8px 8px 0;margin-bottom:10px}
+.ax-why-label{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.ax-why-text{font-size:12px;color:#374151;line-height:1.6}
+.ax-law{background:#faf8f3;border:1px solid #e8e2d0;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:11px;color:#6b5c3e}
+.ax-law strong{color:var(--navy)}
+.ax-actions{display:flex;gap:10px;font-size:11px}
+.ax-actions a{color:var(--navy);text-decoration:none;font-weight:600}
+.ax-actions a:hover{color:var(--gold)}
+
+/* ===== 4. 구독 CTA ===== */
+.subscribe{max-width:920px;margin:32px auto;padding:0 20px}
+.sub-box{background:var(--navy);border-radius:14px;padding:28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.sub-text h3{font-family:'Noto Serif KR',serif;font-size:18px;color:#fff;margin-bottom:4px}
+.sub-text p{font-size:12px;color:rgba(255,255,255,.5)}
+.sub-btn{padding:12px 24px;background:var(--gold);color:var(--navy);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+
+.footer{max-width:920px;margin:32px auto;padding:20px;text-align:center;font-size:11px;color:var(--muted)}
+.footer a{color:var(--navy);text-decoration:none;font-weight:600}
+
+@media(max-width:768px){
+  .header{padding:0 14px;height:50px}
+  .gnav{display:none}
+  body{padding-top:52px}
+  .search-hero h1{font-size:22px}
+  .search-hero{padding:36px 16px 32px}
+  .svc-grid{grid-template-columns:1fr}
+  .sub-box{flex-direction:column;text-align:center}
+  .ax-title{font-size:14px}
+  .brief-filters{overflow-x:auto;flex-wrap:nowrap}
+}
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header class="header">
+  <a class="logo" href="#">브리핑룸</a>
+  <nav class="gnav">
+    <a href="#" class="active">정책브리핑</a>
+    <a href="#">금융법령AI</a>
+  </nav>
+  <div class="header-right">
+    <input class="h-search" type="text" placeholder="검색...">
+    <a class="h-bell" href="https://t.me/govbrief" target="_blank" title="알림">🔔</a>
+  </div>
+</header>
+
+<!-- 1. AI 검색 히어로 -->
+<section class="search-hero">
+  <h1>정책과 법령, AI로 한눈에</h1>
+  <p>51개 부처 보도자료 + 금융법령 139건</p>
+  <div class="ai-search">
+    <span class="ai-search-icon">🔍</span>
+    <input type="text" placeholder="정책이나 법령에 대해 물어보세요...">
+  </div>
+  <div class="quick-tags">
+    <span>#추경</span><span>#자본시장법</span><span>#AI기본법</span><span>#청년정책</span>
+  </div>
+</section>
+
+<!-- 2. 서비스 카드 -->
+<section class="svc-section">
+  <div class="svc-grid">
+    <a class="svc-card" href="#">
+      <div class="svc-icon">📋</div>
+      <div class="svc-info">
+        <div class="svc-title">정책브리핑</div>
+        <div class="svc-desc">보도자료 AI 요약 · 주간 시그널 · 정부 일정</div>
+        <div class="svc-nums"><span><strong>150+</strong> 일일</span><span><strong>51</strong> 부처</span></div>
+      </div>
+    </a>
+    <a class="svc-card" href="#">
+      <div class="svc-icon">📜</div>
+      <div class="svc-info">
+        <div class="svc-title">금융법령AI</div>
+        <div class="svc-desc">법령 검색 · 판례 · AI 분석</div>
+        <div class="svc-nums"><span><strong>139</strong> 법령</span><span><strong>526</strong> 판례</span></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 3. 오늘의 브리핑 (Axios 스타일) -->
+<section class="brief-section">
+  <div class="brief-header">
+    <div class="brief-title">오늘의 정책 브리핑</div>
+    <div class="brief-meta">2026.04.01 · 144건 · 36개 부처</div>
+  </div>
+  <div class="brief-filters">
+    <span class="bf active">전체</span>
+    <span class="bf">금융·경제</span>
+    <span class="bf">사회·복지</span>
+    <span class="bf">산업·기술</span>
+    <span class="bf">외교·안보</span>
+    <span class="bf">행정·법제</span>
+  </div>
+
+  <div class="ax-card" style="border-left-color:#dc2626">
+    <div class="ax-top">
+      <div class="ax-source">금융위원회</div>
+      <span class="ax-impact ax-impact-high">영향도 상</span>
+    </div>
+    <div class="ax-title">보험업권이 출산·육아에 따른 보험료 부담을 덜어드립니다</div>
+    <div class="ax-summary">금융위원회는 출산·육아로 인한 보험료 부담 경감을 위해 4월 1일 '저출산 극복 지원 3종 세트'를 시행합니다. 어린이 보험료 할인, 보험료 납입 유예, 체납 보험료 감면 등이 포함됩니다.</div>
+    <div class="ax-why">
+      <div class="ax-why-label">Why It Matters</div>
+      <div class="ax-why-text">저출산 위기 속 금융권 최초의 체계적 출산 지원 패키지. 보험사의 비용 부담과 고객 확보 전략 변화에 주목.</div>
+    </div>
+    <div class="ax-law">📜 관련 법령: <strong>보험업법 제127조</strong> (보험료 경감 특례) · 금융위원회</div>
+    <div class="ax-actions">
+      <a href="#">상세 보기 →</a>
+      <a href="#">원문 보도자료</a>
+      <a href="#">법령 전문</a>
+    </div>
+  </div>
+
+  <div class="ax-card">
+    <div class="ax-top">
+      <div class="ax-source">과학기술정보통신부</div>
+      <span class="ax-impact ax-impact-mid">영향도 중</span>
+    </div>
+    <div class="ax-title">인공지능 기본법 지원 창구, 시행 10주차 총 552건 상담</div>
+    <div class="ax-summary">AI 기본법 시행 후 지원 데스크에 552건의 상담이 접수되었으며, 기업의 법률 준수를 위한 가이드라인을 제공합니다.</div>
+    <div class="ax-why">
+      <div class="ax-why-label">Why It Matters</div>
+      <div class="ax-why-text">AI 기본법 정착 초기 단계. 기업 수용도와 규제 부담의 균형점을 보여주는 지표.</div>
+    </div>
+    <div class="ax-actions">
+      <a href="#">상세 보기 →</a>
+      <a href="#">법령 전문</a>
+    </div>
+  </div>
+
+  <div class="ax-card">
+    <div class="ax-top">
+      <div class="ax-source">국토교통부</div>
+      <span class="ax-impact ax-impact-mid">영향도 중</span>
+    </div>
+    <div class="ax-title">전기차 살 때 배터리 정보 더 자세히 확인 가능</div>
+    <div class="ax-summary">소비자가 전기차 구매 시 배터리 건강 상태, 잔존 수명 등을 확인할 수 있도록 정보 공개 제도를 시행합니다.</div>
+    <div class="ax-actions">
+      <a href="#">상세 보기 →</a>
+      <a href="#">원문 보도자료</a>
+    </div>
+  </div>
+</section>
+
+<!-- 4. 구독 CTA -->
+<section class="subscribe">
+  <div class="sub-box">
+    <div class="sub-text">
+      <h3>매일 아침, 정책을 3분에</h3>
+      <p>텔레그램에서 AI 브리핑을 받아보세요</p>
+    </div>
+    <a class="sub-btn" href="https://t.me/govbrief" target="_blank">텔레그램 구독</a>
+  </div>
+</section>
+
+<div class="footer">
+  <a href="/">정책브리핑</a> · <a href="/finlaw/">금융법령AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>
+  govbrief.kr — 정부 정책 + 금융법령 AI 분석
+</div>
+
+</body>
+</html>

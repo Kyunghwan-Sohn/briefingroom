@@ -17,11 +17,7 @@ from datetime import datetime
 from pathlib import Path
 
 import requests
-import urllib3
-
 from briefingroom.config import BASE_DIR
-
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 DB_PATH = BASE_DIR / "finance_law.db"
 BASE_URL = "https://better.fsc.go.kr/fsc_new/replyCase"
@@ -64,7 +60,6 @@ def _fetch_list(endpoint: str, page: int = 0, size: int = BATCH_SIZE) -> dict:
             "length": str(size),
         },
         timeout=15,
-        verify=False,
     )
     if r.status_code != 200:
         return {"data": [], "recordsTotal": 0}
@@ -78,7 +73,6 @@ def _fetch_detail(opinion_id: int) -> dict:
             f"{DETAIL_URL}?opinionIdx={opinion_id}",
             headers={"User-Agent": "Mozilla/5.0"},
             timeout=15,
-            verify=False,
         )
         if r.status_code != 200:
             return {}

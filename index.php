@@ -415,7 +415,12 @@ async function loadCats(){try{const r=await fetch(`${WP_API}/categories?per_page
 
 /* 포스트 */
 async function loadPosts(){
-  document.getElementById('main-content').innerHTML='<div class="loading"><div class="loading-spinner"></div><div>데이터 불러오는 중...</div></div>';
+  const mainContent=document.getElementById('main-content');
+  mainContent.textContent='';
+  const loading=document.createElement('div');loading.className='loading';
+  const spinner=document.createElement('div');spinner.className='loading-spinner';
+  const text=document.createElement('div');text.textContent='데이터 불러오는 중...';
+  loading.appendChild(spinner);loading.appendChild(text);mainContent.appendChild(loading);
   const ds=fmtDate(curDate);
   const wd=curDate.getDay(); // 0=일, 6=토
 
@@ -454,7 +459,13 @@ async function loadPosts(){
       seen.add(t);return true;
     });
     allItems=posts.map(parsePost);rebuildIndexes();render();updateSidebar();renderTopPicks();renderSourceBadges();
-  }catch(e){document.getElementById('main-content').innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div>로드 실패: ${e.message}</div></div>`}
+  }catch(e){
+    const c=document.getElementById('main-content');c.textContent='';
+    const wrap=document.createElement('div');wrap.className='empty';
+    const icon=document.createElement('div');icon.className='empty-icon';icon.textContent='⚠️';
+    const msg=document.createElement('div');msg.textContent=`로드 실패: ${e.message}`;
+    wrap.appendChild(icon);wrap.appendChild(msg);c.appendChild(wrap);
+  }
 }
 function parsePost(p){
   const d=document.createElement('div');d.innerHTML=p.content?.rendered||'';
@@ -482,6 +493,27 @@ function rebuildIndexes(){
   sortedSources=Object.keys(countsBySource).sort((a,b)=>a.localeCompare(b,'ko'));
 }
 function escapeHtml(s){return String(s ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;')}
+function safeUrl(value,fallback='#'){
+  try{
+    const u=new URL(String(value||''),window.location.origin);
+    if(u.protocol==='http:'||u.protocol==='https:')return u.href;
+  }catch(e){}
+  return fallback;
+}
+function setEmptyState(container,icon,message){
+  container.textContent='';
+  const wrap=document.createElement('div');wrap.className='empty';
+  const iconEl=document.createElement('div');iconEl.className='empty-icon';iconEl.textContent=icon;
+  const msgEl=document.createElement('div');msgEl.textContent=message;
+  wrap.appendChild(iconEl);wrap.appendChild(msgEl);container.appendChild(wrap);
+}
+function buildMetaItem(label,value){
+  const wrap=document.createElement('div');wrap.className='d-meta-i';
+  const span=document.createElement('span');span.textContent=label;
+  const strong=document.createElement('strong');strong.textContent=value ?? '';
+  wrap.appendChild(span);wrap.appendChild(strong);
+  return wrap;
+}
 function setHighlightedText(el,text,keywords=[]){
   const source=String(text||'');
   const terms=[...new Set((keywords||[]).filter(k=>k&&k.length>1))];
@@ -500,7 +532,6 @@ function setHighlightedText(el,text,keywords=[]){
   });
   if(last<source.length)el.appendChild(document.createTextNode(source.slice(last)));
 }
-function makeMetaHtml(label,value){return `<div class="d-meta-i"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`}
 function filtered(){
   let it=allItems;
   if(curFilter!=='all'){
@@ -517,11 +548,22 @@ function filtered(){
 }
 function render(){
   const items=filtered();document.getElementById('total-badge').textContent=`${items.length}건`;
-  const c=document.getElementById('main-content');c.innerHTML='';
-  if(!items.length){c.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div>보도자료가 없습니다</div></div>';return}
+  const c=document.getElementById('main-content');c.textContent='';
+  if(!items.length){setEmptyState(c,'📭','보도자료가 없습니다');return}
   // 구독 바 삽입 (항상 맨 위)
   const sb=document.createElement('div');sb.className='sub-bar';
-  sb.innerHTML=`<span style="color:rgba(255,255,255,.85);font-size:13px;flex:1">✈ 텔레그램에서 매일 보도자료 받아보세요</span><a href="https://t.me/govbriefkr" target="_blank" class="sub-bar-btn" style="text-decoration:none">채널 입장하기</a>`;
+  const sbText=document.createElement('span');
+  sbText.style.color='rgba(255,255,255,.85)';
+  sbText.style.fontSize='13px';
+  sbText.style.flex='1';
+  sbText.textContent='✈ 텔레그램에서 매일 보도자료 받아보세요';
+  const sbLink=document.createElement('a');
+  sbLink.href='https://t.me/govbriefkr';
+  sbLink.target='_blank';
+  sbLink.className='sub-bar-btn';
+  sbLink.style.textDecoration='none';
+  sbLink.textContent='채널 입장하기';
+  sb.appendChild(sbText);sb.appendChild(sbLink);
   c.appendChild(sb);
   if(curFilter!=='all'){const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;items.forEach((it,i)=>g.appendChild(mkCard(it,i)));c.appendChild(g)}
   else{CO.forEach(cat=>{if(!groupedByCat[cat]?.length)return;c.appendChild(mkBlock(cat,groupedByCat[cat]))})}
@@ -530,13 +572,29 @@ function mkBlock(cat,items){
   const SHOW=4;const isEx=expanded[cat];const shown=isEx?items:items.slice(0,SHOW);
   const b=document.createElement('div');b.className='cat-block';
   const dv=document.createElement('div');dv.className='cat-divider';
-  dv.innerHTML=`<div class="cat-divider-dot" style="background:${CC[cat]}"></div><span class="cat-divider-label">${CN[cat]||cat}</span><div class="cat-divider-line"></div><span class="cat-divider-info">${items.length}건</span>`;
+  const dot=document.createElement('div');dot.className='cat-divider-dot';dot.style.background=CC[cat];
+  const label=document.createElement('span');label.className='cat-divider-label';label.textContent=CN[cat]||cat;
+  const line=document.createElement('div');line.className='cat-divider-line';
+  const info=document.createElement('span');info.className='cat-divider-info';info.textContent=`${items.length}건`;
+  dv.appendChild(dot);dv.appendChild(label);dv.appendChild(line);dv.appendChild(info);
   b.appendChild(dv);
   const g=document.createElement('div');g.className=`cards-grid${curView==='list'?' list-view':''}`;
   shown.forEach((it,i)=>g.appendChild(mkCard(it,i)));
   const h=items.length-SHOW;
-  if(!isEx&&h>0){const btn=document.createElement('button');btn.className='more-btn';btn.innerHTML=`▾ ${h}개 더보기`;btn.onclick=()=>{expanded[cat]=true;render()};g.appendChild(btn)}
-  else if(isEx&&items.length>SHOW){const btn=document.createElement('button');btn.className='more-btn';btn.innerHTML='▴ 접기';btn.onclick=()=>{expanded[cat]=false;render()};g.appendChild(btn)}
+  if(!isEx&&h>0){
+    const btn=document.createElement('button');
+    btn.className='more-btn';
+    btn.textContent=`▾ ${h}개 더보기`;
+    btn.addEventListener('click',()=>{expanded[cat]=true;render()});
+    g.appendChild(btn);
+  }
+  else if(isEx&&items.length>SHOW){
+    const btn=document.createElement('button');
+    btn.className='more-btn';
+    btn.textContent='▴ 접기';
+    btn.addEventListener('click',()=>{expanded[cat]=false;render()});
+    g.appendChild(btn);
+  }
   b.appendChild(g);return b;
 }
 function mkCard(it,idx){
@@ -544,18 +602,71 @@ function mkCard(it,idx){
   const c=document.createElement('div');c.className='press-card';
   c.style.cssText=`--card-color:${col};animation-delay:${Math.min(idx,8)*.04}s`;
   if(curView==='list'){
-    c.innerHTML=`<div style="width:72px;flex-shrink:0;text-align:center"><span class="m-badge" style="background:${bg};color:${col}"></span></div><div class="card-body" style="flex:1;min-width:0"><div class="card-title" style="-webkit-line-clamp:1;margin-bottom:0"></div><div class="card-meta"><span class="card-meta-i"></span></div></div><div class="card-actions" style="margin-top:0"><button class="c-btn primary" type="button">보기</button></div>`;
-    c.querySelector('.m-badge').textContent=it.src||'정부';
-    c.querySelector('.card-title').textContent=it.title||'';
-    c.querySelector('.card-meta-i').textContent=`📅 ${it.date||''}`;
-    c.querySelector('.c-btn.primary').addEventListener('click',e=>{e.stopPropagation();openDetail(it.id)});
+    const left=document.createElement('div');
+    left.style.cssText='width:72px;flex-shrink:0;text-align:center';
+    const badge=document.createElement('span');
+    badge.className='m-badge';
+    badge.style.background=bg;
+    badge.style.color=col;
+    badge.textContent=it.src||'정부';
+    left.appendChild(badge);
+
+    const body=document.createElement('div');
+    body.className='card-body';
+    body.style.cssText='flex:1;min-width:0';
+    const title=document.createElement('div');
+    title.className='card-title';
+    title.style.cssText='-webkit-line-clamp:1;margin-bottom:0';
+    title.textContent=it.title||'';
+    const meta=document.createElement('div');
+    meta.className='card-meta';
+    const metaI=document.createElement('span');
+    metaI.className='card-meta-i';
+    metaI.textContent=`📅 ${it.date||''}`;
+    meta.appendChild(metaI);
+    body.appendChild(title);
+    body.appendChild(meta);
+
+    const actions=document.createElement('div');
+    actions.className='card-actions';
+    actions.style.marginTop='0';
+    const btn=document.createElement('button');
+    btn.className='c-btn primary';
+    btn.type='button';
+    btn.textContent='보기';
+    btn.addEventListener('click',e=>{e.stopPropagation();openDetail(it.id)});
+    actions.appendChild(btn);
+
+    c.appendChild(left);
+    c.appendChild(body);
+    c.appendChild(actions);
   }else{
-    c.innerHTML=`<div class="card-top"><span class="m-badge" style="background:${bg};color:${col}"></span><span class="card-time"></span></div><div class="card-title"></div><div class="card-summary"></div><div class="card-meta"><span class="card-meta-i">🏷 </span></div><div class="card-actions"><button class="c-btn primary" type="button">상세보기</button><a class="c-btn" target="_blank" rel="noopener noreferrer">↗ 원문</a></div>`;
-    c.querySelector('.m-badge').textContent=it.src||'정부';
-    c.querySelector('.card-time').textContent=it.date||'';
-    c.querySelector('.card-title').textContent=it.title||'';
-    setHighlightedText(c.querySelector('.card-summary'), it.sum||'', it.kws);
-    const kwWrap=c.querySelector('.card-meta-i');
+    const top=document.createElement('div');
+    top.className='card-top';
+    const badge=document.createElement('span');
+    badge.className='m-badge';
+    badge.style.background=bg;
+    badge.style.color=col;
+    badge.textContent=it.src||'정부';
+    const time=document.createElement('span');
+    time.className='card-time';
+    time.textContent=it.date||'';
+    top.appendChild(badge);
+    top.appendChild(time);
+
+    const title=document.createElement('div');
+    title.className='card-title';
+    title.textContent=it.title||'';
+
+    const summary=document.createElement('div');
+    summary.className='card-summary';
+    setHighlightedText(summary, it.sum||'', it.kws);
+
+    const meta=document.createElement('div');
+    meta.className='card-meta';
+    const kwWrap=document.createElement('span');
+    kwWrap.className='card-meta-i';
+    kwWrap.appendChild(document.createTextNode('🏷 '));
     it.kws.slice(0,3).forEach(k=>{
       const span=document.createElement('span');
       span.className='kw-tag';
@@ -563,10 +674,30 @@ function mkCard(it,idx){
       kwWrap.appendChild(document.createTextNode(' '));
       kwWrap.appendChild(span);
     });
-    c.querySelector('.c-btn.primary').addEventListener('click',e=>{e.stopPropagation();openDetail(it.id)});
-    const link=c.querySelector('.c-btn:not(.primary)');
-    link.href=it.orig||'#';
+    meta.appendChild(kwWrap);
+
+    const actions=document.createElement('div');
+    actions.className='card-actions';
+    const btn=document.createElement('button');
+    btn.className='c-btn primary';
+    btn.type='button';
+    btn.textContent='상세보기';
+    btn.addEventListener('click',e=>{e.stopPropagation();openDetail(it.id)});
+    const link=document.createElement('a');
+    link.className='c-btn';
+    link.target='_blank';
+    link.rel='noopener noreferrer';
+    link.textContent='↗ 원문';
+    link.href=safeUrl(it.orig);
     link.addEventListener('click',e=>e.stopPropagation());
+    actions.appendChild(btn);
+    actions.appendChild(link);
+
+    c.appendChild(top);
+    c.appendChild(title);
+    c.appendChild(summary);
+    c.appendChild(meta);
+    c.appendChild(actions);
   }
   c.addEventListener('click',()=>openDetail(it.id));return c;
 }
@@ -577,11 +708,10 @@ function openDetail(id){
   document.getElementById('d-hdr-min').textContent=it.src;
   const b=document.getElementById('d-badge');b.textContent=it.src;b.style.cssText=`background:${bg};color:${col};border:1px solid ${col}44`;
   document.getElementById('d-title').textContent=it.title;
-  document.getElementById('d-meta').innerHTML=[
-    makeMetaHtml('날짜',it.date),
-    makeMetaHtml('기관',it.src),
-    makeMetaHtml('분야',CN[it.cat]||it.cat),
-  ].join('');
+  const meta=document.getElementById('d-meta');meta.textContent='';
+  meta.appendChild(buildMetaItem('날짜',it.date));
+  meta.appendChild(buildMetaItem('기관',it.src));
+  meta.appendChild(buildMetaItem('분야',CN[it.cat]||it.cat));
   setHighlightedText(document.getElementById('d-summary'), it.sum||'요약 없음', it.kws);
   const kwBox=document.getElementById('d-kws');
   kwBox.textContent='';
@@ -591,7 +721,7 @@ function openDetail(id){
     span.textContent=`# ${k}`;
     kwBox.appendChild(span);
   });
-  document.getElementById('d-src').href=it.orig||'#';document.getElementById('d-wp').href=it.wp||'#';
+  document.getElementById('d-src').href=safeUrl(it.orig);document.getElementById('d-wp').href=safeUrl(it.wp,`https://govbrief.kr/?p=${id}`);
   document.getElementById('d-overlay').classList.add('open');document.getElementById('detail').classList.add('open');document.body.style.overflow='hidden';
 }
 function closeDetail(){document.getElementById('d-overlay').classList.remove('open');document.getElementById('detail').classList.remove('open');document.body.style.overflow=''}
@@ -608,9 +738,12 @@ function updateSidebar(){
   sortedSources.forEach(m=>{
     const cnt=countsBySource[m]||0;const cat=allItems.find(i=>i.src===m)?.cat||'행정법제';
     const el=document.createElement('div');el.className='f-item';
-    el.innerHTML=`<div class="f-left"><div class="f-dot" style="background:${CC[cat]}"></div><span class="f-label"></span></div><span class="f-cnt"></span>`;
-    el.querySelector('.f-label').textContent=m;
-    el.querySelector('.f-cnt').textContent=cnt;
+    const left=document.createElement('div');left.className='f-left';
+    const dot=document.createElement('div');dot.className='f-dot';dot.style.background=CC[cat];
+    const label=document.createElement('span');label.className='f-label';label.textContent=m;
+    left.appendChild(dot);left.appendChild(label);
+    const cntEl=document.createElement('span');cntEl.className='f-cnt';cntEl.textContent=cnt;
+    el.appendChild(left);el.appendChild(cntEl);
     el.addEventListener('click',()=>setFilter(m,el));sb.appendChild(el);
   });
 }

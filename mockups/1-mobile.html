@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>시안 1 모바일 — 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1a1a2e;--gold:#c9a84c;--bg:#f8f7f4;--surface:#fff;--border:#e5e2da;--text:#1c1b18;--text2:#5a5750;--muted:#9a9590}
+body{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;max-width:430px;margin:0 auto;min-height:100vh;padding-bottom:70px}
+
+/* 모바일 헤더 */
+.m-header{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--navy);border-bottom:2px solid var(--gold);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;max-width:430px;margin:0 auto}
+.m-logo{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:900;color:#fff;text-decoration:none}
+.m-icons{display:flex;gap:8px}
+.m-icons a{color:rgba(255,255,255,.6);text-decoration:none;font-size:18px;width:40px;height:40px;display:grid;place-items:center}
+body{padding-top:54px}
+
+/* AI 검색 히어로 */
+.m-hero{background:linear-gradient(180deg,var(--navy),#252545);padding:40px 16px 32px;text-align:center}
+.m-hero h1{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:900;color:#fff;margin-bottom:6px;letter-spacing:-.03em}
+.m-hero p{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:20px}
+.m-search{position:relative}
+.m-search input{width:100%;padding:14px 16px 14px 40px;font-size:14px;border:2px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.07);color:#fff;outline:none;font-family:'Pretendard',sans-serif}
+.m-search input::placeholder{color:rgba(255,255,255,.35)}
+.m-search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4)}
+.m-tags{display:flex;gap:6px;margin-top:10px;overflow-x:auto;padding-bottom:4px}
+.m-tags::-webkit-scrollbar{display:none}
+.m-tags span{font-size:10px;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:16px;white-space:nowrap;flex-shrink:0}
+
+/* 서비스 카드 */
+.m-services{padding:0 16px;margin-top:-16px;position:relative;z-index:1;display:flex;gap:10px}
+.m-svc{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-decoration:none;color:var(--text)}
+.m-svc-emoji{font-size:22px;margin-bottom:8px}
+.m-svc-title{font-size:14px;font-weight:700;margin-bottom:3px}
+.m-svc-desc{font-size:10px;color:var(--text2);line-height:1.5}
+.m-svc-stat{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:6px}
+.m-svc-stat strong{color:var(--navy);font-size:13px}
+
+/* 분야 필터 */
+.m-filters{padding:12px 16px;display:flex;gap:6px;overflow-x:auto}
+.m-filters::-webkit-scrollbar{display:none}
+.m-fil{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface);font-size:11px;font-weight:600;color:var(--text2);white-space:nowrap;flex-shrink:0}
+.m-fil.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* 브리핑 피드 */
+.m-feed{padding:0 16px}
+.m-feed-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.m-feed-title{font-family:'Noto Serif KR',serif;font-size:15px;font-weight:700}
+.m-feed-date{font-size:10px;color:var(--muted)}
+
+.m-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
+.m-item-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.m-item-source{font-size:10px;font-weight:700;color:var(--navy)}
+.m-item-impact{font-size:9px;padding:2px 6px;border-radius:3px}
+.impact-h{background:#fef2f2;color:#dc2626}
+.impact-m{background:#fffbeb;color:#d97706}
+.m-item-title{font-size:14px;font-weight:700;line-height:1.5;margin-bottom:6px}
+.m-item-summary{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px}
+.m-item-why{font-size:11px;color:#2d4a8a;background:#eef2ff;border-left:3px solid #4a6cf7;padding:8px 10px;border-radius:0 6px 6px 0;margin-bottom:8px;line-height:1.5}
+.m-item-why strong{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;color:#4a6cf7}
+.m-item-actions{display:flex;gap:10px}
+.m-item-actions a{font-size:11px;color:var(--navy);text-decoration:none;font-weight:600}
+
+/* 구독 CTA */
+.m-cta{margin:16px;padding:20px;background:var(--navy);border-radius:12px;text-align:center}
+.m-cta h3{font-family:'Noto Serif KR',serif;font-size:15px;color:#fff;margin-bottom:4px}
+.m-cta p{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:12px}
+.m-cta a{display:inline-block;padding:10px 24px;background:var(--gold);color:var(--navy);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none}
+
+/* 하단 네비 */
+.m-nav{position:fixed;bottom:0;left:0;right:0;z-index:50;height:60px;background:rgba(255,255,255,.98);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);align-items:center;max-width:430px;margin:0 auto}
+.m-nav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--muted);font-size:9px;font-weight:600}
+.m-nav a.active{color:var(--navy)}
+.m-nav a span:first-child{font-size:20px}
+</style>
+</head>
+<body>
+
+<header class="m-header">
+  <a class="m-logo" href="#">브리핑룸</a>
+  <div class="m-icons">
+    <a href="#">🔍</a>
+    <a href="#">🔔</a>
+  </div>
+</header>
+
+<section class="m-hero">
+  <h1>정책, AI로 한눈에</h1>
+  <p>51개 부처 + 금융법령 139건</p>
+  <div class="m-search">
+    <span class="m-search-icon">🔍</span>
+    <input type="text" placeholder="정책이나 법령에 대해 물어보세요...">
+  </div>
+  <div class="m-tags">
+    <span>#추경</span><span>#자본시장법</span><span>#AI기본법</span><span>#청년정책</span><span>#부동산</span>
+  </div>
+</section>
+
+<div class="m-services">
+  <a class="m-svc" href="#">
+    <div class="m-svc-emoji">📋</div>
+    <div class="m-svc-title">정책브리핑</div>
+    <div class="m-svc-desc">보도자료 AI 요약</div>
+    <div class="m-svc-stat"><strong>150+</strong> 일일</div>
+  </a>
+  <a class="m-svc" href="#">
+    <div class="m-svc-emoji">📜</div>
+    <div class="m-svc-title">금융법령AI</div>
+    <div class="m-svc-desc">법령·판례·AI검색</div>
+    <div class="m-svc-stat"><strong>526</strong> 판례</div>
+  </a>
+</div>
+
+<div class="m-filters">
+  <span class="m-fil active">전체</span>
+  <span class="m-fil">금융·경제</span>
+  <span class="m-fil">사회·복지</span>
+  <span class="m-fil">산업·기술</span>
+  <span class="m-fil">외교·안보</span>
+  <span class="m-fil">행정·법제</span>
+</div>
+
+<section class="m-feed">
+  <div class="m-feed-header">
+    <div class="m-feed-title">오늘의 브리핑</div>
+    <div class="m-feed-date">4/1 · 144건</div>
+  </div>
+
+  <div class="m-item">
+    <div class="m-item-top">
+      <span class="m-item-source">금융위원회</span>
+      <span class="m-item-impact impact-h">상</span>
+    </div>
+    <div class="m-item-title">보험업권이 출산·육아에 따른 보험료 부담을 덜어드립니다</div>
+    <div class="m-item-summary">저출산 극복 지원 3종 세트 시행. 출산·육아 기간 보험료 납부 면제 및 감면.</div>
+    <div class="m-item-why">
+      <strong>Why It Matters</strong>
+      금융권 최초의 체계적 출산 지원 패키지
+    </div>
+    <div class="m-item-actions">
+      <a href="#">상세 →</a>
+      <a href="#">법령</a>
+    </div>
+  </div>
+
+  <div class="m-item">
+    <div class="m-item-top">
+      <span class="m-item-source">과학기술정보통신부</span>
+      <span class="m-item-impact impact-m">중</span>
+    </div>
+    <div class="m-item-title">인공지능 기본법 지원 창구, 시행 10주차</div>
+    <div class="m-item-summary">AI 기본법 시행 후 552건 상담 접수.</div>
+    <div class="m-item-actions">
+      <a href="#">상세 →</a>
+      <a href="#">법령</a>
+    </div>
+  </div>
+
+  <div class="m-item">
+    <div class="m-item-top">
+      <span class="m-item-source">국토교통부</span>
+      <span class="m-item-impact impact-m">중</span>
+    </div>
+    <div class="m-item-title">전기차 배터리 정보 공개 제도 시행</div>
+    <div class="m-item-summary">소비자가 배터리 건강 상태, 잔존 수명 확인 가능.</div>
+    <div class="m-item-actions">
+      <a href="#">상세 →</a>
+    </div>
+  </div>
+</section>
+
+<div class="m-cta">
+  <h3>매일 아침, 3분 브리핑</h3>
+  <p>텔레그램에서 받아보세요</p>
+  <a href="https://t.me/govbrief" target="_blank">구독하기</a>
+</div>
+
+<nav class="m-nav">
+  <a href="#" class="active"><span>📋</span>브리핑</a>
+  <a href="#"><span>🔍</span>검색</a>
+  <a href="#"><span>📅</span>달력</a>
+  <a href="#"><span>📜</span>법령AI</a>
+  <a href="#"><span>🔔</span>알림</a>
+</nav>
+
+</body>
+</html>

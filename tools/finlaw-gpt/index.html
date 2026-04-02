@@ -111,6 +111,84 @@ const inputEl = document.getElementById('input');
 const sendBtn = document.getElementById('send');
 const introEl = document.getElementById('intro');
 
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function appendInlineMarkdown(parent, text) {
+  const source = String(text ?? '');
+  const re = /(\*\*.*?\*\*|`.*?`)/g;
+  let last = 0;
+  source.replace(re, (match, _g, offset) => {
+    if (offset > last) parent.appendChild(document.createTextNode(source.slice(last, offset)));
+    if (match.startsWith('**') && match.endsWith('**')) {
+      const strong = document.createElement('strong');
+      strong.textContent = match.slice(2, -2);
+      parent.appendChild(strong);
+    } else if (match.startsWith('`') && match.endsWith('`')) {
+      const code = document.createElement('code');
+      code.textContent = match.slice(1, -1);
+      parent.appendChild(code);
+    } else {
+      parent.appendChild(document.createTextNode(match));
+    }
+    last = offset + match.length;
+    return match;
+  });
+  if (last < source.length) parent.appendChild(document.createTextNode(source.slice(last)));
+}
+
+function renderBotContent(container, text) {
+  container.textContent = '';
+  const lines = String(text ?? '').split('\n');
+  let currentPara = null;
+  let currentList = null;
+
+  const closeBlocks = () => {
+    currentPara = null;
+    currentList = null;
+  };
+
+  lines.forEach(line => {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      closeBlocks();
+      return;
+    }
+    if (trimmed.startsWith('### ')) {
+      closeBlocks();
+      const h3 = document.createElement('h3');
+      h3.textContent = trimmed.slice(4);
+      container.appendChild(h3);
+      return;
+    }
+    if (trimmed.startsWith('- ')) {
+      if (!currentList) {
+        currentList = document.createElement('ul');
+        container.appendChild(currentList);
+      }
+      const li = document.createElement('li');
+      appendInlineMarkdown(li, trimmed.slice(2));
+      currentList.appendChild(li);
+      currentPara = null;
+      return;
+    }
+    if (currentList) currentList = null;
+    if (!currentPara) {
+      currentPara = document.createElement('p');
+      container.appendChild(currentPara);
+    } else {
+      currentPara.appendChild(document.createElement('br'));
+    }
+    appendInlineMarkdown(currentPara, trimmed);
+  });
+}
+
 const SYSTEM_PROMPT = `당신은 한국 금융법령 전문 AI 어시스턴트 'FinLaw GPT'입니다.
 역할: 금융법령, 조문, 판례, 해석례에 대한 질문에 정확하게 답변합니다.
 반드시 제공된 컨텍스트(검색 결과)를 근거로 답변하세요.
@@ -175,12 +253,7 @@ function addMessage(text, type) {
   const div = document.createElement('div');
   div.className = 'msg ' + type;
   if (type === 'bot') {
-    div.innerHTML = text.replace(/### (.*)/g, '<h3>$1</h3>')
-                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                        .replace(/`(.*?)`/g, '<code>$1</code>')
-                        .replace(/\n- /g, '\n<br>- ')
-                        .replace(/\n\n/g, '<br><br>')
-                        .replace(/\n/g, '<br>');
+    renderBotContent(div, text);
   } else {
     div.textContent = text;
   }
@@ -193,7 +266,10 @@ function showLoading() {
   const div = document.createElement('div');
   div.className = 'msg-loading';
   div.id = 'loading';
-  div.innerHTML = '<span>검색 중</span>...';
+  const span = document.createElement('span');
+  span.textContent = '검색 중';
+  div.appendChild(span);
+  div.appendChild(document.createTextNode('...'));
   messagesEl.appendChild(div);
   messagesEl.scrollTop = messagesEl.scrollHeight;
 }
@@ -254,13 +330,7 @@ async function sendMessage() {
             }
             if (obj.chunk) {
               fullText += obj.chunk;
-              botDiv.innerHTML = fullText
-                .replace(/### (.*)/g, '<h3>$1</h3>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/`(.*?)`/g, '<code>$1</code>')
-                .replace(/\n- /g, '\n<br>- ')
-                .replace(/\n\n/g, '<br><br>')
-                .replace(/\n/g, '<br>');
+              renderBotContent(botDiv, fullText);
               messagesEl.scrollTop = messagesEl.scrollHeight;
             }
           } catch (e) {}

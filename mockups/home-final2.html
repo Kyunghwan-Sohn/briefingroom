@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>브리핑룸 — 정부가 발표하면, AI가 해석합니다</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:480px;margin:0 auto;padding:52px 0 64px}
+
+/* 헤더 */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:480px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none}
+.hnav a{font-size:12px;font-weight:600;color:var(--m);text-decoration:none;padding:5px 10px;border-radius:5px}
+.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
+
+/* 히어로 */
+.hero{background:#efefef;padding:28px 16px 22px;text-align:center;border-bottom:1px solid var(--b)}
+.hero h1{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);margin-bottom:6px;line-height:1.4}
+.hero p{font-size:13px;color:var(--m);margin-bottom:16px}
+.sbox{position:relative}.sbox input{width:100%;padding:14px 14px 14px 40px;font-size:15px;border:2px solid var(--b);border-radius:12px;background:#fff;color:var(--t);outline:none;font-family:var(--sans)}.sbox input::placeholder{color:var(--m)}.sbox input:focus{border-color:var(--a)}
+.si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--m)}
+.tags{display:flex;gap:5px;margin-top:8px;justify-content:center;flex-wrap:wrap}.tags span{font-size:12px;color:var(--t2);border:1px solid var(--b);padding:4px 12px;border-radius:16px;background:#fff}
+
+/* 서비스 카드 */
+.svcs{display:flex;gap:10px;padding:14px 16px 0}
+.svc{flex:1;background:var(--s);border:2px solid var(--b);border-radius:12px;padding:14px;text-decoration:none;color:var(--t);display:flex;gap:10px;align-items:center}
+.svc:first-child{border-color:var(--a)}
+.svc .e{font-size:22px;flex-shrink:0}
+.svc .tt{font-size:14px;font-weight:700;font-family:var(--serif)}
+.svc .dd{font-size:10px;color:var(--t2);margin-top:2px}
+
+/* 공통 */
+.sec{padding:0 16px;margin-top:20px}
+.sec-hdr{font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:12px;display:flex;align-items:baseline;justify-content:space-between}
+.sec-more{font-size:11px;color:var(--a);text-decoration:none;font-weight:600}
+.divider{height:1px;background:var(--b);margin:20px 16px 0}
+
+/* ① 오늘, 이것만은 */
+.top3{display:grid;grid-template-columns:1fr;gap:10px}
+.top-main{background:var(--s);border:2px solid var(--a);border-radius:12px;padding:18px}
+.top-sub{background:var(--s);border:2px solid var(--bl);border-radius:10px;padding:14px}
+.top-src{font-size:12px;font-weight:700;color:var(--a);margin-bottom:4px}
+.top-t{font-family:var(--serif);font-size:16px;font-weight:700;line-height:1.5;margin-bottom:6px}
+.top-why{font-size:12px;color:#2d4a8a;background:#eef2ff;border-left:3px solid #4a6cf7;padding:8px 10px;border-radius:0 6px 6px 0;margin-bottom:6px;line-height:1.5}
+.top-why strong{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:#4a6cf7;margin-bottom:2px}
+.top-imp{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:4px;background:var(--al);color:var(--a);font-weight:700}
+.top-a a{font-size:12px;color:var(--a);text-decoration:none;font-weight:600;margin-right:10px}
+.top-sub .top-t{font-size:14px}
+
+/* ② 금융법령 AI */
+.law-spot{background:#f0f0ee;border:2px solid var(--b);border-radius:14px;padding:18px}
+.law-q{background:var(--s);border:2px solid var(--bl);border-radius:10px;padding:14px;margin-bottom:10px}
+.law-q-label{font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.law-q-text{font-family:var(--serif);font-size:15px;font-weight:700;line-height:1.5;margin-bottom:8px}
+.law-q-btn{display:inline-block;padding:8px 16px;background:var(--a);color:#fff;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none}
+.law-list{margin-top:10px}
+.law-item{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bl);font-size:13px}
+.law-item:last-child{border-bottom:none}
+.law-item span{color:var(--m);font-size:11px}
+
+/* ③ 부처별 브리핑 */
+.dept-tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:10px;padding-bottom:4px}.dept-tabs::-webkit-scrollbar{display:none}
+.dept-tab{padding:6px 14px;border-radius:20px;border:2px solid var(--bl);background:var(--s);font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer}
+.dept-tab.on{background:var(--a);color:#fff;border-color:var(--a)}
+.dept-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bl)}
+.dept-item:last-child{border-bottom:none}
+.dept-item-t{font-size:14px;font-weight:600;flex:1;margin-right:8px;line-height:1.4}
+.dept-item-imp{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;background:var(--al);color:var(--a);white-space:nowrap}
+
+/* ④ 시그널 + 일정 */
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dual-card{background:var(--s);border:2px solid var(--bl);border-radius:12px;padding:14px}
+.dual-title{font-family:var(--serif);font-size:14px;font-weight:700;margin-bottom:8px}
+.dual-item{font-size:12px;padding:6px 0;border-bottom:1px solid var(--bl);line-height:1.5;color:var(--t2)}
+.dual-item:last-child{border-bottom:none}
+.dual-item strong{color:var(--t);font-weight:600}
+.dual-label{font-size:9px;color:var(--m);margin-top:8px}
+
+/* ⑤ 법령 레이더 */
+.radar-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--bl)}
+.radar-item:last-child{border-bottom:none}
+.radar-dot{width:8px;height:8px;border-radius:50%;background:var(--a);flex-shrink:0;margin-top:5px}
+.radar-date{font-family:var(--mono);font-size:10px;color:var(--m);margin-bottom:2px}
+.radar-text{font-size:13px;line-height:1.5}
+.radar-tag{font-size:10px;color:var(--a);font-weight:600;margin-top:2px}
+.radar-teaser{background:var(--al);border:1px solid var(--ab);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:12px;color:var(--a);font-weight:600;text-align:center}
+
+/* ⑥ 숫자 */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.num-card{background:var(--s);border:1px solid var(--bl);border-radius:10px;padding:12px 8px;text-align:center}
+.num-val{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--t)}
+.num-label{font-size:9px;color:var(--m);margin-top:2px}
+
+/* ⑦ CTA */
+.cta{margin:20px 16px;padding:18px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:15px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:10px 18px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none;white-space:nowrap}
+
+/* 하단 네비 */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);display:grid;grid-template-columns:repeat(5,1fr);align-items:center;max-width:480px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+.bnav a.on{color:var(--a)}
+.bnav a span:first-child{font-size:22px}
+
+.footer{padding:16px;text-align:center;font-size:10px;color:var(--m)}
+.footer a{color:var(--t);text-decoration:none;font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo">브리핑룸</a>
+  <nav class="hnav"><a class="on">정책브리핑</a><a>금융법령AI</a></nav>
+  <a style="color:var(--m);text-decoration:none;font-size:16px" href="#">🔔</a>
+</header>
+
+<!-- 히어로 -->
+<section class="hero">
+  <h1>정부가 발표하면,<br>AI가 해석합니다</h1>
+  <p>정부 정책 · 금융 법령 · 입법 예고, 핵심만 브리핑</p>
+  <div class="sbox"><span class="si">🔍</span><input placeholder="정책이나 법령에 대해 물어보세요..."></div>
+  <div class="tags"><span>#추경</span><span>#자본시장법</span><span>#AI기본법</span><span>#청년정책</span></div>
+</section>
+
+<!-- 서비스 카드 -->
+<div class="svcs">
+  <a class="svc" href="/"><span class="e">📋</span><div><div class="tt">정책브리핑</div><div class="dd">150+ 일일 · 51부처</div></div></a>
+  <a class="svc" href="/finlaw/"><span class="e">📜</span><div><div class="tt">금융법령AI</div><div class="dd">139법령 · 526판례</div></div></a>
+</div>
+
+<!-- ① 오늘, 이것만은 -->
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">오늘, 이것만은<a class="sec-more" href="#">전체 144건 →</a></div>
+  <div class="top3">
+    <div class="top-main">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <span class="top-src">금융위원회</span>
+        <span class="top-imp">영향도 상</span>
+      </div>
+      <div class="top-t">보험업권이 출산·육아에 따른 보험료 부담을 덜어드립니다</div>
+      <div class="top-why"><strong>Why It Matters</strong>금융권 최초의 체계적 출산 지원 패키지. 보험사 비용 부담과 고객 전략 변화에 주목.</div>
+      <div class="top-a"><a href="#">상세 보기 →</a><a href="#">관련 법령</a></div>
+    </div>
+    <div class="top-sub">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <span class="top-src">보건복지부</span><span class="top-imp">영향도 상</span>
+      </div>
+      <div class="top-t">위기가구 사망 사건 관련 긴급 점검회의 개최</div>
+      <div class="top-a"><a href="#">상세 →</a></div>
+    </div>
+    <div class="top-sub">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <span class="top-src">행정안전부</span><span class="top-imp">영향도 상</span>
+      </div>
+      <div class="top-t">대전 대덕구 공장 화재 중대본 3차 회의</div>
+      <div class="top-a"><a href="#">상세 →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ② 금융법령 AI -->
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">금융법령 AI<a class="sec-more" href="/finlaw/">더보기 →</a></div>
+  <div class="law-spot">
+    <div class="law-q">
+      <div class="law-q-label">오늘의 질문</div>
+      <div class="law-q-text">자본시장법상 불공정거래로 간주되는 행위의 요건은?</div>
+      <a class="law-q-btn" href="/finlaw/">답변 보기 →</a>
+    </div>
+    <div class="law-list">
+      <div class="law-item"><strong>자본시장법 제176조</strong><span>불공정거래 조사</span></div>
+      <div class="law-item"><strong>보험업법 제127조</strong><span>보험료 경감</span></div>
+      <div class="law-item"><strong>전자금융거래법 제21조</strong><span>안전성 확보</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ 부처별 브리핑 -->
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">부처별 브리핑</div>
+  <div class="dept-tabs">
+    <span class="dept-tab on">금융위</span>
+    <span class="dept-tab">기재부</span>
+    <span class="dept-tab">국토부</span>
+    <span class="dept-tab">과기부</span>
+    <span class="dept-tab">복지부</span>
+    <span class="dept-tab">산업부</span>
+    <span class="dept-tab">고용부</span>
+  </div>
+  <div>
+    <div class="dept-item"><div class="dept-item-t">보험업권이 출산·육아에 따른 보험료 부담을 덜어드립니다</div><span class="dept-item-imp">상</span></div>
+    <div class="dept-item"><div class="dept-item-t">금융위원회 인사 보도(팀장급)</div><span class="dept-item-imp">하</span></div>
+    <div class="dept-item"><div class="dept-item-t">시장 변동성 확대에 편승한 불공정거래 집중 감시</div><span class="dept-item-imp">중</span></div>
+  </div>
+</section>
+
+<!-- ④ 시그널 + 일정 -->
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">이번 주 · 다음 주</div>
+  <div class="dual">
+    <div class="dual-card">
+      <div class="dual-title">📊 주간 시그널</div>
+      <div class="dual-item"><strong>1.</strong> AI 정책 범부처 확산</div>
+      <div class="dual-item"><strong>2.</strong> 국민 체감 규제 개혁</div>
+      <div class="dual-item"><strong>3.</strong> 금융 안전망 강화</div>
+      <div class="dual-label">매주 토요일 업데이트</div>
+    </div>
+    <div class="dual-card">
+      <div class="dual-title">📅 차주 일정</div>
+      <div class="dual-item"><strong>4/2</strong> 국무회의</div>
+      <div class="dual-item"><strong>4/3</strong> 경제점검회의</div>
+      <div class="dual-item"><strong>4/4</strong> 금융규제 간담회</div>
+      <div class="dual-label">매주 일요일 업데이트</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ 법령 레이더 -->
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">법령 레이더<a class="sec-more" href="/finlaw/notices/">더보기 →</a></div>
+  <div class="radar-item">
+    <div class="radar-dot"></div>
+    <div><div class="radar-date">2026.04.01</div><div class="radar-text">자본시장법 시행령 일부개정 — 자기주식 소각 의무화</div><div class="radar-tag">법령 개정</div></div>
+  </div>
+  <div class="radar-item">
+    <div class="radar-dot" style="background:#4a6cf7"></div>
+    <div><div class="radar-date">2026.03.28</div><div class="radar-text">가상자산법 시행령 개정 — 이용자 보호 강화</div><div class="radar-tag">법령 개정</div></div>
+  </div>
+  <div class="radar-item">
+    <div class="radar-dot" style="background:#0f6b3a"></div>
+    <div><div class="radar-date">2026.03.27</div><div class="radar-text">대법원 2026다12345 — 금융투자상품 불완전판매 손해배상</div><div class="radar-tag">판례 등록</div></div>
+  </div>
+  <div class="radar-teaser">🔔 입법예고 모니터링 곧 출시</div>
+</section>
+
+<!-- ⑥ 숫자 -->
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">오늘의 숫자</div>
+  <div class="nums">
+    <div class="num-card"><div class="num-val">144</div><div class="num-label">오늘 보도자료</div></div>
+    <div class="num-card"><div class="num-val">12</div><div class="num-label">영향도 상</div></div>
+    <div class="num-card"><div class="num-val">3,893</div><div class="num-label">법령 조문</div></div>
+    <div class="num-card"><div class="num-val">526</div><div class="num-label">판례</div></div>
+  </div>
+</section>
+
+<!-- ⑦ CTA -->
+<div class="cta">
+  <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+  <a href="https://t.me/govbrief" target="_blank">구독</a>
+</div>
+
+<div class="footer">
+  <a href="/">정책브리핑</a> · <a href="/finlaw/">금융법령AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a>
+  <br>govbrief.kr
+</div>
+
+<nav class="bnav">
+  <a class="on"><span>📋</span>브리핑</a>
+  <a><span>🔍</span>검색</a>
+  <a><span>📅</span>달력</a>
+  <a><span>📜</span>법령AI</a>
+  <a><span>🔔</span>알림</a>
+</nav>
+
+</body>
+</html>

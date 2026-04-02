@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>T05: Black Han Sans (굵은 고딕)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f8f7f4;color:#1c1b18;font-family:'Wanted Sans Variable',sans-serif;max-width:430px;margin:0 auto;padding:0 0 20px}
+
+.badge{display:inline-block;font-size:9px;font-weight:700;color:#c9a84c;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);padding:4px 12px;border-radius:12px;margin:16px 16px 8px;letter-spacing:.05em}
+.font-name{font-size:11px;color:#9a9590;padding:0 16px;margin-bottom:16px}
+
+/* 헤더 */
+.hdr{background:#1a1a2e;border-bottom:2px solid #c9a84c;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-family:'Black Han Sans',sans-serif;font-size:18px;font-weight:900;color:#fff;text-decoration:none}
+.hnav a{font-size:11px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;padding:5px 10px}
+.hnav a.on{color:#c9a84c}
+
+/* 히어로 */
+.hero{background:linear-gradient(180deg,#1a1a2e,#252545);padding:32px 16px 24px;text-align:center}
+.hero h1{font-family:'Black Han Sans',sans-serif;font-size:24px;font-weight:900;color:#fff;margin-bottom:8px;line-height:1.35}
+.hero p{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:16px}
+.sbox input{width:100%;padding:12px 14px;font-size:13px;border:1.5px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(255,255,255,.07);color:#fff;outline:none;font-family:'Wanted Sans Variable',sans-serif;text-align:center}
+.sbox input::placeholder{color:rgba(255,255,255,.35)}
+
+/* 카드 제목 */
+.section-title{font-family:'Black Han Sans',sans-serif;font-size:15px;font-weight:700;padding:16px 16px 8px;color:#1a1a2e}
+.card{background:#fff;border:1px solid #e5e2da;border-radius:10px;padding:14px;margin:0 16px 10px}
+.card-src{font-size:10px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.card-title{font-family:'Black Han Sans',sans-serif;font-size:15px;font-weight:700;line-height:1.5;margin-bottom:6px;color:#1c1b18}
+.card-body{font-size:12px;color:#5a5750;line-height:1.6}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo">브리핑룸</a>
+  <nav class="hnav"><a class="on">정책브리핑</a><a>금융법령AI</a></nav>
+</header>
+
+<section class="hero">
+  <h1>정책, AI로 한눈에</h1>
+  <p>51개 부처 + 금융법령 139건</p>
+  <div class="sbox"><input placeholder="🔍 정책이나 법령에 대해 물어보세요..."></div>
+</section>
+
+<div class="badge">T05</div>
+<div class="font-name">제목: Black Han Sans (굵은 고딕) / 본문: Wanted Sans</div>
+
+<div class="section-title">오늘의 브리핑</div>
+
+<div class="card">
+  <div class="card-src">금융위원회</div>
+  <div class="card-title">보험업권이 출산·육아에 따른 보험료 부담을 덜어드립니다</div>
+  <div class="card-body">저출산 극복 지원 3종 세트 시행. 출산·육아 기간 보험료 납부 면제 및 감면.</div>
+</div>
+
+<div class="card">
+  <div class="card-src">과학기술정보통신부</div>
+  <div class="card-title">인공지능 기본법 지원 창구, 시행 10주차 총 552건 상담</div>
+  <div class="card-body">AI 기본법 시행 후 기업의 법률 준수를 위한 가이드라인을 제공합니다.</div>
+</div>
+
+<div class="card">
+  <div class="card-src">국토교통부</div>
+  <div class="card-title">전기차 살 때 배터리 정보 더 자세히 확인 가능</div>
+  <div class="card-body">소비자가 전기차 구매 시 배터리 건강 상태, 잔존 수명 등을 확인할 수 있습니다.</div>
+</div>
+
+</body>
+</html>

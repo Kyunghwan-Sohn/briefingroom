@@ -1,4 +1,5 @@
 import re
+import hashlib
 import zlib
 import zipfile
 from contextlib import suppress
@@ -153,7 +154,9 @@ def extract_hwp(path):
 def save_text(item, text):
     src = re.sub(r"[^\w가-힣]", "", item["source"])[:4]
     safe = re.sub(r"[^\w가-힣]", "_", item["title"])[:30]
-    fname = f"{item['date']}_{src}_{safe}.txt"
+    suffix_seed = f"{item.get('url','')}|{item.get('date','')}|{item.get('title','')}"
+    suffix = hashlib.sha1(suffix_seed.encode("utf-8")).hexdigest()[:10]
+    fname = f"{item['date']}_{src}_{safe}_{suffix}.txt"
     path = TXT_DIR / fname
     content = (
         f"[출처] {item['source']}\n[제목] {item['title']}\n"

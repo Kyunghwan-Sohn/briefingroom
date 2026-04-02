@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>브리핑룸 — 정부가 발표하면, AI가 해석합니다</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --accent:#d96c2c;--accent-l:rgba(217,108,44,.06);--accent-b:rgba(217,108,44,.15);
+  --bg:#fafafa;--surface:#fff;--border:#c8c8c8;--border-l:#e0e0e0;
+  --text:#222;--text2:#555;--muted:#999;
+  --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh}
+
+/* ===== HEADER ===== */
+.header{position:fixed;top:0;left:0;right:0;z-index:50;background:#f5f5f5;border-bottom:3px solid var(--accent);height:56px;display:flex;align-items:center;padding:0 24px;gap:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-mark{width:30px;height:30px;background:var(--accent);border-radius:6px;display:grid;place-items:center;color:#fff;font-size:14px}
+.gnav{display:flex;gap:2px;margin-left:12px}
+.gnav a{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:6px 14px;border-radius:5px}
+.gnav a.active{color:var(--accent);background:var(--accent-l);font-weight:700}
+.header-r{margin-left:auto;display:flex;align-items:center;gap:10px}
+.h-search{position:relative}
+.h-search input{width:200px;padding:8px 12px 8px 32px;font-size:12px;border:2px solid var(--border);border-radius:8px;background:#fff;color:var(--text);outline:none;font-family:var(--sans);transition:all .2s}
+.h-search input::placeholder{color:var(--muted)}
+.h-search input:focus{border-color:var(--accent);width:280px}
+.h-search i{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px}
+.h-bell{color:var(--muted);text-decoration:none;font-size:18px}
+body{padding-top:58px}
+
+/* ===== HERO ===== */
+.hero{background:#efefef;border-bottom:1px solid var(--border);padding:40px 24px 28px;text-align:center}
+.hero h1{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.35}
+.hero p{font-size:15px;color:var(--muted);margin-bottom:22px}
+.ai-search{max-width:560px;margin:0 auto;position:relative}
+.ai-search input{width:100%;padding:16px 18px 16px 46px;font-size:16px;border:2px solid var(--border);border-radius:14px;background:#fff;color:var(--text);outline:none;font-family:var(--sans)}
+.ai-search input::placeholder{color:var(--muted)}
+.ai-search input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-l)}
+.ai-search i{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
+.tags{display:flex;justify-content:center;gap:6px;margin-top:10px;flex-wrap:wrap}
+.tags span{font-size:12px;color:var(--text2);border:1px solid var(--border);padding:5px 14px;border-radius:18px;cursor:pointer;background:#fff}
+.tags span:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ===== SERVICE CARDS ===== */
+.svc-wrap{max-width:960px;margin:20px auto 0;padding:0 24px}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.svc-card{background:var(--surface);border:2px solid var(--border);border-radius:14px;padding:22px;text-decoration:none;color:var(--text);display:flex;gap:16px;align-items:flex-start;transition:all .2s}
+.svc-card:hover{border-color:var(--accent);box-shadow:0 4px 16px rgba(0,0,0,.05)}
+.svc-card.primary{border-color:var(--accent)}
+.svc-icon{font-size:28px;flex-shrink:0;width:48px;height:48px;display:grid;place-items:center;background:var(--bg);border-radius:10px;border:1px solid var(--border-l)}
+.svc-title{font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:5px}
+.svc-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px}
+.svc-stats{display:flex;gap:16px}
+.svc-stat{font-size:10px;color:var(--muted)}
+.svc-stat strong{color:var(--text);font-size:16px;font-weight:700;display:block;font-family:var(--mono)}
+
+/* ===== FEED ===== */
+.feed-wrap{max-width:960px;margin:0 auto;padding:0 24px}
+.divider{height:1px;background:var(--border);margin:24px 0 0}
+.feed-hdr{display:flex;align-items:baseline;justify-content:space-between;margin:16px 0 14px}
+.feed-title{font-family:var(--serif);font-size:22px;font-weight:700}
+.feed-meta{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:var(--surface);border:2px solid var(--border-l);border-radius:12px;padding:18px;transition:all .2s;cursor:pointer;border-left:4px solid transparent}
+.card:hover{border-color:var(--accent)}
+.card.top{border-left-color:var(--accent)}
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.card-src{font-size:12px;font-weight:700;color:var(--accent)}
+.card-imp{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:4px;background:var(--accent-l);color:var(--accent);font-weight:700;border:1px solid var(--accent-b)}
+.card-t{font-family:var(--serif);font-size:16px;font-weight:700;line-height:1.5;margin-bottom:8px}
+.card-s{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:10px}
+.card-a{display:flex;gap:12px}
+.card-a a{font-size:12px;color:var(--accent);text-decoration:none;font-weight:600}
+.card-a a:hover{text-decoration:underline}
+
+/* ===== CTA ===== */
+.cta-wrap{max-width:960px;margin:32px auto;padding:0 24px}
+.cta{background:var(--accent);border-radius:14px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.cta h3{font-family:var(--serif);font-size:18px;color:#fff}
+.cta p{font-size:12px;color:rgba(255,255,255,.7);margin-top:2px}
+.cta-btn{padding:12px 24px;background:#fff;color:var(--accent);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+
+.footer{max-width:960px;margin:0 auto;padding:24px;text-align:center;font-size:11px;color:var(--muted);border-top:1px solid var(--border-l)}
+.footer a{color:var(--text);text-decoration:none;font-weight:600}
+
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+  .header{display:none}
+  .m-hdr{display:flex!important}
+  body{padding-top:52px}
+  .hero{padding:28px 16px 20px}
+  .hero h1{font-size:24px}
+  .hero p{font-size:13px;margin-bottom:16px}
+  .ai-search input{padding:14px 14px 14px 40px;font-size:15px;border-radius:12px}
+  .svc-wrap{padding:14px 16px 0}
+  .svc-grid{grid-template-columns:1fr}
+  .svc-card{padding:16px;gap:12px}
+  .svc-icon{width:40px;height:40px;font-size:22px}
+  .svc-title{font-size:16px}
+  .feed-wrap{padding:0 16px}
+  .cards{grid-template-columns:1fr}
+  .card-t{font-size:15px}
+  .cta-wrap{padding:0 16px}
+  .cta{flex-direction:column;text-align:center}
+  body{padding-bottom:62px}
+}
+@media(min-width:769px){
+  .m-hdr,.m-bnav{display:none!important}
+}
+
+/* 모바일 헤더 */
+.m-hdr{display:none;position:fixed;top:0;left:0;right:0;z-index:50;background:#f5f5f5;border-bottom:3px solid var(--accent);height:50px;align-items:center;justify-content:space-between;padding:0 14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.m-logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--text);text-decoration:none}
+.m-nav a{font-size:11px;font-weight:600;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:4px}
+.m-nav a.on{color:var(--accent);background:var(--accent-l);font-weight:700}
+.m-bell{color:var(--muted);text-decoration:none;font-size:16px}
+
+.m-bnav{position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);align-items:center}
+.m-bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--muted);font-size:10px;font-weight:600}
+.m-bnav a.on{color:var(--accent)}
+.m-bnav a span:first-child{font-size:22px}
+</style>
+</head>
+<body>
+
+<!-- 데스크톱 헤더 -->
+<header class="header">
+  <a class="logo" href="/"><span class="logo-mark"><i class="ph ph-newspaper-clipping"></i></span>브리핑룸</a>
+  <nav class="gnav">
+    <a href="/" class="active">정책브리핑</a>
+    <a href="/finlaw/">금융법령AI</a>
+  </nav>
+  <div class="header-r">
+    <div class="h-search"><i class="ph ph-magnifying-glass"></i><input placeholder="검색..."></div>
+    <a class="h-bell" href="https://t.me/govbrief" target="_blank">🔔</a>
+  </div>
+</header>
+
+<!-- 모바일 헤더 -->
+<header class="m-hdr">
+  <a class="m-logo" href="/">브리핑룸</a>
+  <nav class="m-nav"><a class="on" href="/">정책브리핑</a><a href="/finlaw/">금융법령AI</a></nav>
+  <a class="m-bell" href="https://t.me/govbrief" target="_blank">🔔</a>
+</header>
+
+<!-- 히어로: 검색 위 -->
+<section class="hero">
+  <h1>정부가 발표하면,<br>AI가 해석합니다</h1>
+  <p>정부 정책 · 금융 법령 · 입법 예고, 핵심만 브리핑</p>
+  <div class="ai-search">
+    <i class="ph ph-magnifying-glass"></i>
+    <input type="text" placeholder="정책이나 법령에 대해 물어보세요...">
+  </div>
+  <div class="tags">
+    <span>#추경</span><span>#자본시장법</span><span>#AI기본법</span><span>#청년정책</span><span>#부동산</span>
+  </div>
+</section>
+
+<!-- 서비스 카드 (토스형: 서비스 우선) -->
+<section class="svc-wrap">
+  <div class="svc-grid">
+    <a class="svc-card primary" href="/">
+      <div class="svc-icon">📋</div>
+      <div>
+        <div class="svc-title">정책브리핑</div>
+        <div class="svc-desc">51개 부처 보도자료를 매일 수집하고 AI가 요약합니다. 주간 시그널과 정부 일정도 함께.</div>
+        <div class="svc-stats">
+          <div class="svc-stat"><strong>150+</strong>일일 수집</div>
+          <div class="svc-stat"><strong>51</strong>부처</div>
+          <div class="svc-stat"><strong>5</strong>분야</div>
+        </div>
+      </div>
+    </a>
+    <a class="svc-card" href="/finlaw/">
+      <div class="svc-icon">📜</div>
+      <div>
+        <div class="svc-title">금융법령AI</div>
+        <div class="svc-desc">금융 법령 139건, 판례 526건을 체계적으로 정리하고 AI로 검색/분석합니다.</div>
+        <div class="svc-stats">
+          <div class="svc-stat"><strong>3,893</strong>조문</div>
+          <div class="svc-stat"><strong>526</strong>판례</div>
+          <div class="svc-stat"><strong>193</strong>해석례</div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 오늘의 브리핑 -->
+<div class="feed-wrap">
+  <div class="divider"></div>
+  <div class="feed-hdr">
+    <div class="feed-title">오늘의 브리핑</div>
+    <div class="feed-meta">2026.04.01 · 144건 · 36개 부처</div>
+  </div>
+
+  <div class="cards">
+    <div class="card top">
+      <div class="card-top"><span class="card-src">금융위원회</span><span class="card-imp">영향도 상</span></div>
+      <div class="card-t">보험업권이 출산·육아에 따른 보험료 부담을 덜어드립니다</div>
+      <div class="card-s">저출산 극복 지원 3종 세트 시행. 출산·육아 기간 보험료 납부 면제 및 감면.</div>
+      <div class="card-a"><a href="#">상세 보기 →</a><a href="#">관련 법령</a></div>
+    </div>
+    <div class="card top">
+      <div class="card-top"><span class="card-src">과학기술정보통신부</span><span class="card-imp">영향도 중</span></div>
+      <div class="card-t">인공지능 기본법 지원 창구, 시행 10주차 총 552건 상담</div>
+      <div class="card-s">AI 기본법 시행 후 지원 데스크에 552건의 상담이 접수되었습니다.</div>
+      <div class="card-a"><a href="#">상세 보기 →</a><a href="#">관련 법령</a></div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="card-src">국토교통부</span><span class="card-imp">영향도 중</span></div>
+      <div class="card-t">전기차 살 때 배터리 정보 더 자세히 확인 가능</div>
+      <div class="card-s">소비자가 구매 시 배터리 건강 상태, 잔존 수명 확인 가능.</div>
+      <div class="card-a"><a href="#">상세 보기 →</a></div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="card-src">보건복지부</span><span class="card-imp">영향도 상</span></div>
+      <div class="card-t">위기가구 사망 사건 관련 긴급 점검회의 개최</div>
+      <div class="card-s">복지 사각지대 해소를 위한 범부처 긴급 대응 체계 점검.</div>
+      <div class="card-a"><a href="#">상세 보기 →</a></div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="card-src">행정안전부</span><span class="card-imp">영향도 상</span></div>
+      <div class="card-t">대전 대덕구 공장 화재 중대본 3차 회의</div>
+      <div class="card-s">화재 피해 현황 점검 및 수습 대책 논의.</div>
+      <div class="card-a"><a href="#">상세 보기 →</a></div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="card-src">고용노동부</span><span class="card-imp">영향도 중</span></div>
+      <div class="card-t">장애인고용 현장 전문인력 양성 확대</div>
+      <div class="card-s">장애인 고용 지원 전문가 300명 추가 양성, 기업 현장 배치.</div>
+      <div class="card-a"><a href="#">상세 보기 →</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-wrap">
+  <div class="cta">
+    <div>
+      <h3>매일 아침, 150건의 정책을 3분에</h3>
+      <p>텔레그램 채널에서 AI 브리핑을 받아보세요</p>
+    </div>
+    <a class="cta-btn" href="https://t.me/govbrief" target="_blank">텔레그램 구독</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <a href="/">정책브리핑</a> · <a href="/finlaw/">금융법령AI</a> · <a href="/articles/weekly/">주간 시그널</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a>
+  <br>govbrief.kr — 정부 정책 + 금융법령 AI 분석
+</footer>
+
+<!-- 모바일 하단 네비 -->
+<nav class="m-bnav">
+  <a class="on" href="/"><span>📋</span>브리핑</a>
+  <a href="#"><span>🔍</span>검색</a>
+  <a href="#"><span>📅</span>달력</a>
+  <a href="/finlaw/"><span>📜</span>법령AI</a>
+  <a href="https://t.me/govbrief" target="_blank"><span>🔔</span>알림</a>
+</nav>
+
+</body>
+</html>

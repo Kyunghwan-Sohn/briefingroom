@@ -86,11 +86,11 @@ jobs:
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
         run: |
           echo "홈 페이지 생성..."
-          python -m briefingroom.home_gen || true
+          python -m briefingroom.home_gen
           echo "finlaw 페이지 생성..."
-          python -m briefingroom.finlaw_pages || true
+          python -m briefingroom.finlaw_pages
           echo "입법예고 크롤링..."
-          python -m briefingroom.legnotice || true
+          python -m briefingroom.legnotice
 
       - name: commit
         run: |

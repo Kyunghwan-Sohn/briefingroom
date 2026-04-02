@@ -18,7 +18,7 @@ import requests
 from briefingroom.config import BASE_DIR, PROXIES
 
 LAW_OC = "sony0125"
-API_BASE = "http://www.law.go.kr/DRF"
+API_BASE = "https://www.law.go.kr/DRF"
 DB_PATH = BASE_DIR / "finance_law.db"
 
 _session = None

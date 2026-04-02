@@ -259,16 +259,48 @@ async function doSearch(query) {
     });
     const data = await r.json();
     const typeLabel = {law: '법령', article: '조문', precedent: '판례'};
+    const safeUrl = (value) => {
+      try {
+        const url = new URL(String(value || ''), window.location.origin);
+        if (url.protocol === 'http:' || url.protocol === 'https:') return url.href;
+      } catch (e) {}
+      return '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
+    };
+    const cta = document.createElement('a');
+    cta.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
+    cta.style.cssText = 'display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none';
+    cta.textContent = data.results && data.results.length ? 'FinLaw GPT에서 상세 질문 →' : 'FinLaw GPT에게 질문하기 →';
+    searchResults.textContent = '';
     if (data.results && data.results.length) {
-      searchResults.innerHTML = data.results.map(r =>
-        '<a href="' + r.link + '" style="display:block;padding:12px 16px;border-bottom:1px solid #e0e0e0;text-decoration:none;color:#222">' +
-        '<div style="display:flex;align-items:center;gap:8px"><span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(217,108,44,.06);color:#d96c2c">' + (typeLabel[r.type]||'') + '</span>' +
-        '<span style="font-size:14px;font-weight:600">' + r.title.slice(0,50) + '</span></div>' +
-        '<div style="font-size:12px;color:#999;margin-top:3px">' + r.subtitle.slice(0,60) + '</div></a>'
-      ).join('') + '<a href="/tools/finlaw-gpt/?q=' + encodeURIComponent(query) + '" style="display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none">FinLaw GPT에서 상세 질문 →</a>';
+      data.results.forEach(item => {
+        const link = document.createElement('a');
+        link.href = safeUrl(item.link);
+        link.style.cssText = 'display:block;padding:12px 16px;border-bottom:1px solid #e0e0e0;text-decoration:none;color:#222';
+        const top = document.createElement('div');
+        top.style.cssText = 'display:flex;align-items:center;gap:8px';
+        const badge = document.createElement('span');
+        badge.style.cssText = 'font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(217,108,44,.06);color:#d96c2c';
+        badge.textContent = typeLabel[item.type] || '';
+        const title = document.createElement('span');
+        title.style.cssText = 'font-size:14px;font-weight:600';
+        title.textContent = String(item.title || '').slice(0,50);
+        top.appendChild(badge);
+        top.appendChild(title);
+        const subtitle = document.createElement('div');
+        subtitle.style.cssText = 'font-size:12px;color:#999;margin-top:3px';
+        subtitle.textContent = String(item.subtitle || '').slice(0,60);
+        link.appendChild(top);
+        link.appendChild(subtitle);
+        searchResults.appendChild(link);
+      });
+      searchResults.appendChild(cta);
       searchResults.style.display = 'block';
     } else {
-      searchResults.innerHTML = '<div style="padding:16px;text-align:center;font-size:13px;color:#999">검색 결과 없음</div><a href="/tools/finlaw-gpt/?q=' + encodeURIComponent(query) + '" style="display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none">FinLaw GPT에게 질문하기 →</a>';
+      const empty = document.createElement('div');
+      empty.style.cssText = 'padding:16px;text-align:center;font-size:13px;color:#999';
+      empty.textContent = '검색 결과 없음';
+      searchResults.appendChild(empty);
+      searchResults.appendChild(cta);
       searchResults.style.display = 'block';
     }
   } catch(e) { console.error(e); }

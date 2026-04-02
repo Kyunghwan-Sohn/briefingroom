@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>C09: 그래파이트+민트</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f4f4f5;color:#18181b;font-family:'Wanted Sans Variable',sans-serif;max-width:430px;margin:0 auto;padding:0 0 64px}
+
+.hdr{position:sticky;top:0;z-index:50;background:#18181b;border-bottom:2px solid #2dd4bf;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.logo{font-family:'Gowun Batang',serif;font-size:17px;font-weight:700;color:#fff;text-decoration:none}
+.hnav a{font-size:11px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;padding:5px 10px;border-radius:4px}
+.hnav a.on{color:#2dd4bf;background:rgba(45,212,191,.08)}
+
+.hero{background:linear-gradient(180deg,#18181b,#27272a);padding:36px 16px 28px;text-align:center}
+.badge{display:inline-block;font-size:9px;font-weight:700;color:#2dd4bf;background:rgba(45,212,191,.08);border:1px solid #2dd4bf;padding:3px 10px;border-radius:12px;margin-bottom:12px;letter-spacing:.08em}
+.hero h1{font-family:'Gowun Batang',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.4}
+.hero p{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:16px}
+.sbox input{width:100%;padding:12px 14px;font-size:13px;border:1.5px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(255,255,255,.07);color:#fff;outline:none;font-family:'Wanted Sans Variable',sans-serif;text-align:center}
+.sbox input::placeholder{color:rgba(255,255,255,.35)}.sbox input:focus{border-color:#2dd4bf}
+.tags{display:flex;gap:5px;margin-top:8px;overflow-x:auto;justify-content:center}.tags::-webkit-scrollbar{display:none}
+.tags span{font-size:9px;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);padding:3px 8px;border-radius:14px;white-space:nowrap}
+
+.svcs{display:flex;gap:8px;padding:0 14px;margin-top:-10px;position:relative;z-index:1}
+.svc{flex:1;display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #e4e4e7;border-radius:10px;padding:12px;text-decoration:none;color:#18181b}
+.svc .t{font-size:12px;font-weight:700}.svc .d{font-size:9px;color:#52525b;margin-top:1px}
+
+.drow{padding:10px 14px 0;display:flex;align-items:baseline;justify-content:space-between}
+.dtit{font-family:'Gowun Batang',serif;font-size:14px;font-weight:700}.dcnt{font-size:10px;color:#a1a1aa}
+.fils{padding:8px 14px;display:flex;gap:5px;overflow-x:auto}.fils::-webkit-scrollbar{display:none}
+.fl{padding:5px 12px;border-radius:20px;border:1px solid #e4e4e7;background:#fff;font-size:10px;font-weight:600;color:#52525b;white-space:nowrap}
+.fl.on{background:#18181b;color:#fff;border-color:#18181b}
+
+.feed{padding:0 14px}
+.card{background:#fff;border:1px solid #e4e4e7;border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid transparent}
+.card:first-child{border-left-color:#2dd4bf}
+.ctop{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.csrc{font-size:10px;font-weight:700;color:#18181b}.cimp{font-size:9px;padding:2px 6px;border-radius:3px;background:rgba(45,212,191,.08);color:#2dd4bf;font-weight:700}
+.ctit{font-family:'Gowun Batang',serif;font-size:14px;font-weight:700;line-height:1.5;margin-bottom:6px}
+.csum{font-size:11px;color:#52525b;line-height:1.6;margin-bottom:6px}
+.cact a{font-size:10px;color:#18181b;text-decoration:none;font-weight:600;margin-right:10px}
+
+.cta{margin:12px 14px;padding:16px;background:#18181b;border-radius:10px;display:flex;align-items:center;justify-content:space-between}
+.cta h3{font-family:'Gowun Batang',serif;font-size:13px;color:#fff}.cta p{font-size:10px;color:rgba(255,255,255,.5)}
+.cta a{padding:10px 16px;background:#2dd4bf;color:#18181b;border-radius:8px;font-weight:700;font-size:11px;text-decoration:none;white-space:nowrap}
+
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:rgba(255,255,255,.98);border-top:1px solid #e4e4e7;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;max-width:430px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:#a1a1aa;font-size:9px;font-weight:600}.bnav a.on{color:#18181b}.bnav a span:first-child{font-size:18px}
+</style>
+</head>
+<body>
+<header class="hdr"><a class="logo">브리핑룸</a><nav class="hnav"><a class="on">정책브리핑</a><a>금융법령AI</a></nav><span style="color:rgba(255,255,255,.5);font-size:16px">🔔</span></header>
+<section class="hero">
+<div class="badge">C09: 그래파이트+민트</div>
+<h1>정책, AI로 한눈에</h1>
+<p>51개 부처 + 금융법령 139건</p>
+<div class="sbox"><input placeholder="🔍 정책이나 법령에 대해 물어보세요..."></div>
+<div class="tags"><span>#추경</span><span>#자본시장법</span><span>#AI기본법</span><span>#청년정책</span></div>
+</section>
+<div class="svcs">
+<a class="svc"><span style="font-size:20px">📋</span><div><div class="t">정책브리핑</div><div class="d">150+ 일일 · 51부처</div></div></a>
+<a class="svc"><span style="font-size:20px">📜</span><div><div class="t">금융법령AI</div><div class="d">139법령 · 526판례</div></div></a>
+</div>
+<div class="drow"><div class="dtit">오늘의 브리핑</div><div class="dcnt">4/1 · 144건</div></div>
+<div class="fils"><span class="fl on">전체</span><span class="fl">금융</span><span class="fl">사회</span><span class="fl">산업</span><span class="fl">외교</span><span class="fl">행정</span></div>
+<section class="feed">
+<div class="card"><div class="ctop"><span class="csrc">금융위원회</span><span class="cimp">영향도 상</span></div><div class="ctit">보험업권이 출산·육아에 따른 보험료 부담을 덜어드립니다</div><div class="csum">저출산 극복 지원 3종 세트 시행. 보험료 납부 면제 및 감면.</div><div class="cact"><a>상세 →</a><a>법령</a></div></div>
+<div class="card"><div class="ctop"><span class="csrc">과학기술정보통신부</span><span class="cimp">영향도 중</span></div><div class="ctit">인공지능 기본법 지원 창구, 시행 10주차</div><div class="csum">AI 기본법 시행 후 552건 상담 접수.</div><div class="cact"><a>상세 →</a><a>법령</a></div></div>
+<div class="card"><div class="ctop"><span class="csrc">국토교통부</span><span class="cimp">영향도 중</span></div><div class="ctit">전기차 배터리 정보 공개 제도 시행</div><div class="csum">배터리 건강 상태, 잔존 수명 확인 가능.</div><div class="cact"><a>상세 →</a></div></div>
+</section>
+<div class="cta"><div><h3>매일 3분 브리핑</h3><p>텔레그램 구독</p></div><a>구독</a></div>
+<nav class="bnav"><a class="on"><span>📋</span>브리핑</a><a><span>🔍</span>검색</a><a><span>📅</span>달력</a><a><span>📜</span>법령AI</a><a><span>🔔</span>알림</a></nav>
+</body>
+</html>

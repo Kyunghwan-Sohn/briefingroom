@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시안 1: Perplexity + GOV.UK — 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1a1a2e;--gold:#c9a84c;--bg:#f8f7f4;--surface:#fff;--border:#e5e2da;--text:#1c1b18;--text2:#5a5750;--muted:#9a9590}
+body{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;min-height:100vh}
+
+/* 헤더 */
+.header{background:var(--navy);padding:14px 0;border-bottom:2px solid var(--gold)}
+.header-inner{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Noto Serif KR',serif;font-size:20px;font-weight:900;color:#fff;text-decoration:none}
+.nav{display:flex;gap:4px}
+.nav a{font-size:13px;font-weight:600;color:rgba(255,255,255,.65);text-decoration:none;padding:6px 14px;border-radius:6px}
+.nav a.active{color:var(--gold);background:rgba(201,168,76,.12)}
+.nav a:hover{color:#fff}
+
+/* 히어로 - AI 검색 중심 */
+.hero{background:linear-gradient(180deg,var(--navy) 0%,#252545 100%);padding:80px 20px 60px;text-align:center}
+.hero h1{font-family:'Noto Serif KR',serif;font-size:36px;font-weight:900;color:#fff;margin-bottom:12px;letter-spacing:-.03em}
+.hero p{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:32px}
+.search-box{max-width:600px;margin:0 auto;position:relative}
+.search-box input{width:100%;padding:16px 20px 16px 48px;font-size:15px;border:2px solid rgba(255,255,255,.15);border-radius:14px;background:rgba(255,255,255,.08);color:#fff;outline:none;font-family:'Pretendard',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.4)}
+.search-box input:focus{border-color:var(--gold);background:rgba(255,255,255,.12)}
+.search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:18px;color:rgba(255,255,255,.4)}
+.tags{display:flex;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap}
+.tags span{font-size:11px;color:rgba(255,255,255,.5);padding:4px 12px;border:1px solid rgba(255,255,255,.12);border-radius:20px;cursor:pointer}
+.tags span:hover{border-color:var(--gold);color:var(--gold)}
+
+/* 서비스 카드 */
+.services{max-width:900px;margin:-30px auto 0;padding:0 20px;position:relative;z-index:1}
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.service-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;text-decoration:none;color:var(--text);transition:all .2s}
+.service-card:hover{border-color:var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.service-emoji{font-size:28px;margin-bottom:12px}
+.service-title{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;margin-bottom:6px}
+.service-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.service-stats{display:flex;gap:16px}
+.stat{font-size:11px;color:var(--muted)}
+.stat strong{color:var(--navy);font-size:14px;display:block}
+
+/* 오늘의 브리핑 */
+.feed{max-width:900px;margin:40px auto;padding:0 20px}
+.feed-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--border)}
+.feed-title{font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700}
+.feed-date{font-size:12px;color:var(--muted)}
+.feed-item{padding:20px 0;border-bottom:1px solid var(--border)}
+.feed-item:last-child{border-bottom:none}
+.feed-source{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.feed-item-title{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;margin-bottom:8px;line-height:1.5}
+.feed-summary{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:8px}
+.feed-why{font-size:12px;color:#2d4a8a;background:#eef2ff;border-left:3px solid #4a6cf7;padding:8px 12px;border-radius:0 6px 6px 0;margin-bottom:8px}
+.feed-meta{display:flex;gap:12px;font-size:11px;color:var(--muted)}
+.feed-meta a{color:var(--navy);text-decoration:none;font-weight:600}
+
+/* 구독 */
+.cta{max-width:900px;margin:40px auto;padding:32px;background:var(--navy);border-radius:16px;text-align:center;color:#fff}
+.cta h3{font-family:'Noto Serif KR',serif;font-size:20px;margin-bottom:8px}
+.cta p{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:16px}
+.cta-btn{display:inline-block;padding:12px 28px;background:var(--gold);color:var(--navy);border-radius:8px;font-weight:700;font-size:14px;text-decoration:none}
+
+.footer{max-width:900px;margin:40px auto;padding:20px;text-align:center;font-size:11px;color:var(--muted)}
+
+@media(max-width:600px){
+  .hero h1{font-size:26px}
+  .service-grid{grid-template-columns:1fr}
+  .hero{padding:60px 16px 40px}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="#">브리핑룸</a>
+    <nav class="nav">
+      <a href="#" class="active">정책브리핑</a>
+      <a href="#">금융법령AI</a>
+      <a href="#">알림</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>대한민국 정책, AI로 한눈에</h1>
+  <p>51개 부처 보도자료 + 금융법령 139건을 AI가 분석합니다</p>
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" placeholder="정책이나 법령에 대해 물어보세요...">
+  </div>
+  <div class="tags">
+    <span>#추경</span>
+    <span>#청년정책</span>
+    <span>#자본시장법</span>
+    <span>#AI기본법</span>
+    <span>#부동산</span>
+  </div>
+</section>
+
+<section class="services">
+  <div class="service-grid">
+    <a class="service-card" href="#">
+      <div class="service-emoji">📋</div>
+      <div class="service-title">정책브리핑</div>
+      <div class="service-desc">51개 정부 부처 보도자료를 매일 수집하고 AI가 요약합니다. 주간 시그널과 정부 일정도 함께.</div>
+      <div class="service-stats">
+        <div class="stat"><strong>150건</strong>일일 수집</div>
+        <div class="stat"><strong>51개</strong>부처</div>
+        <div class="stat"><strong>5개</strong>분야</div>
+      </div>
+    </a>
+    <a class="service-card" href="#">
+      <div class="service-emoji">📜</div>
+      <div class="service-title">금융법령AI</div>
+      <div class="service-desc">금융 법령 139건, 판례 526건을 체계적으로 정리하고 AI로 검색/분석합니다.</div>
+      <div class="service-stats">
+        <div class="stat"><strong>3,893</strong>조문</div>
+        <div class="stat"><strong>526</strong>판례</div>
+        <div class="stat"><strong>193</strong>해석례</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="feed">
+  <div class="feed-header">
+    <div class="feed-title">오늘의 정책 브리핑</div>
+    <div class="feed-date">2026년 4월 1일 (화) · 144건 · 36개 부처</div>
+  </div>
+
+  <div class="feed-item">
+    <div class="feed-source">금융위원회</div>
+    <div class="feed-item-title">보험업권이 출산·육아에 따른 보험료 부담을 덜어드립니다</div>
+    <div class="feed-summary">금융위원회는 출산·육아로 인한 보험료 부담 경감을 위해 4월 1일 '저출산 극복 지원 3종 세트'를 시행합니다.</div>
+    <div class="feed-why"><strong>왜 중요한가:</strong> 저출산 위기 속 금융권 최초의 체계적 출산 지원 패키지</div>
+    <div class="feed-meta">
+      <span>영향도: 상</span>
+      <a href="#">상세 보기 →</a>
+      <a href="#">관련 법령</a>
+    </div>
+  </div>
+
+  <div class="feed-item">
+    <div class="feed-source">과학기술정보통신부</div>
+    <div class="feed-item-title">인공지능 기본법 지원 창구, 시행 10주차 총 552건 상담</div>
+    <div class="feed-summary">AI 기본법 시행 후 지원 데스크에 552건의 상담이 접수되었으며, 기업의 법률 준수를 위한 가이드라인을 제공합니다.</div>
+    <div class="feed-why"><strong>왜 중요한가:</strong> AI 기본법 정착 초기 단계의 산업 수용도 지표</div>
+    <div class="feed-meta">
+      <span>영향도: 중</span>
+      <a href="#">상세 보기 →</a>
+      <a href="#">관련 법령</a>
+    </div>
+  </div>
+
+  <div class="feed-item">
+    <div class="feed-source">국토교통부</div>
+    <div class="feed-item-title">전기차 살 때 배터리 정보 더 자세히 확인 가능</div>
+    <div class="feed-summary">소비자가 전기차 구매 시 배터리 건강 상태, 잔존 수명 등을 확인할 수 있도록 정보 공개 제도를 시행합니다.</div>
+    <div class="feed-meta">
+      <span>영향도: 중</span>
+      <a href="#">상세 보기 →</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta" style="margin:40px auto;max-width:860px;padding:0 20px">
+  <div style="background:var(--navy);border-radius:16px;padding:32px;text-align:center">
+    <h3>매일 아침, 150건의 정책을 3분에</h3>
+    <p>텔레그램 채널에서 정책 브리핑을 받아보세요</p>
+    <a class="cta-btn" href="https://t.me/govbrief" target="_blank">텔레그램 구독하기</a>
+  </div>
+</section>
+
+<div class="footer">govbrief.kr — 정부 정책 + 금융법령 AI 분석</div>
+
+</body>
+</html>

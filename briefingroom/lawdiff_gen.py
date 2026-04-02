@@ -77,7 +77,7 @@ def _fetch_articles(mst: str) -> list[dict]:
     """법제처 API에서 조문 가져오기"""
     try:
         r = requests.get(
-            "http://www.law.go.kr/DRF/lawService.do",
+            "https://www.law.go.kr/DRF/lawService.do",
             params={"OC": LAW_OC, "target": "law", "MST": mst, "type": "JSON"},
             timeout=20,
         )

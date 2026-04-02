@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import html as html_mod
+import hashlib
 import json
 import os
 import re
@@ -150,6 +151,11 @@ def _llm_call(text: str, prompt: str = DETAIL_ANALYSIS_PROMPT) -> str:
     return ""
 
 
+def _inline_md_to_html(text: str) -> str:
+    escaped = html_mod.escape(text)
+    return re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", escaped)
+
+
 def _md_to_html(md: str) -> str:
     """간단한 마크다운 → HTML 변환"""
     lines = md.split("\n")
@@ -167,18 +173,15 @@ def _md_to_html(md: str) -> str:
                 html_parts.append("<ol>")
                 in_list = True
             content = re.sub(r"^\d+\.\s*", "", stripped)
-            content = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", content)
-            html_parts.append(f"<li>{content}</li>")
+            html_parts.append(f"<li>{_inline_md_to_html(content)}</li>")
         elif stripped.startswith("- "):
             content = stripped[2:]
-            content = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", content)
-            html_parts.append(f"<p>- {content}</p>")
+            html_parts.append(f"<p>- {_inline_md_to_html(content)}</p>")
         elif stripped:
             if in_list:
                 html_parts.append("</ol>")
                 in_list = False
-            content = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", stripped)
-            html_parts.append(f"<p>{content}</p>")
+            html_parts.append(f"<p>{_inline_md_to_html(stripped)}</p>")
     if in_list:
         html_parts.append("</ol>")
     return "\n".join(html_parts)
@@ -222,10 +225,21 @@ def generate_article_details(target_date: str = "", max_items: int = 20):
             continue
 
         # 텍스트 파일 찾기
-        source = re.sub(r"[^\w가-힣]", "", item.get("source", ""))[:4]
-        safe_title = re.sub(r"[^\w가-힣]", "_", item.get("title", ""))[:30]
-        txt_name = f"{item_date}_{source}_{safe_title}.txt"
-        txt_path = TEXTS_DIR / txt_name
+        txt_path = None
+        text_path_value = item.get("text_path", "")
+        if text_path_value:
+            candidate = Path(text_path_value)
+            if not candidate.is_absolute():
+                candidate = BASE_DIR / candidate
+            txt_path = candidate
+
+        if txt_path is None or not txt_path.exists():
+            source = re.sub(r"[^\w가-힣]", "", item.get("source", ""))[:4]
+            safe_title = re.sub(r"[^\w가-힣]", "_", item.get("title", ""))[:30]
+            suffix_seed = f"{item.get('url','')}|{item_date}|{item.get('title','')}"
+            suffix = hashlib.sha1(suffix_seed.encode("utf-8")).hexdigest()[:10]
+            txt_name = f"{item_date}_{source}_{safe_title}_{suffix}.txt"
+            txt_path = TEXTS_DIR / txt_name
 
         raw_text = ""
         if txt_path.exists():
@@ -298,7 +312,7 @@ def _fetch_law_articles_from_api(mst: str) -> tuple[list[dict], int]:
     """법제처 API에서 조문 전문 + 최근 개정 조문 추출"""
     try:
         r = requests.get(
-            "http://www.law.go.kr/DRF/lawService.do",
+            "https://www.law.go.kr/DRF/lawService.do",
             params={"OC": "sony0125", "target": "law", "MST": mst, "type": "JSON"},
             timeout=20,
         )

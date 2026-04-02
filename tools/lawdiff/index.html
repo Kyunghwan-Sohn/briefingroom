@@ -158,16 +158,40 @@ async function searchLaw(query) {
       body: JSON.stringify({action: 'search', query}),
     });
     const data = await r.json();
+    resultsEl.textContent = '';
     if (data.laws && data.laws.length) {
-      resultsEl.innerHTML = data.laws.map(l => `
-        <div class="search-item" onclick="selectLaw('${l.law_mst}','${l.name}','${l.name_abbr || ''}','${l.ministry}','${l.promulgation_date}')">
-          <div class="name">${l.name}</div>
-          <div class="meta">${l.name_abbr ? l.name_abbr + ' · ' : ''}${l.ministry} · 공포 ${l.promulgation_date}</div>
-        </div>
-      `).join('');
+      data.laws.forEach(law => {
+        const item = document.createElement('div');
+        item.className = 'search-item';
+        item.addEventListener('click', () => selectLaw(
+          law.law_mst || '',
+          law.name || '',
+          law.name_abbr || '',
+          law.ministry || '',
+          law.promulgation_date || '',
+        ));
+
+        const nameEl = document.createElement('div');
+        nameEl.className = 'name';
+        nameEl.textContent = law.name || '';
+
+        const metaEl = document.createElement('div');
+        metaEl.className = 'meta';
+        metaEl.textContent = `${law.name_abbr ? law.name_abbr + ' · ' : ''}${law.ministry || ''} · 공포 ${law.promulgation_date || ''}`;
+
+        item.appendChild(nameEl);
+        item.appendChild(metaEl);
+        resultsEl.appendChild(item);
+      });
       resultsEl.style.display = 'block';
     } else {
-      resultsEl.innerHTML = '<div class="search-item"><div class="meta">검색 결과 없음</div></div>';
+      const item = document.createElement('div');
+      item.className = 'search-item';
+      const metaEl = document.createElement('div');
+      metaEl.className = 'meta';
+      metaEl.textContent = '검색 결과 없음';
+      item.appendChild(metaEl);
+      resultsEl.appendChild(item);
       resultsEl.style.display = 'block';
     }
   } catch (e) {
@@ -202,7 +226,7 @@ async function compare() {
 
   document.getElementById('loading').style.display = 'block';
   document.getElementById('summary').style.display = 'none';
-  document.getElementById('diff-list').innerHTML = '';
+  document.getElementById('diff-list').textContent = '';
   document.getElementById('compare-btn').disabled = true;
 
   try {
@@ -215,7 +239,13 @@ async function compare() {
     document.getElementById('loading').style.display = 'none';
 
     if (data.error) {
-      document.getElementById('diff-list').innerHTML = '<div style="padding:20px;color:var(--a)">' + data.error + '</div>';
+      const diffList = document.getElementById('diff-list');
+      diffList.textContent = '';
+      const errEl = document.createElement('div');
+      errEl.style.padding = '20px';
+      errEl.style.color = 'var(--a)';
+      errEl.textContent = data.error;
+      diffList.appendChild(errEl);
       document.getElementById('compare-btn').disabled = false;
       return;
     }
@@ -229,42 +259,82 @@ async function compare() {
     document.getElementById('count-add').textContent = adds;
     document.getElementById('count-del').textContent = dels;
     document.getElementById('summary').style.display = 'block';
+    const diffList = document.getElementById('diff-list');
+    diffList.textContent = '';
 
     if (data.diffs.length === 0) {
-      document.getElementById('diff-list').innerHTML = '<div style="padding:20px;text-align:center;color:var(--m)">두 시점 간 변경된 조문이 없습니다.</div>';
+      const emptyEl = document.createElement('div');
+      emptyEl.style.padding = '20px';
+      emptyEl.style.textAlign = 'center';
+      emptyEl.style.color = 'var(--m)';
+      emptyEl.textContent = '두 시점 간 변경된 조문이 없습니다.';
+      diffList.appendChild(emptyEl);
     } else {
-      document.getElementById('diff-list').innerHTML = data.diffs.map(d => {
+      data.diffs.forEach(d => {
         const tagClass = d.type === 'modified' ? 'modified' : d.type === 'added' ? 'added' : 'deleted';
         const tagText = d.type === 'modified' ? '변경' : d.type === 'added' ? '추가' : '삭제';
-        return `
-          <div class="diff-card">
-            <div class="diff-head">
-              <span class="diff-tag ${tagClass}">${tagText}</span>
-              <span class="diff-title">제${d.article_no}조 ${d.title}</span>
-            </div>
-            <div class="diff-body">
-              <div class="diff-row">
-                <div class="diff-label" style="flex:1">이전</div>
-                <div class="diff-label" style="flex:1">현행</div>
-              </div>
-              <div class="diff-row">
-                <div class="diff-old${d.type === 'added' ? ' diff-same' : ''}">${escapeHtml(d.old_content || '(없음)')}</div>
-                <div class="diff-new${d.type === 'deleted' ? ' diff-same' : ''}">${escapeHtml(d.new_content || '(삭제)')}</div>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
+        const card = document.createElement('div');
+        card.className = 'diff-card';
+
+        const head = document.createElement('div');
+        head.className = 'diff-head';
+        const tag = document.createElement('span');
+        tag.className = `diff-tag ${tagClass}`;
+        tag.textContent = tagText;
+        const title = document.createElement('span');
+        title.className = 'diff-title';
+        title.textContent = `제${String(d.article_no || '')}조 ${d.title || ''}`;
+        head.appendChild(tag);
+        head.appendChild(title);
+
+        const body = document.createElement('div');
+        body.className = 'diff-body';
+        const labelRow = document.createElement('div');
+        labelRow.className = 'diff-row';
+        const oldLabel = document.createElement('div');
+        oldLabel.className = 'diff-label';
+        oldLabel.style.flex = '1';
+        oldLabel.textContent = '이전';
+        const newLabel = document.createElement('div');
+        newLabel.className = 'diff-label';
+        newLabel.style.flex = '1';
+        newLabel.textContent = '현행';
+        labelRow.appendChild(oldLabel);
+        labelRow.appendChild(newLabel);
+
+        const row = document.createElement('div');
+        row.className = 'diff-row';
+        const oldBox = document.createElement('div');
+        oldBox.className = `diff-old${d.type === 'added' ? ' diff-same' : ''}`;
+        oldBox.innerHTML = escapeHtml(d.old_content || '(없음)');
+        const newBox = document.createElement('div');
+        newBox.className = `diff-new${d.type === 'deleted' ? ' diff-same' : ''}`;
+        newBox.innerHTML = escapeHtml(d.new_content || '(삭제)');
+        row.appendChild(oldBox);
+        row.appendChild(newBox);
+
+        body.appendChild(labelRow);
+        body.appendChild(row);
+        card.appendChild(head);
+        card.appendChild(body);
+        diffList.appendChild(card);
+      });
     }
   } catch (e) {
     document.getElementById('loading').style.display = 'none';
-    document.getElementById('diff-list').innerHTML = '<div style="padding:20px;color:var(--a)">오류: ' + e.message + '</div>';
+    const diffList = document.getElementById('diff-list');
+    diffList.textContent = '';
+    const errEl = document.createElement('div');
+    errEl.style.padding = '20px';
+    errEl.style.color = 'var(--a)';
+    errEl.textContent = '오류: ' + e.message;
+    diffList.appendChild(errEl);
   }
   document.getElementById('compare-btn').disabled = false;
 }
 
 function escapeHtml(text) {
-  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  return String(text ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
 }
 </script>
 
