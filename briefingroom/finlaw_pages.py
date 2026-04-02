@@ -63,6 +63,7 @@ def generate_cases_page():
     for r in rows:
         date = r["decision_date"] or ""
         court = r["court"] or ""
+        prec_id = r["prec_id"] or ""
         name = html.escape(r["case_name"] or "")
         number = html.escape(r["case_number"] or "")
         summary = _clean_html(r["summary"] or "")
@@ -70,12 +71,16 @@ def generate_cases_page():
 
         summary_html = ""
         if summary and summary != "-":
-            summary_html = f'<div style="font-size:11px;color:var(--t2);margin-top:4px;line-height:1.5">{html.escape(summary)}</div>'
+            summary_html = f'<div style="font-size:11px;color:var(--t2);margin-top:4px;line-height:1.5">{html.escape(summary[:100])}</div>'
+
+        # 상세 페이지 존재 여부
+        detail_link = f"/finlaw/cases/{prec_id}/" if (FINLAW_DIR / "cases" / prec_id / "index.html").exists() else ""
+        title_html = f'<a href="{detail_link}" style="text-decoration:none;color:var(--t);font-weight:600">{name}</a>' if detail_link else f'<div style="font-weight:600">{name}</div>'
 
         tbody.append(f"""<tr>
       <td>{date}</td>
       <td>{html.escape(court)}</td>
-      <td><div style="font-weight:600">{name}</div><div style="font-size:11px;color:var(--m);margin-top:2px">{number}</div>{summary_html}</td>
+      <td>{title_html}<div style="font-size:11px;color:var(--m);margin-top:2px">{number}</div>{summary_html}</td>
       <td><a href="{link}" target="_blank" rel="noopener" style="color:var(--a);text-decoration:none;font-size:11px">원문 →</a></td>
     </tr>""")
 
