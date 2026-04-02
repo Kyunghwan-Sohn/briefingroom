@@ -212,27 +212,28 @@ def generate_home(target_date: str = ""):
 <header class="hdr">
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
-    <a class="on" href="/">정책 AI 요약</a>
-    <a href="/finlaw/">금융법령 AI 모니터링</a>
+    <a class="on" href="/">브리핑룸</a>
+    <a href="#policy-summary">정책 AI 요약</a>
+    <a href="/finlaw/">금융법령 AI</a>
   </nav>
   <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
 
 <section class="hero">
-  <h1>정부가 발표하면,<br>AI가 해석합니다</h1>
-  <p>정부 정책 · 금융 법령 · 입법 예고, 핵심만 브리핑</p>
-  <div class="sbox" style="position:relative">
+  <h1>정책과 법령, 뭐든 물어보세요</h1>
+  <p>보도자료 {len(items)}건 · 금융법령 8,772건 · 비조치의견서 3,151건에서 AI가 찾아드립니다</p>
+  <div class="sbox" style="position:relative;max-width:620px;margin:0 auto">
     <span class="si">⌕</span>
-    <input id="search-input" placeholder="정책이나 법령에 대해 물어보세요..." autocomplete="off">
+    <input id="search-input" placeholder="자본시장법 불공정거래, 전세보증금 못 돌려받아요..." autocomplete="off" style="font-size:17px;padding:18px 20px 18px 48px">
     <div id="search-results" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:40;margin-top:6px;background:#fff;border:1px solid var(--b);border-radius:10px;max-height:360px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.1)"></div>
   </div>
-  <div class="tags">{tags_html}</div>
+  <div style="font-size:11px;color:var(--m);margin-top:8px">Enter를 누르면 AI가 답변합니다</div>
+  <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+    <a href="/tools/finlaw-gpt/" style="font-size:12px;color:var(--a);font-weight:600;text-decoration:none;padding:7px 16px;border:1px solid var(--ab);border-radius:8px;background:var(--al)">FinLaw GPT</a>
+    <a href="/tools/mylaw/" style="font-size:12px;color:var(--a);font-weight:600;text-decoration:none;padding:7px 16px;border:1px solid var(--ab);border-radius:8px;background:var(--al)">내법찾기</a>
+    <a href="/tools/lawdiff/" style="font-size:12px;color:var(--a);font-weight:600;text-decoration:none;padding:7px 16px;border:1px solid var(--ab);border-radius:8px;background:var(--al)">LawDiff</a>
+  </div>
 </section>
-
-<div class="svcs">
-  <a class="svc" href="/"><div><div class="tt">정책 AI 요약</div><div class="dd">51개 부처 · 일 {len(items)}건 · AI 분석</div></div></a>
-  <a class="svc" href="/finlaw/"><div><div class="tt">금융법령 AI 모니터링</div><div class="dd">139법령 · 526판례 · 검색</div></div></a>
-</div>
 
 <div class="divider"></div>
 <section class="sec" id="policy-summary">
