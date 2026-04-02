@@ -53,9 +53,13 @@ def process_item(item):
 
     body_text = item.get("body_text", "")
     file_texts = []
+    seen_urls = set()
 
-    # 붙임 PDF가 있으면 반드시 추출 (본문과 합침)
+    # PDF 전부 추출
     for i, url in enumerate(item["pdfs"], 1):
+        if url in seen_urls:
+            continue
+        seen_urls.add(url)
         fname = f"{item['date']}_{src}_{safe}_{i}.pdf"
         path = download_file(url, fname, s)
         if not path:
@@ -64,22 +68,25 @@ def process_item(item):
         if text:
             item["files"].append(str(path))
             file_texts.append(text)
+            print(f"    PDF {i}: {len(text)}자")
         time.sleep(0.3)
 
-    # PDF에서 텍스트를 못 얻었으면 HWP 전부 열기
-    if not file_texts and item["hwps"]:
-        print("    PDF 없음 → HWP 시도")
-        for j, url in enumerate(item["hwps"], 1):
-            ext = "hwpx" if "hwpx" in url.lower() else "hwp"
-            fname = f"{item['date']}_{src}_{safe}_{j}.{ext}"
-            path = download_file(url, fname, s)
-            if not path:
-                continue
-            text = extract_hwp(path)
-            if text:
-                item["files"].append(str(path))
-                file_texts.append(text)
-            time.sleep(0.3)
+    # HWP도 전부 추출 (PDF와 동일 URL이면 스킵)
+    for j, url in enumerate(item["hwps"], 1):
+        if url in seen_urls:
+            continue
+        seen_urls.add(url)
+        ext = "hwpx" if "hwpx" in url.lower() else "hwp"
+        fname = f"{item['date']}_{src}_{safe}_{j}.{ext}"
+        path = download_file(url, fname, s)
+        if not path:
+            continue
+        text = extract_hwp(path)
+        if text:
+            item["files"].append(str(path))
+            file_texts.append(text)
+            print(f"    HWP {j}: {len(text)}자")
+        time.sleep(0.3)
 
     if file_texts:
         # 본문 + 붙임파일 합침 (본문이 있으면 앞에 추가)
