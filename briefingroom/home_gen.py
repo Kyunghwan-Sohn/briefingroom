@@ -212,8 +212,8 @@ def generate_home(target_date: str = ""):
 <header class="hdr">
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
-    <a class="on" href="/">정책 AI 요약</a>
-    <a href="/finlaw/">금융법령 AI 모니터링</a>
+    <a class="on" href="/">홈</a>
+    <a href="/finlaw/">금융 법령 AI</a>
   </nav>
   <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
@@ -230,8 +230,8 @@ def generate_home(target_date: str = ""):
 </section>
 
 <div class="svcs">
-  <a class="svc" href="/"><div><div class="tt">정책 AI 요약</div><div class="dd">51개 부처 · 일 {len(items)}건 · AI 분석</div></div></a>
-  <a class="svc" href="/finlaw/"><div><div class="tt">금융법령 AI 모니터링</div><div class="dd">139법령 · 526판례 · 검색</div></div></a>
+  <a class="svc" href="/"><div><div class="tt">홈</div><div class="dd">51개 부처 · 일 {len(items)}건 · AI 분석</div></div></a>
+  <a class="svc" href="/finlaw/"><div><div class="tt">금융 법령 AI</div><div class="dd">139법령 · 526판례 · 검색</div></div></a>
 </div>
 
 <div class="divider"></div>
@@ -246,7 +246,7 @@ def generate_home(target_date: str = ""):
 
 <div class="cta"><div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div><a href="https://t.me/govbrief" target="_blank">구독</a></div>
 
-<div class="footer"><a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융법령 AI 모니터링</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
 <nav class="bnav"><a class="on" href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="javascript:void(0)" onclick="document.getElementById('search-input').focus();window.scrollTo(0,0)"><span style="font-size:16px">⌕</span>검색</a><a href="/articles/"><span style="font-size:16px">≡</span>달력</a><a href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
 

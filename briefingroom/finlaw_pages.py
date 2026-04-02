@@ -144,13 +144,13 @@ tr:last-child td{{border-bottom:none}}
 <header class="hdr">
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
-    <a href="/">정책 AI 요약</a>
-    <a class="on" href="/finlaw/">금융법령 AI 모니터링</a>
+    <a href="/">홈</a>
+    <a class="on" href="/finlaw/">금융 법령 AI</a>
   </nav>
   <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
 <div class="wrap">
-<a class="back" href="/finlaw/">← 금융법령 AI 모니터링</a>
+<a class="back" href="/finlaw/">← 금융 법령 AI</a>
 <h1>금융 판례</h1>
 <div class="desc">금융 관련 대법원/고등법원 판례 {len(rows)}건</div>
 <div class="nav">
@@ -316,13 +316,13 @@ tr:last-child td{{border-bottom:none}}
 <header class="hdr">
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
-    <a href="/">정책 AI 요약</a>
-    <a class="on" href="/finlaw/">금융법령 AI 모니터링</a>
+    <a href="/">홈</a>
+    <a class="on" href="/finlaw/">금융 법령 AI</a>
   </nav>
   <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
 <div class="wrap">
-<a class="back" href="/finlaw/">← 금융법령 AI 모니터링</a>
+<a class="back" href="/finlaw/">← 금융 법령 AI</a>
 <h1>법령 개정 이력</h1>
 <div class="desc">2025년 이후 공포/개정된 금융 법령 {len(rows)}건</div>
 <div class="nav">
@@ -510,7 +510,7 @@ def generate_finlaw_index():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>금융법령 AI 모니터링 - 브리핑룸</title>
+<title>금융 법령 AI - 브리핑룸</title>
 <meta name="description" content="한국 금융 법령 {total_laws}건, 판례, 해석례 모니터링. 오늘 바뀐 법령을 AI가 분석합니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -524,15 +524,15 @@ def generate_finlaw_index():
 <header class="hdr">
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
-    <a href="/">정책 AI 요약</a>
-    <a class="on" href="/finlaw/">금융법령 AI 모니터링</a>
+    <a href="/">홈</a>
+    <a class="on" href="/finlaw/">금융 법령 AI</a>
   </nav>
   <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
 
 <section class="hero">
   <div class="hero-top">
-    <h1>금융법령 AI 모니터링</h1>
+    <h1>금융 법령 AI</h1>
     <p style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:700;letter-spacing:.02em">{today_dot} ({dow})</p>
     <p style="margin-top:2px">최근 법령 변동 현황</p>
   </div>
@@ -586,7 +586,7 @@ def generate_finlaw_index():
   <a href="https://t.me/govbrief" target="_blank" style="padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap">구독</a>
 </div>
 
-<div class="footer"><a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융법령 AI 모니터링</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
 <nav class="bnav"><a href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="#"><span style="font-size:16px">⌕</span>검색</a><a href="#"><span style="font-size:16px">≡</span>달력</a><a class="on" href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
 

@@ -1,4 +1,4 @@
-"""FinLaw GPT — 금융법령 AI 어시스턴트
+"""FinLaw GPT — 금융 법령 AI 어시스턴트
 
 Supabase FTS 검색 + 자체 LLM으로 RAG 답변 생성.
 프론트에서 AJAX 호출용 또는 CLI 테스트용.

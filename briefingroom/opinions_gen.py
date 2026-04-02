@@ -91,14 +91,14 @@ tr:last-child td{{border-bottom:none}}
 <header class="hdr">
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
-    <a href="/">정책 AI 요약</a>
-    <a class="on" href="/finlaw/">금융법령 AI 모니터링</a>
+    <a href="/">홈</a>
+    <a class="on" href="/finlaw/">금융 법령 AI</a>
   </nav>
   <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
 
 <div style="padding:24px 20px 80px">
-<a href="/finlaw/" style="color:var(--m);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px">← 금융법령 AI 모니터링</a>
+<a href="/finlaw/" style="color:var(--m);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px">← 금융 법령 AI</a>
 <h1 style="font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:6px">비조치의견서 · 법령해석</h1>
 <p style="font-size:14px;color:var(--t2);margin-bottom:16px">금융위원회 비조치의견서 {by_gubun.get('비조치의견서',0)}건 + 법령해석 {by_gubun.get('법령해석',0)}건 = 전체 {len(rows)}건</p>
 

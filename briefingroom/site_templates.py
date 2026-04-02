@@ -37,8 +37,8 @@ SITE_FONT_LINKS = (
 
 def render_top_nav(active: str = "") -> str:
     links = [
-        ("/", "정책 AI 요약", "brief"),
-        ("/finlaw/", "금융법령 AI 모니터링", "finlaw"),
+        ("/", "홈", "brief"),
+        ("/finlaw/", "금융 법령 AI", "finlaw"),
     ]
     parts = []
     for href, label, key in links:
@@ -56,7 +56,7 @@ def render_top_nav(active: str = "") -> str:
 
 def render_footer() -> str:
     return """<footer class="site-footer">
-      <a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융법령 AI 모니터링</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a>
+      <a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a>
       <br>govbrief.kr
     </footer>"""
 

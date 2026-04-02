@@ -67,8 +67,8 @@ h1{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:12px;li
 _HEADER = """<header class="hdr">
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
-    <a href="/">정책 AI 요약</a>
-    <a href="/finlaw/">금융법령 AI 모니터링</a>
+    <a href="/">홈</a>
+    <a href="/finlaw/">금융 법령 AI</a>
   </nav>
   <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>"""
@@ -291,7 +291,7 @@ def generate_article_details(target_date: str = "", max_items: int = 20):
   <a href="{html_mod.escape(item.get('url',''), quote=True)}" target="_blank" style="font-size:13px;color:var(--a);text-decoration:none;font-weight:600">원문 보도자료 →</a>
 </div>
 </div>
-<div class="footer"><a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융법령 AI 모니터링</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a><br>govbrief.kr</div>
 </body>
 </html>"""
 
@@ -518,7 +518,7 @@ def generate_law_details(force: bool = False):
 <body>
 {_HEADER}
 <div class="wrap">
-<a class="back" href="/finlaw/">← 금융법령 AI 모니터링</a>
+<a class="back" href="/finlaw/">← 금융 법령 AI</a>
 <h1>{name}</h1>
 <div class="meta">
   <span>{abbr}</span>
@@ -543,7 +543,7 @@ def generate_law_details(force: bool = False):
   <a href="https://www.law.go.kr{html_mod.escape(r['detail_link'] or '', quote=True)}" target="_blank" style="font-size:13px;color:var(--a);text-decoration:none;font-weight:600">법제처 원문 →</a>
 </div>
 </div>
-<div class="footer"><a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융법령 AI 모니터링</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a><br>govbrief.kr</div>
 </body>
 </html>"""
 

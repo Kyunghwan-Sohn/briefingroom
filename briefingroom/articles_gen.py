@@ -123,8 +123,8 @@ def generate_articles_index():
 <header class="hdr">
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
-    <a class="on" href="/">정책 AI 요약</a>
-    <a href="/finlaw/">금융법령 AI 모니터링</a>
+    <a class="on" href="/">홈</a>
+    <a href="/finlaw/">금융 법령 AI</a>
   </nav>
   <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
@@ -138,7 +138,7 @@ def generate_articles_index():
 
 </div>
 
-<div class="footer"><a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융법령 AI 모니터링</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
 </body>
 </html>"""
