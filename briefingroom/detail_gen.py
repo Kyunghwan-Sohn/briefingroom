@@ -292,14 +292,74 @@ def generate_article_details(target_date: str = "", max_items: int = 20):
 
 
 # ──────────────────────────────────────────────
+# 법제처 API에서 조문 전문 가져오기
+# ──────────────────────────────────────────────
+def _fetch_law_articles_from_api(mst: str) -> tuple[list[dict], int]:
+    """법제처 API에서 조문 전문 + 최근 개정 조문 추출"""
+    try:
+        r = requests.get(
+            "http://www.law.go.kr/DRF/lawService.do",
+            params={"OC": "sony0125", "target": "law", "MST": mst, "type": "JSON"},
+            timeout=20,
+        )
+        if r.status_code != 200:
+            return [], 0
+        data = r.json()
+        if "result" in data and "실패" in str(data.get("result", "")):
+            return [], 0
+
+        law = data.get("법령", {})
+        jomun_list = law.get("조문", {}).get("조문단위", [])
+        if isinstance(jomun_list, dict):
+            jomun_list = [jomun_list]
+
+        articles = []
+        for j in jomun_list:
+            content = j.get("조문내용", "")
+            if not content or len(content) < 5:
+                continue
+            # 항 내용도 합치기
+            hangs = j.get("항", [])
+            if isinstance(hangs, dict):
+                hangs = [hangs]
+            hang_texts = []
+            for hang in hangs:
+                if isinstance(hang, dict):
+                    hang_texts.append(hang.get("항내용", ""))
+            full = content + "\n" + "\n".join(hang_texts) if hang_texts else content
+
+            # 최근 개정 여부 (조문 본문에 <개정 20XX.X.X> 패턴)
+            import re as _re
+            amend_dates = _re.findall(r"개정 (\d{4}\.\d{1,2}\.\d{1,2})", full)
+            latest_amend = max(amend_dates) if amend_dates else ""
+            is_recent = latest_amend >= "2024" if latest_amend else False
+
+            articles.append({
+                "no": j.get("조문번호", ""),
+                "title": j.get("조문제목", ""),
+                "content": full.strip(),
+                "is_recent": is_recent,
+                "amend_date": latest_amend,
+            })
+
+        total = len(jomun_list)
+        return articles, total
+    except Exception as e:
+        print(f"  법제처 API 에러: {e}")
+        return [], 0
+
+
+# ──────────────────────────────────────────────
 # 금융법령 상세 페이지 생성
 # ──────────────────────────────────────────────
-def generate_law_details():
-    """finance_law.db의 최근 변경 법령별 상세 페이지 생성"""
+def generate_law_details(force: bool = False):
+    """finance_law.db의 최근 변경 법령별 상세 페이지 생성
+
+    법제처 API에서 조문 전문을 가져와 최근 개정 조문을 하이라이트합니다.
+    """
     conn = sqlite3.connect(str(DB_PATH))
     conn.row_factory = sqlite3.Row
 
-    # 최근 변경 법령
     rows = conn.execute(
         "SELECT law_id, law_mst, name, name_abbr, law_type, ministry, "
         "promulgation_date, enforcement_date, revision_type, amendment_reason, detail_link "
@@ -317,21 +377,8 @@ def generate_law_details():
 
         out_dir = detail_dir / mst
         out_path = out_dir / "index.html"
-        if out_path.exists():
+        if out_path.exists() and not force:
             continue
-
-        # 관련 조문 가져오기
-        articles = conn.execute(
-            "SELECT article_no, article_title, article_content FROM articles WHERE law_id = ? LIMIT 20",
-            (r["law_id"],),
-        ).fetchall()
-
-        # 관련 판례
-        precs = conn.execute(
-            "SELECT case_name, court, decision_date, summary FROM precedents "
-            "WHERE related_law LIKE ? LIMIT 5",
-            (f"%{r['name']}%",),
-        ).fetchall()
 
         name = html_mod.escape(r["name"])
         abbr = html_mod.escape(r["name_abbr"] or "")
@@ -345,22 +392,72 @@ def generate_law_details():
         rev_type = html_mod.escape(r["revision_type"] or "")
         reason = html_mod.escape(r["amendment_reason"] or "")
 
-        # 조문 HTML
-        articles_html = ""
-        if articles:
-            items_html = []
-            for a in articles:
-                content = html_mod.escape((a["article_content"] or "")[:300])
-                items_html.append(f"""<div style="margin-bottom:12px;padding:12px;background:var(--bg);border-radius:8px">
-  <div style="font-weight:600;margin-bottom:4px">제{a['article_no']}조 {html_mod.escape(a['article_title'] or '')}</div>
+        # 법제처 API에서 조문 전문 가져오기
+        api_articles, total_articles = _fetch_law_articles_from_api(mst)
+        print(f"  [{mst}] {r['name'][:30]} — 조문 {len(api_articles)}/{total_articles}건")
+
+        # 최근 개정 조문
+        recent_articles = [a for a in api_articles if a["is_recent"]]
+
+        # 최근 개정 조문 HTML
+        recent_html = ""
+        if recent_articles:
+            r_items = []
+            for a in recent_articles[:10]:
+                content = html_mod.escape(a["content"][:500])
+                r_items.append(f"""<div style="margin-bottom:14px;padding:14px;background:#fff7ed;border-left:3px solid var(--a);border-radius:0 8px 8px 0">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+    <span style="font-weight:700">제{a['no']}조 {html_mod.escape(a['title'])}</span>
+    <span style="font-family:var(--mono);font-size:10px;color:var(--a)">개정 {a['amend_date']}</span>
+  </div>
   <div style="font-size:13px;color:var(--t2);line-height:1.7">{content}</div>
 </div>""")
+            recent_html = f"""<div class="section">
+  <h2>이번 개정으로 변경된 조문 ({len(recent_articles)}건)</h2>
+  {"".join(r_items)}
+</div>"""
+
+        # 전체 조문 요약 (최근 개정 제외, 상위 10건)
+        other_articles = [a for a in api_articles if not a["is_recent"]][:10]
+        articles_html = ""
+        if other_articles:
+            items_html = []
+            for a in other_articles:
+                content = html_mod.escape(a["content"][:200])
+                items_html.append(f"""<div style="margin-bottom:10px;padding:12px;background:var(--bg);border-radius:8px">
+  <div style="font-weight:600;margin-bottom:4px">제{a['no']}조 {html_mod.escape(a['title'])}</div>
+  <div style="font-size:12px;color:var(--t2);line-height:1.6">{content}</div>
+</div>""")
             articles_html = f"""<div class="section">
-  <h2>주요 조문 ({len(articles)}건)</h2>
+  <h2>주요 조문 (전체 {total_articles}건 중 일부)</h2>
   {"".join(items_html)}
 </div>"""
 
-        # 판례 HTML
+        # DB 조문이 없고 API도 실패한 경우 DB 폴백
+        if not api_articles:
+            db_articles = conn.execute(
+                "SELECT article_no, article_title, article_content FROM articles WHERE law_id = ? LIMIT 10",
+                (r["law_id"],),
+            ).fetchall()
+            if db_articles:
+                items_html = []
+                for a in db_articles:
+                    content = html_mod.escape((a["article_content"] or "")[:200])
+                    items_html.append(f"""<div style="margin-bottom:10px;padding:12px;background:var(--bg);border-radius:8px">
+  <div style="font-weight:600;margin-bottom:4px">제{a['article_no']}조 {html_mod.escape(a['article_title'] or '')}</div>
+  <div style="font-size:12px;color:var(--t2);line-height:1.6">{content}</div>
+</div>""")
+                articles_html = f"""<div class="section">
+  <h2>주요 조문 ({len(db_articles)}건)</h2>
+  {"".join(items_html)}
+</div>"""
+
+        # 관련 판례
+        precs = conn.execute(
+            "SELECT case_name, court, decision_date, summary FROM precedents "
+            "WHERE related_law LIKE ? LIMIT 5",
+            (f"%{r['name']}%",),
+        ).fetchall()
         precs_html = ""
         if precs:
             p_items = []
@@ -374,6 +471,25 @@ def generate_law_details():
             precs_html = f"""<div class="section">
   <h2>관련 판례 ({len(precs)}건)</h2>
   {"".join(p_items)}
+</div>"""
+
+        # 관련 비조치의견서
+        opinions = conn.execute(
+            "SELECT title, gubun, category, reg_date FROM fsc_opinions "
+            "WHERE title LIKE ? OR category LIKE ? LIMIT 5",
+            (f"%{r['name'][:10]}%", f"%{r['name'][:5]}%"),
+        ).fetchall()
+        opinions_html = ""
+        if opinions:
+            o_items = []
+            for o in opinions:
+                o_items.append(f"""<div style="margin-bottom:8px;padding:10px;background:var(--bg);border-radius:8px">
+  <div style="font-size:13px;font-weight:600">{html_mod.escape(o['title'][:60])}</div>
+  <div style="font-size:11px;color:var(--m);margin-top:2px">{html_mod.escape(o['gubun'])} · {html_mod.escape(o['category'])} · {o['reg_date'] or ''}</div>
+</div>""")
+            opinions_html = f"""<div class="section">
+  <h2>관련 비조치의견서 · 법령해석 ({len(opinions)}건)</h2>
+  {"".join(o_items)}
 </div>"""
 
         page = f"""<!DOCTYPE html>
@@ -396,6 +512,7 @@ def generate_law_details():
   <span>{rev_type}</span>
   <span>공포 {prom_date}</span>
   <span>시행 {enf_date}</span>
+  <span>전체 {total_articles}개 조문</span>
 </div>
 
 <div class="section">
@@ -403,8 +520,10 @@ def generate_law_details():
   <p>{reason if reason else '개정 이유 정보가 없습니다.'}</p>
 </div>
 
+{recent_html}
 {articles_html}
 {precs_html}
+{opinions_html}
 
 <div style="margin-top:16px">
   <a href="https://www.law.go.kr{html_mod.escape(r['detail_link'] or '', quote=True)}" target="_blank" style="font-size:13px;color:var(--a);text-decoration:none;font-weight:600">법제처 원문 →</a>
