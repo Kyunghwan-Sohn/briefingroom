@@ -15,9 +15,9 @@
 body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0}
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
-.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
-.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
-.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
+.hnav{display:flex;gap:6px;align-items:center;flex:1;min-width:0}
+.hnav a{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--t2);text-decoration:none;padding:7px 14px;border-radius:8px;white-space:nowrap;background:var(--s);border:1px solid var(--bl)}.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}.hnav a.on-policy{color:#fff;background:#1e40af;border-color:#1e40af;font-weight:700}.hnav a.on-law{color:#fff;background:#047857;border-color:#047857;font-weight:700}
 .bell{color:var(--m);text-decoration:none;font-size:14px;font-weight:600;margin-left:auto;flex-shrink:0}
 .wrap{padding:24px 20px 80px}
 .back{color:var(--m);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px}
@@ -38,10 +38,11 @@ h1{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:12px;li
 <header class="hdr">
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
-    <a href="/">정책 AI 요약</a>
-    <a href="/finlaw/">금융 법령 AI 모니터링</a>
+    <a href="/">홈</a>
+    <a href="/policy/">정부 정책 AI</a>
+    <a href="/finlaw/">금융 법령 AI</a>
   </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+  <a class="bell" href="https://t.me/govbrief" target="_blank" style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:#dc2626;display:inline-block"></span> 매일 알림</a>
 </header>
 <div class="wrap">
 <a class="back" href="/">← 브리핑룸</a>
@@ -69,6 +70,7 @@ h1{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:12px;li
   <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156749635" target="_blank" style="font-size:13px;color:var(--a);text-decoration:none;font-weight:600">원문 보도자료 →</a>
 </div>
 </div>
-<div class="footer"><a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융 법령 AI 모니터링</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a>
+    <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a><br>govbrief.kr</div>
 </body>
 </html>

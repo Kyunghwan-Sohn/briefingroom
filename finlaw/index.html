@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>금융 법령 AI 모니터링 - 브리핑룸</title>
+<title>금융 법령 AI - 브리핑룸</title>
 <meta name="description" content="한국 금융 법령 139건, 판례, 해석례 모니터링. 오늘 바뀐 법령을 AI가 분석합니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,9 +19,12 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 /* 헤더 */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
-.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
-.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
-.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
+.hnav{display:flex;gap:6px;align-items:center;flex:1;min-width:0}
+.hnav a{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--t2);text-decoration:none;padding:7px 14px;border-radius:8px;white-space:nowrap;background:var(--s);border:1px solid var(--bl)}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:#1e40af;border-color:#1e40af;font-weight:700}
+.hnav a.on-law{color:#fff;background:#047857;border-color:#047857;font-weight:700}
 .bell{color:var(--m);text-decoration:none;font-size:16px;margin-left:auto;flex-shrink:0}
 
 /* 히어로 */
@@ -158,15 +161,16 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 <header class="hdr">
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
-    <a href="/">정책 AI 요약</a>
-    <a class="on" href="/finlaw/">금융 법령 AI 모니터링</a>
+    <a href="/">홈</a>
+    <a href="/policy/">정부 정책 AI</a>
+    <a class="on-law" href="/finlaw/">금융 법령 AI</a>
   </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+  <a class="bell" href="https://t.me/govbrief" target="_blank" style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:#dc2626;display:inline-block"></span> 매일 알림</a>
 </header>
 
 <section class="hero">
   <div class="hero-top">
-    <h1>금융 법령 AI 모니터링</h1>
+    <h1>금융 법령 AI</h1>
     <p style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:700;letter-spacing:.02em">2026. 04. 02 (목)</p>
     <p style="margin-top:2px">최근 법령 변동 현황</p>
   </div>
@@ -300,7 +304,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <a href="https://t.me/govbrief" target="_blank" style="padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap">구독</a>
 </div>
 
-<div class="footer"><a href="/">정책 AI 요약</a> · <a href="/finlaw/">금융 법령 AI 모니터링</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
 <nav class="bnav"><a href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="#"><span style="font-size:16px">⌕</span>검색</a><a href="#"><span style="font-size:16px">≡</span>달력</a><a class="on" href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
 

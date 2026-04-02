@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>govbrief.kr — 정부 정책 + 금융법령 통합 인텔리전스</title>
+<title>브리핑룸 — 정부 정책 + 금융법령 AI</title>
 <meta name="description" content="대한민국 51개 정부 부처 보도자료 AI 요약 + 금융법령 모니터링.">
 <link rel="canonical" href="https://govbrief.kr/">
 <link rel="manifest" href="/manifest.json">
@@ -17,126 +17,122 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe;
+--law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
 
-/* ===== 헤더 ===== */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
-.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
-.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
-.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
-.bell{color:var(--m);text-decoration:none;font-size:16px;margin-left:auto;flex-shrink:0}
+.logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px}
+.hnav{display:flex;gap:6px;align-items:center;flex:1}
+.hnav a{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--t2);text-decoration:none;padding:7px 14px;border-radius:8px;white-space:nowrap;background:var(--s);border:1px solid var(--bl)}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
+.hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:14px;font-weight:600;margin-left:auto}
 
-/* ===== 히어로 ===== */
-.hero{background:#efefef;padding:36px 24px 28px;text-align:center;border-bottom:1px solid var(--b)}
-.hero h1{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--t);margin-bottom:6px;line-height:1.35}
-.hero p{font-size:14px;color:var(--m);margin-bottom:18px}
-.sbox{max-width:560px;margin:0 auto;position:relative}.sbox input{width:100%;padding:15px 16px 15px 42px;font-size:16px;border:2px solid var(--b);border-radius:12px;background:#fff;color:var(--t);outline:none;font-family:var(--sans)}.sbox input::placeholder{color:var(--m)}.sbox input:focus{border-color:var(--a)}
-.si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--m);font-size:16px}
-.tags{display:flex;gap:6px;margin-top:10px;justify-content:center;flex-wrap:wrap}.tags span{font-size:12px;color:var(--t2);border:1px solid var(--b);padding:5px 14px;border-radius:18px;background:#fff;cursor:pointer}.tags span:hover{border-color:var(--a);color:var(--a)}
+/* 검색 */
+.hero{background:#efefef;padding:28px 24px 22px;text-align:center;border-bottom:1px solid var(--b)}
+.hero h1{font-family:var(--serif);font-size:30px;font-weight:700;margin-bottom:6px;line-height:1.35}
+.hero p{font-family:var(--sans);font-size:15px;color:var(--m);margin-bottom:16px}
+.sbox{max-width:560px;margin:0 auto;position:relative}
+.sbox input{width:100%;padding:15px 16px 15px 44px;font-size:16px;border:2px solid var(--b);border-radius:12px;background:#fff;color:var(--t);outline:none;font-family:var(--sans)}
+.sbox input::placeholder{color:var(--m)}
+.sbox input:focus{border-color:var(--a)}
+.si{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--m);font-size:16px}
 
-/* 서비스 카드 */
-.svcs{display:flex;gap:12px;padding:18px 24px 0}
-.svc{flex:1;background:var(--s);border:2px solid var(--b);border-radius:12px;padding:18px;text-decoration:none;color:var(--t);display:flex;gap:12px;align-items:center;justify-content:center;text-align:center}
-.svc:first-child{border-color:var(--a)}
-.svc .e{font-size:28px;flex-shrink:0}.svc .tt{font-size:20px;font-weight:700;font-family:var(--serif)}.svc .dd{font-size:12px;color:var(--t2);margin-top:3px}
+/* 2분할 */
+.twin{display:flex;gap:0}
+.twin-col{flex:1;min-width:0;padding:22px 24px 22px;display:flex;flex-direction:column}
+.twin-col.policy{background:var(--policy-bg);border-right:1px solid var(--policy-border)}
+.twin-col.law{background:var(--law-bg)}
+.twin-header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.twin-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:.05em}
+.twin-badge.policy{background:var(--policy);color:#fff}
+.twin-badge.law{background:var(--law);color:#fff}
+.twin-name{font-family:var(--serif);font-size:20px;font-weight:700}
+.twin-more{font-family:var(--sans);font-size:12px;color:var(--a);text-decoration:none;font-weight:600;margin-left:auto}
 
-/* 공통 */
-.sec{padding:0 24px;margin-top:24px}
-.sec-hdr{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:14px;display:flex;align-items:baseline;justify-content:space-between}
-.sec-more{font-size:11px;color:var(--a);text-decoration:none;font-weight:600}
-.divider{height:1px;background:var(--b);margin:24px 24px 0}
-
-/* ===== 슬라이드 ===== */
-.carousel{position:relative;overflow:hidden;border-radius:14px;border:2px solid var(--b);background:var(--s)}
-.carousel-track{display:flex;transition:transform .3s ease}
-.carousel-card{min-width:100%;padding:24px}
-.carousel-dots{display:flex;justify-content:center;gap:6px;padding:10px 0}
-.carousel-dot{width:8px;height:8px;border-radius:50%;background:var(--bl);cursor:pointer;transition:background .2s}
+/* 캐러셀 */
+.carousel{position:relative;overflow:hidden;border-radius:12px;border:1px solid var(--b);background:var(--s);flex:1}
+.carousel-track{display:flex;transition:transform .3s ease;height:100%}
+.carousel-card{min-width:100%;padding:20px;display:flex;flex-direction:column}
+.carousel-dots{display:flex;justify-content:center;gap:5px;padding:8px 0}
+.carousel-dot{width:7px;height:7px;border-radius:50%;background:var(--bl);cursor:pointer;transition:background .2s}
 .carousel-dot.on{background:var(--a)}
 
-/* ① 정책 요약 */
-.sum-label{font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-.sum-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.5;margin-bottom:10px}
-.sum-kw{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.sum-kw span{font-size:12px;font-weight:700;color:var(--a);background:var(--al);border:1px solid var(--ab);padding:4px 12px;border-radius:16px}
-.sum-body{font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:12px}
-.sum-box{font-size:13px;padding:12px 14px;border-radius:8px;margin-bottom:12px;line-height:1.6}
-.sum-box.impact{background:#eef2ff;border-left:3px solid #4a6cf7;color:#2d4a8a}
-.sum-box.num{background:#f0fdf4;border-left:3px solid #16a34a;color:#15803d}
-.sum-box strong{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
-.sum-foot{display:flex;align-items:center;justify-content:space-between}
-.sum-foot a{font-size:12px;color:var(--a);text-decoration:none;font-weight:600}
-.sum-foot span{font-family:var(--mono);font-size:10px;color:var(--m)}
+/* 정책 카드 */
+.p-cat{font-family:var(--sans);font-size:11px;font-weight:700;color:var(--policy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.p-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.45;margin-bottom:10px}
+.p-easy{font-family:var(--sans);font-size:15px;color:var(--t2);line-height:1.75;padding:12px 14px;background:var(--policy-bg);border-left:3px solid var(--policy);border-radius:0 8px 8px 0;margin-bottom:10px;flex:1}
+.p-easy strong{display:block;font-size:10px;color:var(--policy);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.p-foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-size:12px;color:var(--m)}
+.p-foot a{color:var(--policy);text-decoration:none;font-weight:600;font-size:13px}
 
-/* ② 금융법령 */
-.law-wrap{background:#f0f0ee;border:2px solid var(--b);border-radius:14px;overflow:hidden}
-.law-item{background:var(--s);border:1px solid var(--bl);border-radius:10px;padding:14px;margin-bottom:8px}
-.law-item:last-child{margin-bottom:0}
-.law-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:5px}
-.law-tag.edit{background:#eef2ff;color:#3730a3}
-.law-tag.case{background:#fff7ed;color:#9a3412}
-.law-tag.new{background:#ecfdf5;color:#065f46}
-.law-t{font-size:14px;font-weight:700;line-height:1.5;margin-bottom:3px}
-.law-d{font-size:12px;color:var(--t2);line-height:1.5}
-.law-date{font-family:var(--mono);font-size:10px;color:var(--m);margin-top:3px}
+/* 법령 카드 */
+.l-tag{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;margin-bottom:6px}
+.l-tag.edit{background:#eef2ff;color:#3730a3}
+.l-tag.case{background:#fff7ed;color:#9a3412}
+.l-tag.notice{background:#ecfdf5;color:#065f46}
+.l-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.45;margin-bottom:10px}
+.l-easy{font-family:var(--sans);font-size:15px;color:var(--t2);line-height:1.75;padding:12px 14px;background:var(--law-bg);border-left:3px solid var(--law);border-radius:0 8px 8px 0;margin-bottom:10px;flex:1}
+.l-easy strong{display:block;font-size:10px;color:var(--law);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.l-foot{font-family:var(--mono);font-size:12px;color:var(--m)}
 
-/* ③ 부처별 */
-.dept-tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:10px;padding-bottom:4px}.dept-tabs::-webkit-scrollbar{display:none}
-.dept-tab{padding:7px 14px;border-radius:20px;border:2px solid var(--bl);background:var(--s);font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer}
-.dept-tab.on{background:var(--a);color:#fff;border-color:var(--a)}
-.dept-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bl)}
-.dept-item:last-child{border-bottom:none}
-.dept-item-t{font-size:14px;font-weight:600;flex:1;margin-right:8px;line-height:1.4}
-.dept-item-imp{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;background:var(--al);color:var(--a);white-space:nowrap}
+/* 하단 섹션 */
+.section{padding:22px 24px;border-top:1px solid var(--b)}
+.sec-hdr{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:16px;display:flex;align-items:baseline;justify-content:space-between}
+.sec-more{font-family:var(--sans);font-size:12px;color:var(--a);text-decoration:none;font-weight:600}
 
-/* ④ 레이더 */
-.radar-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--bl)}
-.radar-item:last-child{border-bottom:none}
-.radar-dot{width:8px;height:8px;border-radius:50%;background:var(--a);flex-shrink:0;margin-top:5px}
-.radar-date{font-family:var(--mono);font-size:10px;color:var(--m);margin-bottom:2px}
-.radar-text{font-size:13px;line-height:1.5}
-.radar-tag{font-size:10px;color:var(--a);font-weight:600;margin-top:2px}
-.radar-teaser{background:var(--al);border:1px solid var(--ab);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:12px;color:var(--a);font-weight:600;text-align:center}
+/* 부처별 */
+.dept-tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:12px;padding-bottom:3px}
+.dept-tabs::-webkit-scrollbar{display:none}
+.dept-tab{font-family:var(--sans);padding:6px 14px;border-radius:18px;border:1.5px solid var(--bl);background:var(--s);font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer}
+.dept-tab.on{background:var(--policy);color:#fff;border-color:var(--policy)}
 
-.cta{margin:24px;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.cta h3{font-family:var(--serif);font-size:16px;color:#fff}.cta p{font-size:11px;color:rgba(255,255,255,.6)}
-.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+/* 카드 공통: 왼쪽 메타 + 오른쪽 쉬운 요약 */
+.card-row{display:flex;gap:0;background:var(--s);border:1px solid var(--b);border-radius:12px;overflow:hidden;margin-bottom:10px;text-decoration:none;color:var(--t)}
+.card-row:hover{border-color:var(--a)}
+.card-left{width:260px;flex-shrink:0;padding:16px 18px;border-right:1px solid var(--bl);display:flex;flex-direction:column;justify-content:center}
+.card-left-tag{font-family:var(--sans);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:6px;width:fit-content}
+.card-left-tag.policy{background:var(--policy-bg);color:var(--policy)}
+.card-left-tag.edit{background:#eef2ff;color:#3730a3}
+.card-left-tag.case{background:#fff7ed;color:#9a3412}
+.card-left-tag.opinion{background:var(--al);color:var(--a)}
+.card-left-date{font-family:var(--mono);font-size:11px;color:var(--m);margin-bottom:4px}
+.card-left-title{font-family:var(--sans);font-size:16px;font-weight:700;line-height:1.45}
+.card-left-src{font-family:var(--sans);font-size:11px;color:var(--m);margin-top:4px}
+.card-left-imp{font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:3px;background:var(--al);color:var(--a);display:inline-block;margin-top:4px}
+.card-right{flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:center}
+.card-right-label{font-family:var(--sans);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.card-right-label.policy{color:var(--policy)}
+.card-right-label.law{color:var(--law)}
+.card-right-text{font-family:var(--sans);font-size:15px;color:var(--t2);line-height:1.8}
 
-.footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.footer a{color:var(--t);text-decoration:none;font-weight:600}
+.cta{margin:24px;padding:18px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:15px;color:#fff}
+.cta p{font-family:var(--sans);font-size:10px;color:rgba(255,255,255,.6)}
+.cta a{font-family:var(--sans);padding:10px 18px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none}
 
-/* 하단 네비 (모바일만) */
-.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(5,1fr);align-items:center;max-width:960px;margin:0 auto}
-.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}.bnav a.on{color:var(--a)}.bnav a span:first-child{font-size:22px}
+.footer{padding:16px 24px;text-align:center;font-family:var(--sans);font-size:10px;color:var(--m)}
+.footer a{color:var(--t);text-decoration:none;font-weight:600}
 
-/* ===== 모바일 ===== */
 @media(max-width:768px){
-  body{padding-top:52px;padding-bottom:62px}
+  body{padding-top:52px}
   .hdr{height:50px;padding:0 14px}
   .logo{font-size:17px;margin-right:10px}
   .hnav a{font-size:11px;padding:5px 8px}
-  .hero{padding:24px 16px 18px}
+  .hero{padding:20px 16px 16px}
   .hero h1{font-size:22px}
-  .hero p{font-size:12px;margin-bottom:14px}
-  .sbox input{padding:12px 14px 12px 38px;font-size:14px}
-  .tags span{font-size:11px;padding:4px 10px}
-  .svcs{padding:12px 16px 0;gap:8px}
-  .svc{padding:12px;gap:8px}
-  .svc .tt{font-size:13px}
-  .svc .dd{font-size:9px}
-  .sec{padding:0 16px;margin-top:18px}
-  .sec-hdr{font-size:17px;margin-bottom:10px}
-  .divider{margin:18px 16px 0}
-  .carousel-card{padding:18px 16px}
-  .sum-title{font-size:16px}
-  .sum-body{font-size:13px}
-  .sum-box{font-size:12px;padding:10px 12px}
-  .law-item{padding:12px}
-  .cta{margin:18px 16px;padding:16px}
-  .cta h3{font-size:14px}
-  .bnav{display:grid}
+  .twin{flex-direction:column}
+  .twin-col{padding:18px 16px}
+  .twin-col.policy{border-right:none;border-bottom:1px solid var(--policy-border)}
+  .section{padding:18px 16px}
+  .card-row{flex-direction:column}
+  .card-left{width:auto;border-right:none;border-bottom:1px solid var(--bl)}
+  .cta{margin:18px 16px}
 }
 </style>
 </head>
@@ -146,74 +142,195 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
     <a class="on" href="/">홈</a>
+    <a href="/policy/">정부 정책 AI</a>
     <a href="/finlaw/">금융 법령 AI</a>
   </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+  <a class="bell" href="https://t.me/govbrief" target="_blank" style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:#dc2626;display:inline-block"></span> 매일 알림</a>
 </header>
 
+<!-- 검색 -->
 <section class="hero">
-  <h1>정부가 발표하면,<br>AI가 해석합니다</h1>
-  <p>정부 정책 · 금융 법령 · 입법 예고, 핵심만 브리핑</p>
-  <div class="sbox" style="position:relative">
-    <span class="si">⌕</span>
-    <input id="search-input" placeholder="정책이나 법령에 대해 물어보세요..." autocomplete="off">
+  <h1>정책과 법령, 뭐든 물어보세요</h1>
+  <p>보도자료 1,796건 · 금융법령 8,772건 · 비조치의견서 3,151건</p>
+  <div class="sbox">
+    <span class="si">&#x2315;</span>
+    <input id="search-input" placeholder="자본시장법 불공정거래, 전세보증금 못 돌려받아요..." autocomplete="off">
     <div id="search-results" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:40;margin-top:6px;background:#fff;border:1px solid var(--b);border-radius:10px;max-height:360px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.1)"></div>
   </div>
-  <div class="tags"></div>
 </section>
 
-<div class="svcs">
-  <a class="svc" href="/"><div><div class="tt">홈</div><div class="dd">51개 부처 · 일 151건 · AI 분석</div></div></a>
-  <a class="svc" href="/finlaw/"><div><div class="tt">금융 법령 AI</div><div class="dd">139법령 · 526판례 · 검색</div></div></a>
-</div>
-
-<div class="divider"></div>
-<section class="sec" id="policy-summary">
-  <div class="sec-hdr">오늘의 정책 요약 <span style="font-family:var(--mono);font-size:11px;color:var(--m);font-weight:400;margin-left:6px">2026.03.31</span><a class="sec-more" href="/articles/">전체 151건 →</a></div>
-  <div class="carousel" id="c1">
-    <div class="carousel-track" id="c1-track">
-      <div class="carousel-card">
-        <div class="sum-label">종합 1/4</div>
-        <div class="sum-title">산업·기술 · 사회·복지 · 금융·경제</div>
-        <div class="sum-kw"></div>
-        <div class="sum-body">오늘 51개 부처에서 151건이 발표되었습니다. 산업·기술 63건, 사회·복지 39건, 금융·경제 25건.</div>
-        <div class="sum-foot"><a href="/articles/">상세 브리핑 →</a><span>영향도 상 0건</span></div>
-      </div><div class="carousel-card">
-        <div class="sum-label">산업·기술 2/4</div>
-        <div class="sum-title">산림청이 홍릉숲 봄꽃 축제를 개막하여 봄철 시민들에게  · 새만금개발청이 공공데이터 제공 및 데이터기반행정 </div>
-        <div class="sum-kw"></div>
-        <div class="sum-body">산림청이 홍릉숲 봄꽃 축제를 개막하여 봄철 시민들에게 휴식과 문화 체험 기회를 제공합니다. 2026 년 3 월 31 일 행사 시작과 함께 탐방객들이 홍릉숲을 찾는 등 큰 관심과 인기를 얻고 있습니다. 전국민 및 방문객을 대상으로 자연 친화적 여가 활동 기회를 제공하여 </div>
-        <div class="sum-foot"><a href="/articles/">산업·기술 63건 →</a><span>기상청, 산림청, 새만금개발청</span></div>
-      </div><div class="carousel-card">
-        <div class="sum-label">사회·복지 3/4</div>
-        <div class="sum-title">고용노동부는 2025년 유족급여 승인 기준과 관련한 사 · 고용노동부는 2025년 누적 기준 재해조사 대상 </div>
-        <div class="sum-kw"></div>
-        <div class="sum-body">고용노동부는 2025년 유족급여 승인 기준과 관련한 사고사망 재해 현황 자료를 발표하며 산재보험 수혜자 보호 체계를 점검하였습니다. 해당 발표는 2026 년 3 월 31 일 기준 유족급여 승인 건수와 사고 유형 등 주요 통계 수치를 중심으로 진행되었습니다. 본 조치는 </div>
-        <div class="sum-foot"><a href="/articles/">사회·복지 39건 →</a><span>경찰청, 고용노동부</span></div>
-      </div><div class="carousel-card">
-        <div class="sum-label">금융·경제 4/4</div>
-        <div class="sum-title">산업통상부는 2026 년 추가경정예산안으로 9,241  · 제14차 세계무역기구 (WTO) 각료회의가 폐막하</div>
-        <div class="sum-kw"></div>
-        <div class="sum-body">산업통상부는 2026 년 추가경정예산안으로 9,241 억 원을 편성하여 주요 산업 육성 및 긴급 현안 대응을 강화한다. 이 예산안은 동년 3 월 31 일 발표되었으며 구체적인 집행 시점은 관련 법령에 따른다. 해당 예산은 국내 산업계 전반에 재원 지원이 이루어져 산업 </div>
-        <div class="sum-foot"><a href="/articles/">금융·경제 25건 →</a><span>산업통상부</span></div>
+<!-- 2분할 캐러셀 -->
+<div class="twin">
+  <!-- 왼쪽: 정부 정책 AI -->
+  <div class="twin-col policy">
+    <div class="twin-header">
+      <span class="twin-badge policy">POLICY</span>
+      <span class="twin-name">정부 정책 AI</span>
+      <a class="twin-more" href="/policy/">전체 &#8594;</a>
+    </div>
+    <div class="carousel" id="c1">
+      <div class="carousel-track" id="c1-track">
+        <div class="carousel-card">
+          <div class="p-cat">금융 · 경제</div>
+          <div class="p-title">보험료 면제 2년, 어린이 할인 15%, 체납 감면 50%</div>
+          <div class="p-easy">
+            <strong>쉬운 요약</strong>
+            아이를 낳으면 보험료를 2년간 안 내도 됩니다. 아이 보험료도 15% 싸집니다. 밀린 보험료가 있으면 절반만 내면 됩니다.
+          </div>
+          <div class="p-foot"><a href="/articles/">자세히 &#8594;</a><span>금융위 외 5개 부처</span></div>
+        </div>
+        <div class="carousel-card">
+          <div class="p-cat">산업 · 기술</div>
+          <div class="p-title">AI 기본법 지원 데스크, 552건 상담 접수</div>
+          <div class="p-easy">
+            <strong>쉬운 요약</strong>
+            AI를 쓰는 회사들이 "우리 AI가 위험한 건지" 궁금해서 552번이나 물어봤습니다. 가장 많이 물어본 건 위험 판정 기준(38%)입니다.
+          </div>
+          <div class="p-foot"><a href="/articles/">자세히 &#8594;</a><span>과기부 외 8개 부처</span></div>
+        </div>
+        <div class="carousel-card">
+          <div class="p-cat">사회 · 복지</div>
+          <div class="p-title">범부처 합동 위기가구 긴급 점검</div>
+          <div class="p-easy">
+            <strong>쉬운 요약</strong>
+            혼자 사는 어르신이나 어려운 가정을 놓치지 않도록 복지부, 행안부, 교육부가 함께 긴급 점검합니다.
+          </div>
+          <div class="p-foot"><a href="/articles/">자세히 &#8594;</a><span>복지부 외 6개 부처</span></div>
+        </div>
+      </div>
+      <div class="carousel-dots" id="c1-dots">
+        <span class="carousel-dot on"></span><span class="carousel-dot"></span><span class="carousel-dot"></span>
       </div>
     </div>
-    <div class="carousel-dots" id="c1-dots"><span class="carousel-dot on"></span><span class="carousel-dot"></span><span class="carousel-dot"></span><span class="carousel-dot"></span></div>
   </div>
+
+  <!-- 오른쪽: 금융 법령 AI -->
+  <div class="twin-col law">
+    <div class="twin-header">
+      <span class="twin-badge law">LAW</span>
+      <span class="twin-name">금융 법령 AI</span>
+      <a class="twin-more" href="/finlaw/">전체 &#8594;</a>
+    </div>
+    <div class="carousel" id="c2">
+      <div class="carousel-track" id="c2-track">
+        <div class="carousel-card">
+          <span class="l-tag edit">법령 개정</span>
+          <div class="l-title">자본시장법 시행령 &#8212; 자기주식 소각 의무화</div>
+          <div class="l-easy">
+            <strong>쉬운 설명</strong>
+            회사가 자기 주식을 사면 이제 반드시 없애야 합니다. 주식을 사놓고 주가를 조절하는 게 금지됩니다. 투자자 보호를 위한 조치입니다.
+          </div>
+          <div class="l-foot">공시 기준 5%&#8594;3% 강화</div>
+        </div>
+        <div class="carousel-card">
+          <span class="l-tag case">판례</span>
+          <div class="l-title">금융투자상품 불완전판매 손해배상</div>
+          <div class="l-easy">
+            <strong>쉬운 설명</strong>
+            펀드나 보험 가입할 때 "위험할 수 있다"는 설명을 제대로 안 해줬으면, 금융회사가 손해를 배상해야 합니다. 서류에 서명만 받는 건 부족합니다.
+          </div>
+          <div class="l-foot">대법원 판결</div>
+        </div>
+        <div class="carousel-card">
+          <span class="l-tag notice">입법예고</span>
+          <div class="l-title">금융소비자보호법 &#8212; 숙려기간 2일&#8594;5일</div>
+          <div class="l-easy">
+            <strong>쉬운 설명</strong>
+            위험한 금융상품을 살 때 "다시 생각할 시간"이 2일에서 5일로 늘어납니다. 충동 가입으로 손해 보는 걸 막기 위한 법입니다.
+          </div>
+          <div class="l-foot">D-3 · 금융위원회</div>
+        </div>
+      </div>
+      <div class="carousel-dots" id="c2-dots">
+        <span class="carousel-dot on"></span><span class="carousel-dot"></span><span class="carousel-dot"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 부처별 브리핑 -->
+<section class="section">
+  <div class="sec-hdr">부처별 브리핑 <a class="sec-more" href="/articles/">전체 보기 &#8594;</a></div>
+  <div class="dept-tabs">
+    <span class="dept-tab on">금융위</span><span class="dept-tab">기재부</span><span class="dept-tab">국토부</span><span class="dept-tab">과기부</span><span class="dept-tab">복지부</span><span class="dept-tab">산업부</span><span class="dept-tab">고용부</span>
+  </div>
+
+  <a class="card-row" href="/articles/">
+    <div class="card-left">
+      <span class="card-left-tag policy">금융위원회</span>
+      <div class="card-left-title">보험업권이 출산 육아에 따른 보험료 부담을 덜어드립니다</div>
+      <span class="card-left-imp">영향도 상</span>
+    </div>
+    <div class="card-right">
+      <div class="card-right-label policy">쉬운 요약</div>
+      <div class="card-right-text">아이를 낳으면 보험료를 2년간 안 내도 됩니다. 아이 보험료는 15% 할인됩니다. 밀린 보험료가 있으면 절반만 내면 됩니다. 금융권에서 처음으로 출산을 체계적으로 지원하는 정책입니다.</div>
+    </div>
+  </a>
+
+  <a class="card-row" href="/articles/">
+    <div class="card-left">
+      <span class="card-left-tag policy">금융위원회</span>
+      <div class="card-left-title">시장 변동성 확대에 편승한 불공정거래 집중 감시</div>
+      <span class="card-left-imp">영향도 중</span>
+    </div>
+    <div class="card-right">
+      <div class="card-right-label policy">쉬운 요약</div>
+      <div class="card-right-text">주식 시장이 크게 오르내릴 때 불법으로 돈을 버는 사람들을 집중 단속합니다. 내부 정보로 주식을 사거나, 가짜 뉴스로 주가를 조작하는 행위가 대상입니다.</div>
+    </div>
+  </a>
 </section>
 
-<div class="divider"></div>
-<section class="sec" id="dept-briefing">
-  <div class="sec-hdr">부처별 브리핑</div>
-  <div class="dept-tabs"><span class="dept-tab on">과학기</span><span class="dept-tab">농림축</span><span class="dept-tab">고용노</span><span class="dept-tab">산림청</span><span class="dept-tab">행정안</span><span class="dept-tab">산업통</span><span class="dept-tab">외교부</span></div>
-  <div><a href="/articles/2026-03-31/021/" style="text-decoration:none;color:inherit"><div class="dept-item"><div class="dept-item-t">의료·생명 공학(바이오) 혁신 이끌 세계 선도형 인공지능 특화 기초 모형(파운데이션 모델) 개발 가속화</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/022/" style="text-decoration:none;color:inherit"><div class="dept-item"><div class="dept-item-t">내 기술로 만든 철강재, 전 세계 핵융합로에 공급 길 열렸다!</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/023/" style="text-decoration:none;color:inherit"><div class="dept-item"><div class="dept-item-t">&quot;국민 44.5% 생성형 인공지능 경험, 전년 대비 11.2%p 증가&quot; 과기정통부, 「2025 인터넷이용실태</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/024/" style="text-decoration:none;color:inherit"><div class="dept-item"><div class="dept-item-t">4월 과학의 달, 전국 과학문화 프로그램 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/025/" style="text-decoration:none;color:inherit"><div class="dept-item"><div class="dept-item-t">&#x27;인공지능 기본법 지원 창구(지원 데스크)&#x27;, 시행 10주 차 총 552건 상담 접수, 사례집 발간으로 기업</div><span class="dept-item-imp">중</span></div></a></div>
+<!-- 법령 주요 변경 -->
+<section class="section">
+  <div class="sec-hdr">법령 주요 변경 <a class="sec-more" href="/finlaw/">전체 보기 &#8594;</a></div>
+
+  <a class="card-row" href="/finlaw/detail/284829/">
+    <div class="card-left">
+      <span class="card-left-tag edit">법령 개정</span>
+      <div class="card-left-date">2026.04.01 시행</div>
+      <div class="card-left-title">자본시장법 시행령 일부개정</div>
+      <div class="card-left-src">자기주식 소각 의무화</div>
+    </div>
+    <div class="card-right">
+      <div class="card-right-label law">쉬운 설명</div>
+      <div class="card-right-text">상장회사가 자기 주식을 사면 이제 반드시 없애야 합니다. 주식을 사놓고 주가를 올리거나 내리는 데 쓰는 걸 막기 위한 법입니다. 공시 기준도 5%에서 3%로 강화됩니다.</div>
+    </div>
+  </a>
+
+  <a class="card-row" href="/finlaw/cases/">
+    <div class="card-left">
+      <span class="card-left-tag case">판례</span>
+      <div class="card-left-date">2026.03.27 판결</div>
+      <div class="card-left-title">금융투자상품 불완전판매 손해배상</div>
+      <div class="card-left-src">대법원</div>
+    </div>
+    <div class="card-right">
+      <div class="card-right-label law">쉬운 설명</div>
+      <div class="card-right-text">금융상품을 팔 때 "이건 이런 위험이 있습니다"라고 제대로 설명해야 합니다. 서류에 도장만 받고 넘어가면 안 됩니다. 설명 안 하고 판매했으면 금융회사가 손해를 물어야 합니다.</div>
+    </div>
+  </a>
+
+  <a class="card-row" href="/finlaw/opinions/">
+    <div class="card-left">
+      <span class="card-left-tag opinion">비조치의견서</span>
+      <div class="card-left-date">2026.01</div>
+      <div class="card-left-title">이사회 없는 금융회사 책무구조도</div>
+      <div class="card-left-src">금융위원회</div>
+    </div>
+    <div class="card-right">
+      <div class="card-right-label law">쉬운 설명</div>
+      <div class="card-right-text">작은 금융회사 중에 이사회가 없는 곳이 있습니다. 이런 회사는 "누가 무슨 책임을 지는지" 적은 문서를 만들 때 별도 의결 없이 진행할 수 있습니다.</div>
+    </div>
+  </a>
 </section>
 
-<div class="cta"><div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div><a href="https://t.me/govbrief" target="_blank">구독</a></div>
+<!-- CTA -->
+<div class="cta">
+  <div><h3>매일 오전 최신 정책 브리핑</h3><p>텔레그램으로 매일 아침 3분 브리핑을 받아보세요. 놓치는 정책이 없습니다.</p></div>
+  <a href="https://t.me/govbrief" target="_blank">무료 구독</a>
+</div>
 
-<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
-
-<nav class="bnav"><a class="on" href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="javascript:void(0)" onclick="document.getElementById('search-input').focus();window.scrollTo(0,0)"><span style="font-size:16px">⌕</span>검색</a><a href="/articles/"><span style="font-size:16px">≡</span>달력</a><a href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
+<div class="footer"><a href="/">브리핑룸</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
 <script>
 function makeCarousel(id, count) {
@@ -223,70 +340,70 @@ function makeCarousel(id, count) {
   const el = document.getElementById(id);
   function go(n) {
     cur = Math.max(0, Math.min(count - 1, n));
-    track.style.transform = `translateX(-${cur * 100}%)`;
-    Array.from(dots).forEach((d, i) => d.classList.toggle('on', i === cur));
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    Array.from(dots).forEach(function(d, i) { d.classList.toggle('on', i === cur); });
   }
-  Array.from(dots).forEach((d, i) => d.addEventListener('click', () => go(i)));
-  let startX = 0;
-  el.addEventListener('touchstart', e => { startX = e.touches[0].clientX }, { passive: true });
-  el.addEventListener('touchend', e => {
-    const diff = startX - e.changedTouches[0].clientX;
+  Array.from(dots).forEach(function(d, i) { d.addEventListener('click', function() { go(i); }); });
+  var startX = 0;
+  el.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+  el.addEventListener('touchend', function(e) {
+    var diff = startX - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) go(cur + (diff > 0 ? 1 : -1));
   }, { passive: true });
+  setInterval(function() { go((cur + 1) % count); }, 12000);
 }
-makeCarousel('c1', 4);
+makeCarousel('c1', 3);
+makeCarousel('c2', 3);
 
-const searchInput = document.getElementById('search-input');
-const searchResults = document.getElementById('search-results');
-let searchTimer;
+var searchInput = document.getElementById('search-input');
+var searchResults = document.getElementById('search-results');
+var searchTimer;
 searchInput.addEventListener('input', function() {
   clearTimeout(searchTimer);
-  const q = this.value.trim();
+  var q = this.value.trim();
   if (q.length < 2) { searchResults.style.display = 'none'; return; }
-  searchTimer = setTimeout(() => doSearch(q), 300);
+  searchTimer = setTimeout(function() { doSearch(q); }, 300);
 });
 searchInput.addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && !e.isComposing) {
-    const q = this.value.trim();
+    var q = this.value.trim();
     if (q) window.location.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(q);
   }
 });
-async function doSearch(query) {
-  try {
-    const r = await fetch('https://govbrief-api.vercel.app/api/search', {
-      method: 'POST', headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({query}),
-    });
-    const data = await r.json();
-    const typeLabel = {law: '법령', article: '조문', precedent: '판례'};
-    const safeUrl = (value) => {
+function doSearch(query) {
+  fetch('https://govbrief-api.vercel.app/api/search', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({query: query}),
+  }).then(function(r) { return r.json(); }).then(function(data) {
+    var typeLabel = {law: '법령', article: '조문', precedent: '판례'};
+    function safeUrl(value) {
       try {
-        const url = new URL(String(value || ''), window.location.origin);
+        var url = new URL(String(value || ''), window.location.origin);
         if (url.protocol === 'http:' || url.protocol === 'https:') return url.href;
       } catch (e) {}
       return '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
-    };
-    const cta = document.createElement('a');
+    }
+    var cta = document.createElement('a');
     cta.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
     cta.style.cssText = 'display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none';
-    cta.textContent = data.results && data.results.length ? 'FinLaw GPT에서 상세 질문 →' : 'FinLaw GPT에게 질문하기 →';
+    cta.textContent = data.results && data.results.length ? 'FinLaw GPT에서 상세 질문 \u2192' : 'FinLaw GPT에게 질문하기 \u2192';
     searchResults.textContent = '';
     if (data.results && data.results.length) {
-      data.results.forEach(item => {
-        const link = document.createElement('a');
+      data.results.forEach(function(item) {
+        var link = document.createElement('a');
         link.href = safeUrl(item.link);
         link.style.cssText = 'display:block;padding:12px 16px;border-bottom:1px solid #e0e0e0;text-decoration:none;color:#222';
-        const top = document.createElement('div');
+        var top = document.createElement('div');
         top.style.cssText = 'display:flex;align-items:center;gap:8px';
-        const badge = document.createElement('span');
+        var badge = document.createElement('span');
         badge.style.cssText = 'font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(217,108,44,.06);color:#d96c2c';
         badge.textContent = typeLabel[item.type] || '';
-        const title = document.createElement('span');
+        var title = document.createElement('span');
         title.style.cssText = 'font-size:14px;font-weight:600';
         title.textContent = String(item.title || '').slice(0,50);
         top.appendChild(badge);
         top.appendChild(title);
-        const subtitle = document.createElement('div');
+        var subtitle = document.createElement('div');
         subtitle.style.cssText = 'font-size:12px;color:#999;margin-top:3px';
         subtitle.textContent = String(item.subtitle || '').slice(0,60);
         link.appendChild(top);
@@ -296,14 +413,14 @@ async function doSearch(query) {
       searchResults.appendChild(cta);
       searchResults.style.display = 'block';
     } else {
-      const empty = document.createElement('div');
+      var empty = document.createElement('div');
       empty.style.cssText = 'padding:16px;text-align:center;font-size:13px;color:#999';
       empty.textContent = '검색 결과 없음';
       searchResults.appendChild(empty);
       searchResults.appendChild(cta);
       searchResults.style.display = 'block';
     }
-  } catch(e) { console.error(e); }
+  }).catch(function(e) { console.error(e); });
 }
 document.addEventListener('click', function(e) {
   if (!e.target.closest('.sbox')) searchResults.style.display = 'none';
