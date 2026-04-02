@@ -76,6 +76,17 @@ def _build_keyword_section(keywords: list[str]) -> str:
     return f"""<div class='keywords'>{"".join(f"<span>#{html.escape(k)}</span>" for k in keywords)}</div>"""
 
 
+def _build_easy_summary(easy: str) -> str:
+    if not easy or not easy.strip():
+        return ""
+    lines = [l.strip() for l in easy.strip().split("\n") if l.strip()]
+    items = "".join(f"<li style='margin-bottom:6px'>{html.escape(l)}</li>" for l in lines[:5])
+    return f"""<section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
+      <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
+      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0">{items}</ol>
+    </section>"""
+
+
 def _build_summary_section(summary: str) -> str:
     text = (summary or "").strip() or "요약이 준비 중입니다."
     return f"""<section class="summary">
@@ -268,6 +279,7 @@ def generate_article_pages(target_date: str) -> int:
     <div class="meta-i"><span>기관</span><strong>{h_source}</strong></div>
   </div>
   <div class="post-content">
+    {_build_easy_summary(it.get("easy_summary", ""))}
     {_build_summary_section(summary)}
     {_build_context_section("왜 중요한가", why_important, "why-box", "Why It Matters")}
     {_build_keyword_section(keywords)}

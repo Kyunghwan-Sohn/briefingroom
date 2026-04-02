@@ -151,7 +151,7 @@ def sync_precedent_summaries(limit: int = 200):
                 summary = prec_data.get("판결요지", "")
 
             if summary:
-                summary = summary.strip()[:500]
+                summary = summary.strip()[:3000]
                 conn.execute(
                     "UPDATE precedents SET summary = ? WHERE prec_id = ?",
                     (summary, prec_id),
