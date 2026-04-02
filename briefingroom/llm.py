@@ -80,6 +80,22 @@ def _chat_completion(messages: list[dict], temperature: float = 0.3) -> str:
     return "[한도 초과] 재시도 모두 실패"
 
 
+REVIEW_PROMPT = """당신은 정부 보도자료 요약의 품질 검수 편집자입니다.
+아래 초안을 검수하여 동일한 형식으로 교정본을 출력하세요.
+
+검수 기준:
+1. 오탈자, 띄어쓰기 오류를 모두 수정
+2. 불필요한 특수문자(★, ●, ■, ▶, ※, 「」 등) 제거
+3. "~할 것으로 보인다", "~에 기여할 전망" 같은 관료체 표현을 직접적 표현으로 교체
+4. 쉬운요약은 중학생이 읽어도 이해할 수 있는 수준인지 확인. 전문 용어가 설명 없이 쓰였으면 괄호 설명 추가
+5. 숫자, 날짜, 고유명사의 정확성 확인 (원문과 다르면 수정하지 말고 그대로 유지)
+6. 각 섹션(요약, 쉬운요약, 왜 알아야 하나, 그래서 뭐가 달라지나, 키워드, 영향도)의 형식이 맞는지 확인
+7. 내용을 추가하거나 삭제하지 않음. 표현만 다듬음
+
+반드시 동일한 형식(요약: ... 쉬운요약: ... 왜 알아야 하나: ... 그래서 뭐가 달라지나: ... 키워드: ... 영향도: ...)으로만 출력하세요.
+다른 말은 하지 마세요."""
+
+
 def summarize(item: dict) -> str:
     global _quota_exhausted
     if _quota_exhausted:
@@ -87,20 +103,40 @@ def summarize(item: dict) -> str:
 
     text = item.get("text", "")
     if not text:
-        # 텍스트 없으면 제목 기반 요약 요청
         text = "(본문 없음. 제목만으로 요약해주세요.)"
 
     text = text[:MAX_TEXT]
     if len(item.get("text", "")) > MAX_TEXT:
         text += "\n\n[이하 생략]"
 
-    return _chat_completion(
+    # 1차: 초안 생성
+    draft = _chat_completion(
         [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": f"기관: {item['source']}\n제목: {item['title']}\n\n---\n{text}"},
         ],
         temperature=0.3,
     )
+
+    if not draft or draft.startswith("["):
+        return draft
+
+    # 2차: 교정 (오탈자, 띄어쓰기, 관료체 제거, 쉬운요약 품질 확인)
+    if _quota_exhausted:
+        return draft
+
+    reviewed = _chat_completion(
+        [
+            {"role": "system", "content": REVIEW_PROMPT},
+            {"role": "user", "content": f"[원문 제목] {item['title']}\n[원문 기관] {item['source']}\n\n[초안]\n{draft}"},
+        ],
+        temperature=0.1,
+    )
+
+    if not reviewed or reviewed.startswith("["):
+        return draft  # 교정 실패 시 초안 사용
+
+    return reviewed
 
 
 def generate_weekly_signals(payload: dict) -> list[dict]:
