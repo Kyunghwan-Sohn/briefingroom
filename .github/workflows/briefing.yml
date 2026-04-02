@@ -108,5 +108,13 @@ jobs:
 
       - name: notify-failure
         if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
+          MSG="[govbrief.kr 장애] 크롤링 실패 - $(date +%Y-%m-%d' '%H:%M) KST%0A워크플로: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
+            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -d "chat_id=${TELEGRAM_CHAT_ID}&text=${MSG}&parse_mode=HTML" > /dev/null
+          fi
           echo "::error::브리핑룸 크롤링 실패 - $(date +%Y-%m-%d %H:%M)"

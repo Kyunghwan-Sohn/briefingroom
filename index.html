@@ -258,7 +258,7 @@ async function doSearch(query) {
       body: JSON.stringify({query}),
     });
     const data = await r.json();
-    const typeLabel = {law: '법령', article: '조문', precedent: '판례'};
+    const typeLabel = {law: '법령', article: '조문', precedent: '판례', briefing: '보도자료', opinion: '비조치의견서'};
     const safeUrl = (value) => {
       try {
         const url = new URL(String(value || ''), window.location.origin);

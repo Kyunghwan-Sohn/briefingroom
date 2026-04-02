@@ -294,11 +294,37 @@ def generate_sitemap(target_date: str) -> Path:
     """sitemap.xml 생성 — 날짜별 아카이브 + 기사 페이지 URL"""
     import glob as _glob
 
-    urls = [f'  <url><loc>{SITE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>']
+    urls = [
+        f'  <url><loc>{SITE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>',
+        f'  <url><loc>{SITE_URL}/finlaw/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
+        f'  <url><loc>{SITE_URL}/finlaw/cases/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
+        f'  <url><loc>{SITE_URL}/finlaw/notices/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
+        f'  <url><loc>{SITE_URL}/finlaw/opinions/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
+        f'  <url><loc>{SITE_URL}/tools/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>',
+        f'  <url><loc>{SITE_URL}/tools/finlaw-gpt/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>',
+        f'  <url><loc>{SITE_URL}/tools/mylaw/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>',
+        f'  <url><loc>{SITE_URL}/articles/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>',
+    ]
+
+    # 법령 상세 페이지
+    detail_dir = Path(DATA_DIR).parent / "finlaw" / "detail"
+    if detail_dir.exists():
+        for d in sorted(detail_dir.iterdir()):
+            if d.is_dir() and (d / "index.html").exists():
+                urls.append(f'  <url><loc>{SITE_URL}/finlaw/detail/{d.name}/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>')
+
+    # 법령 diff 페이지
+    diff_dir = Path(DATA_DIR).parent / "finlaw" / "diff"
+    if diff_dir.exists():
+        for d in sorted(diff_dir.iterdir()):
+            if d.is_dir() and (d / "index.html").exists():
+                urls.append(f'  <url><loc>{SITE_URL}/finlaw/diff/{d.name}/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>')
 
     # 날짜별 JSON에서 기사 URL 수집
     for json_file in sorted(Path(DATA_DIR).glob("20*.json")):
         date_str = json_file.stem
+        if "weekly" in date_str or "schedule" in date_str or "latest" in date_str:
+            continue
         data = json.loads(json_file.read_text(encoding="utf-8"))
         items = data.get("items", [])
         for idx, item in enumerate(items):
