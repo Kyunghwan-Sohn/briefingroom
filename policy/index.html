@@ -29,16 +29,16 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 
 /* 히어로 */
 .hero{background:var(--policy-bg);padding:32px 24px 24px;border-bottom:1px solid var(--policy-border)}
-.hero-top{text-align:center;margin-bottom:18px}
-.hero-top h1{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--t);margin-bottom:4px}
+.hero-top{text-align:center;margin-bottom:20px}
+.hero-top h1{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--t);margin-bottom:4px;line-height:1.35}
 .hero-date{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--t);margin-bottom:2px}
 .hero-sub{font-family:var(--sans);font-size:14px;color:var(--m)}
 
 /* 대시보드 숫자 */
-.dash{display:flex;gap:10px;margin-bottom:18px}
-.dash-box{flex:1;background:var(--s);border:1px solid var(--policy-border);border-radius:12px;padding:14px;text-align:center}
-.dash-box .n{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--policy);line-height:1}
-.dash-box .l{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--policy);margin-top:5px}
+.hero-dash{display:flex;gap:10px;margin-bottom:18px}
+.hero-stat{flex:1;background:var(--s);border:1px solid var(--policy-border);border-radius:12px;padding:14px;text-align:center}
+.hero-stat .num{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--policy);line-height:1}
+.hero-stat .label{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--policy);margin-top:5px}
 
 /* 검색 */
 .sbox{max-width:100%;position:relative}
@@ -99,7 +99,9 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   .hnav a{font-size:11px;padding:5px 8px}
   .hero{padding:22px 16px 18px}
   .hero-top h1{font-size:22px}
-  .dash-box .n{font-size:22px}
+  .hero-stat{padding:12px 6px}
+  .hero-stat .num{font-size:22px}
+  .hero-stat .label{font-size:11px}
   .section{padding:18px 16px}
   .card-row{flex-direction:column}
   .card-left{width:auto;border-right:none;border-bottom:1px solid var(--bl)}
@@ -127,11 +129,11 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
     <div class="hero-sub">51개 부처 보도자료 AI 요약 · 매일 업데이트</div>
   </div>
 
-  <div class="dash">
-    <div class="dash-box"><div class="n">148</div><div class="l">오늘 발표</div></div>
-    <div class="dash-box"><div class="n">51</div><div class="l">참여 부처</div></div>
-    <div class="dash-box"><div class="n">5</div><div class="l">영향도 상</div></div>
-    <div class="dash-box"><div class="n">1,796</div><div class="l">누적 분석</div></div>
+  <div class="hero-dash">
+    <div class="hero-stat"><div class="num">148</div><div class="label">오늘 발표</div></div>
+    <div class="hero-stat"><div class="num">51</div><div class="label">참여 부처</div></div>
+    <div class="hero-stat"><div class="num">5</div><div class="label">영향도 상</div></div>
+    <div class="hero-stat"><div class="num">1,796</div><div class="label">누적 분석</div></div>
   </div>
 
   <div class="sbox">

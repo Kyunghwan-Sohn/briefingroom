@@ -12,7 +12,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
 
@@ -28,14 +29,15 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .bell{color:var(--m);text-decoration:none;font-size:16px;margin-left:auto;flex-shrink:0}
 
 /* 히어로 */
-.hero{background:#efefef;padding:32px 24px 24px;border-bottom:1px solid var(--b)}
+.hero{background:var(--law-bg);padding:32px 24px 24px;border-bottom:1px solid var(--law-border)}
 .hero-top{text-align:center;margin-bottom:20px}
-.hero-top h1{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--t);margin-bottom:4px;line-height:1.35}
-.hero-top p{font-size:13px;color:var(--m)}
+.hero-top h1{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--t);margin-bottom:4px;line-height:1.35}
+.hero-date{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--t);margin-bottom:2px}
+.hero-sub{font-family:var(--sans);font-size:14px;color:var(--m)}
 .hero-dash{display:flex;gap:10px;margin-bottom:18px}
-.hero-stat{flex:1;background:var(--s);border:1px solid var(--law-border);border-radius:12px;padding:16px;text-align:center;position:relative}
-.hero-stat .num{font-family:var(--mono);font-size:28px;font-weight:700;line-height:1;color:var(--law)}
-.hero-stat .label{font-size:12px;font-weight:700;margin-top:6px;color:var(--law)}
+.hero-stat{flex:1;background:var(--s);border:1px solid var(--law-border);border-radius:12px;padding:14px;text-align:center;position:relative}
+.hero-stat .num{font-family:var(--mono);font-size:30px;font-weight:700;line-height:1;color:var(--law)}
+.hero-stat .label{font-family:var(--sans);font-size:13px;font-weight:700;margin-top:5px;color:var(--law)}
 .hero-stat .dot{position:absolute;top:10px;right:10px;width:6px;height:6px;border-radius:50%;background:#dc2626;animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .hero-headline{background:var(--s);border:2px solid var(--a);border-radius:12px;padding:16px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
@@ -131,7 +133,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   .hero-dash{gap:6px}
   .hero-stat{padding:12px 6px}
   .hero-stat .num{font-size:22px}
-  .hero-stat .label{font-size:9px}
+  .hero-stat .label{font-size:11px}
   .hero-headline{padding:12px 14px;gap:8px}
   .hero-headline .title{font-size:14px}
   .hero-headline .sub{font-size:11px}
@@ -163,8 +165,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 <section class="hero">
   <div class="hero-top">
     <h1>금융 법령 AI</h1>
-    <p style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:700;letter-spacing:.02em">2026. 04. 02 (목)</p>
-    <p style="margin-top:2px">최근 법령 변동 현황</p>
+    <div class="hero-date">2026. 04. 02 (수)</div>
+    <div class="hero-sub">금융 법령 139건 · 판례 526건 · 매일 모니터링</div>
   </div>
 
   <div class="hero-dash">
