@@ -185,8 +185,8 @@ def enrich_date(target_date: str, max_items: int = 200):
         if "왜 중요한가" in text or "주요 내용" in text:
             continue
 
-        # 원문 URL 추출
-        m = re.search(r'href="(https?://[^"]+)"[^>]*>원문 보기', text)
+        # 원문 URL 추출 (여러 패턴: "원문 보기 →", "↗ 원문 보기", "원문 보기")
+        m = re.search(r'href="(https?://[^"]+)"[^>]*>[^<]*원문', text)
         if not m:
             continue
 
