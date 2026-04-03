@@ -28,6 +28,43 @@ CAT_LABELS = {
 
 IMPACT_RANK = {"상": 3, "중": 2, "하": 1}
 
+# 부처 약칭 매핑
+SHORT_SOURCE = {
+    "과학기술정보통신부": "과기부",
+    "농림축산식품부": "농식품부",
+    "고용노동부": "고용부",
+    "산업통상자원부": "산업부",
+    "산업통상부": "산업부",
+    "행정안전부": "행안부",
+    "보건복지부": "복지부",
+    "국토교통부": "국토부",
+    "해양수산부": "해수부",
+    "환경부": "환경부",
+    "외교부": "외교부",
+    "교육부": "교육부",
+    "금융위원회": "금융위",
+    "금융감독원": "금감원",
+    "기획재정부": "기재부",
+    "기획예산처": "기재부",
+    "법무부": "법무부",
+    "국방부": "국방부",
+    "통일부": "통일부",
+    "여성가족부": "여가부",
+    "성평등가족부": "여가부",
+    "식품의약품안전처": "식약처",
+    "조달청": "조달청",
+    "산림청": "산림청",
+    "관세청": "관세청",
+    "경찰청": "경찰청",
+    "소방청": "소방청",
+    "기상청": "기상청",
+    "특허청": "특허청",
+    "통계청": "통계청",
+    "문화체육관광부": "문체부",
+    "중소벤처기업부": "중기부",
+    "질병관리청": "질병청",
+}
+
 # CSS (현재 index.html에서 추출)
 def _read_current_css() -> str:
     if INDEX_PATH.exists():
@@ -113,7 +150,7 @@ def _build_policy_carousel(items: list[dict], target_date: str) -> str:
     slide_count = len(slides)
     dots = "".join(f'<span class="carousel-dot{" on" if i == 0 else ""}"></span>' for i in range(slide_count))
 
-    return f"""<div class="sec-hdr">오늘의 정책 요약 <span style="font-family:var(--mono);font-size:11px;color:var(--m);font-weight:400;margin-left:6px">{date_display}</span><a class="sec-more" href="/articles/">전체 {len(items)}건 →</a></div>
+    return f"""<div class="sec-hdr">오늘의 정책 요약 <span style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--t);margin-left:8px">{date_display}</span><a class="sec-more" href="/articles/">전체 {len(items)}건 →</a></div>
   <div class="carousel" id="c1">
     <div class="carousel-track" id="c1-track">
       {"".join(slides)}
@@ -123,35 +160,40 @@ def _build_policy_carousel(items: list[dict], target_date: str) -> str:
 
 
 def _build_dept_briefing(items: list[dict]) -> str:
-    """부처별 브리핑 탭"""
+    """부처별 브리핑 탭 (전체 + 부처별 필터링)"""
     by_source = defaultdict(list)
     for it in items:
         by_source[it.get("source", "")].append(it)
 
-    # 상위 7개 부처
-    top_sources = sorted(by_source.items(), key=lambda x: -len(x[1]))[:7]
+    top_sources = sorted(by_source.items(), key=lambda x: -len(x[1]))[:10]
     if not top_sources:
         return ""
 
-    tabs = []
-    for i, (src, _) in enumerate(top_sources):
-        short = src[:3]
-        cls = ' on' if i == 0 else ''
-        tabs.append(f'<span class="dept-tab{cls}">{h.escape(short)}</span>')
+    tabs = ['<button class="dept-tab on" type="button" data-dept="all">전체</button>']
+    for src, src_items in top_sources:
+        short = SHORT_SOURCE.get(src, src[:3] if len(src) > 3 else src)
+        tabs.append(f'<button class="dept-tab" type="button" data-dept="{h.escape(src)}">{h.escape(short)} {len(src_items)}</button>')
 
-    # 첫 번째 부처 항목
-    first_items = top_sources[0][1][:5]
-    rows = []
-    for it in first_items:
-        imp = it.get("impact", "중")
-        slug = it.get("slug") or "000"
-        date = it.get("date", "")
-        link = f"/articles/{date}/{slug}/" if date else "/articles/"
-        rows.append(f'<a href="{link}" style="text-decoration:none;color:inherit"><div class="dept-item"><div class="dept-item-t">{h.escape(it.get("title","")[:60])}</div><span class="dept-item-imp">{h.escape(imp)}</span></div></a>')
+    all_rows = []
+    for src, src_items in top_sources:
+        for it in src_items[:5]:
+            imp = it.get("impact", "중")
+            slug = it.get("slug") or "000"
+            item_date = it.get("date", "")
+            link = f"/articles/{item_date}/{slug}/" if item_date else "/articles/"
+            all_rows.append(
+                f'<a href="{link}" class="dept-row" data-source="{h.escape(src)}" '
+                f'style="text-decoration:none;color:inherit;display:block">'
+                f'<div class="dept-item">'
+                f'<div class="dept-item-t">{h.escape(it.get("title","")[:80])}</div>'
+                f'<span class="dept-item-imp">{h.escape(imp)}</span>'
+                f'</div></a>')
 
+    tabs_html = "".join(tabs)
+    rows_html = "".join(all_rows)
     return f"""<div class="sec-hdr">부처별 브리핑</div>
-  <div class="dept-tabs">{"".join(tabs)}</div>
-  <div>{"".join(rows)}</div>"""
+  <div class="dept-tabs" id="home-dept-tabs">{tabs_html}</div>
+  <div id="home-dept-list">{rows_html}</div>"""
 
 
 def _policy_top_items(items: list[dict], top_indices: list[int] | None = None) -> list[dict]:
@@ -718,11 +760,27 @@ async function doSearch(query){{
     try{{const items=await searchSupabase(query);renderResults(items,query);}}
     catch(e2){{renderResults([],query);}}
   }}
-  }} catch(e) {{ console.error(e); }}
 }}
 document.addEventListener('click', function(e) {{
   if (!e.target.closest('.sbox')) searchResults.style.display = 'none';
 }});
+
+// 부처별 브리핑 필터링
+(function(){{
+  const tabs=document.querySelectorAll('#home-dept-tabs .dept-tab');
+  const rows=document.querySelectorAll('#home-dept-list .dept-row');
+  if(!tabs.length) return;
+  tabs.forEach(function(tab){{
+    tab.addEventListener('click',function(){{
+      tabs.forEach(function(t){{t.classList.remove('on')}});
+      tab.classList.add('on');
+      const dept=tab.getAttribute('data-dept');
+      rows.forEach(function(r){{
+        r.style.display=(dept==='all'||r.getAttribute('data-source')===dept)?'block':'none';
+      }});
+    }});
+  }});
+}})();
 </script>
 
 </body>
