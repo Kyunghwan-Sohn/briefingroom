@@ -11,6 +11,7 @@ from datetime import date
 from pathlib import Path
 
 from briefingroom.config import BASE_DIR, DATA_DIR
+from briefingroom.site_templates import render_top_nav, render_footer
 
 ARTICLES_DIR = BASE_DIR / "articles"
 
@@ -105,6 +106,9 @@ def generate_articles_index():
   {top_html}
 </div>""")
 
+    nav_html = render_top_nav("archive")
+    footer_html = render_footer()
+
     page = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -120,25 +124,20 @@ def generate_articles_index():
 </head>
 <body>
 
-<header class="hdr">
-  <a class="logo" href="/">브리핑룸</a>
-  <nav class="hnav">
-    <a class="on" href="/">홈</a>
-    <a href="/finlaw/">금융 법령 AI</a>
-  </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
-</header>
+{nav_html}
 
 <div style="padding:24px 20px 80px">
-<a href="/" style="color:var(--m);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px">← 브리핑룸</a>
 <h1 style="font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:6px">보도자료 아카이브</h1>
-<p style="font-size:14px;color:var(--t2);margin-bottom:20px">51개 부처 보도자료 날짜별 브리핑</p>
+<p style="font-size:14px;color:var(--t2);margin-bottom:14px">51개 부처 보도자료 날짜별 브리핑 + 주간 리포트</p>
+<div style="display:flex;gap:8px;margin-bottom:20px">
+  <a href="/articles/weekly/" style="display:inline-block;padding:8px 16px;border-radius:8px;background:#1e40af;color:#fff;font-size:13px;font-weight:600;text-decoration:none">주간 리포트</a>
+</div>
 
 {"".join(day_cards)}
 
 </div>
 
-<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+{footer_html}
 
 </body>
 </html>"""
