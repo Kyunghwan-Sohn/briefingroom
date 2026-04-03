@@ -15,12 +15,16 @@
 html,body{height:100%}
 body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;display:flex;flex-direction:column}
 
-.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
-.hnav{display:flex;gap:6px;align-items:center;flex:1;min-width:0}
-.hnav a{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--t2);text-decoration:none;padding:7px 14px;border-radius:8px;white-space:nowrap;background:var(--s);border:1px solid var(--bl)}.hnav a:hover{border-color:var(--a);color:var(--a)}
-.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}.hnav a.on-policy{color:#fff;background:#1e40af;border-color:#1e40af;font-weight:700}.hnav a.on-law{color:#fff;background:#047857;border-color:#047857;font-weight:700}
-.bell{color:var(--m);text-decoration:none;font-size:14px;font-weight:600;margin-left:auto;flex-shrink:0}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:#1e40af;border-color:#1e40af;font-weight:700}
+.hnav a.on-law{color:#fff;background:#047857;border-color:#047857;font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
 
 .chat-wrap{flex:1;display:flex;flex-direction:column;padding:58px 0 0;overflow:hidden}
 
@@ -56,10 +60,11 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 
 @media(max-width:768px){
   body{padding:0}
-  .hdr{height:50px;padding:0 14px}
-  .logo{font-size:17px;margin-right:10px}
-  .hnav a{font-size:11px;padding:5px 8px}
-  .chat-wrap{padding-top:52px}
+  .hdr{height:48px;padding:0 10px}
+  .logo{font-size:16px;margin-right:8px}
+  .hnav{gap:3px}
+  .hnav a{font-size:11px;padding:5px 7px}
+  .chat-wrap{padding-top:50px}
   .chat-intro{padding:24px 16px}
   .chat-intro h1{font-size:20px}
   .messages{padding:12px 16px}
@@ -77,8 +82,9 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
     <a href="/">홈</a>
     <a href="/policy/">정부 정책 AI</a>
     <a href="/finlaw/">금융 법령 AI</a>
+    <a href="/articles/">아카이브</a>
   </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank" style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:#dc2626;display:inline-block"></span> 매일 알림</a>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
 
 <div class="chat-wrap">
@@ -209,10 +215,28 @@ const SYSTEM_PROMPT = `당신은 한국 금융법령 전문 AI 어시스턴트 '
 답변은 마크다운 형식으로 작성하세요.
 본 답변은 법률 자문이 아닌 정보 제공 목적입니다.`;
 
+async function searchILIKE(query) {
+  const hdr = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY };
+  const kw = '%' + query + '%';
+  const results = { laws: [], articles: [], precedents: [], interpretations: [] };
+  try {
+    const [lawsR, artR, precR] = await Promise.all([
+      fetch(SUPABASE_URL + '/rest/v1/laws?or=(name.ilike.' + encodeURIComponent(kw) + ',amendment_reason.ilike.' + encodeURIComponent(kw) + ')&select=name,ministry,law_type,amendment_reason&limit=3', {headers: hdr}),
+      fetch(SUPABASE_URL + '/rest/v1/articles?or=(article_title.ilike.' + encodeURIComponent(kw) + ',content.ilike.' + encodeURIComponent(kw) + ')&select=article_no,article_title,content&limit=5', {headers: hdr}),
+      fetch(SUPABASE_URL + '/rest/v1/precedents?or=(case_name.ilike.' + encodeURIComponent(kw) + ',summary.ilike.' + encodeURIComponent(kw) + ')&select=case_name,court,decision_date,summary&limit=3', {headers: hdr}),
+    ]);
+    results.laws = await lawsR.json().catch(() => []);
+    results.articles = await artR.json().catch(() => []);
+    results.precedents = await precR.json().catch(() => []);
+  } catch(e) { console.error('ILIKE search error:', e); }
+  return results;
+}
+
 async function searchSupabase(query) {
   const headers = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' };
   const results = { laws: [], articles: [], precedents: [], interpretations: [] };
 
+  // 1차: RPC FTS 검색
   const calls = [
     fetch(SUPABASE_URL + '/rest/v1/rpc/search_laws', { method: 'POST', headers, body: JSON.stringify({ query, match_count: 3 }) }),
     fetch(SUPABASE_URL + '/rest/v1/rpc/search_articles', { method: 'POST', headers, body: JSON.stringify({ query, match_count: 5 }) }),
@@ -227,6 +251,16 @@ async function searchSupabase(query) {
     results.precedents = await precR.json().catch(() => []);
     results.interpretations = await interpR.json().catch(() => []);
   } catch (e) { console.error('Search error:', e); }
+
+  // 2차: FTS 결과 없으면 ILIKE 폴백
+  const total = (results.laws?.length||0) + (results.articles?.length||0) + (results.precedents?.length||0) + (results.interpretations?.length||0);
+  if (total === 0) {
+    console.log('FTS empty, falling back to ILIKE for:', query);
+    const ilike = await searchILIKE(query);
+    results.laws = ilike.laws || [];
+    results.articles = ilike.articles || [];
+    results.precedents = ilike.precedents || [];
+  }
 
   return results;
 }
