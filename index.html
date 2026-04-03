@@ -22,7 +22,6 @@
 --law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
-
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
 .hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -33,8 +32,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
 .hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
 .bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
-
-/* 검색 */
 .hero{background:#efefef;padding:28px 24px 22px;text-align:center;border-bottom:1px solid var(--b)}
 .hero h1{font-family:var(--serif);font-size:30px;font-weight:700;margin-bottom:6px;line-height:1.35}
 .hero p{font-family:var(--sans);font-size:15px;color:var(--m);margin-bottom:16px}
@@ -43,98 +40,74 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .sbox input::placeholder{color:var(--m)}
 .sbox input:focus{border-color:var(--a)}
 .si{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--m);font-size:16px}
-
-/* 2분할 */
-.twin{display:flex;gap:0}
-.twin-col{flex:1;min-width:0;padding:22px 24px 22px;display:flex;flex-direction:column}
-.twin-col.policy{background:var(--policy-bg);border-right:1px solid var(--policy-border)}
-.twin-col.law{background:var(--law-bg)}
-.twin-header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
-.twin-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:.05em}
-.twin-badge.policy{background:var(--policy);color:#fff}
-.twin-badge.law{background:var(--law);color:#fff}
-.twin-name{font-family:var(--serif);font-size:20px;font-weight:700}
-.twin-more{font-family:var(--sans);font-size:12px;color:var(--a);text-decoration:none;font-weight:600;margin-left:auto}
-
-/* 캐러셀 */
-.carousel{position:relative;overflow:hidden;border-radius:12px;border:1px solid var(--b);background:var(--s);flex:1}
-.carousel-track{display:flex;transition:transform .3s ease;height:100%}
-.carousel-card{min-width:100%;padding:20px;display:flex;flex-direction:column}
-.carousel-dots{display:flex;justify-content:center;gap:5px;padding:8px 0}
-.carousel-dot{width:7px;height:7px;border-radius:50%;background:var(--bl);cursor:pointer;transition:background .2s}
+.tags{display:flex;gap:6px;margin-top:10px;justify-content:center;flex-wrap:wrap}
+.tags span{font-size:12px;color:var(--t2);border:1px solid var(--b);padding:5px 14px;border-radius:18px;background:#fff;cursor:pointer}
+.tags span:hover{border-color:var(--a);color:var(--a)}
+.svcs{display:flex;gap:12px;padding:18px 24px 0}
+.svc{flex:1;background:var(--s);border:2px solid var(--b);border-radius:12px;padding:18px;text-decoration:none;color:var(--t);display:flex;gap:12px;align-items:center;justify-content:center;text-align:center}
+.svc:first-child{border-color:var(--a)}
+.svc .tt{font-size:20px;font-weight:700;font-family:var(--serif)}
+.svc .dd{font-size:12px;color:var(--t2);margin-top:3px}
+.sec{padding:0 24px;margin-top:24px}
+.sec-hdr{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:14px;display:flex;align-items:baseline;justify-content:space-between}
+.sec-more{font-size:11px;color:var(--a);text-decoration:none;font-weight:600}
+.divider{height:1px;background:var(--b);margin:24px 24px 0}
+.carousel{position:relative;overflow:hidden;border-radius:14px;border:2px solid var(--b);background:var(--s)}
+.carousel-track{display:flex;transition:transform .3s ease}
+.carousel-card{min-width:100%;padding:24px}
+.carousel-dots{display:flex;justify-content:center;gap:6px;padding:10px 0}
+.carousel-dot{width:8px;height:8px;border-radius:50%;background:var(--bl);cursor:pointer;transition:background .2s}
 .carousel-dot.on{background:var(--a)}
-
-/* 정책 카드 */
-.p-cat{font-family:var(--sans);font-size:11px;font-weight:700;color:var(--policy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
-.p-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.45;margin-bottom:10px}
-.p-easy{font-family:var(--sans);font-size:15px;color:var(--t2);line-height:1.75;padding:12px 14px;background:var(--policy-bg);border-left:3px solid var(--policy);border-radius:0 8px 8px 0;margin-bottom:10px;flex:1}
-.p-easy strong{display:block;font-size:10px;color:var(--policy);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
-.p-foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-size:12px;color:var(--m)}
-.p-foot a{color:var(--policy);text-decoration:none;font-weight:600;font-size:13px}
-
-/* 법령 카드 */
-.l-tag{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;margin-bottom:6px}
-.l-tag.edit{background:#eef2ff;color:#3730a3}
-.l-tag.case{background:#fff7ed;color:#9a3412}
-.l-tag.notice{background:#ecfdf5;color:#065f46}
-.l-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.45;margin-bottom:10px}
-.l-easy{font-family:var(--sans);font-size:15px;color:var(--t2);line-height:1.75;padding:12px 14px;background:var(--law-bg);border-left:3px solid var(--law);border-radius:0 8px 8px 0;margin-bottom:10px;flex:1}
-.l-easy strong{display:block;font-size:10px;color:var(--law);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
-.l-foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-size:12px;color:var(--m)}
-
-/* 하단 섹션 */
-.section{padding:22px 24px;border-top:1px solid var(--b)}
-.sec-hdr{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:16px;display:flex;align-items:baseline;justify-content:space-between}
-.sec-more{font-family:var(--sans);font-size:12px;color:var(--a);text-decoration:none;font-weight:600}
-
-/* 부처별 */
-.dept-tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:12px;padding-bottom:3px}
+.sum-label{font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.sum-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.5;margin-bottom:10px}
+.sum-kw{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.sum-kw span{font-size:12px;font-weight:700;color:var(--a);background:var(--al);border:1px solid var(--ab);padding:4px 12px;border-radius:16px}
+.sum-body{font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:12px}
+.sum-foot{display:flex;align-items:center;justify-content:space-between}
+.sum-foot a{font-size:12px;color:var(--a);text-decoration:none;font-weight:600}
+.sum-foot span{font-family:var(--mono);font-size:10px;color:var(--m)}
+.dept-tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:10px;padding-bottom:4px}
 .dept-tabs::-webkit-scrollbar{display:none}
-.dept-tab{font-family:var(--sans);padding:6px 14px;border-radius:18px;border:1.5px solid var(--bl);background:var(--s);font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer}
-.dept-tab.on{background:var(--policy);color:#fff;border-color:var(--policy)}
-
-/* 카드 공통: 왼쪽 메타 + 오른쪽 쉬운 요약 */
-.card-row{display:flex;gap:0;background:var(--s);border:1px solid var(--b);border-radius:12px;overflow:hidden;margin-bottom:10px;text-decoration:none;color:var(--t)}
-.card-row:hover{border-color:var(--a)}
-.card-left{width:260px;flex-shrink:0;padding:16px 18px;border-right:1px solid var(--bl);display:flex;flex-direction:column;justify-content:center}
-.card-left-tag{font-family:var(--sans);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:6px;width:fit-content}
-.card-left-tag.policy{background:var(--policy-bg);color:var(--policy)}
-.card-left-tag.edit{background:#eef2ff;color:#3730a3}
-.card-left-tag.case{background:#fff7ed;color:#9a3412}
-.card-left-tag.opinion{background:var(--al);color:var(--a)}
-.card-left-date{font-family:var(--mono);font-size:11px;color:var(--m);margin-bottom:4px}
-.card-left-title{font-family:var(--sans);font-size:16px;font-weight:700;line-height:1.45}
-.card-left-src{font-family:var(--sans);font-size:11px;color:var(--m);margin-top:4px}
-.card-left-imp{font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:3px;background:var(--al);color:var(--a);display:inline-block;margin-top:4px}
-.card-right{flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:center}
-.card-right-label{font-family:var(--sans);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
-.card-right-label.policy{color:var(--policy)}
-.card-right-label.law{color:var(--law)}
-.card-right-text{font-family:var(--sans);font-size:15px;color:var(--t2);line-height:1.8}
-
-.cta{margin:24px;padding:18px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.cta h3{font-family:var(--serif);font-size:15px;color:#fff}
-.cta p{font-family:var(--sans);font-size:10px;color:rgba(255,255,255,.6)}
-.cta a{font-family:var(--sans);padding:10px 18px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none}
-
-.footer{padding:16px 24px;text-align:center;font-family:var(--sans);font-size:10px;color:var(--m)}
+.dept-tab{padding:7px 14px;border-radius:20px;border:2px solid var(--bl);background:var(--s);font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer}
+.dept-tab.on{background:var(--a);color:#fff;border-color:var(--a)}
+.dept-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bl)}
+.dept-item:last-child{border-bottom:none}
+.dept-item-t{font-size:14px;font-weight:600;flex:1;margin-right:8px;line-height:1.4}
+.dept-item-imp{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;background:var(--al);color:var(--a);white-space:nowrap}
+.cta{margin:24px;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}
 .footer a{color:var(--t);text-decoration:none;font-weight:600}
-
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(5,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+.bnav a.on{color:var(--a)}
+.bnav a span:first-child{font-size:22px}
 @media(max-width:768px){
-  body{padding-top:48px}
+  body{padding-top:48px;padding-bottom:62px}
   .hdr{height:48px;padding:0 10px}
   .logo{font-size:16px;margin-right:8px}
   .hnav{gap:3px}
-  .hnav a{font-size:11px;padding:5px 7px;border-radius:5px}
-  .hero{padding:20px 16px 16px}
+  .hnav a{font-size:11px;padding:5px 7px}
+  .hero{padding:24px 16px 18px}
   .hero h1{font-size:22px}
-  .twin{flex-direction:column}
-  .twin-col{padding:18px 16px}
-  .twin-col.policy{border-right:none;border-bottom:1px solid var(--policy-border)}
-  .section{padding:18px 16px}
-  .card-row{flex-direction:column}
-  .card-left{width:auto;border-right:none;border-bottom:1px solid var(--bl)}
-  .cta{margin:18px 16px}
+  .hero p{font-size:12px;margin-bottom:14px}
+  .sbox input{padding:12px 14px 12px 38px;font-size:14px}
+  .tags span{font-size:11px;padding:4px 10px}
+  .svcs{padding:12px 16px 0;gap:8px}
+  .svc{padding:12px;gap:8px}
+  .svc .tt{font-size:13px}
+  .svc .dd{font-size:9px}
+  .sec{padding:0 16px;margin-top:18px}
+  .sec-hdr{font-size:17px;margin-bottom:10px}
+  .divider{margin:18px 16px 0}
+  .carousel-card{padding:18px 16px}
+  .sum-title{font-size:16px}
+  .sum-body{font-size:13px}
+  .cta{margin:18px 16px;padding:16px}
+  .cta h3{font-size:14px}
+  .bnav{display:grid}
 }
 </style>
 </head>
@@ -183,13 +156,13 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
         <div class="sum-title">산림청이 홍릉숲 봄꽃 축제를 개막하여 봄철 시민들에게  · 새만금개발청이 공공데이터 제공 및 데이터기반행정 </div>
         <div class="sum-kw"></div>
         <div class="sum-body">산림청이 홍릉숲 봄꽃 축제를 개막하여 봄철 시민들에게 휴식과 문화 체험 기회를 제공합니다. 2026 년 3 월 31 일 행사 시작과 함께 탐방객들이 홍릉숲을 찾는 등 큰 관심과 인기를 얻고 있습니다. 전국민 및 방문객을 대상으로 자연 친화적 여가 활동 기회를 제공하여 </div>
-        <div class="sum-foot"><a href="/articles/">산업·기술 63건 →</a><span>기상청, 새만금개발청, 중소벤처기업부</span></div>
+        <div class="sum-foot"><a href="/articles/">산업·기술 63건 →</a><span>중소벤처기업부, 기상청, 산림청</span></div>
       </div><div class="carousel-card">
         <div class="sum-label">사회·복지 3/4</div>
         <div class="sum-title">고용노동부는 2025년 유족급여 승인 기준과 관련한 사 · 고용노동부는 2025년 누적 기준 재해조사 대상 </div>
         <div class="sum-kw"></div>
         <div class="sum-body">고용노동부는 2025년 유족급여 승인 기준과 관련한 사고사망 재해 현황 자료를 발표하며 산재보험 수혜자 보호 체계를 점검하였습니다. 해당 발표는 2026 년 3 월 31 일 기준 유족급여 승인 건수와 사고 유형 등 주요 통계 수치를 중심으로 진행되었습니다. 본 조치는 </div>
-        <div class="sum-foot"><a href="/articles/">사회·복지 39건 →</a><span>경찰청, 고용노동부</span></div>
+        <div class="sum-foot"><a href="/articles/">사회·복지 39건 →</a><span>고용노동부, 경찰청</span></div>
       </div><div class="carousel-card">
         <div class="sum-label">금융·경제 4/4</div>
         <div class="sum-title">산업통상부는 2026 년 추가경정예산안으로 9,241  · 제14차 세계무역기구 (WTO) 각료회의가 폐막하</div>
@@ -211,7 +184,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 
 <div class="cta"><div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div><a href="https://t.me/govbrief" target="_blank">구독</a></div>
 
-<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
 <nav class="bnav"><a class="on" href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="javascript:void(0)" onclick="document.getElementById('search-input').focus();window.scrollTo(0,0)"><span style="font-size:16px">⌕</span>검색</a><a href="/articles/"><span style="font-size:16px">≡</span>달력</a><a href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
 

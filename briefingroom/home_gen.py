@@ -334,7 +334,7 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960p
     <a href="/finlaw/">금융 법령 AI</a>
     <a href="/articles/">아카이브</a>
   </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank" rel="noopener">매일 알림</a>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
 <section class="hero">
   <div class="hero-top">
@@ -371,7 +371,7 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960p
   <div><h3>매일 오전 최신 정책 브리핑</h3><p>텔레그램으로 날짜 기준 브리핑을 받아보세요.</p></div>
   <a href="https://t.me/govbrief" target="_blank" rel="noopener">무료 구독</a>
 </div>
-<div class="footer"><a href="/">홈</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 <script>
 const policySearch = document.getElementById('policy-search');
 const policyItems = Array.from(document.querySelectorAll('.policy-item'));
@@ -440,8 +440,102 @@ def generate_home(target_date: str = ""):
     actual_date = data.get("target_date", target_date)
     date_display = actual_date.replace("-", ".")
 
-    # CSS 읽기
-    css = _read_current_css()
+    # CSS 직접 정의 (파이프라인 재생성 시에도 깨지지 않도록)
+    css = """
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe;
+--law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
+.hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
+.hero{background:#efefef;padding:28px 24px 22px;text-align:center;border-bottom:1px solid var(--b)}
+.hero h1{font-family:var(--serif);font-size:30px;font-weight:700;margin-bottom:6px;line-height:1.35}
+.hero p{font-family:var(--sans);font-size:15px;color:var(--m);margin-bottom:16px}
+.sbox{max-width:560px;margin:0 auto;position:relative}
+.sbox input{width:100%;padding:15px 16px 15px 44px;font-size:16px;border:2px solid var(--b);border-radius:12px;background:#fff;color:var(--t);outline:none;font-family:var(--sans)}
+.sbox input::placeholder{color:var(--m)}
+.sbox input:focus{border-color:var(--a)}
+.si{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--m);font-size:16px}
+.tags{display:flex;gap:6px;margin-top:10px;justify-content:center;flex-wrap:wrap}
+.tags span{font-size:12px;color:var(--t2);border:1px solid var(--b);padding:5px 14px;border-radius:18px;background:#fff;cursor:pointer}
+.tags span:hover{border-color:var(--a);color:var(--a)}
+.svcs{display:flex;gap:12px;padding:18px 24px 0}
+.svc{flex:1;background:var(--s);border:2px solid var(--b);border-radius:12px;padding:18px;text-decoration:none;color:var(--t);display:flex;gap:12px;align-items:center;justify-content:center;text-align:center}
+.svc:first-child{border-color:var(--a)}
+.svc .tt{font-size:20px;font-weight:700;font-family:var(--serif)}
+.svc .dd{font-size:12px;color:var(--t2);margin-top:3px}
+.sec{padding:0 24px;margin-top:24px}
+.sec-hdr{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:14px;display:flex;align-items:baseline;justify-content:space-between}
+.sec-more{font-size:11px;color:var(--a);text-decoration:none;font-weight:600}
+.divider{height:1px;background:var(--b);margin:24px 24px 0}
+.carousel{position:relative;overflow:hidden;border-radius:14px;border:2px solid var(--b);background:var(--s)}
+.carousel-track{display:flex;transition:transform .3s ease}
+.carousel-card{min-width:100%;padding:24px}
+.carousel-dots{display:flex;justify-content:center;gap:6px;padding:10px 0}
+.carousel-dot{width:8px;height:8px;border-radius:50%;background:var(--bl);cursor:pointer;transition:background .2s}
+.carousel-dot.on{background:var(--a)}
+.sum-label{font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.sum-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.5;margin-bottom:10px}
+.sum-kw{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.sum-kw span{font-size:12px;font-weight:700;color:var(--a);background:var(--al);border:1px solid var(--ab);padding:4px 12px;border-radius:16px}
+.sum-body{font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:12px}
+.sum-foot{display:flex;align-items:center;justify-content:space-between}
+.sum-foot a{font-size:12px;color:var(--a);text-decoration:none;font-weight:600}
+.sum-foot span{font-family:var(--mono);font-size:10px;color:var(--m)}
+.dept-tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:10px;padding-bottom:4px}
+.dept-tabs::-webkit-scrollbar{display:none}
+.dept-tab{padding:7px 14px;border-radius:20px;border:2px solid var(--bl);background:var(--s);font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer}
+.dept-tab.on{background:var(--a);color:#fff;border-color:var(--a)}
+.dept-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bl)}
+.dept-item:last-child{border-bottom:none}
+.dept-item-t{font-size:14px;font-weight:600;flex:1;margin-right:8px;line-height:1.4}
+.dept-item-imp{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;background:var(--al);color:var(--a);white-space:nowrap}
+.cta{margin:24px;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}
+.footer a{color:var(--t);text-decoration:none;font-weight:600}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(5,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+.bnav a.on{color:var(--a)}
+.bnav a span:first-child{font-size:22px}
+@media(max-width:768px){
+  body{padding-top:48px;padding-bottom:62px}
+  .hdr{height:48px;padding:0 10px}
+  .logo{font-size:16px;margin-right:8px}
+  .hnav{gap:3px}
+  .hnav a{font-size:11px;padding:5px 7px}
+  .hero{padding:24px 16px 18px}
+  .hero h1{font-size:22px}
+  .hero p{font-size:12px;margin-bottom:14px}
+  .sbox input{padding:12px 14px 12px 38px;font-size:14px}
+  .tags span{font-size:11px;padding:4px 10px}
+  .svcs{padding:12px 16px 0;gap:8px}
+  .svc{padding:12px;gap:8px}
+  .svc .tt{font-size:13px}
+  .svc .dd{font-size:9px}
+  .sec{padding:0 16px;margin-top:18px}
+  .sec-hdr{font-size:17px;margin-bottom:10px}
+  .divider{margin:18px 16px 0}
+  .carousel-card{padding:18px 16px}
+  .sum-title{font-size:16px}
+  .sum-body{font-size:13px}
+  .cta{margin:18px 16px;padding:16px}
+  .cta h3{font-size:14px}
+  .bnav{display:grid}
+}
+"""
 
     # 캐러셀 생성
     policy_carousel, c1_count = _build_policy_carousel(items, actual_date)
@@ -515,7 +609,7 @@ def generate_home(target_date: str = ""):
 
 <div class="cta"><div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div><a href="https://t.me/govbrief" target="_blank">구독</a></div>
 
-<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
 <nav class="bnav"><a class="on" href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="javascript:void(0)" onclick="document.getElementById('search-input').focus();window.scrollTo(0,0)"><span style="font-size:16px">⌕</span>검색</a><a href="/articles/"><span style="font-size:16px">≡</span>달력</a><a href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
 
