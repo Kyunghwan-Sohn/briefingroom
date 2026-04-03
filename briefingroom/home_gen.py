@@ -276,13 +276,14 @@ def generate_policy_page(target_date: str = ""):
 :root{{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;--policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe}}
 html{{scroll-behavior:smooth;-webkit-text-size-adjust:100%}}
 body{{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}}
-.hdr{{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}}
-.logo{{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px}}
-.hnav{{display:flex;gap:6px;align-items:center;flex:1}}
-.hnav a{{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--t2);text-decoration:none;padding:7px 14px;border-radius:8px;white-space:nowrap;background:var(--s);border:1px solid var(--bl)}}
+.hdr{{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}}
+.logo{{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}}
+.hnav{{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}}
+.hnav::-webkit-scrollbar{{display:none}}
+.hnav a{{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}}
 .hnav a:hover{{border-color:var(--a);color:var(--a)}}
 .hnav a.on-policy{{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}}
-.bell{{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:14px;font-weight:600;margin-left:auto}}
+.bell{{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}}
 .hero{{background:var(--policy-bg);padding:32px 24px 24px;border-bottom:1px solid var(--policy-border)}}
 .hero-top{{text-align:center;margin-bottom:20px}}
 .hero-top h1{{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--t);margin-bottom:4px;line-height:1.35}}
@@ -321,7 +322,7 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960p
 .cta a{{font-family:var(--sans);padding:10px 18px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none}}
 .footer{{padding:16px 24px;text-align:center;font-family:var(--sans);font-size:10px;color:var(--m)}}
 .footer a{{color:var(--t);text-decoration:none;font-weight:600}}
-@media(max-width:768px){{body{{padding-top:52px}}.hdr{{height:50px;padding:0 14px}}.logo{{font-size:17px;margin-right:10px}}.hnav a{{font-size:11px;padding:5px 8px}}.hero{{padding:22px 16px 18px}}.hero-top h1{{font-size:22px}}.hero-stat{{padding:12px 6px}}.hero-stat .num{{font-size:22px}}.hero-stat .label{{font-size:11px}}.section{{padding:18px 16px}}.card-row{{flex-direction:column}}.card-left{{width:auto;border-right:none;border-bottom:1px solid var(--bl)}}.cta{{margin:18px 16px}}}}
+@media(max-width:768px){{body{{padding-top:48px}}.hdr{{height:48px;padding:0 10px}}.logo{{font-size:16px;margin-right:8px}}.hnav{{gap:3px}}.hnav a{{font-size:11px;padding:5px 7px}}.hero{{padding:22px 16px 18px}}.hero-top h1{{font-size:22px}}.hero-stat{{padding:12px 6px}}.hero-stat .num{{font-size:22px}}.hero-stat .label{{font-size:11px}}.section{{padding:18px 16px}}.card-row{{flex-direction:column}}.card-left{{width:auto;border-right:none;border-bottom:1px solid var(--bl)}}.cta{{margin:18px 16px}}}}
 </style>
 </head>
 <body>
@@ -554,58 +555,75 @@ searchInput.addEventListener('keydown', function(e) {{
     if (q) window.location.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(q);
   }}
 }});
-async function doSearch(query) {{
-  try {{
-    const r = await fetch('https://govbrief-api.vercel.app/api/search', {{
-      method: 'POST', headers: {{'Content-Type': 'application/json'}},
-      body: JSON.stringify({{query}}),
+const SB_URL='https://jxoghnttelexnfoeepbz.supabase.co';
+const SB_KEY='sb_publishable_r3eTQXF419LfIiPdE17gyw_zvAQFd5s';
+const SB_HDR={{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}};
+function renderResults(items,query){{
+  const typeLabel={{law:'법령',article:'조문',precedent:'판례'}};
+  searchResults.textContent='';
+  const cta=document.createElement('a');
+  cta.href='/tools/finlaw-gpt/?q='+encodeURIComponent(query);
+  cta.style.cssText='display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none';
+  cta.textContent=items.length?'FinLaw GPT에서 상세 질문 \u2192':'FinLaw GPT에게 질문하기 \u2192';
+  if(items.length){{
+    items.forEach(item=>{{
+      const link=document.createElement('a');
+      link.href=item.link||'/tools/finlaw-gpt/?q='+encodeURIComponent(query);
+      link.style.cssText='display:block;padding:12px 16px;border-bottom:1px solid #e0e0e0;text-decoration:none;color:#222';
+      const top=document.createElement('div');top.style.cssText='display:flex;align-items:center;gap:8px';
+      const badge=document.createElement('span');badge.style.cssText='font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(217,108,44,.06);color:#d96c2c';
+      badge.textContent=typeLabel[item.type]||item.type||'';
+      const title=document.createElement('span');title.style.cssText='font-size:14px;font-weight:600';
+      title.textContent=String(item.title||'').slice(0,60);
+      top.appendChild(badge);top.appendChild(title);
+      const sub=document.createElement('div');sub.style.cssText='font-size:12px;color:#999;margin-top:3px';
+      sub.textContent=String(item.subtitle||'').slice(0,80);
+      link.appendChild(top);link.appendChild(sub);
+      searchResults.appendChild(link);
     }});
-    const data = await r.json();
-    const typeLabel = {{law: '법령', article: '조문', precedent: '판례'}};
-    const safeUrl = (value) => {{
-      try {{
-        const url = new URL(String(value || ''), window.location.origin);
-        if (url.protocol === 'http:' || url.protocol === 'https:') return url.href;
-      }} catch (e) {{}}
-      return '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
-    }};
-    const cta = document.createElement('a');
-    cta.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
-    cta.style.cssText = 'display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none';
-    cta.textContent = data.results && data.results.length ? 'FinLaw GPT에서 상세 질문 →' : 'FinLaw GPT에게 질문하기 →';
-    searchResults.textContent = '';
-    if (data.results && data.results.length) {{
-      data.results.forEach(item => {{
-        const link = document.createElement('a');
-        link.href = safeUrl(item.link);
-        link.style.cssText = 'display:block;padding:12px 16px;border-bottom:1px solid #e0e0e0;text-decoration:none;color:#222';
-        const top = document.createElement('div');
-        top.style.cssText = 'display:flex;align-items:center;gap:8px';
-        const badge = document.createElement('span');
-        badge.style.cssText = 'font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(217,108,44,.06);color:#d96c2c';
-        badge.textContent = typeLabel[item.type] || '';
-        const title = document.createElement('span');
-        title.style.cssText = 'font-size:14px;font-weight:600';
-        title.textContent = String(item.title || '').slice(0,50);
-        const subtitle = document.createElement('div');
-        subtitle.style.cssText = 'font-size:12px;color:#999;margin-top:3px';
-        subtitle.textContent = String(item.subtitle || '').slice(0,60);
-        top.appendChild(badge);
-        top.appendChild(title);
-        link.appendChild(top);
-        link.appendChild(subtitle);
-        searchResults.appendChild(link);
+  }}else{{
+    const empty=document.createElement('div');empty.style.cssText='padding:16px;text-align:center;font-size:13px;color:#999';
+    empty.textContent='금융법령(139건) 내 검색 결과 없음. 일반 법령은 법제처 국가법령정보센터를 이용하세요.';
+    searchResults.appendChild(empty);
+  }}
+  searchResults.appendChild(cta);searchResults.style.display='block';
+}}
+function searchSupabase(query){{
+  const kw='%'+query+'%';
+  return Promise.all([
+    fetch(SB_URL+'/rest/v1/laws?or=(name.ilike.'+encodeURIComponent(kw)+',amendment_reason.ilike.'+encodeURIComponent(kw)+')&select=law_id,name,ministry,law_type&limit=5',{{headers:SB_HDR}}).then(r=>r.json()),
+    fetch(SB_URL+'/rest/v1/articles?or=(article_title.ilike.'+encodeURIComponent(kw)+',content.ilike.'+encodeURIComponent(kw)+')&select=id,law_id,article_no,article_title&limit=5',{{headers:SB_HDR}}).then(r=>r.json()),
+    fetch(SB_URL+'/rest/v1/precedents?or=(case_name.ilike.'+encodeURIComponent(kw)+',summary.ilike.'+encodeURIComponent(kw)+')&select=prec_id,case_name,court,decision_date&limit=5',{{headers:SB_HDR}}).then(r=>r.json())
+  ]).then(res=>{{
+    const items=[];
+    (res[0]||[]).forEach(r=>items.push({{type:'law',title:r.name,subtitle:(r.ministry||'')+' '+(r.law_type||''),link:'/finlaw/detail/'+r.law_id+'/'}}));
+    (res[1]||[]).forEach(r=>items.push({{type:'article',title:(r.article_no?'제'+r.article_no+'조 ':'')+(r.article_title||''),subtitle:'',link:'/finlaw/detail/'+r.law_id+'/'}}));
+    (res[2]||[]).forEach(r=>items.push({{type:'precedent',title:r.case_name,subtitle:(r.court||'')+' '+(r.decision_date||''),link:'/finlaw/cases/'+r.prec_id+'/'}}));
+    return items;
+  }});
+}}
+async function doSearch(query){{
+  try{{
+    const r=await fetch('https://govbrief-api.vercel.app/api/search',{{
+      method:'POST',headers:{{'Content-Type':'application/json'}},
+      body:JSON.stringify({{query}}),
+    }});
+    const data=await r.json();
+    if(data.results&&data.results.length){{
+      const items=data.results.map(item=>{{
+        let link='/tools/finlaw-gpt/?q='+encodeURIComponent(query);
+        try{{const u=new URL(String(item.link||''),location.origin);if(u.protocol==='http:'||u.protocol==='https:')link=u.href;}}catch(e){{}}
+        return{{type:item.type,title:item.title,subtitle:item.subtitle,link}};
       }});
-      searchResults.appendChild(cta);
-      searchResults.style.display = 'block';
-    }} else {{
-      const empty = document.createElement('div');
-      empty.style.cssText = 'padding:16px;text-align:center;font-size:13px;color:#999';
-      empty.textContent = '검색 결과 없음';
-      searchResults.appendChild(empty);
-      searchResults.appendChild(cta);
-      searchResults.style.display = 'block';
+      renderResults(items,query);
+    }}else{{
+      const items=await searchSupabase(query);
+      renderResults(items,query);
     }}
+  }}catch(e){{
+    try{{const items=await searchSupabase(query);renderResults(items,query);}}
+    catch(e2){{renderResults([],query);}}
+  }}
   }} catch(e) {{ console.error(e); }}
 }}
 document.addEventListener('click', function(e) {{
