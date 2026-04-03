@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>브리핑룸 — 정부 정책 + 금융법령 AI</title>
+<title>govbrief.kr — 정부 정책 + 금융법령 통합 인텔리전스</title>
 <meta name="description" content="대한민국 51개 정부 부처 보도자료 AI 요약 + 금융법령 모니터링.">
 <link rel="canonical" href="https://govbrief.kr/">
 <link rel="manifest" href="/manifest.json">
@@ -146,192 +146,72 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
     <a href="/finlaw/">금융 법령 AI</a>
     <a href="/articles/">아카이브</a>
   </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank" style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:#dc2626;display:inline-block"></span> 매일 알림</a>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
 
-<!-- 검색 -->
 <section class="hero">
-  <h1>정부 정책과 금융 법령, 뭐든 물어보세요</h1>
-  <p>정부 보도자료 1,796건 · 금융 법령 139건 · 조문 3,893건 · 판례 526건</p>
-  <div class="sbox">
-    <span class="si">&#x2315;</span>
-    <input id="search-input" placeholder="금융법령 검색: 자본시장법, 불공정거래, 보험업법..." autocomplete="off">
+  <h1>정부가 발표하면,<br>AI가 해석합니다</h1>
+  <p>정부 정책 · 금융 법령 · 입법 예고, 핵심만 브리핑</p>
+  <div class="sbox" style="position:relative">
+    <span class="si">⌕</span>
+    <input id="search-input" placeholder="정책이나 법령에 대해 물어보세요..." autocomplete="off">
     <div id="search-results" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:40;margin-top:6px;background:#fff;border:1px solid var(--b);border-radius:10px;max-height:360px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.1)"></div>
   </div>
+  <div class="tags"></div>
 </section>
 
-<!-- 2분할 캐러셀 -->
-<div class="twin">
-  <!-- 왼쪽: 정부 정책 AI -->
-  <div class="twin-col policy">
-    <div class="twin-header">
-      <span class="twin-badge policy">POLICY</span>
-      <span class="twin-name">정부 정책 AI</span>
-      <a class="twin-more" href="/policy/">전체 &#8594;</a>
-    </div>
-    <div class="carousel" id="c1">
-      <div class="carousel-track" id="c1-track">
-        <div class="carousel-card">
-          <div class="p-cat">금융 · 경제</div>
-          <div class="p-title">보험료 면제 2년, 어린이 할인 15%, 체납 감면 50%</div>
-          <div class="p-easy">
-            <strong>쉬운 요약</strong>
-            아이를 낳으면 보험료를 2년간 안 내도 됩니다. 아이 보험료도 15% 싸집니다. 밀린 보험료가 있으면 절반만 내면 됩니다.
-          </div>
-          <div class="p-foot"><a href="/articles/2026-03-31/119/">자세히 &#8594;</a><span>금융위 외 5개 부처</span></div>
-        </div>
-        <div class="carousel-card">
-          <div class="p-cat">산업 · 기술</div>
-          <div class="p-title">AI 기본법 지원 데스크, 552건 상담 접수</div>
-          <div class="p-easy">
-            <strong>쉬운 요약</strong>
-            AI를 쓰는 회사들이 "우리 AI가 위험한 건지" 궁금해서 552번이나 물어봤습니다. 가장 많이 물어본 건 위험 판정 기준(38%)입니다.
-          </div>
-          <div class="p-foot"><a href="/articles/2026-03-31/025/">자세히 &#8594;</a><span>과기부 외 8개 부처</span></div>
-        </div>
-        <div class="carousel-card">
-          <div class="p-cat">사회 · 복지</div>
-          <div class="p-title">범부처 합동 위기가구 긴급 점검</div>
-          <div class="p-easy">
-            <strong>쉬운 요약</strong>
-            혼자 사는 어르신이나 어려운 가정을 놓치지 않도록 복지부, 행안부, 교육부가 함께 긴급 점검합니다.
-          </div>
-          <div class="p-foot"><a href="/articles/2026-03-31/149/">자세히 &#8594;</a><span>복지부 외 6개 부처</span></div>
-        </div>
-      </div>
-      <div class="carousel-dots" id="c1-dots">
-        <span class="carousel-dot on"></span><span class="carousel-dot"></span><span class="carousel-dot"></span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 오른쪽: 금융 법령 AI -->
-  <div class="twin-col law">
-    <div class="twin-header">
-      <span class="twin-badge law">LAW</span>
-      <span class="twin-name">금융 법령 AI</span>
-      <a class="twin-more" href="/finlaw/">전체 &#8594;</a>
-    </div>
-    <div class="carousel" id="c2">
-      <div class="carousel-track" id="c2-track">
-        <div class="carousel-card">
-          <span class="l-tag edit">법령 개정</span>
-          <div class="l-title">자본시장법 시행령 &#8212; 자기주식 소각 의무화</div>
-          <div class="l-easy">
-            <strong>쉬운 설명</strong>
-            회사가 자기 주식을 사면 이제 반드시 없애야 합니다. 주식을 사놓고 주가를 조절하는 게 금지됩니다. 투자자 보호를 위한 조치입니다.
-          </div>
-          <div class="l-foot"><a href="/finlaw/detail/284829/" style="color:var(--law);text-decoration:none;font-weight:600;font-size:13px">자세히 &#8594;</a><span>공시 기준 5%&#8594;3% 강화</span></div>
-        </div>
-        <div class="carousel-card">
-          <span class="l-tag case">판례</span>
-          <div class="l-title">금융투자상품 불완전판매 손해배상</div>
-          <div class="l-easy">
-            <strong>쉬운 설명</strong>
-            펀드나 보험 가입할 때 "위험할 수 있다"는 설명을 제대로 안 해줬으면, 금융회사가 손해를 배상해야 합니다. 서류에 서명만 받는 건 부족합니다.
-          </div>
-          <div class="l-foot"><a href="/finlaw/cases/" style="color:var(--law);text-decoration:none;font-weight:600;font-size:13px">자세히 &#8594;</a><span>대법원 판결</span></div>
-        </div>
-        <div class="carousel-card">
-          <span class="l-tag notice">입법예고</span>
-          <div class="l-title">금융소비자보호법 &#8212; 숙려기간 2일&#8594;5일</div>
-          <div class="l-easy">
-            <strong>쉬운 설명</strong>
-            위험한 금융상품을 살 때 "다시 생각할 시간"이 2일에서 5일로 늘어납니다. 충동 가입으로 손해 보는 걸 막기 위한 법입니다.
-          </div>
-          <div class="l-foot"><a href="/finlaw/detail/281375/" style="color:var(--law);text-decoration:none;font-weight:600;font-size:13px">자세히 &#8594;</a><span>D-3 · 금융위원회</span></div>
-        </div>
-      </div>
-      <div class="carousel-dots" id="c2-dots">
-        <span class="carousel-dot on"></span><span class="carousel-dot"></span><span class="carousel-dot"></span>
-      </div>
-    </div>
-  </div>
+<div class="svcs">
+  <a class="svc" href="/policy/"><div><div class="tt">정부 정책 AI</div><div class="dd">최신 스냅샷 151건 · 요약/필터</div></div></a>
+  <a class="svc" href="/finlaw/"><div><div class="tt">금융 법령 AI</div><div class="dd">139법령 · 526판례 · 검색</div></div></a>
 </div>
 
-<!-- 부처별 브리핑 -->
-<section class="section">
-  <div class="sec-hdr">부처별 브리핑 <a class="sec-more" href="/articles/">전체 보기 &#8594;</a></div>
-  <div class="dept-tabs">
-    <span class="dept-tab on">금융위</span><span class="dept-tab">기재부</span><span class="dept-tab">국토부</span><span class="dept-tab">과기부</span><span class="dept-tab">복지부</span><span class="dept-tab">산업부</span><span class="dept-tab">고용부</span>
+<div class="divider"></div>
+<section class="sec" id="policy-summary">
+  <div class="sec-hdr">오늘의 정책 요약 <span style="font-family:var(--mono);font-size:11px;color:var(--m);font-weight:400;margin-left:6px">2026.03.31</span><a class="sec-more" href="/articles/">전체 151건 →</a></div>
+  <div class="carousel" id="c1">
+    <div class="carousel-track" id="c1-track">
+      <div class="carousel-card">
+        <div class="sum-label">종합 1/4</div>
+        <div class="sum-title">산업·기술 · 사회·복지 · 금융·경제</div>
+        <div class="sum-kw"></div>
+        <div class="sum-body">오늘 51개 부처에서 151건이 발표되었습니다. 산업·기술 63건, 사회·복지 39건, 금융·경제 25건.</div>
+        <div class="sum-foot"><a href="/articles/">상세 브리핑 →</a><span>영향도 상 0건</span></div>
+      </div><div class="carousel-card">
+        <div class="sum-label">산업·기술 2/4</div>
+        <div class="sum-title">산림청이 홍릉숲 봄꽃 축제를 개막하여 봄철 시민들에게  · 새만금개발청이 공공데이터 제공 및 데이터기반행정 </div>
+        <div class="sum-kw"></div>
+        <div class="sum-body">산림청이 홍릉숲 봄꽃 축제를 개막하여 봄철 시민들에게 휴식과 문화 체험 기회를 제공합니다. 2026 년 3 월 31 일 행사 시작과 함께 탐방객들이 홍릉숲을 찾는 등 큰 관심과 인기를 얻고 있습니다. 전국민 및 방문객을 대상으로 자연 친화적 여가 활동 기회를 제공하여 </div>
+        <div class="sum-foot"><a href="/articles/">산업·기술 63건 →</a><span>기상청, 산림청, 중소벤처기업부</span></div>
+      </div><div class="carousel-card">
+        <div class="sum-label">사회·복지 3/4</div>
+        <div class="sum-title">고용노동부는 2025년 유족급여 승인 기준과 관련한 사 · 고용노동부는 2025년 누적 기준 재해조사 대상 </div>
+        <div class="sum-kw"></div>
+        <div class="sum-body">고용노동부는 2025년 유족급여 승인 기준과 관련한 사고사망 재해 현황 자료를 발표하며 산재보험 수혜자 보호 체계를 점검하였습니다. 해당 발표는 2026 년 3 월 31 일 기준 유족급여 승인 건수와 사고 유형 등 주요 통계 수치를 중심으로 진행되었습니다. 본 조치는 </div>
+        <div class="sum-foot"><a href="/articles/">사회·복지 39건 →</a><span>경찰청, 고용노동부</span></div>
+      </div><div class="carousel-card">
+        <div class="sum-label">금융·경제 4/4</div>
+        <div class="sum-title">산업통상부는 2026 년 추가경정예산안으로 9,241  · 제14차 세계무역기구 (WTO) 각료회의가 폐막하</div>
+        <div class="sum-kw"></div>
+        <div class="sum-body">산업통상부는 2026 년 추가경정예산안으로 9,241 억 원을 편성하여 주요 산업 육성 및 긴급 현안 대응을 강화한다. 이 예산안은 동년 3 월 31 일 발표되었으며 구체적인 집행 시점은 관련 법령에 따른다. 해당 예산은 국내 산업계 전반에 재원 지원이 이루어져 산업 </div>
+        <div class="sum-foot"><a href="/articles/">금융·경제 25건 →</a><span>산업통상부</span></div>
+      </div>
+    </div>
+    <div class="carousel-dots" id="c1-dots"><span class="carousel-dot on"></span><span class="carousel-dot"></span><span class="carousel-dot"></span><span class="carousel-dot"></span></div>
   </div>
-
-  <a class="card-row" href="/articles/2026-03-31/119/">
-    <div class="card-left">
-      <span class="card-left-tag policy">금융위원회</span>
-      <div class="card-left-title">보험업권이 출산 육아에 따른 보험료 부담을 덜어드립니다</div>
-      <span class="card-left-imp">영향도 상</span>
-    </div>
-    <div class="card-right">
-      <div class="card-right-label policy">쉬운 요약</div>
-      <div class="card-right-text">아이를 낳으면 보험료를 2년간 안 내도 됩니다. 아이 보험료는 15% 할인됩니다. 밀린 보험료가 있으면 절반만 내면 됩니다. 금융권에서 처음으로 출산을 체계적으로 지원하는 정책입니다.</div>
-    </div>
-  </a>
-
-  <a class="card-row" href="/articles/2026-03-22/022/">
-    <div class="card-left">
-      <span class="card-left-tag policy">금융위원회</span>
-      <div class="card-left-title">시장 변동성 확대에 편승한 불공정거래 집중 감시</div>
-      <span class="card-left-imp">영향도 중</span>
-    </div>
-    <div class="card-right">
-      <div class="card-right-label policy">쉬운 요약</div>
-      <div class="card-right-text">주식 시장이 크게 오르내릴 때 불법으로 돈을 버는 사람들을 집중 단속합니다. 내부 정보로 주식을 사거나, 가짜 뉴스로 주가를 조작하는 행위가 대상입니다.</div>
-    </div>
-  </a>
 </section>
 
-<!-- 법령 주요 변경 -->
-<section class="section">
-  <div class="sec-hdr">법령 주요 변경 <a class="sec-more" href="/finlaw/">전체 보기 &#8594;</a></div>
-
-  <a class="card-row" href="/finlaw/detail/284829/">
-    <div class="card-left">
-      <span class="card-left-tag edit">법령 개정</span>
-      <div class="card-left-date">2026.04.01 시행</div>
-      <div class="card-left-title">자본시장법 시행령 일부개정</div>
-      <div class="card-left-src">자기주식 소각 의무화</div>
-    </div>
-    <div class="card-right">
-      <div class="card-right-label law">쉬운 설명</div>
-      <div class="card-right-text">상장회사가 자기 주식을 사면 이제 반드시 없애야 합니다. 주식을 사놓고 주가를 올리거나 내리는 데 쓰는 걸 막기 위한 법입니다. 공시 기준도 5%에서 3%로 강화됩니다.</div>
-    </div>
-  </a>
-
-  <a class="card-row" href="/finlaw/cases/">
-    <div class="card-left">
-      <span class="card-left-tag case">판례</span>
-      <div class="card-left-date">2026.03.27 판결</div>
-      <div class="card-left-title">금융투자상품 불완전판매 손해배상</div>
-      <div class="card-left-src">대법원</div>
-    </div>
-    <div class="card-right">
-      <div class="card-right-label law">쉬운 설명</div>
-      <div class="card-right-text">금융상품을 팔 때 "이건 이런 위험이 있습니다"라고 제대로 설명해야 합니다. 서류에 도장만 받고 넘어가면 안 됩니다. 설명 안 하고 판매했으면 금융회사가 손해를 물어야 합니다.</div>
-    </div>
-  </a>
-
-  <a class="card-row" href="/finlaw/opinions/">
-    <div class="card-left">
-      <span class="card-left-tag opinion">비조치의견서</span>
-      <div class="card-left-date">2026.01</div>
-      <div class="card-left-title">이사회 없는 금융회사 책무구조도</div>
-      <div class="card-left-src">금융위원회</div>
-    </div>
-    <div class="card-right">
-      <div class="card-right-label law">쉬운 설명</div>
-      <div class="card-right-text">작은 금융회사 중에 이사회가 없는 곳이 있습니다. 이런 회사는 "누가 무슨 책임을 지는지" 적은 문서를 만들 때 별도 의결 없이 진행할 수 있습니다.</div>
-    </div>
-  </a>
+<div class="divider"></div>
+<section class="sec" id="dept-briefing">
+  <div class="sec-hdr">부처별 브리핑</div>
+  <div class="dept-tabs"><span class="dept-tab on">과학기</span><span class="dept-tab">농림축</span><span class="dept-tab">고용노</span><span class="dept-tab">산림청</span><span class="dept-tab">행정안</span><span class="dept-tab">산업통</span><span class="dept-tab">외교부</span></div>
+  <div><a href="/articles/2026-03-31/021/" style="text-decoration:none;color:inherit"><div class="dept-item"><div class="dept-item-t">의료·생명 공학(바이오) 혁신 이끌 세계 선도형 인공지능 특화 기초 모형(파운데이션 모델) 개발 가속화</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/022/" style="text-decoration:none;color:inherit"><div class="dept-item"><div class="dept-item-t">내 기술로 만든 철강재, 전 세계 핵융합로에 공급 길 열렸다!</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/023/" style="text-decoration:none;color:inherit"><div class="dept-item"><div class="dept-item-t">&quot;국민 44.5% 생성형 인공지능 경험, 전년 대비 11.2%p 증가&quot; 과기정통부, 「2025 인터넷이용실태</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/024/" style="text-decoration:none;color:inherit"><div class="dept-item"><div class="dept-item-t">4월 과학의 달, 전국 과학문화 프로그램 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/025/" style="text-decoration:none;color:inherit"><div class="dept-item"><div class="dept-item-t">&#x27;인공지능 기본법 지원 창구(지원 데스크)&#x27;, 시행 10주 차 총 552건 상담 접수, 사례집 발간으로 기업</div><span class="dept-item-imp">중</span></div></a></div>
 </section>
 
-<!-- CTA -->
-<div class="cta">
-  <div><h3>매일 오전 최신 정책 브리핑</h3><p>텔레그램으로 매일 아침 3분 브리핑을 받아보세요. 놓치는 정책이 없습니다.</p></div>
-  <a href="https://t.me/govbrief" target="_blank">무료 구독</a>
-</div>
+<div class="cta"><div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div><a href="https://t.me/govbrief" target="_blank">구독</a></div>
 
-<div class="footer"><a href="/">브리핑룸</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+
+<nav class="bnav"><a class="on" href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="javascript:void(0)" onclick="document.getElementById('search-input').focus();window.scrollTo(0,0)"><span style="font-size:16px">⌕</span>검색</a><a href="/articles/"><span style="font-size:16px">≡</span>달력</a><a href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
 
 <script>
 function makeCarousel(id, count) {
@@ -341,71 +221,67 @@ function makeCarousel(id, count) {
   const el = document.getElementById(id);
   function go(n) {
     cur = Math.max(0, Math.min(count - 1, n));
-    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
-    Array.from(dots).forEach(function(d, i) { d.classList.toggle('on', i === cur); });
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    Array.from(dots).forEach((d, i) => d.classList.toggle('on', i === cur));
   }
-  Array.from(dots).forEach(function(d, i) { d.addEventListener('click', function() { go(i); }); });
-  var startX = 0;
-  el.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
-  el.addEventListener('touchend', function(e) {
-    var diff = startX - e.changedTouches[0].clientX;
+  Array.from(dots).forEach((d, i) => d.addEventListener('click', () => go(i)));
+  let startX = 0;
+  el.addEventListener('touchstart', e => { startX = e.touches[0].clientX }, { passive: true });
+  el.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) go(cur + (diff > 0 ? 1 : -1));
   }, { passive: true });
-  setInterval(function() { go((cur + 1) % count); }, 12000);
 }
-makeCarousel('c1', 3);
-makeCarousel('c2', 3);
+makeCarousel('c1', 4);
 
-var searchInput = document.getElementById('search-input');
-var searchResults = document.getElementById('search-results');
-var searchTimer;
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+let searchTimer;
 searchInput.addEventListener('input', function() {
   clearTimeout(searchTimer);
-  var q = this.value.trim();
+  const q = this.value.trim();
   if (q.length < 2) { searchResults.style.display = 'none'; return; }
-  searchTimer = setTimeout(function() { doSearch(q); }, 300);
+  searchTimer = setTimeout(() => doSearch(q), 300);
 });
 searchInput.addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && !e.isComposing) {
-    var q = this.value.trim();
+    const q = this.value.trim();
     if (q) window.location.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(q);
   }
 });
-var SB_URL = 'https://jxoghnttelexnfoeepbz.supabase.co';
-var SB_KEY = 'sb_publishable_r3eTQXF419LfIiPdE17gyw_zvAQFd5s';
-var SB_HDR = {'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY};
+const SB_URL = 'https://jxoghnttelexnfoeepbz.supabase.co';
+const SB_KEY = 'sb_publishable_r3eTQXF419LfIiPdE17gyw_zvAQFd5s';
+const SB_HDR = {'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY};
 
 function renderResults(items, query) {
-  var typeLabel = {law: '법령', article: '조문', precedent: '판례'};
+  const typeLabel = {law: '법령', article: '조문', precedent: '판례'};
   searchResults.textContent = '';
-  var cta = document.createElement('a');
+  const cta = document.createElement('a');
   cta.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
   cta.style.cssText = 'display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none';
   cta.textContent = items.length ? 'FinLaw GPT에서 상세 질문 \u2192' : 'FinLaw GPT에게 질문하기 \u2192';
   if (items.length) {
-    items.forEach(function(item) {
-      var link = document.createElement('a');
+    items.forEach(item => {
+      const link = document.createElement('a');
       link.href = item.link || '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
       link.style.cssText = 'display:block;padding:12px 16px;border-bottom:1px solid #e0e0e0;text-decoration:none;color:#222';
-      var top = document.createElement('div');
+      const top = document.createElement('div');
       top.style.cssText = 'display:flex;align-items:center;gap:8px';
-      var badge = document.createElement('span');
+      const badge = document.createElement('span');
       badge.style.cssText = 'font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(217,108,44,.06);color:#d96c2c';
       badge.textContent = typeLabel[item.type] || item.type || '';
-      var title = document.createElement('span');
+      const title = document.createElement('span');
       title.style.cssText = 'font-size:14px;font-weight:600';
       title.textContent = String(item.title || '').slice(0, 60);
-      top.appendChild(badge);
-      top.appendChild(title);
-      var sub = document.createElement('div');
+      top.appendChild(badge); top.appendChild(title);
+      const sub = document.createElement('div');
       sub.style.cssText = 'font-size:12px;color:#999;margin-top:3px';
       sub.textContent = String(item.subtitle || '').slice(0, 80);
-      link.appendChild(top);
-      link.appendChild(sub);
+      link.appendChild(top); link.appendChild(sub);
       searchResults.appendChild(link);
     });
   } else {
-    var empty = document.createElement('div');
+    const empty = document.createElement('div');
     empty.style.cssText = 'padding:16px;text-align:center;font-size:13px;color:#999';
     empty.textContent = '금융법령(139건) 내 검색 결과 없음. 일반 법령은 법제처 국가법령정보센터를 이용하세요.';
     searchResults.appendChild(empty);
@@ -415,38 +291,42 @@ function renderResults(items, query) {
 }
 
 function searchSupabase(query) {
-  var kw = '%' + query + '%';
+  const kw = '%' + query + '%';
   return Promise.all([
-    fetch(SB_URL + '/rest/v1/laws?or=(name.ilike.' + encodeURIComponent(kw) + ',amendment_reason.ilike.' + encodeURIComponent(kw) + ')&select=law_id,name,ministry,law_type&limit=5', {headers: SB_HDR}).then(function(r){return r.json();}),
-    fetch(SB_URL + '/rest/v1/articles?or=(article_title.ilike.' + encodeURIComponent(kw) + ',content.ilike.' + encodeURIComponent(kw) + ')&select=id,law_id,article_no,article_title&limit=5', {headers: SB_HDR}).then(function(r){return r.json();}),
-    fetch(SB_URL + '/rest/v1/precedents?or=(case_name.ilike.' + encodeURIComponent(kw) + ',summary.ilike.' + encodeURIComponent(kw) + ')&select=prec_id,case_name,court,decision_date&limit=5', {headers: SB_HDR}).then(function(r){return r.json();})
-  ]).then(function(res) {
-    var items = [];
-    (res[0] || []).forEach(function(r) { items.push({type:'law', title:r.name, subtitle:r.ministry + ' · ' + (r.law_type||''), link:'/finlaw/detail/' + r.law_id + '/'}); });
-    (res[1] || []).forEach(function(r) { items.push({type:'article', title:(r.article_no ? '제'+r.article_no+'조 ':'') + (r.article_title||''), subtitle:'', link:'/finlaw/detail/' + r.law_id + '/'}); });
-    (res[2] || []).forEach(function(r) { items.push({type:'precedent', title:r.case_name, subtitle:(r.court||'') + ' ' + (r.decision_date||''), link:'/finlaw/cases/' + r.prec_id + '/'}); });
+    fetch(SB_URL + '/rest/v1/laws?or=(name.ilike.' + encodeURIComponent(kw) + ',amendment_reason.ilike.' + encodeURIComponent(kw) + ')&select=law_id,name,ministry,law_type&limit=5', {headers: SB_HDR}).then(r => r.json()),
+    fetch(SB_URL + '/rest/v1/articles?or=(article_title.ilike.' + encodeURIComponent(kw) + ',content.ilike.' + encodeURIComponent(kw) + ')&select=id,law_id,article_no,article_title&limit=5', {headers: SB_HDR}).then(r => r.json()),
+    fetch(SB_URL + '/rest/v1/precedents?or=(case_name.ilike.' + encodeURIComponent(kw) + ',summary.ilike.' + encodeURIComponent(kw) + ')&select=prec_id,case_name,court,decision_date&limit=5', {headers: SB_HDR}).then(r => r.json())
+  ]).then(res => {
+    const items = [];
+    (res[0]||[]).forEach(r => items.push({type:'law', title:r.name, subtitle:(r.ministry||'')+' '+(r.law_type||''), link:'/finlaw/detail/'+r.law_id+'/'}));
+    (res[1]||[]).forEach(r => items.push({type:'article', title:(r.article_no?'제'+r.article_no+'조 ':'')+(r.article_title||''), subtitle:'', link:'/finlaw/detail/'+r.law_id+'/'}));
+    (res[2]||[]).forEach(r => items.push({type:'precedent', title:r.case_name, subtitle:(r.court||'')+' '+(r.decision_date||''), link:'/finlaw/cases/'+r.prec_id+'/'}));
     return items;
   });
 }
 
-function doSearch(query) {
-  fetch('https://govbrief-api.vercel.app/api/search', {
-    method: 'POST', headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({query: query}),
-  }).then(function(r) { return r.json(); }).then(function(data) {
+async function doSearch(query) {
+  try {
+    const r = await fetch('https://govbrief-api.vercel.app/api/search', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({query}),
+    });
+    const data = await r.json();
     if (data.results && data.results.length) {
-      var items = data.results.map(function(item) {
-        var link = '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
-        try { var u = new URL(String(item.link||''), window.location.origin); if(u.protocol==='http:'||u.protocol==='https:') link=u.href; } catch(e){}
-        return {type:item.type, title:item.title, subtitle:item.subtitle, link:link};
+      const items = data.results.map(item => {
+        let link = '/tools/finlaw-gpt/?q=' + encodeURIComponent(query);
+        try { const u = new URL(String(item.link||''), location.origin); if(u.protocol==='http:'||u.protocol==='https:') link=u.href; } catch(e){}
+        return {type:item.type, title:item.title, subtitle:item.subtitle, link};
       });
       renderResults(items, query);
     } else {
-      searchSupabase(query).then(function(items) { renderResults(items, query); });
+      const items = await searchSupabase(query);
+      renderResults(items, query);
     }
-  }).catch(function() {
-    searchSupabase(query).then(function(items) { renderResults(items, query); }).catch(function() { renderResults([], query); });
-  });
+  } catch(e) {
+    try { const items = await searchSupabase(query); renderResults(items, query); }
+    catch(e2) { renderResults([], query); }
+  }
 }
 document.addEventListener('click', function(e) {
   if (!e.target.closest('.sbox')) searchResults.style.display = 'none';

@@ -66,6 +66,7 @@ def serialize_item(item: dict, slug: str = "") -> dict:
     return {
         "slug": slug,
         "source": item.get("source", ""),
+        "raw_title": item.get("raw_title", item.get("title", "")),
         "title": item.get("title", ""),
         "url": item.get("url", ""),
         "date": item.get("date", ""),

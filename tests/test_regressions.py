@@ -100,6 +100,52 @@ class RegressionTests(unittest.TestCase):
             finally:
                 db_module.DB_PATH = original_db_path
 
+    def test_bulk_upsert_accepts_structured_summary_format(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            original_db_path = db_module.DB_PATH
+            db_module.DB_PATH = Path(tmpdir) / "briefingroom.db"
+            try:
+                db_module.init_db()
+                item = {
+                    "date": "2026-04-02",
+                    "source": "금융위원회",
+                    "title": "구조화 요약 테스트",
+                    "url": "https://example.com/a",
+                    "pdfs": [],
+                    "hwps": [],
+                    "text": "본문",
+                    "summary": (
+                        "요약: 핵심 내용입니다.\n"
+                        "쉬운요약: 쉬운 내용입니다.\n"
+                        "왜 알아야 하나: 중요합니다.\n"
+                        "그래서 뭐가 달라지나: 바뀝니다.\n"
+                        "키워드: 금융, 감독\n"
+                        "영향도: 중"
+                    ),
+                }
+                db_module.bulk_upsert([item])
+                conn = db_module._conn()
+                row = conn.execute(
+                    "SELECT summary, keywords, llm_status FROM articles WHERE date=? AND source=? AND title=?",
+                    (item["date"], item["source"], item["title"]),
+                ).fetchone()
+                conn.close()
+                self.assertEqual(row["summary"], "핵심 내용입니다.")
+                self.assertEqual(row["keywords"], "금융, 감독")
+                self.assertEqual(row["llm_status"], "ok")
+            finally:
+                db_module.DB_PATH = original_db_path
+
+    def test_dedup_preserves_same_title_from_different_sources(self):
+        items = [
+            {"source": "금융위원회", "title": "공동 보도자료", "date": "2026-04-02"},
+            {"source": "금융감독원", "title": "공동 보도자료", "date": "2026-04-02"},
+        ]
+
+        deduped = app_module._dedup(items)
+
+        self.assertEqual(len(deduped), 2)
+
     def test_download_file_rejects_oversized_content_length(self):
         response = FakeResponse(
             headers={

@@ -196,6 +196,7 @@ def pw_crawl_list(name, list_url, base, target,
             page.goto(list_url, wait_until="networkidle", timeout=30000)
             soup = BeautifulSoup(page.content(), "lxml")
             seen = set()
+            entries = []
 
             for row in soup.select(row_sel):
                 text = row.get_text(" ", strip=True)
@@ -216,18 +217,15 @@ def pw_crawl_list(name, list_url, base, target,
                     href = base + href
                 if href in seen: continue
                 seen.add(href)
+                entries.append((href, row_date, clean_title(a.get_text(strip=True))))
 
+            for href, row_date, title in entries:
                 page.goto(href, wait_until="networkidle", timeout=30000)
                 soup2 = BeautifulSoup(page.content(), "lxml")
                 pdfs, hwps = extract_file_links(soup2, base)
 
-                title = clean_title(a.get_text(strip=True))
                 print(f"  ✓ {title[:60]}")
                 results.append(make_item(name, title, href, row_date, pdfs, hwps))
-
-                # 목록으로 복귀
-                page.goto(list_url, wait_until="networkidle", timeout=30000)
-                soup = BeautifulSoup(page.content(), "lxml")
 
             browser.close()
     except Exception as e:

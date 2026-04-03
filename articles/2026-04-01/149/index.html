@@ -48,14 +48,14 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--t);text-decoration:none;margin-right:16px;white-space:nowrap}
-.hnav{display:flex;gap:6px;align-items:center;flex:1;min-width:0}
-.hnav a{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--t2);text-decoration:none;padding:7px 14px;border-radius:8px;white-space:nowrap;background:var(--s);border:1px solid var(--bl)}.hnav a:hover{border-color:var(--a);color:var(--a)}
-.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}.hnav a.on-policy{color:#fff;background:#1e40af;border-color:#1e40af;font-weight:700}.hnav a.on-law{color:#fff;background:#047857;border-color:#047857;font-weight:700}
+.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
+.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
+.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
 .bell{color:var(--m);text-decoration:none;font-size:16px;margin-left:auto;flex-shrink:0}
 .site-footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.site-footer a{color:var(--t);text-decoration:none;font-weight:600}
 @media(max-width:768px){body{padding-top:52px}.hdr{height:50px;padding:0 14px}.logo{font-size:17px;margin-right:10px}.hnav a{font-size:11px;padding:5px 8px}}
 
-.post-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:16px;font-weight:700;padding:8px 16px;border-radius:8px;background:var(--al);color:var(--a);border:1px solid var(--ab);margin-bottom:14px}
+.post-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--al);color:var(--a);border:1px solid var(--ab);margin-bottom:14px}
 .post-title{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--t);margin-bottom:20px}
 .post-meta{display:flex;gap:20px;padding:14px 0;border-top:1px solid var(--b);border-bottom:1px solid var(--b);margin-bottom:24px}
 .meta-i{font-family:var(--mono);font-size:11px;color:var(--m);display:flex;flex-direction:column;gap:3px}
@@ -79,10 +79,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 </head>
 <body>
 <div class="wrap">
-  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a class="on" href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a>
-    <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:#dc2626;display:inline-block"></span> 매일 알림</a></header>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b,#d9d5cc);background:var(--s,#fff);color:var(--t,#222);font-size:12px;font-weight:600;text-decoration:none" href="/policy/">정부 정책 AI</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b,#d9d5cc);background:var(--s,#fff);color:var(--t,#222);font-size:12px;font-weight:600;text-decoration:none" href="/finlaw/">금융 법령 AI</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b,#d9d5cc);background:var(--s,#fff);color:var(--t,#222);font-size:12px;font-weight:600;text-decoration:none" href="/articles/">전체 보도자료</a></div>
-  <div class="post-badge">금융감독원 보도자료</div>
+  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a class="hnav-a" href="/">홈</a><a class="hnav-a" href="/finlaw/">금융 법령 AI</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank" rel="noopener">🔔</a></header>
+  <a class="back" href="/">&#8592; 브리핑룸으로</a>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-01/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-01/">차주 일정</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/subsidy/">지원사업</a></div>
+  <div class="post-badge">🏛 금융감독원 보도자료</div>
   <h1 class="post-title">사업보고서 등에 대한 조사, 감리결과 조치</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-01</strong></div>
@@ -90,6 +90,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
     <div class="meta-i"><span>기관</span><strong>금융감독원</strong></div>
   </div>
   <div class="post-content">
+    
     <section class="summary">
       <div class="section-kicker">Briefing Summary</div>
       <h3>요약</h3>
@@ -97,14 +98,14 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
-      <h3>왜 중요한가</h3>
+      <h3>왜 알아야 하나?</h3>
       <p>상장사의 회계부정 및 감사인의 감사 불이행에 대한 명확한 책임 소재 규명과 강력한 제재 수단을 통해 자본시장의 신뢰성을 확보하고 공시 제도를 강화한 점이 주목할 만하다.</p>
     </section>
     <div class='keywords'><span>#금융위원회</span><span>#과징금</span><span>#회계처리기준 위반</span><span>#㈜국보</span><span>#감사법인 제재</span></div>
     
     <section class="info-section impact-box">
-      <div class="section-kicker">Practical Impact</div>
-      <h3>실무 영향</h3>
+      <div class="section-kicker">What Changes</div>
+      <h3>그래서 뭐가 달라지나?</h3>
       <p>기업들은 재무제표 작성 시 회계처리기준 준수를 철저히 해야 하며, 감사인은 감사절차 소홀에 따른 제재 리스크 관리가 시급하다.</p>
     </section>
     <div class="links">

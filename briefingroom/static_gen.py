@@ -9,6 +9,8 @@ from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
 
 from briefingroom.config import DATA_DIR
+from briefingroom.finlaw_pages import generate_cases_page, generate_finlaw_index, generate_notices_page
+from briefingroom.home_gen import generate_home, generate_policy_page
 from briefingroom.site_templates import SITE_BASE_CSS, SITE_FONT_LINKS, SITE_NAV_CSS, render_crosslinks, render_top_nav
 
 SITE_URL = "https://govbrief.kr"
@@ -356,9 +358,14 @@ def generate_sitemap(target_date: str) -> Path:
 
 
 def generate_static(target_date: str) -> None:
-    """정적 사이트 전체 생성 (RSS + 기사 페이지)"""
+    """정적 사이트 전체 생성"""
     print(f"\n{'─' * 60}")
     print("[정적 사이트 생성 중...]")
+    generate_home(target_date)
+    generate_policy_page(target_date)
+    generate_finlaw_index()
+    generate_cases_page()
+    generate_notices_page()
     generate_rss(target_date)
     generate_article_pages(target_date)
     generate_sitemap(target_date)

@@ -51,12 +51,12 @@ def _normalize_title(title: str) -> str:
 
 
 def _dedup(items: list[dict]) -> list[dict]:
-    """제목+날짜 기준 중복 제거 (유사 제목 포함, 먼저 들어온 것 유지)"""
+    """기관+제목+날짜 기준 중복 제거 (유사 제목 포함, 먼저 들어온 것 유지)"""
     seen = set()
     unique = []
     for item in items:
         norm = _normalize_title(item["title"])
-        key = (norm, item["date"])
+        key = (item.get("source", "").strip(), norm, item["date"])
         if key not in seen:
             seen.add(key)
             unique.append(item)
@@ -114,6 +114,7 @@ def _clean_titles(items: list[dict]) -> int:
 
         title = title.strip().rstrip(".")
         if title != orig:
+            item.setdefault("raw_title", orig)
             item["title"] = title
             cleaned += 1
     return cleaned
@@ -121,6 +122,14 @@ def _clean_titles(items: list[dict]) -> int:
 
 def _env_flag(name: str, default: str = "false") -> bool:
     return os.environ.get(name, default).lower() in ("1", "true", "yes")
+
+
+def _pause_between_crawlers() -> None:
+    min_delay = max(0, int(os.environ.get("CRAWLER_PAUSE_MIN", "1") or "0"))
+    max_delay = max(min_delay, int(os.environ.get("CRAWLER_PAUSE_MAX", "3") or str(min_delay)))
+    if max_delay <= 0:
+        return
+    time.sleep(random.randint(min_delay, max_delay))
 
 
 def _resolve_run_context() -> tuple[date, date, bool, bool, bool, str]:
@@ -192,14 +201,14 @@ def _run_individual_crawlers(target: date, all_items: list[dict]) -> None:
     print(f"{'━' * 60}")
 
     kr_counts = Counter(item["source"] for item in all_items)
-    existing_keys = {(it["title"].strip(), it["date"]) for it in all_items}
+    existing_keys = {(it.get("source", "").strip(), it["title"].strip(), it["date"]) for it in all_items}
 
     for name, crawler in CRAWLERS:
         try:
             items = crawler(target)
             new_count = 0
             for item in items:
-                key = (item["title"].strip(), item["date"])
+                key = (item.get("source", "").strip(), item["title"].strip(), item["date"])
                 if key not in existing_keys:
                     all_items.append(item)
                     existing_keys.add(key)
@@ -212,7 +221,7 @@ def _run_individual_crawlers(target: date, all_items: list[dict]) -> None:
                 print(f"  → {name}: 추가 없음 (korea.kr {kr_cnt}건으로 완전)")
         except Exception as e:
             print(f"  [{name}] 실패: {str(e)[:60]}")
-        time.sleep(random.randint(5, 15))
+        _pause_between_crawlers()
 
 
 def _collect_items(today: date, target: date, skip_individual: bool) -> tuple[list[dict], bool]:

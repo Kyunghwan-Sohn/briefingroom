@@ -49,6 +49,19 @@ def _clean_html(text: str) -> str:
     return text[:200]
 
 
+def _brief_text(text: str, fallback: str, limit: int = 110) -> str:
+    value = (text or "").strip()
+    if not value or value == "-":
+        value = fallback
+    value = re.sub(r"\s+", " ", value).strip()
+    if len(value) <= limit:
+        return value
+    cut = value.rfind(" ", 0, limit)
+    if cut < 40:
+        cut = limit
+    return value[:cut].rstrip(" ,.") + "…"
+
+
 def generate_cases_page():
     """판례 페이지 재생성 — summary 컬럼 포함"""
     conn = sqlite3.connect(str(DB_PATH))
@@ -404,7 +417,7 @@ def generate_finlaw_index():
 
     # 최근 판례 (summary 있는 것)
     recent_precs = conn.execute(
-        "SELECT case_name, decision_date, court, case_number, summary, related_law "
+        "SELECT prec_id, case_name, decision_date, court, case_number, summary, related_law "
         "FROM precedents WHERE summary IS NOT NULL AND summary != '' AND summary != '-' "
         "ORDER BY decision_date DESC LIMIT 3",
     ).fetchall()
@@ -438,7 +451,7 @@ def generate_finlaw_index():
         rl = recent_laws[0]
         headline_title = f"{rl['name']} — {rl['revision_type']}"
         reason = _clean_html(rl["amendment_reason"] or "")
-        headline_sub = reason[:80] if reason and reason != "-" else f"{rl['ministry']} 소관"
+        headline_sub = _brief_text(reason, f"{rl['ministry']} 소관", limit=80)
 
     # 변경 카드 생성
     change_cards = []
@@ -446,31 +459,33 @@ def generate_finlaw_index():
         d = r["promulgation_date"]
         if len(d) == 8:
             d = f"{d[:4]}.{d[4:6]}.{d[6:]}"
-        reason = _clean_html(r["amendment_reason"] or "")
-        desc = reason if reason and reason != "-" else f"{r['ministry']} 소관 법령"
+        reason = _brief_text(_clean_html(r["amendment_reason"] or ""), f"{r['ministry']} 소관 법령 개정")
         mst = r["law_mst"] or ""
         link = f"/finlaw/detail/{mst}/" if mst else "/finlaw/notices/"
-        change_cards.append(f"""  <a href="{link}" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
+        search_text = f"{r['name']} {r['ministry']} {r['revision_type']} {reason}".lower()
+        change_cards.append(f"""  <a href="{link}" class="finlaw-searchable" data-type="change" data-search="{html.escape(search_text)}" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
     <div class="change-head">
       <span class="change-tag edit">{html.escape(r['revision_type'])}</span>
       <span class="change-date">{d}</span>
     </div>
     <div class="change-title">{html.escape(r['name'])}</div>
-    <div class="change-desc">{html.escape(desc)}</div>
+    <div class="change-desc">{html.escape(reason)}</div>
   </div></a>""")
 
     # 판례 카드 생성
     case_cards = []
     for r in recent_precs:
-        summary = _clean_html(r["summary"] or "")
+        summary = _brief_text(_clean_html(r["summary"] or ""), "판결 요지가 준비 중입니다.")
         law = html.escape(r["related_law"] or "")
         law_html = f'<div class="case-laws"><span>{law}</span></div>' if law else ""
-        case_cards.append(f"""  <div class="case-card">
+        detail_link = f"/finlaw/cases/{r['prec_id']}/" if r["prec_id"] else "/finlaw/cases/"
+        search_text = f"{r['case_name']} {r['court'] or ''} {r['case_number'] or ''} {r['related_law'] or ''} {summary}".lower()
+        case_cards.append(f"""  <a href="{detail_link}" class="finlaw-searchable" data-type="case" data-search="{html.escape(search_text)}" style="text-decoration:none;color:inherit"><div class="case-card">
     <div class="case-court">{html.escape(r['court'] or '')} · {r['decision_date']} · {html.escape(r['case_number'] or '')}</div>
     <div class="case-title">{html.escape(r['case_name'])}</div>
     <div class="case-summary">{html.escape(summary)}</div>
     {law_html}
-  </div>""")
+  </div></a>""")
 
     # 입법예고 카드
     notice_cards = []
@@ -482,13 +497,15 @@ def generate_finlaw_index():
             cls = "mid"
         else:
             cls = "far"
-        notice_cards.append(f"""  <div class="notice-card">
+        detail_link = n["detail_link"] or "/finlaw/notices/"
+        search_text = f"{n['title']} {n['department']} {n['law_type'] or ''}".lower()
+        notice_cards.append(f"""  <a href="{html.escape(detail_link)}" class="finlaw-searchable" data-type="notice" data-search="{html.escape(search_text)}" style="text-decoration:none;color:inherit"><div class="notice-card">
     <div class="notice-dday {cls}"><span class="d">D-</span><span class="n">{d}</span></div>
     <div class="notice-body">
       <div class="notice-title">{html.escape(n['title'])}</div>
       <div class="notice-meta">{html.escape(n['department'])} · {n['period_start']} ~ {n['period_end']} · 의견 {n['opinion_count']}건</div>
     </div>
-  </div>""")
+  </div></a>""")
 
     # 법령 DB 카테고리 카드
     db_cards = []
@@ -511,7 +528,7 @@ def generate_finlaw_index():
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>금융 법령 AI - 브리핑룸</title>
-<meta name="description" content="한국 금융 법령 {total_laws}건, 판례, 해석례 모니터링. 오늘 바뀐 법령을 AI가 분석합니다.">
+<meta name="description" content="한국 금융 법령 {total_laws}건과 최근 판례, 입법예고를 모니터링하고 핵심 변화만 빠르게 확인합니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -534,7 +551,7 @@ def generate_finlaw_index():
   <div class="hero-top">
     <h1>금융 법령 AI</h1>
     <p style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:700;letter-spacing:.02em">{today_dot} ({dow})</p>
-    <p style="margin-top:2px">최근 법령 변동 현황</p>
+    <p style="margin-top:2px">최근 30일 법령 변동과 최신 판례 요약</p>
   </div>
 
   <div class="hero-dash">
@@ -552,7 +569,7 @@ def generate_finlaw_index():
     </div>
   </div>'''}
 
-  <div class="sbox"><span class="si">⌕</span><input placeholder="법령명, 조문, 판례를 검색하세요..."></div>
+  <div class="sbox"><span class="si">⌕</span><input id="finlaw-search" placeholder="법령명, 부처명, 판례명으로 아래 카드 검색..." autocomplete="off"></div>
 </section>
 
 <div class="divider"></div>
@@ -589,7 +606,22 @@ def generate_finlaw_index():
 <div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
 <nav class="bnav"><a href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="#"><span style="font-size:16px">⌕</span>검색</a><a href="#"><span style="font-size:16px">≡</span>달력</a><a class="on" href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
-
+<script>
+const finlawSearch = document.getElementById('finlaw-search');
+const finlawItems = Array.from(document.querySelectorAll('.finlaw-searchable'));
+finlawSearch?.addEventListener('input', function() {{
+  const q = this.value.trim().toLowerCase();
+  finlawItems.forEach((node) => {{
+    node.style.display = !q || node.dataset.search.includes(q) ? '' : 'none';
+  }});
+}});
+finlawSearch?.addEventListener('keydown', function(e) {{
+  if (e.key === 'Enter' && !e.isComposing) {{
+    const q = this.value.trim();
+    if (q) window.location.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(q);
+  }}
+}});
+</script>
 </body>
 </html>"""
 

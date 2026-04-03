@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>금융 법령 AI - 브리핑룸</title>
-<meta name="description" content="한국 금융 법령 139건, 판례, 해석례 모니터링. 오늘 바뀐 법령을 AI가 분석합니다.">
+<meta name="description" content="한국 금융 법령 139건과 최근 판례, 입법예고를 모니터링하고 핵심 변화만 빠르게 확인합니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -151,126 +151,127 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
     <a href="/">홈</a>
-    <a href="/policy/">정부 정책 AI</a>
-    <a class="on-law" href="/finlaw/">금융 법령 AI</a>
-    <a href="/articles/">아카이브</a>
+    <a class="on" href="/finlaw/">금융 법령 AI</a>
   </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank" style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:#dc2626;display:inline-block"></span> 매일 알림</a>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
 
 <section class="hero">
   <div class="hero-top">
     <h1>금융 법령 AI</h1>
-    <div class="hero-date">2026. 04. 02 (수)</div>
-    <div class="hero-sub">금융 법령 139건 · 판례 526건 · 매일 모니터링</div>
+    <p style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:700;letter-spacing:.02em">2026. 04. 02 (목)</p>
+    <p style="margin-top:2px">최근 30일 법령 변동과 최신 판례 요약</p>
   </div>
 
   <div class="hero-dash">
-    <div class="hero-stat"><div class="num">12</div><div class="label">법령 개정</div></div>
-    <div class="hero-stat"><div class="num">3</div><div class="label">판례</div></div>
-    <div class="hero-stat"><div class="num">5</div><div class="label">입법예고 중</div></div>
-    <div class="hero-stat"><div class="num">139</div><div class="label">전체 법령</div></div>
+    <div class="hero-stat alert"><div class="dot"></div><div class="num">12</div><div class="label">법령 개정</div></div>
+    <div class="hero-stat warn"><div class="num">3</div><div class="label">판례</div></div>
+    <div class="hero-stat ok"><div class="num">5</div><div class="label">입법예고 중</div></div>
+    <div class="hero-stat info"><div class="num">139</div><div class="label">전체 법령</div></div>
   </div>
 
-  <div class="sbox"><span class="si">&#x2315;</span><input placeholder="법령명, 조문, 판례를 검색하세요..."></div>
+  <div class="hero-headline">
+    <div class="icon" style="font-size:14px;font-weight:900;color:var(--a);background:var(--al);border:1px solid var(--ab);width:36px;height:36px;border-radius:8px;display:grid;place-items:center">!</div>
+    <div class="text">
+      <div class="title">금융위원회와 그 소속기관 직제 — 일부개정</div>
+      <div class="sub">국무회의의 심의를 거친 금융위원회와 그 소속기관 직제 일부개정령을 이에 공포한다. 대통령 이재명 (인) 국무총리 김민석</div>
+    </div>
+  </div>
+
+  <div class="sbox"><span class="si">⌕</span><input id="finlaw-search" placeholder="법령명, 부처명, 판례명으로 아래 카드 검색..." autocomplete="off"></div>
 </section>
 
 <div class="divider"></div>
 <section class="sec">
   <div class="sec-hdr">최근 법령 변경<a class="sec-more" href="/finlaw/notices/">전체 보기 →</a></div>
-  <a href="/finlaw/detail/285213/" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
+  <a href="/finlaw/detail/285213/" class="finlaw-searchable" data-type="change" data-search="금융위원회와 그 소속기관 직제 금융위원회,행정안전부 일부개정 국무회의의 심의를 거친 금융위원회와 그 소속기관 직제 일부개정령을 이에 공포한다. 대통령 이재명 (인) 국무총리 김민석" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
     <div class="change-head">
       <span class="change-tag edit">일부개정</span>
       <span class="change-date">2026.03.31</span>
     </div>
     <div class="change-title">금융위원회와 그 소속기관 직제</div>
     <div class="change-desc">국무회의의 심의를 거친 금융위원회와 그 소속기관 직제 일부개정령을 이에 공포한다. 대통령 이재명 (인) 국무총리 김민석</div>
-  </div></a>  <a href="/finlaw/detail/285253/" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
+  </div></a>  <a href="/finlaw/detail/285253/" class="finlaw-searchable" data-type="change" data-search="금융위원회와 그 소속기관 직제 시행규칙 금융위원회 일부개정 금융위원회와 그 소속기관 직제 시행규칙 일부개정령을 이에 공포한다. 금융위원회와 그 소속기관 직제 시행규칙 일부개정령 금융위원회와 그 소속기관 직제 시행규칙 일부를 다음과 같이 개정한다." style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
     <div class="change-head">
       <span class="change-tag edit">일부개정</span>
       <span class="change-date">2026.03.31</span>
     </div>
     <div class="change-title">금융위원회와 그 소속기관 직제 시행규칙</div>
     <div class="change-desc">금융위원회와 그 소속기관 직제 시행규칙 일부개정령을 이에 공포한다. 금융위원회와 그 소속기관 직제 시행규칙 일부개정령 금융위원회와 그 소속기관 직제 시행규칙 일부를 다음과 같이 개정한다.</div>
-  </div></a>  <a href="/finlaw/detail/285251/" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
+  </div></a>  <a href="/finlaw/detail/285251/" class="finlaw-searchable" data-type="change" data-search="개인정보 보호위원회 직제 시행규칙 개인정보보호위원회 일부개정 개인정보 보호위원회 직제 시행규칙 일부개정령을 이에 공포한다. 개인정보 보호위원회 직제 시행규칙 일부개정령 개인정보 보호위원회 직제 시행규칙 일부를 다음과 같이 개정한다." style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
     <div class="change-head">
       <span class="change-tag edit">일부개정</span>
       <span class="change-date">2026.03.31</span>
     </div>
     <div class="change-title">개인정보 보호위원회 직제 시행규칙</div>
     <div class="change-desc">개인정보 보호위원회 직제 시행규칙 일부개정령을 이에 공포한다. 개인정보 보호위원회 직제 시행규칙 일부개정령 개인정보 보호위원회 직제 시행규칙 일부를 다음과 같이 개정한다.</div>
-  </div></a>  <a href="/finlaw/detail/285255/" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
+  </div></a>  <a href="/finlaw/detail/285255/" class="finlaw-searchable" data-type="change" data-search="한국주택금융공사법 시행규칙 금융위원회 일부개정 한국주택금융공사법 시행규칙 일부개정령을 이에 공포한다. 한국주택금융공사법 시행규칙 일부를 다음과 같이 개정한다." style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
     <div class="change-head">
       <span class="change-tag edit">일부개정</span>
       <span class="change-date">2026.03.27</span>
     </div>
     <div class="change-title">한국주택금융공사법 시행규칙</div>
     <div class="change-desc">한국주택금융공사법 시행규칙 일부개정령을 이에 공포한다. 한국주택금융공사법 시행규칙 일부를 다음과 같이 개정한다.</div>
-  </div></a>  <a href="/finlaw/detail/284695/" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
+  </div></a>  <a href="/finlaw/detail/284695/" class="finlaw-searchable" data-type="change" data-search="금융회사의 지배구조에 관한 법률 시행령 금융위원회 타법개정 ⊙대통령령 제36220호(2026.3.24) 규제 재검토기한 정비를 위한 136개 법령의 일부개정에 관한 대통령령 제23조(「금융회사의 지배구조에 관한 법률 시행령」의 개정) 금융회사의 지배구조에…" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
     <div class="change-head">
       <span class="change-tag edit">타법개정</span>
       <span class="change-date">2026.03.24</span>
     </div>
     <div class="change-title">금융회사의 지배구조에 관한 법률 시행령</div>
-    <div class="change-desc">⊙대통령령 제36220호(2026.3.24) 규제 재검토기한 정비를 위한 136개 법령의 일부개정에 관한 대통령령 제23조(「금융회사의 지배구조에 관한 법률 시행령」의 개정) 금융회사의 지배구조에 관한 법률 시행령 일부를 다음과 같이 개정한다.</div>
+    <div class="change-desc">⊙대통령령 제36220호(2026.3.24) 규제 재검토기한 정비를 위한 136개 법령의 일부개정에 관한 대통령령 제23조(「금융회사의 지배구조에 관한 법률 시행령」의 개정) 금융회사의 지배구조에…</div>
   </div></a>
 </section>
 
 <div class="divider"></div>
 <section class="sec">
   <div class="sec-hdr">최근 판례<a class="sec-more" href="/finlaw/cases/">전체 보기 →</a></div>
-  <div class="case-card">
-    <div class="case-court">대법원 · 2023.06.29 · 2023다218353</div>
-    <div class="case-title">예금</div>
-    <div class="case-summary">【원고, 피상고인】 ○○○○교회 (소송대리인 법무법인(유한) 로고스 담당변호사 임수식 외 1인) 【피고, 상고인】 주식회사 하나은행 (소송대리인 법무법인(유한) 율촌 담당변호사 문일봉 외 3인) 【원심판결】 서울고법 2023. 1. 20. 선고 2022나2028834 판결 【주 문】 원심판결 중 지연손해금 산정에 관련된 피고 패소 부분을 파기하고, 이 부분</div>
-    <div class="case-laws"><span>예금</span></div>
-  </div>  <div class="case-card">
-    <div class="case-court">대법원 · 2023.06.23 · 2018마6745</div>
-    <div class="case-title">증권관련집단소송허가신청</div>
-    <div class="case-summary">【대표당사자, 재항고인】 대표당사자 1 외 19인(별지 명단 기재와 같다) (소송대리인 법무법인(유한) 정률 담당변호사 이대순) 【피신청인, 상대방】 유안타증권 주식회사 외 1인 (소송대리인 변호사 김동석 외 3인) 【원심결정】 서울고법 2018. 10. 17. 자 2018라20099 결정 【주 문】 재항고를 모두 기각한다. 재항고비용은 재항고인들이 부담한</div>
-    <div class="case-laws"><span>증권</span></div>
-  </div>  <div class="case-card">
-    <div class="case-court">대법원 · 2023.05.18 · 2023도1014</div>
-    <div class="case-title">사기·유사수신행위의규제에관한법률위반·자본시장과금융투자업에관한법률위반</div>
-    <div class="case-summary">【피 고 인】 피고인 【상 고 인】 피고인 【변 호 인】 법무법인 위 담당변호사 위현석 외 1인 【배상신청인】 별지 배상신청인 명단 기재와 같다. 【원심판결】 대구지법 2022. 12. 23. 선고 2020노3173 판결 【주 문】 원심판결 중 추징 부분을 파기한다. 피고인으로부터 357,164,800원을 추징한다. 원심판결 중 배상신청인 1, 배상신청인 </div>
+  <a href="/finlaw/cases/423440/" class="finlaw-searchable" data-type="case" data-search="은행업무 지연 또는 시공방법 변경 등 추가적인 과정을 거치면서 유예기간 내 공장 건축물을 준공하지 못한 경우 직접 사용하지 못한 정당한 사유 해당 여부 대법원 2020두44282 은행 【심급】 3심 【세목】 취득세 【주문】 상고를 기각한다. 상고비용은 원고가 부담한다. 【이유】 상고인이 제출한 상고장에 상고이유의 기재가 없고, 또 법정기간 내에 상고이유서를 제출하지…" style="text-decoration:none;color:inherit"><div class="case-card">
+    <div class="case-court">대법원 · 2020.09.18 · 2020두44282</div>
+    <div class="case-title">은행업무 지연 또는 시공방법 변경 등 추가적인 과정을 거치면서 유예기간 내 공장 건축물을 준공하지 못한 경우 직접 사용하지 못한 정당한 사유 해당 여부</div>
+    <div class="case-summary">【심급】 3심 【세목】 취득세 【주문】 상고를 기각한다. 상고비용은 원고가 부담한다. 【이유】 상고인이 제출한 상고장에 상고이유의 기재가 없고, 또 법정기간 내에 상고이유서를 제출하지…</div>
+    <div class="case-laws"><span>은행</span></div>
+  </div></a>  <a href="/finlaw/cases/420770/" class="finlaw-searchable" data-type="case" data-search="구 자본시장법에 따라 금융위원회에 등록을 하지 않은 부동산집합투자기구가 집합투자재산으로 취득한 부동산에 대하여 구 조세특례제한법 제120조 제4항 제2호가 적용될 수 있는지 여부 수원지방법원 2015구합65149 자본시장 【심급】 1심 【세목】 취득세 【이유】 101_수원지법_2015구합65149_판결서_unlocked.pdf" style="text-decoration:none;color:inherit"><div class="case-card">
+    <div class="case-court">수원지방법원 · 2019.01.10 · 2015구합65149</div>
+    <div class="case-title">구 자본시장법에 따라 금융위원회에 등록을 하지 않은 부동산집합투자기구가 집합투자재산으로 취득한 부동산에 대하여 구 조세특례제한법 제120조 제4항 제2호가 적용될 수 있는지 여부</div>
+    <div class="case-summary">【심급】 1심 【세목】 취득세 【이유】 101_수원지법_2015구합65149_판결서_unlocked.pdf</div>
     <div class="case-laws"><span>자본시장</span></div>
-  </div>
+  </div></a>
 </section>
 
 <div class="divider"></div>
 <section class="sec">
   <div class="sec-hdr">입법예고 트래커<span class="sec-date">5건 진행 중</span></div>
-  <div class="notice-card">
+  <a href="https://opinion.lawmaking.go.kr/gcom/ogLmPp/86122?pageIndex=4&amp;amp;cntPerPage=100" class="finlaw-searchable" data-type="notice" data-search="국민건강보험법 시행령 일부개정령안 입법예고   일부 보건복지부 대통령령" style="text-decoration:none;color:inherit"><div class="notice-card">
     <div class="notice-dday far"><span class="d">D-</span><span class="n">33</span></div>
     <div class="notice-body">
       <div class="notice-title">국민건강보험법 시행령 일부개정령안 입법예고   일부</div>
       <div class="notice-meta">보건복지부 · 2026-03-25 ~ 2026-05-04 · 의견 0건</div>
     </div>
-  </div>  <div class="notice-card">
+  </div></a>  <a href="https://opinion.lawmaking.go.kr/gcom/ogLmPp/86120?pageIndex=4&amp;amp;cntPerPage=100" class="finlaw-searchable" data-type="notice" data-search="국민건강보험법 시행규칙 일부개정령안 입법예고   일부 보건복지부 부령" style="text-decoration:none;color:inherit"><div class="notice-card">
     <div class="notice-dday far"><span class="d">D-</span><span class="n">33</span></div>
     <div class="notice-body">
       <div class="notice-title">국민건강보험법 시행규칙 일부개정령안 입법예고   일부</div>
       <div class="notice-meta">보건복지부 · 2026-03-25 ~ 2026-05-04 · 의견 0건</div>
     </div>
-  </div>  <div class="notice-card">
+  </div></a>  <a href="https://opinion.lawmaking.go.kr/gcom/ogLmPp/86118?pageIndex=4&amp;amp;cntPerPage=100" class="finlaw-searchable" data-type="notice" data-search="국민건강보험 요양급여의 기준에 관한 규칙 일부개정령안 입법예고   일부 보건복지부 부령" style="text-decoration:none;color:inherit"><div class="notice-card">
     <div class="notice-dday far"><span class="d">D-</span><span class="n">33</span></div>
     <div class="notice-body">
       <div class="notice-title">국민건강보험 요양급여의 기준에 관한 규칙 일부개정령안 입법예고   일부</div>
       <div class="notice-meta">보건복지부 · 2026-03-25 ~ 2026-05-04 · 의견 0건</div>
     </div>
-  </div>  <div class="notice-card">
+  </div></a>  <a href="https://opinion.lawmaking.go.kr/gcom/ogLmPp/86134?pageIndex=3&amp;amp;cntPerPage=100" class="finlaw-searchable" data-type="notice" data-search="고용보험법 시행령 일부개정령안 입법예고   일부 고용노동부 대통령령" style="text-decoration:none;color:inherit"><div class="notice-card">
     <div class="notice-dday far"><span class="d">D-</span><span class="n">35</span></div>
     <div class="notice-body">
       <div class="notice-title">고용보험법 시행령 일부개정령안 입법예고   일부</div>
       <div class="notice-meta">고용노동부 · 2026-03-26 ~ 2026-05-06 · 의견 0건</div>
     </div>
-  </div>  <div class="notice-card">
+  </div></a>  <a href="https://opinion.lawmaking.go.kr/gcom/ogLmPp/86132?pageIndex=3&amp;amp;cntPerPage=100" class="finlaw-searchable" data-type="notice" data-search="고용보험법 시행규칙 일부개정령안 입법예고   일부 고용노동부 부령" style="text-decoration:none;color:inherit"><div class="notice-card">
     <div class="notice-dday far"><span class="d">D-</span><span class="n">35</span></div>
     <div class="notice-body">
       <div class="notice-title">고용보험법 시행규칙 일부개정령안 입법예고   일부</div>
       <div class="notice-meta">고용노동부 · 2026-03-26 ~ 2026-05-06 · 의견 0건</div>
     </div>
-  </div>
+  </div></a>
 </section>
 
 <div class="divider"></div>
@@ -286,9 +287,24 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <a href="https://t.me/govbrief" target="_blank" style="padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap">구독</a>
 </div>
 
-<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
 <nav class="bnav"><a href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="#"><span style="font-size:16px">⌕</span>검색</a><a href="#"><span style="font-size:16px">≡</span>달력</a><a class="on" href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
-
+<script>
+const finlawSearch = document.getElementById('finlaw-search');
+const finlawItems = Array.from(document.querySelectorAll('.finlaw-searchable'));
+finlawSearch?.addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  finlawItems.forEach((node) => {
+    node.style.display = !q || node.dataset.search.includes(q) ? '' : 'none';
+  });
+});
+finlawSearch?.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.isComposing) {
+    const q = this.value.trim();
+    if (q) window.location.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(q);
+  }
+});
+</script>
 </body>
 </html>
