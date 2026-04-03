@@ -197,9 +197,25 @@ def enrich_date(target_date: str, max_items: int = 200):
         # 1. 원문 수집
         raw_text = fetch_article_text(url)
         if len(raw_text) < 100:
-            print(f"    [SKIP] 원문 부족 ({len(raw_text)}자)")
-            time.sleep(0.5)
-            continue
+            # 폴백: index.html의 기존 요약 + 제목으로 확장
+            title_m = re.search(r'class="post-title">(.*?)</h1>', text, re.DOTALL)
+            summary_m = re.search(r'<section class="summary">.*?<p>(.*?)</p>', text, re.DOTALL)
+            kw_m = re.findall(r'<span>#(.*?)</span>', text)
+            badge_m = re.search(r'class="post-badge">(.*?)</div>', text)
+            if summary_m:
+                raw_text = ""
+                if badge_m:
+                    raw_text += badge_m.group(1).strip() + "\n"
+                if title_m:
+                    raw_text += "제목: " + title_m.group(1).strip() + "\n"
+                raw_text += "요약: " + summary_m.group(1).strip() + "\n"
+                if kw_m:
+                    raw_text += "키워드: " + ", ".join(kw_m) + "\n"
+                print(f"    [FALLBACK] 기존 요약 활용 ({len(raw_text)}자)")
+            else:
+                print(f"    [SKIP] 원문 부족, 요약도 없음")
+                time.sleep(0.5)
+                continue
 
         # 2. LLM 분석
         print(f"    LLM 분석 중...")
