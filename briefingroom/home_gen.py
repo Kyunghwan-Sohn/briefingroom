@@ -12,10 +12,13 @@ from collections import Counter, defaultdict
 from datetime import date
 from pathlib import Path
 
+import sqlite3
+
 from briefingroom.config import BASE_DIR, DATA_DIR
 
 INDEX_PATH = BASE_DIR / "index.html"
 POLICY_INDEX_PATH = BASE_DIR / "policy" / "index.html"
+FINLAW_DB = BASE_DIR / "finance_law.db"
 
 # 카테고리 한글명
 CAT_LABELS = {
@@ -157,6 +160,89 @@ def _build_policy_carousel(items: list[dict], target_date: str) -> str:
     </div>
     <div class="carousel-dots" id="c1-dots">{dots}</div>
   </div>""", slide_count
+
+
+def _build_twin_carousel(policy_items: list[dict], date_display: str) -> str:
+    """홈 2분할 캐러셀: 왼쪽 정책AI + 오른쪽 법령AI"""
+
+    # 왼쪽: 정책 AI (영향도 상 우선 3건)
+    top_policy = sorted(
+        policy_items,
+        key=lambda x: (-IMPACT_RANK.get(x.get("impact", "중"), 2), x.get("title", "")),
+    )[:3]
+
+    policy_slides = []
+    for it in top_policy:
+        cat = CAT_LABELS.get(it.get("category", ""), it.get("category", ""))
+        summary = it.get("summary", "")[:120] or "요약 준비 중"
+        slug = it.get("slug") or "000"
+        item_date = it.get("date", "")
+        link = f"/articles/{item_date}/{slug}/" if item_date else "/articles/"
+        policy_slides.append(f"""<div class="carousel-card">
+          <div class="p-cat">{h.escape(cat)}</div>
+          <div class="p-title">{h.escape(it.get("title","")[:50])}</div>
+          <div class="p-easy"><strong>쉬운 요약</strong>{h.escape(summary)}</div>
+          <div class="p-foot"><a href="{link}">자세히 &#8594;</a><span>{h.escape(it.get("source",""))}</span></div>
+        </div>""")
+
+    p_dots = "".join(f'<span class="carousel-dot{" on" if i==0 else ""}"></span>' for i in range(len(policy_slides)))
+
+    # 오른쪽: 법령 AI (DB에서 최근 변경 3건)
+    law_slides = []
+    try:
+        conn = sqlite3.connect(str(FINLAW_DB))
+        rows = conn.execute(
+            "SELECT law_id, name, revision_type, amendment_reason "
+            "FROM laws WHERE revision_type != '' AND amendment_reason != '' "
+            "ORDER BY enforcement_date DESC LIMIT 3"
+        ).fetchall()
+        conn.close()
+        tag_map = {"일부개정": "edit", "전부개정": "edit", "제정": "notice"}
+        for law_id, name, rev_type, reason in rows:
+            tag_cls = tag_map.get(rev_type, "edit")
+            law_slides.append(f"""<div class="carousel-card">
+          <span class="l-tag {tag_cls}">{h.escape(rev_type)}</span>
+          <div class="l-title">{h.escape(name[:40])}</div>
+          <div class="l-easy"><strong>쉬운 설명</strong>{h.escape(reason[:120])}</div>
+          <div class="l-foot"><a href="/finlaw/detail/{h.escape(str(law_id))}/" style="color:var(--law);text-decoration:none;font-weight:600;font-size:13px">자세히 &#8594;</a><span>{h.escape(rev_type)}</span></div>
+        </div>""")
+    except Exception as e:
+        print(f"[home_gen] finlaw DB 에러: {e}")
+
+    if not law_slides:
+        law_slides = ["""<div class="carousel-card">
+          <span class="l-tag edit">법령</span>
+          <div class="l-title">금융 법령 AI</div>
+          <div class="l-easy"><strong>쉬운 설명</strong>금융 법령 139건, 판례 526건을 AI가 분석합니다.</div>
+          <div class="l-foot"><a href="/finlaw/" style="color:var(--law);text-decoration:none;font-weight:600;font-size:13px">전체 보기 &#8594;</a><span></span></div>
+        </div>"""]
+
+    l_dots = "".join(f'<span class="carousel-dot{" on" if i==0 else ""}"></span>' for i in range(len(law_slides)))
+
+    return f"""<div class="twin">
+  <div class="twin-col policy">
+    <div class="twin-header">
+      <span class="twin-badge policy">POLICY</span>
+      <span class="twin-name">정부 정책 AI</span>
+      <a class="twin-more" href="/policy/">전체 &#8594;</a>
+    </div>
+    <div class="carousel" id="c-policy">
+      <div class="carousel-track" id="c-policy-track">{"".join(policy_slides)}</div>
+      <div class="carousel-dots" id="c-policy-dots">{p_dots}</div>
+    </div>
+  </div>
+  <div class="twin-col law">
+    <div class="twin-header">
+      <span class="twin-badge law">LAW</span>
+      <span class="twin-name">금융 법령 AI</span>
+      <a class="twin-more" href="/finlaw/">전체 &#8594;</a>
+    </div>
+    <div class="carousel" id="c-law">
+      <div class="carousel-track" id="c-law-track">{"".join(law_slides)}</div>
+      <div class="carousel-dots" id="c-law-dots">{l_dots}</div>
+    </div>
+  </div>
+</div>""", len(policy_slides), len(law_slides)
 
 
 def _build_dept_briefing(items: list[dict]) -> str:
@@ -520,6 +606,30 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .sec-hdr{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:14px;display:flex;align-items:baseline;justify-content:space-between}
 .sec-more{font-size:11px;color:var(--a);text-decoration:none;font-weight:600}
 .divider{height:1px;background:var(--b);margin:24px 24px 0}
+.twin{display:flex;gap:0}
+.twin-col{flex:1;min-width:0;padding:22px 24px;display:flex;flex-direction:column}
+.twin-col.policy{background:var(--policy-bg);border-right:1px solid var(--policy-border)}
+.twin-col.law{background:var(--law-bg)}
+.twin-header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.twin-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:.05em}
+.twin-badge.policy{background:var(--policy);color:#fff}
+.twin-badge.law{background:var(--law);color:#fff}
+.twin-name{font-family:var(--serif);font-size:20px;font-weight:700}
+.twin-more{font-family:var(--sans);font-size:12px;color:var(--a);text-decoration:none;font-weight:600;margin-left:auto}
+.p-cat{font-family:var(--sans);font-size:11px;font-weight:700;color:var(--policy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.p-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.45;margin-bottom:10px}
+.p-easy{font-family:var(--sans);font-size:15px;color:var(--t2);line-height:1.75;padding:12px 14px;background:var(--policy-bg);border-left:3px solid var(--policy);border-radius:0 8px 8px 0;margin-bottom:10px;flex:1}
+.p-easy strong{display:block;font-size:10px;color:var(--policy);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.p-foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-size:12px;color:var(--m)}
+.p-foot a{color:var(--policy);text-decoration:none;font-weight:600;font-size:13px}
+.l-tag{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;margin-bottom:6px}
+.l-tag.edit{background:#eef2ff;color:#3730a3}
+.l-tag.case{background:#fff7ed;color:#9a3412}
+.l-tag.notice{background:#ecfdf5;color:#065f46}
+.l-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.45;margin-bottom:10px}
+.l-easy{font-family:var(--sans);font-size:15px;color:var(--t2);line-height:1.75;padding:12px 14px;background:var(--law-bg);border-left:3px solid var(--law);border-radius:0 8px 8px 0;margin-bottom:10px;flex:1}
+.l-easy strong{display:block;font-size:10px;color:var(--law);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.l-foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-size:12px;color:var(--m)}
 .carousel{position:relative;overflow:hidden;border-radius:14px;border:2px solid var(--b);background:var(--s)}
 .carousel-track{display:flex;transition:transform .3s ease}
 .carousel-card{min-width:100%;padding:24px}
@@ -573,6 +683,9 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   .carousel-card{padding:18px 16px}
   .sum-title{font-size:16px}
   .sum-body{font-size:13px}
+  .twin{flex-direction:column}
+  .twin-col{padding:18px 16px}
+  .twin-col.policy{border-right:none;border-bottom:1px solid var(--policy-border)}
   .cta{margin:18px 16px;padding:16px}
   .cta h3{font-size:14px}
   .bnav{display:grid}
@@ -582,6 +695,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
     # 캐러셀 생성
     policy_carousel, c1_count = _build_policy_carousel(items, actual_date)
     dept_briefing = _build_dept_briefing(items)
+    twin_html, twin_p_count, twin_l_count = _build_twin_carousel(items, date_display)
 
     # 검색 태그 (상위 키워드)
     all_kws = []
@@ -634,10 +748,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="tags">{tags_html}</div>
 </section>
 
-<div class="svcs">
-  <a class="svc" href="/policy/"><div><div class="tt">정부 정책 AI</div><div class="dd">최신 스냅샷 {len(items)}건 · 요약/필터</div></div></a>
-  <a class="svc" href="/finlaw/"><div><div class="tt">금융 법령 AI</div><div class="dd">139법령 · 526판례 · 검색</div></div></a>
-</div>
+{twin_html}
 
 <div class="divider"></div>
 <section class="sec" id="policy-summary">
@@ -675,6 +786,8 @@ function makeCarousel(id, count) {{
   }}, {{ passive: true }});
 }}
 makeCarousel('c1', {c1_count});
+makeCarousel('c-policy', {twin_p_count});
+makeCarousel('c-law', {twin_l_count});
 
 const searchInput = document.getElementById('search-input');
 const searchResults = document.getElementById('search-results');

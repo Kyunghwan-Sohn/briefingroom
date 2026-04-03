@@ -52,6 +52,30 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .sec-hdr{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:14px;display:flex;align-items:baseline;justify-content:space-between}
 .sec-more{font-size:11px;color:var(--a);text-decoration:none;font-weight:600}
 .divider{height:1px;background:var(--b);margin:24px 24px 0}
+.twin{display:flex;gap:0}
+.twin-col{flex:1;min-width:0;padding:22px 24px;display:flex;flex-direction:column}
+.twin-col.policy{background:var(--policy-bg);border-right:1px solid var(--policy-border)}
+.twin-col.law{background:var(--law-bg)}
+.twin-header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.twin-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:.05em}
+.twin-badge.policy{background:var(--policy);color:#fff}
+.twin-badge.law{background:var(--law);color:#fff}
+.twin-name{font-family:var(--serif);font-size:20px;font-weight:700}
+.twin-more{font-family:var(--sans);font-size:12px;color:var(--a);text-decoration:none;font-weight:600;margin-left:auto}
+.p-cat{font-family:var(--sans);font-size:11px;font-weight:700;color:var(--policy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.p-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.45;margin-bottom:10px}
+.p-easy{font-family:var(--sans);font-size:15px;color:var(--t2);line-height:1.75;padding:12px 14px;background:var(--policy-bg);border-left:3px solid var(--policy);border-radius:0 8px 8px 0;margin-bottom:10px;flex:1}
+.p-easy strong{display:block;font-size:10px;color:var(--policy);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.p-foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-size:12px;color:var(--m)}
+.p-foot a{color:var(--policy);text-decoration:none;font-weight:600;font-size:13px}
+.l-tag{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;margin-bottom:6px}
+.l-tag.edit{background:#eef2ff;color:#3730a3}
+.l-tag.case{background:#fff7ed;color:#9a3412}
+.l-tag.notice{background:#ecfdf5;color:#065f46}
+.l-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.45;margin-bottom:10px}
+.l-easy{font-family:var(--sans);font-size:15px;color:var(--t2);line-height:1.75;padding:12px 14px;background:var(--law-bg);border-left:3px solid var(--law);border-radius:0 8px 8px 0;margin-bottom:10px;flex:1}
+.l-easy strong{display:block;font-size:10px;color:var(--law);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.l-foot{display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-size:12px;color:var(--m)}
 .carousel{position:relative;overflow:hidden;border-radius:14px;border:2px solid var(--b);background:var(--s)}
 .carousel-track{display:flex;transition:transform .3s ease}
 .carousel-card{min-width:100%;padding:24px}
@@ -105,6 +129,9 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   .carousel-card{padding:18px 16px}
   .sum-title{font-size:16px}
   .sum-body{font-size:13px}
+  .twin{flex-direction:column}
+  .twin-col{padding:18px 16px}
+  .twin-col.policy{border-right:none;border-bottom:1px solid var(--policy-border)}
   .cta{margin:18px 16px;padding:16px}
   .cta h3{font-size:14px}
   .bnav{display:grid}
@@ -135,9 +162,59 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="tags"></div>
 </section>
 
-<div class="svcs">
-  <a class="svc" href="/policy/"><div><div class="tt">정부 정책 AI</div><div class="dd">최신 스냅샷 151건 · 요약/필터</div></div></a>
-  <a class="svc" href="/finlaw/"><div><div class="tt">금융 법령 AI</div><div class="dd">139법령 · 526판례 · 검색</div></div></a>
+<div class="twin">
+  <div class="twin-col policy">
+    <div class="twin-header">
+      <span class="twin-badge policy">POLICY</span>
+      <span class="twin-name">정부 정책 AI</span>
+      <a class="twin-more" href="/policy/">전체 &#8594;</a>
+    </div>
+    <div class="carousel" id="c-policy">
+      <div class="carousel-track" id="c-policy-track"><div class="carousel-card">
+          <div class="p-cat">사회·복지</div>
+          <div class="p-title">&quot;과태료 고지서 못 받은 다가구주택 거주자&quot;… 행정기관 간 주소정보 연계로 해결해야</div>
+          <div class="p-easy"><strong>쉬운 요약</strong>국민권익위원회는 다가구주택 거주자 등 과태료 고지서를 수령하지 못하는 문제를 행정기관 간 주소정보 연계를 통해 해결하겠다고 밝혔습니다. 관련 절차와 정보 공유 시스템 개편은 2026 년 3 월 31 일 보도를 통해 </div>
+          <div class="p-foot"><a href="/articles/2026-03-31/088/">자세히 &#8594;</a><span>국민권익위원회</span></div>
+        </div><div class="carousel-card">
+          <div class="p-cat">산업·기술</div>
+          <div class="p-title">&quot;국민 44.5% 생성형 인공지능 경험, 전년 대비 11.2%p 증가&quot; 과기정통부, 「20</div>
+          <div class="p-easy"><strong>쉬운 요약</strong>과학기술정보통신부가 발표한 2025년 인터넷이용실태조사 결과에 따르면 국민의 44.5%가 생성형 인공지능을 경험한 것으로 집계되었다. 이는 전년 대비 11.2%p 상승한 수치로, 관련 발표는 2026년 3월 31일 </div>
+          <div class="p-foot"><a href="/articles/2026-03-31/023/">자세히 &#8594;</a><span>과학기술정보통신부</span></div>
+        </div><div class="carousel-card">
+          <div class="p-cat">산업·기술</div>
+          <div class="p-title">&quot;국민의 독도, 누리는 바다, 이어갈 미래&quot; 제5차 독도 지속가능 이용 기본계획 수립&quot;국민</div>
+          <div class="p-easy"><strong>쉬운 요약</strong>해양수산부는 &quot;국민의 독도, 누리는 바다, 이어갈 미래&quot;를 비전으로 2026 년부터 2030 년까지 적용될 제 5 차 독도 지속가능 이용 기본계획을 수립했습니다. 이 계획은 향후 5 개년 동안 독도 생태계 보전과 지</div>
+          <div class="p-foot"><a href="/articles/2026-03-31/069/">자세히 &#8594;</a><span>해양수산부</span></div>
+        </div></div>
+      <div class="carousel-dots" id="c-policy-dots"><span class="carousel-dot on"></span><span class="carousel-dot"></span><span class="carousel-dot"></span></div>
+    </div>
+  </div>
+  <div class="twin-col law">
+    <div class="twin-header">
+      <span class="twin-badge law">LAW</span>
+      <span class="twin-name">금융 법령 AI</span>
+      <a class="twin-more" href="/finlaw/">전체 &#8594;</a>
+    </div>
+    <div class="carousel" id="c-law">
+      <div class="carousel-track" id="c-law-track"><div class="carousel-card">
+          <span class="l-tag edit">일부개정</span>
+          <div class="l-title">금융위원회와 그 소속기관 직제</div>
+          <div class="l-easy"><strong>쉬운 설명</strong>국무회의의 심의를 거친 금융위원회와 그 소속기관 직제 일부개정령을 이에 공포한다.           대통령        이재명 (인)           국무총리        김민석</div>
+          <div class="l-foot"><a href="/finlaw/detail/010674/" style="color:var(--law);text-decoration:none;font-weight:600;font-size:13px">자세히 &#8594;</a><span>일부개정</span></div>
+        </div><div class="carousel-card">
+          <span class="l-tag edit">일부개정</span>
+          <div class="l-title">금융위원회와 그 소속기관 직제 시행규칙</div>
+          <div class="l-easy"><strong>쉬운 설명</strong>금융위원회와 그 소속기관 직제 시행규칙 일부개정령을 이에 공포한다. 금융위원회와 그 소속기관 직제 시행규칙 일부개정령 금융위원회와 그 소속기관 직제 시행규칙 일부를 다음과 같이 개정한다.</div>
+          <div class="l-foot"><a href="/finlaw/detail/010690/" style="color:var(--law);text-decoration:none;font-weight:600;font-size:13px">자세히 &#8594;</a><span>일부개정</span></div>
+        </div><div class="carousel-card">
+          <span class="l-tag edit">일부개정</span>
+          <div class="l-title">개인정보 보호위원회 직제 시행규칙</div>
+          <div class="l-easy"><strong>쉬운 설명</strong>개인정보 보호위원회 직제 시행규칙 일부개정령을 이에 공포한다. 개인정보 보호위원회 직제 시행규칙 일부개정령 개인정보 보호위원회 직제 시행규칙 일부를 다음과 같이 개정한다.</div>
+          <div class="l-foot"><a href="/finlaw/detail/013827/" style="color:var(--law);text-decoration:none;font-weight:600;font-size:13px">자세히 &#8594;</a><span>일부개정</span></div>
+        </div></div>
+      <div class="carousel-dots" id="c-law-dots"><span class="carousel-dot on"></span><span class="carousel-dot"></span><span class="carousel-dot"></span></div>
+    </div>
+  </div>
 </div>
 
 <div class="divider"></div>
@@ -156,13 +233,13 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
         <div class="sum-title">산림청이 홍릉숲 봄꽃 축제를 개막하여 봄철 시민들에게  · 새만금개발청이 공공데이터 제공 및 데이터기반행정 </div>
         <div class="sum-kw"></div>
         <div class="sum-body">산림청이 홍릉숲 봄꽃 축제를 개막하여 봄철 시민들에게 휴식과 문화 체험 기회를 제공합니다. 2026 년 3 월 31 일 행사 시작과 함께 탐방객들이 홍릉숲을 찾는 등 큰 관심과 인기를 얻고 있습니다. 전국민 및 방문객을 대상으로 자연 친화적 여가 활동 기회를 제공하여 </div>
-        <div class="sum-foot"><a href="/articles/">산업·기술 63건 →</a><span>산림청, 기상청, 중소벤처기업부</span></div>
+        <div class="sum-foot"><a href="/articles/">산업·기술 63건 →</a><span>산림청, 새만금개발청, 중소벤처기업부</span></div>
       </div><div class="carousel-card">
         <div class="sum-label">사회·복지 3/4</div>
         <div class="sum-title">고용노동부는 2025년 유족급여 승인 기준과 관련한 사 · 고용노동부는 2025년 누적 기준 재해조사 대상 </div>
         <div class="sum-kw"></div>
         <div class="sum-body">고용노동부는 2025년 유족급여 승인 기준과 관련한 사고사망 재해 현황 자료를 발표하며 산재보험 수혜자 보호 체계를 점검하였습니다. 해당 발표는 2026 년 3 월 31 일 기준 유족급여 승인 건수와 사고 유형 등 주요 통계 수치를 중심으로 진행되었습니다. 본 조치는 </div>
-        <div class="sum-foot"><a href="/articles/">사회·복지 39건 →</a><span>경찰청, 고용노동부</span></div>
+        <div class="sum-foot"><a href="/articles/">사회·복지 39건 →</a><span>고용노동부, 경찰청</span></div>
       </div><div class="carousel-card">
         <div class="sum-label">금융·경제 4/4</div>
         <div class="sum-title">산업통상부는 2026 년 추가경정예산안으로 9,241  · 제14차 세계무역기구 (WTO) 각료회의가 폐막하</div>
@@ -208,6 +285,8 @@ function makeCarousel(id, count) {
   }, { passive: true });
 }
 makeCarousel('c1', 4);
+makeCarousel('c-policy', 3);
+makeCarousel('c-law', 3);
 
 const searchInput = document.getElementById('search-input');
 const searchResults = document.getElementById('search-results');
