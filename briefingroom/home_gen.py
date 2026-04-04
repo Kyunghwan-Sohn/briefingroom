@@ -109,51 +109,56 @@ def _build_policy_carousel(items: list[dict], target_date: str) -> str:
         summary_body += " " + ", ".join(parts) + "."
 
     kw_html = "".join(f"<span>{h.escape(k)}</span>" for k in top_keywords)
+
+    # 분야별 건수 요약
+    cat_summary_parts = []
+    for cat_key in ("금융경제", "산업기술", "사회복지", "외교안보", "행정법제"):
+        cnt = len(by_cat.get(cat_key, []))
+        if cnt > 0:
+            cat_summary_parts.append(f"{CAT_LABELS.get(cat_key, cat_key)} {cnt}건")
+    summary_body = f"오늘 {len(items)}건 발표. " + " / ".join(cat_summary_parts) + f". 영향도 상 {high_count}건."
+
     slides = [f"""<div class="carousel-card">
         <div class="sum-label">종합 1/{1 + len(top_cats)}</div>
         <div class="sum-title">{h.escape(summary_title)}</div>
         <div class="sum-kw">{kw_html}</div>
         <div class="sum-body">{h.escape(summary_body)}</div>
-        <div class="sum-foot"><a href="/articles/">상세 브리핑 →</a><span>영향도 상 {high_count}건</span></div>
+        <div class="sum-foot"><a href="/policy/">정부 정책 AI에서 전체 보기 →</a><span>전체 {len(items)}건</span></div>
       </div>"""]
 
-    # 슬라이드 2~: 카테고리별
+    # 슬라이드 2~: 카테고리별 (상위 기사 제목 나열 + 건수)
     for idx, (cat, cat_items) in enumerate(top_cats, 2):
         cat_label = CAT_LABELS.get(cat, cat)
-        # 카테고리 내 상위 항목의 요약에서 핵심 추출
-        titles = []
-        cat_kws = []
-        for ci in cat_items[:3]:
-            summary = ci.get("summary", "")
-            if summary:
-                titles.append(summary[:30])
-            for kw in (ci.get("keywords") or [])[:2]:
-                if kw and f"#{kw}" not in cat_kws and len(cat_kws) < 3:
-                    cat_kws.append(f"#{kw}")
 
-        slide_title = " · ".join(titles[:3]) if titles else f"{cat_label} 주요 정책"
-        slide_body = f"{cat_label} 분야에서 {len(cat_items)}건이 발표되었습니다."
-        if cat_items and cat_items[0].get("summary"):
-            slide_body = cat_items[0]["summary"][:150]
+        # 영향도 상 우선, 상위 3건 제목
+        sorted_items = sorted(cat_items, key=lambda x: -IMPACT_RANK.get(x.get("impact", "중"), 2))
+        top_titles = [ci.get("title", "")[:35] for ci in sorted_items[:3] if ci.get("title")]
+        slide_title = f"{cat_label} 주요 {len(cat_items)}건"
 
-        cat_kw_html = "".join(f"<span>{h.escape(k)}</span>" for k in cat_kws)
+        # 상위 기사 제목을 본문으로
+        slide_lines = []
+        for ci in sorted_items[:3]:
+            imp = ci.get("impact", "중")
+            title = ci.get("title", "")[:40]
+            slide_lines.append(f"[{imp}] {title}")
+        slide_body = " / ".join(slide_lines) if slide_lines else f"{cat_label} 분야 {len(cat_items)}건"
 
         # 부처 목록
-        sources = set(ci.get("source", "") for ci in cat_items[:5])
-        source_text = ", ".join(list(sources)[:3])
+        sources = list(set(ci.get("source", "") for ci in cat_items[:8]))
+        source_text = ", ".join(sources[:4])
 
         slides.append(f"""<div class="carousel-card">
         <div class="sum-label">{h.escape(cat_label)} {idx}/{1 + len(top_cats)}</div>
-        <div class="sum-title">{h.escape(slide_title[:60])}</div>
-        <div class="sum-kw">{cat_kw_html}</div>
+        <div class="sum-title">{h.escape(slide_title)}</div>
+        <div class="sum-kw"></div>
         <div class="sum-body">{h.escape(slide_body)}</div>
-        <div class="sum-foot"><a href="/articles/">{h.escape(cat_label)} {len(cat_items)}건 →</a><span>{h.escape(source_text)}</span></div>
+        <div class="sum-foot"><a href="/policy/?cat={h.escape(cat)}">{h.escape(cat_label)} {len(cat_items)}건 →</a><span>{h.escape(source_text)}</span></div>
       </div>""")
 
     slide_count = len(slides)
     dots = "".join(f'<span class="carousel-dot{" on" if i == 0 else ""}"></span>' for i in range(slide_count))
 
-    return f"""<div class="sec-hdr">오늘의 정책 요약 <span style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--t);margin-left:8px">{date_display}</span><a class="sec-more" href="/articles/">전체 {len(items)}건 →</a></div>
+    return f"""<div class="sec-hdr">오늘의 정책 요약 <span style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--t);margin-left:8px">{date_display}</span><a class="sec-more" href="/policy/">전체 {len(items)}건 →</a></div>
   <div class="carousel" id="c1">
     <div class="carousel-track" id="c1-track">
       {"".join(slides)}
