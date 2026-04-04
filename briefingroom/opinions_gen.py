@@ -12,6 +12,7 @@ import sqlite3
 from pathlib import Path
 
 from briefingroom.config import BASE_DIR
+from briefingroom.site_templates import render_top_nav, render_footer
 
 DB_PATH = BASE_DIR / "finance_law.db"
 OUT_PATH = BASE_DIR / "finlaw" / "opinions" / "index.html"
@@ -88,14 +89,7 @@ tr:last-child td{{border-bottom:none}}
 </head>
 <body>
 
-<header class="hdr">
-  <a class="logo" href="/">브리핑룸</a>
-  <nav class="hnav">
-    <a href="/">홈</a>
-    <a class="on" href="/finlaw/">금융 법령 AI</a>
-  </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
-</header>
+{render_top_nav("finlaw")}
 
 <div style="padding:24px 20px 80px">
 <a href="/finlaw/" style="color:var(--m);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px">← 금융 법령 AI</a>

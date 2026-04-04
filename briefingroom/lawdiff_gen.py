@@ -16,6 +16,8 @@ from pathlib import Path
 
 import requests
 
+from briefingroom.site_templates import render_top_nav, render_footer
+
 from briefingroom.config import BASE_DIR
 
 DB_PATH = BASE_DIR / "finance_law.db"
@@ -63,14 +65,7 @@ h1{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:8px;lin
 @media(max-width:768px){body{padding-top:52px}.hdr{height:50px;padding:0 14px}.logo{font-size:17px}.hnav a{font-size:11px;padding:5px 8px}.diff-row{flex-direction:column}.diff-new{border-left:none;border-top:1px solid var(--bl)}}
 """
 
-_HEADER = """<header class="hdr">
-  <a class="logo" href="/">브리핑룸</a>
-  <nav class="hnav">
-    <a href="/">정책 AI 요약</a>
-    <a href="/finlaw/">금융 법령 AI 모니터링</a>
-  </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
-</header>"""
+_HEADER = render_top_nav("finlaw")
 
 
 def _fetch_articles(mst: str) -> list[dict]:

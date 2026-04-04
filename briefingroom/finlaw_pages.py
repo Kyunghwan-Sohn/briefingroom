@@ -13,6 +13,8 @@ import sqlite3
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
+from briefingroom.site_templates import SITE_NAV_CSS, render_top_nav, render_footer
+
 from briefingroom.config import BASE_DIR
 
 DB_PATH = BASE_DIR / "finance_law.db"
@@ -154,14 +156,7 @@ tr:last-child td{{border-bottom:none}}
 </style>
 </head>
 <body>
-<header class="hdr">
-  <a class="logo" href="/">브리핑룸</a>
-  <nav class="hnav">
-    <a href="/">홈</a>
-    <a class="on" href="/finlaw/">금융 법령 AI</a>
-  </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
-</header>
+{render_top_nav("finlaw")}
 <div class="wrap">
 <a class="back" href="/finlaw/">← 금융 법령 AI</a>
 <h1>금융 판례</h1>
@@ -326,14 +321,7 @@ tr:last-child td{{border-bottom:none}}
 </style>
 </head>
 <body>
-<header class="hdr">
-  <a class="logo" href="/">브리핑룸</a>
-  <nav class="hnav">
-    <a href="/">홈</a>
-    <a class="on" href="/finlaw/">금융 법령 AI</a>
-  </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
-</header>
+{render_top_nav("finlaw")}
 <div class="wrap">
 <a class="back" href="/finlaw/">← 금융 법령 AI</a>
 <h1>법령 개정 이력</h1>
@@ -538,14 +526,7 @@ def generate_finlaw_index():
 </head>
 <body>
 
-<header class="hdr">
-  <a class="logo" href="/">브리핑룸</a>
-  <nav class="hnav">
-    <a href="/">홈</a>
-    <a class="on" href="/finlaw/">금융 법령 AI</a>
-  </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
-</header>
+{render_top_nav("finlaw")}
 
 <section class="hero">
   <div class="hero-top">
