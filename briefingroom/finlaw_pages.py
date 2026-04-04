@@ -111,7 +111,7 @@ def generate_cases_page():
 <link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}}
+:root{{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;--law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}}
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0}}
 .hdr{{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}}
@@ -277,7 +277,7 @@ def generate_notices_page():
 <link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}}
+:root{{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;--law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}}
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0}}
 .hdr{{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}}
@@ -528,29 +528,21 @@ def generate_finlaw_index():
 
 {render_top_nav("finlaw")}
 
-<section class="hero">
+<section class="hero" style="background:var(--law-bg);border-bottom:1px solid var(--law-border)">
   <div class="hero-top">
     <h1>금융 법령 AI</h1>
-    <p style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:700;letter-spacing:.02em">{today_dot} ({dow})</p>
-    <p style="margin-top:2px">최근 30일 법령 변동과 최신 판례 요약</p>
+    <div class="hero-date">{today_dot} ({dow})</div>
+    <div class="hero-sub">금융 법령 {total_laws}건 · 판례 {prec_count}건 · 매일 모니터링</div>
   </div>
 
   <div class="hero-dash">
-    <div class="hero-stat alert">{dot_class}<div class="num">{law_count}</div><div class="label">법령 개정</div></div>
-    <div class="hero-stat warn"><div class="num">{prec_count}</div><div class="label">판례</div></div>
-    <div class="hero-stat ok"><div class="num">{notice_count}</div><div class="label">입법예고 중</div></div>
-    <div class="hero-stat info"><div class="num">{total_laws}</div><div class="label">전체 법령</div></div>
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">{law_count}</div><div class="label" style="color:var(--law)">법령 개정</div></div>
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">{prec_count}</div><div class="label" style="color:var(--law)">판례</div></div>
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">{notice_count}</div><div class="label" style="color:var(--law)">입법예고</div></div>
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">{total_laws}</div><div class="label" style="color:var(--law)">전체 법령</div></div>
   </div>
 
-  {"" if not headline_title else f'''<div class="hero-headline">
-    <div class="icon" style="font-size:14px;font-weight:900;color:var(--a);background:var(--al);border:1px solid var(--ab);width:36px;height:36px;border-radius:8px;display:grid;place-items:center">!</div>
-    <div class="text">
-      <div class="title">{html.escape(headline_title)}</div>
-      <div class="sub">{html.escape(headline_sub)}</div>
-    </div>
-  </div>'''}
-
-  <div class="sbox"><span class="si">⌕</span><input id="finlaw-search" placeholder="법령명, 부처명, 판례명으로 아래 카드 검색..." autocomplete="off"></div>
+  <div class="sbox"><span class="si">&#x2315;</span><input id="finlaw-search" placeholder="법령명, 조문, 판례를 검색하세요..." autocomplete="off"></div>
 </section>
 
 <div class="divider"></div>
@@ -584,7 +576,7 @@ def generate_finlaw_index():
   <a href="https://t.me/govbrief" target="_blank" style="padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap">구독</a>
 </div>
 
-<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
 <nav class="bnav"><a href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="#"><span style="font-size:16px">⌕</span>검색</a><a href="#"><span style="font-size:16px">≡</span>달력</a><a class="on" href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
 <script>

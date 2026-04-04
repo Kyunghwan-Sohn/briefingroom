@@ -149,40 +149,23 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 </head>
 <body>
 
-<header class="hdr">
-  <a class="logo" href="/">브리핑룸</a>
-  <nav class="hnav">
-    <a href="/">홈</a>
-    <a href="/policy/">정부 정책 AI</a>
-    <a class="on-law" href="/finlaw/">금융 법령 AI</a>
-    <a href="/articles/">아카이브</a>
-  </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
-</header>
+<header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a class="on-law" href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
 
-<section class="hero">
+<section class="hero" style="background:var(--law-bg);border-bottom:1px solid var(--law-border)">
   <div class="hero-top">
     <h1>금융 법령 AI</h1>
-    <p style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:700;letter-spacing:.02em">2026. 04. 02 (목)</p>
-    <p style="margin-top:2px">최근 30일 법령 변동과 최신 판례 요약</p>
+    <div class="hero-date">2026. 04. 04 (토)</div>
+    <div class="hero-sub">금융 법령 139건 · 판례 3건 · 매일 모니터링</div>
   </div>
 
   <div class="hero-dash">
-    <div class="hero-stat alert"><div class="dot"></div><div class="num">12</div><div class="label">법령 개정</div></div>
-    <div class="hero-stat warn"><div class="num">3</div><div class="label">판례</div></div>
-    <div class="hero-stat ok"><div class="num">5</div><div class="label">입법예고 중</div></div>
-    <div class="hero-stat info"><div class="num">139</div><div class="label">전체 법령</div></div>
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">12</div><div class="label" style="color:var(--law)">법령 개정</div></div>
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">3</div><div class="label" style="color:var(--law)">판례</div></div>
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">5</div><div class="label" style="color:var(--law)">입법예고</div></div>
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">139</div><div class="label" style="color:var(--law)">전체 법령</div></div>
   </div>
 
-  <div class="hero-headline">
-    <div class="icon" style="font-size:14px;font-weight:900;color:var(--a);background:var(--al);border:1px solid var(--ab);width:36px;height:36px;border-radius:8px;display:grid;place-items:center">!</div>
-    <div class="text">
-      <div class="title">금융위원회와 그 소속기관 직제 — 일부개정</div>
-      <div class="sub">국무회의의 심의를 거친 금융위원회와 그 소속기관 직제 일부개정령을 이에 공포한다. 대통령 이재명 (인) 국무총리 김민석</div>
-    </div>
-  </div>
-
-  <div class="sbox"><span class="si">⌕</span><input id="finlaw-search" placeholder="법령명, 부처명, 판례명으로 아래 카드 검색..." autocomplete="off"></div>
+  <div class="sbox"><span class="si">&#x2315;</span><input id="finlaw-search" placeholder="법령명, 조문, 판례를 검색하세요..." autocomplete="off"></div>
 </section>
 
 <div class="divider"></div>
@@ -229,16 +212,21 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 <div class="divider"></div>
 <section class="sec">
   <div class="sec-hdr">최근 판례<a class="sec-more" href="/finlaw/cases/">전체 보기 →</a></div>
-  <a href="/finlaw/cases/423440/" class="finlaw-searchable" data-type="case" data-search="은행업무 지연 또는 시공방법 변경 등 추가적인 과정을 거치면서 유예기간 내 공장 건축물을 준공하지 못한 경우 직접 사용하지 못한 정당한 사유 해당 여부 대법원 2020두44282 은행 【심급】 3심 【세목】 취득세 【주문】 상고를 기각한다. 상고비용은 원고가 부담한다. 【이유】 상고인이 제출한 상고장에 상고이유의 기재가 없고, 또 법정기간 내에 상고이유서를 제출하지…" style="text-decoration:none;color:inherit"><div class="case-card">
-    <div class="case-court">대법원 · 2020.09.18 · 2020두44282</div>
-    <div class="case-title">은행업무 지연 또는 시공방법 변경 등 추가적인 과정을 거치면서 유예기간 내 공장 건축물을 준공하지 못한 경우 직접 사용하지 못한 정당한 사유 해당 여부</div>
-    <div class="case-summary">【심급】 3심 【세목】 취득세 【주문】 상고를 기각한다. 상고비용은 원고가 부담한다. 【이유】 상고인이 제출한 상고장에 상고이유의 기재가 없고, 또 법정기간 내에 상고이유서를 제출하지…</div>
-    <div class="case-laws"><span>은행</span></div>
-  </div></a>  <a href="/finlaw/cases/420770/" class="finlaw-searchable" data-type="case" data-search="구 자본시장법에 따라 금융위원회에 등록을 하지 않은 부동산집합투자기구가 집합투자재산으로 취득한 부동산에 대하여 구 조세특례제한법 제120조 제4항 제2호가 적용될 수 있는지 여부 수원지방법원 2015구합65149 자본시장 【심급】 1심 【세목】 취득세 【이유】 101_수원지법_2015구합65149_판결서_unlocked.pdf" style="text-decoration:none;color:inherit"><div class="case-card">
-    <div class="case-court">수원지방법원 · 2019.01.10 · 2015구합65149</div>
-    <div class="case-title">구 자본시장법에 따라 금융위원회에 등록을 하지 않은 부동산집합투자기구가 집합투자재산으로 취득한 부동산에 대하여 구 조세특례제한법 제120조 제4항 제2호가 적용될 수 있는지 여부</div>
-    <div class="case-summary">【심급】 1심 【세목】 취득세 【이유】 101_수원지법_2015구합65149_판결서_unlocked.pdf</div>
-    <div class="case-laws"><span>자본시장</span></div>
+  <a href="/finlaw/cases/615975/" class="finlaw-searchable" data-type="case" data-search="자본시장과금융투자업에관한법률위반 대법원 2024도11686 금융 [1] 구 자본시장과 금융투자업에 관한 법률 제178조 제1항 제1호 에서 정한 ‘부정한 수단, 계획 또는 기교’의 의미 및 그 판단 기준 [2] 투자자문업자 등이 추천하는 증권을 제3자가…" style="text-decoration:none;color:inherit"><div class="case-card">
+    <div class="case-court">대법원 · 2026.01.15 · 2024도11686</div>
+    <div class="case-title">자본시장과금융투자업에관한법률위반</div>
+    <div class="case-summary">[1] 구 자본시장과 금융투자업에 관한 법률 제178조 제1항 제1호 에서 정한 ‘부정한 수단, 계획 또는 기교’의 의미 및 그 판단 기준 [2] 투자자문업자 등이 추천하는 증권을 제3자가…</div>
+    <div class="case-laws"><span>금융</span></div>
+  </div></a>  <a href="/finlaw/cases/616027/" class="finlaw-searchable" data-type="case" data-search="폭력행위등처벌에관한법률위반(단체등의구성·활동)·공갈미수·전기통신금융사기피해방지및피해금환급에관한특별법위반방조 대법원 2025도14142 금융 [1] 폭력행위 등 처벌에 관한 법률 제4조 제1항 에서 정한 범죄단체를 구성하거나 이에 가입한 자가 더 나아가 구성원으로 활동하는 경우, 포괄일죄의 관계에 있는지 여부 (적극) [2] 포괄일죄의…" style="text-decoration:none;color:inherit"><div class="case-card">
+    <div class="case-court">대법원 · 2026.01.15 · 2025도14142</div>
+    <div class="case-title">폭력행위등처벌에관한법률위반(단체등의구성·활동)·공갈미수·전기통신금융사기피해방지및피해금환급에관한특별법위반방조</div>
+    <div class="case-summary">[1] 폭력행위 등 처벌에 관한 법률 제4조 제1항 에서 정한 범죄단체를 구성하거나 이에 가입한 자가 더 나아가 구성원으로 활동하는 경우, 포괄일죄의 관계에 있는지 여부 (적극) [2] 포괄일죄의…</div>
+    <div class="case-laws"><span>금융</span></div>
+  </div></a>  <a href="/finlaw/cases/615943/" class="finlaw-searchable" data-type="case" data-search="개인정보보호법위반·금융실명거래및비밀보장에관한법률위반 대법원 2023도8339 금융 [1] 임직원, 파견근로자, 시간제근로자 등 개인정보처리자의 지휘·감독을 받아 개인정보를 처리하는 자인 개인정보취급자가 개인정보처리자의 업무 수행을 위하여 개인정보를 이전받는 경우, 구 개인정보…" style="text-decoration:none;color:inherit"><div class="case-card">
+    <div class="case-court">대법원 · 2026.01.08 · 2023도8339</div>
+    <div class="case-title">개인정보보호법위반·금융실명거래및비밀보장에관한법률위반</div>
+    <div class="case-summary">[1] 임직원, 파견근로자, 시간제근로자 등 개인정보처리자의 지휘·감독을 받아 개인정보를 처리하는 자인 개인정보취급자가 개인정보처리자의 업무 수행을 위하여 개인정보를 이전받는 경우, 구 개인정보…</div>
+    <div class="case-laws"><span>금융</span></div>
   </div></a>
 </section>
 
@@ -291,7 +279,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <a href="https://t.me/govbrief" target="_blank" style="padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap">구독</a>
 </div>
 
-<div class="footer"><a href="/">홈</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
 
 <nav class="bnav"><a href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="#"><span style="font-size:16px">⌕</span>검색</a><a href="#"><span style="font-size:16px">≡</span>달력</a><a class="on" href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
 <script>
