@@ -2,8 +2,8 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FinLaw GPT - 브리핑룸</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>금융 법령 AI - 브리핑룸</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;--law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}
 html,body{height:100%}
 body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;display:flex;flex-direction:column}
 
@@ -23,40 +23,68 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .hnav a:hover{border-color:var(--a);color:var(--a)}
 .hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
 .hnav a.on-policy{color:#fff;background:#1e40af;border-color:#1e40af;font-weight:700}
-.hnav a.on-law{color:#fff;background:#047857;border-color:#047857;font-weight:700}
+.hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
 .bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
 
 .chat-wrap{flex:1;display:flex;flex-direction:column;padding:58px 0 0;overflow:hidden}
 
+/* 인트로 */
 .chat-intro{padding:40px 24px;text-align:center}
-.chat-intro h1{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:8px}
-.chat-intro p{font-size:14px;color:var(--t2);line-height:1.6;max-width:480px;margin:0 auto 20px}
+.chat-intro h1{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:4px;color:var(--law)}
+.chat-intro .sub{font-size:13px;color:var(--m);margin-bottom:20px}
+.chat-intro .stats{display:flex;gap:12px;justify-content:center;margin-bottom:20px}
+.chat-intro .stat{background:var(--law-bg);border:1px solid var(--law-border);border-radius:8px;padding:8px 14px;text-align:center}
+.chat-intro .stat .n{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--law)}
+.chat-intro .stat .l{font-size:10px;color:var(--law);font-weight:600}
 .examples{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.examples button{padding:10px 16px;border:1px solid var(--b);border-radius:10px;background:var(--s);font-size:13px;color:var(--t2);cursor:pointer;font-family:var(--sans);text-align:left;line-height:1.4}
-.examples button:hover{border-color:var(--a);color:var(--a)}
+.examples button{padding:10px 16px;border:1px solid var(--law-border);border-radius:10px;background:var(--law-bg);font-size:13px;color:var(--t2);cursor:pointer;font-family:var(--sans);text-align:left;line-height:1.4}
+.examples button:hover{border-color:var(--law);color:var(--law)}
 
-.messages{flex:1;overflow-y:auto;padding:16px 24px}
-.msg{margin-bottom:16px;max-width:85%}
-.msg.user{margin-left:auto;background:var(--a);color:#fff;border-radius:14px 14px 4px 14px;padding:12px 16px;font-size:14px;line-height:1.6}
-.msg.bot{background:var(--s);border:1px solid var(--b);border-radius:14px 14px 14px 4px;padding:14px 18px;font-size:14px;line-height:1.8;color:var(--t)}
-.msg.bot h3{font-family:var(--serif);font-size:15px;font-weight:700;margin:12px 0 6px}
+/* 상단 바 */
+.top-bar{display:flex;align-items:center;padding:8px 16px;border-bottom:1px solid var(--bl);background:var(--s)}
+.top-bar .new-chat{font-size:12px;font-weight:600;color:var(--law);background:var(--law-bg);border:1px solid var(--law-border);border-radius:6px;padding:5px 12px;cursor:pointer;font-family:var(--sans)}
+.top-bar .new-chat:hover{background:var(--law);color:#fff}
+.top-bar .title{flex:1;text-align:center;font-size:13px;font-weight:600;color:var(--t2)}
+
+/* 메시지 */
+.messages{flex:1;overflow-y:auto;padding:16px 24px;scroll-behavior:smooth}
+.msg{margin-bottom:16px;max-width:88%}
+.msg.user{margin-left:auto;background:var(--law);color:#fff;border-radius:14px 14px 4px 14px;padding:12px 16px;font-size:14px;line-height:1.6}
+.msg.bot{background:var(--s);border:1px solid var(--b);border-radius:14px 14px 14px 4px;padding:16px 20px;font-size:14px;line-height:1.8;color:var(--t)}
+.msg.bot h3{font-family:var(--serif);font-size:15px;font-weight:700;margin:14px 0 6px;color:var(--law)}
 .msg.bot h3:first-child{margin-top:0}
 .msg.bot ul,.msg.bot ol{margin:6px 0 6px 18px}
 .msg.bot li{margin-bottom:4px}
-.msg.bot strong{color:var(--a)}
+.msg.bot strong{color:var(--law)}
 .msg.bot code{font-family:var(--mono);font-size:12px;background:var(--bg);padding:2px 6px;border-radius:4px}
-.msg-sources{margin-top:10px;padding-top:8px;border-top:1px solid var(--bl);font-size:11px;color:var(--m)}
+.msg.bot a{color:var(--law);text-decoration:underline;font-weight:600}
+.msg.bot a:hover{color:var(--a)}
+
+/* 출처 카드 */
+.src-cards{margin-top:12px;padding-top:10px;border-top:1px solid var(--bl)}
+.src-cards .src-label{font-size:11px;font-weight:700;color:var(--m);margin-bottom:6px}
+.src-card{display:inline-block;margin:3px 4px 3px 0;padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;cursor:pointer;border:1px solid var(--bl);background:var(--bg);color:var(--t2)}
+.src-card:hover{border-color:var(--law);color:var(--law);background:var(--law-bg)}
+.src-card.law{border-color:var(--law-border);background:var(--law-bg);color:var(--law)}
+.src-card.prec{border-color:#bfdbfe;background:#eff6ff;color:#1e40af}
+
+/* 후속 질문 */
+.followups{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+.followup-btn{font-size:12px;padding:6px 12px;border:1px solid var(--law-border);border-radius:8px;background:var(--law-bg);color:var(--law);cursor:pointer;font-family:var(--sans);font-weight:600}
+.followup-btn:hover{background:var(--law);color:#fff}
+
 .msg-loading{color:var(--m);font-size:13px;padding:12px 18px}
 .msg-loading span{animation:blink 1.2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-.input-bar{padding:12px 24px 20px;border-top:1px solid var(--b);background:var(--bg);display:flex;gap:8px}
-.input-bar input{flex:1;padding:14px 16px;border:2px solid var(--b);border-radius:12px;font-size:15px;font-family:var(--sans);color:var(--t);outline:none;background:var(--s)}
-.input-bar input:focus{border-color:var(--a)}
-.input-bar button{padding:14px 20px;background:var(--a);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--sans);white-space:nowrap}
+/* 입력 */
+.input-bar{padding:10px 16px 12px;border-top:1px solid var(--b);background:var(--bg);display:flex;gap:8px;align-items:flex-end}
+.input-bar textarea{flex:1;padding:12px 14px;border:2px solid var(--b);border-radius:12px;font-size:15px;font-family:var(--sans);color:var(--t);outline:none;background:var(--s);resize:none;min-height:44px;max-height:120px;line-height:1.5}
+.input-bar textarea:focus{border-color:var(--law)}
+.input-bar button{padding:12px 18px;background:var(--law);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--sans);white-space:nowrap;flex-shrink:0}
 .input-bar button:disabled{opacity:.5;cursor:not-allowed}
 
-.disclaimer{text-align:center;font-size:10px;color:var(--m);padding:0 24px 12px;line-height:1.5}
+.disclaimer{text-align:center;font-size:10px;color:var(--m);padding:4px 24px 8px;line-height:1.5}
 
 @media(max-width:768px){
   body{padding:0}
@@ -67,10 +95,14 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   .chat-wrap{padding-top:50px}
   .chat-intro{padding:24px 16px}
   .chat-intro h1{font-size:20px}
+  .chat-intro .stats{gap:8px}
+  .chat-intro .stat{padding:6px 10px}
+  .chat-intro .stat .n{font-size:14px}
   .messages{padding:12px 16px}
-  .input-bar{padding:10px 16px 16px}
-  .input-bar input{font-size:14px;padding:12px 14px}
+  .input-bar{position:sticky;bottom:0;padding:8px 12px 12px}
+  .input-bar textarea{font-size:14px;padding:10px 12px}
   .examples button{font-size:12px;padding:8px 12px}
+  .msg{max-width:92%}
 }
 </style>
 </head>
@@ -81,28 +113,39 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <nav class="hnav">
     <a href="/">홈</a>
     <a href="/policy/">정부 정책 AI</a>
-    <a href="/finlaw/">금융 법령 AI</a>
+    <a class="on-law" href="/finlaw/">금융 법령 AI</a>
     <a href="/articles/">아카이브</a>
   </nav>
   <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
 
 <div class="chat-wrap">
+  <div class="top-bar" id="topbar" style="display:none">
+    <button class="new-chat" onclick="newChat()">+ 새 대화</button>
+    <div class="title">금융 법령 AI</div>
+  </div>
+
   <div class="chat-intro" id="intro">
-    <h1>FinLaw GPT</h1>
-    <p>금융법령 5,613건 데이터베이스 기반 AI 어시스턴트.<br>법조문 근거와 함께 답변합니다.</p>
+    <h1>금융 법령 AI</h1>
+    <div class="sub">금융법령 데이터베이스 기반 AI 어시스턴트</div>
+    <div class="stats">
+      <div class="stat"><div class="n">139</div><div class="l">법령</div></div>
+      <div class="stat"><div class="n">3,893</div><div class="l">조문</div></div>
+      <div class="stat"><div class="n">526</div><div class="l">판례</div></div>
+      <div class="stat"><div class="n">193</div><div class="l">해석례</div></div>
+    </div>
     <div class="examples">
       <button onclick="askExample(this)">보험업법상 보험사기 신고 의무는?</button>
-      <button onclick="askExample(this)">자본시장법 시행령 최근 개정 내용</button>
-      <button onclick="askExample(this)">전자금융거래법상 접근매체 관리 책임</button>
-      <button onclick="askExample(this)">신용정보법 목적 외 이용 제한</button>
+      <button onclick="askExample(this)">자본시장법 장외 거래중개업 규정</button>
+      <button onclick="askExample(this)">전자금융거래법 접근매체 관리 책임</button>
+      <button onclick="askExample(this)">금융소비자보호법 숙려기간</button>
     </div>
   </div>
 
   <div class="messages" id="messages"></div>
 
   <div class="input-bar">
-    <input id="input" type="text" placeholder="금융법령에 대해 물어보세요..." autocomplete="off">
+    <textarea id="input" rows="1" placeholder="금융법령에 대해 질문하세요..." autocomplete="off"></textarea>
     <button id="send" onclick="sendMessage()">전송</button>
   </div>
   <div class="disclaimer">법률 자문이 아닌 정보 제공 목적입니다. 구체적 사안은 전문가에게 문의하세요.</div>
@@ -112,325 +155,363 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 const SUPABASE_URL = 'https://jxoghnttelexnfoeepbz.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_r3eTQXF419LfIiPdE17gyw_zvAQFd5s';
 const LLM_URL = 'https://govbrief-api.vercel.app/api/chat';
+const SB_HDR = {'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY};
 
 const messagesEl = document.getElementById('messages');
 const inputEl = document.getElementById('input');
 const sendBtn = document.getElementById('send');
 const introEl = document.getElementById('intro');
+const topbarEl = document.getElementById('topbar');
 
-// 대화 히스토리 (이전 맥락 유지)
 var chatHistory = [];
+var lastSearchCtx = null;
 
-function escapeHtml(value) {
-  return String(value ?? '')
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
+// 법령 약칭 매핑
+const LAW_ABBR = {
+  '자본시장법':'자본시장과 금융투자업에 관한 법률','보험업법':'보험업법','은행법':'은행법',
+  '금소법':'금융소비자 보호에 관한 법률','전금법':'전자금융거래법','신용정보법':'신용정보의 이용 및 보호에 관한 법률',
+  '여전법':'여신전문금융업법','금융지주회사법':'금융지주회사법','예보법':'예금자보호법',
+};
+
+function expandQuery(q) {
+  let expanded = q;
+  for (const [abbr, full] of Object.entries(LAW_ABBR)) {
+    if (q.includes(abbr) && !q.includes(full)) expanded += ' ' + full;
+  }
+  return expanded;
 }
 
-function appendInlineMarkdown(parent, text) {
-  const source = String(text ?? '');
-  const re = /(\*\*.*?\*\*|`.*?`)/g;
-  let last = 0;
-  source.replace(re, (match, _g, offset) => {
-    if (offset > last) parent.appendChild(document.createTextNode(source.slice(last, offset)));
-    if (match.startsWith('**') && match.endsWith('**')) {
-      const strong = document.createElement('strong');
-      strong.textContent = match.slice(2, -2);
-      parent.appendChild(strong);
-    } else if (match.startsWith('`') && match.endsWith('`')) {
-      const code = document.createElement('code');
-      code.textContent = match.slice(1, -1);
-      parent.appendChild(code);
-    } else {
-      parent.appendChild(document.createTextNode(match));
-    }
-    last = offset + match.length;
-    return match;
-  });
-  if (last < source.length) parent.appendChild(document.createTextNode(source.slice(last)));
+// textarea 자동 높이
+inputEl.addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+
+function escapeHtml(v) {
+  return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
+// 마크다운 렌더링 (링크, 번호리스트, 볼드, 코드 지원)
 function renderBotContent(container, text) {
-  container.textContent = '';
-  const lines = String(text ?? '').split('\n');
-  let currentPara = null;
-  let currentList = null;
+  container.innerHTML = '';
+  const lines = String(text??'').split('\n');
+  let html = '';
+  let inUl = false, inOl = false;
 
-  const closeBlocks = () => {
-    currentPara = null;
-    currentList = null;
-  };
+  for (const line of lines) {
+    const t = line.trim();
+    if (!t) {
+      if (inUl) { html += '</ul>'; inUl = false; }
+      if (inOl) { html += '</ol>'; inOl = false; }
+      continue;
+    }
+    if (t.startsWith('### ')) {
+      if (inUl) { html += '</ul>'; inUl = false; }
+      if (inOl) { html += '</ol>'; inOl = false; }
+      html += '<h3>' + escapeHtml(t.slice(4)) + '</h3>';
+      continue;
+    }
+    if (t.startsWith('- ')) {
+      if (inOl) { html += '</ol>'; inOl = false; }
+      if (!inUl) { html += '<ul>'; inUl = true; }
+      html += '<li>' + inlineMd(t.slice(2)) + '</li>';
+      continue;
+    }
+    if (/^\d+\.\s/.test(t)) {
+      if (inUl) { html += '</ul>'; inUl = false; }
+      if (!inOl) { html += '<ol>'; inOl = true; }
+      html += '<li>' + inlineMd(t.replace(/^\d+\.\s*/, '')) + '</li>';
+      continue;
+    }
+    if (inUl) { html += '</ul>'; inUl = false; }
+    if (inOl) { html += '</ol>'; inOl = false; }
+    html += '<p>' + inlineMd(t) + '</p>';
+  }
+  if (inUl) html += '</ul>';
+  if (inOl) html += '</ol>';
+  container.innerHTML = html;
 
-  lines.forEach(line => {
-    const trimmed = line.trim();
-    if (!trimmed) {
-      closeBlocks();
-      return;
-    }
-    if (trimmed.startsWith('### ')) {
-      closeBlocks();
-      const h3 = document.createElement('h3');
-      h3.textContent = trimmed.slice(4);
-      container.appendChild(h3);
-      return;
-    }
-    if (trimmed.startsWith('- ')) {
-      if (!currentList) {
-        currentList = document.createElement('ul');
-        container.appendChild(currentList);
-      }
-      const li = document.createElement('li');
-      appendInlineMarkdown(li, trimmed.slice(2));
-      currentList.appendChild(li);
-      currentPara = null;
-      return;
-    }
-    if (currentList) currentList = null;
-    if (!currentPara) {
-      currentPara = document.createElement('p');
-      container.appendChild(currentPara);
-    } else {
-      currentPara.appendChild(document.createElement('br'));
-    }
-    appendInlineMarkdown(currentPara, trimmed);
+  // 내부 링크에 이벤트 바인딩
+  container.querySelectorAll('a[href^="/finlaw/"]').forEach(function(a) {
+    a.target = '_blank';
+  });
+  // 법령 키워드 클릭 → 검색
+  container.querySelectorAll('.law-tag').forEach(function(tag) {
+    tag.addEventListener('click', function() {
+      inputEl.value = tag.textContent;
+      sendMessage();
+    });
   });
 }
 
-const SYSTEM_PROMPT = `당신은 한국 금융법령 전문 AI 어시스턴트 'FinLaw GPT'입니다.
+function inlineMd(text) {
+  let s = escapeHtml(text);
+  // 볼드
+  s = s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  // 코드
+  s = s.replace(/`(.*?)`/g, '<code>$1</code>');
+  // URL 링크
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+  // bare URL
+  s = s.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank">$1</a>');
+  // /finlaw/detail/xxx/ 내부 링크
+  s = s.replace(/(\/finlaw\/detail\/\d+\/)/g, '<a href="$1" target="_blank">$1</a>');
+  return s;
+}
 
-역할: 금융법령 139건, 조문, 판례, 해석례에 대한 질문에 정확하게 답변합니다.
-반드시 제공된 컨텍스트(검색 결과)를 근거로 답변하세요.
-
-답변 규칙:
-1. 법조문 인용 시 법령명과 조문 번호를 명시하세요.
-2. 관련 법령 상세 페이지가 있으면 "자세히 보기: /finlaw/detail/{법령ID}/" 형태로 사이트 내 링크를 제공하세요.
-3. 원본 법령은 "원문: https://www.law.go.kr" 법제처 국가법령정보센터 링크를 안내하세요.
-4. 이전 대화 맥락이 제공되면 해당 맥락을 이어서 답변하세요. "더 자세히", "좀 더 알려줘" 등은 바로 이전 주제를 이어가는 것입니다.
-5. 금융법령 범위(자본시장법, 보험업법, 은행법 등 139건) 밖의 질문(예: 주택임대차보호법, 근로기준법)에는 "금융법령 AI의 분석 범위 밖입니다. 법제처 국가법령정보센터(https://www.law.go.kr)에서 확인하세요."라고 안내하세요.
-6. 컨텍스트에 없는 내용은 추측하지 말고 솔직히 "해당 정보를 찾지 못했습니다"라고 답하세요.
-
-답변은 마크다운 형식으로 작성하세요.
-본 답변은 법률 자문이 아닌 정보 제공 목적입니다.`;
-
+// 검색
 async function searchILIKE(query) {
-  const hdr = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY };
   const kw = '%' + query + '%';
-  const results = { laws: [], articles: [], precedents: [], interpretations: [] };
+  const r = {laws:[], articles:[], precedents:[], interpretations:[]};
   try {
     const [lawsR, artR, precR] = await Promise.all([
-      fetch(SUPABASE_URL + '/rest/v1/laws?or=(name.ilike.' + encodeURIComponent(kw) + ',amendment_reason.ilike.' + encodeURIComponent(kw) + ')&select=name,ministry,law_type,amendment_reason&limit=3', {headers: hdr}),
-      fetch(SUPABASE_URL + '/rest/v1/articles?or=(article_title.ilike.' + encodeURIComponent(kw) + ',content.ilike.' + encodeURIComponent(kw) + ')&select=article_no,article_title,content&limit=5', {headers: hdr}),
-      fetch(SUPABASE_URL + '/rest/v1/precedents?or=(case_name.ilike.' + encodeURIComponent(kw) + ',summary.ilike.' + encodeURIComponent(kw) + ')&select=case_name,court,decision_date,summary&limit=3', {headers: hdr}),
+      fetch(SUPABASE_URL + '/rest/v1/laws?or=(name.ilike.' + encodeURIComponent(kw) + ',amendment_reason.ilike.' + encodeURIComponent(kw) + ')&select=law_id,name,ministry,law_type,amendment_reason&limit=3', {headers:SB_HDR}).then(x=>x.json()),
+      fetch(SUPABASE_URL + '/rest/v1/articles?or=(article_title.ilike.' + encodeURIComponent(kw) + ',content.ilike.' + encodeURIComponent(kw) + ')&select=id,law_id,article_no,article_title,content&limit=5', {headers:SB_HDR}).then(x=>x.json()),
+      fetch(SUPABASE_URL + '/rest/v1/precedents?or=(case_name.ilike.' + encodeURIComponent(kw) + ',summary.ilike.' + encodeURIComponent(kw) + ')&select=prec_id,case_name,court,decision_date,summary&limit=3', {headers:SB_HDR}).then(x=>x.json()),
     ]);
-    results.laws = await lawsR.json().catch(() => []);
-    results.articles = await artR.json().catch(() => []);
-    results.precedents = await precR.json().catch(() => []);
-  } catch(e) { console.error('ILIKE search error:', e); }
-  return results;
+    r.laws = lawsR||[]; r.articles = artR||[]; r.precedents = precR||[];
+  } catch(e) { console.error(e); }
+  return r;
 }
 
 async function searchSupabase(query) {
-  const headers = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' };
-  const results = { laws: [], articles: [], precedents: [], interpretations: [] };
-
-  // 1차: RPC FTS 검색
-  const calls = [
-    fetch(SUPABASE_URL + '/rest/v1/rpc/search_laws', { method: 'POST', headers, body: JSON.stringify({ query, match_count: 3 }) }),
-    fetch(SUPABASE_URL + '/rest/v1/rpc/search_articles', { method: 'POST', headers, body: JSON.stringify({ query, match_count: 5 }) }),
-    fetch(SUPABASE_URL + '/rest/v1/rpc/search_precedents', { method: 'POST', headers, body: JSON.stringify({ query, match_count: 3 }) }),
-    fetch(SUPABASE_URL + '/rest/v1/rpc/search_interpretations', { method: 'POST', headers, body: JSON.stringify({ query, match_count: 3 }) }),
-  ];
-
+  const headers = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'};
+  const r = {laws:[], articles:[], precedents:[], interpretations:[]};
   try {
-    const [lawsR, artR, precR, interpR] = await Promise.all(calls);
-    results.laws = await lawsR.json().catch(() => []);
-    results.articles = await artR.json().catch(() => []);
-    results.precedents = await precR.json().catch(() => []);
-    results.interpretations = await interpR.json().catch(() => []);
-  } catch (e) { console.error('Search error:', e); }
-
-  // 2차: FTS 결과 없으면 ILIKE 폴백
-  const total = (results.laws?.length||0) + (results.articles?.length||0) + (results.precedents?.length||0) + (results.interpretations?.length||0);
+    const [lawsR,artR,precR,interpR] = await Promise.all([
+      fetch(SUPABASE_URL+'/rest/v1/rpc/search_laws',{method:'POST',headers,body:JSON.stringify({query,match_count:3})}).then(x=>x.json()).catch(()=>[]),
+      fetch(SUPABASE_URL+'/rest/v1/rpc/search_articles',{method:'POST',headers,body:JSON.stringify({query,match_count:5})}).then(x=>x.json()).catch(()=>[]),
+      fetch(SUPABASE_URL+'/rest/v1/rpc/search_precedents',{method:'POST',headers,body:JSON.stringify({query,match_count:3})}).then(x=>x.json()).catch(()=>[]),
+      fetch(SUPABASE_URL+'/rest/v1/rpc/search_interpretations',{method:'POST',headers,body:JSON.stringify({query,match_count:3})}).then(x=>x.json()).catch(()=>[]),
+    ]);
+    r.laws=lawsR; r.articles=artR; r.precedents=precR; r.interpretations=interpR;
+  } catch(e) { console.error(e); }
+  const total = (r.laws?.length||0)+(r.articles?.length||0)+(r.precedents?.length||0)+(r.interpretations?.length||0);
   if (total === 0) {
-    console.log('FTS empty, falling back to ILIKE for:', query);
     const ilike = await searchILIKE(query);
-    results.laws = ilike.laws || [];
-    results.articles = ilike.articles || [];
-    results.precedents = ilike.precedents || [];
+    r.laws=ilike.laws; r.articles=ilike.articles; r.precedents=ilike.precedents;
   }
-
-  return results;
+  return r;
 }
 
 function buildContext(ctx) {
   let parts = [];
   if (ctx.laws?.length) {
     parts.push('## 관련 법령');
-    ctx.laws.forEach(l => {
-      parts.push('- ' + l.name + ' (' + (l.ministry||'') + ', ' + (l.revision_type||'') + ')');
-      if (l.amendment_reason) parts.push('  개정이유: ' + l.amendment_reason.slice(0, 200));
+    ctx.laws.forEach(function(l) {
+      parts.push('- ' + (l.name||'') + ' (law_id:' + (l.law_id||'') + ', ' + (l.ministry||'') + ')');
+      if (l.amendment_reason) parts.push('  개정이유: ' + String(l.amendment_reason).slice(0,300));
     });
   }
   if (ctx.articles?.length) {
     parts.push('\n## 관련 조문');
-    ctx.articles.forEach(a => parts.push('- ' + (a.article_title||'') + ': ' + (a.content||'').slice(0, 300)));
+    ctx.articles.forEach(function(a) {
+      var lawInfo = a.law_id ? ' [law_id:'+a.law_id+']' : '';
+      var no = a.article_no ? '제'+a.article_no+'조 ' : '';
+      parts.push('- ' + no + (a.article_title||'') + lawInfo + ': ' + String(a.content||'').slice(0,1000));
+    });
   }
   if (ctx.precedents?.length) {
     parts.push('\n## 관련 판례');
-    ctx.precedents.forEach(p => {
-      parts.push('- [' + (p.court||'') + ' ' + (p.decision_date||'') + '] ' + p.case_name);
-      if (p.summary) parts.push('  요지: ' + p.summary.slice(0, 200));
+    ctx.precedents.forEach(function(p) {
+      parts.push('- [' + (p.court||'') + ' ' + (p.decision_date||'') + '] ' + (p.case_name||''));
+      if (p.summary && p.summary !== '-') parts.push('  요지: ' + String(p.summary).slice(0,500));
     });
   }
   if (ctx.interpretations?.length) {
     parts.push('\n## 관련 해석례');
-    ctx.interpretations.forEach(i => {
-      parts.push('- ' + i.title);
-      if (i.summary) parts.push('  요지: ' + i.summary.slice(0, 200));
+    ctx.interpretations.forEach(function(i) {
+      parts.push('- ' + (i.title||''));
+      if (i.summary) parts.push('  요지: ' + String(i.summary).slice(0,300));
     });
   }
   return parts.length ? parts.join('\n') : '검색 결과 없음';
 }
 
-function addMessage(text, type) {
-  const div = document.createElement('div');
-  div.className = 'msg ' + type;
-  if (type === 'bot') {
-    renderBotContent(div, text);
-  } else {
-    div.textContent = text;
+// 출처 카드 렌더링
+function renderSourceCards(botDiv, ctx) {
+  var cards = [];
+  (ctx.laws||[]).forEach(function(l) {
+    var link = l.law_id ? '/finlaw/detail/'+l.law_id+'/' : '#';
+    cards.push('<a class="src-card law" href="'+link+'" target="_blank">'+escapeHtml(l.name||'')+'</a>');
+  });
+  (ctx.articles||[]).forEach(function(a) {
+    var link = a.law_id ? '/finlaw/detail/'+a.law_id+'/' : '#';
+    var no = a.article_no ? '제'+a.article_no+'조 ' : '';
+    cards.push('<a class="src-card" href="'+link+'" target="_blank">'+escapeHtml(no+(a.article_title||''))+'</a>');
+  });
+  (ctx.precedents||[]).forEach(function(p) {
+    var link = p.prec_id ? '/finlaw/cases/'+p.prec_id+'/' : '#';
+    cards.push('<a class="src-card prec" href="'+link+'" target="_blank">'+escapeHtml((p.case_name||'').slice(0,30))+'</a>');
+  });
+  if (cards.length) {
+    var div = document.createElement('div');
+    div.className = 'src-cards';
+    div.innerHTML = '<div class="src-label">참조 자료 (클릭하여 상세 보기)</div>' + cards.join('');
+    botDiv.appendChild(div);
   }
+}
+
+// 후속 질문 추천
+function renderFollowups(botDiv, query) {
+  var suggestions = [];
+  if (query.includes('보험')) suggestions = ['보험사기 처벌 규정은?', '보험업법 최근 개정 사항'];
+  else if (query.includes('자본시장')) suggestions = ['불공정거래 규제 조항은?', '금융투자업 인가 요건'];
+  else if (query.includes('전자금융')) suggestions = ['전자금융사고 책임은?', '핀테크 규제 현황'];
+  else suggestions = ['관련 법령 최근 개정 사항은?', '실무에서 주의할 점은?'];
+
+  var div = document.createElement('div');
+  div.className = 'followups';
+  suggestions.forEach(function(s) {
+    var btn = document.createElement('button');
+    btn.className = 'followup-btn';
+    btn.textContent = s;
+    btn.addEventListener('click', function() { inputEl.value = s; sendMessage(); });
+    div.appendChild(btn);
+  });
+  botDiv.appendChild(div);
+}
+
+const SYSTEM_PROMPT = '당신은 한국 금융법령 전문 AI 어시스턴트입니다.\n\n' +
+'역할: 금융법령 139건, 조문 3,893건, 판례 526건, 해석례 193건에 대한 질문에 정확하게 답변합니다.\n' +
+'반드시 제공된 컨텍스트(검색 결과)를 근거로 답변하세요.\n\n' +
+'답변 규칙:\n' +
+'1. 법조문 인용 시 법령명과 조문 번호를 명시하세요.\n' +
+'2. 관련 법령 상세: /finlaw/detail/{law_id}/ 형태로 링크를 제공하세요.\n' +
+'3. 원본 법령: https://www.law.go.kr 법제처 링크를 안내하세요.\n' +
+'4. 이전 대화 맥락이 있으면 이어서 답변하세요.\n' +
+'5. 금융법령 범위 밖 질문에는 "금융법령 AI 분석 범위 밖입니다. 법제처(https://www.law.go.kr)에서 확인하세요."라고 안내하세요.\n' +
+'6. 컨텍스트에 없는 내용은 추측하지 마세요.\n' +
+'답변은 마크다운(###, -, 1., **볼드**, [링크](url)) 형식으로 작성하세요.\n' +
+'법률 자문이 아닌 정보 제공 목적입니다.';
+
+function addMessage(text, type) {
+  var div = document.createElement('div');
+  div.className = 'msg ' + type;
+  if (type === 'bot') renderBotContent(div, text);
+  else div.textContent = text;
   messagesEl.appendChild(div);
   messagesEl.scrollTop = messagesEl.scrollHeight;
   return div;
 }
 
 function showLoading() {
-  const div = document.createElement('div');
-  div.className = 'msg-loading';
-  div.id = 'loading';
-  const span = document.createElement('span');
-  span.textContent = '검색 중';
-  div.appendChild(span);
-  div.appendChild(document.createTextNode('...'));
+  var div = document.createElement('div');
+  div.className = 'msg-loading'; div.id = 'loading';
+  div.innerHTML = '<span>검색 중</span>...';
   messagesEl.appendChild(div);
   messagesEl.scrollTop = messagesEl.scrollHeight;
 }
+function hideLoading() { var el = document.getElementById('loading'); if (el) el.remove(); }
 
-function hideLoading() {
-  const el = document.getElementById('loading');
-  if (el) el.remove();
+function newChat() {
+  chatHistory = [];
+  lastSearchCtx = null;
+  messagesEl.innerHTML = '';
+  introEl.style.display = '';
+  topbarEl.style.display = 'none';
 }
 
 async function sendMessage() {
-  const q = inputEl.value.trim();
+  var q = inputEl.value.trim();
   if (!q) return;
 
   introEl.style.display = 'none';
+  topbarEl.style.display = 'flex';
   addMessage(q, 'user');
   inputEl.value = '';
+  inputEl.style.height = 'auto';
   sendBtn.disabled = true;
   showLoading();
 
-  // 대화 히스토리에 추가
-  chatHistory.push({role: 'user', text: q});
+  chatHistory.push({role:'user', text:q});
 
-  // 이전 맥락을 포함한 질문 구성 (최근 4턴까지)
+  // 약칭 확장 + 검색
+  var expanded = expandQuery(q);
+  var ctx = await searchSupabase(expanded);
+  lastSearchCtx = ctx;
+  var contextText = buildContext(ctx);
+
+  // 대화 맥락 구성
   var contextQuestion = q;
   if (chatHistory.length > 1) {
-    var recent = chatHistory.slice(-6); // 최근 3쌍(user+bot)
+    var recent = chatHistory.slice(-6);
     var parts = [];
     for (var i = 0; i < recent.length - 1; i++) {
-      parts.push((recent[i].role === 'user' ? '[질문] ' : '[답변] ') + recent[i].text.slice(0, 300));
+      parts.push((recent[i].role === 'user' ? '[질문] ' : '[답변] ') + recent[i].text.slice(0, 500));
     }
     parts.push('[현재 질문] ' + q);
     contextQuestion = '이전 대화 맥락:\n' + parts.join('\n') + '\n\n위 맥락을 참고하여 현재 질문에 답변하세요.';
   }
 
   try {
-    const r = await fetch(LLM_URL, {
+    var r = await fetch(LLM_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: contextQuestion, stream: true }),
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({question: contextQuestion, stream: true}),
     });
 
     hideLoading();
 
     if (!r.ok) {
-      const err = await r.json().catch(() => ({}));
-      addMessage('오류: ' + (err.error || r.statusText), 'bot');
+      addMessage('응답 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 'bot');
     } else {
-      // SSE 스트리밍 수신
-      const botDiv = document.createElement('div');
+      var botDiv = document.createElement('div');
       botDiv.className = 'msg bot';
       messagesEl.appendChild(botDiv);
-      let fullText = '';
-      let sources = {};
+      var fullText = '';
 
-      const reader = r.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
+      var reader = r.body.getReader();
+      var decoder = new TextDecoder();
+      var buffer = '';
 
       while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
+        var result = await reader.read();
+        if (result.done) break;
+        buffer += decoder.decode(result.value, {stream: true});
+        var lines = buffer.split('\n');
         buffer = lines.pop();
-        for (const line of lines) {
-          if (!line.startsWith('data: ')) continue;
-          const payload = line.slice(6).trim();
+        for (var j = 0; j < lines.length; j++) {
+          if (!lines[j].startsWith('data: ')) continue;
+          var payload = lines[j].slice(6).trim();
           if (payload === '[DONE]') continue;
           try {
-            const obj = JSON.parse(payload);
-            if (obj.sources) {
-              sources = obj.sources;
-            }
+            var obj = JSON.parse(payload);
             if (obj.chunk) {
               fullText += obj.chunk;
               renderBotContent(botDiv, fullText);
               messagesEl.scrollTop = messagesEl.scrollHeight;
             }
-          } catch (e) {}
+          } catch(e) {}
         }
       }
 
-      // 봇 응답을 히스토리에 저장
-      chatHistory.push({role: 'bot', text: fullText});
+      chatHistory.push({role:'bot', text:fullText});
 
-      // 출처 표시
-      const srcCount = (sources.laws||0) + (sources.articles||0) + (sources.precedents||0) + (sources.interpretations||0);
-      if (srcCount > 0) {
-        const srcDiv = document.createElement('div');
-        srcDiv.className = 'msg-sources';
-        srcDiv.textContent = '참조: 법령 ' + (sources.laws||0) + '건, 조문 ' + (sources.articles||0) + '건, 판례 ' + (sources.precedents||0) + '건, 해석례 ' + (sources.interpretations||0) + '건';
-        botDiv.appendChild(srcDiv);
-      }
+      // 출처 카드 + 후속 질문
+      renderSourceCards(botDiv, ctx);
+      renderFollowups(botDiv, q);
     }
-  } catch (e) {
+  } catch(e) {
     hideLoading();
-    addMessage('응답 중 오류가 발생했습니다: ' + e.message, 'bot');
+    addMessage('네트워크 오류가 발생했습니다. 인터넷 연결을 확인해주세요.', 'bot');
   }
 
   sendBtn.disabled = false;
   inputEl.focus();
 }
 
-function askExample(btn) {
-  inputEl.value = btn.textContent;
-  sendMessage();
-}
+function askExample(btn) { inputEl.value = btn.textContent; sendMessage(); }
 
-inputEl.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.isComposing) sendMessage();
+inputEl.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
+    e.preventDefault();
+    sendMessage();
+  }
 });
 
-// URL ?q= 파라미터 자동 질문
-const params = new URLSearchParams(location.search);
-const initQ = params.get('q');
+// URL ?q= 자동 질문
+var initQ = new URLSearchParams(location.search).get('q');
 if (initQ) { inputEl.value = initQ; sendMessage(); }
 </script>
 
