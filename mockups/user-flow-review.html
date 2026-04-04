@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>브리핑룸 - 유저 흐름 리뷰</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#1a1a2e;color:#fff;font-family:-apple-system,sans-serif;padding:40px 20px}
+h1{text-align:center;font-size:32px;margin-bottom:8px}
+.subtitle{text-align:center;color:#888;font-size:14px;margin-bottom:40px}
+.flow{margin-bottom:60px}
+.flow-title{font-size:20px;font-weight:700;color:#d96c2c;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.flow-title .num{background:#d96c2c;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.flow-desc{color:#999;font-size:13px;margin-bottom:16px;padding-left:38px}
+.flow-arrow{text-align:center;color:#d96c2c;font-size:24px;margin:20px 0}
+.screen{background:#fff;border-radius:16px;overflow:hidden;max-width:960px;margin:0 auto;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.screen-label{background:#16213e;color:#fff;padding:10px 16px;font-size:12px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.screen-label .url{color:#888;font-weight:400;font-family:monospace;font-size:11px}
+.screen-body{position:relative}
+.screen-body iframe{width:100%;border:none;display:block}
+.issue{background:#fff3cd;border:2px solid #ffc107;border-radius:8px;padding:12px 16px;margin:8px 16px;font-size:13px;color:#856404}
+.issue strong{color:#664d03}
+.ok{background:#d4edda;border:2px solid #28a745;border-radius:8px;padding:12px 16px;margin:8px 16px;font-size:13px;color:#155724}
+.section-divider{text-align:center;padding:40px 0;color:#555;font-size:16px;border-top:1px solid #333;margin-top:40px}
+</style>
+</head>
+<body>
+
+<h1>브리핑룸 유저 흐름 리뷰</h1>
+<p class="subtitle">govbrief.kr 전체 화면 구조 + 이동 경로 검토 (2026.04.04 기준)</p>
+
+<!-- ========== 흐름 1: 홈 진입 ========== -->
+<div class="flow">
+  <div class="flow-title"><span class="num">1</span>홈 진입 (govbrief.kr)</div>
+  <div class="flow-desc">사용자가 처음 방문하는 화면. 검색 + 2분할 캐러셀 + 정책요약 + 부처별 브리핑</div>
+  <div class="screen">
+    <div class="screen-label">
+      <span>홈</span>
+      <span class="url">govbrief.kr/</span>
+    </div>
+    <div class="screen-body">
+      <iframe src="/" style="height:900px"></iframe>
+    </div>
+  </div>
+  <div class="ok">헤더: 브리핑룸 | 홈(활성) | 정부정책AI | 금융법령AI | 아카이브 | 알림</div>
+  <div class="issue"><strong>검토:</strong> 검색 → Supabase ILIKE 폴백 동작 확인. 2분할 캐러셀 정상 여부. 부처 탭 필터링 JS 동작 여부.</div>
+</div>
+
+<div class="flow-arrow">&#8595;</div>
+
+<!-- ========== 흐름 2: 정부 정책 AI ========== -->
+<div class="flow">
+  <div class="flow-title"><span class="num">2</span>정부 정책 AI (govbrief.kr/policy/)</div>
+  <div class="flow-desc">홈에서 "정부 정책 AI" 탭 클릭 또는 캐러셀 "전체 보기" 클릭</div>
+  <div class="screen">
+    <div class="screen-label">
+      <span>정부 정책 AI</span>
+      <span class="url">govbrief.kr/policy/</span>
+    </div>
+    <div class="screen-body">
+      <iframe src="/policy/" style="height:1200px"></iframe>
+    </div>
+  </div>
+  <div class="ok">히어로: 파랑 배경 + 숫자 4개 (발표건수/참여기관/영향도상/스냅샷) + 검색</div>
+  <div class="issue"><strong>검토:</strong> 분야 탭(금융경제/산업기술/...) 필터링 동작. 카드 클릭 시 상세 페이지 이동. 부처별 탭 필터.</div>
+</div>
+
+<div class="flow-arrow">&#8595;</div>
+
+<!-- ========== 흐름 3: 보도자료 상세 ========== -->
+<div class="flow">
+  <div class="flow-title"><span class="num">3</span>보도자료 상세 페이지</div>
+  <div class="flow-desc">정책AI 또는 홈에서 개별 보도자료 클릭</div>
+  <div class="screen">
+    <div class="screen-label">
+      <span>보도자료 상세 (금융위 보험료 면제)</span>
+      <span class="url">govbrief.kr/articles/2026-03-31/119/</span>
+    </div>
+    <div class="screen-body">
+      <iframe src="/articles/2026-03-31/119/" style="height:800px"></iframe>
+    </div>
+  </div>
+  <div class="ok">배지(기관명) 16px / 메타(날짜/분야/기관) 16px / 요약 + 키워드 + 원문링크</div>
+  <div class="issue"><strong>검토:</strong> 분야 필터(금융경제 등) 클릭 시 같은 날짜 필터. 줄간격 1.55 적용 여부. 상세 브리핑(왜 중요한가 등) 존재 여부.</div>
+</div>
+
+<div class="flow-arrow">&#8595;</div>
+
+<!-- ========== 흐름 4: 금융 법령 AI ========== -->
+<div class="flow">
+  <div class="flow-title"><span class="num">4</span>금융 법령 AI (govbrief.kr/finlaw/)</div>
+  <div class="flow-desc">홈에서 "금융 법령 AI" 탭 클릭 또는 법령 캐러셀 "전체" 클릭</div>
+  <div class="screen">
+    <div class="screen-label">
+      <span>금융 법령 AI</span>
+      <span class="url">govbrief.kr/finlaw/</span>
+    </div>
+    <div class="screen-body">
+      <iframe src="/finlaw/" style="height:1000px"></iframe>
+    </div>
+  </div>
+  <div class="ok">히어로: 초록 배경 + 숫자 4개 (법령개정/판례/입법예고/전체법령)</div>
+  <div class="issue"><strong>검토:</strong> 정부정책AI와 동일 레이아웃. 법령 카드 클릭 → 상세 페이지. 검색 동작.</div>
+</div>
+
+<div class="flow-arrow">&#8595;</div>
+
+<!-- ========== 흐름 5: 법령 상세 ========== -->
+<div class="flow">
+  <div class="flow-title"><span class="num">5</span>법령 상세 페이지</div>
+  <div class="flow-desc">금융법령AI에서 개별 법령 클릭</div>
+  <div class="screen">
+    <div class="screen-label">
+      <span>법령 상세 (자본시장법 시행령)</span>
+      <span class="url">govbrief.kr/finlaw/detail/284829/</span>
+    </div>
+    <div class="screen-body">
+      <iframe src="/finlaw/detail/284829/" style="height:600px"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arrow">&#8595;</div>
+
+<!-- ========== 흐름 6: 금융법령 AI 채팅 ========== -->
+<div class="flow">
+  <div class="flow-title"><span class="num">6</span>금융 법령 AI 채팅</div>
+  <div class="flow-desc">검색에서 "FinLaw GPT에게 질문하기" 클릭 또는 직접 접근</div>
+  <div class="screen">
+    <div class="screen-label">
+      <span>금융 법령 AI 채팅</span>
+      <span class="url">govbrief.kr/tools/finlaw-gpt/</span>
+    </div>
+    <div class="screen-body">
+      <iframe src="/tools/finlaw-gpt/" style="height:700px"></iframe>
+    </div>
+  </div>
+  <div class="ok">초록 테마 / 통계 카드 / 예시 질문 4개 / textarea / 새 대화 버튼</div>
+  <div class="issue"><strong>검토:</strong> ILIKE 폴백 동작. 출처 카드 클릭 → 상세. 후속질문 버튼. 대화 맥락 유지.</div>
+</div>
+
+<div class="flow-arrow">&#8595;</div>
+
+<!-- ========== 흐름 7: 아카이브 ========== -->
+<div class="flow">
+  <div class="flow-title"><span class="num">7</span>보도자료 아카이브</div>
+  <div class="flow-desc">헤더 "아카이브" 탭 클릭</div>
+  <div class="screen">
+    <div class="screen-label">
+      <span>보도자료 아카이브</span>
+      <span class="url">govbrief.kr/articles/</span>
+    </div>
+    <div class="screen-body">
+      <iframe src="/articles/" style="height:800px"></iframe>
+    </div>
+  </div>
+  <div class="ok">날짜별 보도자료 카드 + 주간 리포트 버튼</div>
+</div>
+
+<div class="section-divider">
+  --- 유저 흐름 요약 ---<br><br>
+  홈 → 정부정책AI → 보도자료 상세<br>
+  홈 → 금융법령AI → 법령 상세<br>
+  홈 → 검색 → FinLaw GPT 채팅<br>
+  홈 → 아카이브 → 보도자료 상세<br>
+</div>
+
+</body>
+</html>
