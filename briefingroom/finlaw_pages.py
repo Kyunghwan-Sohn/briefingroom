@@ -68,10 +68,15 @@ def generate_cases_page():
     """판례 페이지 재생성 — summary 컬럼 포함"""
     conn = sqlite3.connect(str(DB_PATH))
     conn.row_factory = sqlite3.Row
-    rows = conn.execute(
-        "SELECT prec_id, case_name, case_number, court, decision_date, "
-        "summary, detail_link FROM precedents ORDER BY decision_date DESC"
-    ).fetchall()
+    try:
+        rows = conn.execute(
+            "SELECT prec_id, case_name, case_number, court, decision_date, "
+            "summary, detail_link FROM precedents ORDER BY decision_date DESC"
+        ).fetchall()
+    except sqlite3.OperationalError:
+        conn.close()
+        print("[finlaw_pages] precedents 테이블 없음 → cases 페이지 스킵")
+        return
     conn.close()
 
     tbody = []
@@ -224,12 +229,17 @@ def generate_notices_page():
     """법령 개정 이력 페이지 재생성 — amendment_reason 포함"""
     conn = sqlite3.connect(str(DB_PATH))
     conn.row_factory = sqlite3.Row
-    rows = conn.execute(
-        "SELECT name, promulgation_date, revision_type, ministry, "
-        "detail_link, amendment_reason FROM laws "
-        "WHERE promulgation_date >= '20250101' "
-        "ORDER BY promulgation_date DESC"
-    ).fetchall()
+    try:
+        rows = conn.execute(
+            "SELECT name, promulgation_date, revision_type, ministry, "
+            "detail_link, amendment_reason FROM laws "
+            "WHERE promulgation_date >= '20250101' "
+            "ORDER BY promulgation_date DESC"
+        ).fetchall()
+    except sqlite3.OperationalError:
+        conn.close()
+        print("[finlaw_pages] laws 테이블 없음 → notices 페이지 스킵")
+        return
     conn.close()
 
     tbody = []
@@ -397,18 +407,26 @@ def generate_finlaw_index():
 
     # 최근 법령 변경 (30일)
     month_ago = (today - timedelta(days=30)).strftime("%Y%m%d")
-    recent_laws = conn.execute(
-        "SELECT name, promulgation_date, revision_type, ministry, amendment_reason, law_mst "
-        "FROM laws WHERE promulgation_date >= ? ORDER BY promulgation_date DESC LIMIT 5",
-        (month_ago,),
-    ).fetchall()
+    recent_laws = []
+    try:
+        recent_laws = conn.execute(
+            "SELECT name, promulgation_date, revision_type, ministry, amendment_reason, law_mst "
+            "FROM laws WHERE promulgation_date >= ? ORDER BY promulgation_date DESC LIMIT 5",
+            (month_ago,),
+        ).fetchall()
+    except sqlite3.OperationalError:
+        pass  # 테이블 없으면 무시
 
     # 최근 판례 (summary 있는 것)
-    recent_precs = conn.execute(
-        "SELECT prec_id, case_name, decision_date, court, case_number, summary, related_law "
-        "FROM precedents WHERE summary IS NOT NULL AND summary != '' AND summary != '-' "
-        "ORDER BY decision_date DESC LIMIT 3",
-    ).fetchall()
+    recent_precs = []
+    try:
+        recent_precs = conn.execute(
+            "SELECT prec_id, case_name, decision_date, court, case_number, summary, related_law "
+            "FROM precedents WHERE summary IS NOT NULL AND summary != '' AND summary != '-' "
+            "ORDER BY decision_date DESC LIMIT 3",
+        ).fetchall()
+    except sqlite3.OperationalError:
+        pass  # 테이블 없으면 무시
 
     # 입법예고 (D-day > 0 = 진행 중)
     leg_notices = []
@@ -422,14 +440,23 @@ def generate_finlaw_index():
         pass  # 테이블 없으면 무시
 
     # 카운트
-    law_count = len(conn.execute(
-        "SELECT 1 FROM laws WHERE promulgation_date >= ?", (month_ago,)
-    ).fetchall())
-    prec_count = len(conn.execute(
-        "SELECT 1 FROM precedents WHERE decision_date >= '2026.01.01'"
-    ).fetchall())
+    try:
+        law_count = len(conn.execute(
+            "SELECT 1 FROM laws WHERE promulgation_date >= ?", (month_ago,)
+        ).fetchall())
+    except sqlite3.OperationalError:
+        law_count = 0
+    try:
+        prec_count = len(conn.execute(
+            "SELECT 1 FROM precedents WHERE decision_date >= '2026.01.01'"
+        ).fetchall())
+    except sqlite3.OperationalError:
+        prec_count = 0
     notice_count = len(leg_notices)
-    total_laws = conn.execute("SELECT COUNT(*) FROM laws").fetchone()[0]
+    try:
+        total_laws = conn.execute("SELECT COUNT(*) FROM laws").fetchone()[0]
+    except sqlite3.OperationalError:
+        total_laws = 0
     conn.close()
 
     # 헤드라인: 가장 최근 법령 변경
