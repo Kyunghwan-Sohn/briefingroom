@@ -116,11 +116,11 @@ def generate_rss(target_date: str, max_items: int = 50) -> Path:
     items = data.get("items", [])[:max_items]
 
     rss_items = []
-    for it in items:
+    for idx, it in enumerate(items):
         title = xml_escape(it.get("title", ""))
         source = xml_escape(it.get("source", ""))
         summary = xml_escape(it.get("summary", ""))
-        link = xml_escape(it.get("url", ""))
+        orig_link = xml_escape(it.get("url", ""))
         date_str = it.get("date", target_date)
         category = xml_escape(it.get("category", ""))
         keywords = it.get("keywords", [])
@@ -130,13 +130,16 @@ def generate_rss(target_date: str, max_items: int = 50) -> Path:
             "%a, %d %b %Y 09:00:00 +0900"
         )
 
+        article_link = f"{SITE_URL}/articles/{date_str}/{idx:03d}/"
+
         description = f"[{source}] {summary}" if summary else f"[{source}] {title}"
         if kw_html:
             description += f" | {kw_html}"
 
         rss_items.append(f"""    <item>
       <title>{title}</title>
-      <link>{link}</link>
+      <link>{article_link}</link>
+      <guid isPermaLink="true">{article_link}</guid>
       <description>{xml_escape(description)}</description>
       <category>{category}</category>
       <pubDate>{pub_date}</pubDate>
@@ -272,7 +275,6 @@ def generate_article_pages(target_date: str) -> int:
 <div class="wrap">
   {render_top_nav("")}
   <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  {render_crosslinks((weekly_link, "주간 리포트"), (schedule_link, "차주 일정"), (subsidy_link, "지원사업"))}
   <div class="post-badge">🏛 {h_source} 보도자료</div>
   <h1 class="post-title">{h_title}</h1>
   <div class="post-meta">
