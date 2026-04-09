@@ -4,19 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>금융 판례 - 브리핑룸</title>
-<meta name="description" content="금융 관련 주요 판례를 검색하고 핵심 내용을 확인합니다. 대법원, 헌법재판소 판례 수록.">
-<link rel="canonical" href="https://govbrief.kr/finlaw/cases/">
-<meta property="og:title" content="금융 판례 - 브리핑룸">
-<meta property="og:description" content="금융 관련 주요 판례를 검색하고 핵심 내용을 확인합니다.">
-<meta property="og:url" content="https://govbrief.kr/finlaw/cases/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="govbrief.kr">
-<meta property="og:locale" content="ko_KR">
-<meta property="og:image" content="https://govbrief.kr/og-image.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="금융 판례 - 브리핑룸">
-<meta name="twitter:description" content="금융 관련 주요 판례를 검색하고 핵심 내용을 확인합니다.">
-<meta name="twitter:image" content="https://govbrief.kr/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -65,28 +52,29 @@ tr:last-child td{border-bottom:none}
   table{font-size:11px}
   td,th{padding:8px 6px}
 }
-.cta{margin:24px;padding:18px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}.cta h3{font-family:var(--serif);font-size:15px;color:#fff}.cta p{font-size:10px;color:rgba(255,255,255,.6)}.cta a{padding:10px 18px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none}.footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.footer a{color:var(--t);text-decoration:none;font-weight:600}.bnav{display:none;position:fixed;bottom:0;left:0;right:0;max-width:960px;margin:0 auto;background:var(--s);border-top:1px solid var(--b);grid-template-columns:repeat(4,1fr);z-index:50}.bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:9px;font-weight:600;color:var(--m);text-decoration:none}
-@media(max-width:768px){body{padding-bottom:62px}.bnav{display:grid}}
 </style>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","name":"금융 판례","description":"금융 관련 주요 판례를 검색하고 핵심 내용을 확인합니다.","url":"https://govbrief.kr/finlaw/cases/","isPartOf":{"@type":"WebSite","name":"govbrief.kr","url":"https://govbrief.kr"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://govbrief.kr/"},{"@type":"ListItem","position":2,"name":"금융 법령 AI","item":"https://govbrief.kr/finlaw/"},{"@type":"ListItem","position":3,"name":"금융 판례","item":"https://govbrief.kr/finlaw/cases/"}]}}
-</script>
 </head>
 <body>
-<header class="hdr">
-  <a class="logo" href="/">브리핑룸</a>
-  <nav class="hnav">
-    <a href="/">홈</a>
-    <a href="/policy/">정부 정책 AI</a>
-    <a class="on-law" href="/finlaw/">금융 법령 AI</a>
-    <a href="/archive/">아카이브</a>
-  </nav>
-  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
-</header>
+<header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a class="on-law" href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
 <div class="wrap">
 <a class="back" href="/finlaw/">← 금융 법령 AI</a>
 <h1>금융 판례</h1>
 <div class="desc">금융 관련 대법원/고등법원 판례 526건</div>
+<div class="nav">
+  <a href="/finlaw/">법령 목록</a>
+  <a class="active" href="/finlaw/cases/">판례 526건</a>
+  <a href="/finlaw/notices/">법령 개정 이력</a>
+</div>
+<div style="position:relative;margin-bottom:12px">
+  <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:14px">⌕</span>
+  <input id="case-search" type="text" placeholder="사건명, 사건번호, 법원으로 검색..." style="width:100%;padding:12px 14px 12px 36px;font-size:14px;border:2px solid var(--b);border-radius:10px;background:var(--s);color:var(--t);outline:none;font-family:var(--sans)">
+</div>
+<div class="filter-bar">
+  <label>기간</label>
+  <input type="date" id="date-from" value="2025-01-01"> <span style="color:var(--m)">~</span> <input type="date" id="date-to" value="2026-04-01">
+  <button onclick="filterByDate()">조회</button>
+  <span id="result-count" style="font-family:var(--mono);font-size:11px;color:var(--m);margin-left:8px"></span>
+</div>
 <table>
 <colgroup><col class="c-date"><col class="c-court"><col class="c-case"><col class="c-link"></colgroup>
 <thead><tr><th>선고일</th><th>법원</th><th>사건명 / 사건번호</th><th>원문</th></tr></thead>
@@ -2753,13 +2741,5 @@ function filterByDate() {
 }
 updateCount();
 </script>
-<div class="cta" style="margin:24px;padding:18px;background:#d96c2c;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px"><div><h3 style="font-family:'Gowun Batang',serif;font-size:15px;color:#fff">매일 3분 브리핑</h3><p style="font-family:'Wanted Sans Variable',sans-serif;font-size:10px;color:rgba(255,255,255,.7)">텔레그램에서 받아보세요</p></div><a href="https://t.me/govbrief" target="_blank" rel="noopener" style="font-family:'Wanted Sans Variable',sans-serif;padding:10px 18px;background:#fff;color:#d96c2c;border-radius:8px;font-weight:700;font-size:12px;text-decoration:none">구독</a></div>
-<div style="padding:16px 24px;text-align:center;font-family:'Wanted Sans Variable',sans-serif;font-size:10px;color:#999"><a href="/" style="color:#222;text-decoration:none;font-weight:600">홈</a> · <a href="/policy/" style="color:#222;text-decoration:none;font-weight:600">정부 정책 AI</a> · <a href="/finlaw/" style="color:#222;text-decoration:none;font-weight:600">금융 법령 AI</a> · <a href="/archive/" style="color:#222;text-decoration:none;font-weight:600">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener" style="color:#222;text-decoration:none;font-weight:600">텔레그램</a><br>govbrief.kr</div>
-<nav style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid #c8c8c8;grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto" class="bnav-inline"><a href="/" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#999;font-size:10px;font-weight:600"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#999;font-size:10px;font-weight:600"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#999;font-size:10px;font-weight:600"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/archive/" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#999;font-size:10px;font-weight:600"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
-<style>.bnav-inline{display:none}@media(max-width:768px){.bnav-inline{display:grid!important}body{padding-bottom:62px!important}}.cta{margin:24px;padding:18px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}.cta h3{font-family:var(--serif);font-size:15px;color:#fff}.cta p{font-size:10px;color:rgba(255,255,255,.6)}.cta a{padding:10px 18px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none}.footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.footer a{color:var(--t);text-decoration:none;font-weight:600}.bnav{display:none;position:fixed;bottom:0;left:0;right:0;max-width:960px;margin:0 auto;background:var(--s);border-top:1px solid var(--b);grid-template-columns:repeat(4,1fr);z-index:50}.bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:9px;font-weight:600;color:var(--m);text-decoration:none}
-@media(max-width:768px){body{padding-bottom:62px}.bnav{display:grid}}
-</style>
-<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/archive/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</div>
-<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/archive/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

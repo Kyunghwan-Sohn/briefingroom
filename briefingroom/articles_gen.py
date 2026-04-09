@@ -64,7 +64,7 @@ def generate_articles_index():
                 detail_exists = (ARTICLES_DIR / d / slug / "detail.html").exists()
                 article_exists = (ARTICLES_DIR / d / slug / "index.html").exists()
                 link = f"/articles/{d}/{slug}/detail.html" if detail_exists else (
-                    f"/articles/{d}/{slug}/" if article_exists else "#"
+                    f"/articles/{d}/{slug}/" if article_exists else it.get("url", "")
                 )
                 top3.append({
                     "title": it.get("title", "")[:60],

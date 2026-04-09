@@ -11,7 +11,6 @@ from briefingroom import http as http_module
 from briefingroom import llm as llm_module
 from briefingroom import detail_gen as detail_gen_module
 from briefingroom import finlaw_gpt as finlaw_gpt_module
-from briefingroom import subsidy as subsidy_module
 from briefingroom import telegram as telegram_module
 from briefingroom import weekly_analysis as weekly_analysis_module
 from briefingroom import wordpress as wordpress_module
@@ -327,11 +326,6 @@ class RegressionTests(unittest.TestCase):
                 self.assertEqual(rows[0]["slug"], "005")
             finally:
                 weekly_analysis_module.DATA_DIR = original_data_dir
-
-    def test_subsidy_category_normalization_folds_numeric_codes(self):
-        self.assertEqual(subsidy_module._normalize_subsidy_category("2039"), "기타")
-        self.assertEqual(subsidy_module._normalize_subsidy_category("멘토링 교육"), "창업교육")
-
 
 if __name__ == "__main__":
     unittest.main()

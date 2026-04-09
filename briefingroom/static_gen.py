@@ -198,8 +198,6 @@ def generate_article_pages(target_date: str) -> int:
         kw_json = json.dumps(keywords, ensure_ascii=False)
         weekly_link = f"{SITE_URL}/articles/weekly/{target_date}/"
         schedule_link = f"{SITE_URL}/articles/schedule/{target_date}/"
-        subsidy_link = f"{SITE_URL}/subsidy/"
-
         h_title = html.escape(title)
         h_source = html.escape(source)
         h_summary = html.escape(summary)

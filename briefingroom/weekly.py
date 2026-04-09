@@ -360,7 +360,6 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
 
     h = _html.escape
     schedule_link = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
-    subsidy_link = f"{SITE_URL}/subsidy/"
     signal_cards = ""
     for idx, signal in enumerate(signals, start=1):
         related_item = signal.get("related_item") or {}
@@ -451,7 +450,7 @@ td.num{{text-align:center;white-space:nowrap}}
   <div class="hero-copy">{s.year}년 {s.month}월 {s.day}일부터 {e.month}월 {e.day}일까지의 정부 보도자료 흐름을 Bloomberg형 데이터 밀도와 브리핑 형식으로 정리했습니다.</div>
 </section>
 <div class="sub">{s.year}년 {s.month}월 {s.day}일 ~ {e.month}월 {e.day}일</div>
-{render_crosslinks((schedule_link, "차주 일정 보기"), (subsidy_link, "지원사업 보기"))}
+{render_crosslinks((schedule_link, "차주 일정 보기"))}
 
 <div class="kpi">
   <div class="kpi-box"><div class="kpi-val">{analysis['total']}</div><div class="kpi-label">총 보도자료</div></div>

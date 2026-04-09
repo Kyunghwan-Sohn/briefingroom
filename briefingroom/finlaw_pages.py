@@ -447,9 +447,7 @@ def generate_finlaw_index():
     except sqlite3.OperationalError:
         law_count = 0
     try:
-        prec_count = len(conn.execute(
-            "SELECT 1 FROM precedents WHERE decision_date >= '2026.01.01'"
-        ).fetchall())
+        prec_count = conn.execute("SELECT COUNT(*) FROM precedents").fetchone()[0]
     except sqlite3.OperationalError:
         prec_count = 0
     notice_count = len(leg_notices)
@@ -458,6 +456,11 @@ def generate_finlaw_index():
     except sqlite3.OperationalError:
         total_laws = 0
     conn.close()
+
+    if total_laws <= 0 and (FINLAW_DIR / "detail").exists():
+        total_laws = len([p for p in (FINLAW_DIR / "detail").iterdir() if p.is_dir()])
+    if prec_count <= 0 and (FINLAW_DIR / "cases").exists():
+        prec_count = len([p for p in (FINLAW_DIR / "cases").iterdir() if p.is_dir()])
 
     # 헤드라인: 가장 최근 법령 변경
     headline_title = ""

@@ -858,25 +858,10 @@ function searchSupabase(query){{
 }}
 async function doSearch(query){{
   try{{
-    const r=await fetch('https://govbrief-api.vercel.app/api/search',{{
-      method:'POST',headers:{{'Content-Type':'application/json'}},
-      body:JSON.stringify({{query}}),
-    }});
-    const data=await r.json();
-    if(data.results&&data.results.length){{
-      const items=data.results.map(item=>{{
-        let link='/tools/finlaw-gpt/?q='+encodeURIComponent(query);
-        try{{const u=new URL(String(item.link||''),location.origin);if(u.protocol==='http:'||u.protocol==='https:')link=u.href;}}catch(e){{}}
-        return{{type:item.type,title:item.title,subtitle:item.subtitle,link}};
-      }});
-      renderResults(items,query);
-    }}else{{
-      const items=await searchSupabase(query);
-      renderResults(items,query);
-    }}
+    const items=await searchSupabase(query);
+    renderResults(items,query);
   }}catch(e){{
-    try{{const items=await searchSupabase(query);renderResults(items,query);}}
-    catch(e2){{renderResults([],query);}}
+    renderResults([],query);
   }}
 }}
 document.addEventListener('click', function(e) {{

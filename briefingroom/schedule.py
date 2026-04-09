@@ -523,7 +523,6 @@ def generate_schedule_post(items: list[dict], target: date) -> str:
     next_friday = next_monday + timedelta(days=4)
     post_url = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
     weekly_link = f"{SITE_URL}/articles/weekly/{target.isoformat()}/"
-    subsidy_link = f"{SITE_URL}/subsidy/"
 
     h = _html.escape
     dows = ["월", "화", "수", "목", "금", "토", "일"]
@@ -619,7 +618,7 @@ def generate_schedule_post(items: list[dict], target: date) -> str:
 <div class="wrap">
 {render_top_nav("schedule")}
 <a class="back" href="/">← 브리핑룸으로</a>
-{render_crosslinks((weekly_link, "주간 리포트 보기"), (subsidy_link, "지원사업 보기"))}
+{render_crosslinks((weekly_link, "주간 리포트 보기"))}
 
 <div class="hero">
   <h1>📅 정부 주요 일정</h1>

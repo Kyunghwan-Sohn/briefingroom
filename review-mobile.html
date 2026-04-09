@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Mobile Review - briefingroom</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#111; color:#eee; font-family:-apple-system,sans-serif; }
+h1 { text-align:center; padding:24px 0 8px; font-size:22px; color:#fff; letter-spacing:-0.5px; }
+.subtitle { text-align:center; color:#888; font-size:13px; margin-bottom:24px; }
+.grid { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; padding:0 20px 60px; }
+.section-title { width:100%; font-size:15px; color:#aaa; margin:20px 0 0; padding-left:4px; border-left:3px solid #555; padding-left:10px; }
+.card { background:#1a1a1a; border-radius:10px; overflow:hidden; border:1px solid #333; width:390px; }
+.card-header { display:flex; justify-content:space-between; align-items:center; padding:8px 12px; background:#222; border-bottom:1px solid #333; }
+.card-label { font-size:12px; font-weight:600; color:#ccc; }
+.card-path { font-size:10px; color:#666; font-family:monospace; }
+.card .frame-wrap { width:390px; height:844px; overflow:hidden; position:relative; }
+.card iframe { width:390px; height:844px; border:none; background:#fff; }
+.card-tall .frame-wrap { height:1200px; }
+.card-tall iframe { height:1200px; }
+</style>
+</head>
+<body>
+
+<h1>Briefingroom - Mobile (390px, iPhone 14)</h1>
+<p class="subtitle">govbrief.kr | 15 pages + 5 detail samples = 20 screens</p>
+
+<div class="grid">
+
+<div class="section-title">Main Pages</div>
+
+<div class="card card-tall">
+  <div class="card-header"><span class="card-label">1. Home</span><span class="card-path">/index.html</span></div>
+  <div class="frame-wrap"><iframe src="index.html"></iframe></div>
+</div>
+
+<div class="card card-tall">
+  <div class="card-header"><span class="card-label">2. Policy AI</span><span class="card-path">/policy/index.html</span></div>
+  <div class="frame-wrap"><iframe src="policy/index.html"></iframe></div>
+</div>
+
+<div class="card card-tall">
+  <div class="card-header"><span class="card-label">3. FinLaw AI</span><span class="card-path">/finlaw/index.html</span></div>
+  <div class="frame-wrap"><iframe src="finlaw/index.html"></iframe></div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="card-label">4. Articles Archive</span><span class="card-path">/articles/index.html</span></div>
+  <div class="frame-wrap"><iframe src="articles/index.html"></iframe></div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="card-label">5. 404 Error</span><span class="card-path">/404.html</span></div>
+  <div class="frame-wrap" style="height:400px"><iframe src="404.html" style="height:400px"></iframe></div>
+</div>
+
+<div class="section-title">About & Tools</div>
+
+<div class="card">
+  <div class="card-header"><span class="card-label">6. About</span><span class="card-path">/tools/index.html</span></div>
+  <div class="frame-wrap"><iframe src="tools/index.html"></iframe></div>
+</div>
+
+<div class="card card-tall">
+  <div class="card-header"><span class="card-label">7. Policy All (new)</span><span class="card-path">/policy/all/index.html</span></div>
+  <div class="frame-wrap"><iframe src="policy/all/index.html"></iframe></div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="card-label">8. FinLaw GPT</span><span class="card-path">/tools/finlaw-gpt/index.html</span></div>
+  <div class="frame-wrap"><iframe src="tools/finlaw-gpt/index.html"></iframe></div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="card-label">9. MyLaw Finder</span><span class="card-path">/tools/mylaw/index.html</span></div>
+  <div class="frame-wrap"><iframe src="tools/mylaw/index.html"></iframe></div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="card-label">10. LawDiff</span><span class="card-path">/tools/lawdiff/index.html</span></div>
+  <div class="frame-wrap"><iframe src="tools/lawdiff/index.html"></iframe></div>
+</div>
+
+<div class="section-title">FinLaw Sub-pages</div>
+
+<div class="card card-tall">
+  <div class="card-header"><span class="card-label">11. FinLaw Cases</span><span class="card-path">/finlaw/cases/index.html</span></div>
+  <div class="frame-wrap"><iframe src="finlaw/cases/index.html"></iframe></div>
+</div>
+
+<div class="card card-tall">
+  <div class="card-header"><span class="card-label">12. FinLaw Notices</span><span class="card-path">/finlaw/notices/index.html</span></div>
+  <div class="frame-wrap"><iframe src="finlaw/notices/index.html"></iframe></div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="card-label">13. FinLaw Opinions</span><span class="card-path">/finlaw/opinions/index.html</span></div>
+  <div class="frame-wrap"><iframe src="finlaw/opinions/index.html"></iframe></div>
+</div>
+
+<div class="section-title">Articles Sub-pages</div>
+
+<div class="card">
+  <div class="card-header"><span class="card-label">14. Weekly Report Archive</span><span class="card-path">/articles/weekly/index.html</span></div>
+  <div class="frame-wrap"><iframe src="articles/weekly/index.html"></iframe></div>
+</div>
+
+<div class="section-title">Detail Page Samples</div>
+
+<div class="card card-tall">
+  <div class="card-header"><span class="card-label">16. Article Detail</span><span class="card-path">/articles/2026-04-01/000/</span></div>
+  <div class="frame-wrap"><iframe src="articles/2026-04-01/000/index.html"></iframe></div>
+</div>
+
+<div class="card card-tall">
+  <div class="card-header"><span class="card-label">17. Weekly Report Detail</span><span class="card-path">/articles/weekly/2026-03-29/</span></div>
+  <div class="frame-wrap"><iframe src="articles/weekly/2026-03-29/index.html"></iframe></div>
+</div>
+
+<div class="card card-tall">
+  <div class="card-header"><span class="card-label">18. FinLaw Case Detail</span><span class="card-path">/finlaw/cases/140311/</span></div>
+  <div class="frame-wrap"><iframe src="finlaw/cases/140311/index.html"></iframe></div>
+</div>
+
+<div class="card card-tall">
+  <div class="card-header"><span class="card-label">19. FinLaw Detail</span><span class="card-path">/finlaw/detail/268095/</span></div>
+  <div class="frame-wrap"><iframe src="finlaw/detail/268095/index.html"></iframe></div>
+</div>
+
+<div class="card card-tall">
+  <div class="card-header"><span class="card-label">20. FinLaw Diff</span><span class="card-path">/finlaw/diff/268095/</span></div>
+  <div class="frame-wrap"><iframe src="finlaw/diff/268095/index.html"></iframe></div>
+</div>
+
+</div>
+</body>
+</html>
