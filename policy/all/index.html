@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>정부 정책 AI - 브리핑룸</title>
-<meta name="description" content="대한민국 정부 보도자료를 날짜별로 정리하고 AI가 핵심만 요약합니다.">
-<link rel="canonical" href="https://govbrief.kr/policy/">
-<meta property="og:title" content="정부 정책 AI - 브리핑룸">
-<meta property="og:description" content="대한민국 정부 보도자료를 날짜별로 정리하고 AI가 핵심만 요약합니다.">
-<meta property="og:url" content="https://govbrief.kr/policy/">
+<title>전체 정책 브리핑 - 브리핑룸</title>
+<meta name="description" content="정부 부처 보도자료 전체 정책 브리핑 목록. 분야별, 부처별로 필터링하여 확인합니다.">
+<link rel="canonical" href="https://govbrief.kr/policy/all/">
+<meta property="og:title" content="전체 정책 브리핑 - 브리핑룸">
+<meta property="og:description" content="정부 부처 보도자료 전체 정책 브리핑 목록. 분야별, 부처별로 필터링하여 확인합니다.">
+<meta property="og:url" content="https://govbrief.kr/policy/all/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="govbrief.kr">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://govbrief.kr/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="정부 정책 AI - 브리핑룸">
-<meta name="twitter:description" content="대한민국 정부 보도자료를 날짜별로 정리하고 AI가 핵심만 요약합니다.">
+<meta name="twitter:title" content="전체 정책 브리핑 - 브리핑룸">
+<meta name="twitter:description" content="정부 부처 보도자료 전체 정책 브리핑 목록.">
 <meta name="twitter:image" content="https://govbrief.kr/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,30 +33,15 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .hnav::-webkit-scrollbar{display:none}
 .hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
 .hnav a:hover{border-color:var(--a);color:var(--a)}
-.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
 .hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
-.hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
 .bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
-.hero{background:var(--policy-bg);padding:32px 24px 24px;border-bottom:1px solid var(--policy-border)}
-.hero-top{text-align:center;margin-bottom:20px}
-.hero-top h1{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--t);margin-bottom:4px;line-height:1.35}
-.hero-date{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--t);margin-bottom:2px}
-.hero-sub{font-family:var(--sans);font-size:14px;color:var(--m)}
-.hero-dash{display:flex;gap:10px;margin-bottom:18px}
-.hero-stat{flex:1;background:var(--s);border:1px solid var(--policy-border);border-radius:12px;padding:14px;text-align:center}
-.hero-stat .num{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--policy);line-height:1}
-.hero-stat .label{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--policy);margin-top:5px}
-.sbox{max-width:100%;position:relative}
-.sbox input{width:100%;padding:14px 16px 14px 42px;font-size:15px;border:2px solid var(--policy-border);border-radius:12px;background:#fff;color:var(--t);outline:none;font-family:var(--sans)}
-.sbox input:focus{border-color:var(--policy)}
-.si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--m);font-size:16px}
 .section{padding:22px 24px;border-bottom:1px solid var(--b)}
 .sec-hdr{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:14px;display:flex;align-items:baseline;justify-content:space-between}
 .sec-more{font-family:var(--sans);font-size:12px;color:var(--a);text-decoration:none;font-weight:600}
-.cat-tabs,.dept-tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:14px;padding-bottom:3px}
-.cat-tabs::-webkit-scrollbar,.dept-tabs::-webkit-scrollbar{display:none}
-.cat-tab,.dept-tab{font-family:var(--sans);padding:7px 16px;border-radius:18px;border:1.5px solid var(--bl);background:var(--s);font-size:13px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer}
-.cat-tab.on,.dept-tab.on{background:var(--policy);color:#fff;border-color:var(--policy)}
+.cat-tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:14px;padding-bottom:3px}
+.cat-tabs::-webkit-scrollbar{display:none}
+.cat-tab{font-family:var(--sans);padding:7px 16px;border-radius:18px;border:1.5px solid var(--bl);background:var(--s);font-size:13px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer}
+.cat-tab.on{background:var(--policy);color:#fff;border-color:var(--policy)}
 .card-row{display:flex;gap:0;background:var(--s);border:1px solid var(--b);border-radius:12px;overflow:hidden;margin-bottom:10px;text-decoration:none;color:var(--t)}
 .card-row:hover{border-color:var(--policy)}
 .card-left{width:280px;flex-shrink:0;padding:16px 18px;border-right:1px solid var(--bl);display:flex;flex-direction:column;justify-content:center}
@@ -64,11 +49,14 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .card-left-src{font-family:var(--sans);font-size:11px;color:var(--m);margin-bottom:4px}
 .card-left-title{font-family:var(--sans);font-size:16px;font-weight:700;line-height:1.45}
 .card-left-imp{font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:3px;background:var(--al);color:var(--a);display:inline-block;margin-top:5px}
-.card-left-imp.high{color:#dc2626;background:#fef2f2}
 .card-right{flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:center}
 .card-right-label{font-family:var(--sans);font-size:10px;font-weight:700;color:var(--policy);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
 .card-right-text{font-family:var(--sans);font-size:15px;color:var(--t2);line-height:1.8}
 .empty{padding:20px;border:1px dashed var(--policy-border);border-radius:12px;color:var(--m);background:#fff}
+.sbox{max-width:100%;position:relative;margin-bottom:18px}
+.sbox input{width:100%;padding:14px 16px 14px 42px;font-size:15px;border:2px solid var(--policy-border);border-radius:12px;background:#fff;color:var(--t);outline:none;font-family:var(--sans)}
+.sbox input:focus{border-color:var(--policy)}
+.si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--m);font-size:16px}
 .cta{margin:24px;padding:18px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .cta h3{font-family:var(--serif);font-size:15px;color:#fff}
 .cta p{font-family:var(--sans);font-size:10px;color:rgba(255,255,255,.7)}
@@ -77,13 +65,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .footer a{color:var(--t);text-decoration:none;font-weight:600}
 .bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
 .bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
-.policy-more-btn{display:block;width:100%;padding:14px 0;margin-top:10px;background:none;border:1px dashed var(--b);border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;text-align:center}
-.policy-more-btn:hover{border-color:var(--policy);color:var(--policy)}
-@media(max-width:768px){body{padding-top:48px;padding-bottom:62px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}.hero{padding:22px 16px 18px}.hero-top h1{font-size:22px}.hero-stat{padding:12px 6px}.hero-stat .num{font-size:22px}.hero-stat .label{font-size:11px}.section{padding:18px 16px}.card-row{flex-direction:column}.card-left{width:auto;border-right:none;border-bottom:1px solid var(--bl)}.cta{margin:18px 16px}.bnav{display:grid}}
+@media(max-width:768px){body{padding-top:48px;padding-bottom:62px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}.section{padding:18px 16px}.card-row{flex-direction:column}.card-left{width:auto;border-right:none;border-bottom:1px solid var(--bl)}.cta{margin:18px 16px}.bnav{display:grid}}
 </style>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","name":"정부 정책 AI","description":"대한민국 정부 보도자료를 날짜별로 정리하고 AI가 핵심만 요약합니다.","url":"https://govbrief.kr/policy/","isPartOf":{"@type":"WebSite","name":"govbrief.kr","url":"https://govbrief.kr"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://govbrief.kr/"},{"@type":"ListItem","position":2,"name":"정부 정책 AI","item":"https://govbrief.kr/policy/"}]}}
-</script>
 </head>
 <body>
 <header class="hdr">
@@ -96,65 +79,13 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   </nav>
   <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
-<section class="hero">
-  <div class="hero-top">
-    <h1>정부 정책 AI</h1>
-    <div class="hero-date">2026. 03. 31 (화)</div>
-    <div class="hero-sub">최신 스냅샷 기준 정책 보도자료 브리핑</div>
-  </div>
-  <div class="hero-dash">
-    <div class="hero-stat"><div class="num">151</div><div class="label">발표 건수</div></div>
-    <div class="hero-stat"><div class="num">34</div><div class="label">참여 기관</div></div>
-    <div class="hero-stat"><div class="num">0</div><div class="label">영향도 상</div></div>
-    <div class="hero-stat"><div class="num">151</div><div class="label">스냅샷 항목</div></div>
-  </div>
+<section class="section">
+  <div class="sec-hdr">전체 정책 브리핑 (2026.03.31.) <a class="sec-more" href="/policy/">&#8592; 정부 정책 AI</a></div>
   <div class="sbox">
     <span class="si">&#x2315;</span>
     <input id="policy-search" placeholder="보도자료 제목, 부처명, 키워드로 검색..." autocomplete="off">
   </div>
-</section>
-<section class="section">
-  <div class="sec-hdr">핵심 브리핑 <a class="sec-more" href="/policy/all/">전체 151건 &#8594;</a></div>
-  <div>
-  <a class="card-row policy-item" data-cat="외교안보" data-source="해양경찰청" data-search="해양경찰청, 고유가 파고 뚫고 &#x27;불법외국어선 단속&#x27; 고삐 조인다해양경찰청 해양경찰청은 고유가 상황을 감안하여 불법 어업 등을 전담하는 외국어선 단속 강화를 추진한다고 밝혔다. 해당 단속 강화는 오는 3 월 31 일부터 본격적으로 실시될 계획으로, 불법 활동 근절을 목표로 한다. 이 조치는 어촌 지역 및 해양 생태계 보호 효과를 기대할 수 있다. " href="/articles/2026-03-31/000/">
-    <div class="card-left">
-      <span class="card-left-tag">외교·안보</span>
-      <div class="card-left-src">해양경찰청</div>
-      <div class="card-left-title">해양경찰청, 고유가 파고 뚫고 &#x27;불법외국어선 단속&#x27; 고삐 조인다해양경찰청</div>
-      <span class="card-left-imp">영향도 중</span>
-    </div>
-    <div class="card-right">
-      <div class="card-right-label">쉬운 요약</div>
-      <div class="card-right-text">해양경찰청은 고유가 상황을 감안하여 불법 어업 등을 전담하는 외국어선 단속 강화를 추진한다고 밝혔다. 해당 단속 강화는 오는 3 월 31 일부터 본격적으로 실시될 계획으로, 불법 활동 근절을 목표로 한다. 이 조치는 어촌 지역 및 해양 생태계 보호 효과를 기대할 수 있다.</div>
-    </div>
-  </a>
-  <a class="card-row policy-item" data-cat="산업기술" data-source="산림청" data-search="홍릉숲 봄꽃 축제 개막…탐방객 &#x27;북적&#x27; 산림청이 홍릉숲 봄꽃 축제를 개막하여 봄철 시민들에게 휴식과 문화 체험 기회를 제공합니다. 2026 년 3 월 31 일 행사 시작과 함께 탐방객들이 홍릉숲을 찾는 등 큰 관심과 인기를 얻고 있습니다. 전국민 및 방문객을 대상으로 자연 친화적 여가 활동 기회를 제공하여 생활 질을 높이는 효과가 기대됩니다. " href="/articles/2026-03-31/001/">
-    <div class="card-left">
-      <span class="card-left-tag">산업·기술</span>
-      <div class="card-left-src">산림청</div>
-      <div class="card-left-title">홍릉숲 봄꽃 축제 개막…탐방객 &#x27;북적&#x27;</div>
-      <span class="card-left-imp">영향도 중</span>
-    </div>
-    <div class="card-right">
-      <div class="card-right-label">쉬운 요약</div>
-      <div class="card-right-text">산림청이 홍릉숲 봄꽃 축제를 개막하여 봄철 시민들에게 휴식과 문화 체험 기회를 제공합니다. 2026 년 3 월 31 일 행사 시작과 함께 탐방객들이 홍릉숲을 찾는 등 큰 관심과 인기를 얻고 있습니다. 전국민 및 방문객을 대상으로 자연 친화적 여가 활동 기회를 제공하여 생활 질을 높이는 효과가 기대됩니다.</div>
-    </div>
-  </a>
-  <a class="card-row policy-item" data-cat="산업기술" data-source="새만금개발청" data-search="새만금청, 공공데이터 제공과 데이터기반행정 2개 부문 &#x27;우수기관&#x27; 선정 새만금개발청이 공공데이터 제공 및 데이터기반행정 관련 부처 평가에서 &#x27;우수기관&#x27;으로 선정되었습니다. 이번 선정은 2026 년 3 월 31 일 발표된 평가 결과를 반영한 것으로, 해당 부처의 데이터 활용 역량을 인정받은 결과입니다. 이로써 데이터 기반 행정 구현을 위한 기관 간 협력 및 모범 사례 공유가 확대될 것으로 기대됩니다. " href="/articles/2026-03-31/002/">
-    <div class="card-left">
-      <span class="card-left-tag">산업·기술</span>
-      <div class="card-left-src">새만금개발청</div>
-      <div class="card-left-title">새만금청, 공공데이터 제공과 데이터기반행정 2개 부문 &#x27;우수기관&#x27; 선정</div>
-      <span class="card-left-imp">영향도 중</span>
-    </div>
-    <div class="card-right">
-      <div class="card-right-label">쉬운 요약</div>
-      <div class="card-right-text">새만금개발청이 공공데이터 제공 및 데이터기반행정 관련 부처 평가에서 &#x27;우수기관&#x27;으로 선정되었습니다. 이번 선정은 2026 년 3 월 31 일 발표된 평가 결과를 반영한 것으로, 해당 부처의 데이터 활용 역량을 인정받은 결과입니다. 이로써 데이터 기반 행정 구현을 위한 기관 간 협력 및 모범 사례 공유가 확대될 것으로 기대됩니다.</div>
-    </div>
-  </a></div>
-</section>
-<section class="section">
-  <div class="sec-hdr">AI 정책 관련 브리핑 <a class="sec-more" href="/policy/ai/">전체 148건 &#8594;</a></div>
+  <div class="cat-tabs" id="cat-tabs"><button class="cat-tab on" type="button" data-cat="all">전체</button><button class="cat-tab" type="button" data-cat="금융경제">금융·경제 25</button><button class="cat-tab" type="button" data-cat="산업기술">산업·기술 63</button><button class="cat-tab" type="button" data-cat="사회복지">사회·복지 39</button><button class="cat-tab" type="button" data-cat="외교안보">외교·안보 8</button><button class="cat-tab" type="button" data-cat="행정법제">행정·법제 16</button></div>
   <div id="policy-list">
   <a class="card-row policy-item" data-cat="산업기술" data-source="기상청" data-search="2025년 기상정보 에이피아이(api) 이용 50억 건 넘어, 기상청 2025년 기상정보 api 이용 건수가 50억 건을 돌파하며 공공데이터 활용이 급증하고 있음이 확인되었다. 기상청은 이러한 활용 실적을 바탕으로 &#x27;2026 공공데이터 평가&#x27;에서 &#x27;매우 우수&#x27; 기관으로 선정되었다. 본 건은 주로 데이터 사용량 증대와 기관 평가 결과 발표에 해당하며, 별도의 새로운 제도가 신설되거나 대규모 예산이 투입되는 정책 변화는 없다. " href="/articles/2026-03-31/003/">
     <div class="card-left">
@@ -1938,53 +1869,35 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 <div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책</a> · <a href="/finlaw/">금융 법령</a> · <a href="/archive/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</div>
 <nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/archive/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 <script>
-const policySearch = document.getElementById('policy-search');
-const policyItems = Array.from(document.querySelectorAll('.policy-item'));
-const emptyState = document.getElementById('policy-empty');
-function applyPolicyFilters() {
-  const q = policySearch.value.trim().toLowerCase();
-  let visible = 0;
-  policyItems.forEach((item) => {
-    const matchSearch = !q || item.dataset.search.includes(q) || item.dataset.source.toLowerCase().includes(q);
-    item.style.display = matchSearch ? '' : 'none';
-    if (matchSearch) visible += 1;
+var policySearch = document.getElementById('policy-search');
+var policyItems = Array.from(document.querySelectorAll('.policy-item'));
+var emptyState = document.getElementById('policy-empty');
+var catTabs = Array.from(document.querySelectorAll('#cat-tabs .cat-tab'));
+var currentCat = 'all';
+
+function applyFilters() {
+  var q = policySearch.value.trim().toLowerCase();
+  var visible = 0;
+  policyItems.forEach(function(item) {
+    var matchCat = currentCat === 'all' || item.dataset.cat === currentCat;
+    var matchSearch = !q || item.dataset.search.includes(q) || item.dataset.source.toLowerCase().includes(q);
+    var show = matchCat && matchSearch;
+    item.style.display = show ? '' : 'none';
+    if (show) visible++;
   });
   emptyState.style.display = visible ? 'none' : '';
 }
 
-policySearch.addEventListener('input', applyPolicyFilters);
-
-// AI 정책 관련 브리핑: 초기 3건만 표시 + 더보기
-(function(){
-  var list = document.getElementById('policy-list');
-  if(!list) return;
-  var items = list.querySelectorAll('.policy-item');
-  var LIMIT = 3;
-  var expanded = false;
-  var btn = document.createElement('button');
-  btn.className = 'policy-more-btn';
-  btn.textContent = '더보기 (' + (items.length - LIMIT) + '건 더)';
-  list.parentNode.insertBefore(btn, list.nextSibling);
-
-  function updateVisibility(){
-    applyPolicyFilters();
-    if(!expanded){
-      var count = 0;
-      items.forEach(function(item){
-        if(item.style.display !== 'none'){
-          count++;
-          if(count > LIMIT) item.style.display = 'none';
-        }
-      });
-    }
-    btn.style.display = expanded ? 'none' : 'block';
-  }
-  btn.addEventListener('click', function(){
-    expanded = true;
-    updateVisibility();
+catTabs.forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    currentCat = tab.dataset.cat;
+    catTabs.forEach(function(n) { n.classList.toggle('on', n === tab); });
+    applyFilters();
   });
-  updateVisibility();
-})();
+});
+
+policySearch.addEventListener('input', applyFilters);
+applyFilters();
 </script>
 </body>
 </html>

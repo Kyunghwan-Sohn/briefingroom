@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="pzeUGpBNCUgqD98bjBExwRR7DOAlt2V7FLBbOXB86AY">
+<!-- Naver Search Advisor: 아래 content 값을 서치어드바이저에서 발급받은 코드로 교체 -->
+<meta name="naver-site-verification" content="NAVER_VERIFICATION_CODE">
+
 <title>govbrief.kr — 정부 정책 + 금융법령 통합 인텔리전스</title>
 <meta name="description" content="대한민국 51개 정부 부처 보도자료 AI 요약 + 금융법령 모니터링.">
 <link rel="canonical" href="https://govbrief.kr/">
@@ -10,6 +14,17 @@
 <meta name="theme-color" content="#fafafa">
 <link rel="apple-touch-icon" href="/icon-192.svg">
 <link rel="alternate" type="application/rss+xml" title="브리핑룸 RSS" href="https://govbrief.kr/feed/rss.xml">
+<meta property="og:title" content="govbrief.kr -- 정부 정책 + 금융법령 통합 인텔리전스">
+<meta property="og:description" content="대한민국 51개 정부 부처 보도자료 AI 요약 + 금융법령 모니터링.">
+<meta property="og:url" content="https://govbrief.kr/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="govbrief.kr">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://govbrief.kr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="govbrief.kr -- 정부 정책 + 금융법령 통합 인텔리전스">
+<meta name="twitter:description" content="대한민국 51개 정부 부처 보도자료 AI 요약 + 금융법령 모니터링.">
+<meta name="twitter:image" content="https://govbrief.kr/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -35,7 +50,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .hero{background:#efefef;padding:28px 24px 22px;text-align:center;border-bottom:1px solid var(--b)}
 .hero h1{font-family:var(--serif);font-size:30px;font-weight:700;margin-bottom:6px;line-height:1.35}
 .hero p{font-family:var(--sans);font-size:15px;color:var(--m);margin-bottom:16px}
-.sbox{max-width:560px;margin:0 auto;position:relative}
+.sbox{max-width:460px;margin:0 auto;position:relative}
 .sbox input{width:100%;padding:15px 16px 15px 44px;font-size:16px;border:2px solid var(--b);border-radius:12px;background:#fff;color:var(--t);outline:none;font-family:var(--sans)}
 .sbox input::placeholder{color:var(--m)}
 .sbox input:focus{border-color:var(--a)}
@@ -94,17 +109,20 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .dept-tabs::-webkit-scrollbar{display:none}
 .dept-tab{padding:7px 14px;border-radius:20px;border:2px solid var(--bl);background:var(--s);font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer}
 .dept-tab.on{background:var(--a);color:#fff;border-color:var(--a)}
-.dept-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bl)}
+.dept-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--bl)}
 .dept-item:last-child{border-bottom:none}
 .dept-item-t{font-size:14px;font-weight:600;flex:1;margin-right:8px;line-height:1.4}
-.dept-item-imp{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;background:var(--al);color:var(--a);white-space:nowrap}
+.dept-item-imp{display:none}
+.dept-more-btn{display:block;width:100%;padding:14px 0;margin-top:8px;background:none;border:1px dashed var(--b);border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;text-align:center}
+.dept-more-btn:hover{border-color:var(--a);color:var(--a)}
+.dept-hidden{display:none}
 .cta{margin:24px;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .cta h3{font-family:var(--serif);font-size:16px;color:#fff}
 .cta p{font-size:11px;color:rgba(255,255,255,.6)}
 .cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
 .footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}
 .footer a{color:var(--t);text-decoration:none;font-weight:600}
-.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(5,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
 .bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
 .bnav a.on{color:var(--a)}
 .bnav a span:first-child{font-size:22px}
@@ -137,6 +155,12 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   .bnav{display:grid}
 }
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"govbrief.kr","alternateName":"브리핑룸","url":"https://govbrief.kr","description":"대한민국 51개 정부 부처 보도자료 AI 요약 + 금융법령 모니터링","inLanguage":"ko","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://govbrief.kr/?q={search_term}"},"query-input":"required name=search_term"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"govbrief.kr","url":"https://govbrief.kr","logo":"https://govbrief.kr/icon-512.svg","description":"정부 정책 + 금융법령 통합 인텔리전스","sameAs":["https://t.me/govbrief"]}
+</script>
 </head>
 <body>
 
@@ -144,9 +168,9 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <a class="logo" href="/">브리핑룸</a>
   <nav class="hnav">
     <a class="on" href="/">홈</a>
-    <a href="/policy/">정부 정책 AI</a>
-    <a href="/finlaw/">금융 법령 AI</a>
-    <a href="/articles/">아카이브</a>
+    <a href="/policy/">정부 정책</a>
+    <a href="/finlaw/">금융 법령</a>
+    <a href="/archive/">아카이브</a>
   </nav>
   <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
 </header>
@@ -209,7 +233,11 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 
 <div class="divider"></div>
 <section class="sec" id="policy-summary">
+<<<<<<< HEAD
   <div class="sec-hdr">오늘의 정책 요약 <span style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--t);margin-left:8px">2026.04.09</span><a class="sec-more" href="/policy/">전체 82건 →</a></div>
+=======
+  <div class="sec-hdr">오늘의 정책 요약 (2026.03.31.)<a class="sec-more" href="/policy/">전체 151건 →</a></div>
+>>>>>>> b50b1a39 (SEO 전면 적용: OG 태그, JSON-LD, sitemap 확장, 구글 서치콘솔 인증)
   <div class="carousel" id="c1">
     <div class="carousel-track" id="c1-track">
       <div class="carousel-card">
@@ -244,17 +272,22 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 
 <div class="divider"></div>
 <section class="sec" id="dept-briefing">
+<<<<<<< HEAD
   <div class="sec-hdr">부처별 브리핑</div>
   <div class="dept-tabs" id="home-dept-tabs"><button class="dept-tab on" type="button" data-dept="all">전체</button><button class="dept-tab" type="button" data-dept="과학기술정보통신부">과기부 6</button><button class="dept-tab" type="button" data-dept="국토교통부">국토부 6</button><button class="dept-tab" type="button" data-dept="농림축산식품부">농식품부 5</button><button class="dept-tab" type="button" data-dept="기획예산처">기재부 4</button><button class="dept-tab" type="button" data-dept="산림청">산림청 4</button><button class="dept-tab" type="button" data-dept="교육부">교육부 4</button><button class="dept-tab" type="button" data-dept="재정경제부">재정경 4</button><button class="dept-tab" type="button" data-dept="식품의약품안전처">식약처 4</button><button class="dept-tab" type="button" data-dept="외교부">외교부 4</button><button class="dept-tab" type="button" data-dept="금융감독원">금감원 4</button></div>
   <div id="home-dept-list"><a href="/articles/2026-04-09/003/" class="dept-row" data-source="과학기술정보통신부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">과기정통부, ｢제3회 미래 국방 전략 토론회(전략 포럼)｣ 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/049/" class="dept-row" data-source="과학기술정보통신부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">&#x27;한-미 기술 번영 양해각서(MOU)&#x27; 이행을 위한 실무협의체 첫 기획 회의(워킹그룹 킥오프 회의) 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/050/" class="dept-row" data-source="과학기술정보통신부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">&#x27;데이터 소진되어도 연결은 지속&#x27; 언제든 기본적인 데이터 이용을 보장하는 요금제 개편 추진</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/052/" class="dept-row" data-source="과학기술정보통신부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">류제명 과기정통부 제2차관, 산학연이 통찰을 공유하는 디지털 인사이트 포럼 참석</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/080/" class="dept-row" data-source="과학기술정보통신부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">과학기술 분야 학회 대상 구축형 연구 개발 심사제도 설명회 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/016/" class="dept-row" data-source="국토교통부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">부동산감독추진단, 제11차 부동산 불법행위 대응협의회 개최</div><span class="dept-item-imp">상</span></div></a><a href="/articles/2026-04-09/017/" class="dept-row" data-source="국토교통부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">관악 난곡에 750가구 들어선다 &quot;공공이 직접 시행해 주택공급 빨라져&quot;</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/018/" class="dept-row" data-source="국토교통부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">공공건축 설계공모를 보다 공정하고 투명하게 국토부-건축계</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/025/" class="dept-row" data-source="국토교통부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">[차관동정] 홍지선 제2차관, 미국 도로교통안전청 청장 면담</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/030/" class="dept-row" data-source="국토교통부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">다주택자에 대한 양도소득세 중과 유예 종료 적용 보완 추진</div><span class="dept-item-imp">상</span></div></a><a href="/articles/2026-04-09/019/" class="dept-row" data-source="농림축산식품부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">농식품부·지방정부·농촌체험마을 관계자 농촌관광 활성화를 위해 머리를 맞대다!</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/020/" class="dept-row" data-source="농림축산식품부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">농식품부, &#x27;제2의 라면&#x27; 육성 위한 &#x27;글로벌 NEXT K-푸드 프로젝트&#x27; 가동</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/021/" class="dept-row" data-source="농림축산식품부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">온라인플랫폼 비료 광고 및 표시사항 점검 실시</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/076/" class="dept-row" data-source="농림축산식품부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">온라인플랫폼 비료 광고 및 표시사항 점검 실시새글</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/077/" class="dept-row" data-source="농림축산식품부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">농식품부·지방정부·농촌체험마을 관계자 농촌관광 활성화를 위해 머리를 맞대다!새글</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/000/" class="dept-row" data-source="기획예산처" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">통합재정통계(2026년 2월)</div><span class="dept-item-imp">상</span></div></a><a href="/articles/2026-04-09/001/" class="dept-row" data-source="기획예산처" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">통합재정통계(2026년 1월)</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/002/" class="dept-row" data-source="기획예산처" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">통합재정통계(2025년12월)</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/028/" class="dept-row" data-source="기획예산처" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">[보도참고] 「월간 재정동향 」 2026년 4월호 발간</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/004/" class="dept-row" data-source="산림청" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">정읍국유림관리소, 회문산 숲길 정비 온힘</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/026/" class="dept-row" data-source="산림청" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">&#x27;씨앗톡톡&#x27; 유아숲체험원, 아이들 웃음꽃 핀다</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/033/" class="dept-row" data-source="산림청" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">함양국유림관리소, 제81회 식목일 기념, 봄철 나무심기 행사 실시함양국유림관리소, 제81회 식목일 기념</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/046/" class="dept-row" data-source="산림청" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">국립산림과학원, 200m급 목구조 대공간 건축 기술개발 참여국립산림과학원</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/007/" class="dept-row" data-source="교육부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">외국인 유학생, 이제는 질 관리 체계로, 선발에서 정주까지 &#x27;전 주기 인재 관리&#x27; 주력</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/008/" class="dept-row" data-source="교육부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">전국 육아종합지원센터 운영 사례 공유 및 사업 운영 협의회 개최</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/054/" class="dept-row" data-source="교육부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">&#x27;이제 키오스크, 인공지능(AI)도 두렵지 않아요&#x27; 생활 밀착형 성인 문해교육 지원 강화</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/060/" class="dept-row" data-source="교육부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">학원 교습비 관리 강화 방안</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/029/" class="dept-row" data-source="재정경제부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">다주택자에 대한 양도소득세 중과 유예 종료 적용 보완 추진</div><span class="dept-item-imp">상</span></div></a><a href="/articles/2026-04-09/057/" class="dept-row" data-source="재정경제부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">WGBI 상시점검 및 투자유치 추진단 2차 회의 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/058/" class="dept-row" data-source="재정경제부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">민생물가 특별관리 관계장관 TF 6차 회의 개최</div><span class="dept-item-imp">상</span></div></a><a href="/articles/2026-04-09/059/" class="dept-row" data-source="재정경제부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">아세안+3 재무차관 및 중앙은행 부총재 회의 참석 결과</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/040/" class="dept-row" data-source="식품의약품안전처" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">식약처, 화장품 주의사항 표시의무 합리적 개선 추진</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/041/" class="dept-row" data-source="식품의약품안전처" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">[보도참고] 식품의약품안전평가원-미국약물정보학회-한국규제과학센터, 규제과학 워크숍 공동 개최</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/042/" class="dept-row" data-source="식품의약품안전처" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">식약처, 미래핵심 분야 규제과학 인재 키운다</div><span class="dept-item-imp">상</span></div></a><a href="/articles/2026-04-09/055/" class="dept-row" data-source="식품의약품안전처" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">한국산 벌꿀 제품, 사우디 수입허용 목록 첫 등재...&#x27;수출 첫발&#x27;한국산 벌꿀 제품</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/044/" class="dept-row" data-source="외교부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">유엔 경제적·사회적·문화적 권리위원회(CESCR) 위원 재선</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/051/" class="dept-row" data-source="외교부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">&#x27;한-미 기술번영 양해각서(MOU)&#x27; 이행을 위한 워킹그룹 킥오프 회의 개최</div><span class="dept-item-imp">상</span></div></a><a href="/articles/2026-04-09/078/" class="dept-row" data-source="외교부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">EW유엔 경제적·사회적·문화적 권리위원회(CESCR) 위원 재선</div><span class="dept-item-imp">하</span></div></a><a href="/articles/2026-04-09/079/" class="dept-row" data-source="외교부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">EW‘한-미 기술번영 양해각서(MOU)’ 이행을 위한 워킹그룹 킥오프 회의 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/061/" class="dept-row" data-source="금융감독원" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">금감원, ETF 및 ELD 관련 간담회 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-04-09/062/" class="dept-row" data-source="금융감독원" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">진화하는 불법금융 스팸, 기술로 잡는다</div><span class="dept-item-imp">상</span></div></a><a href="/articles/2026-04-09/063/" class="dept-row" data-source="금융감독원" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">금융분쟁조정위원회, 티몬, 위메프 사태 관련 금융소비자의 카드사를 상대로 한 청약철회권 인정 결정</div><span class="dept-item-imp">상</span></div></a><a href="/articles/2026-04-09/064/" class="dept-row" data-source="금융감독원" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">2025년 금융지주회사 경영실적</div><span class="dept-item-imp">상</span></div></a></div>
+=======
+  <div class="sec-hdr">부처별 브리핑 (2026.03.31.)</div>
+  <div class="carousel" style="padding:18px">
+  <div class="dept-tabs" id="home-dept-tabs" style="margin-bottom:12px"><button class="dept-tab on" type="button" data-dept="all">전체</button><button class="dept-tab" type="button" data-dept="과학기술정보통신부">과기부 16</button><button class="dept-tab" type="button" data-dept="농림축산식품부">농식품부 14</button><button class="dept-tab" type="button" data-dept="고용노동부">고용부 11</button><button class="dept-tab" type="button" data-dept="산림청">산림청 9</button><button class="dept-tab" type="button" data-dept="행정안전부">행안부 7</button><button class="dept-tab" type="button" data-dept="산업통상부">산업부 7</button><button class="dept-tab" type="button" data-dept="외교부">외교부 7</button><button class="dept-tab" type="button" data-dept="성평등가족부">여가부 7</button><button class="dept-tab" type="button" data-dept="해양수산부">해수부 6</button><button class="dept-tab" type="button" data-dept="금융감독원">금감원 6</button><button class="dept-tab" type="button" id="dept-expand-btn" style="background:none;border:1px dashed var(--b);color:var(--t2)">더보기</button></div>
+  <div id="home-dept-list"><a href="/articles/2026-03-31/021/" class="dept-row" data-source="과학기술정보통신부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">의료·생명 공학(바이오) 혁신 이끌 세계 선도형 인공지능 특화 기초 모형(파운데이션 모델) 개발 가속화</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/022/" class="dept-row" data-source="과학기술정보통신부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">내 기술로 만든 철강재, 전 세계 핵융합로에 공급 길 열렸다!</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/023/" class="dept-row" data-source="과학기술정보통신부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">&quot;국민 44.5% 생성형 인공지능 경험, 전년 대비 11.2%p 증가&quot; 과기정통부, 「2025 인터넷이용실태조사」 결과 발표</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/024/" class="dept-row" data-source="과학기술정보통신부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">4월 과학의 달, 전국 과학문화 프로그램 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/025/" class="dept-row" data-source="과학기술정보통신부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">&#x27;인공지능 기본법 지원 창구(지원 데스크)&#x27;, 시행 10주 차 총 552건 상담 접수, 사례집 발간으로 기업 지원 강화</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/016/" class="dept-row" data-source="농림축산식품부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">중동 전쟁에 의한 농업 분야 피해 최소화, 민생 안정을 위한 추경 예산안 2,658억원 편성</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/033/" class="dept-row" data-source="농림축산식품부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">농식품부·기후부, 가축분뇨 관리 강화를 위한 합동 지도·점검 추진</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/049/" class="dept-row" data-source="농림축산식품부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">K-신선농산물, 국산 신품종으로 틈새시장 열고 수출다변화</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/050/" class="dept-row" data-source="농림축산식품부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">새만금 대학시험포 신규 사업자 선정 공모</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/051/" class="dept-row" data-source="농림축산식품부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">소비자 보호를 위한 온라인 거래 농산물 안전성 한층 강화</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/004/" class="dept-row" data-source="고용노동부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">2025년 유족급여 승인 기준 사고사망 재해 현황</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/007/" class="dept-row" data-source="고용노동부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">2025년(누적) 산업재해 현황 부가통계 &quot;재해조사 대상 사망사고 발생 현황&quot; 잠정결과 발표</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/008/" class="dept-row" data-source="고용노동부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">2026년 2월 사업체노동력조사 결과</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/060/" class="dept-row" data-source="고용노동부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">사계절 모두 &quot;안전&quot;해, 안전은 &quot;완전&quot;해</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/063/" class="dept-row" data-source="고용노동부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">대전환의 시대, 모든 일하는 사람이 행복할 수 있는 보편적 기준을 만듭니다</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/001/" class="dept-row" data-source="산림청" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">홍릉숲 봄꽃 축제 개막…탐방객 &#x27;북적&#x27;</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/039/" class="dept-row" data-source="산림청" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">생활 속 탄소중립, 반려나무 받아가세요!</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/053/" class="dept-row" data-source="산림청" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">목재체험 효과 확인…나무공방에서 찾은 지역 상생 해법</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/059/" class="dept-row" data-source="산림청" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">독특한 산림생태계 &#x27;곶자왈&#x27;…지속가능한 관리 해법 모색독특한 산림생태계 &#x27;곶자왈&#x27;</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/074/" class="dept-row" data-source="산림청" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">함양국유림관리소, 해빙기 대비 유아숲체험원 안전점검 실시함양국유림관리소</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/011/" class="dept-row" data-source="행정안전부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">행정안전부, 고유가·고물가 부담 경감 및 지역활력 제고를 위한 추가경정예산안 9조 5,240억원 편성</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/012/" class="dept-row" data-source="행정안전부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">재난안전·민원 현장 지방공무원, 승진 빨라지고 인센티브 늘어난다</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/013/" class="dept-row" data-source="행정안전부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">국정 운영에 기초 지방정부의 목소리를 두텁게 반영한다</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/014/" class="dept-row" data-source="행정안전부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">2025년 공공데이터 제공 운영실태 평가결과 공개</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/029/" class="dept-row" data-source="행정안전부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">&quot;모르고 피해보는 일 없게&quot; 공유재산 사용자 권익 보호 강화된다</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/018/" class="dept-row" data-source="산업통상부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">산업통상부, 추가경정예산안 9,241억원 편성</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/019/" class="dept-row" data-source="산업통상부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">제14차 WTO 각료회의 폐막</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/034/" class="dept-row" data-source="산업통상부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">한-우즈베키스탄 경제협력 확대 논의</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/035/" class="dept-row" data-source="산업통상부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">제53회 상공의 날 기념식 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/036/" class="dept-row" data-source="산업통상부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">한-EU 고위급간 핵심광물, 공급망, 규제법안 등 밀착 공조한-EU 고위급간 핵심광물, 공급망</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/054/" class="dept-row" data-source="외교부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">쿠바 재외국민보호 관련 본부-공관 합동 상황점검회의(3.31.) 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/095/" class="dept-row" data-source="외교부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">한-요르단 경제무역협력협정 서명</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/096/" class="dept-row" data-source="외교부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">제61차 유엔 인권이사회 북한인권 결의 채택</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/136/" class="dept-row" data-source="외교부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">EW제33차 외교문서 공개</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/137/" class="dept-row" data-source="외교부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">EW쿠바 재외국민보호 관련 본부-공관 합동 상황점검회의(3.31.) 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/102/" class="dept-row" data-source="성평등가족부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">성평등가족부, &#x27;제1차 고용평등정책포럼&#x27; 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/103/" class="dept-row" data-source="성평등가족부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">세계로 나가는 K-청소년, 미래를 설계하다</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/104/" class="dept-row" data-source="성평등가족부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">일, 가정 균형 직장문화를 만드는 기업, &#x27;26년 가족친화인증 참여 기업 모집일, 가정 균형 직장문화를 만드는 기업</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/105/" class="dept-row" data-source="성평등가족부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">&quot;일상의 틈을 채운 따뜻한 손길&quot;성평등가족부, 아이돌봄서비스 수기 공모전 개최</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/140/" class="dept-row" data-source="성평등가족부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">일, 가정 균형 직장문화를 만드는 기업, ‘26년 가족친화인증 참여 기업 모집</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/015/" class="dept-row" data-source="해양수산부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">중동 전쟁 대응… 정부-연안해운업계 머리 맞대</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/043/" class="dept-row" data-source="해양수산부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">4월 1일 여수에서 &#x27;제15회 수산인의 날&#x27; 기념식 개최4월 1일 여수에서 &#x27;제15회 수산인의 날&#x27; 기념식 개최- &#x27;함께</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/044/" class="dept-row" data-source="해양수산부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">4월의 수산물, 어촌여행지, 해양생물, 등대, 무인도서 선정4월의 수산물, 어촌여행지, 해양생물, 등대</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/045/" class="dept-row" data-source="해양수산부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">바다와 함께하는 국민 여가시대를 열다...2026 해양레저관광 박람회 개최바다와 함께하는 국민 여가시대를 열다...2026</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/046/" class="dept-row" data-source="해양수산부" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">어선원 작업환경 개선을 위한 &#x27;어선 클린사업장 조성지원 사업&#x27; 첫 시행</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/111/" class="dept-row" data-source="금융감독원" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">2026년도 공인회계사 제1차시험 합격자 발표</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/112/" class="dept-row" data-source="금융감독원" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">퇴직연금, 개인연금 투자자의 중장기 자산배분투자를 위해 생애주기펀드(TDF)의 안정적 운용 환경을 조성합니다</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/113/" class="dept-row" data-source="금융감독원" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">2025년 보험사기 적발현황 및 향후 대응방안</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/114/" class="dept-row" data-source="금융감독원" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">보험업권이 출산,육아에 따른 보험료 부담을 덜어드립니다</div><span class="dept-item-imp">중</span></div></a><a href="/articles/2026-03-31/115/" class="dept-row" data-source="금융감독원" style="text-decoration:none;color:inherit;display:block"><div class="dept-item"><div class="dept-item-t">25년말 은행지주회사 및 은행 BIS기준 자본비율 현황(잠정)</div><span class="dept-item-imp">중</span></div></a></div>
+  </div>
+>>>>>>> b50b1a39 (SEO 전면 적용: OG 태그, JSON-LD, sitemap 확장, 구글 서치콘솔 인증)
 </section>
 
-<div class="cta"><div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div><a href="https://t.me/govbrief" target="_blank">구독</a></div>
-
-<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
-
-<nav class="bnav"><a class="on" href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="javascript:void(0)" onclick="document.getElementById('search-input').focus();window.scrollTo(0,0)"><span style="font-size:16px">⌕</span>검색</a><a href="/articles/"><span style="font-size:16px">≡</span>달력</a><a href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
-
+<div class="cta"><div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div><a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a></div>
+<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책</a> · <a href="/finlaw/">금융 법령</a> · <a href="/archive/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</div>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/archive/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 <script>
 function makeCarousel(id, count) {
   let cur = 0;
@@ -367,21 +400,56 @@ document.addEventListener('click', function(e) {
   if (!e.target.closest('.sbox')) searchResults.style.display = 'none';
 });
 
-// 부처별 브리핑 필터링
+// 부처별 브리핑 필터링 + 더보기
 (function(){
   const tabs=document.querySelectorAll('#home-dept-tabs .dept-tab');
   const rows=document.querySelectorAll('#home-dept-list .dept-row');
-  if(!tabs.length) return;
+  const list=document.getElementById('home-dept-list');
+  if(!tabs.length||!list) return;
+  var LIMIT=10;
+  var expanded=false;
+
+  // 더보기 버튼 삽입
+  var moreBtn=document.createElement('button');
+  moreBtn.className='dept-more-btn';
+  moreBtn.textContent='더보기';
+  list.parentNode.insertBefore(moreBtn,list.nextSibling);
+
+  function applyFilter(dept){
+    var visibleCount=0;
+    rows.forEach(function(r){
+      var match=(dept==='all'||r.getAttribute('data-source')===dept);
+      if(!match){r.style.display='none';return;}
+      visibleCount++;
+      if(!expanded&&visibleCount>LIMIT){r.style.display='none';}
+      else{r.style.display='block';}
+    });
+    var totalMatch=0;
+    rows.forEach(function(r){
+      if(dept==='all'||r.getAttribute('data-source')===dept) totalMatch++;
+    });
+    moreBtn.style.display=(!expanded&&totalMatch>LIMIT)?'block':'none';
+    if(totalMatch>LIMIT&&!expanded) moreBtn.textContent='더보기 ('+(totalMatch-LIMIT)+'건 더)';
+  }
+
   tabs.forEach(function(tab){
     tab.addEventListener('click',function(){
       tabs.forEach(function(t){t.classList.remove('on')});
       tab.classList.add('on');
-      const dept=tab.getAttribute('data-dept');
-      rows.forEach(function(r){
-        r.style.display=(dept==='all'||r.getAttribute('data-source')===dept)?'block':'none';
-      });
+      expanded=false;
+      applyFilter(tab.getAttribute('data-dept'));
     });
   });
+
+  moreBtn.addEventListener('click',function(){
+    expanded=true;
+    var activeDept='all';
+    tabs.forEach(function(t){if(t.classList.contains('on'))activeDept=t.getAttribute('data-dept');});
+    applyFilter(activeDept);
+  });
+
+  // 초기 상태
+  applyFilter('all');
 })();
 </script>
 
