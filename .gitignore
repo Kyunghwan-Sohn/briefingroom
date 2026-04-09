@@ -11,3 +11,4 @@ texts/
 *.db
 .env
 .env.*
+.gstack/
