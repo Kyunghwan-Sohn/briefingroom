@@ -15,7 +15,7 @@
   <url><loc>https://govbrief.kr/finlaw/changes/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://govbrief.kr/finlaw/lawdiff/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://govbrief.kr/finlaw/mylaw/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://govbrief.kr/policy/weekly/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://govbrief.kr/articles/weekly/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://govbrief.kr/articles/weekly/2026-03-29/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://govbrief.kr/about/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://govbrief.kr/articles/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>

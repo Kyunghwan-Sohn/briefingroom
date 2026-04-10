@@ -169,7 +169,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 <script>
 const SUPABASE_URL = 'https://jxoghnttelexnfoeepbz.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_r3eTQXF419LfIiPdE17gyw_zvAQFd5s';
-const LLM_URL = 'https://govbrief-api.vercel.app/api/chat';
+const LLM_URLS = ['/api/chat', 'https://govbrief-api.vercel.app/api/chat'];
 const SB_HDR = {'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY};
 
 const messagesEl = document.getElementById('messages');
@@ -460,11 +460,21 @@ async function sendMessage() {
   }
 
   try {
-    var r = await fetch(LLM_URL, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({question: contextQuestion, context: contextText, system_prompt: SYSTEM_PROMPT, sources: ctx, stream: true}),
-    });
+    var r = null;
+    var lastError = null;
+    for (var i = 0; i < LLM_URLS.length; i++) {
+      try {
+        r = await fetch(LLM_URLS[i], {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({question: contextQuestion, context: contextText, system_prompt: SYSTEM_PROMPT, sources: ctx, stream: true}),
+        });
+        if (r.ok || i === LLM_URLS.length - 1) break;
+      } catch(err) {
+        lastError = err;
+      }
+    }
+    if (!r) throw lastError || new Error('API 요청 실패');
 
     hideLoading();
 

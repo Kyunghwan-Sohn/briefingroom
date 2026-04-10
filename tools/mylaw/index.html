@@ -120,7 +120,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 </div>
 
 <script>
-const API_URL = 'https://govbrief-api.vercel.app/api/mylaw';
+const API_CANDIDATES = ['/api/mylaw', 'https://govbrief-api.vercel.app/api/mylaw'];
 const messagesEl = document.getElementById('messages');
 const inputEl = document.getElementById('input');
 const sendBtn = document.getElementById('send');
@@ -245,11 +245,21 @@ async function sendMessage() {
   showLoading();
 
   try {
-    const r = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: q }),
-    });
+    let r = null;
+    let lastError = null;
+    for (const apiUrl of API_CANDIDATES) {
+      try {
+        r = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: q }),
+        });
+        if (r.ok || apiUrl === API_CANDIDATES[API_CANDIDATES.length - 1]) break;
+      } catch (err) {
+        lastError = err;
+      }
+    }
+    if (!r) throw lastError || new Error('API 요청 실패');
 
     hideLoading();
 

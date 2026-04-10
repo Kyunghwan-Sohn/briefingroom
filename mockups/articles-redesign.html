@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보도자료 아카이브 - 브리핑룸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
+
+/* Hero - archive style */
+.hero{background:#fff8f3;padding:32px 24px 24px;border-bottom:1px solid var(--ab)}
+.hero-top{text-align:center;margin-bottom:20px}
+.hero-top h1{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--t);margin-bottom:6px;line-height:1.35}
+.hero-sub{font-family:var(--sans);font-size:14px;color:var(--m)}
+.hero-dash{display:flex;gap:10px;margin-bottom:16px}
+.hero-stat{flex:1;background:var(--s);border:1px solid var(--ab);border-radius:12px;padding:14px;text-align:center}
+.hero-stat .num{font-family:var(--mono);font-size:28px;font-weight:700;color:var(--a);line-height:1}
+.hero-stat .label{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--a);margin-top:5px}
+.sbox{max-width:460px;margin:0 auto;position:relative}
+.sbox input{width:100%;padding:13px 16px 13px 40px;font-size:15px;border:2px solid var(--b);border-radius:12px;background:#fff;color:var(--t);outline:none;font-family:var(--sans)}
+.sbox input::placeholder{color:var(--m)}
+.sbox input:focus{border-color:var(--a)}
+.si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--m);font-size:16px}
+
+/* Week group */
+.week-group{margin:0 24px 24px}
+.week-header{display:flex;align-items:center;justify-content:space-between;padding:18px 0 12px;border-bottom:2px solid var(--a)}
+.week-label{font-family:var(--serif);font-size:18px;font-weight:700}
+.week-range{font-family:var(--mono);font-size:13px;color:var(--m)}
+.week-total{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--a)}
+
+/* Day card */
+.day-card{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:18px;margin-top:12px}
+.day-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.day-date{font-family:var(--serif);font-size:17px;font-weight:700}
+.day-dow{font-size:12px;color:var(--m);margin-left:6px}
+.day-count{font-family:var(--mono);font-size:12px;color:var(--a);font-weight:700}
+.day-cats{font-size:11px;color:var(--t2);margin-bottom:10px}
+.day-item{display:block;padding:9px 0;border-top:1px dashed var(--bl);text-decoration:none;color:var(--t);font-size:13px;line-height:1.5}
+.day-item:first-of-type{border-top:none}
+.day-imp{font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;margin-right:6px}
+.day-imp-h{background:#fee2e2;color:#dc2626}
+.day-imp-m{background:#fef3c7;color:#d97706}
+.day-imp-l{background:#f3f4f6;color:#6b7280}
+.day-src{color:var(--m);margin-right:4px}
+
+/* Week report link */
+.week-report{display:block;margin-top:14px;background:var(--policy-bg);border:1px solid var(--policy-border);border-radius:10px;padding:16px;text-decoration:none;color:var(--t)}
+.week-report:hover{border-color:var(--policy)}
+.week-report-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.week-report-badge{font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;background:var(--policy);padding:3px 8px;border-radius:4px}
+.week-report-title{font-size:14px;font-weight:700}
+.week-report-arrow{margin-left:auto;color:var(--policy);font-size:14px;font-weight:700}
+.week-report-signals{display:flex;flex-wrap:wrap;gap:6px}
+.week-report-signal{font-size:11px;color:var(--policy)}
+.week-report-signal b{font-family:var(--mono);font-size:10px;margin-right:2px}
+
+.no-report{margin-top:14px;text-align:center;font-size:12px;color:var(--m);padding:10px}
+
+.day-more{display:block;width:100%;padding:12px 0;margin-top:6px;background:none;border:1px dashed var(--b);border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;text-align:center}
+.day-more:hover{border-color:var(--a);color:var(--a)}
+.day-hidden{display:none}
+.week-header a{text-decoration:none;color:inherit}
+.week-header a:hover .week-label{color:var(--a)}
+.week-all{font-size:12px;color:var(--a);font-weight:600;text-decoration:none;margin-left:8px}
+
+/* CTA / footer / bnav */
+.cta{margin:24px;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}
+.footer a{color:var(--t);text-decoration:none;font-weight:600}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+
+@media(max-width:768px){
+body{padding-top:48px;padding-bottom:62px}
+.hdr{height:48px;padding:0 10px}
+.logo{font-size:16px;margin-right:8px}
+.hnav{gap:3px}
+.hnav a{font-size:11px;padding:5px 7px}
+.hero{padding:22px 16px 18px}
+.hero-top h1{font-size:22px}
+.hero-stat .num{font-size:22px}
+.hero-dash{flex-wrap:wrap}
+.week-group{margin:0 16px 20px}
+.week-label{font-size:16px}
+.day-card{padding:14px}
+.cta{margin:18px 16px}
+.bnav{display:grid}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">홈</a>
+    <a href="/policy/">정부 정책 AI</a>
+    <a href="/finlaw/">금융 법령 AI</a>
+    <a class="on" href="/articles/">아카이브</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-top">
+    <h1>보도자료 아카이브</h1>
+    <div class="hero-sub">51개 부처 보도자료 날짜별 브리핑</div>
+  </div>
+  <div class="hero-dash">
+    <div class="hero-stat"><div class="num">2,400+</div><div class="label">총 보도자료</div></div>
+    <div class="hero-stat"><div class="num">51</div><div class="label">참여 부처</div></div>
+    <div class="hero-stat"><div class="num">30일</div><div class="label">수록 기간</div></div>
+  </div>
+  <div class="sbox">
+    <span class="si">&#x2315;</span>
+    <input placeholder="보도자료 제목, 부처명 검색..." autocomplete="off">
+  </div>
+</section>
+
+<!-- Week 1: 4월 2주차 -->
+<div class="week-group">
+  <div class="week-header">
+    <div>
+      <span class="week-label">4월 2주차</span>
+      <span class="week-range">(04.07 ~ 04.09)</span>
+      <a class="week-all" href="#week2-all">전체 292건 보기 &#8594;</a>
+    </div>
+    <span class="week-total">292건</span>
+  </div>
+
+  <!-- 04.09 -->
+  <div class="day-card" id="day-0409">
+    <div class="day-head">
+      <div><span class="day-date">2026.04.09</span><span class="day-dow">(목)</span></div>
+      <span class="day-count">82건</span>
+    </div>
+    <div class="day-cats">산업기술 31건 / 금융경제 20건 / 사회복지 16건 / 행정법제 10건</div>
+    <a class="day-item" href="/articles/2026-04-09/000/"><span class="day-imp day-imp-h">상</span><span class="day-src">기획예 --</span>통합재정통계(2026년 2월)</a>
+    <a class="day-item" href="/articles/2026-04-09/016/"><span class="day-imp day-imp-h">상</span><span class="day-src">국토부 --</span>부동산감독추진단, 제11차 부동산 불법행위 대응협의회 개최</a>
+    <a class="day-item" href="/articles/2026-04-09/042/"><span class="day-imp day-imp-h">상</span><span class="day-src">식약처 --</span>식약처, 미래핵심 분야 규제과학 인재 키운다</a>
+    <a class="day-item" href="/articles/2026-04-09/030/"><span class="day-imp day-imp-h">상</span><span class="day-src">국토부 --</span>다주택자에 대한 양도소득세 중과 유예 종료 적용 보완 추진</a>
+    <a class="day-item" href="/articles/2026-04-09/058/"><span class="day-imp day-imp-h">상</span><span class="day-src">재정경 --</span>민생물가 특별관리 관계장관 TF 6차 회의 개최</a>
+    <!-- 더보기로 펼쳐지는 항목들 -->
+    <a class="day-item day-hidden" href="/articles/2026-04-09/062/"><span class="day-imp day-imp-h">상</span><span class="day-src">금감원 --</span>진화하는 불법금융 스팸, 기술로 잡는다</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/063/"><span class="day-imp day-imp-h">상</span><span class="day-src">금감원 --</span>티몬, 위메프 사태 관련 카드사 청약철회권 인정 결정</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/064/"><span class="day-imp day-imp-h">상</span><span class="day-src">금감원 --</span>2025년 금융지주회사 경영실적</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/003/"><span class="day-imp day-imp-m">중</span><span class="day-src">과기부 --</span>과기정통부, 제3회 미래 국방 전략 토론회 개최</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/007/"><span class="day-imp day-imp-m">중</span><span class="day-src">교육부 --</span>외국인 유학생, 이제는 질 관리 체계로</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/050/"><span class="day-imp day-imp-m">중</span><span class="day-src">과기부 --</span>'데이터 소진되어도 연결은 지속' 요금제 개편 추진</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/020/"><span class="day-imp day-imp-m">중</span><span class="day-src">농식품 --</span>'제2의 라면' 육성 위한 글로벌 NEXT K-푸드 프로젝트</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/051/"><span class="day-imp day-imp-h">상</span><span class="day-src">외교부 --</span>'한-미 기술번영 양해각서(MOU)' 이행을 위한 워킹그룹 킥오프</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/054/"><span class="day-imp day-imp-m">중</span><span class="day-src">교육부 --</span>'이제 키오스크, AI도 두렵지 않아요' 성인 문해교육 지원 강화</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/060/"><span class="day-imp day-imp-m">중</span><span class="day-src">교육부 --</span>학원 교습비 관리 강화 방안</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/061/"><span class="day-imp day-imp-m">중</span><span class="day-src">금감원 --</span>금감원, ETF 및 ELD 관련 간담회 개최</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/049/"><span class="day-imp day-imp-m">중</span><span class="day-src">과기부 --</span>한-미 기술 번영 MOU 이행 실무협의체 첫 기획 회의</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/028/"><span class="day-imp day-imp-m">중</span><span class="day-src">기획예 --</span>월간 재정동향 2026년 4월호 발간</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/046/"><span class="day-imp day-imp-m">중</span><span class="day-src">산림청 --</span>국립산림과학원, 200m급 목구조 대공간 건축 기술개발</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/004/"><span class="day-imp day-imp-l">하</span><span class="day-src">산림청 --</span>정읍국유림관리소, 회문산 숲길 정비 온힘</a>
+    <a class="day-item day-hidden" href="/articles/2026-04-09/026/"><span class="day-imp day-imp-l">하</span><span class="day-src">산림청 --</span>'씨앗톡톡' 유아숲체험원, 아이들 웃음꽃 핀다</a>
+    <button class="day-more" onclick="toggleDay(this)">더보기 (77건 더)</button>
+  </div>
+
+  <!-- 04.08 -->
+  <div class="day-card">
+    <div class="day-head">
+      <div><span class="day-date">2026.04.08</span><span class="day-dow">(수)</span></div>
+      <span class="day-count">121건</span>
+    </div>
+    <div class="day-cats">산업기술 45건 / 금융경제 29건 / 사회복지 27건 / 외교안보 12건</div>
+    <a class="day-item" href="/articles/2026-04-08/002/"><span class="day-imp day-imp-h">상</span><span class="day-src">국무조 --</span>김민석 국무총리 주재 중동상황 건설기업 금융애로 점검 간담회</a>
+    <a class="day-item" href="/articles/2026-04-08/000/"><span class="day-imp day-imp-m">중</span><span class="day-src">산림청 --</span>서부지방산림청, 산사태 예방 강화 현장조사</a>
+    <a class="day-item" href="/articles/2026-04-08/001/"><span class="day-imp day-imp-m">중</span><span class="day-src">법무부 --</span>한국사회 적응 도울 이민자 멘토 23명 새로 모신다</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-m">중</span><span class="day-src">고용부 --</span>청년 디지털 일자리 사업 2차 모집 실시</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-m">중</span><span class="day-src">복지부 --</span>노인일자리 출퇴근 시간 조정 통해 어르신 안전 확보</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-l">하</span><span class="day-src">환경부 --</span>4대강 수질 관측 네트워크 확대 운영</a>
+    <button class="day-more" onclick="toggleDay(this)">더보기 (118건 더)</button>
+  </div>
+
+  <!-- 04.07 -->
+  <div class="day-card">
+    <div class="day-head">
+      <div><span class="day-date">2026.04.07</span><span class="day-dow">(화)</span></div>
+      <span class="day-count">89건</span>
+    </div>
+    <div class="day-cats">산업기술 40건 / 사회복지 23건 / 금융경제 13건 / 외교안보 7건</div>
+    <a class="day-item" href="/articles/2026-04-07/000/"><span class="day-imp day-imp-m">중</span><span class="day-src">재외동 --</span>재외동포청장, 주한 우즈베키스탄 대사 접견</a>
+    <a class="day-item" href="/articles/2026-04-07/001/"><span class="day-imp day-imp-m">중</span><span class="day-src">산림청 --</span>"전통시장까지 찾아간 산불예방"</a>
+    <a class="day-item" href="/articles/2026-04-07/002/"><span class="day-imp day-imp-m">중</span><span class="day-src">산림청 --</span>산림청, 중동전쟁 관련 임산물 수출입기업과 현장 소통 강화</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-m">중</span><span class="day-src">국방부 --</span>합참, 한미 연합 지휘소 훈련 시행</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-l">하</span><span class="day-src">행안부 --</span>2026년 상반기 지방자치단체 합동평가 추진</a>
+    <button class="day-more" onclick="toggleDay(this)">더보기 (86건 더)</button>
+  </div>
+
+  <div class="no-report">주간 리포트 준비 중</div>
+</div>
+
+<!-- Week 2: 4월 1주차 -->
+<div class="week-group">
+  <div class="week-header">
+    <div>
+      <span class="week-label">4월 1주차</span>
+      <span class="week-range">(04.01 ~ 04.06)</span>
+      <a class="week-all" href="#week1-all">전체 312건 보기 &#8594;</a>
+    </div>
+    <span class="week-total">312건</span>
+  </div>
+
+  <!-- 04.06 -->
+  <div class="day-card">
+    <div class="day-head">
+      <div><span class="day-date">2026.04.06</span><span class="day-dow">(월)</span></div>
+      <span class="day-count">132건</span>
+    </div>
+    <div class="day-cats">산업기술 47건 / 사회복지 39건 / 금융경제 22건 / 외교안보 12건</div>
+    <a class="day-item" href="/articles/2026-04-06/000/"><span class="day-imp day-imp-m">중</span><span class="day-src">외교부 --</span>원유/나프타 공급망 대체 수급선 발굴을 위한 재외공관 화상회의 개최</a>
+    <a class="day-item" href="/articles/2026-04-06/001/"><span class="day-imp day-imp-m">중</span><span class="day-src">국토교 --</span>고속도로 휴게소 운영방식을 공정하고 투명하게 개선하겠습니다</a>
+    <a class="day-item" href="/articles/2026-04-06/002/"><span class="day-imp day-imp-l">하</span><span class="day-src">법무부 --</span>법무부, 일본 총리 외국인정책 보좌관과 면담</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-m">중</span><span class="day-src">과기부 --</span>디지털 플랫폼 정부 추진 성과 보고회</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-m">중</span><span class="day-src">중기부 --</span>소상공인 정책자금 긴급 지원 추가 시행</a>
+    <button class="day-more" onclick="toggleDay(this)">더보기 (129건 더)</button>
+  </div>
+
+  <!-- 04.01 -->
+  <div class="day-card">
+    <div class="day-head">
+      <div><span class="day-date">2026.04.01</span><span class="day-dow">(수)</span></div>
+      <span class="day-count">180건</span>
+    </div>
+    <div class="day-cats">산업기술 74건 / 사회복지 39건 / 금융경제 30건 / 행정법제 25건</div>
+    <a class="day-item" href="/articles/2026-04-01/001/"><span class="day-imp day-imp-m">중</span><span class="day-src">관세청 --</span>4월 1일부터 항공기 결/회항 시 면세품 반납 시간 대폭 감소</a>
+    <a class="day-item" href="/articles/2026-04-01/002/"><span class="day-imp day-imp-m">중</span><span class="day-src">기후에 --</span>4월 8일부터 공공기관 2부제, 공영주차장 5부제 시행</a>
+    <a class="day-item" href="/articles/2026-04-01/000/"><span class="day-imp day-imp-l">하</span><span class="day-src">관세청 --</span>"미래인재 찾아 캠퍼스로" 관세청, 청년과 함께하는 관세행정 특강</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-h">상</span><span class="day-src">산업부 --</span>美 철강/알루미늄 232조 관세 개편 관련 기업 대응력 높인다</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-m">중</span><span class="day-src">행안부 --</span>추경 9조 5,240억원 편성 관련 세부 집행 계획</a>
+    <button class="day-more" onclick="toggleDay(this)">더보기 (177건 더)</button>
+  </div>
+
+  <div class="no-report">주간 리포트 준비 중</div>
+</div>
+
+<!-- Week 3: 3월 4주차 (주간 리포트 있음) -->
+<div class="week-group">
+  <div class="week-header">
+    <div>
+      <span class="week-label">3월 4주차</span>
+      <span class="week-range">(03.22 ~ 03.31)</span>
+      <a class="week-all" href="#week-mar4">전체 941건 보기 &#8594;</a>
+    </div>
+    <span class="week-total">941건</span>
+  </div>
+
+  <!-- 03.31 -->
+  <div class="day-card">
+    <div class="day-head">
+      <div><span class="day-date">2026.03.31</span><span class="day-dow">(화)</span></div>
+      <span class="day-count">151건</span>
+    </div>
+    <div class="day-cats">산업기술 63건 / 사회복지 39건 / 금융경제 25건 / 행정법제 16건</div>
+    <a class="day-item" href="/articles/2026-03-31/000/"><span class="day-imp day-imp-m">중</span><span class="day-src">해양경 --</span>해양경찰청, 고유가 파고 뚫고 '불법외국어선 단속' 고삐 조인다</a>
+    <a class="day-item" href="/articles/2026-03-31/001/"><span class="day-imp day-imp-m">중</span><span class="day-src">산림청 --</span>홍릉숲 봄꽃 축제 개막... 탐방객 '북적'</a>
+    <a class="day-item" href="/articles/2026-03-31/002/"><span class="day-imp day-imp-m">중</span><span class="day-src">새만금 --</span>새만금청, 공공데이터 제공 2개 부문 '우수기관' 선정</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-h">상</span><span class="day-src">금융위 --</span>보험업권 출산/육아 지원 보험료 경감 3종 세트 시행</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-m">중</span><span class="day-src">행안부 --</span>추경 9조 5,240억원 추가 편성 관련 자치단체 협의</a>
+    <button class="day-more" onclick="toggleDay(this)">더보기 (148건 더)</button>
+  </div>
+
+  <!-- 03.30 -->
+  <div class="day-card">
+    <div class="day-head">
+      <div><span class="day-date">2026.03.30</span><span class="day-dow">(월)</span></div>
+      <span class="day-count">182건</span>
+    </div>
+    <div class="day-cats">산업기술 72건 / 사회복지 44건 / 금융경제 28건 / 외교안보 20건</div>
+    <a class="day-item" href="#"><span class="day-imp day-imp-h">상</span><span class="day-src">금융위 --</span>보험업권 출산/육아 보험료 부담 경감 3종 세트</a>
+    <a class="day-item" href="#"><span class="day-imp day-imp-h">상</span><span class="day-src">과기부 --</span>AI 기본법 지원 데스크, 10주간 552건 상담</a>
+    <a class="day-item" href="#"><span class="day-imp day-imp-m">중</span><span class="day-src">복지부 --</span>범부처 합동 위기가구 긴급 점검</a>
+    <a class="day-item day-hidden" href="#"><span class="day-imp day-imp-m">중</span><span class="day-src">산업부 --</span>추가경정예산 9,241억 편성, 주요 산업 육성</a>
+    <button class="day-more" onclick="toggleDay(this)">더보기 (179건 더)</button>
+  </div>
+
+  <!-- 주간 리포트 -->
+  <a class="week-report" href="/articles/weekly/2026-03-29/">
+    <div class="week-report-head">
+      <span class="week-report-badge">WEEKLY SIGNAL</span>
+      <span class="week-report-title">3월 4주차 주간 정책 시그널</span>
+      <span class="week-report-arrow">&#8594;</span>
+    </div>
+    <div class="week-report-signals">
+      <span class="week-report-signal"><b>01</b> 인공지능 정책 확산</span>
+      <span class="week-report-signal"><b>02</b> 저출산 금융 지원</span>
+      <span class="week-report-signal"><b>03</b> 복지 전달체계 재점검</span>
+      <span class="week-report-signal"><b>04</b> 추경 9,241억 편성</span>
+      <span class="week-report-signal"><b>05</b> 중동 전쟁 대응</span>
+    </div>
+  </a>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+  <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+</div>
+
+<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</div>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
+
+<script>
+function toggleDay(btn) {
+  var card = btn.closest('.day-card');
+  var hidden = card.querySelectorAll('.day-hidden');
+  var isExpanded = hidden[0] && hidden[0].style.display === 'block';
+  hidden.forEach(function(el) {
+    el.style.display = isExpanded ? 'none' : 'block';
+  });
+  if (isExpanded) {
+    btn.textContent = btn.getAttribute('data-original');
+    card.scrollIntoView({behavior:'smooth', block:'start'});
+  } else {
+    if (!btn.getAttribute('data-original')) btn.setAttribute('data-original', btn.textContent);
+    btn.textContent = '접기';
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4월 2주차 보도자료 (292건) - 브리핑룸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
+
+.hero{background:#fff8f3;padding:28px 24px 22px;border-bottom:1px solid var(--ab)}
+.hero-back{font-size:12px;color:var(--a);text-decoration:none;font-weight:600;display:inline-block;margin-bottom:12px}
+.hero-top{text-align:center;margin-bottom:16px}
+.hero-top h1{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--t);margin-bottom:4px;line-height:1.35}
+.hero-range{font-family:var(--mono);font-size:15px;color:var(--t2);margin-bottom:2px}
+.hero-sub{font-size:13px;color:var(--m)}
+.hero-dash{display:flex;gap:10px;margin-bottom:14px}
+.hero-stat{flex:1;background:var(--s);border:1px solid var(--ab);border-radius:12px;padding:12px;text-align:center}
+.hero-stat .num{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--a);line-height:1}
+.hero-stat .label{font-family:var(--sans);font-size:11px;font-weight:700;color:var(--a);margin-top:4px}
+
+.filter-bar{padding:14px 24px;border-bottom:1px solid var(--bl);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.filter-tab{padding:6px 14px;border-radius:20px;border:1px solid var(--bl);background:var(--s);font-size:12px;font-weight:600;color:var(--t2);cursor:pointer;white-space:nowrap}
+.filter-tab.on{background:var(--a);color:#fff;border-color:var(--a)}
+.filter-tab:hover{border-color:var(--a)}
+.filter-imp{padding:5px 10px;border-radius:16px;border:1px solid var(--bl);background:var(--s);font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap}
+.filter-imp.on{border-color:var(--a);color:var(--a)}
+
+.day-section{padding:0 24px;margin-top:20px}
+.day-anchor{font-family:var(--serif);font-size:18px;font-weight:700;padding-bottom:8px;border-bottom:2px solid var(--a);margin-bottom:0;display:flex;align-items:center;justify-content:space-between}
+.day-anchor-count{font-family:var(--mono);font-size:13px;color:var(--a);font-weight:700}
+.day-anchor-dow{font-size:13px;color:var(--m);font-weight:400;margin-left:6px}
+
+.item{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px dashed var(--bl);text-decoration:none;color:var(--t)}
+.item:last-child{border-bottom:none}
+.item:hover{background:var(--al);margin:0 -8px;padding:12px 8px;border-radius:6px}
+.item-imp{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.item-imp-h{background:#fee2e2;color:#dc2626}
+.item-imp-m{background:#fef3c7;color:#d97706}
+.item-imp-l{background:#f3f4f6;color:#6b7280}
+.item-body{flex:1;min-width:0}
+.item-title{font-size:14px;font-weight:600;line-height:1.5;margin-bottom:2px}
+.item-meta{font-size:11px;color:var(--m)}
+.item-cat{font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;margin-left:6px}
+.item-cat-fin{background:#dbeafe;color:#1d4ed8}
+.item-cat-ind{background:#fef3c7;color:#92400e}
+.item-cat-soc{background:#d1fae5;color:#065f46}
+.item-cat-dip{background:#ede9fe;color:#5b21b6}
+.item-cat-adm{background:#f3f4f6;color:#374151}
+
+.divider-sm{height:1px;background:var(--bl);margin:20px 24px 0}
+
+.cta{margin:24px;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}
+.footer a{color:var(--t);text-decoration:none;font-weight:600}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+
+@media(max-width:768px){
+body{padding-top:48px;padding-bottom:62px}
+.hdr{height:48px;padding:0 10px}
+.logo{font-size:16px;margin-right:8px}
+.hnav{gap:3px}
+.hnav a{font-size:11px;padding:5px 7px}
+.hero{padding:18px 16px}
+.hero-top h1{font-size:20px}
+.hero-stat .num{font-size:20px}
+.hero-dash{flex-wrap:wrap}
+.filter-bar{padding:10px 16px}
+.day-section{padding:0 16px}
+.cta{margin:18px 16px}
+.bnav{display:grid}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">홈</a>
+    <a href="/policy/">정부 정책 AI</a>
+    <a href="/finlaw/">금융 법령 AI</a>
+    <a class="on" href="/articles/">아카이브</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<section class="hero">
+  <a class="hero-back" href="/articles/">&larr; 아카이브로 돌아가기</a>
+  <div class="hero-top">
+    <h1>4월 2주차 보도자료</h1>
+    <div class="hero-range">2026.04.07 ~ 04.09</div>
+    <div class="hero-sub">51개 부처 보도자료 주간 전체 목록</div>
+  </div>
+  <div class="hero-dash">
+    <div class="hero-stat"><div class="num">292</div><div class="label">총 보도자료</div></div>
+    <div class="hero-stat"><div class="num">42</div><div class="label">참여 부처</div></div>
+    <div class="hero-stat"><div class="num">3</div><div class="label">수록일</div></div>
+    <div class="hero-stat"><div class="num">48</div><div class="label">영향도 상</div></div>
+  </div>
+</section>
+
+<!-- 필터 바 -->
+<div class="filter-bar">
+  <span class="filter-tab on" data-cat="all">전체 292</span>
+  <span class="filter-tab" data-cat="산업기술">산업기술 116</span>
+  <span class="filter-tab" data-cat="금융경제">금융경제 62</span>
+  <span class="filter-tab" data-cat="사회복지">사회복지 66</span>
+  <span class="filter-tab" data-cat="외교안보">외교안보 24</span>
+  <span class="filter-tab" data-cat="행정법제">행정법제 24</span>
+  <span style="margin-left:auto"></span>
+  <span class="filter-imp on" data-imp="all">전체</span>
+  <span class="filter-imp" data-imp="상">상</span>
+  <span class="filter-imp" data-imp="중">중</span>
+</div>
+
+<!-- 04.09 -->
+<div class="day-section">
+  <div class="day-anchor">
+    <span>2026.04.09<span class="day-anchor-dow">(목)</span></span>
+    <span class="day-anchor-count">82건</span>
+  </div>
+
+  <a class="item" href="/articles/2026-04-09/000/" data-cat="금융경제" data-imp="상">
+    <span class="item-imp item-imp-h">상</span>
+    <div class="item-body">
+      <div class="item-title">통합재정통계(2026년 2월)</div>
+      <div class="item-meta">기획예산처<span class="item-cat item-cat-fin">금융경제</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/016/" data-cat="산업기술" data-imp="상">
+    <span class="item-imp item-imp-h">상</span>
+    <div class="item-body">
+      <div class="item-title">부동산감독추진단, 제11차 부동산 불법행위 대응협의회 개최</div>
+      <div class="item-meta">국토교통부<span class="item-cat item-cat-ind">산업기술</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/042/" data-cat="사회복지" data-imp="상">
+    <span class="item-imp item-imp-h">상</span>
+    <div class="item-body">
+      <div class="item-title">식약처, 미래핵심 분야 규제과학 인재 키운다</div>
+      <div class="item-meta">식품의약품안전처<span class="item-cat item-cat-soc">사회복지</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/030/" data-cat="금융경제" data-imp="상">
+    <span class="item-imp item-imp-h">상</span>
+    <div class="item-body">
+      <div class="item-title">다주택자에 대한 양도소득세 중과 유예 종료 적용 보완 추진</div>
+      <div class="item-meta">국토교통부<span class="item-cat item-cat-fin">금융경제</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/058/" data-cat="금융경제" data-imp="상">
+    <span class="item-imp item-imp-h">상</span>
+    <div class="item-body">
+      <div class="item-title">민생물가 특별관리 관계장관 TF 6차 회의 개최</div>
+      <div class="item-meta">재정경제부<span class="item-cat item-cat-fin">금융경제</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/062/" data-cat="금융경제" data-imp="상">
+    <span class="item-imp item-imp-h">상</span>
+    <div class="item-body">
+      <div class="item-title">진화하는 불법금융 스팸, 기술로 잡는다</div>
+      <div class="item-meta">금융감독원<span class="item-cat item-cat-fin">금융경제</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/063/" data-cat="금융경제" data-imp="상">
+    <span class="item-imp item-imp-h">상</span>
+    <div class="item-body">
+      <div class="item-title">티몬, 위메프 사태 관련 카드사 청약철회권 인정 결정</div>
+      <div class="item-meta">금융감독원<span class="item-cat item-cat-fin">금융경제</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/064/" data-cat="금융경제" data-imp="상">
+    <span class="item-imp item-imp-h">상</span>
+    <div class="item-body">
+      <div class="item-title">2025년 금융지주회사 경영실적</div>
+      <div class="item-meta">금융감독원<span class="item-cat item-cat-fin">금융경제</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/051/" data-cat="외교안보" data-imp="상">
+    <span class="item-imp item-imp-h">상</span>
+    <div class="item-body">
+      <div class="item-title">'한-미 기술번영 양해각서(MOU)' 이행을 위한 워킹그룹 킥오프 회의 개최</div>
+      <div class="item-meta">외교부<span class="item-cat item-cat-dip">외교안보</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/003/" data-cat="산업기술" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">과기정통부, 제3회 미래 국방 전략 토론회(전략 포럼) 개최</div>
+      <div class="item-meta">과학기술정보통신부<span class="item-cat item-cat-ind">산업기술</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/007/" data-cat="사회복지" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">외국인 유학생, 이제는 질 관리 체계로</div>
+      <div class="item-meta">교육부<span class="item-cat item-cat-soc">사회복지</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/050/" data-cat="산업기술" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">'데이터 소진되어도 연결은 지속' 요금제 개편 추진</div>
+      <div class="item-meta">과학기술정보통신부<span class="item-cat item-cat-ind">산업기술</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/020/" data-cat="산업기술" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">'제2의 라면' 육성 위한 글로벌 NEXT K-푸드 프로젝트 가동</div>
+      <div class="item-meta">농림축산식품부<span class="item-cat item-cat-ind">산업기술</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/060/" data-cat="사회복지" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">학원 교습비 관리 강화 방안</div>
+      <div class="item-meta">교육부<span class="item-cat item-cat-soc">사회복지</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-09/004/" data-cat="산업기술" data-imp="하">
+    <span class="item-imp item-imp-l">하</span>
+    <div class="item-body">
+      <div class="item-title">정읍국유림관리소, 회문산 숲길 정비 온힘</div>
+      <div class="item-meta">산림청<span class="item-cat item-cat-ind">산업기술</span></div>
+    </div>
+  </a>
+</div>
+
+<div class="divider-sm"></div>
+
+<!-- 04.08 -->
+<div class="day-section">
+  <div class="day-anchor">
+    <span>2026.04.08<span class="day-anchor-dow">(수)</span></span>
+    <span class="day-anchor-count">121건</span>
+  </div>
+
+  <a class="item" href="/articles/2026-04-08/002/" data-cat="금융경제" data-imp="상">
+    <span class="item-imp item-imp-h">상</span>
+    <div class="item-body">
+      <div class="item-title">김민석 국무총리 주재 중동상황 건설기업 금융애로 점검 간담회</div>
+      <div class="item-meta">국무조정실<span class="item-cat item-cat-fin">금융경제</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-08/000/" data-cat="산업기술" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">서부지방산림청, 산사태 예방 강화 현장조사</div>
+      <div class="item-meta">산림청<span class="item-cat item-cat-ind">산업기술</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-08/001/" data-cat="사회복지" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">한국사회 적응 도울 이민자 멘토 23명 새로 모신다</div>
+      <div class="item-meta">법무부<span class="item-cat item-cat-soc">사회복지</span></div>
+    </div>
+  </a>
+  <a class="item" href="#" data-cat="산업기술" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">청년 디지털 일자리 사업 2차 모집 실시</div>
+      <div class="item-meta">고용노동부<span class="item-cat item-cat-ind">산업기술</span></div>
+    </div>
+  </a>
+  <a class="item" href="#" data-cat="사회복지" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">노인일자리 출퇴근 시간 조정 통해 어르신 안전 확보</div>
+      <div class="item-meta">보건복지부<span class="item-cat item-cat-soc">사회복지</span></div>
+    </div>
+  </a>
+</div>
+
+<div class="divider-sm"></div>
+
+<!-- 04.07 -->
+<div class="day-section">
+  <div class="day-anchor">
+    <span>2026.04.07<span class="day-anchor-dow">(화)</span></span>
+    <span class="day-anchor-count">89건</span>
+  </div>
+
+  <a class="item" href="/articles/2026-04-07/000/" data-cat="외교안보" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">재외동포청장, 주한 우즈베키스탄 대사 접견</div>
+      <div class="item-meta">재외동포청<span class="item-cat item-cat-dip">외교안보</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-07/001/" data-cat="산업기술" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">"전통시장까지 찾아간 산불예방"</div>
+      <div class="item-meta">산림청<span class="item-cat item-cat-ind">산업기술</span></div>
+    </div>
+  </a>
+  <a class="item" href="/articles/2026-04-07/002/" data-cat="산업기술" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">산림청, 중동전쟁 관련 임산물 수출입기업과 현장 소통 강화</div>
+      <div class="item-meta">산림청<span class="item-cat item-cat-ind">산업기술</span></div>
+    </div>
+  </a>
+  <a class="item" href="#" data-cat="외교안보" data-imp="중">
+    <span class="item-imp item-imp-m">중</span>
+    <div class="item-body">
+      <div class="item-title">합참, 한미 연합 지휘소 훈련 시행</div>
+      <div class="item-meta">국방부<span class="item-cat item-cat-dip">외교안보</span></div>
+    </div>
+  </a>
+  <a class="item" href="#" data-cat="행정법제" data-imp="하">
+    <span class="item-imp item-imp-l">하</span>
+    <div class="item-body">
+      <div class="item-title">2026년 상반기 지방자치단체 합동평가 추진</div>
+      <div class="item-meta">행정안전부<span class="item-cat item-cat-adm">행정법제</span></div>
+    </div>
+  </a>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+  <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+</div>
+
+<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</div>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
+
+<script>
+// 분야 필터
+document.querySelectorAll('.filter-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.filter-tab').forEach(function(t){t.classList.remove('on')});
+    tab.classList.add('on');
+    applyFilters();
+  });
+});
+
+// 영향도 필터
+document.querySelectorAll('.filter-imp').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-imp').forEach(function(b){b.classList.remove('on')});
+    btn.classList.add('on');
+    applyFilters();
+  });
+});
+
+function applyFilters() {
+  var cat = document.querySelector('.filter-tab.on').getAttribute('data-cat');
+  var imp = document.querySelector('.filter-imp.on').getAttribute('data-imp');
+  document.querySelectorAll('.item').forEach(function(item) {
+    var catMatch = (cat === 'all' || item.getAttribute('data-cat') === cat);
+    var impMatch = (imp === 'all' || item.getAttribute('data-imp') === imp);
+    item.style.display = (catMatch && impMatch) ? 'flex' : 'none';
+  });
+}
+</script>
+
+</body>
+</html>

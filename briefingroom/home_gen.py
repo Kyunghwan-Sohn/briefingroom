@@ -541,6 +541,19 @@ deptTabs.forEach((tab) => tab.addEventListener('click', () => {{
 }}));
 
 policySearch.addEventListener('input', applyPolicyFilters);
+const initialParams = new URLSearchParams(window.location.search);
+const initialCat = initialParams.get('cat');
+const initialSource = initialParams.get('source');
+const initialQuery = initialParams.get('q');
+if (initialQuery) policySearch.value = initialQuery;
+if (initialCat) {{
+  currentCat = initialCat;
+  catTabs.forEach((node) => node.classList.toggle('on', node.dataset.cat === initialCat));
+}}
+if (initialSource) {{
+  currentSource = initialSource;
+  deptTabs.forEach((node) => node.classList.toggle('on', node.dataset.source === initialSource));
+}}
 applyPolicyFilters();
 </script>
 </body>

@@ -138,8 +138,25 @@ h1{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:6px}
 </div>
 
 <script>
-const API = 'https://govbrief-api.vercel.app/api/lawdiff';
+const API_CANDIDATES = ['/api/lawdiff', 'https://govbrief-api.vercel.app/api/lawdiff'];
 let selectedMST = '';
+
+async function callLawdiff(body) {
+  let lastError = null;
+  for (const apiUrl of API_CANDIDATES) {
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body),
+      });
+      if (response.ok || apiUrl === API_CANDIDATES[API_CANDIDATES.length - 1]) return response;
+    } catch (err) {
+      lastError = err;
+    }
+  }
+  throw lastError || new Error('API 요청 실패');
+}
 
 const searchInput = document.getElementById('search');
 const resultsEl = document.getElementById('results');
@@ -154,11 +171,7 @@ searchInput.addEventListener('input', () => {
 
 async function searchLaw(query) {
   try {
-    const r = await fetch(API, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({action: 'search', query}),
-    });
+    const r = await callLawdiff({action: 'search', query});
     const data = await r.json();
     resultsEl.textContent = '';
     if (data.laws && data.laws.length) {
@@ -232,11 +245,7 @@ async function compare() {
   document.getElementById('compare-btn').disabled = true;
 
   try {
-    const r = await fetch(API, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({action: 'diff', mst: selectedMST, old_date: oldDate, new_date: newDate}),
-    });
+    const r = await callLawdiff({action: 'diff', mst: selectedMST, old_date: oldDate, new_date: newDate});
     const data = await r.json();
     document.getElementById('loading').style.display = 'none';
 

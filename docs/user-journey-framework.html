@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>govbrief.kr - 유저 여정 프레임워크</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a1a;padding:40px 20px}
+.wrap{max-width:1200px;margin:0 auto}
+h1{font-size:28px;font-weight:800;text-align:center;margin-bottom:6px}
+.sub{text-align:center;font-size:14px;color:#666;margin-bottom:40px}
+
+/* Flow */
+.flow-section{margin-bottom:48px}
+.flow-title{font-size:18px;font-weight:700;margin-bottom:20px;padding-left:12px;border-left:4px solid #d96c2c}
+
+/* Entry */
+.entry-row{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.entry{flex:1;min-width:140px;background:#fff;border:2px solid #e0e0e0;border-radius:12px;padding:16px;text-align:center}
+.entry-label{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.entry-name{font-size:14px;font-weight:700}
+.entry-desc{font-size:11px;color:#666;margin-top:4px}
+
+/* Arrow */
+.arrow-down{text-align:center;font-size:24px;color:#d96c2c;margin:16px 0}
+
+/* Hub */
+.hub{background:#d96c2c;color:#fff;border-radius:16px;padding:24px;text-align:center;margin-bottom:8px}
+.hub h2{font-size:22px;font-weight:800;margin-bottom:4px}
+.hub p{font-size:13px;opacity:.8}
+
+/* Branch */
+.branch-row{display:flex;gap:0;margin-bottom:8px}
+.branch{flex:1;padding:20px 16px;text-align:center;position:relative}
+.branch:first-child{background:#eff6ff;border-radius:0 0 0 16px}
+.branch:nth-child(2){background:#ecfdf5;border-radius:0 0 16px 0}
+.branch-badge{display:inline-block;font-size:10px;font-weight:700;color:#fff;padding:3px 10px;border-radius:5px;margin-bottom:8px}
+.branch-badge.policy{background:#1e40af}
+.branch-badge.law{background:#047857}
+.branch h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.branch p{font-size:11px;color:#666}
+
+/* Journey map */
+.journey{background:#fff;border:2px solid #e0e0e0;border-radius:14px;padding:24px;margin-bottom:16px}
+.journey-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.journey-num{width:32px;height:32px;background:#d96c2c;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.journey-q{font-size:15px;font-weight:700;flex:1}
+.journey-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap}
+.journey-tag.daily{background:#fef3c7;color:#d97706}
+.journey-tag.search{background:#ede9fe;color:#7c3aed}
+.journey-tag.weekly{background:#dbeafe;color:#1d4ed8}
+.journey-tag.law{background:#d1fae5;color:#065f46}
+.journey-tag.deep{background:#fee2e2;color:#dc2626}
+
+.steps{display:flex;align-items:stretch;gap:0;overflow-x:auto}
+.step{flex:1;min-width:120px;padding:12px;text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.step::after{content:'\2192';position:absolute;right:-6px;top:50%;transform:translateY(-50%);font-size:16px;color:#d96c2c;font-weight:700;z-index:1}
+.step:last-child::after{content:''}
+.step-page{font-size:12px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
+.step-action{font-size:10px;color:#888;line-height:1.4}
+.step-highlight{background:#fff7ed;border-radius:8px}
+
+/* Decision */
+.decision{background:#fff;border:2px dashed #d96c2c;border-radius:14px;padding:24px;margin-bottom:16px}
+.decision h3{font-size:16px;font-weight:700;margin-bottom:16px;color:#d96c2c}
+.decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.decision-item{background:#f8f9fa;border-radius:10px;padding:14px}
+.decision-item h4{font-size:13px;font-weight:700;margin-bottom:6px}
+.decision-item p{font-size:11px;color:#666;line-height:1.5}
+.decision-item .pages{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.decision-item .page-tag{font-size:10px;font-weight:600;background:#fff;border:1px solid #e0e0e0;padding:2px 8px;border-radius:4px}
+
+/* Sitemap tree */
+.tree{background:#fff;border:2px solid #e0e0e0;border-radius:14px;padding:24px}
+.tree h3{font-size:16px;font-weight:700;margin-bottom:16px}
+.tree-node{padding:6px 0 6px 20px;border-left:2px solid #e0e0e0;position:relative;font-size:13px}
+.tree-node::before{content:'';position:absolute;left:-2px;top:14px;width:14px;height:0;border-top:2px solid #e0e0e0}
+.tree-node .url{font-family:'SF Mono',monospace;font-size:11px;color:#d96c2c;margin-left:8px}
+.tree-root{font-weight:700;font-size:14px;margin-bottom:4px}
+.tree-l2{margin-left:20px}
+.tree-l3{margin-left:40px}
+.tree-status{display:inline-block;font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;margin-left:6px}
+.tree-status.live{background:#d1fae5;color:#065f46}
+.tree-status.plan{background:#fef3c7;color:#d97706}
+.tree-status.redirect{background:#f3f4f6;color:#6b7280}
+
+/* Footer meta */
+.meta-row{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.meta-card{flex:1;min-width:200px;background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:16px}
+.meta-card h4{font-size:12px;font-weight:700;color:#d96c2c;margin-bottom:8px}
+.meta-card p{font-size:11px;color:#666;line-height:1.6}
+
+@media(max-width:768px){
+  .branch-row{flex-direction:column}
+  .branch:first-child{border-radius:0}
+  .branch:nth-child(2){border-radius:0 0 16px 16px}
+  .decision-grid{grid-template-columns:1fr}
+  .steps{flex-wrap:wrap}
+  .step::after{content:''}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>govbrief.kr 유저 여정 프레임워크</h1>
+<p class="sub">사용자가 사이트에 어떻게 들어오고, 어떤 경로로 가치를 경험하는가</p>
+
+<!-- ============ SECTION 1: ENTRY ============ -->
+<div class="flow-section">
+<div class="flow-title">1. 진입 경로 (Entry Points)</div>
+<div class="entry-row">
+  <div class="entry">
+    <div class="entry-label">Direct</div>
+    <div class="entry-name">govbrief.kr</div>
+    <div class="entry-desc">URL 직접 입력 / 북마크</div>
+  </div>
+  <div class="entry">
+    <div class="entry-label">Search</div>
+    <div class="entry-name">Google / Naver</div>
+    <div class="entry-desc">법령명, 정책 키워드 검색</div>
+  </div>
+  <div class="entry">
+    <div class="entry-label">Social</div>
+    <div class="entry-name">KakaoTalk / Slack</div>
+    <div class="entry-desc">공유 링크 (OG 카드)</div>
+  </div>
+  <div class="entry">
+    <div class="entry-label">Push</div>
+    <div class="entry-name">Telegram Bot</div>
+    <div class="entry-desc">일간/주간 브리핑 알림</div>
+  </div>
+  <div class="entry">
+    <div class="entry-label">Feed</div>
+    <div class="entry-name">RSS Reader</div>
+    <div class="entry-desc">/feed/rss.xml 구독</div>
+  </div>
+</div>
+</div>
+
+<div class="arrow-down">&darr;</div>
+
+<!-- ============ SECTION 2: HUB ============ -->
+<div class="flow-section">
+<div class="flow-title">2. 허브 (Landing)</div>
+<div class="hub">
+  <h2>govbrief.kr</h2>
+  <p>검색 + 오늘의 요약 + 부처별 브리핑</p>
+</div>
+<div class="branch-row">
+  <div class="branch">
+    <span class="branch-badge policy">POLICY</span>
+    <h3>정부 정책 AI</h3>
+    <p>51개 부처 보도자료 AI 요약</p>
+  </div>
+  <div class="branch">
+    <span class="branch-badge law">LAW</span>
+    <h3>금융 법령 AI</h3>
+    <p>139개 법령 + 판례 + 비조치의견서</p>
+  </div>
+</div>
+</div>
+
+<!-- ============ SECTION 3: JOURNEYS ============ -->
+<div class="flow-section">
+<div class="flow-title">3. 핵심 유저 여정 (5가지)</div>
+
+<div class="journey">
+  <div class="journey-header">
+    <div class="journey-num">1</div>
+    <div class="journey-q">"오늘 정부에서 뭐 나왔어?"</div>
+    <span class="journey-tag daily">Daily Check</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-page">홈</div><div class="step-action">오늘의 정책 요약<br>캐러셀 확인</div></div>
+    <div class="step"><div class="step-page">홈</div><div class="step-action">부처별 브리핑<br>탭 필터링</div></div>
+    <div class="step"><div class="step-page">상세</div><div class="step-action">/articles/날짜/번호/<br>쉬운 요약 읽기</div></div>
+    <div class="step step-highlight"><div class="step-page">가치 전달</div><div class="step-action">영향도 상/중/하<br>왜 알아야 하나</div></div>
+  </div>
+</div>
+
+<div class="journey">
+  <div class="journey-header">
+    <div class="journey-num">2</div>
+    <div class="journey-q">"이 법령 어떻게 바뀌었어?"</div>
+    <span class="journey-tag law">Law Tracking</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-page">금융 법령 AI</div><div class="step-action">법령 검색<br>카테고리 탐색</div></div>
+    <div class="step"><div class="step-page">법령 상세</div><div class="step-action">/finlaw/detail/ID/<br>조문 확인</div></div>
+    <div class="step"><div class="step-page">LawDiff</div><div class="step-action">/finlaw/lawdiff/<br>개정 전후 비교</div></div>
+    <div class="step step-highlight"><div class="step-page">가치 전달</div><div class="step-action">뭐가 바뀌었는지<br>한눈에 비교</div></div>
+  </div>
+</div>
+
+<div class="journey">
+  <div class="journey-header">
+    <div class="journey-num">3</div>
+    <div class="journey-q">"가상자산법 관련 판례 있어?"</div>
+    <span class="journey-tag search">Deep Search</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-page">홈 검색</div><div class="step-action">키워드 입력<br>Supabase FTS</div></div>
+    <div class="step"><div class="step-page">FinLaw GPT</div><div class="step-action">/tools/finlaw-gpt/<br>AI에게 질문</div></div>
+    <div class="step"><div class="step-page">판례/의견서</div><div class="step-action">/finlaw/cases/<br>관련 판례 탐색</div></div>
+    <div class="step step-highlight"><div class="step-page">가치 전달</div><div class="step-action">출처 기반 답변<br>조문 직접 연결</div></div>
+  </div>
+</div>
+
+<div class="journey">
+  <div class="journey-header">
+    <div class="journey-num">4</div>
+    <div class="journey-q">"이번 주 정부 방향이 뭐야?"</div>
+    <span class="journey-tag weekly">Weekly Trend</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-page">정책 페이지</div><div class="step-action">주간 시그널<br>카드 클릭</div></div>
+    <div class="step"><div class="step-page">시그널 상세</div><div class="step-action">/articles/weekly/날짜/<br>Signal 01~05</div></div>
+    <div class="step"><div class="step-page">시그널 목록</div><div class="step-action">/policy/weekly/<br>주차별 아카이브</div></div>
+    <div class="step step-highlight"><div class="step-page">가치 전달</div><div class="step-action">정부 집중 방향<br>트렌드 파악</div></div>
+  </div>
+</div>
+
+<div class="journey">
+  <div class="journey-header">
+    <div class="journey-num">5</div>
+    <div class="journey-q">"내 업무에 관련된 법령은?"</div>
+    <span class="journey-tag deep">Personalized</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-page">내법찾기</div><div class="step-action">/tools/mylaw/<br>업무 설명 입력</div></div>
+    <div class="step"><div class="step-page">AI 매칭</div><div class="step-action">관련 법령 추천<br>조문 연결</div></div>
+    <div class="step"><div class="step-page">법령 상세</div><div class="step-action">조문 확인<br>판례 탐색</div></div>
+    <div class="step step-highlight"><div class="step-page">가치 전달</div><div class="step-action">내 업무 맞춤<br>법령 가이드</div></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ SECTION 4: DECISION ============ -->
+<div class="flow-section">
+<div class="flow-title">4. 의사결정 분기점 (Decision Points)</div>
+
+<div class="decision">
+  <h3>사용자가 홈에 도착했을 때 어디로 가는가?</h3>
+  <div class="decision-grid">
+    <div class="decision-item">
+      <h4>목적이 명확한 사용자</h4>
+      <p>특정 법령/정책을 찾으러 옴. 검색창 바로 사용하거나 상단 네비게이션으로 이동.</p>
+      <div class="pages"><span class="page-tag">검색</span><span class="page-tag">정부 정책 AI</span><span class="page-tag">금융 법령 AI</span></div>
+    </div>
+    <div class="decision-item">
+      <h4>탐색형 사용자</h4>
+      <p>"오늘 뭐 나왔나" 확인. 캐러셀 스크롤, 부처별 탭 클릭, 영향도 상 우선 확인.</p>
+      <div class="pages"><span class="page-tag">오늘의 요약</span><span class="page-tag">부처별 브리핑</span><span class="page-tag">아카이브</span></div>
+    </div>
+    <div class="decision-item">
+      <h4>전문가 사용자</h4>
+      <p>금융/법률 실무자. FinLaw GPT로 질의하거나, 판례/비조치의견서 직접 검색.</p>
+      <div class="pages"><span class="page-tag">FinLaw GPT</span><span class="page-tag">판례</span><span class="page-tag">비조치의견서</span><span class="page-tag">LawDiff</span></div>
+    </div>
+    <div class="decision-item">
+      <h4>재방문 사용자</h4>
+      <p>텔레그램 알림으로 유입. 특정 기사 링크를 타고 들어와 상세 읽고 관련 법령 연결.</p>
+      <div class="pages"><span class="page-tag">기사 상세</span><span class="page-tag">관련 법령</span><span class="page-tag">텔레그램</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ SECTION 5: SITEMAP ============ -->
+<div class="flow-section">
+<div class="flow-title">5. 전체 페이지 구조 (Sitemap)</div>
+
+<div class="tree">
+<div class="tree-root">govbrief.kr <span class="tree-status live">LIVE</span></div>
+
+<div class="tree-node">홈 <span class="url">/</span> <span class="tree-status live">LIVE</span></div>
+
+<div class="tree-node">정부 정책 AI <span class="url">/policy/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">전체 브리핑 <span class="url">/policy/all/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">AI 정책 <span class="url">/policy/ai/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">주간 시그널 <span class="url">/policy/weekly/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l3">시그널 상세 <span class="url">/articles/weekly/{date}/</span> <span class="tree-status live">LIVE</span></div>
+
+<div class="tree-node">금융 법령 AI <span class="url">/finlaw/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">법령 상세 <span class="url">/finlaw/detail/{id}/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">법령 비교 <span class="url">/finlaw/diff/{id}/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">판례 <span class="url">/finlaw/cases/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">비조치의견서 <span class="url">/finlaw/opinions/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">개정 이력 <span class="url">/finlaw/changes/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">LawDiff <span class="url">/finlaw/lawdiff/</span> <span class="tree-status live">LIVE</span></div>
+
+<div class="tree-node">AI 도구 <span class="url">/tools/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">FinLaw GPT <span class="url">/tools/finlaw-gpt/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">내법찾기 <span class="url">/tools/mylaw/</span> <span class="tree-status live">LIVE</span></div>
+
+<div class="tree-node">아카이브 <span class="url">/articles/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node tree-l2">기사 상세 <span class="url">/articles/{date}/{slug}/</span> <span class="tree-status live">LIVE</span></div>
+
+<div class="tree-node" style="color:#999">리다이렉트 <span class="url">/archive/</span> <span class="tree-status redirect">-> /articles/</span></div>
+<div class="tree-node" style="color:#999">리다이렉트 <span class="url">/finlaw/ask/</span> <span class="tree-status redirect">-> /tools/finlaw-gpt/</span></div>
+
+<div class="tree-node">About <span class="url">/about/</span> <span class="tree-status live">LIVE</span></div>
+<div class="tree-node">RSS <span class="url">/feed/rss.xml</span> <span class="tree-status live">LIVE</span></div>
+</div>
+</div>
+
+<!-- ============ SECTION 6: VALUE CHAIN ============ -->
+<div class="flow-section">
+<div class="flow-title">6. 가치 전달 체인 (차별화 포인트)</div>
+
+<div class="meta-row">
+  <div class="meta-card">
+    <h4>1. 전수 커버리지</h4>
+    <p>51개 부처 매일 전수 크롤링. 뉴스는 선별적이지만 govbrief는 빠짐없이 다 본다.</p>
+  </div>
+  <div class="meta-card">
+    <h4>2. 쉬운 요약</h4>
+    <p>중학생도 이해할 수 있는 수준으로 AI가 번역. 법제처도 로앤비도 안 하는 것.</p>
+  </div>
+  <div class="meta-card">
+    <h4>3. 정책-법령 연결</h4>
+    <p>보도자료 -> 관련 법령 -> 판례 -> 비조치의견서. 흩어진 정보를 하나로 연결.</p>
+  </div>
+  <div class="meta-card">
+    <h4>4. AI 도구</h4>
+    <p>FinLaw GPT로 법령 질의, LawDiff로 개정 비교, 내법찾기로 맞춤 법령 추천.</p>
+  </div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
