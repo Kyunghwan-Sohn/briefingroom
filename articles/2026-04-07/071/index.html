@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 재정경제부 보도자료</div>
+  <div class="post-badge">재정경제부 보도자료</div>
   <h1 class="post-title">공급망 병목해소 규제개선을 위해 국민이 제안하는 「공급망 애로 핫라인」 구축</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부에서 국민과 기업이 겪는 어려움, 특히 수입·생산·유통 과정의 막힌 부분을 빨리 고치기 위해 핫라인을 만들었습니다.</li><li style='margin-bottom:6px'>재정경제부 사이트와 SNS(소셜미디어 네트워크) 를 통해 누구나 아이디어나 문제를 제안할 수 있게 되었습니다.</li><li style='margin-bottom:6px'>산업부, 국토부, 관세청 등 관련 부처들도 각자 SNS 에서 같이 제안을 받도록 했습니다.</li><li style='margin-bottom:6px'>이미 발표된 규제 개선 조치를 한 번 더 넘어, 앞으로도 계속 들으려면 이 창구를 이용하면 됩니다.</li><li style='margin-bottom:6px'>제안 내용은 빠르고 적극적으로 검토되어 실제 법이나 절차를 바꾸는 데 쓰여집니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>재정경제부는 중동 사태로 인한 공급망 병목 해소를 위해 SNS와 홈페이지에「전국민 공급망 애로 핫라인」을 구축합니다. 이 핫라인은 2026 년 4 월 6 일부터 재경부 SNS에서 운영되고, 4 월 7 일부터 홈페이지 배너 및 관련 부처 SNS를 통해 제안이 접수됩니다. 대상은 기업과 국민이며, 접수된 건의사항은 실사 검토 후 규제 완화 등 신속한 정책 개선으로 이어져 산업 현안 해결과 경제 안정에 기여할 것입니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부에서 국민과 기업이 겪는 어려움, 특히 수입·생산·유통 과정의 막힌 부분을 빨리 고치기 위해 핫라인을 만들었습니다. 재정경제부 사이트와 SNS(소셜미디어 네트워크) 를 통해 누구나 아이디어나 문제를 제안할 수 있게 되었습니다. 산업부, 국토부, 관세청 등 관련 부처들도 각자 SNS 에서 같이 제안을 받도록 했습니다. 이미 발표된 규제 개선 조치를 한 번 더 넘어, 앞으로도 계속 들으려면 이 창구를 이용하면 됩니다. 제안 내용은 빠르고 적극적으로 검토되어 실제 법이나 절차를 바꾸는 데 쓰여집니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>중동 사태 등 외부 충격으로 물자 수송이 막히거나 가격이 오를 때, 내가 겪는 문제를 정부에 바로 알리고 해결책을 얻는 유일한 공식 창구가 생겼기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#공급망 병목해소</span><span>#규제개선</span><span>#국민 제안</span><span>#핫라인</span><span>#재정경제부</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국민과 기업은 이제 온라인으로 직접 제안을 하면 해당 부처가 직접 보고 즉시 규제 완화나 절차 개선 등 실질적인 조치를 취할 수 있게 되었습니다.</p>
     </section>
+    <div class='keywords'><span>#공급망 병목해소</span><span>#규제개선</span><span>#국민 제안</span><span>#핫라인</span><span>#재정경제부</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753254" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

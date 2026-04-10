@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 금융위원회 보도자료</div>
+  <div class="post-badge">금융위원회 보도자료</div>
   <h1 class="post-title">&quot;중동상황으로 인한 석유화학·정유업계의 애로를 금융권이 직접 듣고 어려움을 함께 극복해나가겠습니다&quot; - 금융위원장</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>중동 분쟁으로 인해 석유와 화학 원료를 구하기 어려워진 기업들을 돕기 위해 금융위원회가 은행들과 모임을 가졌다. 정부는 기업이 돈을 빌릴 때 더 쉽게 대출을 받고, 빚을 갚을 때 부담을 덜어주는 새로운 지원책을 바로 내렸다. 특히 석유화학 공장들이 원유를 구하기 힘들어 생산이 멈추는 위기 상황에 즉각 대응하기 위해 77조 원 이상의 돈을 풀었다. 기업들이 빚을 갚을 때 내야 할 이자 비율을 낮추거나 빚을 갚는 시기를 늘려줘서 기업들이 살아날 수 있게 돕는다. 앞으로도 다른 산업들이 힘들어하면 금융위원회가 은행들과 함께 꾸준히 만나서 해결책을 찾아나갈 계획이다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>금융위원회는 중동 지역의 지정학적 긴장으로 인한 석유화학·정유업계의 피해를 완화하기 위해 이억원 위원장이 주재한 산업-금융권 간담회를 개최했다. 정책금융 신규자금 26.8조원 확대와 신용보증기금 P-CBO 차환 부담 완화 등 총 77조원 이상의 금융지원책을 즉시 시행할 예정이다. 이는 원유 수급이 직결된 해당 업계와 협력 기업에 대한 유동성 지원 및 산업 안정화를 목표로 한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">중동 분쟁으로 인해 석유와 화학 원료를 구하기 어려워진 기업들을 돕기 위해 금융위원회가 은행들과 모임을 가졌다. 정부는 기업이 돈을 빌릴 때 더 쉽게 대출을 받고, 빚을 갚을 때 부담을 덜어주는 새로운 지원책을 바로 내렸다. 특히 석유화학 공장들이 원유를 구하기 힘들어 생산이 멈추는 위기 상황에 즉각 대응하기 위해 77조 원 이상의 돈을 풀었다. 기업들이 빚을 갚을 때 내야 할 이자 비율을 낮추거나 빚을 갚는 시기를 늘려줘서 기업들이 살아날 수 있게 돕는다. 앞으로도 다른 산업들이 힘들어하면 금융위원회가 은행들과 함께 꾸준히 만나서 해결책을 찾아나갈 계획이다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>중동 상황에 따른 물가 상승과 공급망 차질로 우리 경제가 큰 타격을 입을 수 있어 기업 지원 정책의 방향성을 확인해야 한다.</p>
     </section>
-    <div class='keywords'><span>#석유화학·정유업계</span><span>#금융지원</span><span>#중동상황</span><span>#유동성 완화</span><span>#이억원 금융위원장</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>석유화학·정유업계를 포함한 관련 기업들은 대출 만기 연장, 이자 감면, 추가 자금 지원 등 유동성 부담이 실질적으로 경감된다.</p>
     </section>
+    <div class='keywords'><span>#석유화학·정유업계</span><span>#금융지원</span><span>#중동상황</span><span>#유동성 완화</span><span>#이억원 금융위원장</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753303" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

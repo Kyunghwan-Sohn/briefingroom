@@ -38,7 +38,9 @@
 <style>
 
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe;
+--law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
 
@@ -47,13 +49,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .back:hover{color:var(--t)}
 
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0;white-space:nowrap}
-.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
-.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
-.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
-.bell{color:var(--m);text-decoration:none;font-size:16px;margin-left:auto;flex-shrink:0}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
+.hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
 .site-footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.site-footer a{color:var(--t);text-decoration:none;font-weight:600}
-@media(max-width:768px){body{padding-top:52px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
+@media(max-width:768px){body{padding-top:48px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
 
 .post-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--al);color:var(--a);border:1px solid var(--ab);margin-bottom:14px}
 .post-title{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--t);margin-bottom:20px}
@@ -65,7 +71,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .section-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:8px}
 .summary p{font-size:14px;color:var(--t2);line-height:1.8;background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:14px 16px}
 .info-section{margin-top:18px}
-.info-section p{font-size:14px;line-height:1.55;padding:10px 14px;border-radius:8px;border:1px solid var(--b);background:#fff}
+.info-section p{font-size:14px;line-height:1.8;padding:14px 16px;border-radius:8px;border:1px solid var(--b);background:#fff}
 .why-box p{border-left:4px solid #4a6cf7;background:#eef2ff}
 .impact-box p{border-left:4px solid var(--a);background:var(--al)}
 .law-box{background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:4px 14px}
@@ -74,14 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a class="hnav-a" href="/">홈</a><a class="hnav-a" href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank" rel="noopener">🔔</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div class="post-badge">🏛 과학기술정보통신부 보도자료</div>
+  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
+  <div class="post-badge">과학기술정보통신부 보도자료</div>
   <h1 class="post-title">류제명 과기정통부 제2차관, 한국전자통신연구원(ETRI) 창립 50주년 및 전전자교환기(TDX) 개통 40주년 기념식 참석</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-01</strong></div>
@@ -90,45 +101,29 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   </div>
   <div class="post-content">
     
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>류제명 과학기술정보통신부 제2차관은 한국전자통신연구원 (ETRI) 창립 50주년 및 전전자교환기 (TDX) 개통 40주년을 기념하기 위해 기념식에 참석하여 주요 인사말을 전했습니다. 본 행사는 2026년 4월 1일 개최되었으며, ETRI의 50년 연구 성과와 한국 통신기술의 역사가 되는 TDX 개발의 의미를 되새기는 자리였습니다. 기념식 참석을 통해 정부 차원에서 R&amp;D 기구의 역사적 기여를 공식적으로 격려하고 미래 통신기술 발전 의지를 재확인하는 효과가 기대됩니다.</p>
-    </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>통신산업의 기원이 된 TDX 개통과 ETRI 창립이라는 역사적 사건을 기념함으로써 한국 ICT 산업의 정체성을 확립하고 향후 기술 주권 확보를 위한 정책적 의지를 보여준 점이 주목할 만합니다.</p>
     </section>
-    <section class="info-section">
-  <h3>핵심 요약</h3>
-  <p>류제명 과학기술정보통신부 제 2 차관은 2026 년 4 월 1 일 한국전자통신연구원 (ETRI) 창립 50주년 및 전전자교환기 (TDX) 개통 40 주년 기념식에 참석했다.</p>
-</section>
-    <section class="info-section why-box">
-  <h3>왜 중요한가</h3>
-  <p>ETRI 의 50 년 연구 성과와 TDX 개통 40 년간 통신 인프라 확립 과정을 공식적으로 회고하며 향후 기술 발전의 방향성을 제시했다.</p>
-</section>
-    <section class="info-section">
-  <h3>주요 내용</h3>
-  <p>- 류제명 제 2 차관이 한국전자통신연구원 (ETRI) 의 창립 50 주년을 기념하는 행사에 참석했다.</p><p>- 과학기술정보통신부 산하 연구기관인 ETRI 가 설립 50 년을 맞았다.</p><p>- 대한민국 최초의 국산 전전자교환기 (TDX) 가 개통된 지 40 년이 되는 날을 기념했다.</p><p>- ETRI 창립과 TDX 개통이라는 통신 기술 발전의 주요 이정표를 함께 경축했다.</p>
-</section>
-    <section class="info-section impact-box">
-  <h3>시행 일정</h3>
-  <p>- 2026 년 4 월 1 일 (기념식 개최)</p>
-</section>
-
-        <div class='keywords'><span>#ETRI</span><span>#류제명</span><span>#TDX</span><span>#50주년</span><span>#통신기술</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>통신 및 전자부품 관련 연구개발 기업 및 관련 학계는 정부와의 협력 강화 및 R&amp;D 지원 방향에 대한 시사점을 얻을 수 있습니다.</p>
     </section>
+    <div class='keywords'><span>#ETRI</span><span>#류제명</span><span>#TDX</span><span>#50주년</span><span>#통신기술</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156752194" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

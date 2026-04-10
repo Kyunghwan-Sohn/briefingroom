@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 중소벤처기업부 보도자료</div>
+  <div class="post-badge">중소벤처기업부 보도자료</div>
   <h1 class="post-title">민간 주도 수출 거점 &#x27;글로벌베이스캠프&#x27; 첫 도입, 미 동남부 전진기지 수행기관 모집</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 중소기업을 위해 미국 동남부 지역에 민간 기업이 운영하는 새로운 수출 거점을 세운다.</li><li style='margin-bottom:6px'>지금부터 민간 기업들이 이 거점을 운영할 수행기관으로 지원할 수 있다.</li><li style='margin-bottom:6px'>선정된 기관은 현지에 가게를 내고 미국 바이어(구매자)와 한국 중소기업의 매칭을 도와준다.</li><li style='margin-bottom:6px'>또한 계약 관련 검토나 현지 전문가 상담 등 다양한 지원을 통해 중소기업을 도와준다.</li><li style='margin-bottom:6px'>이로 인해 한국 중소기업이 미국 동남부 시장에서 더 쉽게 사업을 펼칠 수 있다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>중소벤처기업부는 중소기업의 미국 동남부 진출을 지원하기 위해 민간 주도의 해외 수출 거점 &#x27;글로벌베이스캠프&#x27;를 최초로 도입하고 수행기관을 모집한다. 모집 기간은 4월 9일부터 23일까지이며, 선정된 기관은 상설 전시장 운영과 바이어 매칭 등 종합 지원을 수행한다. 이 사업은 미국 동남부 지역 중소기업이 현지에 안착하고 해외 시장에 성공적으로 진출할 수 있도록 돕는 데 목적을 둔다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 중소기업을 위해 미국 동남부 지역에 민간 기업이 운영하는 새로운 수출 거점을 세운다. 지금부터 민간 기업들이 이 거점을 운영할 수행기관으로 지원할 수 있다. 선정된 기관은 현지에 가게를 내고 미국 바이어(구매자)와 한국 중소기업의 매칭을 도와준다. 또한 계약 관련 검토나 현지 전문가 상담 등 다양한 지원을 통해 중소기업을 도와준다. 이로 인해 한국 중소기업이 미국 동남부 시장에서 더 쉽게 사업을 펼칠 수 있다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>미국 동남부 지역 진출을 고민하는 중소기업 관계자는 이 사업의 수행기관 모집 공고를 확인해 지원 기회를 노려야 하기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#글로벌베이스캠프</span><span>#미국 동남부</span><span>#중소기업 수출</span><span>#민간 위탁</span><span>#수행기관 모집</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>중소기업을 대상으로 미국 동남부 지역의 현지 인프라와 네트워크를 적극 활용해 수출 지원의 효율을 높이는 민간 주도의 새로운 모델이 도입됩니다.</p>
     </section>
+    <div class='keywords'><span>#글로벌베이스캠프</span><span>#미국 동남부</span><span>#중소기업 수출</span><span>#민간 위탁</span><span>#수행기관 모집</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753612" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

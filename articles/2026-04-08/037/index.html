@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 해양경찰청 보도자료</div>
+  <div class="post-badge">해양경찰청 보도자료</div>
   <h1 class="post-title">&quot;사고 위험 미리 막는다&quot; 해양경찰청, 해양시설 집중 안전 점검&quot;사고 위험 미리 막는다&quot; 해양경찰청</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>해양경찰청이 바다를 지키기 위해 기름 저장소 등 위험한 시설을 꼼꼼히 점검합니다.</li><li style='margin-bottom:6px'>기간은 이번 달 19 일부터 다음 달 20 일까지 두 달 동안 이루어집니다.</li><li style='margin-bottom:6px'>점검 대상에는 최근 5 년 사이에 사고가 났던 곳이나 아주 많은 기름을 보관하는 곳들이 포함됩니다.</li><li style='margin-bottom:6px'>새로 적용된 &#x27;위험도 평가체계 (시설의 위험 정도를 숫자로 따지는 시스템)&#x27;를 통해 위험한 곳부터 먼저 고칩니다.</li><li style='margin-bottom:6px'>안전한 시설을 만들어 바다 오염 사고가 나지 않도록 미리 예방하는 활동입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>해양경찰청은 대형 해양오염사고를 예방하기 위해 오는 4월 19일부터 6월 20일까지 두 달간 해양시설 292개소에 대한 집중 안전점검을 실시합니다. 이번 점검에는 300 킬로리터 이상 기름·유해물질을 저장하는 시설과 하역시설, 최근 5 년 내 사고 이력이 있는 시설이 대상이며, 개선된 &#x27;위험도 평가체계&#x27;를 적용하여 객관적 수치를 통해 위험도를 관리합니다. 점검 결과 안전문제를 개선하여 대규모 오염사고를 막고 국가적 재난을 예방하는 데 기여할 것으로 기대됩니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">해양경찰청이 바다를 지키기 위해 기름 저장소 등 위험한 시설을 꼼꼼히 점검합니다. 기간은 이번 달 19 일부터 다음 달 20 일까지 두 달 동안 이루어집니다. 점검 대상에는 최근 5 년 사이에 사고가 났던 곳이나 아주 많은 기름을 보관하는 곳들이 포함됩니다. 새로 적용된 &#x27;위험도 평가체계 (시설의 위험 정도를 숫자로 따지는 시스템)&#x27;를 통해 위험한 곳부터 먼저 고칩니다. 안전한 시설을 만들어 바다 오염 사고가 나지 않도록 미리 예방하는 활동입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>해양 시설에서 기름 유출 등 큰 사고가 나면 바다와 국민 생활에 치명적인 영향을 줄 수 있어 예방 점검이 중요하기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#해양경찰청</span><span>#해양시설</span><span>#안전점검</span><span>#해양오염</span><span>#위험도 평가</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>해양 시설 관리 주체는 위험도가 높은 순서대로 안전 조치를 강화하게 되고, 점검을 통해 사고 위험이 미리 줄어들어 국민이 안심할 수 있습니다.</p>
     </section>
+    <div class='keywords'><span>#해양경찰청</span><span>#해양시설</span><span>#안전점검</span><span>#해양오염</span><span>#위험도 평가</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753500" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

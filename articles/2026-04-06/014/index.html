@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 외교부 보도자료</div>
+  <div class="post-badge">외교부 보도자료</div>
   <h1 class="post-title">유엔 인권메커니즘 진출 한국인 위원 간담회 개최</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>외교부가 유엔에서 일하는 한국인 위원들과 모여 이야기를 나눴다.</li><li style='margin-bottom:6px'>2025 년부터 2027 년까지 유엔 인권이사의 자격으로 우리가 어떤 일을 할지 논의했다.</li><li style='margin-bottom:6px'>유엔에서 일하는 6 명의 한국인 위원들 (김미연, 백범석 등) 이 참석했다.</li><li style='margin-bottom:6px'>인공지능 같은 새로운 기술 발전 시대에 인권 보호가 더 중요해졌다고 강조했다.</li><li style='margin-bottom:6px'>한국이 국제 사회에서 인권 문제를 이끌고 나가기 위해 계속 지원하겠다는 뜻을 전했다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>외교부는 유엔 인권협약기구 등 인권메커니즘에서 활동 중인 한국인 위원 6 명과 간담회를 열어 기여 방안을 논의했다. 2026 년 4 월 6 일 개최된 이번 회담에서는 신기술 발전에 따른 인권 기반 접근 등 구체적 주도 활동이 공유되었다. 김미연 위원장, 백범석 의장 등 6 명의 한국인 위원들이 참석하여 신기술·여성·장애·인종차별 등 분야에서 한국의 선도적 역할을 강조한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">외교부가 유엔에서 일하는 한국인 위원들과 모여 이야기를 나눴다. 2025 년부터 2027 년까지 유엔 인권이사의 자격으로 우리가 어떤 일을 할지 논의했다. 유엔에서 일하는 6 명의 한국인 위원들 (김미연, 백범석 등) 이 참석했다. 인공지능 같은 새로운 기술 발전 시대에 인권 보호가 더 중요해졌다고 강조했다. 한국이 국제 사회에서 인권 문제를 이끌고 나가기 위해 계속 지원하겠다는 뜻을 전했다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>우리 정부가 세계 인권 보호 활동을 위해 어떤 구체적인 역할을 하는지 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#유엔 인권</span><span>#외교부 간담회</span><span>#신기술과 인권</span><span>#글로벌 책임강국</span><span>#한국인 위원</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>정부와 유엔 위원들이 협력하여 인공지능 등 신기술 시대의 인권 보호 규범을 주도적으로 만들어가는 활동이 강화됩니다.</p>
     </section>
+    <div class='keywords'><span>#유엔 인권</span><span>#외교부 간담회</span><span>#신기술과 인권</span><span>#글로벌 책임강국</span><span>#한국인 위원</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753137" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

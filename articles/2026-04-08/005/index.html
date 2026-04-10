@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 외교부 보도자료</div>
+  <div class="post-badge">외교부 보도자료</div>
   <h1 class="post-title">중동지역 정세 관련 긴급 화상 공관장회의 개최(4.8.)</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>미국과 이란이 2 주 동안 전쟁을 멈추기로 한 소식에 외교부 차관이 전 중동 지역 대사들과 긴급 회의를 열었습니다.</li><li style='margin-bottom:6px'>중동 지역 전쟁이 길어지면서 에너지와 물건 운송 문제가 생기고 우리 선박도 안전할지 걱정되었기 때문입니다.</li><li style='margin-bottom:6px'>박윤주 차관은 특히 호르무즈 해협 (중동과 아시아를 연결하는 주요 해상 통로) 을 지나가는 우리 배들의 안전을 최우선으로 챙길 것을 강조했습니다.</li><li style='margin-bottom:6px'>대사들은 현지 상황을 파악하며 우리 국민과 기업이 손해를 보지 않도록 현지에 있는 정부 기관과 긴밀히 협력하겠다고 밝혔습니다.</li><li style='margin-bottom:6px'>앞으로도 외교부는 국민 안전과 경제 문제가 생기지 않도록 계속 주시하고 대응해 나간다고 말했습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>외교부가 미국과 이란의 14 일 간 휴전 합의에 대응해 4 월 8 일 박윤주 제 1 차관 주재로 중동지역 전 공관장과 긴급 화상 회의를 개최했다. 이번 회의는 40 일 이상 지속된 중동 전쟁으로 인한 에너지 수급 불안과 호르무즈 해협 통항 리스크에 대한 선제적 대응 방안을 모색하기 위해 소집되었다. 외교부는 재외공관과 긴밀히 협력하여 우리 국민 안전과 경제 안보 피해 최소화를 위한 비상 대응 체계를 유지하기로 했다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">미국과 이란이 2 주 동안 전쟁을 멈추기로 한 소식에 외교부 차관이 전 중동 지역 대사들과 긴급 회의를 열었습니다. 중동 지역 전쟁이 길어지면서 에너지와 물건 운송 문제가 생기고 우리 선박도 안전할지 걱정되었기 때문입니다. 박윤주 차관은 특히 호르무즈 해협 (중동과 아시아를 연결하는 주요 해상 통로) 을 지나가는 우리 배들의 안전을 최우선으로 챙길 것을 강조했습니다. 대사들은 현지 상황을 파악하며 우리 국민과 기업이 손해를 보지 않도록 현지에 있는 정부 기관과 긴밀히 협력하겠다고 밝혔습니다. 앞으로도 외교부는 국민 안전과 경제 문제가 생기지 않도록 계속 주시하고 대응해 나간다고 말했습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>중동 정세 변화는 우리 에너지 가격과 물가, 수출입에 직접적인 영향을 줄 수 있어 국민 경제적 이해관심과 연관이 깊기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#중동정세</span><span>#호르무즈해협</span><span>#경제안보</span><span>#외교부</span><span>#재외국민안전</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>정부 차원에서 중동 지역 사태가 우리 경제와 국민 안전에 미치는 영향을 최소화하기 위한 외교적 대응과 비상 조치 체계가 강화되었습니다.</p>
     </section>
+    <div class='keywords'><span>#중동정세</span><span>#호르무즈해협</span><span>#경제안보</span><span>#외교부</span><span>#재외국민안전</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753549" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -38,7 +38,9 @@
 <style>
 
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe;
+--law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
 
@@ -47,13 +49,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .back:hover{color:var(--t)}
 
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0;white-space:nowrap}
-.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
-.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
-.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
-.bell{color:var(--m);text-decoration:none;font-size:16px;margin-left:auto;flex-shrink:0}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
+.hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
 .site-footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.site-footer a{color:var(--t);text-decoration:none;font-weight:600}
-@media(max-width:768px){body{padding-top:52px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
+@media(max-width:768px){body{padding-top:48px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
 
 .post-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--al);color:var(--a);border:1px solid var(--ab);margin-bottom:14px}
 .post-title{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--t);margin-bottom:20px}
@@ -65,7 +71,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .section-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:8px}
 .summary p{font-size:14px;color:var(--t2);line-height:1.8;background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:14px 16px}
 .info-section{margin-top:18px}
-.info-section p{font-size:14px;line-height:1.55;padding:10px 14px;border-radius:8px;border:1px solid var(--b);background:#fff}
+.info-section p{font-size:14px;line-height:1.8;padding:14px 16px;border-radius:8px;border:1px solid var(--b);background:#fff}
 .why-box p{border-left:4px solid #4a6cf7;background:#eef2ff}
 .impact-box p{border-left:4px solid var(--a);background:var(--al)}
 .law-box{background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:4px 14px}
@@ -74,14 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a class="hnav-a" href="/">홈</a><a class="hnav-a" href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank" rel="noopener">🔔</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div class="post-badge">🏛 산림청 보도자료</div>
+  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
+  <div class="post-badge">산림청 보도자료</div>
   <h1 class="post-title">산림청 영덕국유림관리소, 봄철 산림 내 불법행위 집중단속 실시</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-01</strong></div>
@@ -90,45 +101,29 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   </div>
   <div class="post-content">
     
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>산림청 영덕국유림관리소는 봄철 산불 예방을 위해 4월 1일부터 5월 31일까지 산림 내 불법행위 집중단속을 실시한다. 단속 기간 동안 임산물 불법채취, 산불 소각, 무단입산, 불법산지전용, 쓰레기 투기 등 주요 불법 행위를 집중적으로 점검하여 적발 시 과태료 부과 및 사법처리를 병행한다. 이는 김진헌 소장이 이끄는 영덕국유림관리소 주관으로 추진되어 국민이 산림 자산을 보호하고 불법 행위로부터 안전을 확보하는 데 기여할 것으로 기대된다.</p>
-    </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>봄철이라는 산불 발생 위험이 가장 높은 시기에 선제적으로 불법 행위와 산불 원인을 차단하여 산림 안전과 자원 보전을 강화하는 중요한 정책 실행입니다.</p>
     </section>
-    <section class="info-section">
-  <h3>핵심 요약</h3>
-  <p>산림청 영덕국유림관리소는 4 월 1 일부터 5 월 31 일까지 봄철 산불 예방을 위해 불법 임산물 채취 및 소각 등 산림 내 불법행위 집중단속을 실시한다. 이번 단속기간에는 건조·강풍 등 산불 위험이 높은 시기 불법소각을 병행 단속하여 산불 발생 요인을 사전에 차단할 계획이다.</p>
-</section>
-    <section class="info-section why-box">
-  <h3>왜 중요한가</h3>
-  <p>봄철 건조기로 대형산불 위험이 고조되는 시기에 선제적으로 불법행위를 차단함으로써 산림 자산을 보호하고 산불 발생을 근본적으로 예방한다.</p>
-</section>
-    <section class="info-section">
-  <h3>주요 내용</h3>
-  <p>- 단속 대상에는 산나물 등 임산물 불법채취, 산림 내 불법소각, 입산통제구역 무단입산, 불법산지전용, 쓰레기 투기 등 5 가지 주요 불법행위가 포함된다.</p><p>- 적발된 위반행위에 대해 관련 법령에 따라 과태료 부과나 엄중한 사법처리를 진행하며, 반복적·고의적 위반에 대해서는 강력한 처벌을 적용한다.</p><p>- 방화나 대형산불로 이어질 수 있는 중대 위반행위에 대해서는 무관용 원칙을 적용하여 행위자를 끝까지 추적·검거할 방침이다.</p><p>- 이번 단속은 산나물 채취 증가와 건조한 기상 조건으로 산불 위험이 높아지는 봄철에 선제적으로 대응하기 위해 추진된다.</p>
-</section>
-    <section class="info-section impact-box">
-  <h3>시행 일정</h3>
-  <p>- 4 월 1 일 (시작) ~ 5 월 31 일 (종료)</p>
-</section>
-
-        <div class='keywords'><span>#봄철 집중단속</span><span>#불법임산물채취</span><span>#불법소각</span><span>#산불예방</span><span>#영덕국유림관리소</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>산림 내 작업을 하거나 임산물을 채취하려는 국민 및 관련 업종은 해당 기간 중 불법행위 금지 사항을 엄격히 준수해야 하며, 위반 시 과태료 부과나 형사처벌의 위험이 높아집니다.</p>
     </section>
+    <div class='keywords'><span>#봄철 집중단속</span><span>#불법임산물채취</span><span>#불법소각</span><span>#산불예방</span><span>#영덕국유림관리소</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156752188" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

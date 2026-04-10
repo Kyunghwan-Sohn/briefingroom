@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 농촌진흥청 보도자료</div>
+  <div class="post-badge">농촌진흥청 보도자료</div>
   <h1 class="post-title">농촌진흥청, 과수 저온 피해 경감 기술 적용 현장 점검</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>과일나무가 꽃을 피울 때 갑자기 추위가 찾아오면 열매가 떨어질 수 있어 걱정입니다.</li><li style='margin-bottom:6px'>정부에서는 이를 막기 위해 특별한 약품 (동결보호제) 을 뿌려주는 기술을 개발했습니다.</li><li style='margin-bottom:6px'>이번에 23 개 과수원에서 이 약품이 얼마나 좋은지 시험 중인데요.</li><li style='margin-bottom:6px'>추위 예보가 나오면 약품을 미리 뿌려서 추위가 올 때까지 약이 지속됩니다.</li><li style='margin-bottom:6px'>이 기술이 더 잘 발달하면 과일 농사 손실을 크게 줄일 수 있습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국립원예특작과학원 김대현 원장은 4 월 6 일 충남 천안 배 과수원을 찾아 저온 피해 경감용 동결보호제 적용 상황을 점검했다. 농촌진흥청은 3 월부터 나주 등 23 개 주산지에서 이 기술을 실증 중이며, 저온 발생 2~3 일 전 처리 시 약 7 일간 효과가 지속된다. 해당 기술은 시설이 부족한 과수원에서도 신속 대응이 가능하여 상용화를 위한 기반을 마련하는 과정이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">과일나무가 꽃을 피울 때 갑자기 추위가 찾아오면 열매가 떨어질 수 있어 걱정입니다. 정부에서는 이를 막기 위해 특별한 약품 (동결보호제) 을 뿌려주는 기술을 개발했습니다. 이번에 23 개 과수원에서 이 약품이 얼마나 좋은지 시험 중인데요. 추위 예보가 나오면 약품을 미리 뿌려서 추위가 올 때까지 약이 지속됩니다. 이 기술이 더 잘 발달하면 과일 농사 손실을 크게 줄일 수 있습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>과일 가격과 품질에 직접적인 영향을 미치는 농작물 보호 기술을 정부가 현장 점검하고 상용화를 추진하고 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#농촌진흥청</span><span>#동결보호제</span><span>#과수 저온 피해</span><span>#김대현 원장</span><span>#농업 기술</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>향후 이 기술이 상용화되면 과수 농가에서 저온 피해를 줄이고 열매 생산량을 늘리는 데 실질적인 도움을 받게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#농촌진흥청</span><span>#동결보호제</span><span>#과수 저온 피해</span><span>#김대현 원장</span><span>#농업 기술</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753696" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

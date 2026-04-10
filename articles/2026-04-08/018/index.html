@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 중소벤처기업부 보도자료</div>
+  <div class="post-badge">중소벤처기업부 보도자료</div>
   <h1 class="post-title">스타트업의 혁신기술! K-방산의 미래가 되다「모두의 챌린지 방산」 추진</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부와 국방부는 스타트업이 가진 신기술이 군사용도로 쓰일 수 있도록 도와주는 새로운 플랫폼을 오픈했습니다.</li><li style='margin-bottom:6px'>지금까지는 스타트업이 군에 기술을 팔기가 어렵거나 정보에 접근하기 힘들어 고생했으나, 이제 기회가 생겼습니다.</li><li style='margin-bottom:6px'>특히 드론, 인공지능 (AI), 로봇 같은 최신 기술을 가진 기업 10 곳을 뽑아 최대 6 억 원까지 자금을 지원합니다.</li><li style='margin-bottom:6px'>이곳에서는 스타트업이 만든 기술이 실제로 군에서 쓰이는지 검증 (PoC) 하고, 상용화될 수 있도록 지원합니다.</li><li style='margin-bottom:6px'>국방기술이 더 빨리 발전하고, 스타트업이 큰 돈을 벌 수 있는 새로운 산업 생태계가 만들어집니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>중소벤처기업부와 국방부는 민간 스타트업의 방산 진입 장벽 해소를 위해 민관협력 오픈이노베이션 플랫폼 &#x27;모두의 챌린지 방산&#x27;을 4 월 8 일 (수) 본격 추진한다. 이번 챌린지에서는 AI, 드론, 로봇 등 첨단기술 기반의 협업 과제 10 개를 선정하며, 선정 과제에는 최대 1 억 원의 시범연구 자금과 최대 6 억 원의 사업화 연구개발 연계 기회를 제공한다. 이 제도는 대기업 중심의 기존 방산 생태계를 탈피하여 스타트업이 국방 기술혁신의 주체로 성장할 수 있는 길을 열어주어 향후 방위산업 경쟁력 강화에 기여할 것이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부와 국방부는 스타트업이 가진 신기술이 군사용도로 쓰일 수 있도록 도와주는 새로운 플랫폼을 오픈했습니다. 지금까지는 스타트업이 군에 기술을 팔기가 어렵거나 정보에 접근하기 힘들어 고생했으나, 이제 기회가 생겼습니다. 특히 드론, 인공지능 (AI), 로봇 같은 최신 기술을 가진 기업 10 곳을 뽑아 최대 6 억 원까지 자금을 지원합니다. 이곳에서는 스타트업이 만든 기술이 실제로 군에서 쓰이는지 검증 (PoC) 하고, 상용화될 수 있도록 지원합니다. 국방기술이 더 빨리 발전하고, 스타트업이 큰 돈을 벌 수 있는 새로운 산업 생태계가 만들어집니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 보도는 스타트업에게 방산 시장에 진출할 수 있는 새로운 기회와 막대한 재정 지원을 알리는 내용입니다.</p>
     </section>
-    <div class='keywords'><span>#스타트업</span><span>#방산</span><span>#모두의 챌린지</span><span>#오픈이노베이션</span><span>#민관협력</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>스타트업은 국방 분야에서 기술을 검증받고 사업화할 수 있는 자금과 기회를 얻게 되며, 국가는 민간의 혁신 기술을 활용한 기술 혁신 가속화가 가능해집니다.</p>
     </section>
+    <div class='keywords'><span>#스타트업</span><span>#방산</span><span>#모두의 챌린지</span><span>#오픈이노베이션</span><span>#민관협력</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753532" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

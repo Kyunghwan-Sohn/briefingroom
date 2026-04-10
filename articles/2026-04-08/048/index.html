@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 산림청 보도자료</div>
+  <div class="post-badge">산림청 보도자료</div>
   <h1 class="post-title">서부지방산림청, 산불예방 홍보 캠페인 실시</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>산림청이 야구장에서 산불이 나지 않도록 지켜달라고 알렸습니다. 많은 사람이 보는 곳에서 나무와 산이 잘 보호되도록 캠페인을 했습니다. 홍보물을 나누어주고 진화 차를 보여주는 등 다양한 활동을 했습니다. 경기장 화면에 산불 예방 영상을 틀어 모두에게 알려주었습니다. 국민들이 서약에 참여해 작은 노력으로 큰 산불을 막을 수 있게 했습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>서부지방산림청(청장 김인천)은 4월 7일 봄철 대형산불 특별대책기간 중 광주 기아챔피언스필드에서 산불예방 홍보 캠페인을 실시했습니다. 주요 내용으로는 홍보물 배부, 전광판 동영상 송출, 진화차 전시, 서약 참여 유도 등이 포함되었습니다. 이번 캠페인은 다수의 시민이 모이는 스포츠 장소를 활용하여 산불 예방 관심을 높이고 국민의 자발적 참여를 유도하기 위해 추진되었습니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">산림청이 야구장에서 산불이 나지 않도록 지켜달라고 알렸습니다. 많은 사람이 보는 곳에서 나무와 산이 잘 보호되도록 캠페인을 했습니다. 홍보물을 나누어주고 진화 차를 보여주는 등 다양한 활동을 했습니다. 경기장 화면에 산불 예방 영상을 틀어 모두에게 알려주었습니다. 국민들이 서약에 참여해 작은 노력으로 큰 산불을 막을 수 있게 했습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>봄철에 산림이 태어나는 대형 산불로부터 내 주변의 산을 보호하는 방법을 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#산불예방</span><span>#서부지방산림청</span><span>#광주기아챔피언스필드</span><span>#홍보 캠페인</span><span>#봄철 대형산불 특별대책</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>산불 예방에 대한 국민들의 관심과 참여가 늘어나 실제 산불 발생 위험이 줄어듭니다.</p>
     </section>
+    <div class='keywords'><span>#산불예방</span><span>#서부지방산림청</span><span>#광주기아챔피언스필드</span><span>#홍보 캠페인</span><span>#봄철 대형산불 특별대책</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753472" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 개인정보보호위원회 보도자료</div>
+  <div class="post-badge">개인정보보호위원회 보도자료</div>
   <h1 class="post-title">개인정보위, 고객센터에 상담업무를 위탁하는 5개 분야 개인정보 보호 사전 실태점검 추진개인정보위</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>최근 배달 앱 상담사가 고객 주소를 잘못 써서 벌어진 사건 때문에, 고객센터가 업무를 대신하는 업체들을 집중적으로 점검합니다. 어떤 업체를 볼까요? 배달, 홈쇼핑, 인터넷 쇼핑, 렌탈, 전화 통신 등 5 개 분야 고객센터를 대상으로 합니다. 무엇을Checks 하세요? 상담사가 필요한 정보만 볼 수 있는지, 기록을 잘 지키는지, 계정 이름을 나누어 쓰지는 않는지 봅니다. 왜 이걸 하나요? 상담사가 고객 정보를 함부로 보면 범죄에 이용될 수 있어 안전을 미리 확인하는 것입니다. 무슨 결과가 나나요? 문제가 있으면 고치고, 국민들이 안심하고 서비스를 이용할 수 있도록 돕겠습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>개인정보보호위원회는 최근 배달 사업자 상담사의 고객정보 무단 조회 사건을 계기로, 고객센터 상담 업무를 위탁하는 5 개 분야에 대한 사전 실태점검을 2026 년 4 월 6 일 실시한다고 발표했습니다. 이번 점검은 배달, 홈쇼핑, 온라인 쇼핑, 렌탈, 유선통신 분야에서 상담사의 접근 권한 관리와 접속 기록 보관 등 안전조치 의무 준수 여부와 수탁사 교육 실태를 집중적으로 확인합니다. 이를 통해 개인정보취급자 권한 부여 현황, 계정 공유 여부 등 미비점을 사전에 시정 권고하고 개선하여 국민이 안심할 수 있는 서비스 환경을 조성합니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">최근 배달 앱 상담사가 고객 주소를 잘못 써서 벌어진 사건 때문에, 고객센터가 업무를 대신하는 업체들을 집중적으로 점검합니다. 어떤 업체를 볼까요? 배달, 홈쇼핑, 인터넷 쇼핑, 렌탈, 전화 통신 등 5 개 분야 고객센터를 대상으로 합니다. 무엇을Checks 하세요? 상담사가 필요한 정보만 볼 수 있는지, 기록을 잘 지키는지, 계정 이름을 나누어 쓰지는 않는지 봅니다. 왜 이걸 하나요? 상담사가 고객 정보를 함부로 보면 범죄에 이용될 수 있어 안전을 미리 확인하는 것입니다. 무슨 결과가 나나요? 문제가 있으면 고치고, 국민들이 안심하고 서비스를 이용할 수 있도록 돕겠습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 보도자료는 최근 개인정보 유출 사건을 계기로 고객센터 업무 위탁 시 발생할 수 있는 위험을 사전에 막기 위한 정부 점검 계획이므로, 이용 중인 서비스의 안전성에 관심이 있는 국민이라면 반드시 알아야 합니다.</p>
     </section>
-    <div class='keywords'><span>#개인정보보호위원회</span><span>#고객센터</span><span>#사전실태점검</span><span>#접근권한</span><span>#수탁사</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>점검을 받은 기업들은 상담사 권한 관리와 기록 보관 등을 강화해야 하며, 앞으로 서비스 이용 시 개인정보가 더욱 안전하게 보호받을 수 있게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#개인정보보호위원회</span><span>#고객센터</span><span>#사전실태점검</span><span>#접근권한</span><span>#수탁사</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753125" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

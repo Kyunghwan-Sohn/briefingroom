@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 고용노동부 보도자료</div>
+  <div class="post-badge">고용노동부 보도자료</div>
   <h1 class="post-title">취약노동자 지원, 현장 속으로 더 촘촘하게!</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>취약계층 노동자를 위한 새로운 지원 프로그램을 모집합니다. 1,2 차에 걸쳐 전국 곳곳에서 일하는 많은 기관이 참여할 수 있도록 기회를 줍니다. 플랫폼이나 프리랜서처럼 보호를 받지 못하는 근로자들을 위한 실질적인 도움을 찾습니다. 전문가로부터 법적 상담을 받거나, 안전하고 권리를 지키는 법을 배우는 교육을 합니다. 이 사업이 끝날 때쯤 지역마다 노동자들이 더 튼튼한 지원 체계를 갖게 됩니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>노사발전재단이 지역 특성과 노동 환경에 맞춘 취약노동자 지원 프로그램을 확대하기 위해 2 차 수행기관 공모를 추진한다. 1 차 공모에서 선정된 24 개소를 포함하여 플랫폼·프리랜서 등 사각지대 노동자를 대상으로 상담, 교육, 소통 프로그램 등 현장 중심 지원을 확대한다. 민간 노동센터 및 비영리단체가 사업자로 참여하여 지역의 맞춤형 지원 체계를 강화함으로써 취약노동자 보호 실효성을 높인다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">취약계층 노동자를 위한 새로운 지원 프로그램을 모집합니다. 1,2 차에 걸쳐 전국 곳곳에서 일하는 많은 기관이 참여할 수 있도록 기회를 줍니다. 플랫폼이나 프리랜서처럼 보호를 받지 못하는 근로자들을 위한 실질적인 도움을 찾습니다. 전문가로부터 법적 상담을 받거나, 안전하고 권리를 지키는 법을 배우는 교육을 합니다. 이 사업이 끝날 때쯤 지역마다 노동자들이 더 튼튼한 지원 체계를 갖게 됩니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>취업이 불안정하거나 노동법을 잘 모르는 근로자들에게 실제로 필요한 도움을 줄 수 있는 기관이 어디인지 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#취약노동자</span><span>#노사발전재단</span><span>#맞춤형 프로그램</span><span>#2 차 공모</span><span>#플랫폼노동자</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>지역별 맞춤 지원 기관이 늘어나고 플랫폼 노동자 등 사각지대 근로자에게 법적 상담이나 교육이 더 쉽게 제공됩니다.</p>
     </section>
+    <div class='keywords'><span>#취약노동자</span><span>#노사발전재단</span><span>#맞춤형 프로그램</span><span>#2 차 공모</span><span>#플랫폼노동자</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753466" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 산림청 보도자료</div>
+  <div class="post-badge">산림청 보도자료</div>
   <h1 class="post-title">중동전쟁 공급망 위기, &quot;첨단 R앤D로 넘는다&quot;</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>산불이 날 때 쓰는 소화약제를 만드는 공장 (㈜대명하이테크) 을 찾아 현재 상황을 확인했다. 2023 년에 개발한 친환경 약품으로 2025 년 큰 산불 때 좋은 성과를 냈다. 앞으로 더 성능이 뛰어난 약품과 드론을 이용해 정밀하게 진화하는 기술을 개발 중이다. 이 기술은 전쟁 등 원자재 수급 위기에도 흔들리지 않도록 만드는 데 목적이 있다. 2027 년 초부터 새로운 기술을 실제 산불 현장에 적용해 효과를 본다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>산림청은 중동 전쟁으로 인한 원자재 수급 위기 대응을 위해 산불 소화약제 생산 현장 및 차세대 기술 개발 상황을 점검한다. 2023 년 성공한 친환경 소화약제 국산화 기술을 바탕으로 차세대 복합 진화약제와 드론 투하 시스템을 2027 년 초부터 실증 도입한다. 이를 통해 대형 산불 확산을 신속히 차단하고 국가 유산과 국민 안전을 보호하는 과학기술 기반의 산불 대응 체계를 구축한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">산불이 날 때 쓰는 소화약제를 만드는 공장 (㈜대명하이테크) 을 찾아 현재 상황을 확인했다. 2023 년에 개발한 친환경 약품으로 2025 년 큰 산불 때 좋은 성과를 냈다. 앞으로 더 성능이 뛰어난 약품과 드론을 이용해 정밀하게 진화하는 기술을 개발 중이다. 이 기술은 전쟁 등 원자재 수급 위기에도 흔들리지 않도록 만드는 데 목적이 있다. 2027 년 초부터 새로운 기술을 실제 산불 현장에 적용해 효과를 본다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 기사는 국가 재난 대응 체계를 위한 첨단 기술 개발 현황과 원자재 수급 안정화 대책을 알려주기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#산불소화약제</span><span>#첨단 R&amp;D</span><span>#공급망 위기</span><span>#군집드론</span><span>#친환경 진화제</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>향후 대형 산불 발생 시 더 안전하고 정확한 소화약제와 드론 기술이 실시간으로 활용되어 피해가 줄어든다.</p>
     </section>
+    <div class='keywords'><span>#산불소화약제</span><span>#첨단 R&amp;D</span><span>#공급망 위기</span><span>#군집드론</span><span>#친환경 진화제</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753544" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

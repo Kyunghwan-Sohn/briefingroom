@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 국가유산청 보도자료</div>
+  <div class="post-badge">국가유산청 보도자료</div>
   <h1 class="post-title">국가유산청, 「2026~2030 신라왕경 핵심유적 복원·정비 종합계획」 수립</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 2026 년부터 2030 년까지 신라 왕궁과 같은 옛 유적지를 복원하는 계획을 발표했습니다.</li><li style='margin-bottom:6px'>황룡사 탑이나 월성 같은 중요한 유적을 가상의 기술 (AR/VR) 을 이용해 생생하게 복원할 계획입니다.</li><li style='margin-bottom:6px'>세계유산 (UNESCO 가 지정한 보호 구역) 의 가치를 보호하기 위해 개발 전 반드시 영향을 평가하는 제도를 시작합니다.</li><li style='margin-bottom:6px'>단순히 유적지를 고치는 것을 넘어, 옛 길과 공원 등을 연결하여 큰 역사 공간을 만들어갑니다.</li><li style='margin-bottom:6px'>국민들이 옛 신라 시대로 간 것처럼 직접 걸으며 역사를 즐길 수 있는 공간이 조성됩니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국가유산청은「2026~2030 신라왕경 핵심유적 복원·정비 종합계획」을 수립하여 신라왕경의 역사적 정체성을 회복하고 진정성을 미래 세대에게 전승한다. 2030 년까지 황룡사 9 층 목탑 등 주요 유적에 AR·VR 디지털 복원을 추진하고 세계유산영향평가 제도를 전면 도입하며, 점 단위에서 면 단위 정비로 전환한다. 해당 계획은 신라왕경의 입체적 회복을 통해 발굴된 유적 주변을 국민이 체감할 수 있는 거대한 역사문화 벨트로 조성하는 것을 목표로 한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 2026 년부터 2030 년까지 신라 왕궁과 같은 옛 유적지를 복원하는 계획을 발표했습니다. 황룡사 탑이나 월성 같은 중요한 유적을 가상의 기술 (AR/VR) 을 이용해 생생하게 복원할 계획입니다. 세계유산 (UNESCO 가 지정한 보호 구역) 의 가치를 보호하기 위해 개발 전 반드시 영향을 평가하는 제도를 시작합니다. 단순히 유적지를 고치는 것을 넘어, 옛 길과 공원 등을 연결하여 큰 역사 공간을 만들어갑니다. 국민들이 옛 신라 시대로 간 것처럼 직접 걸으며 역사를 즐길 수 있는 공간이 조성됩니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>내 자녀들이나 우리가 미래에 볼 역사 현장이 어떻게 달라지고, 어떤 기술을 통해 더 생생하게 경험하게 될지 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#국가유산청</span><span>#신라왕경</span><span>#황룡사</span><span>#디지털 복원</span><span>#세계유산영향평가</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>정부와 지자체가 유적 정비 시 세계유산 영향평가 (유산 보존 영향 분석) 를 필수로 하고 디지털 기술을 활용한 복원 콘텐츠를 늘려 국민 참여형 역사 공간을 확대합니다.</p>
     </section>
+    <div class='keywords'><span>#국가유산청</span><span>#신라왕경</span><span>#황룡사</span><span>#디지털 복원</span><span>#세계유산영향평가</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753027" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

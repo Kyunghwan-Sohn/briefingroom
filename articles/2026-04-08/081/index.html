@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 국무조정실 보도자료</div>
+  <div class="post-badge">국무조정실 보도자료</div>
   <h1 class="post-title">[보도자료] 제33차 새만금위원회 서면심의 보도자료</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>새만금 지역을 더 발전시키기 위해 특별한 혜택을 주는 구역과 새로운 도로를 만들기로 결정했습니다.</li><li style='margin-bottom:6px'>특수 혜택을 주는 구역을 6 제곱킬로미터만큼 더 넓혀 기업들이 새만금에 더 쉽게 투자를 하도록 돕습니다.</li><li style='margin-bottom:6px'>투자하는 기업은 3 년간 세금을 전혀 내지 않고, 그 뒤 2 년 동안은 절반만 내면 됩니다.</li><li style='margin-bottom:6px'>약 1 조 원의 돈을 들여 20 킬로미터 길이의 새로운 도로를 만들어 지역 간 이동이 훨씬 쉬워집니다.</li><li style='margin-bottom:6px'>이 모든 사업은 2030 년에 완성되어 새로운 도시가 제때 열리기를 기다리게 됩니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>새만금위원회는 제 33 회 서면 심의를 통해 제 2 호 투자진흥지구 지정 계획과 지역 간 연결도로 개발 기본계획을 의결했습니다. 법인세와 소득세 최대 100% 감면 혜택이 부여되는 6.0㎢ 규모의 제 2 호 투자진흥지구와 총사업비 1 조 1330 억원 규모의 도로 건설 계획이 포함되었습니다. 이번 결정은 2026 년 3 월 지정·고시 예정이며, 현대차 등 대기업의 대규모 투자 유치와 지역 접근성 개선을 통해 새만금 개발을 가속화할 것입니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">새만금 지역을 더 발전시키기 위해 특별한 혜택을 주는 구역과 새로운 도로를 만들기로 결정했습니다. 특수 혜택을 주는 구역을 6 제곱킬로미터만큼 더 넓혀 기업들이 새만금에 더 쉽게 투자를 하도록 돕습니다. 투자하는 기업은 3 년간 세금을 전혀 내지 않고, 그 뒤 2 년 동안은 절반만 내면 됩니다. 약 1 조 원의 돈을 들여 20 킬로미터 길이의 새로운 도로를 만들어 지역 간 이동이 훨씬 쉬워집니다. 이 모든 사업은 2030 년에 완성되어 새로운 도시가 제때 열리기를 기다리게 됩니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 보도는 대규모 세제 혜택과 인프라 투자 결정이 국민 경제와 지역 발전에 직접적인 영향을 주기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#새만금</span><span>#투자진흥지구</span><span>#법인세 감면</span><span>#지역간 연결도로</span><span>#현대차투자</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>새만금에 진출하려는 기업은 세제 혜택을 크게 받아 투자를 늘리고, 국민은 개선된 교통망으로 지역 이동이 편리해질 것입니다.</p>
     </section>
+    <div class='keywords'><span>#새만금</span><span>#투자진흥지구</span><span>#법인세 감면</span><span>#지역간 연결도로</span><span>#현대차투자</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753386" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

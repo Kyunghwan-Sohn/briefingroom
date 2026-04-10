@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 국토교통부 보도자료</div>
+  <div class="post-badge">국토교통부 보도자료</div>
   <h1 class="post-title">[참고] KTX·SRT 교차운행 이용객 88.3% &quot;만족&quot;</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>KTX와 SRT가 서로 다른 열차를 같이 탈 수 있게 하는 교차운행에 사람들이 88%나 만족한다고 답했습니다.</li><li style='margin-bottom:6px'>이번 조사는 2 월과 3 월에 KTX 와 SRT 를 탄 사람들 392 명을 조사한 결과입니다.</li><li style='margin-bottom:6px'>사람들은 앞으로 두 회사가 하나로 통합되면 예매 앱을 하나로 만들고 좌석 수를 늘려달라고 바랍니다.</li><li style='margin-bottom:6px'>특히 기차표가 부족해서 엉뚱한 곳으로 우회해야 하는 불편함을 해결해달라는 요구가 많았습니다.</li><li style='margin-bottom:6px'>국토부와 철도 회사는 오는 9 월까지 통합 운행을 하고 통합 예약 앱을 만들 계획이라고 했습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국토교통부는 KTX·SRT 교차운행 이용객 392명을 대상으로 한 설문조사 결과, 88.3%가 교차운행에 만족한다고 밝혔다. 조사 대상자들은 향후 통합 시 예약 앱 통합과 좌석 확대를 최우선 개선 과제로 제시했으며, 이에 따라 국토부와 철도사는 오는 9월 내에 통합 운행을 실시하고 통합 앱 구축을 추진할 계획이다. 이번 결과는 교차운행이 좌석 수 증가와 목적지 선택권 확대 등을 통해 국민 불편을 줄이는 성과를 거둔 것으로 평가받는다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">KTX와 SRT가 서로 다른 열차를 같이 탈 수 있게 하는 교차운행에 사람들이 88%나 만족한다고 답했습니다. 이번 조사는 2 월과 3 월에 KTX 와 SRT 를 탄 사람들 392 명을 조사한 결과입니다. 사람들은 앞으로 두 회사가 하나로 통합되면 예매 앱을 하나로 만들고 좌석 수를 늘려달라고 바랍니다. 특히 기차표가 부족해서 엉뚱한 곳으로 우회해야 하는 불편함을 해결해달라는 요구가 많았습니다. 국토부와 철도 회사는 오는 9 월까지 통합 운행을 하고 통합 예약 앱을 만들 계획이라고 했습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>KTX 와 SRT 통합으로 기차표를 더 쉽게 예매하고 더 많은 좌석을 이용할 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#KTX</span><span>#SRT</span><span>#교차운행</span><span>#통합예약앱</span><span>#철도통합</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>오는 9 월부터 KTX 와 SRT 가 통합되어 한 앱으로 기차표를 예매하고 좌석 공급이 대폭 늘어납니다.</p>
     </section>
+    <div class='keywords'><span>#KTX</span><span>#SRT</span><span>#교차운행</span><span>#통합예약앱</span><span>#철도통합</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753321" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

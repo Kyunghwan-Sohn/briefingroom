@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 중소벤처기업부 보도자료</div>
+  <div class="post-badge">중소벤처기업부 보도자료</div>
   <h1 class="post-title">4월은 지역축제와 동행하세요!</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>중동전쟁 때문에 사람들이 돈을 쓰지 않으려는 상황을 극복하기 위해 정부가 4 월 한 달 동안 큰 쇼핑축제를 연다. 전국 50 개 곳에서 열리는 축제와 연계해 여행 상품이나 할인 쿠폰, 경품 추첨 등 많은 혜택을 준다. 대형 마트나 온라인 쇼핑몰, 카드사 등 200 개 판매처에서 물건 값을 크게 깎아주어 누구나 쉽게 살 수 있다. 특히 외국인 관광객이 몰리는 곳에 안내소 (웰컴센터) 를 두어 지역 상점으로 손님을 데려가 경제가 돌아가게 돕는다. 소상공인 판매점과 대형 유통망을 모두 참여시켜 지역 경제를 살리고 누구나 혜택을 받도록 했다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>중소벤처기업부는 중동전쟁으로 인한 소비 심리 위축을 극복하고 민생경제를 회복하기 위해 4 월 11 일부터 5 월 10 일까지 &#x27;4 월 동행축제&#x27;를 개최한다. 이번 행사는 온·오프라인 유통 채널 200 개와 3 만 3 천 개 소상공인이 참여하며, 지역 50 개 축제와 연계해 카드 할인, 상품권 추첨, 대규모 할인 판매전 등 다양한 혜택을 제공한다. 이를 통해 관광객이 지역 골목상권으로 자연스럽게 유입되고 지역 소비가 확대되어 소상공인의 매출이 늘고 지역경제가 활성화될 것으로 예상된다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">중동전쟁 때문에 사람들이 돈을 쓰지 않으려는 상황을 극복하기 위해 정부가 4 월 한 달 동안 큰 쇼핑축제를 연다. 전국 50 개 곳에서 열리는 축제와 연계해 여행 상품이나 할인 쿠폰, 경품 추첨 등 많은 혜택을 준다. 대형 마트나 온라인 쇼핑몰, 카드사 등 200 개 판매처에서 물건 값을 크게 깎아주어 누구나 쉽게 살 수 있다. 특히 외국인 관광객이 몰리는 곳에 안내소 (웰컴센터) 를 두어 지역 상점으로 손님을 데려가 경제가 돌아가게 돕는다. 소상공인 판매점과 대형 유통망을 모두 참여시켜 지역 경제를 살리고 누구나 혜택을 받도록 했다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>소비 심리가 위축된 상황에서 내수 진작을 위해 정부와 기업이 참여하는 구체적인 할인 지원 정책이 언제 어디서 진행되는지 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#4 월 동행축제</span><span>#지역경제 활성화</span><span>#소상공인 지원</span><span>#중동전쟁 피해 대응</span><span>#카드 할인 혜택</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국민은 4 월과 5 월 초에 지역 축제와 연계한 다양한 할인 혜택을 받아 물품을 저렴하게 구매하고, 소상공인은 매출이 늘어나는 기회를 얻게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#4 월 동행축제</span><span>#지역경제 활성화</span><span>#소상공인 지원</span><span>#중동전쟁 피해 대응</span><span>#카드 할인 혜택</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753081" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

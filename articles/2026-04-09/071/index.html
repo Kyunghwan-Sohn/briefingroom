@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 보건복지부 보도자료</div>
+  <div class="post-badge">보건복지부 보도자료</div>
   <h1 class="post-title">전국 각지에서 생산된 장애인생산품 한자리에 모여 우수성 알린다</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>장애인분들이 만든 맛있는 음식과 생활용품들을 4 월 9 일과 10 일 서울 청계광장에서 만나볼 수 있습니다. 이번 행사에서는 50 개 장소에서 장애인분들이 직접 만든 제품을 팔고 함께 체험할 수 있는 기회가 생깁니다. 전국에는 장애인들을 위해 일할 수 있는 곳이 834 개 있으며, 많은 분이 이곳에서 기술을 배우고 일자리를 구하고 있습니다. 정부에서는 공공기관이 장애인분들이 만든 제품을 일정 비율 구매하도록 의무를 부과하여 그들을 지원하고 있습니다. 장애인들이 더 좋은 제품으로 사회적 역할을 할 수 있도록 돕는 중요한 행사이므로 많은 관심과 구매를 부탁드립니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>보건복지부는 제 46 회 장애인의 날을 앞두고 4 월 9 일과 10 일 이틀간 청계광장에서‘2026 년 장애인생산품 홍보장터’를 개최합니다. 전국 50 개 시설에서 생산하는 식품, 생활용품 등 다양한 장애인생산품을 전시·판매하고 체험 프로그램을 운영합니다. 전국 834 개 시설에서 2 만 2 천여 명이 직업재활을 받으며, 이번 행사는 장애인생산품에 대한 인식 개선과 판로 확대를 목적으로 합니다. 공공기관의 의무 구매 제도를 통해 장애인의 사회적 참여를 지원할 예정입니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">장애인분들이 만든 맛있는 음식과 생활용품들을 4 월 9 일과 10 일 서울 청계광장에서 만나볼 수 있습니다. 이번 행사에서는 50 개 장소에서 장애인분들이 직접 만든 제품을 팔고 함께 체험할 수 있는 기회가 생깁니다. 전국에는 장애인들을 위해 일할 수 있는 곳이 834 개 있으며, 많은 분이 이곳에서 기술을 배우고 일자리를 구하고 있습니다. 정부에서는 공공기관이 장애인분들이 만든 제품을 일정 비율 구매하도록 의무를 부과하여 그들을 지원하고 있습니다. 장애인들이 더 좋은 제품으로 사회적 역할을 할 수 있도록 돕는 중요한 행사이므로 많은 관심과 구매를 부탁드립니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 보도자료는 장애인이 만든 제품의 우수성을 알리고 구매를 장려하여 장애인 근로자의 일자리와 소득 안정을 지원하기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#장애인생산품</span><span>#홍보장터</span><span>#청계광장</span><span>#직업재활</span><span>#중증장애인생산품 우선구매</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>시민들은 이번 행사를 통해 장애인 생산품을 직접 체험하고 구매할 기회가 생기고, 기업 및 공공기관은 장애인 생산품 우선 구매 의무를 유지하여 장애인 일자리 시장을 확대합니다.</p>
     </section>
+    <div class='keywords'><span>#장애인생산품</span><span>#홍보장터</span><span>#청계광장</span><span>#직업재활</span><span>#중증장애인생산품 우선구매</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.mohw.go.kr/board.es?mid=a10503000000&amp;bid=0027&amp;act=view&amp;list_no=1490033&amp;tag=&amp;nPage=1" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -83,15 +83,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 공정거래위원회 보도자료</div>
+  <div class="post-badge">공정거래위원회 보도자료</div>
   <h1 class="post-title">에이치디씨(주)의 부당지원행위 제재</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -101,32 +105,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>대기업 계열사가 형식적으로 임대 계약을 맺는 것처럼 보이면서 실제로는 돈을 빌려주는 방식을 사용했다.</li><li style='margin-bottom:6px'>이 과정에서 빌린 돈에 대한 이자를 거의 받지 않아 계열사만 유리한 상황을 만들었다.</li><li style='margin-bottom:6px'>이러한 행위는 다른 경쟁 업체들에게 불공정한 이점을 주어 시장의 공정한 경쟁을 해쳤다.</li><li style='margin-bottom:6px'>공정거래위원회는 이를 적발하여 약 171억원의 벌금을 물리고 불법 행위를 중지하도록 명령했다.</li><li style='margin-bottom:6px'>국세청에서도 이 사실이 사실상의 빚이라고 판단해 과세했고 법원에서도 이를 인정했다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>공정거래위원회는 에이치디씨가 계열사인 아이파크몰에 대해 임대차 계약을 위장한 우회적인 자금지원(이자율 0.3% 수준)을 한 부당지원행위를 규탄하고 시정명령 및 171억 3천만 원의 과징금을 부과하기로 결정했다.
-주요 수치와 시점은 2006년 3월부터 2020년 6월까지 약 14년간 계속된 지원행위에 대해 2024년 현재 제재가 발표되었으며, 에이치디씨는 이에 불복했으나 대법원이 2025년 2월 우회자금대여 사실을 최종 확정했다.
-대상은 상호출자제한기업집단 소속 에이치디씨로, 이 제재는 우량 계열사가 부실 계열사를 지원하여 시장 경쟁을 왜곡한 행위를 차단하고 공정한 거래 질서를 확립하기 위한 것이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">대기업 계열사가 형식적으로 임대 계약을 맺는 것처럼 보이면서 실제로는 돈을 빌려주는 방식을 사용했다. 이 과정에서 빌린 돈에 대한 이자를 거의 받지 않아 계열사만 유리한 상황을 만들었다. 이러한 행위는 다른 경쟁 업체들에게 불공정한 이점을 주어 시장의 공정한 경쟁을 해쳤다. 공정거래위원회는 이를 적발하여 약 171억원의 벌금을 물리고 불법 행위를 중지하도록 명령했다. 국세청에서도 이 사실이 사실상의 빚이라고 판단해 과세했고 법원에서도 이를 인정했다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>기업이 계약 명칭만 바꿔 불법으로 돈을 빌려주거나 지원을 하는 행위를 규제하는 사례를 통해 실제 사업 환경을 이해할 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#공정거래위원회</span><span>#부당지원</span><span>#우회적 자금지원</span><span>#과징금</span><span>#임대차 위장</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>기업들은 임대차 등으로 위장한 우회 자금 지원 등 불법 지원을 할 수 없게 되며, 부당한 경쟁 우위를 가진 기업이 제재를 받아 시장 질서가 공정해질 것입니다.</p>
     </section>
+    <div class='keywords'><span>#공정거래위원회</span><span>#부당지원</span><span>#우회적 자금지원</span><span>#과징금</span><span>#임대차 위장</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753475" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

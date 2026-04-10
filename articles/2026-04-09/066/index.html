@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 한국은행 보도자료</div>
+  <div class="post-badge">한국은행 보도자료</div>
   <h1 class="post-title">2025년 자금순환(잠정)</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>2025 년 한국 경제에서 돈이 어디로 얼마나 흐르는지를 분석한 결과, 나라 전체적으로 돈이 158 조원 넘게 남았습니다. 가계 (일반 시민과 단체) 는 저축과 투자를 통해 남는 돈 (순운용) 이 270 조원 가까이 크게 늘어났습니다. 반면 정부와 기업 (비금융법인) 은 사업을 하거나 국고를 채우기 위해 각각 50 조원, 30 여 조원씩 돈을 빌렸습니다. 주요 원인 중 하나는 시민들이 주식이나 펀드에 투자하고, 정부는 예산을 마련하기 위해 돈을 더 많이 발행했기 때문입니다. 이 통계는 경제 주체들이 서로에게 돈을 주고받는 흐름을 파악하여 경제적 상황을 이해하는 데 필수적입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>한국은행은 2025 년 국민경제 부문의 순자금운용이 158.2 조원으로 전년 대비 확대되었다고 발표했다. 가계 및 비영리단체는 269.7 조원을 순운용한 반면 일반정부는 52.6 조원, 비금융법인은 34.2 조원을 각각 조달했다. 이는 가계와 기업의 자산 투자 증가와 정부의 국채 발행 확대에 기인한 결과다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">2025 년 한국 경제에서 돈이 어디로 얼마나 흐르는지를 분석한 결과, 나라 전체적으로 돈이 158 조원 넘게 남았습니다. 가계 (일반 시민과 단체) 는 저축과 투자를 통해 남는 돈 (순운용) 이 270 조원 가까이 크게 늘어났습니다. 반면 정부와 기업 (비금융법인) 은 사업을 하거나 국고를 채우기 위해 각각 50 조원, 30 여 조원씩 돈을 빌렸습니다. 주요 원인 중 하나는 시민들이 주식이나 펀드에 투자하고, 정부는 예산을 마련하기 위해 돈을 더 많이 발행했기 때문입니다. 이 통계는 경제 주체들이 서로에게 돈을 주고받는 흐름을 파악하여 경제적 상황을 이해하는 데 필수적입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 통계는 경제 주체들이 서로에게 돈을 주고받는 흐름을 파악하여 경제적 상황을 이해하는 데 필수적입니다.</p>
     </section>
-    <div class='keywords'><span>#한국은행</span><span>#자금순환</span><span>#2025 년</span><span>#가계순운용</span><span>#정부순조달</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>이 보도자료를 통해 가계의 부채와 투자 규모, 정부의 재정 상태, 기업의 자금 조달 상황 등 전체 경제의 자금 흐름 변화를 파악할 수 있습니다.</p>
     </section>
+    <div class='keywords'><span>#한국은행</span><span>#자금순환</span><span>#2025 년</span><span>#가계순운용</span><span>#정부순조달</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.bok.or.kr/portal/bbs/B0000501/view.do?nttId=10097406&amp;searchCnd=1&amp;searchKwd=&amp;depth2=200038&amp;depth3=201263&amp;depth=201263&amp;pageUnit=10&amp;pageIndex=1&amp;programType=newsData&amp;menuNo=201264&amp;oldMenuNo=201263" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

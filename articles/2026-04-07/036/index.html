@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 관세청 보도자료</div>
+  <div class="post-badge">관세청 보도자료</div>
   <h1 class="post-title">&#x27;26년 1/4분기 총 302건, 180kg 국경단계 마약류 적발&#x27;26년 1/4분기 총 302건</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>2026년 1/4분기 동안 국경에서 밀입국하려는 마약 180kg과 사건 302건이 잡혔다.</li><li style='margin-bottom:6px'>지난해보다 사건 수는 늘어났지만 잡힌 마약 양은 조금 줄어들었다.</li><li style='margin-bottom:6px'>가장 많이 잡히는 경로는 여행자가 가져오는 경우이며 마약 크기가 더 커지고 있다.</li><li style='margin-bottom:6px'>관세청장은 각 부서와 함께 마약을 더 철저히 찾아내기로 다짐했다.</li><li style='margin-bottom:6px'>이 모든 노력은 국민들이 안전한 삶을 영위할 수 있도록 하려는 목적이다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>관세청은 2026년 1/4분기 국경단계에서 마약류 302건, 180kg을 적발하여 전년 동기 대비 건수는 13% 증가하고 중량은 5% 감소했다고 밝혔다. 이명구 관세청장은 마약척결 대응본부 회의를 주재하며 여행자, 특송, 우편 등 주요 밀반입 경로별 단속 현황과 향후 계획을 논의했다. 이번 조치는 마약밀수 차단 강화와 공공보건 안전 확보를 위한 핵심 정책이며, 특히 대형 필로폰 적발 건수가 증가함에 따라 단속 강화를 위한 조직적 협업을 지속한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">2026년 1/4분기 동안 국경에서 밀입국하려는 마약 180kg과 사건 302건이 잡혔다. 지난해보다 사건 수는 늘어났지만 잡힌 마약 양은 조금 줄어들었다. 가장 많이 잡히는 경로는 여행자가 가져오는 경우이며 마약 크기가 더 커지고 있다. 관세청장은 각 부서와 함께 마약을 더 철저히 찾아내기로 다짐했다. 이 모든 노력은 국민들이 안전한 삶을 영위할 수 있도록 하려는 목적이다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>마약 밀수는 건강을 해치고 사회를 위험에 빠뜨리므로 이 경향을 알아야 안전에 유의할 수 있다.</p>
     </section>
-    <div class='keywords'><span>#관세청</span><span>#마약단속</span><span>#국경</span><span>#밀수</span><span>#마약척결 대응본부</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>관세청은 여행객 수하물 검사를 더 강화하고 국제 협력망을 통해 밀수 경로를 더 자주 단속할 것이다.</p>
     </section>
+    <div class='keywords'><span>#관세청</span><span>#마약단속</span><span>#국경</span><span>#밀수</span><span>#마약척결 대응본부</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753267" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

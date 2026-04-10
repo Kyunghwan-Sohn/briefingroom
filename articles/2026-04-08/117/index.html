@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 해양수산부 보도자료</div>
+  <div class="post-badge">해양수산부 보도자료</div>
   <h1 class="post-title">해운기업 부산 이전 지원을 위한 「이전기업 지원 협의체(TF)」 본</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>해운기업이 부산으로 본사를 옮길 때 도움을 주기 위한 모임이 생겼습니다. 이 모임에는 정부, 지방자치단체, 그리고 HMM 같은 기업들이 함께합니다. 지금부터 어떤 지원이 필요한지 자세히 협의하고 있습니다. 정부와 지자체는 법에 따라 돈이나 혜택 같은 도움을 줄 계획입니다. 이 지원이 성공하면 부산이 세계적인 바다 관련 도시로 더 잘 성장할 것입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>해양수산부는 해운기업의 부산 이전을 체계적으로 지원하기 위해 부산광역시와 한국해양진흥공사, HMM 등이 참여하는 &#x27;이전기업 지원 협의체(TF)&#x27;를 구성하고 첫 회의를 열었습니다. 이 협의체는 4 월 8 일 부산에서 처음 소집되었으며, 관련 법령과 인센티브 방안을 논의하여 구체적인 지원책을 마련할 예정입니다. 주요 대상은 부산 이전을 계획 중인 HMM 등 해운기업이며, 이를 통해 동남권 해양수도 육성 효과를 극대화할 것으로 전망됩니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">해운기업이 부산으로 본사를 옮길 때 도움을 주기 위한 모임이 생겼습니다. 이 모임에는 정부, 지방자치단체, 그리고 HMM 같은 기업들이 함께합니다. 지금부터 어떤 지원이 필요한지 자세히 협의하고 있습니다. 정부와 지자체는 법에 따라 돈이나 혜택 같은 도움을 줄 계획입니다. 이 지원이 성공하면 부산이 세계적인 바다 관련 도시로 더 잘 성장할 것입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>해운업계가 부산으로 옮겨가면서 여러분이 살아가는 지역 경제와 일자리가 어떻게 변할지 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#해운기업</span><span>#부산 이전</span><span>#지원 협의체</span><span>#HMM</span><span>#해양수도</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>HMM 등 해운기업은 법인 이전 시 세금 감면, 재정 지원 등 실질적인 혜택을 받아 부산으로 이사가 촉진됩니다.</p>
     </section>
+    <div class='keywords'><span>#해운기업</span><span>#부산 이전</span><span>#지원 협의체</span><span>#HMM</span><span>#해양수도</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.mof.go.kr/doc/ko/selectDocDetail.do?menuSeq=971&amp;bbsSeq=10&amp;seq=66099" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

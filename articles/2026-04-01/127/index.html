@@ -38,7 +38,9 @@
 <style>
 
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe;
+--law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
 
@@ -47,13 +49,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .back:hover{color:var(--t)}
 
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0;white-space:nowrap}
-.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
-.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
-.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
-.bell{color:var(--m);text-decoration:none;font-size:16px;margin-left:auto;flex-shrink:0}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
+.hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
 .site-footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.site-footer a{color:var(--t);text-decoration:none;font-weight:600}
-@media(max-width:768px){body{padding-top:52px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
+@media(max-width:768px){body{padding-top:48px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
 
 .post-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--al);color:var(--a);border:1px solid var(--ab);margin-bottom:14px}
 .post-title{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--t);margin-bottom:20px}
@@ -65,7 +71,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .section-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:8px}
 .summary p{font-size:14px;color:var(--t2);line-height:1.8;background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:14px 16px}
 .info-section{margin-top:18px}
-.info-section p{font-size:14px;line-height:1.55;padding:10px 14px;border-radius:8px;border:1px solid var(--b);background:#fff}
+.info-section p{font-size:14px;line-height:1.8;padding:14px 16px;border-radius:8px;border:1px solid var(--b);background:#fff}
 .why-box p{border-left:4px solid #4a6cf7;background:#eef2ff}
 .impact-box p{border-left:4px solid var(--a);background:var(--al)}
 .law-box{background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:4px 14px}
@@ -74,14 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a class="hnav-a" href="/">홈</a><a class="hnav-a" href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank" rel="noopener">🔔</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div class="post-badge">🏛 법무부 보도자료</div>
+  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
+  <div class="post-badge">법무부 보도자료</div>
   <h1 class="post-title">법무부장관, 더불어민주당 원내대표 및 신임 법제사법위원회 위원장 등 예방</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-01</strong></div>
@@ -90,45 +101,29 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   </div>
   <div class="post-content">
     
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>법무부장관은 2026년 4월 1일 더불어민주당 한병도 원내대표 및 서영교 신임 법제사법위원회 위원장을 예방하며 정무 협의를 가졌습니다. 이번 예방에서 법사위 위원장직을 새로 맡은 서영교 신임 위원장을 환영하고 향후 입법 일정 등 협력 체계를 논의하였습니다. 해당 행사는 2026.04.01 법무부 정무 업무 차원에서 이루어진 인사 관련 정무 예방입니다.</p>
-    </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 보도자료는 법제사법위원회의 신임 위원장 취임 직후 법무부 장관과의 정상적 소통 채널이 개통되었음을 보여주어 향후 입법 과정에서 행정부와 의회 간 협력 기틀이 마련되었음을 시사합니다.</p>
     </section>
-    <section class="info-section">
-  <h3>핵심 요약</h3>
-  <p>법무부장관은 2026 년 4 월 1 일 더불어민주당 한병도 원내대표와 신임 법제사법위원회 서영교 위원장, 김용민 간사를 예방했다.</p>
-</section>
-    <section class="info-section why-box">
-  <h3>왜 중요한가</h3>
-  <p>입법부 여소야대 또는 정권 초기의 법제 사법 관련 주요 인사들과의 초기 소통이 이루어졌으나, 본 보도자료에는 구체적인 담화 내용이나 향후 정책 방향에 대한 언급이 포함되어 있지 않다.</p>
-</section>
-    <section class="info-section">
-  <h3>주요 내용</h3>
-  <p>- 법무부장관은 2026 년 4 월 1 일 당 정관계 주요 인사를 잇달아 예방하며 현안 논의를 진행했다.</p><p>- 예방 대상은 더불어민주당 한병도 원내대표와 법제사법위원회 서영교 위원장, 김용민 간사 등 총 3 명이다.</p><p>- 보도자료 본문에는 구체적인 담론 내용이나 합의 사항에 대한 상세 기재가 없으며, 사진 자료만 첨부되어 있다.</p>
-</section>
-    <section class="info-section impact-box">
-  <h3>시행 일정</h3>
-  <p>없음 (단순 만남 및 예방 행사이므로 별도 시행 일정 없음)</p>
-</section>
-
-        <div class='keywords'><span>#법무부</span><span>#예방</span><span>#한병도</span><span>#서영교</span><span>#법제사법위원회</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국회 법제사법위원회의 법안 심의 일정과 법무부의 정책 입안 과정에서 양 부처 간 원활한 협의가 이루어질 것으로 기대됩니다.</p>
     </section>
+    <div class='keywords'><span>#법무부</span><span>#예방</span><span>#한병도</span><span>#서영교</span><span>#법제사법위원회</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156752158" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

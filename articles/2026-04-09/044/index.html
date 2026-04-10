@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 외교부 보도자료</div>
+  <div class="post-badge">외교부 보도자료</div>
   <h1 class="post-title">유엔 경제적·사회적·문화적 권리위원회(CESCR) 위원 재선</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>서울대 교수가 국제 인권 보호를 담당하는 유엔 위원에 다시 뽑혔습니다.</li><li style='margin-bottom:6px'>2027 년 1 월부터 4 년 동안 한국을 대표해 전 세계 나라들의 인권 보호 상황을 점검합니다.</li><li style='margin-bottom:6px'>이 위원회는 경제적, 사회적 권리를 보장하는 국제 규칙이 잘 지켜지는지 감시합니다.</li><li style='margin-bottom:6px'>이번 선거에서는 한국과 인도 등 아시아 국가 후보가 당선되었습니다.</li><li style='margin-bottom:6px'>앞으로도 한국 인재들이 국제 사회에서 인권 증진을 위해 더 많이 활동할 예정입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>이주영 서울대 인권센터 연구교수가 유엔 경제적·사회적·문화적 권리위원회(CESCR) 위원에 재선되어, 2027년 1월 1일자로 4년 임기를 시작한다. 아시아 지역 후보로 당선된 이 위원은 이미 2023-2026년 임기 동안 규약 이행 감독 및 일반 논평 작성에 주도적 역할을 맡아왔다. 이번 재선은 국제 인권 보호 노력에 적극 동참하는 대한민국의 책임 강국 위상을 제고하고 전문 인력의 국제 기구 진출을 지속 지원한 결과이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">서울대 교수가 국제 인권 보호를 담당하는 유엔 위원에 다시 뽑혔습니다. 2027 년 1 월부터 4 년 동안 한국을 대표해 전 세계 나라들의 인권 보호 상황을 점검합니다. 이 위원회는 경제적, 사회적 권리를 보장하는 국제 규칙이 잘 지켜지는지 감시합니다. 이번 선거에서는 한국과 인도 등 아시아 국가 후보가 당선되었습니다. 앞으로도 한국 인재들이 국제 사회에서 인권 증진을 위해 더 많이 활동할 예정입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>국제 인권 규칙이 우리와 다른 나라의 삶에 미치는 영향을 결정하는 전문가가 한국에서 계속 활동하기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#CESCR</span><span>#이주영</span><span>#유엔 인권위원회</span><span>#재선</span><span>#사회권</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국제사회에서 한국의 인권 전문 인사가 규칙 해석 및 지침 마련에 주도적으로 참여해 국가적 입지가 강화됩니다.</p>
     </section>
+    <div class='keywords'><span>#CESCR</span><span>#이주영</span><span>#유엔 인권위원회</span><span>#재선</span><span>#사회권</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753627" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

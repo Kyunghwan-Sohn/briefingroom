@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 농림축산식품부 보도자료</div>
+  <div class="post-badge">농림축산식품부 보도자료</div>
   <h1 class="post-title">농촌관광 여행자가 바라본 농촌관광의 미래, 정책 아이디어를 제안해 주세요!새글</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>농촌여행을 더 좋게 만들 아이디어를 정부에 제안하는 대회가 열립니다.</li><li style='margin-bottom:6px'>이번에는 대학생뿐만 아니라 청년들도 널리 참여할 수 있도록 대회가 확대되었습니다.</li><li style='margin-bottom:6px'>여행객이 느끼는 불편함을 해결하거나 새로운 체험 프로그램을 개발하고, 지역 특색을 살린 관광 모델을 제안할 수 있습니다.</li><li style='margin-bottom:6px'>접수는 2026 년 5 월 말까지 농림축산식품부에서 운영하는 &#x27;웰촌&#x27; 홈페이지를 통해 할 수 있습니다.</li><li style='margin-bottom:6px'>최종 당선작은 상금을 받아 실제 농촌여행 정책에 적용되어 활용됩니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>농림축산식품부와 농촌진흥청이 농촌관광 활성화를 위해 2026 년 농촌관광 아이디어 경진대회를 공동 개최합니다. 아이디어 접수는 2025 년 5 월 26 일부터 31 일까지 &#x27;웰촌&#x27; 포털에서 가능하며, 심사 및 시상식은 7 월 초에 진행됩니다. 청년층을 포함해 일반인 개인 또는 4 인 팀이 참여 가능하며, 우수 아이디어는 실제 정책 및 사업에 반영됩니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">농촌여행을 더 좋게 만들 아이디어를 정부에 제안하는 대회가 열립니다. 이번에는 대학생뿐만 아니라 청년들도 널리 참여할 수 있도록 대회가 확대되었습니다. 여행객이 느끼는 불편함을 해결하거나 새로운 체험 프로그램을 개발하고, 지역 특색을 살린 관광 모델을 제안할 수 있습니다. 접수는 2026 년 5 월 말까지 농림축산식품부에서 운영하는 &#x27;웰촌&#x27; 홈페이지를 통해 할 수 있습니다. 최종 당선작은 상금을 받아 실제 농촌여행 정책에 적용되어 활용됩니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>농촌 여행이 어떻게 바뀔지 직접 제안하고 싶다면 이번 기회에 아이디어를 제출해야 합니다.</p>
     </section>
-    <div class='keywords'><span>#농촌관광</span><span>#아이디어 경진대회</span><span>#청년 참여</span><span>#농림축산식품부</span><span>#웰촌</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>일반인과 청년이 제안한 창의적인 아이디어를 검토해 향후 농촌관광 정책과 서비스로 반영합니다.</p>
     </section>
+    <div class='keywords'><span>#농촌관광</span><span>#아이디어 경진대회</span><span>#청년 참여</span><span>#농림축산식품부</span><span>#웰촌</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.mafra.go.kr/bbs/home/792/577538/artclView.do" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

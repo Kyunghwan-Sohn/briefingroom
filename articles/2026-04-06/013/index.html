@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 법무부 보도자료</div>
+  <div class="post-badge">법무부 보도자료</div>
   <h1 class="post-title">법무부 보호기관 3급 공무원 인사</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>법무관들이 근무지를 옮기거나 직책을 높이게 된 인사 결과가 나왔습니다.</li><li style='margin-bottom:6px'>이번에는 총 5명의 공무원이 새로운 보직을 받게 됩니다.</li><li style='margin-bottom:6px'>3명은 더 높은 자리로 승진하고, 2명은 다른 지방으로 자리를 옮깁니다.</li><li style='margin-bottom:6px'>이는 국민들이 느끼는 안전과 보호 서비스의 품질을 높이기 위한 조치입니다.</li><li style='margin-bottom:6px'>이번 인사는 다음 주 월요일에 공식적으로 발령됩니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>법무부는 보호기관 3급 공무원(부이사관) 5명 인사 발령을 4월 13일자로 시행합니다. 승진자는 3명으로 조연호 범죄예방기획과장이 소년보호과장으로, 양현규 수원보호관찰소장이 보호관찰과장으로, 김기환 의정부보호관찰소장이 대구보호관찰소장으로 각각 승진합니다. 전보자는 2명으로 정성수 광주보호관찰소장이 부산보호관찰소장으로, 이정은 법무부 보호관찰과장이 광주보호관찰소장으로 전보됩니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">법무관들이 근무지를 옮기거나 직책을 높이게 된 인사 결과가 나왔습니다. 이번에는 총 5명의 공무원이 새로운 보직을 받게 됩니다. 3명은 더 높은 자리로 승진하고, 2명은 다른 지방으로 자리를 옮깁니다. 이는 국민들이 느끼는 안전과 보호 서비스의 품질을 높이기 위한 조치입니다. 이번 인사는 다음 주 월요일에 공식적으로 발령됩니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>법 집행 기관의 핵심 인사 변화를 알면 향후 보호 서비스의 방향성을 파악할 수 있습니다.</p>
     </section>
-    <div class='keywords'><span>#법무부</span><span>#보호관찰소</span><span>#공무원 인사</span><span>#부이사관</span><span>#승진</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>주요 보호관찰소와 기획부서의 리더가 새로 임명되어 업무 체계가 변경됩니다.</p>
     </section>
+    <div class='keywords'><span>#법무부</span><span>#보호관찰소</span><span>#공무원 인사</span><span>#부이사관</span><span>#승진</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753136" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

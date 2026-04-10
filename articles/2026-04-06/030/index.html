@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 기후에너지환경부 보도자료</div>
+  <div class="post-badge">기후에너지환경부 보도자료</div>
   <h1 class="post-title">기후부 제1차관, 재생원료를 활용한 종량제봉투 생산 확대 기반 점검</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>중동 전쟁으로 비닐봉투를 만드는 데 필요한 기본 재료가 부족해지자 정부에서 해결책을 찾고 있습니다. 정부 officials 가 직접 공장들을 방문하여 낡은 기계를 새 기계를로 바꾸거나 더 좋은 재료를 섞는 방법을 확인합니다. 재료를 재활용하는 비율을 높이면 종량제봉투가 부족해지지 않고도 쓰레기 처리를 원활하게 할 수 있습니다. 정부는 이 과정에서 기업이 기계에 투자할 때 돈을 지원해주는 방안도 국회와 논의하고 있습니다. 이를 통해 비닐 제품 사용을 줄이고 환경 친화적인 재활용 시스템을 강화하려는 것입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>기후에너지환경부 금한승 차관은 중동 전쟁 장기화로 인한 폴리에틸렌 (PE) 공급 차질에 대응하기 위해 4 월 6 일 종량제봉투 대체 원료인 재생원료 사용 확대 방안을 점검합니다. 금 차관은 유진엔지니어링과 한국장애인협회 일자리센터를 방문하여 설비 교체 필요성과 재생원료 사용 비율 상향 방안을 현장 확인하고, 관련 비용 지원을 국회와 논의할 예정입니다. 이번 조치는 산업용 폐필름 등 폐자원 활용을 확대하여 종량제봉투 공급 차질을 최소화하고 순환 경제를 실현하기 위함입니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">중동 전쟁으로 비닐봉투를 만드는 데 필요한 기본 재료가 부족해지자 정부에서 해결책을 찾고 있습니다. 정부 officials 가 직접 공장들을 방문하여 낡은 기계를 새 기계를로 바꾸거나 더 좋은 재료를 섞는 방법을 확인합니다. 재료를 재활용하는 비율을 높이면 종량제봉투가 부족해지지 않고도 쓰레기 처리를 원활하게 할 수 있습니다. 정부는 이 과정에서 기업이 기계에 투자할 때 돈을 지원해주는 방안도 국회와 논의하고 있습니다. 이를 통해 비닐 제품 사용을 줄이고 환경 친화적인 재활용 시스템을 강화하려는 것입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>평소 쓰레기 봉투를 쓰는데 필요한 재료가 전쟁 때문에 모자라면 생활이 불편해질 수 있어 미리 확인해야 합니다.</p>
     </section>
-    <div class='keywords'><span>#종량제봉투</span><span>#재생원료</span><span>#수급 관리</span><span>#폐자원 활용</span><span>#금한승 차관</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>앞으로 쓰레기 봉투를 만드는 데 재활용된 재료를 더 많이 쓰게 되어 공급이 안정되고 환경도 더 좋아집니다.</p>
     </section>
+    <div class='keywords'><span>#종량제봉투</span><span>#재생원료</span><span>#수급 관리</span><span>#폐자원 활용</span><span>#금한승 차관</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753091" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

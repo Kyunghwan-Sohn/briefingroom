@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 문화체육관광부 보도자료</div>
+  <div class="post-badge">문화체육관광부 보도자료</div>
   <h1 class="post-title">국제방송교류재단 비상임 이사 4명, 감사 1명 임명</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>문체부 장관이 아리랑 국제방송의 새로운 리더 5 명을 공식적으로 임명했습니다. 이들은 각자 대학 교수, 방송사 전 사장, 통신사 전문가, 예술대학교 총장 등 다양한 분야에서 경력이 있습니다. 이 임원진은 해외에서 우리 문화를 알리는 방송이 더 잘되도록 2~3 년간 일하게 됩니다. 주요 목표는 전 세계에 K-콘텐츠 확산을 주도하는 것입니다. 이번 인사는 기존 리더의 임기가 끝나는 자연스러운 교체입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>문화체육관광부 장관은 4 월 9 일 국제방송교류재단 (아리랑 국제방송) 비상임 이사 4 명과 비상임 감사 1 명을 신규 임명했다. 신임 이사의 임기는 3 년, 감사의 임기는 2 년이며, 임기 만료 등에 따른 인사이다. 임명된 인물은 송인덕 교수, 우종택 전 KBS 미디어 사장, 이준호 전 SK 텔레콤 자문위원, 최용혁 전 동아방송예술대학교 총장과 감사 최대규 회계사이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">문체부 장관이 아리랑 국제방송의 새로운 리더 5 명을 공식적으로 임명했습니다. 이들은 각자 대학 교수, 방송사 전 사장, 통신사 전문가, 예술대학교 총장 등 다양한 분야에서 경력이 있습니다. 이 임원진은 해외에서 우리 문화를 알리는 방송이 더 잘되도록 2~3 년간 일하게 됩니다. 주요 목표는 전 세계에 K-콘텐츠 확산을 주도하는 것입니다. 이번 인사는 기존 리더의 임기가 끝나는 자연스러운 교체입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>국내 주요 해외 홍보 기관의 새로운 지도부 구성을 통해 향후 우리 문화 콘텐츠 해외 진출 방향을 파악할 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#국제방송교류재단</span><span>#아리랑 국제방송</span><span>#문화체육관광부</span><span>#비상임 이사 임명</span><span>#K-콘텐츠 해외확산</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>아리랑 국제방송의 차기 경영진이 공식 확정되어 향후 해외 홍보 전략과 K-콘텐츠 확산 활동이 이들에게 의해 추진됩니다.</p>
     </section>
+    <div class='keywords'><span>#국제방송교류재단</span><span>#아리랑 국제방송</span><span>#문화체육관광부</span><span>#비상임 이사 임명</span><span>#K-콘텐츠 해외확산</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753678" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

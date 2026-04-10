@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 공정거래위원회 보도자료</div>
+  <div class="post-badge">공정거래위원회 보도자료</div>
   <h1 class="post-title">공정거래위원장, EBS 스페이스 공감 제작 현장 방문</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>공정거래위원장이 EBS 가 공연을 만드는 곳을 방문했습니다.</li><li style='margin-bottom:6px'>과거 구글이 음악 서비스에서 불공정을 했을 때 벌금을 내게 했고, 그 돈으로 300 억원을 마련했습니다.</li><li style='margin-bottom:6px'>이 돈으로 2023 년부터 못 하던 무료 공연이 다시 시작되었습니다.</li><li style='margin-bottom:6px'>위원회는 이 돈이 실제 공연 제작에 쓰여 국민이 혜택을 보는지 확인했습니다.</li><li style='margin-bottom:6px'>앞으로도 기업이 공정한 경쟁을 하도록 감시하며 문화 산업을 지원할 것입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>주병기 공정거래위원장은 4 월 8 일 EBS 스페이스 공감 제작 현장을 방문하여 구글과의 상생기금 활용 성과를 점검했다. 공정위는 지난해 구글의 불공정 관행에 대한 과태료로 조성된 300 억 원 상생기금을 지원받아 지난 4 월 3 일 중단됐던 무료 라이브 공연을 재개했다. 이 방문은 문화 콘텐츠 산업의 공정 시장 환경 조성 효과를 확인하고 향후 상생 모델의 내실화를 당부하기 위해 마련되었다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">공정거래위원장이 EBS 가 공연을 만드는 곳을 방문했습니다. 과거 구글이 음악 서비스에서 불공정을 했을 때 벌금을 내게 했고, 그 돈으로 300 억원을 마련했습니다. 이 돈으로 2023 년부터 못 하던 무료 공연이 다시 시작되었습니다. 위원회는 이 돈이 실제 공연 제작에 쓰여 국민이 혜택을 보는지 확인했습니다. 앞으로도 기업이 공정한 경쟁을 하도록 감시하며 문화 산업을 지원할 것입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>구글 등 대형 플랫폼의 불법 행위로 벌금이 부과될 때 그 돈이 문화 콘텐츠 등 국민의 문화 생활에 실제 재사용되는 구체적인 사례를 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#공정거래위원회</span><span>#주병기</span><span>#상생기금</span><span>#구글</span><span>#스페이스 공감</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>구글의 불공정 행위로 인해 조성된 벌금과 상생기금이 문화 콘텐츠 제작과 공연 재개에 직접 활용되어 국민이 무료로 다양한 공연을 즐길 수 있게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#공정거래위원회</span><span>#주병기</span><span>#상생기금</span><span>#구글</span><span>#스페이스 공감</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753516" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

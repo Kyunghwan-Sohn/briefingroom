@@ -38,7 +38,9 @@
 <style>
 
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe;
+--law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
 
@@ -47,13 +49,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .back:hover{color:var(--t)}
 
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0;white-space:nowrap}
-.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
-.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
-.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
-.bell{color:var(--m);text-decoration:none;font-size:16px;margin-left:auto;flex-shrink:0}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
+.hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
 .site-footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.site-footer a{color:var(--t);text-decoration:none;font-weight:600}
-@media(max-width:768px){body{padding-top:52px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
+@media(max-width:768px){body{padding-top:48px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
 
 .post-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--al);color:var(--a);border:1px solid var(--ab);margin-bottom:14px}
 .post-title{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--t);margin-bottom:20px}
@@ -65,7 +71,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .section-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:8px}
 .summary p{font-size:14px;color:var(--t2);line-height:1.8;background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:14px 16px}
 .info-section{margin-top:18px}
-.info-section p{font-size:14px;line-height:1.55;padding:10px 14px;border-radius:8px;border:1px solid var(--b);background:#fff}
+.info-section p{font-size:14px;line-height:1.8;padding:14px 16px;border-radius:8px;border:1px solid var(--b);background:#fff}
 .why-box p{border-left:4px solid #4a6cf7;background:#eef2ff}
 .impact-box p{border-left:4px solid var(--a);background:var(--al)}
 .law-box{background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:4px 14px}
@@ -74,14 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a class="hnav-a" href="/">홈</a><a class="hnav-a" href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank" rel="noopener">🔔</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div class="post-badge">🏛 농림축산식품부 보도자료</div>
+  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
+  <div class="post-badge">농림축산식품부 보도자료</div>
   <h1 class="post-title">가정의 달 앞둔 4월 ‘꽃은 활짝, 병해충은 차단’새글</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-01</strong></div>
@@ -90,45 +101,29 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   </div>
   <div class="post-content">
     
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>농림축산식품부는 가정의 달을 앞둔 4 월 꽃의 활짝 피는 것을 유도하고 병해충 발생을 차단하기 위한 방제 계획을 수립했습니다. 이 계획은 4 월부터 본격적으로 시행되어 꽃가루 매개곤충 및 병해충 발생을 사전에 예방하는 것을 목표로 합니다. 농업인 및 원예농가, 꽃 소비자가 주요 대상이며, 농작물 생산성 향상과 소비자 안전 확보를 효과적으로 도모합니다.</p>
-    </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>가정의 달인 4 월은 꽃 소비와 농산물 생산의 핵심 시기로서, 병해충 차단 조치가 식량 안보와 농가 소득 안정에 직결되는 시점에 추진됩니다.</p>
     </section>
-    <section class="info-section">
-  <h3>핵심 요약</h3>
-  <p>농림축산검역본부는 4 월 1 일부터 30 일까지 가정의 달 전 기간 수입 화훼류에 대한 특별검역을 실시한다고 2026 년 4 월 1 일 밝혔다. 이번 조치로 현장 인력과 시료 채취량이 모두 2 배로 증원되며, 지난해 화훼류 수입량 5,217 만 3 천 개 중 카네이션과 국화가 84.4% 를 차지했다.</p>
-</section>
-    <section class="info-section why-box">
-  <h3>왜 중요한가</h3>
-  <p>4 월은 화훼류 수입 물량이 가장 많고 담배가루이 등 유해병해충 유입 위험이 높은 시기로, 이 기간의 검역 강화 여부가 국내 농업 생태계와 화훼산업 보호에 직접적인 영향을 미친다.</p>
-</section>
-    <section class="info-section">
-  <h3>주요 내용</h3>
-  <p>- 수입 화훼류 검역 인력과 시료 채취량을 각각 기존 대비 2 배로 증원하여 4 월 한 달간 현장 검역을 대폭 강화한다.</p><p>- 최근 3 년간 4 월 화훼류 수입량이 연평균 약 5,000 만 개 수준을 기록하여, 이 시기의 철저한 검역이 필수적이다.</p><p>- 수입 주종인 카네이션 (51.2%), 국화 (33.2%), 장미 (2.8%) 등을 중심으로 검역병해충 유입을 차단하는 데 집중한다.</p><p>- 수출국 사전 소독을 유도하고 열매나 흙 부착 시 폐기 처분되는 사례를 방지하기 위해 수입업체 대상 홍보를 병행한다.</p>
-</section>
-    <section class="info-section impact-box">
-  <h3>시행 일정</h3>
-  <p>2026 년 4 월 1 일 (개시) ~ 4 월 30 일 (종료)</p>
-</section>
-
-        <div class='keywords'><span>#병해충 차단</span><span>#꽃 생산</span><span>#4 월 방제</span><span>#농림축산식품부</span><span>#가정의 달</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>꽃 재배 농가는 방제 일정 및 약제 사용에 대한 준수 의무가 생기고, 관련 시중 약제 수요와 판매 패턴이 변동될 수 있습니다.</p>
     </section>
+    <div class='keywords'><span>#병해충 차단</span><span>#꽃 생산</span><span>#4 월 방제</span><span>#농림축산식품부</span><span>#가정의 달</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.mafra.go.kr/bbs/home/792/577485/artclView.do" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

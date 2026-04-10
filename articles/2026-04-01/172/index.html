@@ -38,7 +38,9 @@
 <style>
 
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe;
+--law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
 
@@ -47,13 +49,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .back:hover{color:var(--t)}
 
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0;white-space:nowrap}
-.hnav{display:flex;gap:0;align-items:center;flex:1;min-width:0}
-.hnav a{font-size:14px;font-weight:600;color:var(--m);text-decoration:none;padding:6px 12px;border-radius:5px;white-space:nowrap}
-.hnav a.on{color:var(--a);background:var(--al);font-weight:700}
-.bell{color:var(--m);text-decoration:none;font-size:16px;margin-left:auto;flex-shrink:0}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
+.hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
 .site-footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.site-footer a{color:var(--t);text-decoration:none;font-weight:600}
-@media(max-width:768px){body{padding-top:52px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
+@media(max-width:768px){body{padding-top:48px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
 
 .post-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--al);color:var(--a);border:1px solid var(--ab);margin-bottom:14px}
 .post-title{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--t);margin-bottom:20px}
@@ -65,7 +71,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .section-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:8px}
 .summary p{font-size:14px;color:var(--t2);line-height:1.8;background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:14px 16px}
 .info-section{margin-top:18px}
-.info-section p{font-size:14px;line-height:1.55;padding:10px 14px;border-radius:8px;border:1px solid var(--b);background:#fff}
+.info-section p{font-size:14px;line-height:1.8;padding:14px 16px;border-radius:8px;border:1px solid var(--b);background:#fff}
 .why-box p{border-left:4px solid #4a6cf7;background:#eef2ff}
 .impact-box p{border-left:4px solid var(--a);background:var(--al)}
 .law-box{background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:4px 14px}
@@ -74,14 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a class="hnav-a" href="/">홈</a><a class="hnav-a" href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank" rel="noopener">🔔</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div class="post-badge">🏛 농림축산식품부 보도자료</div>
+  <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
+  <div class="post-badge">농림축산식품부 보도자료</div>
   <h1 class="post-title">당정, ‘2026년 추가경정예산안’, ‘농협 개혁방안’, ‘농지 전수조사 추진방안’ 논의새글</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-01</strong></div>
@@ -90,45 +101,29 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   </div>
   <div class="post-content">
     
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>당정이 2026 년 추가경정예산안, 농협 개혁방안, 농지 전수조사 추진방안 등 주요 농정 핵심 사안을 논의했습니다. 구체적인 세부 정책 내용 및 확정된 시행 시점은 해당 보도자료 본문에서 확인해야 합니다. 본 논의를 통해 농축산 산업의 재정 지원 체계 정비, 농협 조직 개편, 그리고 농지 관리 실태 파악 및 제도적 정비가 추진될 예정입니다.</p>
-    </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>2026 년 예산 확정과 농협·농지 등 핵심 인프라 개혁이 동시에 논의되는 만큼 향후 농정 기조의 방향성과 산업 구조를 결정짓는 중요한 시발점입니다.</p>
     </section>
-    <section class="info-section">
-  <h3>핵심 요약</h3>
-  <p>농림축산식품부와 여야 정당은 4 월 1 일 (수) 당정협의회를 통해 2026 년 농림해양수산분야 추가경정예산안 **2,658 억 원** 편성, 중앙회장 **1 인 1 표** 선거제 도입, 및 **588 억 원** 투입 농지 전수조사 1 단계 추진방안을 논의하고 결정했다.</p>
-</section>
-    <section class="info-section why-box">
-  <h3>왜 중요한가</h3>
-  <p>중동 전쟁 등 대내외 불확실성으로 인한 농가 경영난 완화와 농업 부문의 투명성 및 공정성 제고를 위한 핵심 예산 및 제도적 개혁 방향을 확정했다.</p>
-</section>
-    <section class="info-section">
-  <h3>주요 내용</h3>
-  <p>- **예산 보완 및 지원 확대**: 당정은 중동 전쟁 영향으로 증가한 농가 경영 부담을 경감하기 위해 시설농가 난방 유류 유가연동 보조 및 무기질비료 지원 확대 등 현장 요구가 큰 분야에 대해 예산 소요액과 보완방안을 논의하였다.</p><p>- **농협 중앙회장 선거제 개편**: 농협 중앙회장 선출 방식을 현행 조합장 직선제에서 전체 조합원 (재약결 제외 187 만 명) 의 **1 인 1 표** 직선제로 개편하며, 선거 비용을 절감하기 위해 동시조합장 선거와 중앙회장 선거운동을 함께 실시할 계획이다.</p><p>- **비정기 조합원 정리는 물론 제도화**: 비농업인, 주소 요건 미충족, 경제사업 미이용 등 무자격 조합원에 대해서는 모든 조합이 실태조사와 정리 조치를 하도록 법제화하고, 중앙회장 권한 강화 및 선거 정치화에 대한 부작용을 막기 위해 사외이사 기능 강화 등 추가 통제장치 검토에 합의했다.</p><p>- **농지 전수조사 단계적 추진**: 농지투기 근절과 체계적 정책 수립을 위해 **2026 년 5 월**부터 2026 년 1 단계 조사 (2026 년 96 년 이후 취득 농지 중심) 를 행정정보, AI 등을 활용해 시작하며, 2 단계 (2027 년) 에서는 1996 년 이전 취득 농지를 조사할 예정이다.</p><p>- **법적 처분 강화 및 제도 개선**: 불법 임대차나 무단 휴경 등 적발 농지에 대해서는 법 개정을 통해 유예 없는 즉각적인 처분명령이 가능하도록 하고, 농지보전부담금 정상화 및 농지보전총량제 등 근본적인 농지 관리 체계 개선 방안도 병행 마련한다.</p>
-</section>
-    <section class="info-section impact-box">
-  <h3>시행 일정</h3>
-  <p>- **농지 전수조사**: 2026 년 5 월 (1 단계 조사 시작)</p><p>- **농지 현장점검**: 2026 년 8 월 (10 대 투기 위험군 대상)</p><p>- **농지 전수조사 2 단계**: 2027 년 (1996 년 이전 취득 농지 조사)</p><p>- **농협 조합원 무자격 정리**: 당장 시작 (제도화 후 모든 조합 대상)</p>
-</section>
-
-        <div class='keywords'><span>#2026 년 추가경정예산</span><span>#농협 개혁</span><span>#농지 전수조사</span><span>#농림축산식품부</span><span>#당정 협의</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>농촌 지역 주민 및 농업·농촌 관련 기업들은 향후 재정 지원 규모와 농지 이용 규제 변화에 따라 경영 계획 수립과 투자 판단에 즉각적인 영향을 받게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#2026 년 추가경정예산</span><span>#농협 개혁</span><span>#농지 전수조사</span><span>#농림축산식품부</span><span>#당정 협의</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.mafra.go.kr/bbs/home/792/577486/artclView.do" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

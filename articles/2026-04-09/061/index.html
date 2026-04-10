@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 금융감독원 보도자료</div>
+  <div class="post-badge">금융감독원 보도자료</div>
   <h1 class="post-title">금감원, ETF 및 ELD 관련 간담회 개최</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>주식형 투자상품 (ETF) 과 주가 변동에 따라 이자가 달라지는 예금 (ELD) 판매가 급증해 정부가 경고했습니다. 중동 전쟁 등 세상 일이 복잡해져 주가가 크게 오르거나 떨어질 때, 고객이 원하지 않는 손해를 입을 우려가 커졌습니다. 특히 은행에서 주식형 펀드를 살 때는 증권사에서 직접 사는 것보다 수수료가 더 비싸고 실시간 거래가 불가능하다는 점을 알렸습니다. 또한 높은 금리를 약속하는 상품에 숨겨진 &#x27;낙아웃&#x27; 조건 때문에 실제 이자가 매우 낮게 적용될 수 있음을 강조했습니다. 고객이 이 위험을 제대로 이해하지 못하고 가입하는 불완전 판매를 막기 위해 은행 직원 교육과 자체 점검을 강화할 예정입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>금융감독원이 ETF 및 ELD 판매 급증과 시장 변동성 확대에 따라 리스크 관리를 강화하라고 금융회사에 당부했습니다. 2025 년 하반기부터 ETF(15.6 조원) 와 ELD(7.6 조원) 판매가 크게 증가했으나 중도해지 수수료, 낙아웃 옵션 등 소비자 민원이 발생하고 있습니다. 이번 간담회는 2026 년 4 월 9 일 (목) 곽범준 은행담당 부원장보 주재로 주요 은행 부행장들이 참석한 가운데 개최되었습니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">주식형 투자상품 (ETF) 과 주가 변동에 따라 이자가 달라지는 예금 (ELD) 판매가 급증해 정부가 경고했습니다. 중동 전쟁 등 세상 일이 복잡해져 주가가 크게 오르거나 떨어질 때, 고객이 원하지 않는 손해를 입을 우려가 커졌습니다. 특히 은행에서 주식형 펀드를 살 때는 증권사에서 직접 사는 것보다 수수료가 더 비싸고 실시간 거래가 불가능하다는 점을 알렸습니다. 또한 높은 금리를 약속하는 상품에 숨겨진 &#x27;낙아웃&#x27; 조건 때문에 실제 이자가 매우 낮게 적용될 수 있음을 강조했습니다. 고객이 이 위험을 제대로 이해하지 못하고 가입하는 불완전 판매를 막기 위해 은행 직원 교육과 자체 점검을 강화할 예정입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>우리도 은행을 통해 투자상품을 가입할 때 숨은 비용이나 위험 조건을 모르고 큰 손해를 볼 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#금융감독원</span><span>#ETF</span><span>#ELD</span><span>#소비자보호</span><span>#리스크관리</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>은행 직원들이 고객에게 상품 수수료와 위험 조건을 더 자세히 알려주고, 고객에게 맞지 않는 고위험 상품 판매를 자제합니다.</p>
     </section>
+    <div class='keywords'><span>#금융감독원</span><span>#ETF</span><span>#ELD</span><span>#소비자보호</span><span>#리스크관리</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=217104&amp;menuNo=200218&amp;pageIndex=1" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

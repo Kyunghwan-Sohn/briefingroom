@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 국가유산청 보도자료</div>
+  <div class="post-badge">국가유산청 보도자료</div>
   <h1 class="post-title">올가을 국립고궁박물관 은행나무 밑에서 결혼하세요</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>국립고궁박물관 은행나무 아래서 예식할 수 있는 무료 공간이 생겼습니다.</li><li style='margin-bottom:6px'>청년들이 결혼식을 치르는 데 드는 비용을 일부 지원해 줍니다.</li><li style='margin-bottom:6px'>매주 토요일과 일요일에 하루 두 번 결혼식을 열 수 있습니다.</li><li style='margin-bottom:6px'>100명까지 초대할 수 있는 소규모 예식으로 진행됩니다.</li><li style='margin-bottom:6px'>전통 혼례나 일반적인 결혼식 모두 가능합니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국가유산청 국립고궁박물관이 저출생 극복을 위해 국립고궁박물관 야외 은행나무쉼터를 소규모 결혼식 장소로 무료 개방한다. 오는 4월 8일부터 15일까지 접수하며, 선발된 16쌍의 예비부부에게 10월 주말에 100만 원의 비품비 지원과 행사장 대관을 제공한다. 이 사업은 하객 100명 규모의 결혼식을 진행하여 청년 세대의 혼인 비용 부담을 경감하고 문화유산 공간을 활용한 관광 활성화를 목적으로 한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">국립고궁박물관 은행나무 아래서 예식할 수 있는 무료 공간이 생겼습니다. 청년들이 결혼식을 치르는 데 드는 비용을 일부 지원해 줍니다. 매주 토요일과 일요일에 하루 두 번 결혼식을 열 수 있습니다. 100명까지 초대할 수 있는 소규모 예식으로 진행됩니다. 전통 혼례나 일반적인 결혼식 모두 가능합니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>가을에 국립고궁박물관에서 예식을 계획하는 예비부부에게 금전적 지원과 특별한 장소를 제공할 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#국립고궁박물관</span><span>#무료결혼식</span><span>#은행나무</span><span>#저출생대응</span><span>#국립고궁박물관 야외 결혼식 지원사업</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>은행나무 숲속에서 결혼식을 하고 싶었던 예비부부는 기존보다 훨씬 저렴하게 특별한 장소에서 예식을 치를 수 있게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#국립고궁박물관</span><span>#무료결혼식</span><span>#은행나무</span><span>#저출생대응</span><span>#국립고궁박물관 야외 결혼식 지원사업</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753443" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

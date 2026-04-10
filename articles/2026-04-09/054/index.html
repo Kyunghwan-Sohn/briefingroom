@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 교육부 보도자료</div>
+  <div class="post-badge">교육부 보도자료</div>
   <h1 class="post-title">&#x27;이제 키오스크, 인공지능(AI)도 두렵지 않아요&#x27; 생활 밀착형 성인 문해교육 지원 강화</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>지금부터 성인이 문맹 (글을 못 읽거나 쓰지 못하는 상태) 으로 겪는 디지털 불평등 문제를 해소하기 위한 교육 지원이 늘어난다.</li><li style='margin-bottom:6px'>키오스크 (무인 주문 기계) 나 AI 기술을 두려워하지 않고 쓸 수 있도록 도와주는 실전 교육이 더 많이 진행된다.</li><li style='margin-bottom:6px'>특히 글을 읽거나 쓰는 데 어려움을 겪는 어른들을 위해 지역사회에서 쉽게 배울 수 있는 프로그램을 마련한다.</li><li style='margin-bottom:6px'>이 교육은 병원이나 은행에서 기계를 이용하는 등 일상생활을 하는 데 필요한 능력을 키워주는 데 초점을 맞춘다.</li><li style='margin-bottom:6px'>결국 누구나 디지털 기술을 잘 다루어 더 편리하고 행복한 삶을 살 수 있도록 돕는 것이 목표이다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>교육부는 키오스크와 인공지능(AI) 사용에 어려움을 겪는 성인 학습자를 위해 생활 밀착형 문해교육 지원을 강화한다고 밝혔다. 관련 교육 프로그램은 내년부터 본격적으로 확대 운영되며, 고령화 사회에서 디지털 소외 계층이 직접 혜택을 받을 수 있도록 한다. 이 정책은 문해 능력이 부족한 성인을 주요 대상으로 하여 디지털 기기 활용 능력을 향상시키고 사회적 배제를 방지하는 효과가 있을 것으로 보인다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">지금부터 성인이 문맹 (글을 못 읽거나 쓰지 못하는 상태) 으로 겪는 디지털 불평등 문제를 해소하기 위한 교육 지원이 늘어난다. 키오스크 (무인 주문 기계) 나 AI 기술을 두려워하지 않고 쓸 수 있도록 도와주는 실전 교육이 더 많이 진행된다. 특히 글을 읽거나 쓰는 데 어려움을 겪는 어른들을 위해 지역사회에서 쉽게 배울 수 있는 프로그램을 마련한다. 이 교육은 병원이나 은행에서 기계를 이용하는 등 일상생활을 하는 데 필요한 능력을 키워주는 데 초점을 맞춘다. 결국 누구나 디지털 기술을 잘 다루어 더 편리하고 행복한 삶을 살 수 있도록 돕는 것이 목표이다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>디지털 시대에 글을 잘 못 읽거나 쓰지 못하는 성인들에게도 새로운 기술 교육 지원이 늘어난다는 사실을 알기 위해서입니다.</p>
     </section>
-    <div class='keywords'><span>#교육부</span><span>#성인 문해교육</span><span>#키오스크</span><span>#인공지능</span><span>#디지털 소외계층</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>글을 읽거나 쓰는 데 어려움을 겪는 성인들이 키오스크와 AI 기술을 더 쉽게 배워 일상생활에서 불편함이 줄어든다.</p>
     </section>
+    <div class='keywords'><span>#교육부</span><span>#성인 문해교육</span><span>#키오스크</span><span>#인공지능</span><span>#디지털 소외계층</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753602" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

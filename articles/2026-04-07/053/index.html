@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 소방청 보도자료</div>
+  <div class="post-badge">소방청 보도자료</div>
   <h1 class="post-title">&quot;장애를 넘어 모두가 안전한 세상&quot; 소방청, 패럴림픽 영웅 김윤지와 맞손</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>소방청에서 4 월 20 일 장애인 날을 맞아 특별한 안전 영상을 유튜브에 올립니다.</li><li style='margin-bottom:6px'>패럴림픽에서 금메달을 여러 개 딴 김윤지 선수가 나와 우리 사회의 안전을 부탁합니다.</li><li style='margin-bottom:6px'>그는 어릴 적 소방안전교육을 받았던 경험과 장애인들이 안전할 수 있는 방법을 이야기합니다.</li><li style='margin-bottom:6px'>특히 아파트 복도에 물건을 두지 않고, 비장애인도 장애인 대피를 도와주면 좋다고 강조합니다.</li><li style='margin-bottom:6px'>누구나 이 영상을 보고 119 안심콜을 등록하며 서로의 안전을 챙기는 마음을 가질 수 있습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>소방청은 장애인 날인 4 월 20 일 패럴림픽 금메달리스트인 김윤지 선수와 협업한 안전 홍보 영상인 &#x27;미소 천사가 제안하는 모두의 안전&#x27;을 공식 유튜브 채널에 공개한다. 이번 영상은 김윤지 선수의 성공 경험과 소방안전교육 체험담을 담은 1 인 회견 형식으로, 장애인의 안전과 119 안심콜 등록 등을 알리는 내용을 담고 있다. 이 콘텐츠는 장애인 및 안전 취약 계층의 대피 안전 의식을 고취하고 사회적 공감대를 형성하기 위해 기획되었으며, 모든 국민이 시청할 수 있다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">소방청에서 4 월 20 일 장애인 날을 맞아 특별한 안전 영상을 유튜브에 올립니다. 패럴림픽에서 금메달을 여러 개 딴 김윤지 선수가 나와 우리 사회의 안전을 부탁합니다. 그는 어릴 적 소방안전교육을 받았던 경험과 장애인들이 안전할 수 있는 방법을 이야기합니다. 특히 아파트 복도에 물건을 두지 않고, 비장애인도 장애인 대피를 도와주면 좋다고 강조합니다. 누구나 이 영상을 보고 119 안심콜을 등록하며 서로의 안전을 챙기는 마음을 가질 수 있습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>장애인 등 안전 취약 계층이 화재 등 위기 상황에서 더 안전하게 대피할 수 있도록 우리 모두의 주의와 협력이 필요하기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#소방청</span><span>#김윤지</span><span>#패럴림픽</span><span>#장애인 안전</span><span>#119 안심콜</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>누구나 소방청 유튜브를 통해 김윤지 선수의 안전 메시지를 듣고, 아파트 복도 정리 및 119 안심콜 등록 등 실천 행동을 할 수 있게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#소방청</span><span>#김윤지</span><span>#패럴림픽</span><span>#장애인 안전</span><span>#119 안심콜</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753244" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

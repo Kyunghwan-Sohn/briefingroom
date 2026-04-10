@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 국가보훈부 보도자료</div>
+  <div class="post-badge">국가보훈부 보도자료</div>
   <h1 class="post-title">대한민국 임시정부 기념일 조명 세미나 9일 국회서 개최새글</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>미래의 행사 (2026년 4월 9일) 에 임시정부 기념일을 어떻게 기려야 할지 전문가들이 모여 의견을 나눕니다.</li><li style='margin-bottom:6px'>이날 행사에서는 과거 상하이, 충칭 등 각 시기별 기념일의 특징과 의미를 구체적으로 살펴봅니다.</li><li style='margin-bottom:6px'>100주년을 맞아 정치적으로 어떤 의미가 있었는지, 그리고 타국 (타이완) 의 사례와 비교하여 분석합니다.</li><li style='margin-bottom:6px'>국가가 국경일과 기념일을 정하고 바꾸는 과정과 현재 기념하는 방식에 대해 전문가들이 논합니다.</li><li style='margin-bottom:6px'>이 자리를 통해 임시정부의 정신이 오늘날 우리 삶과 국가 정체성에 어떻게 이어지고 있는지 되새기는 시간이 됩니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국가보훈부는 2026년 4월 9일 오후 국회의원회관에서 임시정부 관련 기념일 의미와 계승 방안을 다루는 세미나를 개최합니다. 이번 세미나는 윤선자 명예교수 등 주요 전문가들이 주제 발표와 토론을 통해 임시정부 수립 107주년을 기념할 예정입니다. 김용만 국회의원, 국립대한민국임시정부기념관장 등 관련 인사와 전문가들이 참석하여 임시정부 기념일의 정치적, 역사적 가치를 재조명합니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">미래의 행사 (2026년 4월 9일) 에 임시정부 기념일을 어떻게 기려야 할지 전문가들이 모여 의견을 나눕니다. 이날 행사에서는 과거 상하이, 충칭 등 각 시기별 기념일의 특징과 의미를 구체적으로 살펴봅니다. 100주년을 맞아 정치적으로 어떤 의미가 있었는지, 그리고 타국 (타이완) 의 사례와 비교하여 분석합니다. 국가가 국경일과 기념일을 정하고 바꾸는 과정과 현재 기념하는 방식에 대해 전문가들이 논합니다. 이 자리를 통해 임시정부의 정신이 오늘날 우리 삶과 국가 정체성에 어떻게 이어지고 있는지 되새기는 시간이 됩니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>역사적 기념일의 의미를 재확인하고 국가지정 기념일이 제정·개정되는 배경을 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#대한민국 임시정부</span><span>#임시정부수립일</span><span>#기념일 세미나</span><span>#107주년</span><span>#국회의원회관</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>오늘 (보도일 기준) 당장 제도가 바뀌거나 예산이 지원되지는 않지만, 임시정부 관련 기념일의 역사적 가치와 운영 방향에 대한 논의가 활발히 이루어집니다.</p>
     </section>
+    <div class='keywords'><span>#대한민국 임시정부</span><span>#임시정부수립일</span><span>#기념일 세미나</span><span>#107주년</span><span>#국회의원회관</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.mpva.go.kr/mpva/selectBbsNttView.do?key=77&amp;bbsNo=16&amp;nttNo=271711&amp;searchCtgry=&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

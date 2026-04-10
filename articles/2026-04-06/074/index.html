@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 산업통상부 보도자료</div>
+  <div class="post-badge">산업통상부 보도자료</div>
   <h1 class="post-title">정부, 美 의약품 232조 관세 업계와 영향 및 대응방향 점검</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>미국이 약값에 더 높은 세금을 매기기로 했지만 한국산 약은 조금만 더 내면 된다고 결정했다.</li><li style='margin-bottom:6px'>특히 우리 약의 핵심인 &#x27;바이오시밀러&#x27; (원래 약과 같은 효능을 가진 값싼 신약) 는 1년 동안은 세금도 안 내도 된다고 했다.</li><li style='margin-bottom:6px'>그래도 미국이 나중에 세금을 더 올리면 모르니, 지금부터 긴장하며 준비해 나가기로 했다.</li><li style='margin-bottom:6px'>정부가 약 회사들과 모여서 누가 얼마나 피해를 볼지 따져보고, 미국에 우리 약이 불합리하게 대우받지 않게 협상하겠다고 밝혔다.</li><li style='margin-bottom:6px'>이번 간담회로 인해 기업들은 미국 시장에서 불이익을 받지 않도록 정부가 지원하겠다고 약속받게 되었다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>산업통상부와 보건복지부는 4월 6일, 미국의 의약품 232조 관세 조치에 대한 업계 영향 점검 및 대응 방안 논의를 위해 간담회를 개최했다. 미국은 무역합의국인 한국산 의약품에 대해 15% 관세를 부과하되, 바이오시밀러 등 특정 품목은 1년간 관세를 유예하기로 했다. 여한구 통상교섭본부장이 주재한 이번 회담은 삼성바이오로직스 등 주요 기업 representatives와 함께 향후 추가 조치에 대한 긴밀한 협력 체계를 구축하기 위해 마련되었다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">미국이 약값에 더 높은 세금을 매기기로 했지만 한국산 약은 조금만 더 내면 된다고 결정했다. 특히 우리 약의 핵심인 &#x27;바이오시밀러&#x27; (원래 약과 같은 효능을 가진 값싼 신약) 는 1년 동안은 세금도 안 내도 된다고 했다. 그래도 미국이 나중에 세금을 더 올리면 모르니, 지금부터 긴장하며 준비해 나가기로 했다. 정부가 약 회사들과 모여서 누가 얼마나 피해를 볼지 따져보고, 미국에 우리 약이 불합리하게 대우받지 않게 협상하겠다고 밝혔다. 이번 간담회로 인해 기업들은 미국 시장에서 불이익을 받지 않도록 정부가 지원하겠다고 약속받게 되었다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>미국과 한국 약품 수출에 세금 차이가 발생하면 기업 경영과 약값에 직접적인 영향을 주기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#미국의약품관세</span><span>#232조관세</span><span>#바이오시밀러</span><span>#여한구</span><span>#통상교섭본부</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>주요 제약 기업들이 향후 미국 관세 부과 여부를 주시하며, 정부와의 협력을 통해 수출 리스크를 관리하게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#미국의약품관세</span><span>#232조관세</span><span>#바이오시밀러</span><span>#여한구</span><span>#통상교섭본부</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753031" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

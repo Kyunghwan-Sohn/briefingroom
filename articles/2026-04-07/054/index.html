@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 국가유산청 보도자료</div>
+  <div class="post-badge">국가유산청 보도자료</div>
   <h1 class="post-title">(국영문 동시배포) 봄날의 궁궐, 직접 보고 느끼고 즐기다 &#x27;궁중문화축전&#x27;</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>4 월 25 일부터 5 월 3 일까지 서울의 궁궐과 종묘에서 전통 문화를 즐길 수 있는 축제가 열린다.</li><li style='margin-bottom:6px'>지난해 137 만 명이 다녀갈 만큼 큰 인기 축제인데, 올해는 12 번째를 맞이한다.</li><li style='margin-bottom:6px'>주제는 &#x27;궁궐의 예술을 깨우다&#x27;로 관람객이 공연 속 주인공이 되어 즐길 수 있는 체험이 많다.</li><li style='margin-bottom:6px'>외국인을 위한 프로그램도 늘어나고, 어린이나 어르신 등 누구나 함께할 수 있는 자리도 마련된다.</li><li style='margin-bottom:6px'>각 궁궐마다 왕이나 왕비의 삶을 재현하거나 국악 공연 등을 통해 과거의 모습을 생생하게 만날 수 있다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국가유산청과 국가유산진흥원은 오는 4 월 25 일부터 5 월 3 일까지 서울의 5 대궁과 종묘에서 &#x27;2026 궁중문화축전&#x27;을 개최한다. 올해로 12 회를 맞이하는 이 축전은 지난해 137 만 명을 기록한 최대 규모 행사로, &#x27;궁, 예술을 깨우다&#x27;를 주제로 다양한 체험 프로그램과 공연을 진행한다. 이번 축제에는 양정웅 감독이 연출한 개막제를 포함해 국립국악원 등 다채로운 공연이 펼쳐지며, 어린이와 외국인 등을 위한 포용적 프로그램이 강화된다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">4 월 25 일부터 5 월 3 일까지 서울의 궁궐과 종묘에서 전통 문화를 즐길 수 있는 축제가 열린다. 지난해 137 만 명이 다녀갈 만큼 큰 인기 축제인데, 올해는 12 번째를 맞이한다. 주제는 &#x27;궁궐의 예술을 깨우다&#x27;로 관람객이 공연 속 주인공이 되어 즐길 수 있는 체험이 많다. 외국인을 위한 프로그램도 늘어나고, 어린이나 어르신 등 누구나 함께할 수 있는 자리도 마련된다. 각 궁궐마다 왕이나 왕비의 삶을 재현하거나 국악 공연 등을 통해 과거의 모습을 생생하게 만날 수 있다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>가족과 함께 전통 문화를 체험할 수 있는 대형 봄 축제가 열리기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#궁중문화축전</span><span>#2026</span><span>#국가유산청</span><span>#경복궁</span><span>#종묘제례악</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국민은 서울의 주요 궁궐에서 과거의 생활 모습을 체험하며 다양한 국악 공연과 이벤트를 즐길 수 있습니다.</p>
     </section>
+    <div class='keywords'><span>#궁중문화축전</span><span>#2026</span><span>#국가유산청</span><span>#경복궁</span><span>#종묘제례악</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753242" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

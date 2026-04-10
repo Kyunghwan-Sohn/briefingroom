@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 기상청 보도자료</div>
+  <div class="post-badge">기상청 보도자료</div>
   <h1 class="post-title">&#x27;하늘의 기상관측소&#x27; 기상항공기,3천 시간 비행하며 관측 공백 메워!&#x27;하늘의 기상관측소&#x27; 기상항공기,3천 시간 비행하며 관측</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>기상청에서는 바다는 관측소가 적어 공기가 어떻게 움직이는지 알기 어려운데, &#x27;나라호&#x27;라는 비행기를 띄워 직접 관측합니다. 나라호에는 27 가지 관측 장비가 달려 있어 비행 중에 기온, 습도, 바람 등을 높이별로 측정하는 드롭존데 등을 사용합니다. 2017 년부터 지금까지 약 3,000 시간 동안 비행하며 지구를 27 바퀴 돌 만큼 많은 데이터를 모았습니다. 미국, 일본 등 해외 기관과 함께 태풍이 생기는 과정부터 끝날 때까지 정보를 공유하며 예측을 더 정확하게 만들었습니다. 이러한 노력이 더해져 태풍이나 집중호우 같은 위험한 날씨가 오기 전에 더 잘 알려주고 대비할 수 있게 됩니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>기상청 국립기상과학원은 2017 년 도입한 기상항공기 &#x27;나라호&#x27;가 3,000 시간 비행하며 해상 관측 공백을 메웠다고 밝혔다. 현재까지 총 880 회 임무를 수행하며 연평균 375 시간 비행하고, 2021 년 이후 미국·일본 등 국제 협력망을 통해 태풍 예측 정확도를 높였다. 이러한 항공 관측 역량을 통해 해상 지역 대기 정보를 확보하고 위험기상으로부터 국민 안전을 지키는 방안을 마련했다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">기상청에서는 바다는 관측소가 적어 공기가 어떻게 움직이는지 알기 어려운데, &#x27;나라호&#x27;라는 비행기를 띄워 직접 관측합니다. 나라호에는 27 가지 관측 장비가 달려 있어 비행 중에 기온, 습도, 바람 등을 높이별로 측정하는 드롭존데 등을 사용합니다. 2017 년부터 지금까지 약 3,000 시간 동안 비행하며 지구를 27 바퀴 돌 만큼 많은 데이터를 모았습니다. 미국, 일본 등 해외 기관과 함께 태풍이 생기는 과정부터 끝날 때까지 정보를 공유하며 예측을 더 정확하게 만들었습니다. 이러한 노력이 더해져 태풍이나 집중호우 같은 위험한 날씨가 오기 전에 더 잘 알려주고 대비할 수 있게 됩니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>태풍 등 위험기상이 오기 전에 더 정확하고 빠르게 알릴 수 있게 해주는 핵심 관측 활동이기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#나라호</span><span>#기상항공기</span><span>#태풍 관측</span><span>#해상 관측 공백</span><span>#국제 협력</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>바닷가에서 발생하는 태풍이나 비의 발생 원리를 더 잘 파악하여 위험기상에 대한 예측 정확도가 높아집니다.</p>
     </section>
+    <div class='keywords'><span>#나라호</span><span>#기상항공기</span><span>#태풍 관측</span><span>#해상 관측 공백</span><span>#국제 협력</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753450" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

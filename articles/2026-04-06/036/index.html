@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 기획예산처 보도자료</div>
+  <div class="post-badge">기획예산처 보도자료</div>
   <h1 class="post-title">2025회계연도 성과목표관리 결과</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부는 각 부처가 지난해 예산을 얼마나 잘 써서 국민에게 혜택을 주었는지 평가 결과를 발표했습니다.</li><li style='margin-bottom:6px'>지난해 총 539 개 항목 중 82% 가 목표를 달성하여 작년보다 소폭 개선된 것으로 나타났습니다.</li><li style='margin-bottom:6px'>평가 결과 우수한 6 개 부처 (식약처, 문체부 등) 는 상을 받고, 성적이 낮은 프로그램은 개선 계획을 세웁니다.</li><li style='margin-bottom:6px'>성적이 좋은 부처는 국민에게 더 나은 정책을 만들도록 격려받고, 낮은 부처는 더 노력해야 합니다.</li><li style='margin-bottom:6px'>이 결과로 정부의 예산 사용 효율성을 높이고 국민이 체감하는 서비스의 질을 높이겠습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>기획예산처는 2026 년 4 월 6 일 국무회의를 통해 2025 회계연도 61 개 중앙관서 재정사업의 성과목표 관리 결과를 보고했습니다. 2025 년 재정사업 성과지표 539 개 중 442 개가 달성되어 달성률 82.0%(2 년 연속 80% 상회) 를 기록했으며, 우수기관 6 곳과 프로그램 6 개가 선정되었습니다. 식약처, 문체부, 해양수산부 등 6 부처가 우수 기관으로 선정되어 표창을 받으며, 저성능 프로그램은 개선 조치를 받습니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부는 각 부처가 지난해 예산을 얼마나 잘 써서 국민에게 혜택을 주었는지 평가 결과를 발표했습니다. 지난해 총 539 개 항목 중 82% 가 목표를 달성하여 작년보다 소폭 개선된 것으로 나타났습니다. 평가 결과 우수한 6 개 부처 (식약처, 문체부 등) 는 상을 받고, 성적이 낮은 프로그램은 개선 계획을 세웁니다. 성적이 좋은 부처는 국민에게 더 나은 정책을 만들도록 격려받고, 낮은 부처는 더 노력해야 합니다. 이 결과로 정부의 예산 사용 효율성을 높이고 국민이 체감하는 서비스의 질을 높이겠습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 보도는 국민 세금이 각 부처에서 얼마나 효과적으로 사용되어 왔는지를 보여주는 핵심 지표입니다.</p>
     </section>
-    <div class='keywords'><span>#성과목표관리</span><span>#재정사업</span><span>#국무회의</span><span>#부처 평가</span><span>#예산 집행</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>성과가 뛰어난 부처는 표창을 받고, 미흡한 부처는 개선 계획을 수립하여 예산 집행의 책임성을 높입니다.</p>
     </section>
+    <div class='keywords'><span>#성과목표관리</span><span>#재정사업</span><span>#국무회의</span><span>#부처 평가</span><span>#예산 집행</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753080" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

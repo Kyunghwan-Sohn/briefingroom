@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 금융위원회 보도자료</div>
+  <div class="post-badge">금융위원회 보도자료</div>
   <h1 class="post-title">2026년 3월 가계대출 동향(잠정)</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>금융위원회가 2026 년 3 월에 우리 나라 국민들이 쓴 빚 (가계대출) 이 얼마나 되었는지 발표했다.</li><li style='margin-bottom:6px'>보도자료에는 대출 총금액과 지난달에 비해 얼마나 늘거나 줄었는지 같은 구체적인 숫자가 들어있다.</li><li style='margin-bottom:6px'>이는 정부가 국민들의 빚 수준을 지속적으로 확인하여 금융 안정성을 지키기 위한 일이다.</li><li style='margin-bottom:6px'>대출을 받은 모든 가구와 기업은 이 자료를 통해 자신의 경제적 위치를 파악할 수 있다.</li><li style='margin-bottom:6px'>이 통계는 금리나 대출 한도 같은 정책이 달라질 때 중요한 참고자료가 된다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>금융위원회는 2026 년 3 월 잠정 가계대출 동향을 발표하며 2026 년 4 월 8 일 시점에 가계대출 규모 및 증가율을通报한다. 주요 수치는 2026 년 3 월 말 기준 가계대출 잔액 및 전년 동월 대비 증감률 등 금융통계 내용이다. 이 발표는 서민 및 가계 부채 관리에 관심을 가진 전 국민에게 현재 부채 동향 정보를 제공한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">금융위원회가 2026 년 3 월에 우리 나라 국민들이 쓴 빚 (가계대출) 이 얼마나 되었는지 발표했다. 보도자료에는 대출 총금액과 지난달에 비해 얼마나 늘거나 줄었는지 같은 구체적인 숫자가 들어있다. 이는 정부가 국민들의 빚 수준을 지속적으로 확인하여 금융 안정성을 지키기 위한 일이다. 대출을 받은 모든 가구와 기업은 이 자료를 통해 자신의 경제적 위치를 파악할 수 있다. 이 통계는 금리나 대출 한도 같은 정책이 달라질 때 중요한 참고자료가 된다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 자료는 국민들의 빚 (가계대출) 이 얼마나 늘고 있는지 알 수 있어 향후 금리나 대출 정책 변화를 예측하는 데 도움이 되기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#가계대출</span><span>#금융위원회</span><span>#대출 동향</span><span>#가계부채</span><span>#금융통계</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국민들은 자신의 가계 대출 현황과 금융 부채 경향성을 파악하여 더 현명한 금융 결정을 내릴 수 있다.</p>
     </section>
+    <div class='keywords'><span>#가계대출</span><span>#금융위원회</span><span>#대출 동향</span><span>#가계부채</span><span>#금융통계</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753512" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

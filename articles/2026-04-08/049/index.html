@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 농림축산식품부 보도자료</div>
+  <div class="post-badge">농림축산식품부 보도자료</div>
   <h1 class="post-title">농식품부, 중동전쟁 대응 식품기업 부담 줄인다</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>중동 전쟁 때문에 기름값이 오르면 식품을 싸는 포장재 값도 함께 올라 식품 회사들이 힘들어집니다.</li><li style='margin-bottom:6px'>정부와 기관은 기름으로 만든 포장재 대신 종이, 금속, 유리 같은 친환경 포장재 정보를 알려줍니다.</li><li style='margin-bottom:6px'>포장재를 바꾸는 식품 기업들이 새로운 재료를 시험하거나 안전성을 확인할 수 있도록 실험 시설을 무료로 빌려줍니다.</li><li style='margin-bottom:6px'>이를 통해 식품 회사들이 원재료 값 때문에 겪는 고비를 함께 넘기고 가격 상승을 막을 수 있도록 돕습니다.</li><li style='margin-bottom:6px'>결국 국민들이 먹는 식품의 가격과 안정적 공급이 더 안정적으로 유지되도록 돕는 조치입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>농식품부는 중동전쟁 장기화로 인한 원유가격 상승으로 포장재 원료비 부담을 겪는 식품기업을 지원한다. 농산업혁신정책실장 김정욱이 4월 8일 전북 익산 국가식품클러스터를 방문해 관련 기업 지원 상황을 점검하고 현장 의견을 수렴했다. 정부와 진흥원은 친환경 포장재 정보 제공 및 전환을 위한 시험·안전성 검증 시설 지원으로 기업의 비용 부담을 완화하고 공급 안정화를 도모한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">중동 전쟁 때문에 기름값이 오르면 식품을 싸는 포장재 값도 함께 올라 식품 회사들이 힘들어집니다. 정부와 기관은 기름으로 만든 포장재 대신 종이, 금속, 유리 같은 친환경 포장재 정보를 알려줍니다. 포장재를 바꾸는 식품 기업들이 새로운 재료를 시험하거나 안전성을 확인할 수 있도록 실험 시설을 무료로 빌려줍니다. 이를 통해 식품 회사들이 원재료 값 때문에 겪는 고비를 함께 넘기고 가격 상승을 막을 수 있도록 돕습니다. 결국 국민들이 먹는 식품의 가격과 안정적 공급이 더 안정적으로 유지되도록 돕는 조치입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>기름값 오르면 식품 가격도 오를 수 있어 식품 회사의 지원책이 내 생활비에 영향을 줄 수 있기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#농림축산식품부</span><span>#중동전쟁</span><span>#식품기업</span><span>#포장재 지원</span><span>#국가식품클러스터</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>식품 기업은 포장재 가격 상승 부담이 줄어들고 대체재 정보 및 검증을 통해 친환경 전환이 쉬워진다.</p>
     </section>
+    <div class='keywords'><span>#농림축산식품부</span><span>#중동전쟁</span><span>#식품기업</span><span>#포장재 지원</span><span>#국가식품클러스터</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753470" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

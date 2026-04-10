@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 산업통상부 보도자료</div>
+  <div class="post-badge">산업통상부 보도자료</div>
   <h1 class="post-title">통상조약 이행으로 인한 피해기업 지원 강화한다...&#x27;年 2%&#x27; 융자</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>자유무역협정 등 새로운 무역 규정 때문에 손해를 입거나 걱정되는 기업을 도와주는 새 사업이 4 월 6 일에 시작됩니다.</li><li style='margin-bottom:6px'>피해를 입은 기업은 연 2% 라는 매우 낮은 이자로 돈을 빌릴 수 있고, 전문가의 조언도 최대 200 만 원까지 받을 수 있습니다.</li><li style='margin-bottom:6px'>지금까지는 주로 당장 필요한 돈만 빌려주었지만, 올해부터는 공장 설비를 바꾸거나 AI 기술을 도입하는 데 돈을 더 많이 써주기로 했습니다.</li><li style='margin-bottom:6px'>손해가 실제로 발생했을 때뿐만 아니라, 앞으로 손해 날 수 있는 기업도 미리 찾아내어 지원해 줍니다.</li><li style='margin-bottom:6px'>이 사업은 2 년 이상 운영된 중소기업을 대상으로 하며, 약 30 개 기업은 돈을 빌리고 약 20 개 기업은 전문가의 도움을 받습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>산업통상부는 통상조약 이행으로 매출·생산 감소 피해를 입거나 우려되는 중소기업을 지원하는 &#x27;26 년도 통상변화대응 지원사업&#x27; 참여 기업을 4 월 6 일부터 모집한다. 선정된 기업은 연 2% 고정금리로 융자를 받고 최대 2,000 만원 규모의 맞춤형 컨설팅을 지원받으며, 시설자금 융자 비중은 기존 7% 에서 15% 로 확대된다. 이번 지원은 업력 2 년 이상의 중소 제조업·서비스업을 대상으로 하며, 기업당 약 30 개사는 융자, 20 개사는 컨설팅을 받는다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">자유무역협정 등 새로운 무역 규정 때문에 손해를 입거나 걱정되는 기업을 도와주는 새 사업이 4 월 6 일에 시작됩니다. 피해를 입은 기업은 연 2% 라는 매우 낮은 이자로 돈을 빌릴 수 있고, 전문가의 조언도 최대 200 만 원까지 받을 수 있습니다. 지금까지는 주로 당장 필요한 돈만 빌려주었지만, 올해부터는 공장 설비를 바꾸거나 AI 기술을 도입하는 데 돈을 더 많이 써주기로 했습니다. 손해가 실제로 발생했을 때뿐만 아니라, 앞으로 손해 날 수 있는 기업도 미리 찾아내어 지원해 줍니다. 이 사업은 2 년 이상 운영된 중소기업을 대상으로 하며, 약 30 개 기업은 돈을 빌리고 약 20 개 기업은 전문가의 도움을 받습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>통상 정책 변화로 인해 사업에 직격탄을 맞았거나 걱정되는 중소기업 경영자들은 이 지원금을 통해 생존과 성장을 도모할 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#통상변화대응지원사업</span><span>#중소기업 지원</span><span>#연 2% 융자</span><span>#시설자금 확대</span><span>#통상조약 피해기업</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>피해를 입은 중소 제조·서비스 기업은 연 2% 의超低금리로 시설 투자 자금을 대출받고 전문가의 경영 컨설팅을 통해 체질 개선을 할 수 있게 되었습니다.</p>
     </section>
+    <div class='keywords'><span>#통상변화대응지원사업</span><span>#중소기업 지원</span><span>#연 2% 융자</span><span>#시설자금 확대</span><span>#통상조약 피해기업</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753090" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

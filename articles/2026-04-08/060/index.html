@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 지식재산처 보도자료</div>
+  <div class="post-badge">지식재산처 보도자료</div>
   <h1 class="post-title">&quot;국내외 인파 몰리는 그날 노렸다&quot;…지식재산처, 위조 K-팝 팬 상품 정조준&quot;국내외 인파 몰리는 그날 노렸다&quot;…지식재산처</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>지식재산청이 인기 가수 콘서트 날에 가짜 굿즈를 팔아도 단속하겠다는 것입니다.</li><li style='margin-bottom:6px'>지난 3월부터 콘서트 전까지 인터넷에서 가짜 상품 판매글을 미리 찾아 지웁니다.</li><li style='margin-bottom:6px'>콘서트 당일엔 현장 근처에서 파는 가짜 물품을 색출해 법대로 처벌합니다.</li><li style='margin-bottom:6px'>이로 인해 진짜 상품만 사고파는 건강한 시장 문화를 만들게 됩니다.</li><li style='margin-bottom:6px'>팬들이 비싼 가짜 물건을 사지 않고 정품을 지원할 수 있게 됩니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>지식재산처가 방탄소년단 고양 콘서트 기간인 4월 9일, 온라인과 오프라인에서 유통되는 위조 K-팝 팬 상품에 대한 집중 단속을 추진합니다. 3월 16일부터 4월 9일까지 온라인 재택감시단을 운영하며, 콘서트 당일 경기 일산 공연장 주변 상권을 중심으로 현장 단속과 법적 조치를 강화할 예정입니다. 이 조치는 국내외 팬이 방문하는 시기를 노린 위조 상품 근절과 정품 소비 문화 확산을 목적으로 합니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">지식재산청이 인기 가수 콘서트 날에 가짜 굿즈를 팔아도 단속하겠다는 것입니다. 지난 3월부터 콘서트 전까지 인터넷에서 가짜 상품 판매글을 미리 찾아 지웁니다. 콘서트 당일엔 현장 근처에서 파는 가짜 물품을 색출해 법대로 처벌합니다. 이로 인해 진짜 상품만 사고파는 건강한 시장 문화를 만들게 됩니다. 팬들이 비싼 가짜 물건을 사지 않고 정품을 지원할 수 있게 됩니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>콘서트에 가는 팬들이 가짜 상품을 사지 않고 정품을 구매하도록 도와주기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#지식재산처</span><span>#위조 K-팝 상품</span><span>#방탄소년단 콘서트</span><span>#가짜 굿즈 단속</span><span>#정품 소비문화</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>콘서트장 주변 상가와 온라인 판매처에서 위조 K-팝 굿즈가 대폭 줄어들고 정품 소비가 활성화됩니다.</p>
     </section>
+    <div class='keywords'><span>#지식재산처</span><span>#위조 K-팝 상품</span><span>#방탄소년단 콘서트</span><span>#가짜 굿즈 단속</span><span>#정품 소비문화</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753458" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

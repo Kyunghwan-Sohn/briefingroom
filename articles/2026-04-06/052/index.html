@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 국토교통부 보도자료</div>
+  <div class="post-badge">국토교통부 보도자료</div>
   <h1 class="post-title">전세사기 피해주택 매입 가속화 … 3월간 995호 매입으로 월 단위 최다 매입</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부의 전세사기 피해 지원위원회가 지난달 3 차례 회의를 열며 피해자를 더 많이 공식 인정했다.</li><li style='margin-bottom:6px'>3 달 동안만 995 호의 피해주택을 구매했는데 이는 지난 제도 도입 이후 한 달 중 가장 많은 숫자이다.</li><li style='margin-bottom:6px'>전세사기 피해자는 LH 같은 공기업이 자신의 집을 경매로 사주면 그 차액만큼 돈을 돌려받는다.</li><li style='margin-bottom:6px'>이 돈은 새 집 마련 비용으로 쓰이거나, 기존 집에서 계속 살 때 보증금으로 쓸 수 있다.</li><li style='margin-bottom:6px'>이미 3 만 7 천여 명이 피해자로 인정받았고 최대 10 년까지 기존 집에서 거주할 수 있는 길이 열렸다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국토교통부는 3 월 11 일, 18 일, 25 일 전세사기 피해 지원위원회 회의를 3 회 개최하여 698 건을 전세사기 피해자로 최종 결정했다. 이로써 ’24 년 제도 도입 이후 3 월 기준 월 단위 최다인 995 호 매입이 이루어졌으며, 누적 피해자 결정 건수는 37,648 건에 달한다. 해당 정책은 전세사기 피해자가 LH 등을 통해 피해주택을 우선 매입받아 주거 안정을 도모하고 경매 차익을 보상받는 것을 목표로 한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부의 전세사기 피해 지원위원회가 지난달 3 차례 회의를 열며 피해자를 더 많이 공식 인정했다. 3 달 동안만 995 호의 피해주택을 구매했는데 이는 지난 제도 도입 이후 한 달 중 가장 많은 숫자이다. 전세사기 피해자는 LH 같은 공기업이 자신의 집을 경매로 사주면 그 차액만큼 돈을 돌려받는다. 이 돈은 새 집 마련 비용으로 쓰이거나, 기존 집에서 계속 살 때 보증금으로 쓸 수 있다. 이미 3 만 7 천여 명이 피해자로 인정받았고 최대 10 년까지 기존 집에서 거주할 수 있는 길이 열렸다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>전세사기 피해로 집을 빼앗긴 분들에게 구체적인 지원 절차와 매입 확대 소식을 알기 위해서입니다.</p>
     </section>
-    <div class='keywords'><span>#전세사기</span><span>#피해주택 매입</span><span>#LH</span><span>#전세사기 피해 지원위원회</span><span>#주거 안정</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>전세사기 피해자는 LH 등 공기업이 주택을 매입하여 거주하거나 퇴거 시 차익을 돌려받을 수 있는 절차가 훨씬 빨라졌습니다.</p>
     </section>
+    <div class='keywords'><span>#전세사기</span><span>#피해주택 매입</span><span>#LH</span><span>#전세사기 피해 지원위원회</span><span>#주거 안정</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753053" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

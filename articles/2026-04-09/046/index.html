@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 산림청 보도자료</div>
+  <div class="post-badge">산림청 보도자료</div>
   <h1 class="post-title">국립산림과학원, 200m급 목구조 대공간 건축 기술개발 참여국립산림과학원</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>국립산림과학원이 나무로 만든 아주 큰 건물 (예: 대형 돔) 을 짓는 기술을 개발합니다. 2026 년 4 월부터 2030 년까지 20 여 곳 연구팀이 함께 국산 목재와 철을 섞은 새로운 재료를 만듭니다. 지금까지 한국에서는 이런 큰 나무 건물 기술이 부족했으나 해외에서는 이미 많이 쓰이고 있습니다. 이 기술을 통해 나무를 많이 쓰면서도 건물의 안전하고 튼튼한 구조를 만드는 법을 배웁니다. 앞으로 국내에서 최초로 나무로 만든 대형 건물이 생겨나 탄소 배출을 줄이는 데 큰 도움을 줍니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국립산림과학원이 2026 년 4 월부터 국토교통부 R&amp;D 사업에 참여해 200m 급 목구조 대공간 건축물 건설 기술을 개발한다. 연구는 2030 년 12 월까지 총 20 여 개 기관이 참여해 국산 목재와 강재를 혼합한 하이브리드 부재 개발 및 실증에 집중한다. 이를 통해 국내 미흡한 대형 목조 건축 기술을 확보하고 2050 탄소중립 실현에 기여한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">국립산림과학원이 나무로 만든 아주 큰 건물 (예: 대형 돔) 을 짓는 기술을 개발합니다. 2026 년 4 월부터 2030 년까지 20 여 곳 연구팀이 함께 국산 목재와 철을 섞은 새로운 재료를 만듭니다. 지금까지 한국에서는 이런 큰 나무 건물 기술이 부족했으나 해외에서는 이미 많이 쓰이고 있습니다. 이 기술을 통해 나무를 많이 쓰면서도 건물의 안전하고 튼튼한 구조를 만드는 법을 배웁니다. 앞으로 국내에서 최초로 나무로 만든 대형 건물이 생겨나 탄소 배출을 줄이는 데 큰 도움을 줍니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>탄소중립을 위해 나무 건물이 늘어나고 미래 건축물의 기술과 규제가 바뀔 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#목구조 건축물</span><span>#탄소중립</span><span>#국립산림과학원</span><span>#하이브리드 부재</span><span>#R&amp;D</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국내 대형 건축물에 국산 목재가 더 많이 쓰이고 관련 건설 기술과 시장이 확대됩니다.</p>
     </section>
+    <div class='keywords'><span>#목구조 건축물</span><span>#탄소중립</span><span>#국립산림과학원</span><span>#하이브리드 부재</span><span>#R&amp;D</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753611" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

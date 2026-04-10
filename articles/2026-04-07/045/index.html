@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 조달청 보도자료</div>
+  <div class="post-badge">조달청 보도자료</div>
   <h1 class="post-title">조달청, 건설자재 현장 점검... 아스콘 공급망 관리 강화조달청</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>조달청 직원들이 아스콘을 만드는 공장을 방문해서 생산 시설과 원자재 수급 상황을 점검했다.</li><li style='margin-bottom:6px'>중동 전쟁 등 세계 상황 때문에 아스콘 값이 오를까 봐 걱정해서 확인했다.</li><li style='margin-bottom:6px'>아스콘은 도로를 깔고 고치는 데 꼭 필요하므로 항상 잘 공급되어야 한다.</li><li style='margin-bottom:6px'>공장 사장님은 생산이 잘 되고 있다고 답했고, 조달청도 문제를 해결해 주겠다고 약속했다.</li><li style='margin-bottom:6px'>앞으로 도로 공사가 멈추지 않도록 아스콘이 계속 안정적으로 공급되도록 한다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>조달청은 4 월 7 일 아스콘 제조업체 에스지이(주)를 방문하여 생산 시설과 원자재 수급 상황을 점검했다. 이번 점검은 중동 정세 등 대외 여건 변화에 따른 아스콘 공급망 실태를 파악하고 관급공사의 원활한 이행을 위해 진행되었다. 조달청은 점검 결과를 바탕으로 공급망 관리 체계를 강화하고 현장 애로사항을 해결하여 도로 건설 자재의 안정적 공급을 지원한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">조달청 직원들이 아스콘을 만드는 공장을 방문해서 생산 시설과 원자재 수급 상황을 점검했다. 중동 전쟁 등 세계 상황 때문에 아스콘 값이 오를까 봐 걱정해서 확인했다. 아스콘은 도로를 깔고 고치는 데 꼭 필요하므로 항상 잘 공급되어야 한다. 공장 사장님은 생산이 잘 되고 있다고 답했고, 조달청도 문제를 해결해 주겠다고 약속했다. 앞으로 도로 공사가 멈추지 않도록 아스콘이 계속 안정적으로 공급되도록 한다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>도로 공사 시 필요한 아스콘 수급이 불안정해지면 도로 건설이 지연되거나 비용이 늘어날 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#조달청</span><span>#아스콘</span><span>#공급망 관리</span><span>#현장 점검</span><span>#관급공사</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>아스콘 공급에 문제가 생겼을 때 관공서가 빠르게 대응하여 도로 공사 진행이 방해받지 않도록 관리 체계를 강화한다.</p>
     </section>
+    <div class='keywords'><span>#조달청</span><span>#아스콘</span><span>#공급망 관리</span><span>#현장 점검</span><span>#관급공사</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753258" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

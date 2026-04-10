@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 기후에너지환경부 보도자료</div>
+  <div class="post-badge">기후에너지환경부 보도자료</div>
   <h1 class="post-title">(참고) 공영주차장 승용차 5부제 본격 시행…생계형 차량 등은 제외 가능</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>4 월 8 일부터 공영주차장에 주차할 때 평일 날짜 끝자리와 내 차 번호 끝자리를 맞춰야 합니다. 예를 들어 오늘이 8 일이라면 번호 끝이 8,9,0 인 차만 주차가 가능한 규칙이 적용됩니다. 하지만 생계를 위해 택시나 배달용차 같은 &#x27;생계형 차량&#x27;은 이 규칙에서 면제받을 수 있습니다. 이 규칙은 공기 중의 먼지 농도를 줄이고 주차장이 너무 빽빽해지지 않게 만들기 위해 만든 것입니다. 운전자는 주차 가능 날짜를 미리 확인해서 벌금이나 교통 체증을 피할 수 있습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>기후에너지환경부는 2026 년 4 월 8 일 공영주차장 승용차 5 부제를 본격 시행한다고 발표했습니다. 생계형 차량 등은 해당 규제의 예외 대상에 포함될 수 있어 피해 최소화를 위한 배려가 있습니다. 이번 조치는 대기오염 및 주차난 해소를 목적으로 하며, 국민 다수의 일상생활에 직접적인 영향을 미칩니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">4 월 8 일부터 공영주차장에 주차할 때 평일 날짜 끝자리와 내 차 번호 끝자리를 맞춰야 합니다. 예를 들어 오늘이 8 일이라면 번호 끝이 8,9,0 인 차만 주차가 가능한 규칙이 적용됩니다. 하지만 생계를 위해 택시나 배달용차 같은 &#x27;생계형 차량&#x27;은 이 규칙에서 면제받을 수 있습니다. 이 규칙은 공기 중의 먼지 농도를 줄이고 주차장이 너무 빽빽해지지 않게 만들기 위해 만든 것입니다. 운전자는 주차 가능 날짜를 미리 확인해서 벌금이나 교통 체증을 피할 수 있습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>공영주차장 이용 시 주차 가능 여부를 알 수 있어 교통 체증과 대기 오염을 줄이기 위한 규칙이기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#공영주차장</span><span>#5 부제</span><span>#기후에너지환경부</span><span>#주차난 해소</span><span>#생계형 차량</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>승용차 운전자들은 날짜에 따른 주차 제한을 받아야 하며, 생계형 차량 운전자는 해당 제한에서 제외됩니다.</p>
     </section>
+    <div class='keywords'><span>#공영주차장</span><span>#5 부제</span><span>#기후에너지환경부</span><span>#주차난 해소</span><span>#생계형 차량</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753327" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

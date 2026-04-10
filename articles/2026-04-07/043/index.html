@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 국민통합위원회 보도자료</div>
+  <div class="post-badge">국민통합위원회 보도자료</div>
   <h1 class="post-title">국민통합위원회, 국민참여 소통행사</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>국민통합위원회가 주민들과 얼굴을 맞대며 대화하는 행사를 엽니다. 서울에 있는 넓은 광장에서 직장인과 시민 누구나 무료로 참여할 수 있습니다. 커피를 마시면서 편안하게 의견을 나누는 &#x27;오픈마이크&#x27; 프로그램이 진행됩니다. 나온 의견은 나중에 정부의 중요한 정책 결정 자료로 활용됩니다. 서로 대화하고 공감하면서 사회의 갈등을 풀고 더 좋은 나라를 만들겠습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국민통합위원회는 사회갈등 해소와 현장 목소리 청취를 위해 &#x27;모두의 대한민국, 찾아가는 국민통합&#x27; 소통 행사를 개최합니다. 행사는 4 월 8 일 오전 11 시 30 분부터 오후 2 시 30 분까지 서울마당 광장에서 진행되며, 이석연 위원장과 전지명 부위원장 등 주요 인사들이 참석합니다. 이 행사를 통해 시민들은 커피 제공, 국민 오픈마이크 참여, 정책 소통 부스 등을 통해 자유롭게 의견을 제시하고 정책 반영을 기대할 수 있습니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">국민통합위원회가 주민들과 얼굴을 맞대며 대화하는 행사를 엽니다. 서울에 있는 넓은 광장에서 직장인과 시민 누구나 무료로 참여할 수 있습니다. 커피를 마시면서 편안하게 의견을 나누는 &#x27;오픈마이크&#x27; 프로그램이 진행됩니다. 나온 의견은 나중에 정부의 중요한 정책 결정 자료로 활용됩니다. 서로 대화하고 공감하면서 사회의 갈등을 풀고 더 좋은 나라를 만들겠습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>국민이 직접 소통에 참여해 정부 정책에 영향을 줄 수 있는 기회를 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#국민통합위원회</span><span>#찾아가는 국민통합</span><span>#국민참여 소통</span><span>#오픈마이크</span><span>#현장 소통</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국민은 자신의 의견을 직접 전달할 수 있는 장이 생기고, 정부 정책에는 현장의 목소리가 더 잘 반영됩니다.</p>
     </section>
+    <div class='keywords'><span>#국민통합위원회</span><span>#찾아가는 국민통합</span><span>#국민참여 소통</span><span>#오픈마이크</span><span>#현장 소통</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753245" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

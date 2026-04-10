@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 국방부 보도자료</div>
+  <div class="post-badge">국방부 보도자료</div>
   <h1 class="post-title">국방부장관, 공군 全 대대장 대상 특별강연 실시</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>국방부 장관이 공군의 모든 대대장에게 직접 강연을 했습니다. 군 지휘관이 일을 잘하려면 먼저 기본을 바로 잡는 것이 중요하다고 말했습니다. 병사를 진심으로 사랑하는 마음이 리더십의 핵심이라고 강조했습니다. 사고를 막기 위해서는 계획하고 실행한 뒤 확인하고 점검하는 과정을 꼭 지켜야 합니다. 장병의 안전을 위해 지휘관의 세심한 관심과 노력이 필요하다고 당부했습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국방부장관이 공군 전 대대장을 대상으로 지휘역량 강화 특별강연을 실시했습니다. 강연은 2026 년 4 월 7 일 강원도 원주 제 8 전비단에서 손석락 공군참모총장 등 200 여 명이 참석한 가운데 개최되었습니다. 본립도생과 인(仁)의 정신, 그리고 PDSA 순환을 강조하여 군 지휘관의 리더십과 안전 관리의 중요성을 공유했습니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">국방부 장관이 공군의 모든 대대장에게 직접 강연을 했습니다. 군 지휘관이 일을 잘하려면 먼저 기본을 바로 잡는 것이 중요하다고 말했습니다. 병사를 진심으로 사랑하는 마음이 리더십의 핵심이라고 강조했습니다. 사고를 막기 위해서는 계획하고 실행한 뒤 확인하고 점검하는 과정을 꼭 지켜야 합니다. 장병의 안전을 위해 지휘관의 세심한 관심과 노력이 필요하다고 당부했습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>국방부의 핵심 지휘관이 어떤 리더십과 안전 원칙을 강조했는지 확인해 볼 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#국방부</span><span>#안규백</span><span>#공군</span><span>#지휘역량</span><span>#안전관리</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>군 지휘관의 리더십과 안전 관리 기준이 더욱 확고해져 부대 운영의 효율성과 안전성이 높아집니다.</p>
     </section>
+    <div class='keywords'><span>#국방부</span><span>#안규백</span><span>#공군</span><span>#지휘역량</span><span>#안전관리</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753325" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 산업통상부 보도자료</div>
+  <div class="post-badge">산업통상부 보도자료</div>
   <h1 class="post-title">한-아세안 자유무역협정(FTA) 업그레이드를 위한 제1차 공동위 개최</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>한국과 동남아시아 국가들 간의 무역 협정을 최신 시대에 맞게 새로 고치는 첫 번째 회의를 열었습니다.</li><li style='margin-bottom:6px'>지금까지는 상품 판매만 중점이었으나, 이번엔 디지털·광물 등 미래 산업 관련 규칙을 새로 만듭니다.</li><li style='margin-bottom:6px'>내년 6 월부터 본격적으로 협상을 시작하여 디지털 고속도로를 만드는 등 새로운 무역 길을 닦기로 했습니다.</li><li style='margin-bottom:6px'>이 협정이 성공하면 AI 나 전기차 같은 첨단 산업이 더 잘 성장할 수 있는 환경이 조성됩니다.</li><li style='margin-bottom:6px'>보호무역주의 등 불확실성 속에서 양국 간 경제 협력을 강화해 미래 성장 동력을 확보합니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>우리나라와 아세안 간 한-아세안 FTA 업그레이드를 위한 제 1 차 공동위원회가 4.8 화상으로 개최되어 6 월 본격 협상 진입을 위한 기본 틀을 논의했다. 박근오 통상협정정책관 (수석대표) 과 알파나 로이 싱가포르 무역산업부 국장이 각 대표를 이끌며, 디지털·공급망·핵심광물 등 미래 신규 규범 반영을 주안점으로 삼기로 했다. 협상 성공 시 디지털 무역 기반 구축 및 AI·전기차 등 핵심 산업 지원 규범이 도입되어 양국 간 교역·투자 확대와 경제 안보가 강화될 전망이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">한국과 동남아시아 국가들 간의 무역 협정을 최신 시대에 맞게 새로 고치는 첫 번째 회의를 열었습니다. 지금까지는 상품 판매만 중점이었으나, 이번엔 디지털·광물 등 미래 산업 관련 규칙을 새로 만듭니다. 내년 6 월부터 본격적으로 협상을 시작하여 디지털 고속도로를 만드는 등 새로운 무역 길을 닦기로 했습니다. 이 협정이 성공하면 AI 나 전기차 같은 첨단 산업이 더 잘 성장할 수 있는 환경이 조성됩니다. 보호무역주의 등 불확실성 속에서 양국 간 경제 협력을 강화해 미래 성장 동력을 확보합니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>미래 경제 핵심인 AI, 전기차, 디지털 무역 규범이 어떤 방향으로 바뀔지 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#한-아세안 FTA</span><span>#통상협정정책관</span><span>#디지털 무역</span><span>#공급망</span><span>#핵심광물</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>2027 년 본격 협상 결과에 따라 한국의 디지털 기업과 첨단산업에 유리한 무역 규정이 신설될 수 있습니다.</p>
     </section>
+    <div class='keywords'><span>#한-아세안 FTA</span><span>#통상협정정책관</span><span>#디지털 무역</span><span>#공급망</span><span>#핵심광물</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753389" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 국가유산청 보도자료</div>
+  <div class="post-badge">국가유산청 보도자료</div>
   <h1 class="post-title">K-헤리티지 청년 활동가(120명) 세계유산 보호·홍보 활동 시작</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>2026 년에 청년들이 세계유산(유네스코가 지정한 전 세계의 뛰어난 자연·문화 유적)을 지키는 활동가가 된다. 총 120 명의 청년이 30 개 팀으로 나뉘어 유산의 상태를 체크하고 홍보하는 역할을 한다. 외국인 유학생들도 참여하여 한국 문화의 아름다움을 세계에 알리게 된다. 활동 기간 중에는 전문가의 도움을 받아 교육과 캠페인 등 다양한 활동을 벌인다. 일 년 동안 열심히 활동한 팀에게는 연말에 국가유산청장상이 주어진다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국가유산청은 4 월 7 일 국립고궁박물관에서 &#x27;2026 청년 세계유산 지킴이&#x27; 120 명을 위촉하고 발대식을 연다. 선발된 30 개 팀은 세계기록유산과 세계유산 모니터링, 홍보 콘텐츠 제작, 교육 키트 개발 등 1 년 동안 활동하며, 우수팀은 연말에 상을 받는다. 특히 외국인 유학생 6 개 팀이 참여해 K-heritage 의 가치를 세계에 알릴 예정이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">2026 년에 청년들이 세계유산(유네스코가 지정한 전 세계의 뛰어난 자연·문화 유적)을 지키는 활동가가 된다. 총 120 명의 청년이 30 개 팀으로 나뉘어 유산의 상태를 체크하고 홍보하는 역할을 한다. 외국인 유학생들도 참여하여 한국 문화의 아름다움을 세계에 알리게 된다. 활동 기간 중에는 전문가의 도움을 받아 교육과 캠페인 등 다양한 활동을 벌인다. 일 년 동안 열심히 활동한 팀에게는 연말에 국가유산청장상이 주어진다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>세계문화유산이 어떻게 보존되고 미래 세대가 어떻게 계승하는지 알 수 있기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#K-헤리티지</span><span>#청년 세계유산 지킴이</span><span>#국가유산청</span><span>#세계유산 보호</span><span>#외국인 유학생</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>세계유산 보존을 위한 청년들의 창의적인 모니터링과 홍보 활동이 본격적으로 시작된다.</p>
     </section>
+    <div class='keywords'><span>#K-헤리티지</span><span>#청년 세계유산 지킴이</span><span>#국가유산청</span><span>#세계유산 보호</span><span>#외국인 유학생</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753224" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

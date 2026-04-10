@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 농림축산식품부 보도자료</div>
+  <div class="post-badge">농림축산식품부 보도자료</div>
   <h1 class="post-title">농식품부, &#x27;제2의 라면&#x27; 육성 위한 &#x27;글로벌 NEXT K-푸드 프로젝트&#x27; 가동</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>2026 년 한국 음식 (K-푸드) 을 해외로 더 많이 팔기 위한 새로운 프로젝트를 시작합니다. 대기업과 중소기업, 창업 기업 등 145 개 회사를 뽑아 각 나라에 맞춰 도움을 주기로 했습니다. 한국 전통 주류, 떡볶이, 건강 음료 등 각 나라 사람들이 좋아하는 음식을 중심으로 마케팅을 합니다. 중국·일본 등에서는 혈당 조절 식품을, 유럽에서는 첨가물을 줄인 안전한 음식을 팔려고 합니다. 이 프로젝트는 해외 시장에서의 한국 음식 인기도를 높이고 수출을 늘리는 것을 목표로 합니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>농림축산식품부는 2026 년 K-푸드 수출 활성화를 위해 &#x27;글로벌 NEXT K-푸드 프로젝트&#x27;를 가동하여 145 개 수출기업을 선정하고 지역별 맞춤형 전략을 추진한다. 이 사업은 대·중견기업, 중소기업, 스타트업을 위한 밸류업·브랜드업·스타트업 3 개 부문으로 구분하여 B2B/C 마케팅과 신제품 개발을 지원하며 연내 수출 실적 증대를 목표로 한다. 주요 대상은 전 세계 9 개 지역을 타겟으로 하는 식품 기업으로, &#x27;제 2 의 라면&#x27;이 될 K-푸드 수출을 통해 국가 브랜드와 수출 규모를 동시에 확대한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">2026 년 한국 음식 (K-푸드) 을 해외로 더 많이 팔기 위한 새로운 프로젝트를 시작합니다. 대기업과 중소기업, 창업 기업 등 145 개 회사를 뽑아 각 나라에 맞춰 도움을 주기로 했습니다. 한국 전통 주류, 떡볶이, 건강 음료 등 각 나라 사람들이 좋아하는 음식을 중심으로 마케팅을 합니다. 중국·일본 등에서는 혈당 조절 식품을, 유럽에서는 첨가물을 줄인 안전한 음식을 팔려고 합니다. 이 프로젝트는 해외 시장에서의 한국 음식 인기도를 높이고 수출을 늘리는 것을 목표로 합니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>우리 국민이 즐겨 먹는 음식들이 세계 시장에서 어떻게 성장할지, 그리고 관련 기업과 농업인의 수출 성공 여부에 직접적인 영향을 미치기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#K-푸드 수출</span><span>#글로벌 NEXT 프로젝트</span><span>#농식품부</span><span>#권역별 전략품목</span><span>#중소기업 지원</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국내 K-푸드 기업은 국가의 지원을 받아 각 지역 특성에 맞는 새로운 제품을 개발하고 해외 시장 진출을 빠르게 확장합니다.</p>
     </section>
+    <div class='keywords'><span>#K-푸드 수출</span><span>#글로벌 NEXT 프로젝트</span><span>#농식품부</span><span>#권역별 전략품목</span><span>#중소기업 지원</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753687" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

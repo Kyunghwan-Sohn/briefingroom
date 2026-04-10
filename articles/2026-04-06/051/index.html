@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 인사혁신처 보도자료</div>
+  <div class="post-badge">인사혁신처 보도자료</div>
   <h1 class="post-title">노동절 제정 63년 만에 공휴일 지정</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>1963 년에 생긴 노동절이 2026 년부터 모든 사람이 쉴 수 있는 공휴일이 됩니다.</li><li style='margin-bottom:6px'>지금까지는 민간 기업 근로자는 쉬어도 공무원과 교사는 일해야 하는 불공평한 점이 있었습니다.</li><li style='margin-bottom:6px'>정부가 법을 바꾸어 이제 모든 국민이 5 월 1 일에는 반드시 쉴 수 있게 됩니다.</li><li style='margin-bottom:6px'>세계 대부분의 나라에서 이미 5 월 1 일을 휴일로 지내는데, 우리나라도 이제 따라잡습니다.</li><li style='margin-bottom:6px'>이를 통해 일하는 모든 사람의 노고가 존중받는 더 좋은 사회가 만들어지기를 기대합니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>「공휴일에 관한 법률」 일부개정법률 공포안이 국무회의를 통과하여 1963 년 제정된 지 63 년 만에 노동절 (5 월 1 일) 이 공식 공휴일로 지정됩니다. 해당 제도는 2026 년부터 즉시 시행되어 공무원과 교사 등 전 국민이 유급휴일로 쉴 수 있게 됩니다. 민간·공공부문의 형평성을 개선하고 노동의 가치를 기념하려는 이번 조치로 노동절의 사회적 의미가 확대됩니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">1963 년에 생긴 노동절이 2026 년부터 모든 사람이 쉴 수 있는 공휴일이 됩니다. 지금까지는 민간 기업 근로자는 쉬어도 공무원과 교사는 일해야 하는 불공평한 점이 있었습니다. 정부가 법을 바꾸어 이제 모든 국민이 5 월 1 일에는 반드시 쉴 수 있게 됩니다. 세계 대부분의 나라에서 이미 5 월 1 일을 휴일로 지내는데, 우리나라도 이제 따라잡습니다. 이를 통해 일하는 모든 사람의 노고가 존중받는 더 좋은 사회가 만들어지기를 기대합니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이번 법적 개정으로 앞으로는 매년 5 월 1 일이 전국민 휴일이 되어 일상생활과 행사 계획에 직접적인 영향을 미치기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#노동절</span><span>#공휴일 지정</span><span>#공휴일법 개정</span><span>#전 국민 휴일</span><span>#형평성</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>공무원, 교사, 학생 등 기존에 휴일이 아니었던 모든 국민이 5 월 1 일에 공식적으로 쉬게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#노동절</span><span>#공휴일 지정</span><span>#공휴일법 개정</span><span>#전 국민 휴일</span><span>#형평성</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753073" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

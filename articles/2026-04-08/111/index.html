@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 보건복지부 보도자료</div>
+  <div class="post-badge">보건복지부 보도자료</div>
   <h1 class="post-title">기본이 튼튼한 미래 복지 향한 AX 전략 논의의 장 열린다</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 인공지능(AI·컴퓨터가 사람을 대신해 판단하는 기술) 기술을を使って 복지를 더 똑똑하게 만들 방법을 논의합니다.</li><li style='margin-bottom:6px'>4 월 29일에 열리는 이 자리에 전문가들이 모여 AI 가 어떻게 우리의 복지 서비스를 바꿔줄지 이야기합니다.</li><li style='margin-bottom:6px'>1 부에서는 컴퓨터로 행정을 처리하는 법과, 2 부에서는 AI 가 개인에게 딱 맞는 돌봄 서비스를 주는 방법을 다룹니다.</li><li style='margin-bottom:6px'>이스란 제1차관은 AI 를 이용해 복지를 더 빠르고 따뜻하게 전달하겠다고 강조했습니다.</li><li style='margin-bottom:6px'>이번 심포지엄은 국민들이 체감할 수 있는 더 나은 디지털 복지 서비스를 만들기 위한 첫걸음입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>보건복지부는 4월 29일 한국사회보장정보원과 함께 인공지능(AI) 기술을 활용한 사회보장 서비스 혁신 방향을 논의하는 &#x27;사회보장 AX 미래전략 심포지엄&#x27;을 개최한다. 이번 행사는 4월 9일부터 사전 신청을 받으며, AI 기반 행정 및 초개인화 돌봄 모델 등 2부에 걸쳐 전문가 발표와 토론이 진행될 예정이다. 이 심포지엄은 데이터와 AI 기반의 촘촘한 복지 전달체계를 구현하여 국민의 삶을 실질적으로 돕는 서비스를 실현하기 위해 마련된 것으로, 복지 정책 전반의 디지털 전환을 가속화할 전망이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 인공지능(AI·컴퓨터가 사람을 대신해 판단하는 기술) 기술을を使って 복지를 더 똑똑하게 만들 방법을 논의합니다. 4 월 29일에 열리는 이 자리에 전문가들이 모여 AI 가 어떻게 우리의 복지 서비스를 바꿔줄지 이야기합니다. 1 부에서는 컴퓨터로 행정을 처리하는 법과, 2 부에서는 AI 가 개인에게 딱 맞는 돌봄 서비스를 주는 방법을 다룹니다. 이스란 제1차관은 AI 를 이용해 복지를 더 빠르고 따뜻하게 전달하겠다고 강조했습니다. 이번 심포지엄은 국민들이 체감할 수 있는 더 나은 디지털 복지 서비스를 만들기 위한 첫걸음입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이번 심포지엄은 향후 우리 사회의 복지 정책이 인공지능 기술을 통해 어떻게 구체적으로 변할지에 대한 청사진을 보여주기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#사회보장 AX</span><span>#인공지능 전략</span><span>#디지털 복지</span><span>#미래전략 심포지엄</span><span>#복지서비스 혁신</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국민은 앞으로 인공지능을 기반으로 더 빠르고 정확한 복지 서비스를, 기업과 업계는 데이터 기반의 새로운 디지털 복지 모델에 참여할 기회를 얻게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#사회보장 AX</span><span>#인공지능 전략</span><span>#디지털 복지</span><span>#미래전략 심포지엄</span><span>#복지서비스 혁신</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.mohw.go.kr/board.es?mid=a10503000000&amp;bid=0027&amp;act=view&amp;list_no=1490023&amp;tag=&amp;nPage=1" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 기후에너지환경부 보도자료</div>
+  <div class="post-badge">기후에너지환경부 보도자료</div>
   <h1 class="post-title">폐자원의 순환이용 촉진… 순환자원 추가지정 및 수입규제 완화 추진</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>반제품을 담아 나르던 &#x27;아이씨 트레이&#x27;와 건설 현장에서 나오는 &#x27;찌꺼기 돌&#x27;이 더 이상 쓰레기로 분류되지 않아 관리가 쉬워집니다. 이렇게 되면 해당 물건을 쓰레기 처리 신고 없이도 자유롭게 거래하고 재활용할 수 있어 비용과 시간이 절감됩니다. 특히 해외에서 이 물건을 가져와서 한국에서 다시 쓰게 허용하여 반도체 공장 운영이 훨씬 수월해집니다. 기존에는 각 공장마다 개별 심사를 받아야 했다면 이제는 자동으로 규제가 풀려 사업이 빨라집니다. 이는 결국 더 많은 자원을 아끼고 환경을 보호하면서도 기업 활동은 더 활발하게 만드는 좋은 변화입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>기후에너지환경부는 4 월 7 일부터 폐기물이었던 &#x27;폐아이씨 트레이&#x27;와 &#x27;폐석재&#x27; 2 종을 순환자원으로 추가 지정하는 고시 개정안을 20 일 간 행정 예고한다. 순환자원 지정 및 수입규제 완화 조치가 시행되면 기존 10 개 품목에서 12 개로 증가하며, 관련 규제 면제 및 수입 자격 요건 완화는 2026 년 4 월 중 추진된다. 이번 조치는 반도체 산업 및 건설 자재 업계의 부담을 경감하고 자원 순환을 활성화하며 국제 경쟁력을 강화하기 위한 것이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">반제품을 담아 나르던 &#x27;아이씨 트레이&#x27;와 건설 현장에서 나오는 &#x27;찌꺼기 돌&#x27;이 더 이상 쓰레기로 분류되지 않아 관리가 쉬워집니다. 이렇게 되면 해당 물건을 쓰레기 처리 신고 없이도 자유롭게 거래하고 재활용할 수 있어 비용과 시간이 절감됩니다. 특히 해외에서 이 물건을 가져와서 한국에서 다시 쓰게 허용하여 반도체 공장 운영이 훨씬 수월해집니다. 기존에는 각 공장마다 개별 심사를 받아야 했다면 이제는 자동으로 규제가 풀려 사업이 빨라집니다. 이는 결국 더 많은 자원을 아끼고 환경을 보호하면서도 기업 활동은 더 활발하게 만드는 좋은 변화입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>반도체와 건설 산업에 종사하거나 관련 자원을 유통하는 기업이라면 이제 더 쉽게 자원을 거래하고 수입할 수 있게 됩니다.</p>
     </section>
-    <div class='keywords'><span>#폐아이씨 트레이</span><span>#폐석재</span><span>#순환자원 지정</span><span>#수입규제 완화</span><span>#자원순환 촉진</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>&#x27;폐아이씨 트레이&#x27;와 &#x27;폐석재&#x27;를 폐기물로 신고하거나 복잡한 심사를 받을 필요 없이, 규제를 면제받아 자유롭게 유통하고 해외에서 수입할 수 있게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#폐아이씨 트레이</span><span>#폐석재</span><span>#순환자원 지정</span><span>#수입규제 완화</span><span>#자원순환 촉진</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753064" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

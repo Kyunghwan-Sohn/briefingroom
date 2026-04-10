@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 기후에너지환경부 보도자료</div>
+  <div class="post-badge">기후에너지환경부 보도자료</div>
   <h1 class="post-title">재생에너지 중심 에너지 대전환으로 화석연료 의존적 경제구조 탈피</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 태양광이나 풍력 같은 깨끗한 에너지를 더 많이 쓰기로 결정했습니다.</li><li style='margin-bottom:6px'>지금까지는 석탄이나 석유처럼 오염을 유발하는 에너지를 주로 써서 공기가 나빠졌는데, 이걸 바꾸겠습니다.</li><li style='margin-bottom:6px'>2030 년까지 우리가 쓰는 에너지 중 20% 이상은 깨끗한 에너지로 만들겠다고 했습니다.</li><li style='margin-bottom:6px'>이렇게 하면 미래에 지구 온난화 같은 큰 문제도 줄이고 새로운 일자리도 많이 생길 것입니다.</li><li style='margin-bottom:6px'>단, 구체적인 계획은 아직 다음에 자세히 발표될 예정입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>기후에너지환경부는 2026 년 4 월 6 일 보도를 통해 2030 년까지 재생에너지 비중 20% 이상 확보를 목표로 에너지 체계 혁신을 발표했습니다. 이번 정책은 화석연료 의존적 경제구조에서 벗어나 청정 에너지 전환을 가속화하기 위한 핵심 수단입니다. 관련 시행 일정과 세부 내용은 향후 관계 법령 및 하위 시행계획을 통해 구체화됩니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 태양광이나 풍력 같은 깨끗한 에너지를 더 많이 쓰기로 결정했습니다. 지금까지는 석탄이나 석유처럼 오염을 유발하는 에너지를 주로 써서 공기가 나빠졌는데, 이걸 바꾸겠습니다. 2030 년까지 우리가 쓰는 에너지 중 20% 이상은 깨끗한 에너지로 만들겠다고 했습니다. 이렇게 하면 미래에 지구 온난화 같은 큰 문제도 줄이고 새로운 일자리도 많이 생길 것입니다. 단, 구체적인 계획은 아직 다음에 자세히 발표될 예정입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>정부가 앞으로 어떤 에너지를 쓸지 바꾸는 중요한 결정을 했기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#재생에너지</span><span>#에너지 대전환</span><span>#2030 년 재생에너지</span><span>#화석연료 의존 탈피</span><span>#기후에너지환경부</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>미래에 우리가 쓰는 전기나 난방용 열을 내는 석유, 석탄 사용을 줄이고 태양광이나 바람으로 만든 에너지를 더 많이 쓰게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#재생에너지</span><span>#에너지 대전환</span><span>#2030 년 재생에너지</span><span>#화석연료 의존 탈피</span><span>#기후에너지환경부</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753076" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 금융위원회 보도자료</div>
+  <div class="post-badge">금융위원회 보도자료</div>
   <h1 class="post-title">이용자 자산에 대한 상시 점검 시스템을 구축하고 금융회사 수준으로 내부통제체계를 강화하겠습니다. - 4.6일</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>가상자산 거래소에서 이용자의 돈이 안전한지 확인하는 시스템을 강화합니다.</li><li style='margin-bottom:6px'>기존에는 하루에 한 번만 확인했으나 앞으로는 5 분마다 자동으로 점검합니다.</li><li style='margin-bottom:6px'>특정 상품이나 행사로 돈을 줄 때 실수를 방지하기 위해 여러 사람이 번거롭게 승인하는 과정을 거칩니다.</li><li style='margin-bottom:6px'>거래소 내부의 안전 점검 시스템도 은행이나 증권회사처럼 엄격하게 운영합니다.</li><li style='margin-bottom:6px'>이로써 거래소 오류로 인한 자금 손실을 막고 시장의 신뢰를 회복하려 합니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>금융위원회는 빗썸 가상자산 오지급 사태를 계기로 거래소별 상시 잔고대사 주기를 5 분 이내로 단축하고 금융회사 수준의 내부통제 기준을 의무화하는 제도를 새로 마련하겠다고 발표했습니다. 4 월 중 자율규제 개정을 완료하고 5 월 전까지 전산시스템을 구축하며, 향후 제도는 &#x27;2 단계 가상자산법&#x27;에도 반영될 예정입니다. 이 조치는 국내 1,100 만명 이용자가 보유 중인 약 70 조원 규모의 가상자산 안전망을 강화하여 사고 예방 및 시장 신뢰 회복을 목표로 합니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">가상자산 거래소에서 이용자의 돈이 안전한지 확인하는 시스템을 강화합니다. 기존에는 하루에 한 번만 확인했으나 앞으로는 5 분마다 자동으로 점검합니다. 특정 상품이나 행사로 돈을 줄 때 실수를 방지하기 위해 여러 사람이 번거롭게 승인하는 과정을 거칩니다. 거래소 내부의 안전 점검 시스템도 은행이나 증권회사처럼 엄격하게 운영합니다. 이로써 거래소 오류로 인한 자금 손실을 막고 시장의 신뢰를 회복하려 합니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>가상자산 거래 시 내 자산이 안전하게 보관되고 있는지, 만약의 사고에 대비한 안전장치가 강화되고 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#가상자산</span><span>#잔고대사</span><span>#내부통제</span><span>#빗썸</span><span>#오지급 사태</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>거래소가 이용자 자산을 하루가 아닌 5 분마다 자동 확인하고, 큰 금액 처리 시 여러 사람의 승인을 필수로 받으며 내부 관리 체계를 강화해야 합니다.</p>
     </section>
+    <div class='keywords'><span>#가상자산</span><span>#잔고대사</span><span>#내부통제</span><span>#빗썸</span><span>#오지급 사태</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753099" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

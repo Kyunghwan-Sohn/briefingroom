@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 국토교통부 보도자료</div>
+  <div class="post-badge">국토교통부 보도자료</div>
   <h1 class="post-title">똑똑한 지도가 우리 동네 안전과 행정을 바꿉니다 … 9일부터 &#x27;공간정보 융</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부와 지자체가 함께 우리 동네를 더 안전하고 똑똑하게 만들기 위해 새로운 지도 기술을 논의하는 대회를 엽니다.</li><li style='margin-bottom:6px'>정확도가 아주 높은 초정밀 지도를 만들어 도로, 지하철, 관로 등 땅 위아래 모든 정보를 디지털로 꼼꼼히 관리할 계획입니다.</li><li style='margin-bottom:6px'>이 기술을 쓰면 소방차가 빠르게 길을 찾고, 지하 관로 사고도 미리 막아 재난에 더 강해질 것입니다.</li><li style='margin-bottom:6px'>자율주행차나 드론 배달 같은 미래 신산업을 키울 수 있는 발판을 마련하는 뜻깊은 자리입니다.</li><li style='margin-bottom:6px'>약 800 명의 정부 담당자와 전문가들이 모여 지역마다 좋은 사례를 공유하고 협력할 계획을 세웁니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국토교통부는 4 월 9 일부터 이틀간 충남 아산에서&#x27;공간정보 융·복합 산업과 지방행정 혁신포럼&#x27;을 개최하여 고정밀 전자지도 등 첨단 기술을 지방행정에 접목합니다. 이번 행사에는 전국 지방정부 담당자 및 산업계 관계자 약 800 명이 참석해 2027 년 고정밀 전자지도 구축 계획 등 구체적인 디지털 전환 방안을 논의합니다. 이 포럼은 공간정보 기반 디지털 행정 체계를 고도화하여 재난 대응 능력을 강화하고 지역 행정 효율성을 높일 예정입니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부와 지자체가 함께 우리 동네를 더 안전하고 똑똑하게 만들기 위해 새로운 지도 기술을 논의하는 대회를 엽니다. 정확도가 아주 높은 초정밀 지도를 만들어 도로, 지하철, 관로 등 땅 위아래 모든 정보를 디지털로 꼼꼼히 관리할 계획입니다. 이 기술을 쓰면 소방차가 빠르게 길을 찾고, 지하 관로 사고도 미리 막아 재난에 더 강해질 것입니다. 자율주행차나 드론 배달 같은 미래 신산업을 키울 수 있는 발판을 마련하는 뜻깊은 자리입니다. 약 800 명의 정부 담당자와 전문가들이 모여 지역마다 좋은 사례를 공유하고 협력할 계획을 세웁니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 포럼은 우리 동네의 도로, 배관 등 안전 관련 정보를 어떻게 디지털로 관리해 재난을 막고 생활 편의를 높일지 보여주는 중요한 자리입니다.</p>
     </section>
-    <div class='keywords'><span>#공간정보</span><span>#고정밀 전자지도</span><span>#지방행정</span><span>#디지털 전환</span><span>#재난 대응</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>향후 고정밀 디지털 지도가 전국 지자체에 확대 적용되어 소방, 교통, 시설 관리 등 생활 안전과 행정 서비스가 더 빠르고 정확해질 것입니다.</p>
     </section>
+    <div class='keywords'><span>#공간정보</span><span>#고정밀 전자지도</span><span>#지방행정</span><span>#디지털 전환</span><span>#재난 대응</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753601" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

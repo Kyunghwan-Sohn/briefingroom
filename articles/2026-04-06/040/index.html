@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 기획예산처 보도자료</div>
+  <div class="post-badge">기획예산처 보도자료</div>
   <h1 class="post-title">제5차 협동조합 기본계획(&#x27;26~&#x27;28) 수립</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 협동조합 (함께 일하는 모임) 이 더 잘 자라도록 2026~2028 년 새로운 계획을 세웠습니다.</li><li style='margin-bottom:6px'>협동조합이 잘 성장할 수 있도록 교육과 자금 지원 방식을 더 세분화해 지원합니다.</li><li style='margin-bottom:6px'>협동조합의 자금 모으기 규칙을 완화해 더 많은 자금을 모을 수 있도록 돕습니다.</li><li style='margin-bottom:6px'>태양광 발전 같은 지역 사업을 5 년 동안 2,500 개나 늘리기로 했습니다.</li><li style='margin-bottom:6px'>이로 지역 주민들의 일자리와 의료, 주거 등 서비스가 개선됩니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>기획예산처는 협동조합의 지역 공동체 복원 및 상생 성장을 위해 2026~2028 년 &#x27;S.M.I.L.E&#x27; 5 대 전략을 추진하는 제 5 차 협동조합 기본계획을 수립했습니다. 주요 내용으로는 협동조합 성장 단계별 맞춤형 컨설팅 지원 확대, 우선출자 한도 30% 에서 50% 로 확대, 5 년간 햇빛소득마을 2,500 개 조성 등 재정·금융 지원 강화와 규제 개선이 포함됩니다. 이 계획은 2026 년 4 월 6 일 국무회의를 통해 보고되고 추진이 확정되었으며, 지역 일자리 창출과 사회적 취약계층의 서비스 접근성 개선을 가져옵니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 협동조합 (함께 일하는 모임) 이 더 잘 자라도록 2026~2028 년 새로운 계획을 세웠습니다. 협동조합이 잘 성장할 수 있도록 교육과 자금 지원 방식을 더 세분화해 지원합니다. 협동조합의 자금 모으기 규칙을 완화해 더 많은 자금을 모을 수 있도록 돕습니다. 태양광 발전 같은 지역 사업을 5 년 동안 2,500 개나 늘리기로 했습니다. 이로 지역 주민들의 일자리와 의료, 주거 등 서비스가 개선됩니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 계획은 지역 주민이 직접 참여해 일자리를 만들고 생활 서비스를 개선하는 협동조합 활성화를 위한 정부의 구체적인 실행 방안이기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#제 5 차 협동조합 기본계획</span><span>#S.M.I.L.E</span><span>#협동조합 지원</span><span>#우선출자 확대</span><span>#햇빛소득마을</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>협동조합은 더 많은 자금과 규제 개선 지원을 받아 성장하고, 지역 주민은 일자리와 맞춤형 주거·의료 서비스 혜택을 더 쉽게 받을 수 있습니다.</p>
     </section>
+    <div class='keywords'><span>#제 5 차 협동조합 기본계획</span><span>#S.M.I.L.E</span><span>#협동조합 지원</span><span>#우선출자 확대</span><span>#햇빛소득마을</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753068" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

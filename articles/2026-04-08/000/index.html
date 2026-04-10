@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 산림청 보도자료</div>
+  <div class="post-badge">산림청 보도자료</div>
   <h1 class="post-title">서부지방산림청, 산사태 예방 강화 현장조사</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>빗물과 눈이 녹은 후 산이 무너질 위험을 미리 찾아냅니다.</li><li style='margin-bottom:6px'>봄과 여름 비가 오기 전에 전문가들이 산을 직접 확인합니다.</li><li style='margin-bottom:6px'>집이나 건물이 있을 수 있는 곳을 중점적으로 살핍니다.</li><li style='margin-bottom:6px'>물이 흐르는 길을 막지 않았는지, 산 비탈면이 안전한지 꼼꼼히 검사합니다.</li><li style='margin-bottom:6px'>6 월말까지 위험한 곳은 고쳐서 사람들의 안전을 지키겠습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>서부지방산림청은 봄철 해빙기와 여름철 집중호우에 대비해 민간전문가와 합동으로 산사태 예방 현장조사를 실시합니다. 6 개 팀을 편성해 주요 대상지 40 여 개소를 전수 조사하며, 위험 구역 정비는 오는 6 월말까지 완료합니다. 이번 조사는 민가 및 시설물 등 위험지역을 사전에 파악해 인명·재산 피해를 최소화하는 것을 목표로 합니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">빗물과 눈이 녹은 후 산이 무너질 위험을 미리 찾아냅니다. 봄과 여름 비가 오기 전에 전문가들이 산을 직접 확인합니다. 집이나 건물이 있을 수 있는 곳을 중점적으로 살핍니다. 물이 흐르는 길을 막지 않았는지, 산 비탈면이 안전한지 꼼꼼히 검사합니다. 6 월말까지 위험한 곳은 고쳐서 사람들의 안전을 지키겠습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 보도자료는 여름 비가 오기 전에 산사태 위험지역을 미리 점검해 우리 생활 안전을 보호하기 위한 정부의 조치입니다.</p>
     </section>
-    <div class='keywords'><span>#산사태 예방</span><span>#서부지방산림청</span><span>#현장조사</span><span>#취약지역 점검</span><span>#6 월말 완료</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>위험 지역 관리를 강화해 산사태로 인한 인명 및 재산 피해가 줄어듭니다.</p>
     </section>
+    <div class='keywords'><span>#산사태 예방</span><span>#서부지방산림청</span><span>#현장조사</span><span>#취약지역 점검</span><span>#6 월말 완료</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753574" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 지식재산처 보도자료</div>
+  <div class="post-badge">지식재산처 보도자료</div>
   <h1 class="post-title">기업의 특허 문제, 대학생의 생각으로 해결한다!</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>기업들이 겪는 특허 문제를 대학생들이 특허 데이터 분석을 통해 해결하는 대회를 열어요. 삼성전자 등 유명 기업 24 곳이 실제 기술을 내걸고 대학생들이 해결책을 찾는 경쟁이에요. 총 108 개의 상금을 주며, 가장 좋은 팀은 2,000만원을 받을 수 있어요. 수상자들은 나중에 CEO 를 만나고 취업을 잘 할 수 있는 특별한 네트워크에 가입할 수 있어요. 이 대회는 대학생들이 지식재산 관련 실무 능력을 키우며 미래에 활약할 수 있는 기회를 줘요.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>지식재산처는 &#x27;2026 캠퍼스 특허 유니버시아드&#x27; 참가 신청을 5 월 28 일까지 접수한다고 밝혔다. 이번 대회에는 삼성전자 등 24 개 기업이 참여해 25 개 실전 문제를 출제하며, 총 108 팀에 상금을 배정해 최대 2,000 만원의 대통령상과 1,500 만원의 국무총리상을 수여한다. 대학 및 대학원생이 대상이며, 우승자에게는 지식재산 전문 인력 네트워킹 기회와 기업 취업 우대 혜택을 제공한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">기업들이 겪는 특허 문제를 대학생들이 특허 데이터 분석을 통해 해결하는 대회를 열어요. 삼성전자 등 유명 기업 24 곳이 실제 기술을 내걸고 대학생들이 해결책을 찾는 경쟁이에요. 총 108 개의 상금을 주며, 가장 좋은 팀은 2,000만원을 받을 수 있어요. 수상자들은 나중에 CEO 를 만나고 취업을 잘 할 수 있는 특별한 네트워크에 가입할 수 있어요. 이 대회는 대학생들이 지식재산 관련 실무 능력을 키우며 미래에 활약할 수 있는 기회를 줘요.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>지식재산 관련 전공 대학생은 취업과 실전 경험을 얻을 수 있고, 기업은 창의적인 아이디어를 얻을 수 있기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#캠퍼스 특허 유니버시아드</span><span>#지식재산처</span><span>#대학생</span><span>#특허 전략</span><span>#취업 지원</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>대학원생들이 특허 전략을 직접 세워보며 실무 능력을 키우고, 기업은 학생들의 아이디어로 새로운 기술 발전 기회를 얻는다.</p>
     </section>
+    <div class='keywords'><span>#캠퍼스 특허 유니버시아드</span><span>#지식재산처</span><span>#대학생</span><span>#특허 전략</span><span>#취업 지원</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753017" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

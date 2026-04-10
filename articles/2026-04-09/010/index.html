@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 공정거래위원회 보도자료</div>
+  <div class="post-badge">공정거래위원회 보도자료</div>
   <h1 class="post-title">㈜대광테크의 불공정하도급거래행위 제재</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>대기업이 중소기업에 공작을 맡긴 뒤 정당한 이유 없이 돈을 덜 준 사실이 확인되었습니다. 공정거래위원회는 ㈜대광테크가 정해진 금액을 제대로 주지 않아 바로 잡으라고 명령했습니다. 현재는 법원에 돈을 돌려달라고 소송이 진행 중이라, 당장 돈을 돌려주라는 명령은 내리지 않았습니다. 중소기업이 대기업에 일을 맡겨도 정한 돈을 꼭 받을 수 있다는 원칙이 확인된 중요한 사례입니다. 이후 대기업들은 중소기업을 부당하게 대하지 않고 공정한 거래를 해야 한다고 경각심을 갖게 되었습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>공정거래위원회는 ㈜대광테크가 수급사업자에게 제작을 위탁한 후 정당한 사유 없이 하도급 대금 2,339 만 원을 감액한 행위에 대해 하도급법 위반으로 시정명령(재발방지 명령)을 내렸습니다. 이번 제재는 2023 년에 발생한 위법 사실에 대한 조치로, 관련 민사소송 진행 중임을 고려해 지급명령은 부과하지 않았습니다. 이 조치는 하도급 거래에서 원사업자의 부당한 대금 감액을 방지하고 중소 수급 사업자의 권익을 보호합니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">대기업이 중소기업에 공작을 맡긴 뒤 정당한 이유 없이 돈을 덜 준 사실이 확인되었습니다. 공정거래위원회는 ㈜대광테크가 정해진 금액을 제대로 주지 않아 바로 잡으라고 명령했습니다. 현재는 법원에 돈을 돌려달라고 소송이 진행 중이라, 당장 돈을 돌려주라는 명령은 내리지 않았습니다. 중소기업이 대기업에 일을 맡겨도 정한 돈을 꼭 받을 수 있다는 원칙이 확인된 중요한 사례입니다. 이후 대기업들은 중소기업을 부당하게 대하지 않고 공정한 거래를 해야 한다고 경각심을 갖게 되었습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>중소기업이 대기업과 거래할 때 정한 금액을 이유 없이 덜 받는 일을 막기 위한 보호 기준을 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#공정거래위원회</span><span>#하도급법</span><span>#대금감액</span><span>#시정명령</span><span>#㈜대광테크</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>원사업자들이 정당한 이유 없이 하도급 대금을 덜 주지 못하도록 법적 제재가 강화되어 수급업체의 권리가 보호됩니다.</p>
     </section>
+    <div class='keywords'><span>#공정거래위원회</span><span>#하도급법</span><span>#대금감액</span><span>#시정명령</span><span>#㈜대광테크</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753698" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 금융감독원 보도자료</div>
+  <div class="post-badge">금융감독원 보도자료</div>
   <h1 class="post-title">금융분쟁조정위원회, 티몬, 위메프 사태 관련 금융소비자의 카드사를 상대로 한 청약철회권 인정 결정</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>카드사로 여행이나 항공권을 사놓고 티몬 사태 때문에 서비스를 못 받았을 때, 돈을 돌려받을 수 있는 권리가 있다는 결정이 나왔습니다. 2026 년 4 월 8 일 금융감독원 산하 분쟁조정위원회가 카드사의 책임을 인정했습니다. 지금까지 피해자 구제가 어려웠던 상황에서 카드사에게 다시 돈을 돌려달라고 결정했습니다. 이제 여행이나 항공권 할부 대금을 환불받을 수 있어 소비자들이 큰 도움을 받을 수 있습니다. 이번 결정은 카드사의 책임을 명확히 하고 오랫동안 피해를 보던 소비자들을 구제하기 위한 중요한 조치입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>금융분쟁조정위원회는 티몬·위메프 사태로 여행을 이용하지 못한 소비자의 카드사에 대한 청약철회권을 인정하고 카드사에 결제대금 환부를 명했습니다. 2026 년 4 월 8 일 첫 조정결정인 이번 조치는 2024 년 발생한 사태로 미지급된 할부금을 환불받아 소비자의 금전적 피해를 구제하는 데 목적이 있습니다. 이 결정은 티몬·위메프와 판매사의 배상 능력 부족으로 구제가 어려웠던 피해자들에게 카드사를 통해 실질적인 구제 경로를 열어주는 효과가 있습니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">카드사로 여행이나 항공권을 사놓고 티몬 사태 때문에 서비스를 못 받았을 때, 돈을 돌려받을 수 있는 권리가 있다는 결정이 나왔습니다. 2026 년 4 월 8 일 금융감독원 산하 분쟁조정위원회가 카드사의 책임을 인정했습니다. 지금까지 피해자 구제가 어려웠던 상황에서 카드사에게 다시 돈을 돌려달라고 결정했습니다. 이제 여행이나 항공권 할부 대금을 환불받을 수 있어 소비자들이 큰 도움을 받을 수 있습니다. 이번 결정은 카드사의 책임을 명확히 하고 오랫동안 피해를 보던 소비자들을 구제하기 위한 중요한 조치입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>티몬·위메프 사태로 여행을 못 가고 돈을 잃은 많은 국민이 카드회사를 상대로 돈을 돌려받을 수 있는 길이 새로 열렸기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#티몬·위메프 사태</span><span>#금융분쟁조정위원회</span><span>#청약철회권</span><span>#카드사</span><span>#피해구제</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>여행이나 항공권 할부 결제를 했으나 서비스 이용이 불가능해진 소비자들부터 카드사가 결제대금을 환불하고 할부 채무가 없어집니다.</p>
     </section>
+    <div class='keywords'><span>#티몬·위메프 사태</span><span>#금융분쟁조정위원회</span><span>#청약철회권</span><span>#카드사</span><span>#피해구제</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=217099&amp;menuNo=200218&amp;pageIndex=1" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

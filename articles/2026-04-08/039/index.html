@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 교육부 보도자료</div>
+  <div class="post-badge">교육부 보도자료</div>
   <h1 class="post-title">&quot;더 나은 보육 정책을 위해&quot; 전국 지자체 공무원 모여 보육 정책 방향 논의</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>교육부에서 보육을 담당하는 공무원들이 제주도로 모여서 앞으로의 보육 정책을 논의합니다.</li><li style='margin-bottom:6px'>이번에 가장 중요한 이야기는 작은 마을이나 외진 지역에도 작은 어린이집을 더 쉽게 세우자는 것입니다.</li><li style='margin-bottom:6px'>기존에는 최소 11 명이 있어야 했지만 이제는 5 명만 있어도 분원을 설치할 수 있게 됩니다.</li><li style='margin-bottom:6px'>어린이집 원장 한 분이 작은 분원을 함께 관리할 수 있게 하여 인력 부담을 줄입니다.</li><li style='margin-bottom:6px'>이 정책은 아이들이 어디에서나 좋은 보육 서비스를 받을 수 있게 하는 것이 목적입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>교육부와 한국보육진흥원은 4 월 9 일~10 일 제주도에서 전국 지자체 보육 담당 공무원 대상 워크숍을 개최한다. 이번 행사에서는 국공립 어린이집 소규모 분원 (5 인 이상) 설치 지원 및 공공형 어린이집 역할 강화 등 2026 년 사업 변경 사항을 공유한다. 도서·벽지 등 보육 취약 지역의 서비스 접근성을 높여 영유아 보육 격차를 해소하고 정부 책임형 유보통합을 추진한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">교육부에서 보육을 담당하는 공무원들이 제주도로 모여서 앞으로의 보육 정책을 논의합니다. 이번에 가장 중요한 이야기는 작은 마을이나 외진 지역에도 작은 어린이집을 더 쉽게 세우자는 것입니다. 기존에는 최소 11 명이 있어야 했지만 이제는 5 명만 있어도 분원을 설치할 수 있게 됩니다. 어린이집 원장 한 분이 작은 분원을 함께 관리할 수 있게 하여 인력 부담을 줄입니다. 이 정책은 아이들이 어디에서나 좋은 보육 서비스를 받을 수 있게 하는 것이 목적입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 워크숍은 전국 아이들의 보육 환경이 특히 외진 지역에서 어떻게 개선되는지 알 수 있는 첫걸음이기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#국공립 어린이집 확충</span><span>#소규모 분원 설치</span><span>#보육 취약 지역</span><span>#공공형 어린이집</span><span>#유보통합</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>소규모 분원 설치 기준이 완화되어 도서·벽지 지역 아이들도 가까운 곳에서 보육 서비스를 받을 수 있게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#국공립 어린이집 확충</span><span>#소규모 분원 설치</span><span>#보육 취약 지역</span><span>#공공형 어린이집</span><span>#유보통합</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753492" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

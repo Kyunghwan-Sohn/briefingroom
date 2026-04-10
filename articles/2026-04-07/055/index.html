@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 지식재산처 보도자료</div>
+  <div class="post-badge">지식재산처 보도자료</div>
   <h1 class="post-title">상표 출원의 첫걸음, 정확한 상품 선택부터</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>이름이나 로고 등 상표를 보호받으려면 먼저 &#x27;어떤 상품에 사용할지&#x27;를 정해야 합니다. 상표는 이름과 비슷하지만 모든 물건에 자동으로 보호되는 것이 아니라, 사용하는 상품을 정확히 골라야 합니다. 잘못 고르면 나중에 다른 상품을 팔 때 보호를 받지 못하거나 상표권을 사용할 수 없는 상황이 발생할 수 있습니다. 이 보도는 상표 출원 시 상품 목록을 꼼꼼히 확인해야 실수를 줄일 수 있음을 알립니다. 국민과 기업은 상품명을 정할 때 실수를 줄이고 확실한 보호를 받으려면 이 내용을 참고해야 합니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>지식재산처가 상표 출원 성공을 위한 핵심 요소인 상품 선택의 중요성을 강조하며 관련 가이드를 제시했다. 이는 상표 등록 및 사용 범위를 명확히 하기 위한 정책 안내다. 기업과 개인은 상표 등록 신청 시 상품 항목을 신중하게 선택해야 한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">이름이나 로고 등 상표를 보호받으려면 먼저 &#x27;어떤 상품에 사용할지&#x27;를 정해야 합니다. 상표는 이름과 비슷하지만 모든 물건에 자동으로 보호되는 것이 아니라, 사용하는 상품을 정확히 골라야 합니다. 잘못 고르면 나중에 다른 상품을 팔 때 보호를 받지 못하거나 상표권을 사용할 수 없는 상황이 발생할 수 있습니다. 이 보도는 상표 출원 시 상품 목록을 꼼꼼히 확인해야 실수를 줄일 수 있음을 알립니다. 국민과 기업은 상품명을 정할 때 실수를 줄이고 확실한 보호를 받으려면 이 내용을 참고해야 합니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>상표 등록을 준비 중인 기업이나 개인이 등록 범위를 잘못 정해 보호를 받지 못하는 상황을 예방할 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#지식재산처</span><span>#상표출원</span><span>#상품선택</span><span>#상표등록</span><span>#지식재산</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>기업과 개인이 상표 출원 시 상품 분류를 정확히 하여 등록 성공률을 높이고 권리 범위를 명확히 할 수 있습니다.</p>
     </section>
+    <div class='keywords'><span>#지식재산처</span><span>#상표출원</span><span>#상품선택</span><span>#상표등록</span><span>#지식재산</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753231" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

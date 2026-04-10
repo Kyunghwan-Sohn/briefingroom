@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 기획예산처 보도자료</div>
+  <div class="post-badge">기획예산처 보도자료</div>
   <h1 class="post-title">월간 해외재정동향: 중동전쟁발 고유가에 대한 해외 주요국 정책대응</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>중동 전쟁 때문에 기름값이 너무 비싸져서 국민들이 힘들어하자 정부가 도움을 주기로 했습니다. 이번 에 정부는 기름값이 오른 만큼 국민 70% 에게 최대 60 만 원의 돈을 준다고 했어요. 또한, 18 일부터 공공기관 차량 2 부제를 시작하고 공영주차장 5 부제를 시행해 에너지를 아낄 거예요. 5 월 1 일 (노동절) 을 63 년 만에 비로소 쉴 수 있는 공휴일로 정해 국민들이 휴식을 누릴 수 있게 됩니다. 에너지가 부족한 상황을 이기기 위해 국민들이 함께 자발적으로 에너지를 아껴 쓰도록 독려했어요.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>기획예산처는 중동 전쟁으로 인한 고유가 충격에 대응하기 위해 해외 주요국들의 정책 동향을 분석하여 발표했습니다. 주요 내용으로는 전 국민 70% 에 최대 60 만 원의 고유가 피해 지원금 지급, 18 일 시작된 공공기관 차량 2 부제 및 공영주차장 5 부제, 그리고 5 월 1 일을 공휴일로 지정하는 내용 등이 포함되어 있습니다. 이번 대응은 에너지 위기를 극복하고 물가 안정 및 생활비 부담 완화를 위한 긴급 재정 및 제도적 조치입니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">중동 전쟁 때문에 기름값이 너무 비싸져서 국민들이 힘들어하자 정부가 도움을 주기로 했습니다. 이번 에 정부는 기름값이 오른 만큼 국민 70% 에게 최대 60 만 원의 돈을 준다고 했어요. 또한, 18 일부터 공공기관 차량 2 부제를 시작하고 공영주차장 5 부제를 시행해 에너지를 아낄 거예요. 5 월 1 일 (노동절) 을 63 년 만에 비로소 쉴 수 있는 공휴일로 정해 국민들이 휴식을 누릴 수 있게 됩니다. 에너지가 부족한 상황을 이기기 위해 국민들이 함께 자발적으로 에너지를 아껴 쓰도록 독려했어요.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>앞으로 올 기름값 상승과 생활비 부담이 얼마나 큰지, 그리고 정부가 이를 어떻게 해결하려는지 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#고유가 대응</span><span>#에너지 위기</span><span>#피해 지원금</span><span>#차량 2 부제</span><span>#공휴일 지정</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국민은 고유가 피해 지원금을 받아 생활비 부담이 줄어들고, 공공기관 이용 시 차량 제한 규칙이 바뀌며 근로자는 5 월 1 일에 쉴 수 있게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#고유가 대응</span><span>#에너지 위기</span><span>#피해 지원금</span><span>#차량 2 부제</span><span>#공휴일 지정</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753298" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

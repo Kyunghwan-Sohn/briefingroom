@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 금융위원회 보도자료</div>
+  <div class="post-badge">금융위원회 보도자료</div>
   <h1 class="post-title">부동산 프로젝트 금융(PF) 상황 점검회의 개최</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 부동산 프로젝트 금융 (PF) 이라는 사업 자금 상황을 꾸준히 점검하고 있습니다. 최근 부실된 사업장을 정리하거나 다시 살리는 작업이 잘 진행되어 시장이 안정되고 있습니다. 지난 2025 년 말 기준 부실로 분류된 자금 규모가 줄어든 반면, 건강한 사업장에는 돈이 잘 돌아가고 있습니다. 정부는 2027 년부터 더욱 엄격하게 관리하는 새 규칙을 만들기로 하고, 업계와 협의하며 준비 중입니다. 이 규칙은 건설사가 자기자본비율 (회사를 운영할 때 자기가 가진 돈의 비율) 을 더 높일 것을 요구하지만, 서서히 적용해 시장 충격이 크지 않도록 할 것입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>금융위는 2026 년 4 월 3 일 부동산 PF 시장 점검회의를 개최하여 부실 정리 및 재구조화가 차질 없이 진행됨을 확인했습니다. ’25 년 말 기준 PF 익스포져는 174.3 조원까지 감소했으며, PF 대출 연체율은 3.88%(전분기 대비 0.36%p 하락) 로 개선되는 등 시장 안정세가 이어지고 있습니다. 정부는 ’27 년부터 시행할 예정인 자기자본비율 강화 등 건전성 제도 개선 방안을 ’26 년 중 구체적인 이행 계획을 마련하여 업계 불확실성을 해소할 예정입니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 부동산 프로젝트 금융 (PF) 이라는 사업 자금 상황을 꾸준히 점검하고 있습니다. 최근 부실된 사업장을 정리하거나 다시 살리는 작업이 잘 진행되어 시장이 안정되고 있습니다. 지난 2025 년 말 기준 부실로 분류된 자금 규모가 줄어든 반면, 건강한 사업장에는 돈이 잘 돌아가고 있습니다. 정부는 2027 년부터 더욱 엄격하게 관리하는 새 규칙을 만들기로 하고, 업계와 협의하며 준비 중입니다. 이 규칙은 건설사가 자기자본비율 (회사를 운영할 때 자기가 가진 돈의 비율) 을 더 높일 것을 요구하지만, 서서히 적용해 시장 충격이 크지 않도록 할 것입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>부동산 건설 시장과 은행의 건강함이 서로 연결되어 있어, 향후 주택 가격과 금융 안정성에 큰 영향을 미치기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#부동산 PF</span><span>#연체율 하락</span><span>#건전성 규제</span><span>#자기자본비율</span><span>#PF 정리·재구조화</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>건설사는 자기자본비율 기준 강화 등 새로운 규제를 따르게 되며, 건전한 사업장은 자금 조달이 원활해지고 부실 사업장은 빠르게 정리될 예정입니다.</p>
     </section>
+    <div class='keywords'><span>#부동산 PF</span><span>#연체율 하락</span><span>#건전성 규제</span><span>#자기자본비율</span><span>#PF 정리·재구조화</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753013" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

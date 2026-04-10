@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 교육부 보도자료</div>
+  <div class="post-badge">교육부 보도자료</div>
   <h1 class="post-title">인공지능 기반 한국어교육 시스템 &#x27;모두의 한국어&#x27; 단계적 개방 추진</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>AI 기술로 만든 한국어 학습 사이트 &#x27;모두의 한국어&#x27;의 이용 대상을 더 넓힙니다.</li><li style='margin-bottom:6px'>지금 6,876 개 학교와 기관에서 30,600 여 명이 이 사이트로 한국어를 배우고 있습니다.</li><li style='margin-bottom:6px'>선생님들이 이 도구를 매우 만족하며, 학생들은 수업 중이나 복습 때 잘 활용합니다.</li><li style='margin-bottom:6px'>계속해서 기관 수와 학생 수를 늘려 연말에는 누구나 자유롭게 이용할 수 있게 합니다.</li><li style='margin-bottom:6px'>이로써 한국에 사는 다양한 언어를 쓰는 사람들이 한국어를 쉽고 재미있게 배울 수 있습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>교육부와 한국교육학술정보원은 이주배경학생을 위한 인공지능 기반 한국어교육 시스템 &#x27;모두의 한국어&#x27;의 이용 대상과 범위를 단계적으로 확대한다고 밝혔다. 현재 6,876 개 기관과 30,615 명이 활용 중인 이 시스템은 4 월 7 일 기준 높은 만족도를 보였으며, 연말까지 전면 개방을 목표로 한다. 이 정책은 한국어 학습 능력이 부족한 이주배경 학생들의 교육 격차를 해소하고 한국어 유창성을 높인다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">AI 기술로 만든 한국어 학습 사이트 &#x27;모두의 한국어&#x27;의 이용 대상을 더 넓힙니다. 지금 6,876 개 학교와 기관에서 30,600 여 명이 이 사이트로 한국어를 배우고 있습니다. 선생님들이 이 도구를 매우 만족하며, 학생들은 수업 중이나 복습 때 잘 활용합니다. 계속해서 기관 수와 학생 수를 늘려 연말에는 누구나 자유롭게 이용할 수 있게 합니다. 이로써 한국에 사는 다양한 언어를 쓰는 사람들이 한국어를 쉽고 재미있게 배울 수 있습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이주배경학생들의 한국어 학습 지원이 확대되어 교육 격차가 줄어들기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#모두의 한국어</span><span>#이주배경학생</span><span>#AI 한국어교육</span><span>#교육격차해소</span><span>#한국어교육시스템</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>이주배경학생과 교사, 그리고 일반인도 더 많은 기관에서 이 AI 시스템을 통해 한국어 학습을 할 수 있게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#모두의 한국어</span><span>#이주배경학생</span><span>#AI 한국어교육</span><span>#교육격차해소</span><span>#한국어교육시스템</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753493" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

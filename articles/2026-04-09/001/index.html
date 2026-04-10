@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 기획예산처 보도자료</div>
+  <div class="post-badge">기획예산처 보도자료</div>
   <h1 class="post-title">통합재정통계(2026년 1월)</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 2026 년 1 월의 세입과 세출 현황을 공개했습니다. 관리재정수지는 국민연금 등 별도의 기금을 제외하고 정부가 실제로 모은 돈과 쓴 돈을 비교한 것입니다. 이 달에 정부가 쓴 돈이 모은 돈보다 11,308 억 원 더 많아 적자가 발생했습니다. 사회보장성기금은 국민연금, 고용보험 등 노후와 실업, 산재 보전에 쓰이는 돈들이 별도로 관리됩니다. 이 통계를 통해 국가의 재정 상태가 얼마나 건강한지 확인할 수 있습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>기획예산처는 2026 년 1 월 통합재정통계를 발표해 관리재정수지가 11,308 억 원 적자를 기록했다고 밝혔습니다. 해당 통계를 기준으로 통합재정수지는 14,263 억 원 적자, 사회보장성기금 (국민연금 등 4 개) 은 2,955 억 원 적자를 각각 기록했습니다. 이번 발표는 향후 재정 건전성 평가와 예산 편성의 기초 자료로 활용됩니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 2026 년 1 월의 세입과 세출 현황을 공개했습니다. 관리재정수지는 국민연금 등 별도의 기금을 제외하고 정부가 실제로 모은 돈과 쓴 돈을 비교한 것입니다. 이 달에 정부가 쓴 돈이 모은 돈보다 11,308 억 원 더 많아 적자가 발생했습니다. 사회보장성기금은 국민연금, 고용보험 등 노후와 실업, 산재 보전에 쓰이는 돈들이 별도로 관리됩니다. 이 통계를 통해 국가의 재정 상태가 얼마나 건강한지 확인할 수 있습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>국가 예산의 수입과 지출이 어떻게 이루어졌는지 파악해야 미래의 세금 사용 방향과 정책 방향을 이해할 수 있습니다.</p>
     </section>
-    <div class='keywords'><span>#통합재정통계</span><span>#관리재정수지</span><span>#재정수지</span><span>#기획예산처</span><span>#재정 적자</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>이번 통계 수치를 바탕으로 향후 국가 예산을 어떻게 편성하고 재정을 관리할지 결정합니다.</p>
     </section>
+    <div class='keywords'><span>#통합재정통계</span><span>#관리재정수지</span><span>#재정수지</span><span>#기획예산처</span><span>#재정 적자</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753715" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

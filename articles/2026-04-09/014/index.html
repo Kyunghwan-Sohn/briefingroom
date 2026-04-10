@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 개인정보보호위원회 보도자료</div>
+  <div class="post-badge">개인정보보호위원회 보도자료</div>
   <h1 class="post-title">개인정보위, 개인정보 유출한 글로벌 경매 사업자 크리스티스에 과징금 2억 8,000만 원 부과개인정보위</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>전 세계 경매회사 &#x27;크리스티스&#x27;가 해커의 공격에 제대로 대응하지 못해 회원들의 비밀 정보가 밖으로 새어 나갔습니다.회사는 비밀번호를 되찾을 때 안전장치를 제대로 사용하지 않아 해커가 쉽게 접근할 수 있었습니다.또한 주민등록번호나 운전면허번호 같은 민감한 정보를 암호화하지 않고 저장해두는 등 안전에 소홀했습니다.개인정보 보호법을 어겼을 뿐만 아니라 사고 사실을 72 시간이 지나서야 알렸습니다.이와 같은 심각한 위반 행위에 대해 한국 정부가 과징금 약 2 억 8,000 만 원이라는 벌금을 부과했습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>개인정보보호위원회는 글로벌 경매회사 크리스티스가 해커에 대한 보안 조치를 제대로 하지 않아 한국 회원 620 명의 개인정보를 유출한 혐의에 대해 과징금 2억 8,000만 원과 과태료 720만 원을 부과하고 처분 사실을 공표했습니다. 이번 처분은 2024 년 5 월 18 일 유출 사실을 안 지 72 시간 내에 신고하지 않은 점을 비롯하여 비밀번호 재발급 절차 미비, 민감정보 암호화 부재 등 중대한 법령 위반 사항을 근거로 이루어졌습니다. 이 조치는 전 국민이 민감한 개인정보를 안전하게 보호받을 수 있도록 기업들의 데이터 보안 의무를 강화하고, 개인정보 유출 사고에 대한 강력한 제재를 통해 신뢰를 회복시킵니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">전 세계 경매회사 &#x27;크리스티스&#x27;가 해커의 공격에 제대로 대응하지 못해 회원들의 비밀 정보가 밖으로 새어 나갔습니다.회사는 비밀번호를 되찾을 때 안전장치를 제대로 사용하지 않아 해커가 쉽게 접근할 수 있었습니다.또한 주민등록번호나 운전면허번호 같은 민감한 정보를 암호화하지 않고 저장해두는 등 안전에 소홀했습니다.개인정보 보호법을 어겼을 뿐만 아니라 사고 사실을 72 시간이 지나서야 알렸습니다.이와 같은 심각한 위반 행위에 대해 한국 정부가 과징금 약 2 억 8,000 만 원이라는 벌금을 부과했습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>글로벌 기업의 보안 부실이 우리 국민 개인정보에 직접적인 피해를 줄 수 있고, 이에 대한 정부의 강력한 제재 사례를 통해 우리 데이터가 어떻게 보호받는지 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#개인정보보호위원회</span><span>#크리스티스</span><span>#개인정보 유출</span><span>#과징금</span><span>#데이터 보안</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>기업들은 해킹 등 보안 위협에 대비해 비밀번호 관리와 민감정보 암호화 등 안전조치 의무를 더욱 엄격히 지켜야 하며, 사고 발생 시 즉시 신고하지 않을 경우 큰 벌금을 물게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#개인정보보호위원회</span><span>#크리스티스</span><span>#개인정보 유출</span><span>#과징금</span><span>#데이터 보안</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753695" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

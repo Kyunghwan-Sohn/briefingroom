@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 고용노동부 보도자료</div>
+  <div class="post-badge">고용노동부 보도자료</div>
   <h1 class="post-title">금융권 장애인 고용, 협약을 넘어 현장으로 -장애인공단, 은행권과 함께 첫발</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>고용노동부와 은행들이 모여 장애인이 은행에 일하기 쉬운 환경을 만들기로 다시 한번 약속했습니다.</li><li style='margin-bottom:6px'>지난달 맺은 협약이 실제로 현장에서 어떻게 작동할지 은행 인사 담당자들이 모인 자리에서 논의했습니다.</li><li style='margin-bottom:6px'>장애인에게 필요한 직무 훈련이나 고용 유지 방법 등을 알려주고, 은행들이 겪는 어려움을 듣는 소통의 시간도 가졌습니다.</li><li style='margin-bottom:6px'>기존에 장애인 185 명을 채용한 기업은행과 발달장애인들이 연주단으로 활동하는 신한은행의 좋은 예시가 공유되었습니다.</li><li style='margin-bottom:6px'>이를 통해 앞으로 장애인들도 은행에서 더 안정적이고 다양한 일을 할 수 있을 것으로 기대됩니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>고용노동부, 금융감독원, 한국장애인고용공단은 2026 년 4 월 7 일 금융권 장애인 고용 활성화를 위한 간담회를 개최하여 MOU 후속조치를 논의했습니다. 은행권 장애인 고용확대를 위한 협의체가 가동되며 20 개 은행의 인사 담당자 등을 대상으로 채용 지원, 직무 개발 사례, 맞춤형 교육 등 구체적인 실행 계획이 공유되었습니다. 기업은행과 신한은행 등 우수 사례가 소개되어 현장 중심의 단계별 고용 확대 전략이 발표되었습니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">고용노동부와 은행들이 모여 장애인이 은행에 일하기 쉬운 환경을 만들기로 다시 한번 약속했습니다. 지난달 맺은 협약이 실제로 현장에서 어떻게 작동할지 은행 인사 담당자들이 모인 자리에서 논의했습니다. 장애인에게 필요한 직무 훈련이나 고용 유지 방법 등을 알려주고, 은행들이 겪는 어려움을 듣는 소통의 시간도 가졌습니다. 기존에 장애인 185 명을 채용한 기업은행과 발달장애인들이 연주단으로 활동하는 신한은행의 좋은 예시가 공유되었습니다. 이를 통해 앞으로 장애인들도 은행에서 더 안정적이고 다양한 일을 할 수 있을 것으로 기대됩니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 보도자료는 장애인 고용을 위한 협약이 단순히 문구에 그치지 않고 실제 은행 현장으로 구체화되는 중요한 첫걸음을 알리기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#금융권 장애인 고용</span><span>#한국장애인고용공단</span><span>#은행권 고용활성화</span><span>#업무협약 후속조치</span><span>#장애인 채용 지원</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>은행권에서는 장애인 채용 및 고용 유지를 위한 구체적인 실행 계획과 지원 프로그램이 본격적으로 시행되어 장애인 채용이 확대될 것입니다.</p>
     </section>
+    <div class='keywords'><span>#금융권 장애인 고용</span><span>#한국장애인고용공단</span><span>#은행권 고용활성화</span><span>#업무협약 후속조치</span><span>#장애인 채용 지원</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753250" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

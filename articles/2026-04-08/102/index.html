@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 금융감독원 보도자료</div>
+  <div class="post-badge">금융감독원 보도자료</div>
   <h1 class="post-title">가상자산 계좌를 통한 보이스피싱 예방을 위해 가상자산거래소의 강화된 출금 지연 제도가 시행됩니다</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>가상자산 (전자화폐) 을 이용해 사기범이 돈을 빼돌리는 것을 막기 위해 출금 (돈을 뽑는 행위) 을 하는 규칙을 더 단단히 바꿉니다.</li><li style='margin-bottom:6px'>사기범들이 예전에는 가입 기간이나 거래 내역 같은 쉬운 기준만 맞으면 돈을 바로 뺄 수 있어 큰 문제가 있었습니다.</li><li style='margin-bottom:6px'>이번부터는 입출금 금액과 횟수, 오랜 기간 거래한 사실 등 훨씬 까다롭고 명확한 기준으로 돈을 뽑는 것을 제한합니다.</li><li style='margin-bottom:6px'>아직까지 예외 규정이 제각각이었으나, 모든 거래소가 똑같은 엄격한 기준을 따르도록 통일하여 관리합니다.</li><li style='margin-bottom:6px'>사기범을 잡기 위해 예외 적용 고객에 대해서도 한 번에 한 번씩 돈을 어디에서 왔는지 꼼꼼히 조사하며 감시합니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>금융위원회와 금융감독원은 보이스피싱 예방을 위해 가상자산 거래소의 출금 지연 제도 예외 기준을 강화하고 통일된 표준내규를 마련하여 ’26.4.8.부터 시행합니다. 이번 조치는 지난 6~9월 출금 지연 예외 대상 계좌에서 발생한 보이스피싱 사기 이용 사례가 전체의 59%에 달하는 실망을 반영한 것으로, 예외 기준을 강화할 경우 대상 고객 수를 기존 대비 1% 이내로 줄여 피해 유출을 차단합니다. 주요 대상은 가상자산 거래소를 이용하는 일반 국민과 기업이며, 보이스피싱 범죄 수익금의 즉각적인 인출과 편취를 방지하여 금융 안전망을 강화하는 효과가 있습니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">가상자산 (전자화폐) 을 이용해 사기범이 돈을 빼돌리는 것을 막기 위해 출금 (돈을 뽑는 행위) 을 하는 규칙을 더 단단히 바꿉니다. 사기범들이 예전에는 가입 기간이나 거래 내역 같은 쉬운 기준만 맞으면 돈을 바로 뺄 수 있어 큰 문제가 있었습니다. 이번부터는 입출금 금액과 횟수, 오랜 기간 거래한 사실 등 훨씬 까다롭고 명확한 기준으로 돈을 뽑는 것을 제한합니다. 아직까지 예외 규정이 제각각이었으나, 모든 거래소가 똑같은 엄격한 기준을 따르도록 통일하여 관리합니다. 사기범을 잡기 위해 예외 적용 고객에 대해서도 한 번에 한 번씩 돈을 어디에서 왔는지 꼼꼼히 조사하며 감시합니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>가상자산 (전자화폐) 을 이용한 보이스피싱이 급증하고 있어, 내 자산이 사기범에게 쉽게 넘어가지 않도록 새로운 보안 규칙을 알아두셔야 합니다.</p>
     </section>
-    <div class='keywords'><span>#가상자산</span><span>#출금 지연 제도</span><span>#보이스피싱 예방</span><span>#출금 지연 예외</span><span>#가상자산거래소</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>가상자산 거래소에서 돈을 인출할 때 사기범이 남용하던 예외 규정이 사라져, 돈이 안전하게 보호되고 보이스피싱 피해가 크게 줄어듭니다.</p>
     </section>
+    <div class='keywords'><span>#가상자산</span><span>#출금 지연 제도</span><span>#보이스피싱 예방</span><span>#출금 지연 예외</span><span>#가상자산거래소</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=217038&amp;menuNo=200218&amp;pageIndex=1" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

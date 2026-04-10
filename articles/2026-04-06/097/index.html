@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 법무부 보도자료</div>
+  <div class="post-badge">법무부 보도자료</div>
   <h1 class="post-title">스토킹 가해자 &#x27;실시간 동선&#x27; 확인 가능해진다</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>스토킹 가해자가 접근하면 과거에는 문자만 받았지만, 이제 지도 앱에서 가해자의 정확한 위치를 실시간으로 볼 수 있습니다. 법무부에서 만든 이 앱은 가해자가 일정 거리 안에 들어오면 피해자의 스마트폰 지도에 즉시 표시해 줍니다. 2026 년 6 월부터 이 서비스를 처음 시작하고, 12 월에는 경찰과 스마트시계까지 연동됩니다. 이를 통해 피해자는 위급한 상황에서 피할 수 있게 되고, 경찰은 위치를 빠르게 파악해 현장에 출동할 수 있습니다. 전자장치 부착을 당한 가해자를 추적하는 새로운 기술이 국민 안전을 보호하기 위해 마련되었습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>법무부는 스토킹 등 가해자가 전자장치를 부착한 상태일 때, 가해자가 접근하면 피해자의 스마트폰에서 가해자의 실시간 위치와 동선을 확인할 수 있는 모바일 앱을 개발 완료하고 2026 년 6 월부터 본격 시행합니다. 2025 년 12 월 개정된「전자장치 부착 등에 관한 법률」에 근거하여 기존 문자 알림을 넘어 지도 기반의 정확한 위치 정보를 제공하며, 2026 년 12 월까지 경찰청 112 시스템 및 스마트워치와 연계하여 현장 대응 체계를 고도화합니다. 이 제도는 전자장치 부착 가해자를 대상으로 하는 스토킹 피해자를 주요 대상으로 하여, 피해자의 즉시 대처와 경찰의 신속한 출동을 가능하게 하여 범죄 예방 및 피해 보호 효과를 극대화합니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">스토킹 가해자가 접근하면 과거에는 문자만 받았지만, 이제 지도 앱에서 가해자의 정확한 위치를 실시간으로 볼 수 있습니다. 법무부에서 만든 이 앱은 가해자가 일정 거리 안에 들어오면 피해자의 스마트폰 지도에 즉시 표시해 줍니다. 2026 년 6 월부터 이 서비스를 처음 시작하고, 12 월에는 경찰과 스마트시계까지 연동됩니다. 이를 통해 피해자는 위급한 상황에서 피할 수 있게 되고, 경찰은 위치를 빠르게 파악해 현장에 출동할 수 있습니다. 전자장치 부착을 당한 가해자를 추적하는 새로운 기술이 국민 안전을 보호하기 위해 마련되었습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>스토킹은 단순한 괴롭힘이 아니라 심각한 범죄인 만큼, 새로운 기술적 보호 장치가 어떻게 작동하는지 알아두면 실제 피해 발생 시 신속하게 대응할 수 있습니다.</p>
     </section>
-    <div class='keywords'><span>#스토킹</span><span>#실시간 위치</span><span>#모바일 앱</span><span>#전자장치 부착</span><span>#피해자 보호</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>스토킹 가해자 추적 시 기존 문자 알림에서 지도 기반의 실시간 위치 확인과 경찰 시스템 연동으로 보호가 훨씬 정확하고 빨라집니다.</p>
     </section>
+    <div class='keywords'><span>#스토킹</span><span>#실시간 위치</span><span>#모바일 앱</span><span>#전자장치 부착</span><span>#피해자 보호</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156752960" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

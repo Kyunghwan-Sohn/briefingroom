@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 법무부 보도자료</div>
+  <div class="post-badge">법무부 보도자료</div>
   <h1 class="post-title">법무부, 장기 손상 외국인 노동자 피해 회복 신속 지원법무부</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>고용주가 외국인 노동자에게 폭행을 가해 다리를 다치게 한 사고가 있었습니다. 법무부는 피해 외국인 노동자가 한국에서 계속 일하고 치료받을 수 있도록 비자를 안정적으로 허용합니다. 피해자의 범칙금 (불법 체류 등으로 내야 할 벌금) 은 면제해 주고, 고용주는 법 위반 여부를 조사받습니다. 이는 대한민국에서 일하는 모든 외국인도 우리 국민처럼 대우받아야 한다는 원칙입니다. 부당한 폭행이나 인권 침해가 없도록 앞으로 더 꼼꼼하게 관리하겠습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>법무부는 경기도 화성시 제조업 사업장에서 고용주의 폭행으로 장기 손상을 입은 외국인 노동자에 대해 신속 지원을 발표했습니다. 이민자 권익보호 TF의 합동 조사 결과를 바탕으로 피해자에게는 안정적인 체류자격 제공 및 범칙금 면제를, 고용주에게는 출입국관리법 위반 여부 조사를 병행합니다. 이는 이주 노동자의 기본적 인권을 보장하고 산업 현장의 신뢰를 회복하기 위한 조치입니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">고용주가 외국인 노동자에게 폭행을 가해 다리를 다치게 한 사고가 있었습니다. 법무부는 피해 외국인 노동자가 한국에서 계속 일하고 치료받을 수 있도록 비자를 안정적으로 허용합니다. 피해자의 범칙금 (불법 체류 등으로 내야 할 벌금) 은 면제해 주고, 고용주는 법 위반 여부를 조사받습니다. 이는 대한민국에서 일하는 모든 외국인도 우리 국민처럼 대우받아야 한다는 원칙입니다. 부당한 폭행이나 인권 침해가 없도록 앞으로 더 꼼꼼하게 관리하겠습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>외국인 노동자가 한국에서 다쳤을 때, 그들이 벌금을 내고 추방되는 대신 치료를 받으며 일할 권리가 보장받는지 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#법무부</span><span>#외국인 노동자</span><span>#인권침해</span><span>#체류자격</span><span>#이민자 권익보호 TF</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>장기 손상을 입은 외국인 노동자는 벌금 없이 안정적으로 체류하며 치료를 받고, 가해 고용주는 불법 여부를 조사받아 처벌받을 수 있습니다.</p>
     </section>
+    <div class='keywords'><span>#법무부</span><span>#외국인 노동자</span><span>#인권침해</span><span>#체류자격</span><span>#이민자 권익보호 TF</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753377" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

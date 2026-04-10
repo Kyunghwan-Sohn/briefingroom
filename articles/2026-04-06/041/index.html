@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 행정안전부 보도자료</div>
+  <div class="post-badge">행정안전부 보도자료</div>
   <h1 class="post-title">136년 전 외국인 선교사가 쓴 조선의 「기행 편지」 복원하여 최초 공개</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>136 년 전 미국 여성 의사인 로제타가 한국에서 활동한 내용을 담은 오래된 편지를 국가기록원에서 고쳐 다시 보여준다.</li><li style='margin-bottom:6px'>이 편지는 종이 94 장을 이어 붙여 총 32 미터나 되는 긴 두루마리 형태로, 1890 년에서 1891 년 당시 한국 생활 모습과 의료 상황을 생생히 기록하고 있다.</li><li style='margin-bottom:6px'>예전에는 잉크가 변색되고 종이 부식이 심해서 보기 힘들었으나, 전문가들이 1 년 6 개월 동안 정성껏 복원하여 안전해졌다.</li><li style='margin-bottom:6px'>편지에는 당시 고종이 중국 사신을 맞이하던 모습이나, 로제타가 운영한 병원의 사진 등 59 장의 아주 귀한 사진도 함께 담겨 있다.</li><li style='margin-bottom:6px'>이제 누구나 인터넷 (양화진기록관 웹사이트) 에서 이 편지와 사진들을 자유롭게 보고 한국 근대 역사를 이해하는 데 활용할 수 있다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국가기록원이 136 년 전 미국인 선교사 로제타 셔우드 홀의 조선 기행 편지 (두루마리 형태) 를 18 개월간의 정밀 복원 작업을 통해 최초로 공개한다. 총 32m 길이의 편지와 당시 조선의 의료 환경, 생활상, 고종 시대의 사진을 담은 59 장의 희귀 사진이 포함되었으며, 4 월 7 일 보건의 날을 기점으로 양화진기록관 누리집 등을 통해 온라인 열람이 가능하다. 이 유물은 로제타가 설립한 국내 최초 여의사 교육기관 등 근대 의학 발전에 이바지한 역사적 기록으로서, 향후 연구 및 전시 자료로 널리 활용된다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">136 년 전 미국 여성 의사인 로제타가 한국에서 활동한 내용을 담은 오래된 편지를 국가기록원에서 고쳐 다시 보여준다. 이 편지는 종이 94 장을 이어 붙여 총 32 미터나 되는 긴 두루마리 형태로, 1890 년에서 1891 년 당시 한국 생활 모습과 의료 상황을 생생히 기록하고 있다. 예전에는 잉크가 변색되고 종이 부식이 심해서 보기 힘들었으나, 전문가들이 1 년 6 개월 동안 정성껏 복원하여 안전해졌다. 편지에는 당시 고종이 중국 사신을 맞이하던 모습이나, 로제타가 운영한 병원의 사진 등 59 장의 아주 귀한 사진도 함께 담겨 있다. 이제 누구나 인터넷 (양화진기록관 웹사이트) 에서 이 편지와 사진들을 자유롭게 보고 한국 근대 역사를 이해하는 데 활용할 수 있다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 자료는 우리 근대 의료사와 일제 강점기 이전의 사회상을 엿볼 수 있는 매우 희귀한 1 세대 사료이기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#국가기록원</span><span>#로제타 셔우드 홀</span><span>#기행편지</span><span>#근대의료사</span><span>#양화진기록관</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>일반 국민과 연구자들이 32 미터에 달하는 방대한 19 세기 원본 기록과 사진을 이제 집에서도 온라인으로 직접 확인할 수 있게 되었다.</p>
     </section>
+    <div class='keywords'><span>#국가기록원</span><span>#로제타 셔우드 홀</span><span>#기행편지</span><span>#근대의료사</span><span>#양화진기록관</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753066" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

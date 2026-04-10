@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 기획재정부 보도자료</div>
+  <div class="post-badge">기획재정부 보도자료</div>
   <h1 class="post-title">아세안+3 재무차관 및 중앙은행 부총재 회의 참석 결과</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>중동 전쟁 때문에 한국, 중국, 일본 등 14 개국이 온라인으로 모여 경제 문제를 의논했다. 문지성 관리관이 주재하며 나라들끼리 정보를 빨리 공유하고 위기에 대비하자고 제안했다. 특히 석유 공급망이 끊어지는 등 큰 일이 생길 수 있으니 에너지 공급처를 여러 곳으로 넓혀야 한다고 말했다. 돈을 빌려주는 금융 안전망 (치앙마이 이니셔티브) 을 더 튼튼하게 만들기 위한 방법도 함께 논의했다. 이 내용은 5 월에 열리는 더 큰 회의에서 최종 결정되어 실제 정책에 반영될 예정이다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>중동 전쟁 등 글로벌 리스크로 인해 한중일과 아세안 +3 재무장관 회의가 화상으로 개최되어 경제 협력과 금융 안정 방안이 논의되었다. 문지성 국제경제관리관이 한중일 회의를 주재하며 실시간 정보공유와 공급망 다변화 등 경제 회복력 강화를 제안했다. 이번 논의는 5 월 우즈베키스탄에서 개최될 장관회의의 의제를 확정하고 역내 금융안전망 개편 방향을 점검하는 데 기여할 예정이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">중동 전쟁 때문에 한국, 중국, 일본 등 14 개국이 온라인으로 모여 경제 문제를 의논했다. 문지성 관리관이 주재하며 나라들끼리 정보를 빨리 공유하고 위기에 대비하자고 제안했다. 특히 석유 공급망이 끊어지는 등 큰 일이 생길 수 있으니 에너지 공급처를 여러 곳으로 넓혀야 한다고 말했다. 돈을 빌려주는 금융 안전망 (치앙마이 이니셔티브) 을 더 튼튼하게 만들기 위한 방법도 함께 논의했다. 이 내용은 5 월에 열리는 더 큰 회의에서 최종 결정되어 실제 정책에 반영될 예정이다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>글로벌 전쟁과 물가 불안정이 우리 경제에 직접적인 영향을 미칠 수 있기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#아세안+3</span><span>#한중일 재무차관회의</span><span>#중동전쟁</span><span>#치앙마이이니셔티브</span><span>#문지성</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>정부와 기업들이 에너지 공급망과 금융 위기 대응 계획을 더 세밀하게 준비하게 된다.</p>
     </section>
+    <div class='keywords'><span>#아세안+3</span><span>#한중일 재무차관회의</span><span>#중동전쟁</span><span>#치앙마이이니셔티브</span><span>#문지성</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://mofe.go.kr/nw/nes/detailNesDtaView.do?searchBbsId1=MOSFBBS_000000000028&amp;searchNttId1=MOSF_000000000077404&amp;menuNo=4010100" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

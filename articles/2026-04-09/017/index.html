@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 국토교통부 보도자료</div>
+  <div class="post-badge">국토교통부 보도자료</div>
   <h1 class="post-title">관악 난곡에 750가구 들어선다 &quot;공공이 직접 시행해 주택공급 빨라져&quot;</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>서울 관악구 난곡 지역에 새로 지어질 아파트 750 세대가 들어온다.</li><li style='margin-bottom:6px'>오래 전에 시작했으나 여러 문제로 늦어지던 이 사업을 한국토지주택공사(LH) 가 직접 맡아 추진한다.</li><li style='margin-bottom:6px'>기존에는 주민들이 직접 모임을 만들어 진행해야 해서 사업성이 낮거나 절차가 복잡했으나, 이제 LH 가 전 과정을 책임진다.</li><li style='margin-bottom:6px'>LH 는 2028 년부터 공사를 시작하여 더 빠른 속도로 새 집을 짓는 새로운 모델을 선보인다.</li><li style='margin-bottom:6px'>공공이 직접 시행함으로써 주민들의 부담은 줄고 집이 빨리 공급되어 주택 시장에 안정을 준다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국토교통부는 LH 가 서울 관악구 난곡 A2 구역에서 소규모주택정비사업 최초로 공공이 직접 시행하는 사업을 시작해 750 가구의 주택을 공급한다고 밝혔다. 사업은 2028 년 착공을 목표로 연내 시공자 선정 및 2027 년 사업시행계획 인가 등 후속 절차를 신속히 진행할 계획이다. 기존 지연되던 소규모 정비사업을 LH 가 주도함으로써 사업 속도를 높이고 주민 부담을 줄여 도심 주택 공급을 확대한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">서울 관악구 난곡 지역에 새로 지어질 아파트 750 세대가 들어온다. 오래 전에 시작했으나 여러 문제로 늦어지던 이 사업을 한국토지주택공사(LH) 가 직접 맡아 추진한다. 기존에는 주민들이 직접 모임을 만들어 진행해야 해서 사업성이 낮거나 절차가 복잡했으나, 이제 LH 가 전 과정을 책임진다. LH 는 2028 년부터 공사를 시작하여 더 빠른 속도로 새 집을 짓는 새로운 모델을 선보인다. 공공이 직접 시행함으로써 주민들의 부담은 줄고 집이 빨리 공급되어 주택 시장에 안정을 준다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>오래 지체되던 서울 관악구의 주거 환경 개선 사업이 정부 주도로 본격화되어 집 값과 공급 상황에 영향을 미치기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#관악 난곡</span><span>#LH 공공단독시행</span><span>#소규모주택정비사업</span><span>#750 가구 공급</span><span>#주택공급 확대</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>관악구 주민들은 LH 의 전문적 관리로 지연 없이 새 집을 짓게 되며, 전국적으로도 공공이 주도하는 소규모 정비사업의 성공 사례가 된다.</p>
     </section>
+    <div class='keywords'><span>#관악 난곡</span><span>#LH 공공단독시행</span><span>#소규모주택정비사업</span><span>#750 가구 공급</span><span>#주택공급 확대</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753691" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

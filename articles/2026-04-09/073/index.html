@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 보건복지부 보도자료</div>
+  <div class="post-badge">보건복지부 보도자료</div>
   <h1 class="post-title">AI 기술로 의료 질 높인다… 만성질환자 대상 보건의료 AX 사업 착수</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 인공지능을 써서 만성질환자의 일상 관리를 돕는 새로운 사업을 시작했습니다. 이 사업은 운동을 하거나 식단을 조절하는 등 일상생활부터 병원 방문, 원격 진료까지 전 과정을 인공지능으로 연결합니다. 특히 눈이나 폐 같은 장기의 사진을 인공지능이 더 정확하게 판독해 주도록 돕는 서비스도 포함됩니다. 지금부터 이 기술을 개발한 기업이나 기관을 모집해 1 년에서 2 년 안에 실제 효과를 보도록 추진합니다. 이를 통해 병을 미리 막고 병원에서 기다리는 시간을 줄여 더 안전하고 편리한 healthcare 환경을 만들 수 있습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>보건복지부는 AI 기술을 활용해 만성질환자의 일상 관리부터 원격 협진까지 전 주기를 아우르는 &#x27;보건의료 AX 사업&#x27;을 시작했다고 밝혔다. 이번 사업은 1∼2 년 내 가시적 성과를 목표로 5 개 분야에 대한 수행기관 공모를 4 월 1 일부터 진행 중이며, 설명회는 4 월 9 일 서울 프레지던트 호텔에서 열렸다. 이 사업은 유망 AI 보건의료 제품의 신속한 상용화를 지원해 의료 서비스의 질을 높이고 공공보건 시스템을 개선할 것이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 인공지능을 써서 만성질환자의 일상 관리를 돕는 새로운 사업을 시작했습니다. 이 사업은 운동을 하거나 식단을 조절하는 등 일상생활부터 병원 방문, 원격 진료까지 전 과정을 인공지능으로 연결합니다. 특히 눈이나 폐 같은 장기의 사진을 인공지능이 더 정확하게 판독해 주도록 돕는 서비스도 포함됩니다. 지금부터 이 기술을 개발한 기업이나 기관을 모집해 1 년에서 2 년 안에 실제 효과를 보도록 추진합니다. 이를 통해 병을 미리 막고 병원에서 기다리는 시간을 줄여 더 안전하고 편리한 healthcare 환경을 만들 수 있습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>내 건강 관리를 위한 미래 의료 서비스의 방향성이 무엇인지 알 수 있는 가장 중요한 뉴스입니다.</p>
     </section>
-    <div class='keywords'><span>#보건의료 AX</span><span>#인공지능</span><span>#만성질환 관리</span><span>#의료 서비스 품질</span><span>#AI 사업 공모</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>앞으로 만성질환자의 일상 관리부터 병원 진료까지 인공지능을 통해 더 빠르고 정확하며 편리해집니다.</p>
     </section>
+    <div class='keywords'><span>#보건의료 AX</span><span>#인공지능</span><span>#만성질환 관리</span><span>#의료 서비스 품질</span><span>#AI 사업 공모</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.mohw.go.kr/board.es?mid=a10503000000&amp;bid=0027&amp;act=view&amp;list_no=1490031&amp;tag=&amp;nPage=1" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

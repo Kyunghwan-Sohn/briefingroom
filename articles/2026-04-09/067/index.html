@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 기획재정부 보도자료</div>
+  <div class="post-badge">기획재정부 보도자료</div>
   <h1 class="post-title">다주택자에 대한 양도소득세 중과 유예 종료 적용 보완 추진</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>이번 발표는 집 여러 채를 가진 사람이 집을 팔 때 내는 세금 감면 기간을 끝낸다는 내용입니다.</li><li style='margin-bottom:6px'>집을 여러 개 보유한 사람은 앞으로는 더 빨리 세금 중과 규제를 받게 됩니다.</li><li style='margin-bottom:6px'>이는 투기 목적의 주택买卖을 막기 위해 기존 규정을 더 강화한 것입니다.</li><li style='margin-bottom:6px'>과거에는 특정 기간 동안 세금을 덜 냈으나, 앞으로는 이 혜택이 줄어듭니다.</li><li style='margin-bottom:6px'>결과적으로 주택을 여러 개 가진 사람들의 부담이 늘어날 수 있습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>기획재정부는 다주택자에 적용되던 양도소득세 중과 유예 조치의 종료 시점을 보완하여 확정했습니다. 주요 내용은 기존 유예 기간을 단축하거나 종료 조건을 명확히 하여 과세 시점을 앞당기는 것이며, 이는 곧 시행됩니다. 이 정책은 다주택 보유자를 대상으로 장기 보유 시 세제 혜택이 축소됨에 따라 투기 억제 효과가 기대됩니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">이번 발표는 집 여러 채를 가진 사람이 집을 팔 때 내는 세금 감면 기간을 끝낸다는 내용입니다. 집을 여러 개 보유한 사람은 앞으로는 더 빨리 세금 중과 규제를 받게 됩니다. 이는 투기 목적의 주택买卖을 막기 위해 기존 규정을 더 강화한 것입니다. 과거에는 특정 기간 동안 세금을 덜 냈으나, 앞으로는 이 혜택이 줄어듭니다. 결과적으로 주택을 여러 개 가진 사람들의 부담이 늘어날 수 있습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>집을 여러 채 보유한 국민이나 부동산 투자자들은 곧 세액이 증가할 수 있어 준비가 필요합니다.</p>
     </section>
-    <div class='keywords'><span>#양도소득세</span><span>#다주택자</span><span>#중과 유예</span><span>#세금 부과</span><span>#부동산 정책</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>다주택자는 기존 유예 기간이 끝나면서 주택 양도 시 내야 할 세금 부담이 현실화됩니다.</p>
     </section>
+    <div class='keywords'><span>#양도소득세</span><span>#다주택자</span><span>#중과 유예</span><span>#세금 부과</span><span>#부동산 정책</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://mofe.go.kr/nw/nes/detailNesDtaView.do?searchBbsId1=MOSFBBS_000000000028&amp;searchNttId1=MOSF_000000000077407&amp;menuNo=4010100" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 고용노동부 보도자료</div>
+  <div class="post-badge">고용노동부 보도자료</div>
   <h1 class="post-title">&quot;내 일터 안전하게, 내일 더 행복하게&quot; AI·스마트 산업안전기술 우수사례 챌린지 개최</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>AI 기술로 사고를 막는 좋은 사례를 모아서 뽑는 대회가 열립니다.</li><li style='margin-bottom:6px'>작은 회사나 혼자서 일하는 사람도 누구나 참여할 수 있습니다.</li><li style='margin-bottom:6px'>공모 기간은 4 월 8 일부터 5 월 15 일까지입니다.</li><li style='margin-bottom:6px'>사고 위험이 높은 곳 (예: 추락, 화재 등) 에 쓰는 기술은 더 잘 뽑습니다.</li><li style='margin-bottom:6px'>대상에 오르면 500 만 원, 최우수상에 오르면 200 만 원의 돈을 받습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>고용노동부와 한국산업안전보건공단은 4월 8일부터 5월 15일까지 AI 및 스마트 기술을 활용한 산업안전 우수 사례를 공모하는 챌린지를 개최한다. 심사 결과는 서류와 현장 검증을 통해 선정하며, 대상 2 명에게는 500 만 원, 최우수상 4 명에게는 200 만 원의 상금이 수여된다. 사업장 및 개인 누구나 참여 가능하며, 7 월 산업안전보건의 달 행사에서 시상이 진행된다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">AI 기술로 사고를 막는 좋은 사례를 모아서 뽑는 대회가 열립니다. 작은 회사나 혼자서 일하는 사람도 누구나 참여할 수 있습니다. 공모 기간은 4 월 8 일부터 5 월 15 일까지입니다. 사고 위험이 높은 곳 (예: 추락, 화재 등) 에 쓰는 기술은 더 잘 뽑습니다. 대상에 오르면 500 만 원, 최우수상에 오르면 200 만 원의 돈을 받습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>일터에서 일어나는 사고를 막고 더 안전한 환경에서 일하기 위한 좋은 기술을 찾거나 참여할 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#AI 산업안전</span><span>#산업재해 예방</span><span>#우수사례 챌린지</span><span>#고용노동부</span><span>#산업안전보건의 달</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>안전을 위해 AI 등 신기술을 쓰는 사업장과 개인의 사례가 발굴되어 업계 전체의 안전 수준이 높아집니다.</p>
     </section>
+    <div class='keywords'><span>#AI 산업안전</span><span>#산업재해 예방</span><span>#우수사례 챌린지</span><span>#고용노동부</span><span>#산업안전보건의 달</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753249" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

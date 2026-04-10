@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 조달청 보도자료</div>
+  <div class="post-badge">조달청 보도자료</div>
   <h1 class="post-title">조달청, 차량용 요소 비축물자 무단사용 적발...강력 대응조달청</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>자동차 배기가스 정화제인 &#x27;요소수&#x27;를 비축해 두었던 물자를 회사가 마음대로 쓰다가 잡혔다. 조달청은 경찰과 협력해 회사 창고에 있던 비축물자 500 톤을 모두 떼어내 정부 창고로 옮겼다. 이 회사는 정부가 &#x27;비축 물자는 임의로 못 쓴다&#x27;고 지시해놓고도 몰래 사용해 적발됐다. 정부는 이 일을 수사해 해당 회사에 처벌을 받을 수 있도록 조치했다. 현재 요소수는 재고가 넉넉해 공급에 문제가 없으니 안심해도 된다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>조달청은 차량용 요소 비축물자 500여 톤을 업체가 무단 사용하다 적발해 경찰과 협력해 즉시 수거했다. 4월 1 일 해당 업체에 수사 요청을 하고, 500 톤의 물자를 조달청 비축기지로 긴급 이관했다. 이 조치는 공공 자산 불법 유용에 대한 강력한 경고를 보내고, 향후 비축물자 재고관리 책임을 강화하기 위한 것이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">자동차 배기가스 정화제인 &#x27;요소수&#x27;를 비축해 두었던 물자를 회사가 마음대로 쓰다가 잡혔다. 조달청은 경찰과 협력해 회사 창고에 있던 비축물자 500 톤을 모두 떼어내 정부 창고로 옮겼다. 이 회사는 정부가 &#x27;비축 물자는 임의로 못 쓴다&#x27;고 지시해놓고도 몰래 사용해 적발됐다. 정부는 이 일을 수사해 해당 회사에 처벌을 받을 수 있도록 조치했다. 현재 요소수는 재고가 넉넉해 공급에 문제가 없으니 안심해도 된다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>공공의 중요한 물자를 사적으로 빼돌린 일이 적발돼 처벌과 보상이 이루어졌기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#조달청</span><span>#차량용 요소</span><span>#비축물자 무단사용</span><span>#수사</span><span>#공급망 안정화</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>해당 업체는 형사 처벌을 받으며, 향후 정부 비축물자에 대한 관리와 감독이 한층 더 강화된다.</p>
     </section>
+    <div class='keywords'><span>#조달청</span><span>#차량용 요소</span><span>#비축물자 무단사용</span><span>#수사</span><span>#공급망 안정화</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753055" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

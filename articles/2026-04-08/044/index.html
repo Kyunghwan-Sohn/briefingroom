@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 행정안전부 보도자료</div>
+  <div class="post-badge">행정안전부 보도자료</div>
   <h1 class="post-title">공공데이터 × AI : 혁신적인 AI 창업 경연의 장이 열린다</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 공공에서 공개한 자료를 활용하는 인공지능 기술 아이디어를 찾는 대회를 연다.</li><li style='margin-bottom:6px'>이번 대회에서는 개발한 아이디어를 실제 돈 되는 사업으로 만드는데 성공한 사람을 골라준다.</li><li style='margin-bottom:6px'>과거 대회에서 우승한 팀들의 아이디어는 많은 투자를 받고 특허도 많이 땄다.</li><li style='margin-bottom:6px'>올해는 더 똑똑한 인공지능 기술을 가진 팀을 찾기 위해 심사 기준을 엄격하게 바꿨다.</li><li style='margin-bottom:6px'>이를 통해 새로운 기술 기업들이 늘어나고 경제가 더 잘 돌아가길 바란다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>행정안전부는 공공데이터와 인공지능(AI)을 결합한 민간의 혁신 아이디어 발굴을 위해 &#x27;제 14 회 범정부 공공데이터·AI 활용 창업경진대회&#x27;를 개최한다. 2013 년 이래 2 만 2 천여 개 팀이 참여했으며, 수상작 55.8% 가 실제 창업에 성공하는 등 총 1 천 415 억 원 규모의 투자 유치 성과를 거뒀다. 올해는 AI 기술 완성도와 서비스 구현 능력을 강화한 심사 기준을 적용해 우수한 AI 기반 스타트업을 집중적으로 발굴할 예정이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 공공에서 공개한 자료를 활용하는 인공지능 기술 아이디어를 찾는 대회를 연다. 이번 대회에서는 개발한 아이디어를 실제 돈 되는 사업으로 만드는데 성공한 사람을 골라준다. 과거 대회에서 우승한 팀들의 아이디어는 많은 투자를 받고 특허도 많이 땄다. 올해는 더 똑똑한 인공지능 기술을 가진 팀을 찾기 위해 심사 기준을 엄격하게 바꿨다. 이를 통해 새로운 기술 기업들이 늘어나고 경제가 더 잘 돌아가길 바란다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>공공데이터를 활용한 인공지능 스타트업으로 창업하고 싶거나, 관련 산업의 동향을 파악하려는 국민에게 핵심 정보가 된다.</p>
     </section>
-    <div class='keywords'><span>#공공데이터</span><span>#인공지능</span><span>#창업경진대회</span><span>#스타트업</span><span>#행정안전부</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>공공기관 자료를 활용한 인공지능 기반 창업 아이디어가 발굴되면 자금 지원과 기술 지원 등을 통해 실질적인 사업화가 활성화된다.</p>
     </section>
+    <div class='keywords'><span>#공공데이터</span><span>#인공지능</span><span>#창업경진대회</span><span>#스타트업</span><span>#행정안전부</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753495" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

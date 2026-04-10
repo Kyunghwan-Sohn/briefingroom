@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 조달청 보도자료</div>
+  <div class="post-badge">조달청 보도자료</div>
   <h1 class="post-title">조달청, 공사 안전관리 강화 정책에 맞춰 간접공사비 현실화조달청</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>공사 현장에서 일하는 사람들이 더 안전하게 일할 수 있도록 안전 관련 비용이 더 많이 포함됩니다. 2026 년부터 공공기관이 하는 모든 건축 공사부터 이新规定이 적용됩니다. 안전용품, 교육, 관리 인력 등 안전을 위한 추가 비용이 실제 비용만큼 더 지급됩니다. 이로 인해 건설 노동자들이 안전 사고에 더 잘 대비하고 복지도 개선됩니다. 결과적으로 건설 현장이 더 안전해지고 산업 전반의 질이 높아집니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>조달청은 공사 현장 안전관리를 강화하기 위해 하도급 공사비에 포함되는 간접공사비를 현실화한다고 발표했습니다. 2026 년 4 월 7 일부터 이 정책이 시행되며, 공공기관이 발주하는 모든 건설 공사가 대상입니다. 이번 조치는 건설 근로자의 안전과 복지 수준을 높이고 사고를 예방하여 건설 산업의 건강한 발전을 이룰 것입니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">공사 현장에서 일하는 사람들이 더 안전하게 일할 수 있도록 안전 관련 비용이 더 많이 포함됩니다. 2026 년부터 공공기관이 하는 모든 건축 공사부터 이新规定이 적용됩니다. 안전용품, 교육, 관리 인력 등 안전을 위한 추가 비용이 실제 비용만큼 더 지급됩니다. 이로 인해 건설 노동자들이 안전 사고에 더 잘 대비하고 복지도 개선됩니다. 결과적으로 건설 현장이 더 안전해지고 산업 전반의 질이 높아집니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>공공공사 발주 시 안전 비용이 현실화되어 실제 현장의 안전 수준과 근로자 복지가 크게 달라지기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#조달청</span><span>#간접공사비</span><span>#안전관리</span><span>#공공공사</span><span>#하도급</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>공공건설 프로젝트 예산 내 안전 관련 간접비가 실제 수준에 맞춰 현실적으로 책정되어 현장 안전 인프라가 강화됩니다.</p>
     </section>
+    <div class='keywords'><span>#조달청</span><span>#간접공사비</span><span>#안전관리</span><span>#공공공사</span><span>#하도급</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753257" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

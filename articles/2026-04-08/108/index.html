@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 보건복지부 보도자료</div>
+  <div class="post-badge">보건복지부 보도자료</div>
   <h1 class="post-title">건강보험심사평가원 홍승권 신임 원장 임명</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 건강보험을 심사하는 기관의 새로운 지도자로 홍승권 교수를 임명했다.</li><li style='margin-bottom:6px'>홍승권 교수는 서울대학교 등 주요 병원에서 오랫동안 의료 관련 업무를 해온 전문가다.</li><li style='margin-bottom:6px'>그는 앞으로 3 년 동안 건강보험 사용 금액의 적정성을 심사하고 보건의료 체계를 강화하는 일을 맡는다.</li><li style='margin-bottom:6px'>이번 인사 절차는 관련 위원회 추천과 대통령 승인을 거쳐 정식적으로 이루어졌다.</li><li style='margin-bottom:6px'>이를 통해 국민 건강 보호와 의료 시스템 안정이 더욱 잘 이루어질 전망이다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>보건복지부는 홍승권을 제 12 대 건강보험심사평가원 신임 원장으로 임명했다. 홍승권 원장은 2026 년 4 월 13 일부터 2029 년 4 월 12 일까지 3 년간 임기를 수행하며 서울대학교 보건대학원 겸임교수를 역임했다. 이번 임명은 신원 원장이 의료 전문성을 바탕으로 국민 보건 향상을 이끌 것으로 기대된다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 건강보험을 심사하는 기관의 새로운 지도자로 홍승권 교수를 임명했다. 홍승권 교수는 서울대학교 등 주요 병원에서 오랫동안 의료 관련 업무를 해온 전문가다. 그는 앞으로 3 년 동안 건강보험 사용 금액의 적정성을 심사하고 보건의료 체계를 강화하는 일을 맡는다. 이번 인사 절차는 관련 위원회 추천과 대통령 승인을 거쳐 정식적으로 이루어졌다. 이를 통해 국민 건강 보호와 의료 시스템 안정이 더욱 잘 이루어질 전망이다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>건강보험 심사 기관의 새로운 지도자가 누구인지, 그리고 앞으로의 방향성이 무엇인지 알아야 우리 의료비와 보건의료 정책 변화를 파악할 수 있기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#건강보험심사평가원</span><span>#홍승권</span><span>#임명</span><span>#제 12 대 원장</span><span>#보건복지부</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>건강보험심사평가원의 정책 방향성과 요양급여 심사 절차가 새로운 원장 임기 동안 변화하거나 강화될 수 있다.</p>
     </section>
+    <div class='keywords'><span>#건강보험심사평가원</span><span>#홍승권</span><span>#임명</span><span>#제 12 대 원장</span><span>#보건복지부</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.mohw.go.kr/board.es?mid=a10503000000&amp;bid=0027&amp;act=view&amp;list_no=1490027&amp;tag=&amp;nPage=1" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

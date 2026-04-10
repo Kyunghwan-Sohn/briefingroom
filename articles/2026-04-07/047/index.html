@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 고용노동부 보도자료</div>
+  <div class="post-badge">고용노동부 보도자료</div>
   <h1 class="post-title">한국산업인력공단 「국민아이디어 공모전」 개최</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>한국산업인력공단이 국민들의 아이디어를 받아 서비스를 더 좋게 만들 수 있도록 공모전을 연다.</li><li style='margin-bottom:6px'>공모전 주제는 내가 겪은 불편한 점을 고치는 것뿐만 아니라 AI(지능형 정보처리 시스템) 활용 등 미래 준비와 관련된 것도 포함된다.</li><li style='margin-bottom:6px'>4월 30일까지 지원하면 되고, 심사를 통해 총 6개의 좋은 아이디어를 뽑아 상금을 준다.</li><li style='margin-bottom:6px'>뽑힌 아이디어는 그냥 끝나는 게 아니라 실제 사업이나 서비스 개선에 쓰인다.</li><li style='margin-bottom:6px'>김규석 이사장 직무대행은 국민들의 작은 목소리가 혁신의 시작이라고 참여를 당부했다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>한국산업인력공단은 오는 4월 7일부터 30일까지 국민이 체감하는 서비스 불편 개선 및 AI·노동대전환 대응 아이디어를 받는「국민 아이디어 공모전」을 개최한다. 심사를 거쳐 6월 총 6건의 우수작을 선정하며, 선정된 아이디어는 내부 혁신을 통해 실제 업무에 반영된다. 국민 누구나 참여 가능하며, 당선자에게는 최우수상부터 장려상까지 총 30만원 상당의 상품권이 지급된다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">한국산업인력공단이 국민들의 아이디어를 받아 서비스를 더 좋게 만들 수 있도록 공모전을 연다. 공모전 주제는 내가 겪은 불편한 점을 고치는 것뿐만 아니라 AI(지능형 정보처리 시스템) 활용 등 미래 준비와 관련된 것도 포함된다. 4월 30일까지 지원하면 되고, 심사를 통해 총 6개의 좋은 아이디어를 뽑아 상금을 준다. 뽑힌 아이디어는 그냥 끝나는 게 아니라 실제 사업이나 서비스 개선에 쓰인다. 김규석 이사장 직무대행은 국민들의 작은 목소리가 혁신의 시작이라고 참여를 당부했다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>한국산업인력공단 서비스와 관련된 불편사항을 직접 개선하고 참여하여 상품권을 받을 수 있는 기회이기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#한국산업인력공단</span><span>#국민아이디어공모전</span><span>#서비스개선</span><span>#AI노동대전환</span><span>#아이디어수상</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국민들이 제안한 아이디어가 심사되어 공단의 실제 서비스 개선 정책에 반영되고, 우수 제안자에게는 상품권이 지급됩니다.</p>
     </section>
+    <div class='keywords'><span>#한국산업인력공단</span><span>#국민아이디어공모전</span><span>#서비스개선</span><span>#AI노동대전환</span><span>#아이디어수상</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753248" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

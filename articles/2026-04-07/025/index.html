@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 농림축산식품부 보도자료</div>
+  <div class="post-badge">농림축산식품부 보도자료</div>
   <h1 class="post-title">박정훈 식량실장, 중동상황 관련 시설원예 농가 및 쌀 산지유통업체 경영 안정 총력 대응</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>박정훈 농식품부 식량정책실장은 중동 전쟁으로 가격이 오르는 문제를 해결하기 위해 농가와 유통업체를 직접 찾았습니다. 파프리카를 키우는 농가에게 난방비 보조금을 지원하고 비료 가격을 안정시키기로 했습니다. 쌀을 팔고 사는 회사에서는 플라스틱 대신 종이로 포장하거나 다른 통을 써서 플라스틱 부족 문제를 막으려고 합니다. 정부는 쌀 15 만 톤을 시장에 공급하여 밥값이 오르는 것을 막고 싶습니다. 이 모든 노력은 농부가 잘 살 수 있고 국민이 쌀값 걱정 없이 밥을 지을 수 있게 하기 위한 것입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>박정훈 농식품부 식량정책실장은 4 월 7 일 중동 상황으로 인한 유가 및 자재비 상승으로 경영 악화를 겪는 시설원예 농가와 쌀 유통업체를 직접 방문하여 애로사항을 청취하고 현장 지원을 협의했다. 정부는 추가경정예산안에 유가연동난방비 보조금 및 무기질비료 가격보전사업 확대를 반영해 농가 경영 안정을 도모하며, 쌀 유통에서는 15 만 톤 내외의 정부양곡 공급과 포장재 대체 방안을 논의했다. 이번 현장 점검은 파프리카 농가의 난방비 지원 및 쌀 수급망의 포장재·수매통 대체 방안을 점검하여 농업인과 소비자의 부담을 동시에 줄이는 효과를 목표로 한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">박정훈 농식품부 식량정책실장은 중동 전쟁으로 가격이 오르는 문제를 해결하기 위해 농가와 유통업체를 직접 찾았습니다. 파프리카를 키우는 농가에게 난방비 보조금을 지원하고 비료 가격을 안정시키기로 했습니다. 쌀을 팔고 사는 회사에서는 플라스틱 대신 종이로 포장하거나 다른 통을 써서 플라스틱 부족 문제를 막으려고 합니다. 정부는 쌀 15 만 톤을 시장에 공급하여 밥값이 오르는 것을 막고 싶습니다. 이 모든 노력은 농부가 잘 살 수 있고 국민이 쌀값 걱정 없이 밥을 지을 수 있게 하기 위한 것입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>중동 정세 불안으로 농자재 가격과 쌀 유통이 위협받고 있어 실질적인 지원 정책과 대안이 발표되었기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#농식품부</span><span>#박정훈</span><span>#시설원예</span><span>#유가연동보조금</span><span>#쌀 수급안정</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>시설원예 농가는 난방비와 비료 비용 지원을 받게 되고, 쌀 유통은 포장재 대체로 수급 차질을 예방하며 소비자 물가 안정을 도모하게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#농식품부</span><span>#박정훈</span><span>#시설원예</span><span>#유가연동보조금</span><span>#쌀 수급안정</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753296" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

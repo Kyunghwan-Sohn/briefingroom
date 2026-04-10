@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 금융위원회 보도자료</div>
+  <div class="post-badge">금융위원회 보도자료</div>
   <h1 class="post-title">중소·벤처기업 공시부담 완화 등을 위한 자본시장법 시행령·감독규정 개정 추진 (4.7일~5.18일 입법·규정변경 예고)</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 작년에 비해 더 많은 돈을 벌더라도 서류 작성이 부담되지 않도록 기준을 높인다.</li><li style='margin-bottom:6px'>이전엔 한해 10억 이상 모금하면 복잡한 서류를 냈어야 했지만, 30억까지는 이제 덜 복잡한 서류로 충분하다.</li><li style='margin-bottom:6px'>벤처기업들이 전문 투자자의 도움을 받더라도 숫자를 잘못 세어 규제에 걸리는 일을 막아준다.</li><li style='margin-bottom:6px'>새로 도입된 기술 투자증권도 상황에 따라 서류 요건을 조정하여 시장이 더 활발히 움직이게 돕는다.</li><li style='margin-bottom:6px'>이번 조치는 중소기업이 자금조달을 위해 법적인 걸림돌을 줄여 성장 속도를 높이기 위한 것이다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>금융위원회는 중소·벤처기업의 공시 부담을 덜기 위해 소액공모 기준을 기존 10억원 미만에서 30억원 미만으로 확대하는 자본시장법 시행령 등 개정을 추진한다. 오는 4월 7일부터 5월 18일까지 입법 예고 기간을 거쳐 상반기 중 개정안을 최종 확정할 계획이다. 소액공모 범위 확대와 전문 VC펀드 제외 대상 포함을 통해 기업들의 자금조달 편의성을 높이고 불필요한 규제 위반을 방지할 효과를 기대한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 작년에 비해 더 많은 돈을 벌더라도 서류 작성이 부담되지 않도록 기준을 높인다. 이전엔 한해 10억 이상 모금하면 복잡한 서류를 냈어야 했지만, 30억까지는 이제 덜 복잡한 서류로 충분하다. 벤처기업들이 전문 투자자의 도움을 받더라도 숫자를 잘못 세어 규제에 걸리는 일을 막아준다. 새로 도입된 기술 투자증권도 상황에 따라 서류 요건을 조정하여 시장이 더 활발히 움직이게 돕는다. 이번 조치는 중소기업이 자금조달을 위해 법적인 걸림돌을 줄여 성장 속도를 높이기 위한 것이다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>자본시장법 개정을 통해 기업들이 자금조달 시 겪는 번거로운 절차가 줄어들고 규제 위험에서 벗어날 수 있기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#금융위원회</span><span>#자본시장법</span><span>#소액공모</span><span>#중소벤처기업</span><span>#공시부담 완화</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>중소·벤처기업은 이전보다 3배 큰 규모까지도 간편한 서류만으로 자금을 모을 수 있어 자금조달이 훨씬 수월해진다.</p>
     </section>
+    <div class='keywords'><span>#금융위원회</span><span>#자본시장법</span><span>#소액공모</span><span>#중소벤처기업</span><span>#공시부담 완화</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753088" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

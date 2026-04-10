@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 농촌진흥청 보도자료</div>
+  <div class="post-badge">농촌진흥청 보도자료</div>
   <h1 class="post-title">&#x27;원예 시설 시공업체 한자리에&#x27; 현장 애로 해소·협력 방안 모색</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>농촌진흥청이 원예 농업용 시설을 짓는 업체 대표들과 만나 이야기를 나눴습니다. 이번에는 농촌진흥청이 개발한 새로운 재료나 컴퓨터 설계 프로그램 (온실 설계 지원 프로그램) 에 대해 설명했습니다. 업체들은 현장에서 겪는 어려운 점과 자재 수급 문제를 솔직하게 털어놓았습니다. 이러한 의견을 바탕으로 앞으로 어떤 연구를 먼저 할지 결정했습니다. 이 협력을 통해 더 안전하고 좋은 스마트팜을 짓는 데 도움이 될 것입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>농촌진흥청 국립원예특작과학원은 4 월 7 일 전북 완주에서 원예 시설 시공업체 20 여 곳 대표와 소통 간담회를 개최했다. 국산 필름 개발 현황, 온실 설계 지원 프로그램 (GHModeler) 활용 등 연구 성과를 공유하고 현장 애로 사항을 논의했다. 이번 협력을 통해 스마트팜 구축을 위한 산업체 공동연구와 제도 개선을 위한 구체적 과제를 발굴할 계획이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">농촌진흥청이 원예 농업용 시설을 짓는 업체 대표들과 만나 이야기를 나눴습니다. 이번에는 농촌진흥청이 개발한 새로운 재료나 컴퓨터 설계 프로그램 (온실 설계 지원 프로그램) 에 대해 설명했습니다. 업체들은 현장에서 겪는 어려운 점과 자재 수급 문제를 솔직하게 털어놓았습니다. 이러한 의견을 바탕으로 앞으로 어떤 연구를 먼저 할지 결정했습니다. 이 협력을 통해 더 안전하고 좋은 스마트팜을 짓는 데 도움이 될 것입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>농업 기술이 실제로 현장에서 쓰일 때 어떤 문제가 있고 이를 어떻게 해결하는지 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#원예 시설 시공</span><span>#소통 간담회</span><span>#스마트팜</span><span>#농촌진흥청</span><span>#온실 설계 지원 프로그램</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>원예 시설을 짓는 업체들이 겪는 어려움이 줄어들고 더 안전한 시설을 만드는 기술 개발이 빨라집니다.</p>
     </section>
+    <div class='keywords'><span>#원예 시설 시공</span><span>#소통 간담회</span><span>#스마트팜</span><span>#농촌진흥청</span><span>#온실 설계 지원 프로그램</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753699" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

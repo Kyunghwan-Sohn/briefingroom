@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 고용노동부 보도자료</div>
+  <div class="post-badge">고용노동부 보도자료</div>
   <h1 class="post-title">중·소 건설사업장 퇴직공제 신고 부담 덜어준다... 최대 3개월간 무료 업무대행서비스 지원</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>건설 현장 중소 업체의 퇴직금 관련 서류 처리 부담을 덜어주는 새로운 지원 프로그램을 시작합니다. 공사 비용이 300 억 원 미만인 중소 건설사만 이 혜택의 대상이 됩니다. 최대 3 개월 동안 전문가가 대신 서류를 처리하고 상담도 무료로 진행해 줍니다. 이는 사업주들이 복잡한 규정을 따로 공부하지 않고도 법을 잘 지킬 수 있게 돕는 장치입니다. 이로 인해 중소 건설사들의 경영 악화를 막고 건설 근로자들의 권리를 보호하는 효과가 있을 것입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>고용노동부 산하 건설근로자공제회가 건설경기 침체로 어려움을 겪는 중·소규모 건설사업주의 행정 부담을 덜기 위해 &#x27;퇴직공제 업무대행 상생협력 시범사업&#x27;을 신규 추진한다. 공사예정금액 300 억 원 미만 사업장을 대상으로 최대 3 개월간 퇴직공제 신고대행 및 자문 서비스를 무료로 제공한다. 이번 지원으로 사업주의 제도 이행 부담이 경감되어 퇴직공제 가입 및 신고 활성화를 이끌 것으로 기대된다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">건설 현장 중소 업체의 퇴직금 관련 서류 처리 부담을 덜어주는 새로운 지원 프로그램을 시작합니다. 공사 비용이 300 억 원 미만인 중소 건설사만 이 혜택의 대상이 됩니다. 최대 3 개월 동안 전문가가 대신 서류를 처리하고 상담도 무료로 진행해 줍니다. 이는 사업주들이 복잡한 규정을 따로 공부하지 않고도 법을 잘 지킬 수 있게 돕는 장치입니다. 이로 인해 중소 건설사들의 경영 악화를 막고 건설 근로자들의 권리를 보호하는 효과가 있을 것입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 발표는 건설 현장에서 중소 기업을 직접 지원해 경영 안정을 돕는 구체적인 정책 내용을 담고 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#건설근로자공제회</span><span>#퇴직공제 업무대행</span><span>#상생협력 시범사업</span><span>#중소 건설사업주</span><span>#무료 지원</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>공사 규모가 300 억 원 미만인 중소 건설사업주는 향후 최대 3 개월간 퇴직공제 관련 업무를 대행해주는 서비스를 무료로 이용할 수 있게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#건설근로자공제회</span><span>#퇴직공제 업무대행</span><span>#상생협력 시범사업</span><span>#중소 건설사업주</span><span>#무료 지원</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753041" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

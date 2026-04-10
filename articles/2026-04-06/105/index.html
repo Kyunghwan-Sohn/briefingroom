@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 재정경제부 보도자료</div>
+  <div class="post-badge">재정경제부 보도자료</div>
   <h1 class="post-title">[보도참고] 아세안+3 거시경제조사기구(AMRO) 2026년 지역경제전망(AREO) 보고서 발표</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>아시아 주요국들이 내년과 다듬내년 경제가 어떻게 될지 전문가들이 예측한 결과를 발표했습니다. 아세안 +3 지역은 전체적으로 매년 4.0% 정도 성장할 것으로 보입니다. 한국은 반도체와 정부 지원 덕분에 작년보다 성장률이 1.9% 까지 올라갈 것으로 보입니다. 미국이 추가 관세를 부과하거나 에너지 값이 오르면 경제가 위험해질 수도 있습니다. 기술 발전 (AI) 이 도움이 되지만, 예측하기 어려운 점이 많아 정부와 중앙은행이 유연하게 대처해야 합니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>아세안 +3 거시경제조사기구 (AMRO) 가 4 월 6 일 2026 년 지역경제전망 (AREO) 보고서를 발표했습니다. 보고서에 따르면 아세안 +3 지역의 2026~2027 년 성장률은 연간 4.0%, 한국의 2026 년 성장률은 1.9% 로 전년 대비 반등할 것으로 전망됩니다. 주요 성장 동력은 반도체 수요와 인공지능 (AI) 기술이지만, 미국 관세 재개 및 에너지 가격 상승이 불확실성 요인으로 지목되어 유연한 정책 대응이 필요하다고 권고했습니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">아시아 주요국들이 내년과 다듬내년 경제가 어떻게 될지 전문가들이 예측한 결과를 발표했습니다. 아세안 +3 지역은 전체적으로 매년 4.0% 정도 성장할 것으로 보입니다. 한국은 반도체와 정부 지원 덕분에 작년보다 성장률이 1.9% 까지 올라갈 것으로 보입니다. 미국이 추가 관세를 부과하거나 에너지 값이 오르면 경제가 위험해질 수도 있습니다. 기술 발전 (AI) 이 도움이 되지만, 예측하기 어려운 점이 많아 정부와 중앙은행이 유연하게 대처해야 합니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>우리 경제의 성장과 물가가 어떻게 될지 예측하는 중요한 국제 보고서입니다.</p>
     </section>
-    <div class='keywords'><span>#AMRO</span><span>#2026 년 지역경제전망</span><span>#한국 성장률</span><span>#아세안 +3</span><span>#경제 전망</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>이 보고서는 향후 우리 정부의 금융·재정 정책 운영 방향에 대한 국제적 기준을 제시합니다.</p>
     </section>
+    <div class='keywords'><span>#AMRO</span><span>#2026 년 지역경제전망</span><span>#한국 성장률</span><span>#아세안 +3</span><span>#경제 전망</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753060" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

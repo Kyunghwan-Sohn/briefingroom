@@ -81,20 +81,10 @@ def _build_keyword_section(keywords: list[str]) -> str:
 def _build_easy_summary(easy: str) -> str:
     if not easy or not easy.strip():
         return ""
-    lines = [l.strip() for l in easy.strip().split("\n") if l.strip()]
-    items = "".join(f"<li style='margin-bottom:6px'>{html.escape(l)}</li>" for l in lines[:5])
+    text = easy.strip().replace("\n", " ")
     return f"""<section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0">{items}</ol>
-    </section>"""
-
-
-def _build_summary_section(summary: str) -> str:
-    text = (summary or "").strip() or "요약이 준비 중입니다."
-    return f"""<section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>{html.escape(text)}</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">{html.escape(text)}</p>
     </section>"""
 
 
@@ -266,14 +256,19 @@ def generate_article_pages(target_date: str) -> int:
 .links h4{{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}}
 .links a{{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}}
 .links a:hover{{text-decoration:underline}}
-@media(max-width:768px){{.wrap{{padding:16px 16px 64px}}.post-title{{font-size:24px}}}}
+.cta{{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}}
+.cta h3{{font-family:var(--serif);font-size:16px;color:#fff}}
+.cta p{{font-size:11px;color:rgba(255,255,255,.6)}}
+.cta a{{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}}
+.bnav{{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}}
+.bnav a{{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}}
+@media(max-width:768px){{.wrap{{padding:16px 16px 64px}}.post-title{{font-size:24px}}body{{padding-bottom:62px}}.bnav{{display:grid}}}}
 </style>
 </head>
 <body>
 <div class="wrap">
   {render_top_nav("")}
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div class="post-badge">🏛 {h_source} 보도자료</div>
+  <div class="post-badge">{h_source} 보도자료</div>
   <h1 class="post-title">{h_title}</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>{date_str}</strong></div>
@@ -282,14 +277,19 @@ def generate_article_pages(target_date: str) -> int:
   </div>
   <div class="post-content">
     {_build_easy_summary(it.get("easy_summary", ""))}
-    {_build_summary_section(summary)}
     {_build_context_section("왜 알아야 하나?", why_important, "why-box", "Why It Matters")}
+    {_build_context_section("그래서 뭐가 달라지나?", practical_impact, "impact-box", "What Changes")}
     {_build_keyword_section(keywords)}
     {_build_law_section(it.get("related_laws", []))}
-    {_build_context_section("그래서 뭐가 달라지나?", practical_impact, "impact-box", "What Changes")}
     {_build_original_link(url)}
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>
 """

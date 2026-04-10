@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 기획재정부 보도자료</div>
+  <div class="post-badge">기획재정부 보도자료</div>
   <h1 class="post-title">2025회계연도 국가결산 국무회의 심의·의결</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>정부가 작년 한 해 동안 모은 돈과 쓴 돈, 그리고 남은 돈이 얼마나 되었는지 최종적으로 발표했습니다. 관리재정수지 적자는 예산보다 7 조 4 천억 원 적게 나와 국가 빚 관리가 계획보다 잘 되었다는 뜻입니다. 국가채무는 1,304 조 5 천억 원으로 국내 경제 규모 대비 49% 이며, 계획보다 0.1% 포인트 줄어든 상태입니다. 국민연금이 돈을 잘 굴려서 역대 최고 수익률을 기록했고, 국가가 가진 실제 순자산도 812 조 원으로 크게 늘었습니다. 이번 결산보고서에는 국가의 현금 흐름을 더 자세히 보여주는 표가 새로 만들어졌습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>2026 년 4 월 6 일 국무회의는 2025 회계연도 국가결산 보고서를 심의하여 관리재정수지 적자 104.2 조 원 (GDP 대비 3.9%) 과 국가채무 1,304.5 조 원 (GDP 대비 49.0%) 등의 결과를 확정했다. 국민연금 운용수익률은 역대 최고 수준인 18.8% 를 기록하며 기금 규모가 크게 확대되었고, 국가 순자산 또한 812.4 조 원으로 전년 대비 179.7 조 원 증가했다. 이에 따라 재정운용이 정상화되었으며, 국제회계기준에 부합하는 현금흐름표가 신규 도입되었다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">정부가 작년 한 해 동안 모은 돈과 쓴 돈, 그리고 남은 돈이 얼마나 되었는지 최종적으로 발표했습니다. 관리재정수지 적자는 예산보다 7 조 4 천억 원 적게 나와 국가 빚 관리가 계획보다 잘 되었다는 뜻입니다. 국가채무는 1,304 조 5 천억 원으로 국내 경제 규모 대비 49% 이며, 계획보다 0.1% 포인트 줄어든 상태입니다. 국민연금이 돈을 잘 굴려서 역대 최고 수익률을 기록했고, 국가가 가진 실제 순자산도 812 조 원으로 크게 늘었습니다. 이번 결산보고서에는 국가의 현금 흐름을 더 자세히 보여주는 표가 새로 만들어졌습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 보도는 국가 재정 상황과 국민연금의 안정성이 개선되고 있음을 알려주는 핵심 경제 지표입니다.</p>
     </section>
-    <div class='keywords'><span>#국가결산</span><span>#관리재정수지</span><span>#국가채무</span><span>#국민연금</span><span>#순자산</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국민들은 국가 경제가 더 튼튼해지고 빚 관리가 계획대로 잘 되고 있음을 확인할 수 있게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#국가결산</span><span>#관리재정수지</span><span>#국가채무</span><span>#국민연금</span><span>#순자산</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://mofe.go.kr/nw/nes/detailNesDtaView.do?searchBbsId1=MOSFBBS_000000000028&amp;searchNttId1=MOSF_000000000077369&amp;menuNo=4010100" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

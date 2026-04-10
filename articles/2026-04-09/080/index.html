@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 과학기술정보통신부 보도자료</div>
+  <div class="post-badge">과학기술정보통신부 보도자료</div>
   <h1 class="post-title">과학기술 분야 학회 대상 구축형 연구 개발 심사제도 설명회 개최</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>과학기술정보통신부가 연구자들에게 주는 상을 고르는 방식이 바뀐다고 알려줍니다. 이 상은 학회 (연구자들 모임) 가 주최하는 큰 연구 프로젝트에 투자될 자금을 심사하는 새로운 방법을 따릅니다. 기존에는 개별 연구자 중심으로 심사했다면, 앞으로는 학회가 중심이 되어 프로젝트 전체를 평가합니다. 새 심사기준은 어떤 점인지, 언제부터 적용되는지 등 세부 사항을 설명하는 자리를 가집니다. 이 설명회에 참석하면 연구자들은 새로운 심사 규칙을 미리 알고 준비할 수 있게 됩니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>과학기술정보통신부는 학술계와 함께 학회 대상 구축형 연구개발 (R&amp;D) 심사제도의 세부 내용을 설명하는 설명회를 개최했다. 이번 설명회는 기존 연구개발 방식과의 차이점과 심사 절차, 기대 효과 등 구체적인 사항을 다룰 예정이다. 이번 행사를 통해 학회 관계자와 연구자들이 새로운 심사제도를 이해하고 현장에 원활히 적용할 수 있도록 돕는 것이 주요 목적이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">과학기술정보통신부가 연구자들에게 주는 상을 고르는 방식이 바뀐다고 알려줍니다. 이 상은 학회 (연구자들 모임) 가 주최하는 큰 연구 프로젝트에 투자될 자금을 심사하는 새로운 방법을 따릅니다. 기존에는 개별 연구자 중심으로 심사했다면, 앞으로는 학회가 중심이 되어 프로젝트 전체를 평가합니다. 새 심사기준은 어떤 점인지, 언제부터 적용되는지 등 세부 사항을 설명하는 자리를 가집니다. 이 설명회에 참석하면 연구자들은 새로운 심사 규칙을 미리 알고 준비할 수 있게 됩니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>과학기술 분야 연구자나 학회 관계자라면 심사 기준 변경에 따라 연구 자금 지원 여부와 방식이 달라질 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#구축형 연구개발</span><span>#연구개발 심사제도</span><span>#과학기술정보통신부</span><span>#학회 대상</span><span>#연구개발 설명회</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>구축형 연구개발 심사를 통해 학회 중심의 대규모 연구 지원 체계가 본격화되고 지원 절차가 구체화됩니다.</p>
     </section>
+    <div class='keywords'><span>#구축형 연구개발</span><span>#연구개발 심사제도</span><span>#과학기술정보통신부</span><span>#학회 대상</span><span>#연구개발 설명회</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;mPid=208&amp;mId=307&amp;nttSeqNo=3187125" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

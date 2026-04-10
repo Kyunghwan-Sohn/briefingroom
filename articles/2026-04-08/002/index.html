@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-08/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-08/">차주 일정</a></div>
-  <div class="post-badge">🏛 국무조정실 보도자료</div>
+  <div class="post-badge">국무조정실 보도자료</div>
   <h1 class="post-title">[보도자료] 김민석 국무총리 주재 중동상황 건설기업 금융애로 점검 간담회 보도자료 모두발언</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-08</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>중동 전쟁 때문에 건설 자재 가격이 오르고 공사가 늦어지면서 건설 회사들이 돈을 빌리는 데 어려움을 겪고 있습니다. 정부는 건설 회사가 돈을 더 쉽게 빌리고 이자를 덜 내도록 금융 지원을 늘리기로 했습니다. 건설 현장이 멈추지 않도록 정부와 은행이 함께 돈을 대주기로 했습니다. 이는 건설 회사들이 돈을 잃지 않고 계속 일할 수 있게 돕기 위한 것입니다. 국민들이 집을 짓고 도로를 만드는 일이 멈추지 않게 하는 안전장치를 만드는 것입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>김민석 국무총리는 국토교통부, 금융위원회와 건설·금융업계가 참석하는 합동 간담회를 개최하여 중동 전쟁 여파로 인한 건설업계의 금융 애로사항을 수렴하고 지원방안을 논의했습니다. 간담회에서는 자재 수급 불안과 공사비 증가로 인한 자금 조달 부담 완화를 위해 금융지원 대상과 규모를 유연하게 확대하는 방안이 논의되었습니다. 이번 논의는 건설업계의 금융 리스크를 최소화하고 산업 기반을 안정시키기 위한 범부처 비상 대응 체계의 첫걸음으로, 주요 협회 및 금융기관 대표들이 함께 참여했습니다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">중동 전쟁 때문에 건설 자재 가격이 오르고 공사가 늦어지면서 건설 회사들이 돈을 빌리는 데 어려움을 겪고 있습니다. 정부는 건설 회사가 돈을 더 쉽게 빌리고 이자를 덜 내도록 금융 지원을 늘리기로 했습니다. 건설 현장이 멈추지 않도록 정부와 은행이 함께 돈을 대주기로 했습니다. 이는 건설 회사들이 돈을 잃지 않고 계속 일할 수 있게 돕기 위한 것입니다. 국민들이 집을 짓고 도로를 만드는 일이 멈추지 않게 하는 안전장치를 만드는 것입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>중동 전쟁 상황에서 건설업계가 위기에서 벗어나지 못하면 집값과 공공시설 공사가 멈춰 우리 생활에 직접적인 불편과 비용 증가가 생기기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#중동전쟁</span><span>#건설기업</span><span>#금융지원</span><span>#김민석 국무총리</span><span>#비상경제대응</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>건설 회사들이 금융 지원의 대상과 규모가 더 넓어지고 조건이 완화되어 자재 수급과 공사 진행 중 자금 부족으로 멈추지 않고 일할 수 있게 됩니다.</p>
     </section>
+    <div class='keywords'><span>#중동전쟁</span><span>#건설기업</span><span>#금융지원</span><span>#김민석 국무총리</span><span>#비상경제대응</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753553" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

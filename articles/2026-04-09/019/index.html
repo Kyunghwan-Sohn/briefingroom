@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-09/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-09/">차주 일정</a></div>
-  <div class="post-badge">🏛 농림축산식품부 보도자료</div>
+  <div class="post-badge">농림축산식품부 보도자료</div>
   <h1 class="post-title">농식품부·지방정부·농촌체험마을 관계자 농촌관광 활성화를 위해 머리를 맞대다!</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>농림축산식품부는 농촌 관광을 더 잘하려면 현장 사람들의 이야기를 듣고 싶다고 합니다. 오는 4 월 10 일부터 24 일까지 전국 5 곳 지역에서 농촌 체험마을 운영자들을 모십니다. 새로운 정책과 지원 사업 내용, 그리고 마을 운영에 필요한 허가 방법 등을 자세히 설명합니다. 지방소멸 대응기금 (지방 소멸을 막기 위한 특별 기금) 을 활용한 활성화 방안도 함께 소개합니다. 마을 운영자들의 어려운 점과 좋은 사례를 공유하여 농촌 경제를 살리겠습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>농림축산식품부는 4 월 10 일부터 24 일까지 5 개 권역별 설명회를 개최하여 2026 년 농촌관광 정책 방향 및 주요 사업을 안내한다. 지방소멸 대응기금 연계 활성화 방안과 인허가 절차 설명, 우수사례 공유 및 건의사항 청취 등 현장 밀착형 지원을 실시할 예정이다. 전국의 농촌체험휴양마을 관계자 및 지방정부 담당 공무원 등을 대상으로 운영 지원 강화와 농촌관광 경쟁력 제고를 목표로 한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">농림축산식품부는 농촌 관광을 더 잘하려면 현장 사람들의 이야기를 듣고 싶다고 합니다. 오는 4 월 10 일부터 24 일까지 전국 5 곳 지역에서 농촌 체험마을 운영자들을 모십니다. 새로운 정책과 지원 사업 내용, 그리고 마을 운영에 필요한 허가 방법 등을 자세히 설명합니다. 지방소멸 대응기금 (지방 소멸을 막기 위한 특별 기금) 을 활용한 활성화 방안도 함께 소개합니다. 마을 운영자들의 어려운 점과 좋은 사례를 공유하여 농촌 경제를 살리겠습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>농촌체험마을을 운영하거나 방문하는 국민에게 새로운 지원 정책과 행정 절차가 어떻게 달라지는지 알 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#농촌관광</span><span>#농촌체험휴양마을</span><span>#지방소멸대응기금</span><span>#농촌경제과</span><span>#사업설명회</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>농촌체험마을 운영자분들은 2026 년 주요 사업 지원 정책과 인허가 절차를 명확히 파악할 수 있어 실질적인 도움을 받습니다.</p>
     </section>
+    <div class='keywords'><span>#농촌관광</span><span>#농촌체험휴양마을</span><span>#지방소멸대응기금</span><span>#농촌경제과</span><span>#사업설명회</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753688" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

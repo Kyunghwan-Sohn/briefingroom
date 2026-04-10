@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-06/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-06/">차주 일정</a></div>
-  <div class="post-badge">🏛 국방부 보도자료</div>
+  <div class="post-badge">국방부 보도자료</div>
   <h1 class="post-title">2026년 1차 한미 6·25전사자 유해소재 공동 조사</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-06</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>한국과 미국이 함께 한국전쟁 당시 추락한 미군 및 국군 장병의 유해를 찾기 위해 현장 조사를 시작한다.</li><li style='margin-bottom:6px'>4 월 6 일부터 5 월 1 일까지 4 주간 강원도 강릉과 양양에서 비행기 추락 흔적을 추적한다.</li><li style='margin-bottom:6px'>1952 년에 추락한 수송기나 전투기 잔해를 찾은 뒤, 다음 달 진행할 물속 조사를 위한 준비를 한다.</li><li style='margin-bottom:6px'>당시 실종된 조종사와 장병 등 총 10 명의 유해를 찾아 국민들이나 유가족들이 마음 놓을 수 있게 한다.</li><li style='margin-bottom:6px'>이번에는 미 해병대 하사가 조사팀을 이끌고 참여해 국제 협력으로 진행 중이다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국방부 유해발굴감식단은 미국 DPAA 와 공동으로 오는 6 월 25 일 전사자 유해 소재 조사를 위해 4 월 6 일부터 5 월 1 일까지 강원도 강릉·양양 일대에서 4 주간의 현장 조사를 진행한다. 이번 조사는 1952 년 11 월 수송기 추락사고로 실종된 미군 조종사 9 명과 국군 장병 1 명 등 총 10 명의 유해 복원을 목표로 8 월 예정된 수중 조사에 앞서 잔해 추적과 필요한 시설을 점검하는 사전 준비 단계이다. 미 해병대 하사 조딘 킹이 이끄는 조사팀이 이번 활동을 주도하며, 추가로 2 월과 10 월 발생한 항공기 추락 사고에 대한 정보도 함께 수집한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">한국과 미국이 함께 한국전쟁 당시 추락한 미군 및 국군 장병의 유해를 찾기 위해 현장 조사를 시작한다. 4 월 6 일부터 5 월 1 일까지 4 주간 강원도 강릉과 양양에서 비행기 추락 흔적을 추적한다. 1952 년에 추락한 수송기나 전투기 잔해를 찾은 뒤, 다음 달 진행할 물속 조사를 위한 준비를 한다. 당시 실종된 조종사와 장병 등 총 10 명의 유해를 찾아 국민들이나 유가족들이 마음 놓을 수 있게 한다. 이번에는 미 해병대 하사가 조사팀을 이끌고 참여해 국제 협력으로 진행 중이다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>국가를 위해 목숨 바친 전사자 유해를 찾아 보내드리는 국가적 사업의 구체적인 일정과 범위를 알 수 있기 때문이다.</p>
     </section>
-    <div class='keywords'><span>#한미 공동 조사</span><span>#6·25 전사자 유해 발굴</span><span>#국방부 유해발굴감식단</span><span>#DPAA</span><span>#강릉·양양 유해 수색</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>4 월 6 일부터 5 월 1 일까지 강원도 일부 해안가 및 인근 지역에서 미군 및 국군 장병 유해 소재를 찾기 위한 조사가 진행된다.</p>
     </section>
+    <div class='keywords'><span>#한미 공동 조사</span><span>#6·25 전사자 유해 발굴</span><span>#국방부 유해발굴감식단</span><span>#DPAA</span><span>#강릉·양양 유해 수색</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156752965" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

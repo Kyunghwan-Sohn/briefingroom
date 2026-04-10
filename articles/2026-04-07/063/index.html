@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 문화체육관광부 보도자료</div>
+  <div class="post-badge">문화체육관광부 보도자료</div>
   <h1 class="post-title">문체부, &#x27;케이-스포츠 외교&#x27; 선도할 고위급 인재 키운다</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>국가가 국제 스포츠계에서 리더 역할을 할 인재를 양성하는 새로운 교육 과정을 시작합니다. 선수 출신에게는 등록금을 전액 지원하고, 일반인에게는 반값으로 교육 비용을 지원합니다. 교육은 6 개월 동안 기초 이론부터 스위스에서의 실무 실습을 거쳐 실무를 익히는 과정으로 진행됩니다. 올림픽이나 세계 대회에서 메달을 딴 선수들은 특별히 우선 선발되어 더 많은 혜택을 받습니다. 최종 목표는 국제 스포츠 기구에서 의사결정을 할 수 있는 한국인 전문가를 더 많이 배출하는 것입니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>문화체육관광부는 2026 년 4 월 8 일부터 30 일까지 한국외국어대학교와 함께 &#x27;글로벌 스포츠 리더십 과정 제 1 기 신입 교육생&#x27;을 모집한다. 6 월부터 6 개월간 기초 과정부터 스위스 로잔 해외연수까지 총 6 개월의 심화 교육을 통해 국제 스포츠기구 고위직 진출 인재를 양성한다. 올림픽·세계선수권 입상자 등 선수 출신은 교육비 전액 또는 반액 지원 등 우대하며, 총 6 월 1 일 입교 후 매년 소수 정예로 국제 스포츠 외교 전문가를 배출할 계획이다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">국가가 국제 스포츠계에서 리더 역할을 할 인재를 양성하는 새로운 교육 과정을 시작합니다. 선수 출신에게는 등록금을 전액 지원하고, 일반인에게는 반값으로 교육 비용을 지원합니다. 교육은 6 개월 동안 기초 이론부터 스위스에서의 실무 실습을 거쳐 실무를 익히는 과정으로 진행됩니다. 올림픽이나 세계 대회에서 메달을 딴 선수들은 특별히 우선 선발되어 더 많은 혜택을 받습니다. 최종 목표는 국제 스포츠 기구에서 의사결정을 할 수 있는 한국인 전문가를 더 많이 배출하는 것입니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>스포츠 외교 전문가가 되어 해외 기구에서 일하고 싶은 사람이거나 관련 진로를 고민하는 사람에게 실질적인 지원과 기회를 제공하기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#글로벌 스포츠 리더십</span><span>#문체부</span><span>#한국외국어대학교</span><span>#국제 스포츠기구</span><span>#스포츠 외교</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>국제 스포츠계에서 한국의 영향력을 높일 수 있는 새로운 인재 양성 경로가 생기고, 선수 출신은 교육비 지원 혜택을 받을 수 있습니다.</p>
     </section>
+    <div class='keywords'><span>#글로벌 스포츠 리더십</span><span>#문체부</span><span>#한국외국어대학교</span><span>#국제 스포츠기구</span><span>#스포츠 외교</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753189" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>

@@ -80,15 +80,19 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 .links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
 .links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
 .links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
+.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hdr"><a class="logo" href="/">브리핑룸</a><nav class="hnav"><a href="/">홈</a> <a href="/policy/">정부 정책 AI</a> <a href="/finlaw/">금융 법령 AI</a> <a href="/articles/">아카이브</a></nav><a class="bell" href="https://t.me/govbrief" target="_blank">알림</a></header>
-  <a class="back" href="/">&#8592; 브리핑룸으로</a>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px"><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/weekly/2026-04-07/">주간 리포트</a><a style="display:inline-block;padding:6px 14px;border-radius:8px;border:1px solid var(--b);background:var(--s);color:var(--t);font-size:12px;font-weight:600;text-decoration:none" href="https://govbrief.kr/articles/schedule/2026-04-07/">차주 일정</a></div>
-  <div class="post-badge">🏛 국민권익위원회 보도자료</div>
+  <div class="post-badge">국민권익위원회 보도자료</div>
   <h1 class="post-title">봄과 함께 찾아가는 ‘달리는 국민신문고’, 현장에서 답을 찾다</h1>
   <div class="post-meta">
     <div class="meta-i"><span>날짜</span><strong>2026-04-07</strong></div>
@@ -98,30 +102,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
   <div class="post-content">
     <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <ol style="font-size:14px;color:var(--t);line-height:1.8;margin:0 0 0 18px;padding:0"><li style='margin-bottom:6px'>국민권익위가 버스가 여러 지역을 돌아다니며 주민의 불편함을 들어주는 서비스를 펼칩니다. 4 월 8 일 삼척, 9 일 정선, 10 일 증평에서 10 시부터 16 시까지 각각 열립니다. 주요 참여 지역은 해당 시·군이지만, 주변 동해·울진·평창·영월·음성·괴산 주민도 참여할 수 있습니다. 정부 행정 문제, 법률·소비자 분쟁 등 다양한 고민을 전문 상담사가 함께 해결해 줍니다. 특히 증평 행사에는 대통령비서실 핵심 인사가 와서 공무원과 대화하며 해결책을 찾습니다.</li></ol>
-    </section>
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국민권익위가 4 월 8 일부터 10 일까지 강원 삼척·정선, 충북 증평 등 3 개 지자체에서 순회 상담 거점인 &#x27;달리는 국민신문고&#x27;를 운영한다. 10 시부터 16 시까지 해당 지역 및 인접 8 개 시·군 주민을 대상으로 민원 상담과 해결방안을 모색하며, 증평 행사에는 대통령비서실 공공갈등조정비서관이 현장에 참여한다. 이 제도는 중앙과 지방 정부 행정, 생활법률, 소비자피해 등 3 대 분야 전문 상담을 통해 지역 주민의 고충을 직접 해결하는 것을 목표로 한다.</p>
+      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">국민권익위가 버스가 여러 지역을 돌아다니며 주민의 불편함을 들어주는 서비스를 펼칩니다. 4 월 8 일 삼척, 9 일 정선, 10 일 증평에서 10 시부터 16 시까지 각각 열립니다. 주요 참여 지역은 해당 시·군이지만, 주변 동해·울진·평창·영월·음성·괴산 주민도 참여할 수 있습니다. 정부 행정 문제, 법률·소비자 분쟁 등 다양한 고민을 전문 상담사가 함께 해결해 줍니다. 특히 증평 행사에는 대통령비서실 핵심 인사가 와서 공무원과 대화하며 해결책을 찾습니다.</p>
     </section>
     <section class="info-section why-box">
       <div class="section-kicker">Why It Matters</div>
       <h3>왜 알아야 하나?</h3>
       <p>이 서비스를 이용하면 관공서에 직접 가지 않아도 가까운 곳에서 복잡한 행정이나 법률 문제를 해결할 수 있기 때문입니다.</p>
     </section>
-    <div class='keywords'><span>#달리는 국민신문고</span><span>#국민권익위</span><span>#순회 상담</span><span>#민원 해결</span><span>#공공갈등조정</span></div>
-    
     <section class="info-section impact-box">
       <div class="section-kicker">What Changes</div>
       <h3>그래서 뭐가 달라지나?</h3>
       <p>주민들은 이동 거리와 시간을 줄이고 현장에서 즉시 해결책을 제시받으며 고충을 해소할 수 있습니다.</p>
     </section>
+    <div class='keywords'><span>#달리는 국민신문고</span><span>#국민권익위</span><span>#순회 상담</span><span>#민원 해결</span><span>#공공갈등조정</span></div>
+    
     <div class="links">
       <h4>원문</h4>
       <a href="https://www.acrc.go.kr/board.es?mid=a10402010000&amp;bid=4A&amp;act=view&amp;list_no=109597&amp;tag=&amp;nPage=1" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
     </div>
   </div>
+  <div class="cta">
+    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+  </div>
 </div>
+<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
 </body>
 </html>
