@@ -356,7 +356,7 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
     e = analysis["end"]
     top_kw = [kw for kw, _ in analysis["keywords"].most_common(5)]
     signals = build_weekly_signals(analysis, selected)
-    post_url = f"{SITE_URL}/articles/weekly/{target.isoformat()}/"
+    post_url = f"{SITE_URL}/policy/weekly/{target.isoformat()}/"
 
     h = _html.escape
     schedule_link = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
@@ -480,7 +480,7 @@ td.num{{text-align:center;white-space:nowrap}}
 </body>
 </html>"""
 
-    out_dir = ARTICLES_DIR / "weekly" / target.isoformat()
+    out_dir = BASE_DIR / "policy" / "weekly" / target.isoformat()
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "index.html"
     out_path.write_text(page_html, encoding="utf-8")

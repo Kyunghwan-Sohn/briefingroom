@@ -155,7 +155,7 @@ def _find_weekly_signals(week_dates: list[str]) -> tuple[str, list[str]] | None:
             import re
             text = weekly_path.read_text(encoding="utf-8")
             signals = re.findall(r'<h3>([^<]+)</h3>', text)[:5]
-            return f"/articles/weekly/{sat.strftime('%Y-%m-%d')}/", signals
+            return f"/policy/weekly/{sat.strftime('%Y-%m-%d')}/", signals
     return None
 
 
