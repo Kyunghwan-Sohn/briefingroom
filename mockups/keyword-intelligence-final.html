@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>정책 키워드 인텔리전스 - 브리핑룸</title>
+<meta name="description" content="최근 30일 보도자료에서 추출한 키워드로 정부 정책 흐름을 읽습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);
+  --bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;
+  --t:#222;--t2:#555;--m:#999;
+  --serif:'Gowun Batang',serif;
+  --sans:'Wanted Sans Variable',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
+
+/* Header */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
+
+/* Hero */
+.hero{background:var(--policy-bg);padding:32px 24px 28px;border-bottom:1px solid var(--policy-border);text-align:center}
+.hero h1{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--t);margin-bottom:6px;line-height:1.35}
+.hero-sub{font-family:var(--sans);font-size:14px;color:var(--m);margin-bottom:18px}
+.hero-stats{display:flex;gap:10px;max-width:480px;margin:0 auto}
+.hero-stat{flex:1;background:var(--s);border:1px solid var(--policy-border);border-radius:12px;padding:12px 8px;text-align:center}
+.hero-stat .num{font-family:var(--mono);font-size:28px;font-weight:700;color:var(--policy);line-height:1}
+.hero-stat .label{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--policy);margin-top:4px}
+
+/* Sections */
+.section{padding:28px 24px;border-bottom:1px solid var(--bl)}
+.sec-title{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:4px}
+.sec-desc{font-family:var(--sans);font-size:13px;color:var(--m);margin-bottom:18px}
+
+/* Legend */
+.treemap-legend{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;background:var(--s);border:1px solid var(--b);border-radius:10px;padding:12px 24px;margin:0 auto 16px;max-width:600px;font-family:var(--sans);font-size:13px;color:var(--t2)}
+.treemap-legend-item{display:flex;align-items:center;gap:6px;font-weight:600}
+.treemap-legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+
+/* Treemap: fully responsive, area-proportional, always fills rectangle */
+.treemap-wrap{width:100%;overflow:hidden;border-radius:6px}
+.treemap-row{display:grid;gap:2px;margin-bottom:2px}
+.treemap-row:last-child{margin-bottom:0}
+.treemap-row.r1{grid-template-columns:9fr 7fr 6fr 5fr}
+.treemap-row.r2{grid-template-columns:4fr 4fr 3fr 3fr}
+.treemap-row.r3{grid-template-columns:3fr 3fr 10fr}
+.treemap-cell{border-radius:3px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:opacity .15s;position:relative;padding:8px 4px}
+.treemap-cell:hover{opacity:.82}
+.treemap-cell.active{outline:3px solid var(--a);outline-offset:-1px;z-index:2}
+.treemap-kw{font-family:var(--serif);font-weight:700;color:#fff;line-height:1.3}
+.treemap-count{font-family:var(--mono);font-weight:700;color:rgba(255,255,255,.85);margin-top:2px}
+/* Heights + fonts scale with viewport, always proportional */
+.treemap-row.r1 .treemap-cell{height:clamp(80px,13vw,150px)}
+.treemap-row.r2 .treemap-cell{height:clamp(55px,7vw,95px)}
+.treemap-row.r3 .treemap-cell{height:clamp(44px,5vw,70px)}
+.treemap-row.r1 .treemap-kw{font-size:clamp(14px,2.4vw,24px)}
+.treemap-row.r1 .treemap-count{font-size:clamp(11px,1.4vw,16px)}
+.treemap-row.r2 .treemap-kw{font-size:clamp(12px,1.6vw,18px)}
+.treemap-row.r2 .treemap-count{font-size:clamp(10px,1.1vw,14px)}
+.treemap-row.r3 .treemap-kw{font-size:clamp(11px,1.3vw,15px)}
+.treemap-row.r3 .treemap-count{font-size:clamp(9px,1vw,12px)}
+
+/* Keyword tabs */
+.kw-tabs-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:20px;padding-bottom:4px}
+.kw-tabs-wrap::-webkit-scrollbar{display:none}
+.kw-tabs{display:flex;gap:6px;width:max-content}
+.kw-tab{font-family:var(--sans);font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;border:1px solid var(--bl);background:var(--s);color:var(--t2);cursor:pointer;white-space:nowrap;transition:all .15s;user-select:none}
+.kw-tab:hover{border-color:var(--a);color:var(--a)}
+.kw-tab.active{background:var(--a);color:#fff;border-color:var(--a)}
+
+/* Keyword header card */
+.kw-header-card{background:var(--s);border:1px solid var(--bl);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+.kw-header-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.kw-header-name{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--t)}
+.kw-cat-tag{font-family:var(--sans);font-size:11px;font-weight:700;color:#fff;padding:3px 10px;border-radius:12px;display:inline-block}
+.kw-header-count{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--m);margin-left:auto}
+.kw-header-ministries{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--policy);margin-top:4px}
+
+/* Ministry blocks */
+.ministry-block{background:var(--s);border:1px solid var(--b);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.ministry-block-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px}
+.ministry-block-name{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--t)}
+.ministry-block-count{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--policy)}
+.ministry-articles{padding:0 20px 12px}
+.ministry-article{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-top:1px dashed var(--bl)}
+.ministry-article:first-child{border-top:none;padding-top:4px}
+.impact-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:2px;display:inline-block}
+.impact-high{background:#fee2e2;color:#dc2626}
+.impact-mid{background:#fef3c7;color:#d97706}
+.ministry-article-title{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--t);line-height:1.5;flex:1;min-width:0}
+.ministry-article-date{font-family:var(--mono);font-size:11px;color:var(--m);flex-shrink:0;margin-top:2px;margin-left:auto;white-space:nowrap}
+
+/* CTA + Footer */
+.cta{margin:24px;padding:18px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:15px;color:#fff}
+.cta p{font-family:var(--sans);font-size:10px;color:rgba(255,255,255,.7)}
+.cta a{font-family:var(--sans);padding:10px 18px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none;white-space:nowrap}
+.footer{padding:16px 24px;text-align:center;font-family:var(--sans);font-size:10px;color:var(--m)}
+.footer a{color:var(--t);text-decoration:none;font-weight:600}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+.bnav a.on{color:var(--a)}
+.bnav a span:first-child{font-size:16px;font-weight:700}
+
+/* Responsive */
+@media(max-width:768px){
+  body{padding-top:48px;padding-bottom:62px}
+  .hdr{height:48px;padding:0 10px}
+  .logo{font-size:16px;margin-right:8px}
+  .hnav{gap:3px}
+  .hnav a{font-size:11px;padding:5px 7px}
+  .hero{padding:24px 16px 20px}
+  .hero h1{font-size:22px}
+  .hero-stats{gap:6px}
+  .hero-stat{padding:10px 6px}
+  .hero-stat .num{font-size:20px}
+  .hero-stat .label{font-size:10px}
+  .section{padding:22px 16px}
+  .sec-title{font-size:17px}
+  /* treemap: fr 비율 유지, vw 기반이라 자동 반응 -- 추가 조정 불필요 */
+  .treemap-legend{gap:10px;padding:10px 16px;font-size:12px}
+  .cta{margin:18px 16px;padding:16px}
+  .cta h3{font-size:14px}
+  .bnav{display:grid}
+  .kw-header-card{padding:16px}
+  .kw-header-name{font-size:20px}
+  .kw-header-count{margin-left:0}
+  .ministry-block-header{padding:14px 16px 10px}
+  .ministry-articles{padding:0 16px 10px}
+  .kw-tab{font-size:12px;padding:6px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">홈</a>
+    <a class="on-policy" href="/policy/">정부 정책 AI</a>
+    <a href="/finlaw/">금융 법령 AI</a>
+    <a href="/articles/">아카이브</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>정책 키워드 인텔리전스</h1>
+  <div class="hero-sub">최근 30일 보도자료에서 추출한 키워드로 정부 정책 흐름을 읽습니다</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">2,220</div><div class="label">분석 보도자료</div></div>
+    <div class="hero-stat"><div class="num">48</div><div class="label">추출 키워드</div></div>
+    <div class="hero-stat"><div class="num">52</div><div class="label">관련 부처</div></div>
+  </div>
+</section>
+
+<!-- SECTION 1: 정책 키워드 맵 -->
+<section class="section">
+  <div class="sec-title">정책 키워드 맵</div>
+  <div class="sec-desc">블록 크기는 언급 횟수, 색상은 정책 분야. 클릭하면 상세 정보를 확인할 수 있습니다.</div>
+
+  <div class="treemap-legend">
+    <div class="treemap-legend-item"><div class="treemap-legend-dot" style="background:#1e40af"></div>금융경제</div>
+    <div class="treemap-legend-item"><div class="treemap-legend-dot" style="background:#d97706"></div>산업기술</div>
+    <div class="treemap-legend-item"><div class="treemap-legend-dot" style="background:#047857"></div>사회복지</div>
+    <div class="treemap-legend-item"><div class="treemap-legend-dot" style="background:#7c3aed"></div>외교안보</div>
+    <div class="treemap-legend-item"><div class="treemap-legend-dot" style="background:#6b7280"></div>행정법제</div>
+  </div>
+
+  <div class="treemap-wrap" id="treemap">
+    <div class="treemap-row r1">
+      <div class="treemap-cell" style="background:#d97706" data-kw="인공지능" onclick="selectKw(this,'인공지능')"><div class="treemap-kw">인공지능</div><div class="treemap-count">9회</div></div>
+      <div class="treemap-cell" style="background:#047857" data-kw="국민안전" onclick="selectKw(this,'국민안전')"><div class="treemap-kw">국민안전</div><div class="treemap-count">7회</div></div>
+      <div class="treemap-cell" style="background:#1e40af" data-kw="소상공인" onclick="selectKw(this,'소상공인')"><div class="treemap-kw">소상공인</div><div class="treemap-count">6회</div></div>
+      <div class="treemap-cell" style="background:#7c3aed" data-kw="중동전쟁" onclick="selectKw(this,'중동전쟁')"><div class="treemap-kw">중동전쟁</div><div class="treemap-count">5회</div></div>
+    </div>
+    <div class="treemap-row r2">
+      <div class="treemap-cell" style="background:#1e40af" data-kw="ESG" onclick="selectKw(this,'ESG')"><div class="treemap-kw">ESG</div><div class="treemap-count">4회</div></div>
+      <div class="treemap-cell" style="background:#1e40af" data-kw="가상자산" onclick="selectKw(this,'가상자산')"><div class="treemap-kw">가상자산</div><div class="treemap-count">4회</div></div>
+      <div class="treemap-cell" style="background:#047857" data-kw="저출산" onclick="selectKw(this,'저출산')"><div class="treemap-kw">저출산</div><div class="treemap-count">3회</div></div>
+      <div class="treemap-cell" style="background:#6b7280" data-kw="규제혁신" onclick="selectKw(this,'규제혁신')"><div class="treemap-kw">규제혁신</div><div class="treemap-count">3회</div></div>
+    </div>
+    <div class="treemap-row r3">
+      <div class="treemap-cell" style="background:#d97706" data-kw="디지털전환" onclick="selectKw(this,'디지털전환')"><div class="treemap-kw">디지털전환</div><div class="treemap-count">3회</div></div>
+      <div class="treemap-cell" style="background:#1e40af" data-kw="추경" onclick="selectKw(this,'추경')"><div class="treemap-kw">추경</div><div class="treemap-count">3회</div></div>
+      <div class="treemap-cell" style="background:#9ca3af" data-kw="기타" onclick="selectKw(this,'기타')"><div class="treemap-kw">기타</div><div class="treemap-count" style="font-size:clamp(8px,0.9vw,11px)">국방R&D, 산불예방, 부동산, 수출, 농촌관광</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: 키워드 드릴다운 -->
+<section class="section" id="drilldown-section" style="border-bottom:none">
+  <div class="sec-title">키워드 드릴다운</div>
+  <div class="sec-desc">키워드를 선택하면 관련 부처와 보도자료를 확인할 수 있습니다.</div>
+
+  <!-- Keyword tabs -->
+  <div class="kw-tabs-wrap">
+    <div class="kw-tabs" id="kw-tabs">
+      <div class="kw-tab active" data-kw="인공지능" onclick="switchKw('인공지능')">인공지능</div>
+      <div class="kw-tab" data-kw="국민안전" onclick="switchKw('국민안전')">국민안전</div>
+      <div class="kw-tab" data-kw="소상공인" onclick="switchKw('소상공인')">소상공인</div>
+      <div class="kw-tab" data-kw="중동전쟁" onclick="switchKw('중동전쟁')">중동전쟁</div>
+      <div class="kw-tab" data-kw="ESG" onclick="switchKw('ESG')">ESG</div>
+      <div class="kw-tab" data-kw="기타" onclick="toggleMoreKw(this)" style="background:none;border:1px dashed var(--b);color:var(--t2)">기타 +</div>
+    </div>
+  </div>
+  <div class="kw-more-row" id="kw-more-row" style="display:none;margin:-12px 0 16px;padding:0;display:none">
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <div class="kw-tab" data-kw="가상자산" onclick="switchKw('가상자산')">가상자산</div>
+      <div class="kw-tab" data-kw="저출산" onclick="switchKw('저출산')">저출산</div>
+      <div class="kw-tab" data-kw="규제혁신" onclick="switchKw('규제혁신')">규제혁신</div>
+      <div class="kw-tab" data-kw="디지털전환" onclick="switchKw('디지털전환')">디지털전환</div>
+      <div class="kw-tab" data-kw="추경" onclick="switchKw('추경')">추경</div>
+    </div>
+  </div>
+
+  <!-- ========== 인공지능 Panel ========== -->
+  <div class="kw-panel" id="panel-인공지능">
+    <div class="kw-header-card">
+      <div class="kw-header-top">
+        <div class="kw-header-name">인공지능</div>
+        <span class="kw-cat-tag" style="background:#d97706">산업기술</span>
+        <div class="kw-header-count">9회 언급</div>
+      </div>
+      <div class="kw-header-ministries">관련 부처 4개</div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">과학기술정보통신부</div>
+        <div class="ministry-block-count">4건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">제3회 미래 국방 전략 토론회 개최</span>
+          <span class="ministry-article-date">04.09</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">데이터 소진되어도 연결은 지속 요금제 개편</span>
+          <span class="ministry-article-date">04.09</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">한-미 기술번영 MOU 워킹그룹 킥오프</span>
+          <span class="ministry-article-date">04.09</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">AI 기본법 지원 데스크 552건 상담</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">금융위원회</div>
+        <div class="ministry-block-count">3건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">보험업권 AI 심사 시스템 도입</span>
+          <span class="ministry-article-date">04.01</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">가상자산 AI 모니터링 강화</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">디지털 금융 혁신 추진 현황</span>
+          <span class="ministry-article-date">03.25</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">교육부</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">키오스크, AI도 두렵지 않아요 문해교육 강화</span>
+          <span class="ministry-article-date">04.09</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">AI 활용 맞춤형 교육 시범사업</span>
+          <span class="ministry-article-date">03.30</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 국민안전 Panel ========== -->
+  <div class="kw-panel" id="panel-국민안전" style="display:none">
+    <div class="kw-header-card">
+      <div class="kw-header-top">
+        <div class="kw-header-name">국민안전</div>
+        <span class="kw-cat-tag" style="background:#047857">사회복지</span>
+        <div class="kw-header-count">7회 언급</div>
+      </div>
+      <div class="kw-header-ministries">관련 부처 3개</div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">보건복지부</div>
+        <div class="ministry-block-count">3건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">범부처 합동 위기가구 긴급 점검</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">독거노인 안전 확인 서비스 확대</span>
+          <span class="ministry-article-date">04.01</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">아동 안전 사각지대 해소 방안</span>
+          <span class="ministry-article-date">03.25</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">행정안전부</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">재난안전 통신망 구축 현황</span>
+          <span class="ministry-article-date">04.06</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">지방자치단체 안전관리 합동평가</span>
+          <span class="ministry-article-date">03.30</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">고용노동부</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">노인일자리 출퇴근 시간 조정 안전 확보</span>
+          <span class="ministry-article-date">04.08</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">산업재해 예방 강화 대책</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 소상공인 Panel ========== -->
+  <div class="kw-panel" id="panel-소상공인" style="display:none">
+    <div class="kw-header-card">
+      <div class="kw-header-top">
+        <div class="kw-header-name">소상공인</div>
+        <span class="kw-cat-tag" style="background:#1e40af">금융경제</span>
+        <div class="kw-header-count">6회 언급</div>
+      </div>
+      <div class="kw-header-ministries">관련 부처 3개</div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">중소벤처기업부</div>
+        <div class="ministry-block-count">3건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">소상공인 정책자금 긴급 지원 추가 시행</span>
+          <span class="ministry-article-date">04.06</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">소상공인 디지털 전환 지원 사업</span>
+          <span class="ministry-article-date">04.01</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">전통시장 현대화 사업 추진 현황</span>
+          <span class="ministry-article-date">03.25</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">기획예산처</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">소상공인 추경 편성 세부 계획</span>
+          <span class="ministry-article-date">04.01</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">민생물가 특별관리 TF 회의</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">금융위원회</div>
+        <div class="ministry-block-count">1건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">소상공인 대출 금리 인하 방안</span>
+          <span class="ministry-article-date">03.30</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 중동전쟁 Panel ========== -->
+  <div class="kw-panel" id="panel-중동전쟁" style="display:none">
+    <div class="kw-header-card">
+      <div class="kw-header-top">
+        <div class="kw-header-name">중동전쟁</div>
+        <span class="kw-cat-tag" style="background:#7c3aed">외교안보</span>
+        <div class="kw-header-count">5회 언급</div>
+      </div>
+      <div class="kw-header-ministries">관련 부처 4개</div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">외교부</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">원유 공급망 대체 수급선 발굴 재외공관 회의</span>
+          <span class="ministry-article-date">04.06</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">중동 정세 관련 재외국민 안전 대책</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">기획예산처</div>
+        <div class="ministry-block-count">1건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">고유가 대응 관계장관 간담회</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">산업통상부</div>
+        <div class="ministry-block-count">1건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">미국 철강 알루미늄 관세 기업 대응력 강화</span>
+          <span class="ministry-article-date">04.01</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">해양수산부</div>
+        <div class="ministry-block-count">1건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">해운업계 중동 항로 안전 대책 회의</span>
+          <span class="ministry-article-date">03.25</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ESG Panel ========== -->
+  <div class="kw-panel" id="panel-ESG" style="display:none">
+    <div class="kw-header-card">
+      <div class="kw-header-top">
+        <div class="kw-header-name">ESG</div>
+        <span class="kw-cat-tag" style="background:#1e40af">금융경제</span>
+        <div class="kw-header-count">4회 언급</div>
+      </div>
+      <div class="kw-header-ministries">관련 부처 2개</div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">금융위원회</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">ESG 공시 의무화 가이드라인</span>
+          <span class="ministry-article-date">04.01</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">녹색금융 활성화 방안</span>
+          <span class="ministry-article-date">03.25</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">금융감독원</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">ESG 펀드 실태 점검 결과</span>
+          <span class="ministry-article-date">03.30</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">그린워싱 방지 감독 강화</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 가상자산 Panel ========== -->
+  <div class="kw-panel" id="panel-가상자산" style="display:none">
+    <div class="kw-header-card">
+      <div class="kw-header-top">
+        <div class="kw-header-name">가상자산</div>
+        <span class="kw-cat-tag" style="background:#1e40af">금융경제</span>
+        <div class="kw-header-count">4회 언급</div>
+      </div>
+      <div class="kw-header-ministries">관련 부처 2개</div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">금융위원회</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">가상자산 이용자 보호법 시행령 개정안</span>
+          <span class="ministry-article-date">04.01</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">가상자산 사업자 등록 현황</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">금융감독원</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">가상자산 거래소 실태 점검</span>
+          <span class="ministry-article-date">03.30</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">가상자산 투자자 보호 조치</span>
+          <span class="ministry-article-date">03.25</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 저출산 Panel ========== -->
+  <div class="kw-panel" id="panel-저출산" style="display:none">
+    <div class="kw-header-card">
+      <div class="kw-header-top">
+        <div class="kw-header-name">저출산</div>
+        <span class="kw-cat-tag" style="background:#047857">사회복지</span>
+        <div class="kw-header-count">3회 언급</div>
+      </div>
+      <div class="kw-header-ministries">관련 부처 2개</div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">보건복지부</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">저출산 극복 종합대책 발표</span>
+          <span class="ministry-article-date">04.01</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">영유아 돌봄 서비스 확대</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">고용노동부</div>
+        <div class="ministry-block-count">1건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">육아휴직 급여 상한 인상</span>
+          <span class="ministry-article-date">03.25</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 규제혁신 Panel ========== -->
+  <div class="kw-panel" id="panel-규제혁신" style="display:none">
+    <div class="kw-header-card">
+      <div class="kw-header-top">
+        <div class="kw-header-name">규제혁신</div>
+        <span class="kw-cat-tag" style="background:#6b7280">행정법제</span>
+        <div class="kw-header-count">3회 언급</div>
+      </div>
+      <div class="kw-header-ministries">관련 부처 2개</div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">국무조정실</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">규제혁신 추진 성과 점검</span>
+          <span class="ministry-article-date">04.06</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">신산업 규제 샌드박스 확대</span>
+          <span class="ministry-article-date">03.30</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">기획예산처</div>
+        <div class="ministry-block-count">1건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">규제 비용 분석 체계 개편</span>
+          <span class="ministry-article-date">03.25</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 디지털전환 Panel ========== -->
+  <div class="kw-panel" id="panel-디지털전환" style="display:none">
+    <div class="kw-header-card">
+      <div class="kw-header-top">
+        <div class="kw-header-name">디지털전환</div>
+        <span class="kw-cat-tag" style="background:#d97706">산업기술</span>
+        <div class="kw-header-count">3회 언급</div>
+      </div>
+      <div class="kw-header-ministries">관련 부처 2개</div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">과학기술정보통신부</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">디지털 플랫폼 정부 추진 현황</span>
+          <span class="ministry-article-date">04.06</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">공공 클라우드 전환 가속</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">교육부</div>
+        <div class="ministry-block-count">1건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">교육 디지털 전환 시범학교 확대</span>
+          <span class="ministry-article-date">03.30</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 추경 Panel ========== -->
+  <div class="kw-panel" id="panel-추경" style="display:none">
+    <div class="kw-header-card">
+      <div class="kw-header-top">
+        <div class="kw-header-name">추경</div>
+        <span class="kw-cat-tag" style="background:#1e40af">금융경제</span>
+        <div class="kw-header-count">3회 언급</div>
+      </div>
+      <div class="kw-header-ministries">관련 부처 2개</div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">기획예산처</div>
+        <div class="ministry-block-count">2건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-high">상</span>
+          <span class="ministry-article-title">추가경정예산 9,241억 편성</span>
+          <span class="ministry-article-date">03.28</span>
+        </div>
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">월간 재정동향 4월호 발간</span>
+          <span class="ministry-article-date">04.09</span>
+        </div>
+      </div>
+    </div>
+    <div class="ministry-block">
+      <div class="ministry-block-header">
+        <div class="ministry-block-name">행정안전부</div>
+        <div class="ministry-block-count">1건</div>
+      </div>
+      <div class="ministry-articles">
+        <div class="ministry-article">
+          <span class="impact-badge impact-mid">중</span>
+          <span class="ministry-article-title">지방 추경 편성 가이드라인</span>
+          <span class="ministry-article-date">04.01</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <div>
+    <h3>매일 3분 브리핑</h3>
+    <p>텔레그램에서 받아보세요</p>
+  </div>
+  <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr
+</div>
+
+<!-- MOBILE BNAV -->
+<nav class="bnav">
+  <a href="/"><span>H</span>홈</a>
+  <a href="/policy/"><span>P</span>정책</a>
+  <a href="/finlaw/"><span>L</span>법령</a>
+  <a href="/articles/"><span>A</span>기록</a>
+</nav>
+
+<script>
+// All keyword panel IDs
+var ALL_KW = ['인공지능','국민안전','소상공인','중동전쟁','ESG','가상자산','저출산','규제혁신','디지털전환','추경'];
+
+function switchKw(kw) {
+  // Update tabs
+  var tabs = document.querySelectorAll('.kw-tab');
+  for (var i = 0; i < tabs.length; i++) {
+    if (tabs[i].getAttribute('data-kw') === kw) {
+      tabs[i].classList.add('active');
+      tabs[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    } else {
+      tabs[i].classList.remove('active');
+    }
+  }
+
+  // Update panels
+  for (var j = 0; j < ALL_KW.length; j++) {
+    var panel = document.getElementById('panel-' + ALL_KW[j]);
+    if (panel) {
+      panel.style.display = (ALL_KW[j] === kw) ? 'block' : 'none';
+    }
+  }
+
+  // Update treemap active state
+  var cells = document.querySelectorAll('.treemap-cell');
+  for (var k = 0; k < cells.length; k++) {
+    var cellKw = cells[k].getAttribute('data-kw');
+    if (cellKw === kw) {
+      cells[k].classList.add('active');
+    } else {
+      cells[k].classList.remove('active');
+    }
+  }
+}
+
+function selectKw(el, kw) {
+  if (kw === '기타') {
+    toggleMoreKw(document.querySelector('.kw-tab[data-kw="기타"]'));
+    document.getElementById('drilldown-section').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+  switchKw(kw);
+  document.getElementById('drilldown-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function toggleMoreKw(btn) {
+  var moreRow = document.getElementById('kw-more-row');
+  var isOpen = moreRow.style.display === 'block';
+  moreRow.style.display = isOpen ? 'none' : 'block';
+  btn.textContent = isOpen ? '기타 +' : '기타 -';
+}
+
+// Default: 인공지능 selected on load
+(function() {
+  // Set treemap active state for 인공지능
+  var cells = document.querySelectorAll('.treemap-cell');
+  for (var i = 0; i < cells.length; i++) {
+    if (cells[i].getAttribute('data-kw') === '인공지능') {
+      cells[i].classList.add('active');
+    }
+  }
+})();
+</script>
+</body>
+</html>

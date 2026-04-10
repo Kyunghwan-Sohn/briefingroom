@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>쉬운 요약 모드 - 브리핑룸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
+
+/* Easy mode toggle */
+.mode-bar{display:flex;align-items:center;justify-content:flex-end;padding:10px 24px;gap:8px;border-bottom:1px solid var(--bl)}
+.mode-label{font-size:12px;font-weight:600;color:var(--m)}
+.mode-label.active{color:var(--a)}
+.mode-switch{position:relative;width:44px;height:24px;background:var(--bl);border-radius:12px;cursor:pointer;transition:background .2s;flex-shrink:0}
+.mode-switch.on{background:var(--a)}
+.mode-switch::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.mode-switch.on::after{transform:translateX(20px)}
+.mode-desc{font-size:11px;color:var(--m)}
+
+/* Cards */
+.section{padding:22px 24px}
+.sec-hdr{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:14px}
+
+.card{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:20px;margin-bottom:12px}
+.card-source{font-family:var(--mono);font-size:11px;color:var(--a);font-weight:700;margin-bottom:6px}
+.card-title{font-family:var(--serif);font-size:17px;font-weight:700;line-height:1.4;margin-bottom:10px}
+.card-summary{font-size:14px;color:var(--t2);line-height:1.8}
+.card-easy{font-size:15px;color:var(--t);line-height:1.9;background:var(--al);border-left:3px solid var(--a);border-radius:0 8px 8px 0;padding:14px 16px}
+.card-easy-label{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.card-meta{display:flex;gap:12px;margin-top:10px;font-size:11px;color:var(--m)}
+.card-imp{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px}
+.card-imp-h{background:#fee2e2;color:#dc2626}
+.card-imp-m{background:#fef3c7;color:#d97706}
+
+/* Mode states */
+.expert-only{display:block}
+.easy-only{display:none}
+body.easy-mode .expert-only{display:none}
+body.easy-mode .easy-only{display:block}
+body.easy-mode .card{border-color:var(--ab);border-width:2px}
+body.easy-mode .card-title{font-size:19px}
+
+/* Transition */
+.card-summary,.card-easy{transition:opacity .2s}
+
+.cta{margin:24px;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
+.cta p{font-size:11px;color:rgba(255,255,255,.6)}
+.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}
+.footer a{color:var(--t);text-decoration:none;font-weight:600}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+
+@media(max-width:768px){
+body{padding-top:48px;padding-bottom:62px}
+.hdr{height:48px;padding:0 10px}
+.logo{font-size:16px;margin-right:8px}
+.hnav{gap:3px}
+.hnav a{font-size:11px;padding:5px 7px}
+.section{padding:18px 16px}
+.mode-bar{padding:8px 16px}
+.cta{margin:18px 16px}
+.bnav{display:grid}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a class="on" href="/">홈</a>
+    <a href="/policy/">정부 정책 AI</a>
+    <a href="/finlaw/">금융 법령 AI</a>
+    <a href="/articles/">아카이브</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<!-- Mode Toggle Bar -->
+<div class="mode-bar">
+  <span class="mode-label" id="mode-expert">전문가</span>
+  <div class="mode-switch" id="mode-toggle" onclick="toggleMode()"></div>
+  <span class="mode-label" id="mode-easy">쉬운 요약</span>
+</div>
+
+<section class="section">
+  <div class="sec-hdr">오늘의 정책 요약 (2026.04.09)</div>
+
+  <!-- Card 1 -->
+  <div class="card">
+    <div class="card-source">기획예산처</div>
+    <div class="card-title">통합재정통계(2026년 2월)</div>
+    <!-- 전문가 모드 -->
+    <div class="card-summary expert-only">기획예산처는 2026년 2월 기준 통합재정통계를 발표하여 관리재정수지가 13,979억 원 적자로 집계되었습니다. 이는 통합재정수지 적자 7,086억 원에서 사회보장성기금(국민연금 등 4개)의 수지 6,894억 원을 차감한 잠정 수치입니다.</div>
+    <!-- 쉬운 요약 모드 -->
+    <div class="card-easy easy-only">
+      <div class="card-easy-label">쉬운 요약</div>
+      2026년 2월 기준 국가 예산을 합치니 1조 3,979억 원이 부족했습니다. 이 수치는 국민연금 등 4개 주요 사회보험 기금의 돈을 뺀 순수한 부족분입니다. 쉽게 말해, 정부가 번 돈보다 쓴 돈이 더 많다는 뜻입니다.
+    </div>
+    <div class="card-meta">
+      <span class="card-imp card-imp-h">상</span>
+      <span>금융경제</span>
+      <span>2026.04.09</span>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="card">
+    <div class="card-source">국토교통부</div>
+    <div class="card-title">부동산감독추진단, 제11차 부동산 불법행위 대응협의회 개최</div>
+    <div class="card-summary expert-only">국토교통부 부동산감독추진단은 제11차 부동산 불법행위 대응협의회를 개최하여 최근 부동산 시장 동향과 불법행위 단속 성과를 점검하고, 향후 단속 강화 방안을 논의했습니다.</div>
+    <div class="card-easy easy-only">
+      <div class="card-easy-label">쉬운 요약</div>
+      정부가 부동산 사기나 불법 거래를 잡기 위한 회의를 열었습니다. 최근 부동산 시장에서 어떤 불법 행위가 있었는지 살펴보고, 앞으로 더 세게 단속하겠다고 결정했습니다. 집을 사고팔 때 속이는 사람들을 더 잘 잡겠다는 뜻입니다.
+    </div>
+    <div class="card-meta">
+      <span class="card-imp card-imp-h">상</span>
+      <span>산업기술</span>
+      <span>2026.04.09</span>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="card">
+    <div class="card-source">금융감독원</div>
+    <div class="card-title">금감원, ETF 및 ELD 관련 간담회 개최</div>
+    <div class="card-summary expert-only">금융감독원이 ETF 및 ELD 판매 급증과 시장 변동성 확대에 따라 리스크 관리를 강화하라고 금융회사에 당부했습니다. 2025년 하반기부터 ETF(15.6조원)와 ELD(7.6조원) 판매가 크게 증가했으나 중도해지 수수료, 낙아웃 옵션 등 소비자 민원이 발생하고 있습니다.</div>
+    <div class="card-easy easy-only">
+      <div class="card-easy-label">쉬운 요약</div>
+      주식형 투자상품(ETF)과 주가에 따라 이자가 달라지는 예금(ELD) 판매가 급증해 정부가 경고했습니다. 은행에서 이런 상품을 살 때 수수료가 비싸고, 숨겨진 조건 때문에 이자가 매우 낮게 적용될 수 있습니다. 잘 모르고 가입하면 손해를 볼 수 있으니 주의하라는 뜻입니다.
+    </div>
+    <div class="card-meta">
+      <span class="card-imp card-imp-m">중</span>
+      <span>금융경제</span>
+      <span>2026.04.09</span>
+    </div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="card">
+    <div class="card-source">식품의약품안전처</div>
+    <div class="card-title">식약처, 미래핵심 분야 규제과학 인재 키운다</div>
+    <div class="card-summary expert-only">식품의약품안전처는 첨단바이오, 디지털헬스 등 미래핵심 분야의 규제과학 전문인력 양성을 위해 2026년도 교육 프로그램을 확대 운영한다고 밝혔습니다. 대학원 연계 과정과 산업체 맞춤형 교육 등 총 5개 트랙으로 운영됩니다.</div>
+    <div class="card-easy easy-only">
+      <div class="card-easy-label">쉬운 요약</div>
+      새로운 약이나 의료기기가 안전한지 판단하는 전문가를 더 많이 키우겠다는 계획입니다. 인공지능을 활용한 의료, 유전자 치료 같은 새로운 기술이 나올 때 이것이 사람에게 안전한지 확인하는 사람이 필요한데, 그런 사람을 대학과 함께 교육하겠다는 것입니다.
+    </div>
+    <div class="card-meta">
+      <span class="card-imp card-imp-h">상</span>
+      <span>사회복지</span>
+      <span>2026.04.09</span>
+    </div>
+  </div>
+
+</section>
+
+<div class="cta">
+  <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
+  <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+</div>
+
+<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</div>
+<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
+
+<script>
+function toggleMode() {
+  var body = document.body;
+  var toggle = document.getElementById('mode-toggle');
+  var expertLabel = document.getElementById('mode-expert');
+  var easyLabel = document.getElementById('mode-easy');
+
+  body.classList.toggle('easy-mode');
+  toggle.classList.toggle('on');
+
+  var isEasy = body.classList.contains('easy-mode');
+  expertLabel.classList.toggle('active', !isEasy);
+  easyLabel.classList.toggle('active', isEasy);
+
+  // Remember preference
+  localStorage.setItem('govbrief-easy-mode', isEasy ? '1' : '0');
+}
+
+// Restore preference on load
+(function() {
+  if (localStorage.getItem('govbrief-easy-mode') === '1') {
+    toggleMode();
+  }
+})();
+</script>
+
+</body>
+</html>

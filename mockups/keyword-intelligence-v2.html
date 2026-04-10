@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>정책 키워드 인텔리전스 - 브리핑룸</title>
+<meta name="description" content="최근 30일 보도자료에서 추출한 키워드로 정부 정책 흐름을 읽습니다. 키워드를 클릭하면 관련 부처와 보도자료를 확인할 수 있습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);
+  --bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;
+  --t:#222;--t2:#555;--m:#999;
+  --serif:'Gowun Batang',serif;
+  --sans:'Wanted Sans Variable',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
+
+/* Header */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
+
+/* Hero */
+.hero{background:var(--policy-bg);padding:32px 24px 28px;border-bottom:1px solid var(--policy-border);text-align:center}
+.hero h1{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--t);margin-bottom:6px;line-height:1.35}
+.hero-sub{font-family:var(--sans);font-size:14px;color:var(--m);margin-bottom:18px}
+.hero-stats{display:flex;gap:10px;max-width:480px;margin:0 auto}
+.hero-stat{flex:1;background:var(--s);border:1px solid var(--policy-border);border-radius:10px;padding:12px 8px}
+.hero-stat .num{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--policy);line-height:1}
+.hero-stat .label{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--policy);margin-top:4px}
+
+/* Sections */
+.section{padding:28px 24px;border-bottom:1px solid var(--bl)}
+.sec-title{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:4px}
+.sec-desc{font-family:var(--sans);font-size:13px;color:var(--m);margin-bottom:18px}
+
+/* ===== 1. BUBBLE CLUSTER ===== */
+.bubble-svg-wrap{width:100%;aspect-ratio:16/10;background:var(--s);border:1px solid var(--bl);border-radius:14px;overflow:hidden;position:relative;display:none}
+.bubble-svg-wrap svg{width:100%;height:100%}
+.treemap{display:grid;gap:4px;grid-template-columns:repeat(4,1fr);grid-auto-rows:auto}
+.treemap-cell{border-radius:10px;padding:14px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:opacity .15s,transform .15s;position:relative;min-height:80px}
+.treemap-cell:hover{opacity:.85;transform:scale(1.02)}
+.treemap-cell.active{outline:3px solid var(--a);outline-offset:2px}
+.treemap-kw{font-family:var(--serif);font-weight:700;color:#fff;line-height:1.3}
+.treemap-count{font-family:var(--mono);font-weight:700;color:rgba(255,255,255,.85);margin-top:4px}
+.treemap-cell.sz-xl{grid-column:span 2;grid-row:span 2;min-height:160px}
+.treemap-cell.sz-xl .treemap-kw{font-size:22px}
+.treemap-cell.sz-xl .treemap-count{font-size:16px}
+.treemap-cell.sz-lg{grid-column:span 2;min-height:100px}
+.treemap-cell.sz-lg .treemap-kw{font-size:17px}
+.treemap-cell.sz-lg .treemap-count{font-size:14px}
+.treemap-cell.sz-md .treemap-kw{font-size:14px}
+.treemap-cell.sz-md .treemap-count{font-size:12px}
+.treemap-cell.sz-sm .treemap-kw{font-size:12px}
+.treemap-cell.sz-sm .treemap-count{font-size:10px}
+.bubble-legend{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;background:var(--s);border:1px solid var(--b);border-radius:10px;padding:12px 24px;margin:0 auto 16px;max-width:600px;font-family:var(--sans);font-size:13px;color:var(--t2)}
+.bubble-legend-item{display:flex;align-items:center;gap:6px;font-weight:600}
+.bubble-legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+
+/* Bubble tooltip */
+.bubble-tooltip{position:absolute;pointer-events:none;background:#222;color:#fff;font-family:var(--sans);font-size:12px;padding:10px 14px;border-radius:8px;line-height:1.6;z-index:10;opacity:0;transition:opacity .15s;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.bubble-tooltip .kw-name{font-weight:700;font-size:13px;margin-bottom:2px}
+.bubble-tooltip .kw-count{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.7)}
+.bubble-tooltip .kw-ministries{font-size:11px;color:rgba(255,255,255,.7);margin-top:4px}
+
+/* ===== 2. KEYWORD DRILL-DOWN ===== */
+
+/* Keyword tabs */
+.kw-tabs-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:20px;padding-bottom:4px}
+.kw-tabs-wrap::-webkit-scrollbar{display:none}
+.kw-tabs{display:flex;gap:6px;width:max-content}
+.kw-tab{font-family:var(--sans);font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;border:1px solid var(--bl);background:var(--s);color:var(--t2);cursor:pointer;white-space:nowrap;transition:all .15s;user-select:none}
+.kw-tab:hover{border-color:var(--a);color:var(--a)}
+.kw-tab.active{background:var(--a);color:#fff;border-color:var(--a)}
+
+/* Keyword header card */
+.kw-header-card{background:var(--s);border:1px solid var(--bl);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+.kw-header-top{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+.kw-header-name{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t)}
+.kw-header-count{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--m);margin-left:auto}
+.kw-header-cat{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--m);margin-bottom:10px}
+.kw-header-ministries{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--policy)}
+
+/* Ministry blocks */
+.ministry-block{background:var(--s);border:1px solid var(--b);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.ministry-block-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px}
+.ministry-block-name{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--t)}
+.ministry-block-count{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--policy)}
+.ministry-articles{padding:0 20px 12px}
+.ministry-article{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-top:1px dashed var(--bl)}
+.ministry-article:first-child{border-top:none;padding-top:4px}
+.ministry-article a{display:flex;align-items:flex-start;gap:8px;text-decoration:none;flex:1;min-width:0}
+.impact-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:2px;display:inline-block}
+.impact-high{background:rgba(220,38,38,.1);color:#dc2626}
+.impact-mid{background:rgba(217,108,44,.1);color:#d97706}
+.impact-low{background:rgba(107,114,128,.1);color:#6b7280}
+.ministry-article-title{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--t);line-height:1.5;flex:1}
+.ministry-article-date{font-family:var(--mono);font-size:11px;color:var(--m);flex-shrink:0;margin-top:2px;margin-left:auto}
+
+/* CTA + Footer */
+.cta{margin:24px;padding:18px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:15px;color:#fff}
+.cta p{font-family:var(--sans);font-size:10px;color:rgba(255,255,255,.7)}
+.cta a{font-family:var(--sans);padding:10px 18px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none;white-space:nowrap}
+.footer{padding:16px 24px;text-align:center;font-family:var(--sans);font-size:10px;color:var(--m)}
+.footer a{color:var(--t);text-decoration:none;font-weight:600}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+.bnav a.on{color:var(--a)}
+.bnav a span:first-child{font-size:16px}
+
+/* Responsive */
+@media(max-width:768px){
+  body{padding-top:48px;padding-bottom:62px}
+  .hdr{height:48px;padding:0 10px}
+  .logo{font-size:16px;margin-right:8px}
+  .hnav{gap:3px}
+  .hnav a{font-size:11px;padding:5px 7px}
+  .hero{padding:24px 16px 20px}
+  .hero h1{font-size:22px}
+  .hero-stats{gap:6px}
+  .hero-stat{padding:10px 6px}
+  .hero-stat .num{font-size:20px}
+  .hero-stat .label{font-size:10px}
+  .section{padding:22px 16px}
+  .sec-title{font-size:17px}
+  .bubble-svg-wrap{aspect-ratio:1/1}
+  .treemap{grid-template-columns:repeat(3,1fr);gap:3px}
+  .treemap-cell.sz-xl{min-height:120px}
+  .treemap-cell.sz-xl .treemap-kw{font-size:18px}
+  .treemap-cell.sz-lg{min-height:80px}
+  .treemap-cell.sz-lg .treemap-kw{font-size:14px}
+  .treemap-cell{min-height:60px;padding:10px}
+  .cta{margin:18px 16px;padding:16px}
+  .cta h3{font-size:14px}
+  .bnav{display:grid}
+  .kw-header-card{padding:16px}
+  .kw-header-name{font-size:20px}
+  .kw-header-top{flex-wrap:wrap}
+  .kw-header-count{margin-left:0}
+  .ministry-block-header{padding:14px 16px 10px}
+  .ministry-articles{padding:0 16px 10px}
+  .kw-tab{font-size:12px;padding:6px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">홈</a>
+    <a class="on-policy" href="/policy/">정부 정책 AI</a>
+    <a href="/finlaw/">금융 법령 AI</a>
+    <a href="/articles/">아카이브</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>정책 키워드 인텔리전스</h1>
+  <div class="hero-sub">최근 30일 보도자료에서 추출한 키워드로 정부 정책 흐름을 읽습니다</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">2,220</div><div class="label">분석 보도자료</div></div>
+    <div class="hero-stat"><div class="num">48</div><div class="label">추출 키워드</div></div>
+    <div class="hero-stat"><div class="num">52</div><div class="label">관련 부처</div></div>
+  </div>
+</section>
+
+<!-- 1. BUBBLE CLUSTER -->
+<section class="section">
+  <div class="sec-title">정책 키워드 맵</div>
+  <div class="sec-desc">블록 크기는 언급 횟수, 색상은 정책 분야. 클릭하면 상세 정보를 확인할 수 있습니다.</div>
+  <div class="bubble-legend">
+    <div class="bubble-legend-item"><div class="bubble-legend-dot" style="background:#1e40af"></div>금융경제</div>
+    <div class="bubble-legend-item"><div class="bubble-legend-dot" style="background:#d97706"></div>산업기술</div>
+    <div class="bubble-legend-item"><div class="bubble-legend-dot" style="background:#047857"></div>사회복지</div>
+    <div class="bubble-legend-item"><div class="bubble-legend-dot" style="background:#7c3aed"></div>외교안보</div>
+    <div class="bubble-legend-item"><div class="bubble-legend-dot" style="background:#6b7280"></div>행정법제</div>
+  </div>
+  <div class="treemap" id="treemap">
+    <div class="treemap-cell sz-xl" style="background:#d97706" data-kw="인공지능" onclick="selectKw('인공지능')"><div class="treemap-kw">인공지능</div><div class="treemap-count">9회</div></div>
+    <div class="treemap-cell sz-lg" style="background:#047857" data-kw="국민안전" onclick="selectKw('국민안전')"><div class="treemap-kw">국민안전</div><div class="treemap-count">7회</div></div>
+    <div class="treemap-cell sz-lg" style="background:#1e40af" data-kw="소상공인" onclick="selectKw('소상공인')"><div class="treemap-kw">소상공인</div><div class="treemap-count">6회</div></div>
+    <div class="treemap-cell sz-md" style="background:#7c3aed" data-kw="중동전쟁" onclick="selectKw('중동전쟁')"><div class="treemap-kw">중동전쟁</div><div class="treemap-count">5회</div></div>
+    <div class="treemap-cell sz-md" style="background:#1e40af" data-kw="ESG" onclick="selectKw('ESG')"><div class="treemap-kw">ESG</div><div class="treemap-count">4회</div></div>
+    <div class="treemap-cell sz-md" style="background:#1e40af" data-kw="가상자산" onclick="selectKw('가상자산')"><div class="treemap-kw">가상자산</div><div class="treemap-count">4회</div></div>
+    <div class="treemap-cell sz-md" style="background:#047857" data-kw="저출산" onclick="selectKw('저출산')"><div class="treemap-kw">저출산</div><div class="treemap-count">3회</div></div>
+    <div class="treemap-cell sz-sm" style="background:#6b7280" data-kw="규제혁신" onclick="selectKw('규제혁신')"><div class="treemap-kw">규제혁신</div><div class="treemap-count">3회</div></div>
+    <div class="treemap-cell sz-sm" style="background:#d97706" data-kw="디지털전환" onclick="selectKw('디지털전환')"><div class="treemap-kw">디지털전환</div><div class="treemap-count">3회</div></div>
+    <div class="treemap-cell sz-sm" style="background:#1e40af" data-kw="추경" onclick="selectKw('추경')"><div class="treemap-kw">추경</div><div class="treemap-count">3회</div></div>
+    <div class="treemap-cell sz-sm" style="background:#7c3aed" data-kw="국방R&amp;D" onclick="selectKw('국방R&amp;D')"><div class="treemap-kw">국방R&D</div><div class="treemap-count">2회</div></div>
+    <div class="treemap-cell sz-sm" style="background:#d97706" data-kw="산불예방" onclick="selectKw('산불예방')"><div class="treemap-kw">산불예방</div><div class="treemap-count">2회</div></div>
+    <div class="treemap-cell sz-sm" style="background:#1e40af" data-kw="부동산" onclick="selectKw('부동산')"><div class="treemap-kw">부동산</div><div class="treemap-count">2회</div></div>
+    <div class="treemap-cell sz-sm" style="background:#d97706" data-kw="수출" onclick="selectKw('수출')"><div class="treemap-kw">수출</div><div class="treemap-count">2회</div></div>
+    <div class="treemap-cell sz-sm" style="background:#d97706" data-kw="농촌관광" onclick="selectKw('농촌관광')"><div class="treemap-kw">농촌관광</div><div class="treemap-count">2회</div></div>
+  </div>
+</section>
+
+<!-- 2. KEYWORD DRILL-DOWN -->
+<section class="section" id="drilldown-section" style="border-bottom:none">
+  <div class="sec-title">키워드 드릴다운</div>
+  <div class="sec-desc">Keyword Drill-down -- 키워드를 선택하면 관련 부처와 보도자료를 확인할 수 있습니다.</div>
+
+  <!-- Keyword tabs -->
+  <div class="kw-tabs-wrap">
+    <div class="kw-tabs" id="kw-tabs"></div>
+  </div>
+
+  <!-- Keyword detail panels -->
+  <div id="kw-panels"></div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <div>
+    <h3>매일 3분 브리핑</h3>
+    <p>텔레그램에서 받아보세요</p>
+  </div>
+  <a href="https://t.me/govbrief" target="_blank">구독</a>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr
+</div>
+
+<!-- MOBILE BNAV -->
+<nav class="bnav">
+  <a href="/"><span style="font-size:16px;font-weight:700">H</span>홈</a>
+  <a href="/policy/"><span style="font-size:16px;font-weight:700">P</span>정책</a>
+  <a href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령</a>
+  <a href="/articles/"><span style="font-size:16px;font-weight:700">A</span>기록</a>
+</nav>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+var CAT_COLORS = {
+  '금융경제': '#1e40af',
+  '산업기술': '#d97706',
+  '사회복지': '#047857',
+  '외교안보': '#7c3aed',
+  '행정법제': '#6b7280'
+};
+
+// Bubble data
+var BUBBLES = [
+  { kw: '인공지능',   count: 9, cat: '산업기술', top3: ['과기부', '금융위', '교육부'] },
+  { kw: '국민안전',   count: 7, cat: '사회복지', top3: ['복지부', '국토부', '교육부'] },
+  { kw: '소상공인',   count: 6, cat: '금융경제', top3: ['금융위', '고용부', '금감원'] },
+  { kw: '중동전쟁',   count: 5, cat: '외교안보', top3: ['외교부', '산업부', '국방부'] },
+  { kw: 'ESG',        count: 4, cat: '금융경제', top3: ['금융위', '금감원', '국토부'] },
+  { kw: '가상자산',   count: 4, cat: '금융경제', top3: ['금융위', '금감원', '과기부'] },
+  { kw: '저출산',     count: 3, cat: '사회복지', top3: ['복지부', '교육부', '고용부'] },
+  { kw: '규제혁신',   count: 3, cat: '행정법제', top3: ['국조실', '기재부', '산업부'] },
+  { kw: '디지털전환', count: 3, cat: '산업기술', top3: ['과기부', '금융위', '교육부'] },
+  { kw: '추경',       count: 3, cat: '금융경제', top3: ['기재부', '국토부', '복지부'] },
+  { kw: '국방R&D',    count: 2, cat: '외교안보', top3: ['국방부', '과기부'] },
+  { kw: '산불예방',   count: 2, cat: '산업기술', top3: ['산림청', '행안부'] },
+  { kw: '부동산',     count: 2, cat: '금융경제', top3: ['국토부', '기재부'] },
+  { kw: '수출',       count: 2, cat: '산업기술', top3: ['산업부', '외교부'] },
+  { kw: '농촌관광',   count: 2, cat: '산업기술', top3: ['농식품부', '산림청'] }
+];
+
+// Drill-down tab keywords (subset)
+var TAB_KEYWORDS = ['인공지능','소상공인','중동전쟁','국민안전','ESG','가상자산','저출산','규제혁신','디지털전환','추경'];
+
+// Full drill-down data
+var DRILLDOWN_DATA = {
+  '인공지능': {
+    count: 9, cat: '산업기술', ministryCount: 4,
+    ministries: [
+      {
+        name: '과학기술정보통신부', articleCount: 4,
+        articles: [
+          { impact: '상', title: '제3회 미래 국방 전략 토론회 개최', date: '04.09' },
+          { impact: '중', title: '데이터 소진되어도 연결은 지속 요금제 개편', date: '04.09' },
+          { impact: '중', title: '한-미 기술번영 MOU 워킹그룹 킥오프', date: '04.09' },
+          { impact: '중', title: 'AI 기본법 지원 데스크 552건 상담', date: '03.28' }
+        ]
+      },
+      {
+        name: '금융위원회', articleCount: 3,
+        articles: [
+          { impact: '상', title: '보험업권 AI 심사 시스템 도입', date: '04.01' },
+          { impact: '중', title: '가상자산 AI 모니터링 강화', date: '03.28' },
+          { impact: '중', title: '디지털 금융 혁신 추진 현황', date: '03.25' }
+        ]
+      },
+      {
+        name: '교육부', articleCount: 2,
+        articles: [
+          { impact: '중', title: '키오스크, AI도 두렵지 않아요 문해교육 강화', date: '04.09' },
+          { impact: '중', title: 'AI 활용 맞춤형 교육 시범사업', date: '03.30' }
+        ]
+      }
+    ]
+  },
+  '소상공인': {
+    count: 6, cat: '금융경제', ministryCount: 3,
+    ministries: [
+      {
+        name: '중소벤처기업부', articleCount: 3,
+        articles: [
+          { impact: '상', title: '소상공인 정책자금 긴급 지원 추가 시행', date: '04.06' },
+          { impact: '중', title: '소상공인 디지털 전환 지원 사업', date: '04.01' },
+          { impact: '중', title: '전통시장 현대화 사업 추진 현황', date: '03.25' }
+        ]
+      },
+      {
+        name: '기획예산처', articleCount: 2,
+        articles: [
+          { impact: '중', title: '소상공인 추경 편성 세부 계획', date: '04.01' },
+          { impact: '중', title: '민생물가 특별관리 TF 회의', date: '03.28' }
+        ]
+      },
+      {
+        name: '금융위원회', articleCount: 1,
+        articles: [
+          { impact: '중', title: '소상공인 대출 금리 인하 방안', date: '03.30' }
+        ]
+      }
+    ]
+  },
+  '중동전쟁': {
+    count: 5, cat: '외교안보', ministryCount: 4,
+    ministries: [
+      {
+        name: '외교부', articleCount: 2,
+        articles: [
+          { impact: '상', title: '원유 공급망 대체 수급선 발굴 재외공관 회의', date: '04.06' },
+          { impact: '중', title: '중동 정세 관련 재외국민 안전 대책', date: '03.28' }
+        ]
+      },
+      {
+        name: '기획예산처', articleCount: 1,
+        articles: [
+          { impact: '상', title: '고유가 대응 관계장관 간담회', date: '03.28' }
+        ]
+      },
+      {
+        name: '산업통상부', articleCount: 1,
+        articles: [
+          { impact: '상', title: '美 철강 알루미늄 관세 기업 대응력 강화', date: '04.01' }
+        ]
+      },
+      {
+        name: '해양수산부', articleCount: 1,
+        articles: [
+          { impact: '중', title: '해운업계 중동 항로 안전 대책 회의', date: '03.25' }
+        ]
+      }
+    ]
+  },
+  '국민안전': {
+    count: 7, cat: '사회복지', ministryCount: 3,
+    ministries: [
+      {
+        name: '보건복지부', articleCount: 3,
+        articles: [
+          { impact: '상', title: '범부처 합동 위기가구 긴급 점검', date: '03.28' },
+          { impact: '중', title: '독거노인 안전 확인 서비스 확대', date: '04.01' },
+          { impact: '중', title: '아동 안전 사각지대 해소 방안', date: '03.25' }
+        ]
+      },
+      {
+        name: '행정안전부', articleCount: 2,
+        articles: [
+          { impact: '상', title: '재난안전 통신망 구축 현황', date: '04.06' },
+          { impact: '중', title: '지방자치단체 안전관리 합동평가', date: '03.30' }
+        ]
+      },
+      {
+        name: '고용노동부', articleCount: 2,
+        articles: [
+          { impact: '상', title: '노인일자리 출퇴근 시간 조정 안전 확보', date: '04.08' },
+          { impact: '중', title: '산업재해 예방 강화 대책', date: '03.28' }
+        ]
+      }
+    ]
+  },
+  'ESG': {
+    count: 4, cat: '금융경제', ministryCount: 2,
+    ministries: [
+      {
+        name: '금융위원회', articleCount: 2,
+        articles: [
+          { impact: '중', title: 'ESG 공시 의무화 가이드라인', date: '04.01' },
+          { impact: '중', title: '녹색금융 활성화 방안', date: '03.25' }
+        ]
+      },
+      {
+        name: '금융감독원', articleCount: 2,
+        articles: [
+          { impact: '중', title: 'ESG 펀드 실태 점검 결과', date: '03.30' },
+          { impact: '중', title: '그린워싱 방지 감독 강화', date: '03.28' }
+        ]
+      }
+    ]
+  },
+  '가상자산': {
+    count: 4, cat: '금융경제', ministryCount: 3,
+    ministries: [
+      {
+        name: '금융위원회', articleCount: 2,
+        articles: [
+          { impact: '상', title: '가상자산 이용자 보호법 시행령 개정안', date: '04.03' },
+          { impact: '중', title: '가상자산 사업자 실태 점검 결과', date: '03.28' }
+        ]
+      },
+      {
+        name: '금융감독원', articleCount: 1,
+        articles: [
+          { impact: '중', title: '가상자산 불공정거래 감시 체계 강화', date: '03.30' }
+        ]
+      },
+      {
+        name: '과학기술정보통신부', articleCount: 1,
+        articles: [
+          { impact: '중', title: '블록체인 기반 공공서비스 확대 방안', date: '03.25' }
+        ]
+      }
+    ]
+  },
+  '저출산': {
+    count: 3, cat: '사회복지', ministryCount: 3,
+    ministries: [
+      {
+        name: '보건복지부', articleCount: 2,
+        articles: [
+          { impact: '상', title: '저출산 대응 범부처 TF 제2차 회의', date: '04.05' },
+          { impact: '중', title: '영유아 돌봄 서비스 확대 방안', date: '03.28' }
+        ]
+      },
+      {
+        name: '교육부', articleCount: 1,
+        articles: [
+          { impact: '중', title: '늘봄학교 전국 확대 추진 현황', date: '04.02' }
+        ]
+      },
+      {
+        name: '고용노동부', articleCount: 1,
+        articles: [
+          { impact: '중', title: '육아휴직 급여 인상 시행 안내', date: '03.30' }
+        ]
+      }
+    ]
+  },
+  '규제혁신': {
+    count: 3, cat: '행정법제', ministryCount: 3,
+    ministries: [
+      {
+        name: '국무조정실', articleCount: 2,
+        articles: [
+          { impact: '상', title: '제12차 규제혁신 전략회의 개최', date: '04.07' },
+          { impact: '중', title: '신산업 규제 샌드박스 성과 점검', date: '03.28' }
+        ]
+      },
+      {
+        name: '기획재정부', articleCount: 1,
+        articles: [
+          { impact: '중', title: '투자 활성화 규제 개선 방안', date: '04.01' }
+        ]
+      },
+      {
+        name: '산업통상부', articleCount: 1,
+        articles: [
+          { impact: '중', title: '첨단산업 인허가 절차 간소화 추진', date: '03.25' }
+        ]
+      }
+    ]
+  },
+  '디지털전환': {
+    count: 3, cat: '산업기술', ministryCount: 3,
+    ministries: [
+      {
+        name: '과학기술정보통신부', articleCount: 2,
+        articles: [
+          { impact: '상', title: '공공기관 디지털전환 가속화 추진 계획', date: '04.04' },
+          { impact: '중', title: '중소기업 클라우드 전환 지원 사업', date: '03.28' }
+        ]
+      },
+      {
+        name: '금융위원회', articleCount: 1,
+        articles: [
+          { impact: '중', title: '마이데이터 서비스 활성화 현황', date: '03.30' }
+        ]
+      },
+      {
+        name: '교육부', articleCount: 1,
+        articles: [
+          { impact: '중', title: '교육 현장 디지털 인프라 구축 현황', date: '03.25' }
+        ]
+      }
+    ]
+  },
+  '추경': {
+    count: 3, cat: '금융경제', ministryCount: 2,
+    ministries: [
+      {
+        name: '기획재정부', articleCount: 2,
+        articles: [
+          { impact: '상', title: '추가경정예산안 국회 제출 계획', date: '04.05' },
+          { impact: '중', title: '재정건전성 관리 방안', date: '03.28' }
+        ]
+      },
+      {
+        name: '국토교통부', articleCount: 1,
+        articles: [
+          { impact: '중', title: 'SOC 예산 조기 집행 현황', date: '04.01' }
+        ]
+      }
+    ]
+  }
+};
+
+
+// ============================================================
+// 1. BUBBLE CLUSTER (identical to v1, with click-to-drill-down)
+// ============================================================
+
+(function() {
+  var svg = document.getElementById('bubble-svg');
+  var tooltip = document.getElementById('bubble-tooltip');
+  var container = document.getElementById('bubble-container');
+
+  var maxCount = 9;
+  function getRadius(count) {
+    return 20 + (count / maxCount) * 36;
+  }
+
+  var CLUSTER_CENTERS = {
+    '금융경제': { x: 200, y: 250 },
+    '산업기술': { x: 500, y: 160 },
+    '사회복지': { x: 600, y: 380 },
+    '외교안보': { x: 160, y: 100 },
+    '행정법제': { x: 400, y: 410 }
+  };
+
+  var catGroups = {};
+  BUBBLES.forEach(function(b) {
+    if (!catGroups[b.cat]) catGroups[b.cat] = [];
+    catGroups[b.cat].push(b);
+  });
+
+  var positioned = [];
+
+  Object.keys(catGroups).forEach(function(cat) {
+    var group = catGroups[cat];
+    var center = CLUSTER_CENTERS[cat];
+    group.sort(function(a, b) { return b.count - a.count; });
+
+    group.forEach(function(bubble, i) {
+      var r = getRadius(bubble.count);
+      var x, y;
+
+      if (i === 0) {
+        x = center.x;
+        y = center.y;
+      } else {
+        var angle = (i * 1.8) + (Math.PI * 0.3 * (cat.charCodeAt(0) % 5));
+        var dist = r + getRadius(group[0].count) + 10 + (i * 8);
+        x = center.x + dist * Math.cos(angle);
+        y = center.y + dist * Math.sin(angle);
+      }
+
+      x = Math.max(r + 10, Math.min(790 - r, x));
+      y = Math.max(r + 10, Math.min(490 - r, y));
+
+      positioned.push({
+        kw: bubble.kw, count: bubble.count, cat: bubble.cat,
+        top3: bubble.top3, x: x, y: y, r: r, color: CAT_COLORS[bubble.cat]
+      });
+    });
+  });
+
+  // Resolve overlaps
+  for (var pass = 0; pass < 30; pass++) {
+    for (var i = 0; i < positioned.length; i++) {
+      for (var j = i + 1; j < positioned.length; j++) {
+        var a = positioned[i];
+        var b = positioned[j];
+        var dx = b.x - a.x;
+        var dy = b.y - a.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        var minDist = a.r + b.r + 4;
+
+        if (dist < minDist && dist > 0) {
+          var overlap = (minDist - dist) / 2;
+          var nx = dx / dist;
+          var ny = dy / dist;
+          a.x -= nx * overlap * 0.5;
+          a.y -= ny * overlap * 0.5;
+          b.x += nx * overlap * 0.5;
+          b.y += ny * overlap * 0.5;
+
+          a.x = Math.max(a.r + 5, Math.min(795 - a.r, a.x));
+          a.y = Math.max(a.r + 5, Math.min(495 - a.r, a.y));
+          b.x = Math.max(b.r + 5, Math.min(795 - b.r, b.x));
+          b.y = Math.max(b.r + 5, Math.min(495 - b.r, b.y));
+        }
+      }
+    }
+  }
+
+  // Draw bubbles
+  positioned.sort(function(a, b) { return b.r - a.r; });
+
+  positioned.forEach(function(p) {
+    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.style.cursor = 'pointer';
+
+    var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', p.x);
+    circle.setAttribute('cy', p.y);
+    circle.setAttribute('r', p.r);
+    circle.setAttribute('fill', p.color);
+    circle.setAttribute('fill-opacity', '0.18');
+    circle.setAttribute('stroke', p.color);
+    circle.setAttribute('stroke-width', '2');
+    circle.setAttribute('stroke-opacity', '0.6');
+    g.appendChild(circle);
+
+    var label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    label.setAttribute('x', p.x);
+    label.setAttribute('y', p.r > 28 ? p.y - 4 : p.y - 2);
+    label.setAttribute('text-anchor', 'middle');
+    label.setAttribute('dominant-baseline', 'middle');
+    label.setAttribute('font-family', "'Wanted Sans Variable', sans-serif");
+    label.setAttribute('font-weight', '700');
+    label.setAttribute('fill', p.color);
+    label.setAttribute('pointer-events', 'none');
+    var fontSize = p.r > 40 ? 14 : p.r > 30 ? 12 : p.r > 24 ? 10 : 9;
+    label.setAttribute('font-size', fontSize);
+    label.textContent = p.kw;
+    g.appendChild(label);
+
+    if (p.r > 24) {
+      var countLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      countLabel.setAttribute('x', p.x);
+      countLabel.setAttribute('y', p.y + (p.r > 40 ? 14 : 11));
+      countLabel.setAttribute('text-anchor', 'middle');
+      countLabel.setAttribute('dominant-baseline', 'middle');
+      countLabel.setAttribute('font-family', "'JetBrains Mono', monospace");
+      countLabel.setAttribute('font-size', '10');
+      countLabel.setAttribute('font-weight', '500');
+      countLabel.setAttribute('fill', p.color);
+      countLabel.setAttribute('fill-opacity', '0.7');
+      countLabel.setAttribute('pointer-events', 'none');
+      countLabel.textContent = p.count + '건';
+      g.appendChild(countLabel);
+    }
+
+    (function(bubble) {
+      g.addEventListener('mouseenter', function(e) {
+        circle.setAttribute('fill-opacity', '0.32');
+        circle.setAttribute('stroke-width', '3');
+        circle.setAttribute('stroke-opacity', '1');
+
+        var ministryList = bubble.top3.join(', ');
+        tooltip.innerHTML =
+          '<div class="kw-name">' + bubble.kw + '</div>' +
+          '<div class="kw-count">전체 언급: ' + bubble.count + '건 | 분야: ' + bubble.cat + '</div>' +
+          '<div class="kw-ministries">주요 부처: ' + ministryList + '</div>';
+        tooltip.style.opacity = '1';
+      });
+
+      g.addEventListener('mousemove', function(e) {
+        var rect = container.getBoundingClientRect();
+        var tx = e.clientX - rect.left + 14;
+        var ty = e.clientY - rect.top - 10;
+        if (tx + 200 > rect.width) tx = e.clientX - rect.left - 210;
+        if (ty < 0) ty = 10;
+        tooltip.style.left = tx + 'px';
+        tooltip.style.top = ty + 'px';
+      });
+
+      g.addEventListener('mouseleave', function() {
+        circle.setAttribute('fill-opacity', '0.18');
+        circle.setAttribute('stroke-width', '2');
+        circle.setAttribute('stroke-opacity', '0.6');
+        tooltip.style.opacity = '0';
+      });
+
+      // CLICK: scroll to drill-down and activate that keyword's tab
+      g.addEventListener('click', function() {
+        tooltip.style.opacity = '0';
+        if (TAB_KEYWORDS.indexOf(bubble.kw) !== -1) {
+          selectKeyword(bubble.kw);
+          document.getElementById('drilldown-section').scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    })(p);
+
+    svg.appendChild(g);
+  });
+})();
+
+
+// ============================================================
+// 2. KEYWORD DRILL-DOWN
+// ============================================================
+
+var selectKeyword; // global reference for bubble click
+
+(function() {
+  var tabsContainer = document.getElementById('kw-tabs');
+  var panelsContainer = document.getElementById('kw-panels');
+
+  // Build tabs
+  TAB_KEYWORDS.forEach(function(kw) {
+    var tab = document.createElement('div');
+    tab.className = 'kw-tab';
+    tab.textContent = kw;
+    tab.setAttribute('data-kw', kw);
+    tab.addEventListener('click', function() {
+      selectKeyword(kw);
+    });
+    tabsContainer.appendChild(tab);
+  });
+
+  // Build panels
+  TAB_KEYWORDS.forEach(function(kw) {
+    var data = DRILLDOWN_DATA[kw];
+    if (!data) return;
+
+    var panel = document.createElement('div');
+    panel.id = 'panel-' + kw;
+    panel.style.display = 'none';
+
+    // Keyword header card
+    var headerCard = document.createElement('div');
+    headerCard.className = 'kw-header-card';
+
+    var headerTop = document.createElement('div');
+    headerTop.className = 'kw-header-top';
+
+    var nameEl = document.createElement('div');
+    nameEl.className = 'kw-header-name';
+    nameEl.textContent = kw;
+    headerTop.appendChild(nameEl);
+
+    var countEl = document.createElement('div');
+    countEl.className = 'kw-header-count';
+    countEl.textContent = data.count + '회 언급';
+    headerTop.appendChild(countEl);
+
+    headerCard.appendChild(headerTop);
+
+    var catEl = document.createElement('div');
+    catEl.className = 'kw-header-cat';
+    catEl.textContent = data.cat;
+    headerCard.appendChild(catEl);
+
+    var ministriesLabel = document.createElement('div');
+    ministriesLabel.className = 'kw-header-ministries';
+    ministriesLabel.textContent = '관련 부처 ' + data.ministryCount + '개';
+    headerCard.appendChild(ministriesLabel);
+
+    panel.appendChild(headerCard);
+
+    // Ministry blocks
+    data.ministries.forEach(function(ministry) {
+      var block = document.createElement('div');
+      block.className = 'ministry-block';
+
+      var blockHeader = document.createElement('div');
+      blockHeader.className = 'ministry-block-header';
+
+      var mName = document.createElement('div');
+      mName.className = 'ministry-block-name';
+      mName.textContent = ministry.name;
+      blockHeader.appendChild(mName);
+
+      var mCount = document.createElement('div');
+      mCount.className = 'ministry-block-count';
+      mCount.textContent = ministry.articleCount + '건';
+      blockHeader.appendChild(mCount);
+
+      block.appendChild(blockHeader);
+
+      var articlesWrap = document.createElement('div');
+      articlesWrap.className = 'ministry-articles';
+
+      ministry.articles.forEach(function(article) {
+        var row = document.createElement('div');
+        row.className = 'ministry-article';
+
+        var link = document.createElement('a');
+        link.href = '#';
+        link.onclick = function(e) { e.preventDefault(); };
+
+        var badge = document.createElement('span');
+        badge.className = 'impact-badge';
+        if (article.impact === '상') badge.className += ' impact-high';
+        else if (article.impact === '중') badge.className += ' impact-mid';
+        else badge.className += ' impact-low';
+        badge.textContent = article.impact;
+        link.appendChild(badge);
+
+        var titleEl = document.createElement('span');
+        titleEl.className = 'ministry-article-title';
+        titleEl.textContent = article.title;
+        link.appendChild(titleEl);
+
+        row.appendChild(link);
+
+        var dateEl = document.createElement('span');
+        dateEl.className = 'ministry-article-date';
+        dateEl.textContent = article.date;
+        row.appendChild(dateEl);
+
+        articlesWrap.appendChild(row);
+      });
+
+      block.appendChild(articlesWrap);
+      panel.appendChild(block);
+    });
+
+    panelsContainer.appendChild(panel);
+  });
+
+  // Select keyword function
+  selectKeyword = function(kw) {
+    // Update tabs
+    var tabs = tabsContainer.querySelectorAll('.kw-tab');
+    for (var i = 0; i < tabs.length; i++) {
+      if (tabs[i].getAttribute('data-kw') === kw) {
+        tabs[i].classList.add('active');
+        // Scroll the tab into view within the scrollable container
+        tabs[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        tabs[i].classList.remove('active');
+      }
+    }
+
+    // Update panels
+    TAB_KEYWORDS.forEach(function(k) {
+      var panel = document.getElementById('panel-' + k);
+      if (panel) {
+        panel.style.display = (k === kw) ? 'block' : 'none';
+      }
+    });
+  };
+
+  // Default: show 인공지능
+  selectKeyword('인공지능');
+})();
+
+// Treemap -> drilldown bridge
+function selectKw(kw) {
+  // Update treemap active state
+  document.querySelectorAll('.treemap-cell').forEach(function(c) {
+    c.classList.toggle('active', c.getAttribute('data-kw') === kw);
+  });
+  // Activate drilldown tab
+  if (typeof selectKeyword === 'function') {
+    selectKeyword(kw);
+    document.getElementById('drilldown-section').scrollIntoView({ behavior: 'smooth' });
+  }
+}
+</script>
+</body>
+</html>

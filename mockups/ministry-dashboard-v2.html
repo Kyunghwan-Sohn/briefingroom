@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부처별 정책 대시보드 - 브리핑룸</title>
+<meta name="description" content="대한민국 정부 부처별 정책 키워드 분석 대시보드. 키워드 히트맵, 레이더 비교, 연결 네트워크, 트렌드 분석.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);
+  --bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;
+  --t:#222;--t2:#555;--m:#999;
+  --serif:'Gowun Batang',serif;
+  --sans:'Wanted Sans Variable',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
+
+/* Header */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
+
+/* Hero */
+.hero{background:var(--policy-bg);padding:32px 24px 28px;border-bottom:1px solid var(--policy-border);text-align:center}
+.hero h1{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--t);margin-bottom:6px;line-height:1.35}
+.hero-sub{font-family:var(--sans);font-size:14px;color:var(--m);margin-bottom:18px}
+.hero-stats{display:flex;gap:10px;max-width:480px;margin:0 auto}
+.hero-stat{flex:1;background:var(--s);border:1px solid var(--policy-border);border-radius:10px;padding:12px 8px}
+.hero-stat .num{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--policy);line-height:1}
+.hero-stat .label{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--policy);margin-top:4px}
+
+/* Sections */
+.section{padding:28px 24px;border-bottom:1px solid var(--bl)}
+.sec-title{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:4px}
+.sec-desc{font-family:var(--sans);font-size:13px;color:var(--m);margin-bottom:18px}
+
+/* ===== 1. HEATMAP ===== */
+.heatmap-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.heatmap-table{width:100%;border-collapse:collapse;min-width:480px}
+.heatmap-table th{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--t2);padding:8px 6px;text-align:center;border-bottom:1px solid var(--bl)}
+.heatmap-table th:first-child{text-align:left;width:110px;padding-left:0}
+.heatmap-table td{padding:4px 6px;text-align:center;vertical-align:middle}
+.heatmap-table td:first-child{text-align:left;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--t);padding-left:0;white-space:nowrap}
+.heatmap-cell{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:36px;border-radius:6px;font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;transition:transform .15s}
+.heatmap-cell:hover{transform:scale(1.08)}
+.heatmap-cell.l0{background:#f0f0f0;color:var(--m)}
+.heatmap-cell.l1{background:rgba(30,64,175,.15);color:var(--policy)}
+.heatmap-cell.l2{background:rgba(30,64,175,.3);color:var(--policy)}
+.heatmap-cell.l3{background:rgba(30,64,175,.5);color:#fff}
+.heatmap-cell.l4{background:rgba(30,64,175,.7);color:#fff}
+.heatmap-cell.l5{background:rgba(30,64,175,.9);color:#fff}
+.heatmap-trend{display:inline-block;margin-left:4px;font-family:var(--sans);font-size:10px;font-weight:700}
+.heatmap-trend.up{color:#dc2626}
+.heatmap-trend.down{color:#16a34a}
+.heatmap-trend.flat{color:var(--m)}
+.heatmap-legend{display:flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--sans);font-size:11px;color:var(--m)}
+.heatmap-legend-box{width:20px;height:14px;border-radius:3px}
+
+/* ===== 2. RADAR ===== */
+.radar-controls{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.radar-select{font-family:var(--sans);font-size:13px;padding:8px 14px;border:1.5px solid var(--bl);border-radius:8px;background:var(--s);color:var(--t);outline:none;cursor:pointer;min-width:160px;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23999' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.radar-select:focus{border-color:var(--policy)}
+.radar-color-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0}
+.radar-chart-wrap{max-width:520px;margin:0 auto;position:relative}
+.radar-insight{margin-top:14px;padding:14px 16px;background:var(--policy-bg);border:1px solid var(--policy-border);border-radius:10px;font-family:var(--sans);font-size:13px;color:var(--t2);line-height:1.7}
+.radar-insight strong{color:var(--policy);font-weight:700}
+
+/* ===== 3. NETWORK ===== */
+.network-controls{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.network-btn{font-family:var(--sans);font-size:12px;font-weight:600;padding:7px 16px;border-radius:18px;border:1.5px solid var(--bl);background:var(--s);color:var(--t2);cursor:pointer;white-space:nowrap;transition:all .15s}
+.network-btn:hover{border-color:var(--policy);color:var(--policy)}
+.network-btn.on{background:var(--policy);color:#fff;border-color:var(--policy)}
+.network-svg-wrap{width:100%;aspect-ratio:16/10;background:var(--s);border:1px solid var(--bl);border-radius:14px;overflow:hidden;position:relative}
+.network-svg-wrap svg{width:100%;height:100%}
+.network-legend{display:flex;gap:16px;margin-top:12px;font-family:var(--sans);font-size:11px;color:var(--m);flex-wrap:wrap}
+.network-legend-item{display:flex;align-items:center;gap:5px}
+.network-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* ===== 4. LINE CHART ===== */
+.trend-chart-wrap{position:relative;width:100%;max-height:360px}
+.trend-toggles{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.trend-toggle{font-family:var(--sans);font-size:12px;font-weight:600;padding:6px 14px;border-radius:16px;border:1.5px solid var(--bl);background:var(--s);color:var(--t2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
+.trend-toggle .dot{width:8px;height:8px;border-radius:50%}
+.trend-toggle.on{border-color:var(--policy);color:var(--policy);background:var(--policy-bg)}
+
+/* CTA + Footer */
+.cta{margin:24px;padding:18px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:15px;color:#fff}
+.cta p{font-family:var(--sans);font-size:10px;color:rgba(255,255,255,.7)}
+.cta a{font-family:var(--sans);padding:10px 18px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none;white-space:nowrap}
+.footer{padding:16px 24px;text-align:center;font-family:var(--sans);font-size:10px;color:var(--m)}
+.footer a{color:var(--t);text-decoration:none;font-weight:600}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(5,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+.bnav a.on{color:var(--a)}
+.bnav a span:first-child{font-size:16px}
+
+/* Responsive */
+@media(max-width:768px){
+  body{padding-top:48px;padding-bottom:62px}
+  .hdr{height:48px;padding:0 10px}
+  .logo{font-size:16px;margin-right:8px}
+  .hnav{gap:3px}
+  .hnav a{font-size:11px;padding:5px 7px}
+  .hero{padding:24px 16px 20px}
+  .hero h1{font-size:22px}
+  .hero-stats{gap:6px}
+  .hero-stat{padding:10px 6px}
+  .hero-stat .num{font-size:20px}
+  .hero-stat .label{font-size:10px}
+  .section{padding:22px 16px}
+  .sec-title{font-size:17px}
+  .radar-controls{flex-direction:column;gap:8px}
+  .radar-select{width:100%}
+  .radar-chart-wrap{max-width:100%}
+  .network-svg-wrap{aspect-ratio:1/1}
+  .cta{margin:18px 16px;padding:16px}
+  .cta h3{font-size:14px}
+  .bnav{display:grid}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">홈</a>
+    <a class="on-policy" href="/policy/">정부 정책 AI</a>
+    <a href="/finlaw/">금융 법령 AI</a>
+    <a href="/articles/">아카이브</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>부처별 정책 대시보드</h1>
+  <div class="hero-sub">정부 부처 정책 키워드 분석 -- 4주간 트렌드</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">51</div><div class="label">모니터링 부처</div></div>
+    <div class="hero-stat"><div class="num">10</div><div class="label">핵심 키워드</div></div>
+    <div class="hero-stat"><div class="num">4</div><div class="label">분석 주차</div></div>
+  </div>
+</section>
+
+<!-- 1. HEATMAP -->
+<section class="section">
+  <div class="sec-title">정책 키워드 히트맵</div>
+  <div class="sec-desc">주차별 키워드 언급 빈도. 색이 진할수록 언급 횟수가 많습니다.</div>
+  <div class="heatmap-wrap">
+    <table class="heatmap-table" id="heatmap">
+      <thead>
+        <tr>
+          <th>키워드</th>
+          <th>3월 3주</th>
+          <th>3월 4주</th>
+          <th>4월 1주</th>
+          <th>4월 2주</th>
+          <th>추이</th>
+        </tr>
+      </thead>
+      <tbody id="heatmap-body"></tbody>
+    </table>
+  </div>
+  <div class="heatmap-legend">
+    <span>낮음</span>
+    <div class="heatmap-legend-box" style="background:rgba(30,64,175,.1)"></div>
+    <div class="heatmap-legend-box" style="background:rgba(30,64,175,.3)"></div>
+    <div class="heatmap-legend-box" style="background:rgba(30,64,175,.5)"></div>
+    <div class="heatmap-legend-box" style="background:rgba(30,64,175,.7)"></div>
+    <div class="heatmap-legend-box" style="background:rgba(30,64,175,.9)"></div>
+    <span>높음</span>
+  </div>
+</section>
+
+<!-- 2. RADAR -->
+<section class="section">
+  <div class="sec-title">부처별 키워드 레이더</div>
+  <div class="sec-desc">부처의 정책 관심 분야를 6개 축으로 비교합니다. 두 부처를 겹쳐서 비교할 수 있습니다.</div>
+  <div class="radar-controls">
+    <div style="display:flex;align-items:center;gap:6px">
+      <span class="radar-color-dot" style="background:rgba(30,64,175,.7)"></span>
+      <select class="radar-select" id="radar-select-1">
+        <option value="금융위원회">금융위원회</option>
+        <option value="과학기술정보통신부">과학기술정보통신부</option>
+        <option value="보건복지부">보건복지부</option>
+        <option value="국토교통부">국토교통부</option>
+        <option value="외교부">외교부</option>
+        <option value="고용노동부">고용노동부</option>
+        <option value="교육부">교육부</option>
+        <option value="산림청">산림청</option>
+        <option value="농림축산식품부">농림축산식품부</option>
+        <option value="금융감독원">금융감독원</option>
+      </select>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span class="radar-color-dot" style="background:rgba(217,108,44,.7)"></span>
+      <select class="radar-select" id="radar-select-2">
+        <option value="과학기술정보통신부">과학기술정보통신부</option>
+        <option value="금융위원회">금융위원회</option>
+        <option value="보건복지부">보건복지부</option>
+        <option value="국토교통부">국토교통부</option>
+        <option value="외교부">외교부</option>
+        <option value="고용노동부">고용노동부</option>
+        <option value="교육부">교육부</option>
+        <option value="산림청">산림청</option>
+        <option value="농림축산식품부">농림축산식품부</option>
+        <option value="금융감독원">금융감독원</option>
+      </select>
+    </div>
+  </div>
+  <div class="radar-chart-wrap">
+    <canvas id="radarChart"></canvas>
+  </div>
+  <div class="radar-insight" id="radar-insight">
+    <strong>금융위원회</strong>는 금융경제(9)와 AI/디지털(7) 분야에 집중하며, <strong>과학기술정보통신부</strong>는 AI/디지털(9)과 산업기술(8)에 강점을 보입니다. 두 부처 모두 AI/디지털 영역에서 높은 관심을 공유합니다.
+  </div>
+</section>
+
+<!-- 3. NETWORK -->
+<section class="section">
+  <div class="sec-title">정책 연결 네트워크</div>
+  <div class="sec-desc">같은 키워드를 사용하는 부처 간 연결. 선이 굵을수록 공통 키워드가 많습니다.</div>
+  <div class="network-controls" id="network-btns">
+    <button class="network-btn on" data-kw="인공지능">인공지능</button>
+    <button class="network-btn" data-kw="소상공인">소상공인</button>
+    <button class="network-btn" data-kw="국민안전">국민안전</button>
+    <button class="network-btn" data-kw="ESG">ESG</button>
+    <button class="network-btn" data-kw="가상자산">가상자산</button>
+    <button class="network-btn" data-kw="저출산">저출산</button>
+  </div>
+  <div class="network-svg-wrap" id="network-container">
+    <svg id="network-svg" viewBox="0 0 800 500"></svg>
+  </div>
+  <div class="network-legend">
+    <div class="network-legend-item"><div class="network-legend-dot" style="background:var(--a)"></div>키워드 노드</div>
+    <div class="network-legend-item"><div class="network-legend-dot" style="background:var(--policy)"></div>부처 노드</div>
+    <div class="network-legend-item"><span style="display:inline-block;width:24px;height:3px;background:var(--policy);border-radius:2px"></span>강한 연결</div>
+    <div class="network-legend-item"><span style="display:inline-block;width:24px;height:1px;background:rgba(30,64,175,.3)"></span>약한 연결</div>
+  </div>
+</section>
+
+<!-- 4. LINE CHART -->
+<section class="section" style="border-bottom:none">
+  <div class="sec-title">주간 키워드 트렌드</div>
+  <div class="sec-desc">최근 4주간 상위 5개 키워드의 언급 추이입니다.</div>
+  <div class="trend-toggles" id="trend-toggles"></div>
+  <div class="trend-chart-wrap">
+    <canvas id="trendChart"></canvas>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <div>
+    <h3>매일 3분 브리핑</h3>
+    <p>텔레그램에서 받아보세요</p>
+  </div>
+  <a href="https://t.me/govbrief" target="_blank">구독</a>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr
+</div>
+
+<!-- MOBILE BNAV -->
+<nav class="bnav">
+  <a href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a>
+  <a href="/policy/"><span style="font-size:16px">&#9783;</span>정책AI</a>
+  <a href="/articles/"><span style="font-size:16px">&#8801;</span>달력</a>
+  <a href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a>
+  <a href="https://t.me/govbrief"><span style="font-size:16px">&#8594;</span>알림</a>
+</nav>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+var KEYWORDS = [
+  '인공지능', '국민안전', '소상공인', '중동전쟁', 'ESG',
+  '가상자산', '저출산', '규제혁신', '디지털전환', '추경'
+];
+
+var WEEKS = ['3월 3주', '3월 4주', '4월 1주', '4월 2주'];
+
+// keyword => [w1, w2, w3, w4] mention counts
+var HEATMAP_DATA = {
+  '인공지능':   [4, 5, 7, 9],
+  '국민안전':   [3, 4, 6, 7],
+  '소상공인':   [5, 6, 4, 6],
+  '중동전쟁':   [2, 3, 5, 5],
+  'ESG':        [3, 4, 3, 4],
+  '가상자산':   [2, 3, 4, 4],
+  '저출산':     [2, 2, 3, 3],
+  '규제혁신':   [1, 2, 3, 3],
+  '디지털전환': [2, 2, 2, 3],
+  '추경':       [0, 1, 2, 3]
+};
+
+var MINISTRIES = [
+  '금융위원회', '과학기술정보통신부', '보건복지부', '국토교통부',
+  '외교부', '고용노동부', '교육부', '산림청', '농림축산식품부', '금융감독원'
+];
+
+// Radar axes: 금융경제, 산업기술, 사회복지, 외교안보, 행정법제, AI/디지털
+var RADAR_DATA = {
+  '금융위원회':        [9, 3, 2, 2, 5, 7],
+  '과학기술정보통신부': [3, 8, 2, 3, 3, 9],
+  '보건복지부':        [2, 3, 9, 1, 4, 4],
+  '국토교통부':        [5, 7, 3, 1, 6, 4],
+  '외교부':            [3, 2, 2, 9, 3, 2],
+  '고용노동부':        [4, 4, 7, 1, 6, 3],
+  '교육부':            [2, 3, 6, 1, 5, 5],
+  '산림청':            [1, 5, 2, 1, 3, 2],
+  '농림축산식품부':    [3, 6, 4, 2, 4, 2],
+  '금융감독원':        [9, 2, 2, 2, 7, 5]
+};
+
+var RADAR_LABELS = ['금융경제', '산업기술', '사회복지', '외교안보', '행정법제', 'AI/디지털'];
+
+// Radar insight texts
+var RADAR_INSIGHTS = {
+  '금융위원회': '금융경제(9)와 AI/디지털(7), 행정법제(5) 분야에 집중합니다.',
+  '과학기술정보통신부': 'AI/디지털(9)과 산업기술(8) 분야에 강점을 보입니다.',
+  '보건복지부': '사회복지(9)에 압도적 집중, 행정법제(4)와 AI/디지털(4) 관심도 보입니다.',
+  '국토교통부': '산업기술(7)과 행정법제(6), 금융경제(5) 분야에 고르게 분포합니다.',
+  '외교부': '외교안보(9)에 특화되어 있으며, 다른 분야 관여는 낮습니다.',
+  '고용노동부': '사회복지(7)와 행정법제(6), 금융경제(4) 순으로 정책 비중이 높습니다.',
+  '교육부': '사회복지(6)와 AI/디지털(5), 행정법제(5) 분야에 고르게 관심을 보입니다.',
+  '산림청': '산업기술(5)에 상대적 강점, 전체적으로 분산된 정책 프로파일입니다.',
+  '농림축산식품부': '산업기술(6)과 사회복지(4), 행정법제(4) 순입니다.',
+  '금융감독원': '금융경제(9)에 특화되며, 행정법제(7)와 AI/디지털(5)도 높습니다.'
+};
+
+// Network: keyword => [{ministry, weight(1-5)}]
+var NETWORK_DATA = {
+  '인공지능': [
+    {m: '과학기술정보통신부', w: 5},
+    {m: '금융위원회', w: 4},
+    {m: '교육부', w: 3},
+    {m: '보건복지부', w: 3},
+    {m: '금융감독원', w: 2},
+    {m: '국토교통부', w: 2},
+    {m: '고용노동부', w: 1}
+  ],
+  '소상공인': [
+    {m: '금융위원회', w: 5},
+    {m: '고용노동부', w: 4},
+    {m: '금융감독원', w: 3},
+    {m: '농림축산식품부', w: 2},
+    {m: '국토교통부', w: 2}
+  ],
+  '국민안전': [
+    {m: '보건복지부', w: 4},
+    {m: '국토교통부', w: 4},
+    {m: '교육부', w: 3},
+    {m: '고용노동부', w: 3},
+    {m: '과학기술정보통신부', w: 2},
+    {m: '산림청', w: 2}
+  ],
+  'ESG': [
+    {m: '금융위원회', w: 5},
+    {m: '금융감독원', w: 4},
+    {m: '국토교통부', w: 3},
+    {m: '농림축산식품부', w: 2},
+    {m: '산림청', w: 2}
+  ],
+  '가상자산': [
+    {m: '금융위원회', w: 5},
+    {m: '금융감독원', w: 5},
+    {m: '과학기술정보통신부', w: 3},
+    {m: '외교부', w: 1}
+  ],
+  '저출산': [
+    {m: '보건복지부', w: 5},
+    {m: '교육부', w: 4},
+    {m: '고용노동부', w: 3},
+    {m: '국토교통부', w: 2},
+    {m: '금융위원회', w: 1}
+  ]
+};
+
+// Trend: top 5 keywords over 4 weeks
+var TREND_KEYWORDS = ['인공지능', '국민안전', '소상공인', '중동전쟁', 'ESG'];
+var TREND_COLORS = ['#1e40af', '#d96c2c', '#047857', '#9333ea', '#dc2626'];
+
+// ============================================================
+// 1. HEATMAP
+// ============================================================
+
+(function() {
+  var tbody = document.getElementById('heatmap-body');
+  KEYWORDS.forEach(function(kw) {
+    var vals = HEATMAP_DATA[kw];
+    var maxVal = Math.max.apply(null, vals);
+    var tr = document.createElement('tr');
+
+    // keyword name cell
+    var tdName = document.createElement('td');
+    tdName.textContent = kw;
+    tr.appendChild(tdName);
+
+    // value cells
+    vals.forEach(function(v) {
+      var td = document.createElement('td');
+      var lvl = v === 0 ? 0 : v <= 2 ? 1 : v <= 3 ? 2 : v <= 5 ? 3 : v <= 7 ? 4 : 5;
+      var cell = document.createElement('div');
+      cell.className = 'heatmap-cell l' + lvl;
+      cell.textContent = v;
+      cell.title = kw + ' - ' + v + '건';
+      td.appendChild(cell);
+      tr.appendChild(td);
+    });
+
+    // trend indicator
+    var tdTrend = document.createElement('td');
+    var diff = vals[3] - vals[0];
+    var span = document.createElement('span');
+    if (diff > 0) {
+      span.className = 'heatmap-trend up';
+      span.textContent = '+' + diff;
+    } else if (diff < 0) {
+      span.className = 'heatmap-trend down';
+      span.textContent = '' + diff;
+    } else {
+      span.className = 'heatmap-trend flat';
+      span.textContent = '--';
+    }
+    tdTrend.appendChild(span);
+    tr.appendChild(tdTrend);
+
+    tbody.appendChild(tr);
+  });
+})();
+
+// ============================================================
+// 2. RADAR CHART
+// ============================================================
+
+var radarChart;
+
+(function() {
+  var ctx = document.getElementById('radarChart').getContext('2d');
+
+  function getRadarConfig(m1, m2) {
+    return {
+      type: 'radar',
+      data: {
+        labels: RADAR_LABELS,
+        datasets: [
+          {
+            label: m1,
+            data: RADAR_DATA[m1],
+            borderColor: 'rgba(30,64,175,.8)',
+            backgroundColor: 'rgba(30,64,175,.12)',
+            borderWidth: 2.5,
+            pointBackgroundColor: 'rgba(30,64,175,.9)',
+            pointRadius: 4,
+            pointHoverRadius: 6
+          },
+          {
+            label: m2,
+            data: RADAR_DATA[m2],
+            borderColor: 'rgba(217,108,44,.8)',
+            backgroundColor: 'rgba(217,108,44,.12)',
+            borderWidth: 2.5,
+            pointBackgroundColor: 'rgba(217,108,44,.9)',
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 10,
+            ticks: {
+              stepSize: 2,
+              font: { family: "'JetBrains Mono', monospace", size: 10 },
+              color: '#999',
+              backdropColor: 'transparent'
+            },
+            pointLabels: {
+              font: { family: "'Wanted Sans Variable', sans-serif", size: 13, weight: '600' },
+              color: '#222'
+            },
+            grid: { color: 'rgba(0,0,0,.06)' },
+            angleLines: { color: 'rgba(0,0,0,.06)' }
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              font: { family: "'Wanted Sans Variable', sans-serif", size: 12, weight: '600' },
+              color: '#555',
+              usePointStyle: true,
+              pointStyle: 'circle',
+              padding: 16
+            }
+          },
+          tooltip: {
+            titleFont: { family: "'Wanted Sans Variable', sans-serif" },
+            bodyFont: { family: "'JetBrains Mono', monospace", size: 12 },
+            backgroundColor: '#222',
+            cornerRadius: 8,
+            padding: 10
+          }
+        }
+      }
+    };
+  }
+
+  var m1 = document.getElementById('radar-select-1').value;
+  var m2 = document.getElementById('radar-select-2').value;
+  radarChart = new Chart(ctx, getRadarConfig(m1, m2));
+
+  function updateRadar() {
+    var s1 = document.getElementById('radar-select-1').value;
+    var s2 = document.getElementById('radar-select-2').value;
+    radarChart.data.datasets[0].data = RADAR_DATA[s1];
+    radarChart.data.datasets[0].label = s1;
+    radarChart.data.datasets[1].data = RADAR_DATA[s2];
+    radarChart.data.datasets[1].label = s2;
+    radarChart.update();
+
+    // Update insight
+    var insightEl = document.getElementById('radar-insight');
+    insightEl.innerHTML = '<strong>' + s1 + '</strong>: ' + RADAR_INSIGHTS[s1] +
+      ' <strong>' + s2 + '</strong>: ' + RADAR_INSIGHTS[s2];
+  }
+
+  document.getElementById('radar-select-1').addEventListener('change', updateRadar);
+  document.getElementById('radar-select-2').addEventListener('change', updateRadar);
+})();
+
+// ============================================================
+// 3. NETWORK (SVG)
+// ============================================================
+
+(function() {
+  var svg = document.getElementById('network-svg');
+  var btns = document.querySelectorAll('#network-btns .network-btn');
+  var currentKw = '인공지능';
+
+  // Short names for display
+  var SHORT_NAMES = {
+    '금융위원회': '금융위',
+    '과학기술정보통신부': '과기부',
+    '보건복지부': '복지부',
+    '국토교통부': '국토부',
+    '외교부': '외교부',
+    '고용노동부': '노동부',
+    '교육부': '교육부',
+    '산림청': '산림청',
+    '농림축산식품부': '농식품부',
+    '금융감독원': '금감원'
+  };
+
+  function drawNetwork(keyword) {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    var links = NETWORK_DATA[keyword] || [];
+    var cx = 400, cy = 250, radius = 170;
+    var n = links.length;
+
+    // Defs for glow
+    var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    var filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+    filter.setAttribute('id', 'glow');
+    filter.setAttribute('x', '-50%');
+    filter.setAttribute('y', '-50%');
+    filter.setAttribute('width', '200%');
+    filter.setAttribute('height', '200%');
+    var blur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
+    blur.setAttribute('stdDeviation', '3');
+    blur.setAttribute('result', 'coloredBlur');
+    filter.appendChild(blur);
+    var merge = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge');
+    var mn1 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+    mn1.setAttribute('in', 'coloredBlur');
+    merge.appendChild(mn1);
+    var mn2 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+    mn2.setAttribute('in', 'SourceGraphic');
+    merge.appendChild(mn2);
+    filter.appendChild(merge);
+    defs.appendChild(filter);
+    svg.appendChild(defs);
+
+    // Draw lines from center to each ministry
+    links.forEach(function(link, i) {
+      var angle = (2 * Math.PI * i / n) - Math.PI / 2;
+      var mx = cx + radius * Math.cos(angle);
+      var my = cy + radius * Math.sin(angle);
+
+      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', cx);
+      line.setAttribute('y1', cy);
+      line.setAttribute('x2', mx);
+      line.setAttribute('y2', my);
+      line.setAttribute('stroke', 'rgba(30,64,175,' + (0.15 + link.w * 0.15) + ')');
+      line.setAttribute('stroke-width', 1 + link.w * 1.2);
+      line.setAttribute('stroke-linecap', 'round');
+      svg.appendChild(line);
+    });
+
+    // Ministry nodes
+    links.forEach(function(link, i) {
+      var angle = (2 * Math.PI * i / n) - Math.PI / 2;
+      var mx = cx + radius * Math.cos(angle);
+      var my = cy + radius * Math.sin(angle);
+      var nodeR = 24 + link.w * 4;
+
+      // circle background
+      var bg = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      bg.setAttribute('cx', mx);
+      bg.setAttribute('cy', my);
+      bg.setAttribute('r', nodeR);
+      bg.setAttribute('fill', '#fff');
+      bg.setAttribute('stroke', 'rgba(30,64,175,' + (0.3 + link.w * 0.12) + ')');
+      bg.setAttribute('stroke-width', '1.5');
+      svg.appendChild(bg);
+
+      // Ministry short name
+      var txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('x', mx);
+      txt.setAttribute('y', my - 3);
+      txt.setAttribute('text-anchor', 'middle');
+      txt.setAttribute('dominant-baseline', 'middle');
+      txt.setAttribute('font-family', "'Wanted Sans Variable', sans-serif");
+      txt.setAttribute('font-size', '12');
+      txt.setAttribute('font-weight', '600');
+      txt.setAttribute('fill', '#1e40af');
+      txt.textContent = SHORT_NAMES[link.m] || link.m;
+      svg.appendChild(txt);
+
+      // Weight number below name
+      var wtxt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      wtxt.setAttribute('x', mx);
+      wtxt.setAttribute('y', my + 12);
+      wtxt.setAttribute('text-anchor', 'middle');
+      wtxt.setAttribute('font-family', "'JetBrains Mono', monospace");
+      wtxt.setAttribute('font-size', '10');
+      wtxt.setAttribute('font-weight', '500');
+      wtxt.setAttribute('fill', '#999');
+      wtxt.textContent = link.w + '건';
+      svg.appendChild(wtxt);
+    });
+
+    // Center keyword node
+    var centerBg = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    centerBg.setAttribute('cx', cx);
+    centerBg.setAttribute('cy', cy);
+    centerBg.setAttribute('r', '38');
+    centerBg.setAttribute('fill', '#d96c2c');
+    centerBg.setAttribute('filter', 'url(#glow)');
+    svg.appendChild(centerBg);
+
+    var centerTxt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    centerTxt.setAttribute('x', cx);
+    centerTxt.setAttribute('y', cy + 1);
+    centerTxt.setAttribute('text-anchor', 'middle');
+    centerTxt.setAttribute('dominant-baseline', 'middle');
+    centerTxt.setAttribute('font-family', "'Wanted Sans Variable', sans-serif");
+    centerTxt.setAttribute('font-size', '14');
+    centerTxt.setAttribute('font-weight', '700');
+    centerTxt.setAttribute('fill', '#fff');
+    centerTxt.textContent = keyword;
+    svg.appendChild(centerTxt);
+  }
+
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      btns.forEach(function(b) { b.classList.remove('on'); });
+      btn.classList.add('on');
+      currentKw = btn.getAttribute('data-kw');
+      drawNetwork(currentKw);
+    });
+  });
+
+  drawNetwork(currentKw);
+})();
+
+// ============================================================
+// 4. LINE/TREND CHART
+// ============================================================
+
+var trendChart;
+
+(function() {
+  var ctx = document.getElementById('trendChart').getContext('2d');
+  var togglesEl = document.getElementById('trend-toggles');
+  var visibility = {};
+
+  // Build toggle buttons
+  TREND_KEYWORDS.forEach(function(kw, i) {
+    visibility[kw] = true;
+    var btn = document.createElement('button');
+    btn.className = 'trend-toggle on';
+    btn.setAttribute('data-kw', kw);
+    btn.innerHTML = '<span class="dot" style="background:' + TREND_COLORS[i] + '"></span>' + kw;
+    togglesEl.appendChild(btn);
+  });
+
+  function getTrendConfig() {
+    var datasets = TREND_KEYWORDS.map(function(kw, i) {
+      return {
+        label: kw,
+        data: HEATMAP_DATA[kw],
+        borderColor: TREND_COLORS[i],
+        backgroundColor: TREND_COLORS[i] + '18',
+        borderWidth: 2.5,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        pointBackgroundColor: '#fff',
+        pointBorderColor: TREND_COLORS[i],
+        pointBorderWidth: 2.5,
+        tension: 0.3,
+        fill: false,
+        hidden: !visibility[kw]
+      };
+    });
+
+    return {
+      type: 'line',
+      data: {
+        labels: WEEKS,
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        interaction: {
+          mode: 'index',
+          intersect: false
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(0,0,0,.04)' },
+            ticks: {
+              font: { family: "'Wanted Sans Variable', sans-serif", size: 12, weight: '600' },
+              color: '#555'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            max: 12,
+            ticks: {
+              stepSize: 2,
+              font: { family: "'JetBrains Mono', monospace", size: 11 },
+              color: '#999'
+            },
+            grid: { color: 'rgba(0,0,0,.04)' },
+            title: {
+              display: true,
+              text: '언급 횟수',
+              font: { family: "'Wanted Sans Variable', sans-serif", size: 11, weight: '600' },
+              color: '#999'
+            }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            titleFont: { family: "'Wanted Sans Variable', sans-serif", size: 13 },
+            bodyFont: { family: "'JetBrains Mono', monospace", size: 12 },
+            backgroundColor: '#222',
+            cornerRadius: 8,
+            padding: 12,
+            callbacks: {
+              label: function(ctx) {
+                return ' ' + ctx.dataset.label + ': ' + ctx.parsed.y + '건';
+              }
+            }
+          }
+        }
+      }
+    };
+  }
+
+  trendChart = new Chart(ctx, getTrendConfig());
+
+  // Toggle buttons
+  togglesEl.addEventListener('click', function(e) {
+    var btn = e.target.closest('.trend-toggle');
+    if (!btn) return;
+    var kw = btn.getAttribute('data-kw');
+    visibility[kw] = !visibility[kw];
+    btn.classList.toggle('on', visibility[kw]);
+
+    var idx = TREND_KEYWORDS.indexOf(kw);
+    if (idx !== -1) {
+      trendChart.data.datasets[idx].hidden = !visibility[kw];
+      trendChart.update();
+    }
+  });
+})();
+</script>
+</body>
+</html>

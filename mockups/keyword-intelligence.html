@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>정책 키워드 인텔리전스 - 브리핑룸</title>
+<meta name="description" content="최근 30일 보도자료에서 추출한 키워드로 정부 정책 흐름을 읽습니다. 키워드 버블, 연결 네트워크, 상세 카드, 협업 매트릭스.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);
+  --bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;
+  --t:#222;--t2:#555;--m:#999;
+  --serif:'Gowun Batang',serif;
+  --sans:'Wanted Sans Variable',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
+
+/* Header */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hnav::-webkit-scrollbar{display:none}
+.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
+.hnav a:hover{border-color:var(--a);color:var(--a)}
+.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
+.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
+.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
+
+/* Hero */
+.hero{background:var(--policy-bg);padding:32px 24px 28px;border-bottom:1px solid var(--policy-border);text-align:center}
+.hero h1{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--t);margin-bottom:6px;line-height:1.35}
+.hero-sub{font-family:var(--sans);font-size:14px;color:var(--m);margin-bottom:18px}
+.hero-stats{display:flex;gap:10px;max-width:480px;margin:0 auto}
+.hero-stat{flex:1;background:var(--s);border:1px solid var(--policy-border);border-radius:10px;padding:12px 8px}
+.hero-stat .num{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--policy);line-height:1}
+.hero-stat .label{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--policy);margin-top:4px}
+
+/* Sections */
+.section{padding:28px 24px;border-bottom:1px solid var(--bl)}
+.sec-title{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:4px}
+.sec-desc{font-family:var(--sans);font-size:13px;color:var(--m);margin-bottom:18px}
+
+/* ===== 1. BUBBLE CLUSTER ===== */
+.bubble-svg-wrap{width:100%;aspect-ratio:16/10;background:var(--s);border:1px solid var(--bl);border-radius:14px;overflow:hidden;position:relative}
+.bubble-svg-wrap svg{width:100%;height:100%}
+.bubble-legend{display:flex;gap:14px;margin-top:14px;font-family:var(--sans);font-size:11px;color:var(--m);flex-wrap:wrap}
+.bubble-legend-item{display:flex;align-items:center;gap:5px}
+.bubble-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* Bubble tooltip */
+.bubble-tooltip{position:absolute;pointer-events:none;background:#222;color:#fff;font-family:var(--sans);font-size:12px;padding:10px 14px;border-radius:8px;line-height:1.6;z-index:10;opacity:0;transition:opacity .15s;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.bubble-tooltip .kw-name{font-weight:700;font-size:13px;margin-bottom:2px}
+.bubble-tooltip .kw-count{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.7)}
+.bubble-tooltip .kw-ministries{font-size:11px;color:rgba(255,255,255,.7);margin-top:4px}
+
+/* ===== 2. KEYWORD NETWORK ===== */
+.kw-network-svg-wrap{width:100%;aspect-ratio:1/1;max-width:700px;margin:0 auto;background:var(--s);border:1px solid var(--bl);border-radius:14px;overflow:hidden;position:relative}
+.kw-network-svg-wrap svg{width:100%;height:100%}
+.kw-network-tooltip{position:absolute;pointer-events:none;background:#222;color:#fff;font-family:var(--sans);font-size:12px;padding:10px 14px;border-radius:8px;line-height:1.6;z-index:10;opacity:0;transition:opacity .15s;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.kw-network-tooltip .tt-title{font-weight:700;font-size:13px;margin-bottom:2px}
+.kw-network-tooltip .tt-detail{font-size:11px;color:rgba(255,255,255,.7)}
+.network-legend{display:flex;gap:16px;margin-top:12px;font-family:var(--sans);font-size:11px;color:var(--m);flex-wrap:wrap}
+.network-legend-item{display:flex;align-items:center;gap:5px}
+.network-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* ===== 3. KEYWORD DEEP DIVE CARDS ===== */
+.kw-cards{display:flex;flex-direction:column;gap:20px}
+.kw-card{background:var(--s);border:1px solid var(--bl);border-radius:14px;padding:24px;transition:box-shadow .15s}
+.kw-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.kw-card-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.kw-card-name{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--t)}
+.kw-card-tag{font-family:var(--sans);font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px;color:#fff;white-space:nowrap}
+.kw-card-count{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--m);margin-left:auto}
+
+.kw-card-section-label{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--m);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.kw-card-ministries{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.kw-ministry-pill{font-family:var(--sans);font-size:12px;font-weight:600;padding:4px 12px;border-radius:14px;background:var(--policy-bg);color:var(--policy);border:1px solid var(--policy-border)}
+
+.kw-card-articles{display:flex;flex-direction:column;gap:0}
+.kw-article{padding:10px 0;border-top:1px dashed var(--bl);display:flex;align-items:flex-start;gap:8px}
+.kw-article:first-child{border-top:none;padding-top:0}
+.impact-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:2px}
+.impact-high{background:rgba(220,38,38,.1);color:#dc2626}
+.impact-mid{background:rgba(217,108,44,.1);color:#d97706}
+.kw-article-title{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--t);line-height:1.5;flex:1}
+.kw-article-date{font-family:var(--mono);font-size:11px;color:var(--m);flex-shrink:0;margin-top:2px}
+
+/* ===== 4. COLLABORATION MATRIX ===== */
+.matrix-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.matrix-table{border-collapse:collapse;min-width:520px;width:100%}
+.matrix-table th{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--t2);padding:8px 6px;text-align:center;border-bottom:1px solid var(--bl);white-space:nowrap}
+.matrix-table th:first-child{text-align:left;width:56px;padding-left:0}
+.matrix-table td{padding:3px;text-align:center;vertical-align:middle}
+.matrix-table td:first-child{text-align:left;font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t);padding-left:0;white-space:nowrap}
+.matrix-cell{display:inline-flex;align-items:center;justify-content:center;width:100%;min-width:40px;min-height:36px;border-radius:5px;font-family:var(--mono);font-size:11px;font-weight:500;transition:transform .12s;cursor:default;position:relative}
+.matrix-cell:hover{transform:scale(1.08);z-index:2}
+.matrix-cell.lvl-0{background:#f8f8f8;color:var(--m)}
+.matrix-cell.lvl-1{background:rgba(30,64,175,.12);color:var(--policy)}
+.matrix-cell.lvl-2{background:rgba(30,64,175,.25);color:var(--policy)}
+.matrix-cell.lvl-3{background:rgba(30,64,175,.4);color:#fff}
+.matrix-cell.lvl-4{background:rgba(30,64,175,.55);color:#fff}
+.matrix-cell.lvl-5{background:rgba(30,64,175,.7);color:#fff}
+.matrix-cell.diag{background:#e8e8e8;color:var(--t2);font-weight:700}
+.matrix-legend{display:flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--sans);font-size:11px;color:var(--m)}
+.matrix-legend-box{width:20px;height:14px;border-radius:3px}
+
+/* Matrix tooltip */
+.matrix-tooltip{position:fixed;pointer-events:none;background:#222;color:#fff;font-family:var(--sans);font-size:12px;padding:10px 14px;border-radius:8px;line-height:1.6;z-index:100;opacity:0;transition:opacity .12s;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.matrix-tooltip .pair{font-weight:700;font-size:13px;margin-bottom:2px}
+.matrix-tooltip .keywords{font-size:11px;color:rgba(255,255,255,.7)}
+
+/* CTA + Footer */
+.cta{margin:24px;padding:18px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cta h3{font-family:var(--serif);font-size:15px;color:#fff}
+.cta p{font-family:var(--sans);font-size:10px;color:rgba(255,255,255,.7)}
+.cta a{font-family:var(--sans);padding:10px 18px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none;white-space:nowrap}
+.footer{padding:16px 24px;text-align:center;font-family:var(--sans);font-size:10px;color:var(--m)}
+.footer a{color:var(--t);text-decoration:none;font-weight:600}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
+.bnav a.on{color:var(--a)}
+.bnav a span:first-child{font-size:16px}
+
+/* Responsive */
+@media(max-width:768px){
+  body{padding-top:48px;padding-bottom:62px}
+  .hdr{height:48px;padding:0 10px}
+  .logo{font-size:16px;margin-right:8px}
+  .hnav{gap:3px}
+  .hnav a{font-size:11px;padding:5px 7px}
+  .hero{padding:24px 16px 20px}
+  .hero h1{font-size:22px}
+  .hero-stats{gap:6px}
+  .hero-stat{padding:10px 6px}
+  .hero-stat .num{font-size:20px}
+  .hero-stat .label{font-size:10px}
+  .section{padding:22px 16px}
+  .sec-title{font-size:17px}
+  .kw-network-svg-wrap{aspect-ratio:1/1}
+  .bubble-svg-wrap{aspect-ratio:1/1}
+  .kw-card{padding:18px}
+  .kw-card-name{font-size:18px}
+  .kw-card-header{flex-wrap:wrap;gap:8px}
+  .kw-card-count{margin-left:0}
+  .cta{margin:18px 16px;padding:16px}
+  .cta h3{font-size:14px}
+  .bnav{display:grid}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <a class="logo" href="/">브리핑룸</a>
+  <nav class="hnav">
+    <a href="/">홈</a>
+    <a class="on-policy" href="/policy/">정부 정책 AI</a>
+    <a href="/finlaw/">금융 법령 AI</a>
+    <a href="/articles/">아카이브</a>
+  </nav>
+  <a class="bell" href="https://t.me/govbrief" target="_blank">알림</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>정책 키워드 인텔리전스</h1>
+  <div class="hero-sub">최근 30일 보도자료에서 추출한 키워드로 정부 정책 흐름을 읽습니다</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">2,220</div><div class="label">분석 보도자료</div></div>
+    <div class="hero-stat"><div class="num">48</div><div class="label">추출 키워드</div></div>
+    <div class="hero-stat"><div class="num">52</div><div class="label">관련 부처</div></div>
+  </div>
+</section>
+
+<!-- 1. BUBBLE CLUSTER (copied from v3) -->
+<section class="section">
+  <div class="sec-title">키워드 버블 클러스터</div>
+  <div class="sec-desc">Policy Keyword Landscape -- 버블 크기는 전체 부처 언급 횟수, 색상은 정책 분야를 나타냅니다.</div>
+  <div class="bubble-svg-wrap" id="bubble-container">
+    <svg id="bubble-svg" viewBox="0 0 800 500"></svg>
+    <div class="bubble-tooltip" id="bubble-tooltip"></div>
+  </div>
+  <div class="bubble-legend">
+    <div class="bubble-legend-item"><div class="bubble-legend-dot" style="background:#1e40af"></div>금융경제</div>
+    <div class="bubble-legend-item"><div class="bubble-legend-dot" style="background:#d97706"></div>산업기술</div>
+    <div class="bubble-legend-item"><div class="bubble-legend-dot" style="background:#047857"></div>사회복지</div>
+    <div class="bubble-legend-item"><div class="bubble-legend-dot" style="background:#7c3aed"></div>외교안보</div>
+    <div class="bubble-legend-item"><div class="bubble-legend-dot" style="background:#6b7280"></div>행정법제</div>
+  </div>
+</section>
+
+<!-- 2. KEYWORD CONNECTION NETWORK -->
+<section class="section">
+  <div class="sec-title">키워드 연결 네트워크</div>
+  <div class="sec-desc">Keyword Connection Network -- 같은 부처 보도자료에 함께 등장하는 키워드 간 연결. 선이 굵을수록 동시 언급 부처가 많습니다.</div>
+  <div class="kw-network-svg-wrap" id="kw-network-container">
+    <svg id="kw-network-svg" viewBox="0 0 700 700"></svg>
+    <div class="kw-network-tooltip" id="kw-network-tooltip"></div>
+  </div>
+  <div class="network-legend">
+    <div class="network-legend-item"><div class="network-legend-dot" style="background:#d97706"></div>산업기술</div>
+    <div class="network-legend-item"><div class="network-legend-dot" style="background:#1e40af"></div>금융경제</div>
+    <div class="network-legend-item"><div class="network-legend-dot" style="background:#047857"></div>사회복지</div>
+    <div class="network-legend-item"><div class="network-legend-dot" style="background:#7c3aed"></div>외교안보</div>
+    <div class="network-legend-item"><div class="network-legend-dot" style="background:#6b7280"></div>행정법제</div>
+    <div class="network-legend-item"><span style="display:inline-block;width:24px;height:3px;background:rgba(30,64,175,.5);border-radius:2px"></span>강한 연결 (3개 부처)</div>
+    <div class="network-legend-item"><span style="display:inline-block;width:24px;height:1.5px;background:rgba(30,64,175,.25);border-radius:2px"></span>약한 연결 (1개 부처)</div>
+  </div>
+</section>
+
+<!-- 3. KEYWORD DEEP DIVE CARDS -->
+<section class="section">
+  <div class="sec-title">키워드 상세 카드</div>
+  <div class="sec-desc">Keyword Deep Dive -- 핵심 키워드별 관련 부처와 최근 보도자료를 확인합니다.</div>
+  <div class="kw-cards" id="kw-cards"></div>
+</section>
+
+<!-- 4. COLLABORATION MATRIX (copied from v3) -->
+<section class="section" style="border-bottom:none">
+  <div class="sec-title">부처 협업 매트릭스</div>
+  <div class="sec-desc">Ministry Collaboration Matrix -- 부처 간 공유 키워드 수를 나타냅니다. 색이 진할수록 공통 관심사가 많습니다.</div>
+  <div class="matrix-wrap">
+    <table class="matrix-table" id="matrix-table">
+      <thead id="matrix-head"></thead>
+      <tbody id="matrix-body"></tbody>
+    </table>
+  </div>
+  <div class="matrix-legend">
+    <span>0</span>
+    <div class="matrix-legend-box" style="background:#f8f8f8"></div>
+    <div class="matrix-legend-box" style="background:rgba(30,64,175,.12)"></div>
+    <div class="matrix-legend-box" style="background:rgba(30,64,175,.25)"></div>
+    <div class="matrix-legend-box" style="background:rgba(30,64,175,.4)"></div>
+    <div class="matrix-legend-box" style="background:rgba(30,64,175,.7)"></div>
+    <span>5+</span>
+  </div>
+</section>
+<div class="matrix-tooltip" id="matrix-tooltip"></div>
+
+<!-- CTA -->
+<div class="cta">
+  <div>
+    <h3>매일 3분 브리핑</h3>
+    <p>텔레그램에서 받아보세요</p>
+  </div>
+  <a href="https://t.me/govbrief" target="_blank">구독</a>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr
+</div>
+
+<!-- MOBILE BNAV (4 items) -->
+<nav class="bnav">
+  <a href="/"><span style="font-size:16px;font-weight:700">H</span>홈</a>
+  <a href="/policy/"><span style="font-size:16px;font-weight:700">P</span>정책</a>
+  <a href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령</a>
+  <a href="/articles/"><span style="font-size:16px;font-weight:700">A</span>기록</a>
+</nav>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+var CAT_COLORS = {
+  '금융경제': '#1e40af',
+  '산업기술': '#d97706',
+  '사회복지': '#047857',
+  '외교안보': '#7c3aed',
+  '행정법제': '#6b7280'
+};
+
+// Bubble data: [keyword, count, category, top3 ministries]
+var BUBBLES = [
+  { kw: '인공지능',   count: 9, cat: '산업기술', top3: ['과기부', '금융위', '교육부'] },
+  { kw: '국민안전',   count: 7, cat: '사회복지', top3: ['복지부', '국토부', '교육부'] },
+  { kw: '소상공인',   count: 6, cat: '금융경제', top3: ['금융위', '고용부', '금감원'] },
+  { kw: '중동전쟁',   count: 5, cat: '외교안보', top3: ['외교부', '산업부', '국방부'] },
+  { kw: 'ESG',        count: 4, cat: '금융경제', top3: ['금융위', '금감원', '국토부'] },
+  { kw: '가상자산',   count: 4, cat: '금융경제', top3: ['금융위', '금감원', '과기부'] },
+  { kw: '저출산',     count: 3, cat: '사회복지', top3: ['복지부', '교육부', '고용부'] },
+  { kw: '규제혁신',   count: 3, cat: '행정법제', top3: ['국조실', '기재부', '산업부'] },
+  { kw: '디지털전환', count: 3, cat: '산업기술', top3: ['과기부', '금융위', '교육부'] },
+  { kw: '추경',       count: 3, cat: '금융경제', top3: ['기재부', '국토부', '복지부'] },
+  { kw: '국방R&D',    count: 2, cat: '외교안보', top3: ['국방부', '과기부'] },
+  { kw: '산불예방',   count: 2, cat: '산업기술', top3: ['산림청', '행안부'] },
+  { kw: '부동산',     count: 2, cat: '금융경제', top3: ['국토부', '기재부'] },
+  { kw: '수출',       count: 2, cat: '산업기술', top3: ['산업부', '외교부'] },
+  { kw: '농촌관광',   count: 2, cat: '산업기술', top3: ['농식품부', '산림청'] }
+];
+
+
+// ============================================================
+// 1. BUBBLE CLUSTER (identical to v3)
+// ============================================================
+
+(function() {
+  var svg = document.getElementById('bubble-svg');
+  var tooltip = document.getElementById('bubble-tooltip');
+  var container = document.getElementById('bubble-container');
+
+  // Radius scale: count => radius (min 20, max 56)
+  var maxCount = 9;
+  function getRadius(count) {
+    return 20 + (count / maxCount) * 36;
+  }
+
+  // Pre-positioned layout: cluster by category
+  var CLUSTER_CENTERS = {
+    '금융경제': { x: 200, y: 250 },
+    '산업기술': { x: 500, y: 160 },
+    '사회복지': { x: 600, y: 380 },
+    '외교안보': { x: 160, y: 100 },
+    '행정법제': { x: 400, y: 410 }
+  };
+
+  // Assign positions
+  var catGroups = {};
+  BUBBLES.forEach(function(b) {
+    if (!catGroups[b.cat]) catGroups[b.cat] = [];
+    catGroups[b.cat].push(b);
+  });
+
+  var positioned = [];
+
+  Object.keys(catGroups).forEach(function(cat) {
+    var group = catGroups[cat];
+    var center = CLUSTER_CENTERS[cat];
+    group.sort(function(a, b) { return b.count - a.count; });
+
+    group.forEach(function(bubble, i) {
+      var r = getRadius(bubble.count);
+      var x, y;
+
+      if (i === 0) {
+        x = center.x;
+        y = center.y;
+      } else {
+        var angle = (i * 1.8) + (Math.PI * 0.3 * (cat.charCodeAt(0) % 5));
+        var dist = r + getRadius(group[0].count) + 10 + (i * 8);
+        x = center.x + dist * Math.cos(angle);
+        y = center.y + dist * Math.sin(angle);
+      }
+
+      x = Math.max(r + 10, Math.min(790 - r, x));
+      y = Math.max(r + 10, Math.min(490 - r, y));
+
+      positioned.push({
+        kw: bubble.kw, count: bubble.count, cat: bubble.cat,
+        top3: bubble.top3, x: x, y: y, r: r, color: CAT_COLORS[bubble.cat]
+      });
+    });
+  });
+
+  // Resolve overlaps
+  for (var pass = 0; pass < 30; pass++) {
+    for (var i = 0; i < positioned.length; i++) {
+      for (var j = i + 1; j < positioned.length; j++) {
+        var a = positioned[i];
+        var b = positioned[j];
+        var dx = b.x - a.x;
+        var dy = b.y - a.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        var minDist = a.r + b.r + 4;
+
+        if (dist < minDist && dist > 0) {
+          var overlap = (minDist - dist) / 2;
+          var nx = dx / dist;
+          var ny = dy / dist;
+          a.x -= nx * overlap * 0.5;
+          a.y -= ny * overlap * 0.5;
+          b.x += nx * overlap * 0.5;
+          b.y += ny * overlap * 0.5;
+
+          a.x = Math.max(a.r + 5, Math.min(795 - a.r, a.x));
+          a.y = Math.max(a.r + 5, Math.min(495 - a.r, a.y));
+          b.x = Math.max(b.r + 5, Math.min(795 - b.r, b.x));
+          b.y = Math.max(b.r + 5, Math.min(495 - b.r, b.y));
+        }
+      }
+    }
+  }
+
+  // Draw bubbles
+  positioned.sort(function(a, b) { return b.r - a.r; });
+
+  positioned.forEach(function(p) {
+    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.style.cursor = 'pointer';
+
+    var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', p.x);
+    circle.setAttribute('cy', p.y);
+    circle.setAttribute('r', p.r);
+    circle.setAttribute('fill', p.color);
+    circle.setAttribute('fill-opacity', '0.18');
+    circle.setAttribute('stroke', p.color);
+    circle.setAttribute('stroke-width', '2');
+    circle.setAttribute('stroke-opacity', '0.6');
+    g.appendChild(circle);
+
+    var label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    label.setAttribute('x', p.x);
+    label.setAttribute('y', p.r > 28 ? p.y - 4 : p.y - 2);
+    label.setAttribute('text-anchor', 'middle');
+    label.setAttribute('dominant-baseline', 'middle');
+    label.setAttribute('font-family', "'Wanted Sans Variable', sans-serif");
+    label.setAttribute('font-weight', '700');
+    label.setAttribute('fill', p.color);
+    label.setAttribute('pointer-events', 'none');
+    var fontSize = p.r > 40 ? 14 : p.r > 30 ? 12 : p.r > 24 ? 10 : 9;
+    label.setAttribute('font-size', fontSize);
+    label.textContent = p.kw;
+    g.appendChild(label);
+
+    if (p.r > 24) {
+      var countLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      countLabel.setAttribute('x', p.x);
+      countLabel.setAttribute('y', p.y + (p.r > 40 ? 14 : 11));
+      countLabel.setAttribute('text-anchor', 'middle');
+      countLabel.setAttribute('dominant-baseline', 'middle');
+      countLabel.setAttribute('font-family', "'JetBrains Mono', monospace");
+      countLabel.setAttribute('font-size', '10');
+      countLabel.setAttribute('font-weight', '500');
+      countLabel.setAttribute('fill', p.color);
+      countLabel.setAttribute('fill-opacity', '0.7');
+      countLabel.setAttribute('pointer-events', 'none');
+      countLabel.textContent = p.count + '건';
+      g.appendChild(countLabel);
+    }
+
+    (function(bubble) {
+      g.addEventListener('mouseenter', function(e) {
+        circle.setAttribute('fill-opacity', '0.32');
+        circle.setAttribute('stroke-width', '3');
+        circle.setAttribute('stroke-opacity', '1');
+
+        var ministryList = bubble.top3.join(', ');
+        tooltip.innerHTML =
+          '<div class="kw-name">' + bubble.kw + '</div>' +
+          '<div class="kw-count">전체 언급: ' + bubble.count + '건 | 분야: ' + bubble.cat + '</div>' +
+          '<div class="kw-ministries">주요 부처: ' + ministryList + '</div>';
+        tooltip.style.opacity = '1';
+      });
+
+      g.addEventListener('mousemove', function(e) {
+        var rect = container.getBoundingClientRect();
+        var tx = e.clientX - rect.left + 14;
+        var ty = e.clientY - rect.top - 10;
+        if (tx + 200 > rect.width) tx = e.clientX - rect.left - 210;
+        if (ty < 0) ty = 10;
+        tooltip.style.left = tx + 'px';
+        tooltip.style.top = ty + 'px';
+      });
+
+      g.addEventListener('mouseleave', function() {
+        circle.setAttribute('fill-opacity', '0.18');
+        circle.setAttribute('stroke-width', '2');
+        circle.setAttribute('stroke-opacity', '0.6');
+        tooltip.style.opacity = '0';
+      });
+    })(p);
+
+    svg.appendChild(g);
+  });
+})();
+
+
+// ============================================================
+// 2. KEYWORD CONNECTION NETWORK (keyword-centric circular layout)
+// ============================================================
+
+(function() {
+  var svg = document.getElementById('kw-network-svg');
+  var tooltip = document.getElementById('kw-network-tooltip');
+  var container = document.getElementById('kw-network-container');
+
+  // All 15 keywords with their count and category
+  var KW_NODES = BUBBLES.map(function(b) {
+    return { kw: b.kw, count: b.count, cat: b.cat, color: CAT_COLORS[b.cat] };
+  });
+
+  // Co-occurrence edges: keywords that appear together in the same ministry
+  var EDGES = [
+    { a: '인공지능',   b: '디지털전환', strength: 3, ministries: ['과기부', '교육부', '금융위'] },
+    { a: '인공지능',   b: '국방R&D',    strength: 2, ministries: ['과기부', '국방부'] },
+    { a: '인공지능',   b: '가상자산',   strength: 2, ministries: ['금융위', '과기부'] },
+    { a: '소상공인',   b: '추경',       strength: 2, ministries: ['기재부', '중기부'] },
+    { a: '중동전쟁',   b: '수출',       strength: 2, ministries: ['외교부', '산업부'] },
+    { a: 'ESG',        b: '가상자산',   strength: 2, ministries: ['금융위', '금감원'] },
+    { a: '저출산',     b: '국민안전',   strength: 2, ministries: ['복지부', '고용부'] },
+    { a: '부동산',     b: '추경',       strength: 2, ministries: ['국토부', '기재부'] },
+    { a: '농촌관광',   b: '수출',       strength: 2, ministries: ['농식품부', '산림청'] },
+    { a: '산불예방',   b: '농촌관광',   strength: 1, ministries: ['산림청'] },
+    { a: '규제혁신',   b: '디지털전환', strength: 1, ministries: ['과기부'] }
+  ];
+
+  var cx = 350, cy = 350, radius = 260;
+  var n = KW_NODES.length;
+
+  // Compute positions on circle
+  KW_NODES.forEach(function(node, i) {
+    var angle = (2 * Math.PI * i / n) - Math.PI / 2;
+    node.x = cx + radius * Math.cos(angle);
+    node.y = cy + radius * Math.sin(angle);
+    // Node radius based on count
+    node.r = 16 + (node.count / 9) * 20;
+  });
+
+  // Build keyword-to-index map
+  var kwIndex = {};
+  KW_NODES.forEach(function(node, i) { kwIndex[node.kw] = i; });
+
+  // Draw edges first (behind nodes)
+  var edgeElements = [];
+
+  EDGES.forEach(function(edge) {
+    var ai = kwIndex[edge.a];
+    var bi = kwIndex[edge.b];
+    if (ai === undefined || bi === undefined) return;
+
+    var nodeA = KW_NODES[ai];
+    var nodeB = KW_NODES[bi];
+
+    var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', nodeA.x);
+    line.setAttribute('y1', nodeA.y);
+    line.setAttribute('x2', nodeB.x);
+    line.setAttribute('y2', nodeB.y);
+    var opacity = 0.1 + edge.strength * 0.13;
+    var width = 1 + edge.strength * 1.5;
+    line.setAttribute('stroke', 'rgba(30,64,175,' + opacity + ')');
+    line.setAttribute('stroke-width', width);
+    line.setAttribute('stroke-linecap', 'round');
+    line.style.cursor = 'pointer';
+    line.style.transition = 'stroke-width .15s, stroke .15s';
+
+    // Store references for highlighting
+    line._edgeData = edge;
+    line._origOpacity = opacity;
+    line._origWidth = width;
+
+    // Hover on line
+    (function(ln, ed) {
+      ln.addEventListener('mouseenter', function(e) {
+        ln.setAttribute('stroke', 'rgba(30,64,175,0.7)');
+        ln.setAttribute('stroke-width', ed.strength * 2 + 2);
+        tooltip.innerHTML =
+          '<div class="tt-title">' + ed.a + ' -- ' + ed.b + '</div>' +
+          '<div class="tt-detail">' + ed.ministries.join(', ') + '에서 동시 언급</div>';
+        tooltip.style.opacity = '1';
+      });
+
+      ln.addEventListener('mousemove', function(e) {
+        var rect = container.getBoundingClientRect();
+        var tx = e.clientX - rect.left + 14;
+        var ty = e.clientY - rect.top - 10;
+        if (tx + 240 > rect.width) tx = e.clientX - rect.left - 250;
+        if (ty < 0) ty = 10;
+        tooltip.style.left = tx + 'px';
+        tooltip.style.top = ty + 'px';
+      });
+
+      ln.addEventListener('mouseleave', function() {
+        ln.setAttribute('stroke', 'rgba(30,64,175,' + ln._origOpacity + ')');
+        ln.setAttribute('stroke-width', ln._origWidth);
+        tooltip.style.opacity = '0';
+      });
+    })(line, edge);
+
+    svg.appendChild(line);
+    edgeElements.push(line);
+  });
+
+  // Draw nodes
+  var nodeGroups = [];
+
+  KW_NODES.forEach(function(node, idx) {
+    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.style.cursor = 'pointer';
+
+    // Circle
+    var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', node.x);
+    circle.setAttribute('cy', node.y);
+    circle.setAttribute('r', node.r);
+    circle.setAttribute('fill', node.color);
+    circle.setAttribute('fill-opacity', '0.15');
+    circle.setAttribute('stroke', node.color);
+    circle.setAttribute('stroke-width', '2');
+    circle.setAttribute('stroke-opacity', '0.7');
+    g.appendChild(circle);
+
+    // Keyword label
+    var label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    label.setAttribute('x', node.x);
+    label.setAttribute('y', node.r > 24 ? node.y - 3 : node.y);
+    label.setAttribute('text-anchor', 'middle');
+    label.setAttribute('dominant-baseline', 'middle');
+    label.setAttribute('font-family', "'Wanted Sans Variable', sans-serif");
+    label.setAttribute('font-weight', '700');
+    label.setAttribute('fill', node.color);
+    label.setAttribute('pointer-events', 'none');
+    var fs = node.r > 30 ? 12 : node.r > 24 ? 11 : 10;
+    label.setAttribute('font-size', fs);
+    label.textContent = node.kw;
+    g.appendChild(label);
+
+    // Count below
+    if (node.r > 22) {
+      var countTxt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      countTxt.setAttribute('x', node.x);
+      countTxt.setAttribute('y', node.y + (node.r > 30 ? 12 : 10));
+      countTxt.setAttribute('text-anchor', 'middle');
+      countTxt.setAttribute('dominant-baseline', 'middle');
+      countTxt.setAttribute('font-family', "'JetBrains Mono', monospace");
+      countTxt.setAttribute('font-size', '9');
+      countTxt.setAttribute('font-weight', '500');
+      countTxt.setAttribute('fill', node.color);
+      countTxt.setAttribute('fill-opacity', '0.6');
+      countTxt.setAttribute('pointer-events', 'none');
+      countTxt.textContent = node.count + '회';
+      g.appendChild(countTxt);
+    }
+
+    // Hover: highlight connected edges
+    (function(nd, circ, idx) {
+      g.addEventListener('mouseenter', function(e) {
+        circ.setAttribute('fill-opacity', '0.35');
+        circ.setAttribute('stroke-width', '3');
+        circ.setAttribute('stroke-opacity', '1');
+
+        // Find connected keywords
+        var connected = [];
+        edgeElements.forEach(function(ln) {
+          var ed = ln._edgeData;
+          if (ed.a === nd.kw || ed.b === nd.kw) {
+            ln.setAttribute('stroke', 'rgba(30,64,175,0.7)');
+            ln.setAttribute('stroke-width', ed.strength * 2 + 2);
+            var other = ed.a === nd.kw ? ed.b : ed.a;
+            connected.push(other + ' (' + ed.strength + ')');
+          }
+        });
+
+        var connList = connected.length > 0 ? connected.join(', ') : '연결 없음';
+        tooltip.innerHTML =
+          '<div class="tt-title">' + nd.kw + ' (' + nd.cat + ')</div>' +
+          '<div class="tt-detail">언급: ' + nd.count + '회 | 연결: ' + connList + '</div>';
+        tooltip.style.opacity = '1';
+      });
+
+      g.addEventListener('mousemove', function(e) {
+        var rect = container.getBoundingClientRect();
+        var tx = e.clientX - rect.left + 14;
+        var ty = e.clientY - rect.top - 10;
+        if (tx + 280 > rect.width) tx = e.clientX - rect.left - 290;
+        if (ty < 0) ty = 10;
+        tooltip.style.left = tx + 'px';
+        tooltip.style.top = ty + 'px';
+      });
+
+      g.addEventListener('mouseleave', function() {
+        circ.setAttribute('fill-opacity', '0.15');
+        circ.setAttribute('stroke-width', '2');
+        circ.setAttribute('stroke-opacity', '0.7');
+
+        // Reset edges
+        edgeElements.forEach(function(ln) {
+          ln.setAttribute('stroke', 'rgba(30,64,175,' + ln._origOpacity + ')');
+          ln.setAttribute('stroke-width', ln._origWidth);
+        });
+
+        tooltip.style.opacity = '0';
+      });
+    })(node, circle, idx);
+
+    svg.appendChild(g);
+    nodeGroups.push(g);
+  });
+})();
+
+
+// ============================================================
+// 3. KEYWORD DEEP DIVE CARDS
+// ============================================================
+
+(function() {
+  var CARD_DATA = [
+    {
+      kw: '인공지능',
+      count: 9,
+      cat: '산업기술',
+      ministries: ['과기부', '금융위', '교육부', '국방부'],
+      articles: [
+        { impact: '상', title: '과기정통부, 제3회 미래 국방 전략 토론회 개최', date: '04.09' },
+        { impact: '중', title: '데이터 소진되어도 연결은 지속, 요금제 개편', date: '04.09' },
+        { impact: '중', title: 'AI 기본법 지원 데스크 552건 상담', date: '03.28' }
+      ]
+    },
+    {
+      kw: '소상공인',
+      count: 6,
+      cat: '금융경제',
+      ministries: ['중기부', '기재부', '금융위'],
+      articles: [
+        { impact: '상', title: '소상공인 정책자금 긴급 지원 추가 시행', date: '04.06' },
+        { impact: '중', title: '소상공인 디지털 전환 지원 사업', date: '04.01' },
+        { impact: '중', title: '전통시장 현대화 사업 추진 현황', date: '03.25' }
+      ]
+    },
+    {
+      kw: '중동전쟁',
+      count: 5,
+      cat: '외교안보',
+      ministries: ['외교부', '기재부', '산업부', '해수부'],
+      articles: [
+        { impact: '상', title: '고유가 대응 관계장관 간담회', date: '03.28' },
+        { impact: '상', title: '美 철강/알루미늄 관세 개편 기업 대응력 강화', date: '04.01' },
+        { impact: '중', title: '원유/나프타 공급망 대체 수급선 발굴', date: '04.06' }
+      ]
+    }
+  ];
+
+  var cardsContainer = document.getElementById('kw-cards');
+
+  CARD_DATA.forEach(function(card) {
+    var catColor = CAT_COLORS[card.cat];
+
+    var cardEl = document.createElement('div');
+    cardEl.className = 'kw-card';
+
+    // Header
+    var header = document.createElement('div');
+    header.className = 'kw-card-header';
+
+    var name = document.createElement('div');
+    name.className = 'kw-card-name';
+    name.textContent = card.kw;
+    header.appendChild(name);
+
+    var tag = document.createElement('span');
+    tag.className = 'kw-card-tag';
+    tag.style.background = catColor;
+    tag.textContent = card.cat;
+    header.appendChild(tag);
+
+    var count = document.createElement('div');
+    count.className = 'kw-card-count';
+    count.textContent = card.count + '회 언급';
+    header.appendChild(count);
+
+    cardEl.appendChild(header);
+
+    // Ministries
+    var mLabel = document.createElement('div');
+    mLabel.className = 'kw-card-section-label';
+    mLabel.textContent = '관련 부처';
+    cardEl.appendChild(mLabel);
+
+    var mPills = document.createElement('div');
+    mPills.className = 'kw-card-ministries';
+    card.ministries.forEach(function(m) {
+      var pill = document.createElement('span');
+      pill.className = 'kw-ministry-pill';
+      pill.textContent = m;
+      mPills.appendChild(pill);
+    });
+    cardEl.appendChild(mPills);
+
+    // Articles
+    var aLabel = document.createElement('div');
+    aLabel.className = 'kw-card-section-label';
+    aLabel.textContent = '최근 보도자료';
+    aLabel.style.marginBottom = '8px';
+    cardEl.appendChild(aLabel);
+
+    var articlesWrap = document.createElement('div');
+    articlesWrap.className = 'kw-card-articles';
+
+    card.articles.forEach(function(article) {
+      var row = document.createElement('div');
+      row.className = 'kw-article';
+
+      var badge = document.createElement('span');
+      badge.className = 'impact-badge ' + (article.impact === '상' ? 'impact-high' : 'impact-mid');
+      badge.textContent = article.impact;
+      row.appendChild(badge);
+
+      var title = document.createElement('span');
+      title.className = 'kw-article-title';
+      title.textContent = article.title;
+      row.appendChild(title);
+
+      var date = document.createElement('span');
+      date.className = 'kw-article-date';
+      date.textContent = article.date;
+      row.appendChild(date);
+
+      articlesWrap.appendChild(row);
+    });
+
+    cardEl.appendChild(articlesWrap);
+    cardsContainer.appendChild(cardEl);
+  });
+})();
+
+
+// ============================================================
+// 4. COLLABORATION MATRIX (identical to v3)
+// ============================================================
+
+(function() {
+  var MATRIX_MINISTRIES = ['금융위', '금감원', '과기부', '교육부', '복지부', '고용부', '국토부', '외교부', '기재부', '산업부'];
+
+  var SELF_COUNTS = {
+    '금융위': 12, '금감원': 9, '과기부': 10, '교육부': 6,
+    '복지부': 8, '고용부': 7, '국토부': 7, '외교부': 5, '기재부': 6, '산업부': 7
+  };
+
+  var SHARED = {
+    '금융위-금감원': { count: 5, keywords: ['가상자산', 'ESG', '소비자보호', '불법금융', '금융지주'] },
+    '금융위-과기부': { count: 3, keywords: ['인공지능', '가상자산', '디지털전환'] },
+    '과기부-교육부': { count: 2, keywords: ['인공지능', '디지털전환'] },
+    '과기부-국방부': { count: 2, keywords: ['인공지능', '국방R&D'] },
+    '복지부-고용부': { count: 3, keywords: ['저출산', '국민안전', '노인복지'] },
+    '복지부-교육부': { count: 2, keywords: ['저출산', '국민안전'] },
+    '국토부-기재부': { count: 2, keywords: ['부동산', '추경'] },
+    '외교부-산업부': { count: 2, keywords: ['중동전쟁', '수출'] },
+    '농식품부-산림청': { count: 3, keywords: ['농촌관광', '산불예방', '수출'] },
+    '금융위-기재부': { count: 2, keywords: ['추경', 'ESG'] },
+    '금감원-과기부': { count: 2, keywords: ['가상자산', '인공지능'] },
+    '과기부-산업부': { count: 2, keywords: ['디지털전환', '수출'] },
+    '복지부-국토부': { count: 1, keywords: ['국민안전'] },
+    '교육부-고용부': { count: 1, keywords: ['저출산'] },
+    '금융위-산업부': { count: 1, keywords: ['ESG'] },
+    '기재부-산업부': { count: 1, keywords: ['수출'] },
+    '외교부-과기부': { count: 1, keywords: ['인공지능'] },
+    '고용부-국토부': { count: 1, keywords: ['국민안전'] }
+  };
+
+  function getShared(a, b) {
+    var key1 = a + '-' + b;
+    var key2 = b + '-' + a;
+    return SHARED[key1] || SHARED[key2] || null;
+  }
+
+  var thead = document.getElementById('matrix-head');
+  var tbody = document.getElementById('matrix-body');
+  var tooltip = document.getElementById('matrix-tooltip');
+
+  var headerRow = document.createElement('tr');
+  var cornerTh = document.createElement('th');
+  cornerTh.textContent = '';
+  headerRow.appendChild(cornerTh);
+  MATRIX_MINISTRIES.forEach(function(m) {
+    var th = document.createElement('th');
+    th.textContent = m;
+    headerRow.appendChild(th);
+  });
+  thead.appendChild(headerRow);
+
+  MATRIX_MINISTRIES.forEach(function(rowM, ri) {
+    var tr = document.createElement('tr');
+
+    var tdName = document.createElement('td');
+    tdName.textContent = rowM;
+    tr.appendChild(tdName);
+
+    MATRIX_MINISTRIES.forEach(function(colM, ci) {
+      var td = document.createElement('td');
+      var cell = document.createElement('div');
+      cell.className = 'matrix-cell';
+
+      if (ri === ci) {
+        cell.classList.add('diag');
+        cell.textContent = SELF_COUNTS[rowM] || 0;
+        cell.title = rowM + ': 키워드 ' + (SELF_COUNTS[rowM] || 0) + '개';
+      } else {
+        var shared = getShared(rowM, colM);
+        var count = shared ? shared.count : 0;
+
+        var lvl = count === 0 ? 0 : count === 1 ? 1 : count === 2 ? 2 : count === 3 ? 3 : count === 4 ? 4 : 5;
+        cell.classList.add('lvl-' + lvl);
+        cell.textContent = count;
+
+        (function(r, c, sh, cnt) {
+          cell.addEventListener('mouseenter', function(e) {
+            if (cnt === 0) {
+              tooltip.innerHTML = '<div class="pair">' + r + ' - ' + c + '</div><div class="keywords">공통 키워드 없음</div>';
+            } else {
+              tooltip.innerHTML = '<div class="pair">' + r + ' - ' + c + ': 공통 키워드 ' + cnt + '개</div>' +
+                '<div class="keywords">(' + sh.keywords.join(', ') + ')</div>';
+            }
+            tooltip.style.opacity = '1';
+          });
+
+          cell.addEventListener('mousemove', function(e) {
+            var tx = e.clientX + 14;
+            var ty = e.clientY - 40;
+            if (tx + 280 > window.innerWidth) tx = e.clientX - 280;
+            if (ty < 0) ty = e.clientY + 14;
+            tooltip.style.left = tx + 'px';
+            tooltip.style.top = ty + 'px';
+          });
+
+          cell.addEventListener('mouseleave', function() {
+            tooltip.style.opacity = '0';
+          });
+        })(rowM, colM, shared, count);
+      }
+
+      td.appendChild(cell);
+      tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
+  });
+})();
+</script>
+</body>
+</html>
