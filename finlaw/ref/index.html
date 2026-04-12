@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>관계도 상세 · 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var ua=navigator.userAgent;
+  if(/Mobi|Android|iPhone|iPad/i.test(ua)||location.search.indexOf('mobile=1')!==-1)
+    document.documentElement.classList.add('is-mobile');
+})();
+</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all;overflow-wrap:break-word}
+:root{--sec:#c2410c;--sec-light:#ea580c;--sec-bg:#fef2e8;--sec-border:#fed7aa;--bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;--t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;line-height:1.6;min-width:1120px}
+.is-mobile body{min-width:0;font-size:14px}
+
+/* 헤더 */
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--sec);background:var(--sec-bg);font-weight:700}
+.hdr-nav .lbl-short{display:none}
+.is-mobile .hdr{padding:0 12px;height:52px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav{gap:2px;flex:1;min-width:0}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+.is-mobile .hdr-nav .lbl-full{display:none}
+.is-mobile .hdr-nav .lbl-short{display:inline}
+
+/* 모바일 검색 */
+.mobile-search{display:none}
+.is-mobile .mobile-search{display:block;background:#fff;padding:10px 14px;border-bottom:1px solid var(--bl);position:sticky;top:52px;z-index:90}
+.mobile-search-box{position:relative}
+.mobile-search-box input{width:100%;padding:10px 14px 10px 36px;font-size:13px;border:1px solid var(--b);border-radius:8px;background:var(--s2);outline:none;font-family:var(--sans);color:var(--t)}
+.mobile-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:14px;pointer-events:none}
+
+.shell{max-width:1080px;margin:0 auto;padding:20px 16px 60px}
+.is-mobile .shell{padding:10px 10px 20px}
+
+/* 그래프 패널 */
+.graph-panel{background:#fff;border:1px solid var(--b);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.graph-hdr{padding:16px 22px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bl)}
+.graph-title{font-family:var(--serif);font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px}
+.graph-title::before{content:'';width:3px;height:15px;background:var(--sec);border-radius:1px}
+.graph-meta{font-family:var(--mono);font-size:11px;color:var(--t3);text-align:right;line-height:1.6}
+.graph-back{font-size:12px;color:var(--t3);text-decoration:none;font-weight:600}
+.graph-back:hover{color:var(--sec)}
+.graph-legend{display:flex;gap:16px;padding:10px 22px;background:#fafaf8;border-bottom:1px solid var(--bl);font-size:12px;color:var(--t2);flex-wrap:wrap}
+.graph-legend-item{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.graph-legend-dot{width:12px;height:12px;border-radius:50%}
+#graph-canvas{width:100%;height:600px;cursor:grab;display:block}
+#graph-canvas:active{cursor:grabbing}
+#graph-canvas text{font-family:'Wanted Sans Variable',sans-serif;pointer-events:none}
+.is-mobile .graph-hdr{padding:12px 16px 8px}
+.is-mobile .graph-title{font-size:15px}
+.is-mobile .graph-legend{padding:8px 16px;font-size:10.5px;gap:10px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.is-mobile .graph-legend::-webkit-scrollbar{display:none}
+.is-mobile #graph-canvas{height:400px;cursor:grab;touch-action:pan-x pan-y}
+.is-mobile #graph-canvas:active{cursor:grabbing}
+
+/* 조문 상세 */
+.article-list{display:flex;flex-direction:column}
+.article-item{border-top:1px solid var(--bl);padding:18px 22px}
+.article-item:first-child{border-top:none}
+.article-label{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--sec);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.article-title{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--t);margin-bottom:8px}
+.article-text{font-size:13px;color:var(--t2);line-height:1.8}
+.is-mobile .article-item{padding:14px 16px}
+.is-mobile .article-title{font-size:14px}
+.is-mobile .article-text{font-size:12px}
+
+/* 푸터 */
+.ft{max-width:1080px;margin:20px auto 0;padding:24px 16px 32px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.ft-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
+.ft-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
+.is-mobile .ft{padding:16px 14px 22px}
+.is-mobile .ft-motto{font-size:12px}
+
+/* 하단 고정 네비 */
+.bottom-nav{display:none}
+.is-mobile body{padding-bottom:68px}
+.is-mobile .bottom-nav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(0,0,0,.06)}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600;padding:4px 0}
+.bottom-nav a.on{color:var(--sec)}
+.bottom-nav svg{width:22px;height:22px;stroke-width:2;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="hdr-logo" href="/">브리핑룸</a>
+  <nav class="hdr-nav">
+    <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
+    <a href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
+    <a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a>
+    <a class="on" href="/finlaw/"><span class="lbl-full">금융 규제 트래커</span><span class="lbl-short">금융 규제</span></a>
+  </nav>
+</header>
+
+<div class="mobile-search">
+  <div class="mobile-search-box">
+    <span class="mobile-search-icon">&#x2315;</span>
+    <input id="mobileSearchInput" placeholder="법령명 조문 검색 (예: 자본시장법 제3조)" />
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- 대형 관계도 그래프 -->
+  <section class="graph-panel">
+    <div class="graph-hdr">
+      <h2 class="graph-title" id="graphTitle">자본시장법 제3조 관계도 상세</h2>
+      <a class="graph-back" href="/finlaw/">&larr; 금융 규제 트래커</a>
+    </div>
+    <div class="graph-legend" id="legend"></div>
+    <svg id="graph-canvas"></svg>
+  </section>
+
+  <!-- 조문 전체 텍스트 -->
+  <section class="graph-panel">
+    <div class="graph-hdr">
+      <h2 class="graph-title">관련 조문 전문</h2>
+      <span class="graph-meta">9개 조문</span>
+    </div>
+    <div class="article-list">
+
+      <div class="article-item">
+        <div class="article-label">자본시장법 · 제3조 (금융투자상품)</div>
+        <div class="article-text">&#9312; 이 법에서 "금융투자상품"이란 이익을 얻거나 손실을 회피할 목적으로 현재 또는 장래의 특정 시점에 금전등을 지급하기로 약정함으로써 취득하는 권리로서, 투자성이 있는 것을 말한다.<br><br>&#9313; 제1항에서 "투자성"이란 그 권리를 취득하기 위하여 지급하였거나 지급하여야 할 금전등의 총액이 그 권리로부터 회수하였거나 회수할 수 있는 금전등의 총액을 초과하게 될 위험을 말한다.</div>
+      </div>
+
+      <div class="article-item">
+        <div class="article-label">자본시장법 시행령 · 제4조 (금융투자상품 범위)</div>
+        <div class="article-text">&#9312; 법 제3조에 따른 금융투자상품의 범위는 채무증권, 지분증권, 수익증권, 투자계약증권, 파생결합증권, 증권예탁증권, 장내파생상품, 장외파생상품으로 한다.<br><br>&#9313; 제1항의 금융투자상품은 그 경제적 실질에 따라 분류한다.</div>
+      </div>
+
+      <div class="article-item">
+        <div class="article-label">자본시장법 시행령 · 제5조 (파생상품 범위)</div>
+        <div class="article-text">&#9312; 법 제3조제2항에 따른 파생상품은 기초자산이나 기초자산의 가격·이자율·지표·단위 또는 이를 기초로 하는 지수 등에 의하여 산출된 금전등을 장래의 특정 시점에 인도할 것을 약정하는 계약을 말한다.</div>
+      </div>
+
+      <div class="article-item">
+        <div class="article-label">자본시장법 시행령 · 제7조 (증권 범위)</div>
+        <div class="article-text">&#9312; 법 제3조제1항에 따른 증권은 채무증권, 지분증권, 수익증권, 투자계약증권, 파생결합증권 및 증권예탁증권으로 한다.</div>
+      </div>
+
+      <div class="article-item">
+        <div class="article-label">금융투자업규정 · 제1-2조 (세부 범위)</div>
+        <div class="article-text">&#9312; 영 제4조에 따라 금융투자상품의 세부 범위는 금융위원회가 정하여 고시한다.<br><br>&#9313; 제1항의 금융투자상품에는 외화증권, 외화파생상품을 포함한다.</div>
+      </div>
+
+      <div class="article-item">
+        <div class="article-label">보험업법 · 제108조 (변액보험 특례)</div>
+        <div class="article-text">&#9312; 보험회사는 「자본시장과 금융투자업에 관한 법률」 제3조의 금융투자상품에 투자하여 그 수익을 변액보험계약자에게 배분하는 변액보험상품을 판매할 수 있다.<br><br>&#9313; 변액보험에 관하여 필요한 사항은 대통령령으로 정한다.</div>
+      </div>
+
+      <div class="article-item">
+        <div class="article-label">보험업법 시행령 · 제52조 (변액보험 세부)</div>
+        <div class="article-text">&#9312; 법 제108조에 따라 보험회사는 변액보험의 특별계정을 설정·운용하여야 하며, 자산운용의 방법과 한도는 금융위원회가 정한다.</div>
+      </div>
+
+      <div class="article-item">
+        <div class="article-label">금융소비자보호법 · 제3조 (금융상품 정의)</div>
+        <div class="article-text">&#9312; 이 법에서 "금융상품"이란 「자본시장과 금융투자업에 관한 법률」 제3조에 따른 금융투자상품, 「은행법」에 따른 예금성 상품, 「보험업법」에 따른 보험상품을 말한다.</div>
+      </div>
+
+      <div class="article-item">
+        <div class="article-label">여신전문금융업법 · 제2조 (정의)</div>
+        <div class="article-text">&#9312; 이 법에서 사용하는 용어의 뜻은 다음과 같다. (중략) "신기술사업금융업"이란 「자본시장과 금융투자업에 관한 법률」 제3조의 금융투자상품과 관련된 신기술사업에 대하여 투자하는 것을 업으로 하는 것을 말한다.</div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<nav class="bottom-nav">
+  <a href="/"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg><span>홈</span></a>
+  <a href="/brief/"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>정부 발표</span></a>
+  <a href="/keywords/"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>키워드</span></a>
+  <a class="on" href="/finlaw/"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg><span>금융 규제</span></a>
+</nav>
+
+<footer class="ft">
+  <div class="ft-motto">정부 정책과 금융 규제, 한 화면에</div>
+  <div class="ft-site">govbrief.kr</div>
+</footer>
+
+<script>
+const COLORS={
+  '자본시장법':'#c2410c','자본시장법 시행령':'#ea580c','금융투자업규정':'#f97316',
+  '보험업법':'#1e40af','보험업법 시행령':'#3b82f6',
+  '금융소비자보호법':'#7c3aed','여신전문금융업법':'#059669'
+};
+const nodes=[
+  {id:'root',law:'자본시장법',article:'제3조',title:'금융투자상품',type:'법률',group:'자본시장법'},
+  {id:'d4',law:'자본시장법 시행령',article:'제4조',title:'금융투자상품 범위',type:'시행령',group:'자본시장법 시행령',ref:'법 제3조'},
+  {id:'d5',law:'자본시장법 시행령',article:'제5조',title:'파생상품 범위',type:'시행령',group:'자본시장법 시행령',ref:'법 제3조'},
+  {id:'d7',law:'자본시장법 시행령',article:'제7조',title:'증권 범위',type:'시행령',group:'자본시장법 시행령',ref:'법 제3조'},
+  {id:'r12',law:'금융투자업규정',article:'제1-2조',title:'세부 범위',type:'감독규정',group:'금융투자업규정',ref:'영 제4조'},
+  {id:'ins108',law:'보험업법',article:'제108조',title:'변액보험 특례',type:'법률',group:'보험업법',ref:'자본시장법 제3조'},
+  {id:'ins52',law:'보험업법 시행령',article:'제52조',title:'변액보험 세부',type:'시행령',group:'보험업법 시행령',ref:'법 제108조'},
+  {id:'fc3',law:'금융소비자보호법',article:'제3조',title:'금융상품 정의',type:'법률',group:'금융소비자보호법',ref:'자본시장법 제3조'},
+  {id:'cc2',law:'여신전문금융업법',article:'제2조',title:'정의',type:'법률',group:'여신전문금융업법',ref:'자본시장법 제3조'},
+];
+const links=[
+  {source:'root',target:'d4',type:'down'},{source:'root',target:'d5',type:'down'},
+  {source:'root',target:'d7',type:'down'},{source:'d4',target:'r12',type:'down'},
+  {source:'root',target:'ins108',type:'cross'},{source:'ins108',target:'ins52',type:'down'},
+  {source:'root',target:'fc3',type:'cross'},{source:'root',target:'cc2',type:'cross'},
+];
+
+// 범례
+function buildLegend(container){
+  container.innerHTML='';
+  [...new Set(nodes.map(n=>n.group))].forEach(g=>{
+    var d=document.createElement('div');d.className='graph-legend-item';
+    d.innerHTML='<div class="graph-legend-dot" style="background:'+(COLORS[g]||'#888')+'"></div>'+g;
+    container.appendChild(d);
+  });
+}
+buildLegend(document.getElementById('legend'));
+
+// D3 그래프 (확대 버전 - 더 큰 캔버스)
+var isMobile = document.documentElement.classList.contains('is-mobile');
+
+function drawGraph(svgSel, w, h) {
+  svgSel.selectAll('*').remove();
+  svgSel.attr('viewBox', [0, 0, w, h]);
+
+  var nodesCopy = nodes.map(function(d){ return Object.assign({}, d); });
+  var linksCopy = links.map(function(d){ return Object.assign({}, d); });
+
+  var container = svgSel.append('g');
+  var zoom = d3.zoom()
+    .scaleExtent([0.3, 4])
+    .on('zoom', function(e){ container.attr('transform', e.transform); });
+  svgSel.call(zoom);
+
+  var sim = d3.forceSimulation(nodesCopy)
+    .force('link', d3.forceLink(linksCopy).id(function(d){ return d.id; }).distance(function(d){ return d.type === 'cross' ? 180 : 130; }).strength(.9))
+    .force('charge', d3.forceManyBody().strength(isMobile ? -500 : -700))
+    .force('center', d3.forceCenter(w / 2, h / 2))
+    .force('collision', d3.forceCollide().radius(isMobile ? 40 : 50));
+
+  var uid = Math.random().toString(36).substr(2, 4);
+  container.append('defs').selectAll('marker').data(['down', 'cross']).enter().append('marker')
+    .attr('id', function(d){ return 'a-' + d + uid; }).attr('viewBox', '0 -5 10 10').attr('refX', 10).attr('refY', 0)
+    .attr('markerWidth', 6).attr('markerHeight', 6).attr('orient', 'auto')
+    .append('path').attr('d', 'M0,-5L10,0L0,5').attr('fill', function(d){ return d === 'cross' ? '#3b82f6' : '#c2410c'; });
+
+  var link = container.append('g').selectAll('line').data(linksCopy).enter().append('line')
+    .attr('stroke', function(d){ return d.type === 'cross' ? '#93c5fd' : '#fed7aa'; }).attr('stroke-width', 2.5)
+    .attr('stroke-dasharray', function(d){ return d.type === 'cross' ? '6,4' : 'none'; })
+    .attr('marker-end', function(d){ return 'url(#a-' + d.type + uid + ')'; });
+
+  var node = container.append('g').selectAll('g').data(nodesCopy).enter().append('g')
+    .style('cursor', 'pointer')
+    .call(d3.drag()
+      .on('start', function(e, d){ if (!e.active) sim.alphaTarget(.3).restart(); d.fx = d.x; d.fy = d.y; })
+      .on('drag', function(e, d){ d.fx = e.x; d.fy = e.y; })
+      .on('end', function(e, d){ if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; })
+    );
+
+  var r = isMobile ? {root: 32, child: 22} : {root: 36, child: 24};
+
+  node.append('circle').attr('r', function(d){ return d.id === 'root' ? r.root : r.child; })
+    .attr('fill', function(d){ return COLORS[d.group] || '#888'; }).attr('stroke', '#fff').attr('stroke-width', function(d){ return d.id === 'root' ? 3.5 : 2.5; });
+  node.filter(function(d){ return d.id === 'root'; }).insert('circle', ':first-child')
+    .attr('r', r.root + 8).attr('fill', 'none').attr('stroke', '#c2410c')
+    .attr('stroke-width', 2).attr('stroke-dasharray', '4,4').attr('opacity', .4);
+
+  var fs = isMobile ? {art: 11, artR: 13, law: 10, lawOff: 34, lawOffR: 46} : {art: 11, artR: 14, law: 11, lawOff: 38, lawOffR: 52};
+  node.append('text').text(function(d){ return d.article; }).attr('text-anchor', 'middle').attr('dy', -1).attr('fill', '#fff')
+    .attr('font-size', function(d){ return d.id === 'root' ? fs.artR : fs.art; }).attr('font-weight', 700);
+  node.append('text').text(function(d){ var s = d.law; return s.length > 8 ? s.substring(0, 8) + '\u2026' : s; })
+    .attr('text-anchor', 'middle').attr('dy', function(d){ return d.id === 'root' ? fs.lawOffR : fs.lawOff; })
+    .attr('fill', '#555').attr('font-size', fs.law).attr('font-weight', 600);
+
+  // 타이틀 라벨 (상세 페이지에서는 법명 + 조문 타이틀도 표시)
+  node.append('text').text(function(d){ return d.title; })
+    .attr('text-anchor', 'middle').attr('dy', function(d){ return d.id === 'root' ? fs.lawOffR + 14 : fs.lawOff + 14; })
+    .attr('fill', '#888').attr('font-size', 9).attr('font-weight', 500);
+
+  node.on('click', function(e, d){
+    e.stopPropagation();
+    node.selectAll('circle').attr('stroke', '#fff');
+    d3.select(e.currentTarget).select('circle:last-of-type').attr('stroke', '#c2410c').attr('stroke-width', 3);
+  });
+
+  sim.on('tick', function(){
+    link.each(function(d){
+      var dx = d.target.x - d.source.x, dy = d.target.y - d.source.y, dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      var sr = d.source.id === 'root' ? r.root + 4 : r.child + 4;
+      var tr = d.target.id === 'root' ? r.root + 4 : r.child + 4;
+      d3.select(this)
+        .attr('x1', d.source.x + dx / dist * sr).attr('y1', d.source.y + dy / dist * sr)
+        .attr('x2', d.target.x - dx / dist * tr).attr('y2', d.target.y - dy / dist * tr);
+    });
+    node.attr('transform', function(d){ return 'translate(' + d.x + ',' + d.y + ')'; });
+  });
+}
+
+// 렌더
+var mainSvg = d3.select('#graph-canvas');
+var mainW = mainSvg.node().parentElement.clientWidth;
+var mainH = isMobile ? 400 : 600;
+drawGraph(mainSvg, mainW, mainH);
+
+// URL 파라미터에서 q 읽어 제목 업데이트
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var q = params.get('q');
+  if (q) {
+    document.getElementById('graphTitle').textContent = q + ' 관계도 상세';
+  }
+})();
+</script>
+
+</body>
+</html>

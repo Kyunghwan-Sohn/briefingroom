@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전체 상세 페이지 목업 — 브리핑룸 v2</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all}
+:root{--a:#d96c2c;--bg:#0f0f0f;--s:#1a1a1a;--b:#2e2e2e;--t:#f0f0f0;--t2:#aaa;--m:#666;--blue:#1e40af;--purple:#7c3aed;--fin:#c2410c;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:14px;line-height:1.6}
+
+.doc-hdr{max-width:1200px;margin:0 auto;padding:48px 40px 36px;border-bottom:1px solid var(--b)}
+.doc-hdr .badge{font-family:var(--mono);font-size:11px;color:var(--a);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.doc-hdr h1{font-family:var(--serif);font-size:34px;font-weight:700;margin-bottom:10px}
+.doc-hdr p{font-size:14px;color:var(--t2);line-height:1.7;max-width:700px}
+.doc-nav{display:flex;gap:6px;margin-top:20px;flex-wrap:wrap}
+.doc-nav a{font-size:11px;color:var(--t2);background:var(--s);border:1px solid var(--b);padding:5px 12px;border-radius:4px;text-decoration:none}
+.doc-nav a:hover{border-color:var(--a);color:var(--a)}
+
+.section{max-width:1200px;margin:0 auto;padding:52px 40px}
+.section-title{font-family:var(--mono);font-size:11px;color:var(--a);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.section-heading{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:6px}
+.section-url{font-family:var(--mono);font-size:11px;color:var(--m);margin-bottom:24px}
+.divider{border:none;border-top:1px solid var(--b);margin:0}
+
+/* 브라우저 프레임 */
+.frame{border:1.5px solid var(--b);border-radius:12px;overflow:hidden;background:var(--s)}
+.frame-bar{height:34px;background:#222;border-bottom:1px solid var(--b);display:flex;align-items:center;padding:0 14px;gap:10px}
+.frame-dots{display:flex;gap:5px}
+.frame-dots span{width:8px;height:8px;border-radius:50%;background:#333}
+.frame-url{font-family:var(--mono);font-size:10px;color:var(--m);background:var(--bg);padding:3px 12px;border-radius:4px;flex:1;text-align:center}
+
+/* v2 페이지 콘텐츠 */
+.pg{background:#f7f7f5;font-family:var(--sans);color:#1a1a1a;font-size:14px}
+.pg-nav{height:42px;background:#fff;border-bottom:1px solid #dcdcd8;display:flex;align-items:center;padding:0 18px;gap:6px}
+.pg-logo{font-family:var(--serif);font-size:16px;font-weight:700;color:#1a1a1a;margin-right:20px}
+.pg-navitem{font-size:11px;font-weight:600;color:#555;padding:6px 10px;border-radius:5px}
+.pg-navitem.blue{background:#eff6ff;color:#1e40af}
+.pg-navitem.purple{background:#f5f3ff;color:#7c3aed}
+.pg-navitem.orange{background:#fef2e8;color:#c2410c}
+
+.pg-shell{max-width:900px;margin:0 auto;padding:16px}
+
+.pg-panel{background:#fff;border:1px solid #dcdcd8;border-radius:8px;overflow:hidden;margin-bottom:14px}
+.pg-panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 8px}
+.pg-panel-title{font-family:var(--serif);font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+.pg-panel-title .bar{width:3px;height:13px;border-radius:1px}
+.pg-panel-more{font-size:11px;color:#888;font-weight:600}
+
+/* AI 채팅 */
+.pg-ai-ctx{display:flex;gap:4px;padding:8px 18px;background:#fafaf8;border-top:1px solid #ededea;flex-wrap:wrap;font-size:10px}
+.pg-ai-chip{background:#fff;border:1px solid #ededea;color:#555;padding:3px 8px;border-radius:10px}
+.pg-ai-msgs{padding:14px 18px;display:flex;flex-direction:column;gap:8px;min-height:180px;background:#f7f7f5}
+.pg-bubble{padding:10px 14px;border-radius:10px;font-size:12px;line-height:1.6;max-width:85%}
+.pg-bubble.user{background:#1e40af;color:#fff;align-self:flex-end}
+.pg-bubble.bot{background:#fff;border:1px solid #ededea;color:#444}
+.pg-bubble b{font-weight:700}
+.pg-bubble .cite{font-size:10px;color:#1e40af;margin-top:6px;display:block}
+.pg-ai-input{display:flex;gap:6px;padding:10px 18px;background:#fff;border-top:1px solid #ededea}
+.pg-ai-input-box{flex:1;background:#fafaf8;border:1px solid #dcdcd8;border-radius:6px;padding:8px 10px;font-size:11px;color:#bbb}
+.pg-ai-btn{background:#1e40af;color:#fff;border:none;border-radius:6px;padding:8px 14px;font-size:11px;font-weight:700}
+
+/* 주간 카드 */
+.pg-wk-card{background:#fff;border:1px solid #ededea;border-radius:8px;padding:14px 18px;margin:0 18px 10px}
+.pg-wk-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.pg-wk-badge{font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;padding:3px 9px;border-radius:4px}
+.pg-wk-title{font-family:var(--serif);font-size:14px;font-weight:700;flex:1}
+.pg-wk-range{font-family:var(--mono);font-size:10px;color:#888}
+.pg-wk-kws{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
+.pg-wk-kws span{font-size:10px;padding:3px 8px;border-radius:10px;border:1px solid #bfdbfe;background:#eff6ff;color:#1e40af}
+.pg-wk-sig{font-size:12px;color:#444;line-height:1.5;padding-left:14px;position:relative;margin-bottom:4px}
+.pg-wk-sig::before{content:'';width:5px;height:5px;border-radius:50%;background:#1e40af;position:absolute;left:0;top:7px}
+
+/* 아카이브 행 */
+.pg-arc-row{display:grid;grid-template-columns:80px 40px 1fr;gap:10px;padding:12px 18px;border-top:1px solid #ededea;align-items:center;font-size:12px}
+.pg-arc-date{font-family:var(--mono);color:#555;font-weight:600}
+.pg-arc-cnt{font-family:var(--mono);font-size:10px;font-weight:700;color:#1e40af;background:#eff6ff;padding:3px 7px;border-radius:4px;text-align:center}
+.pg-arc-topics{display:flex;gap:4px;flex-wrap:nowrap;overflow:hidden}
+.pg-arc-topic{font-size:10px;background:#fafaf8;border:1px solid #ededea;padding:2px 8px;border-radius:8px;color:#555;white-space:nowrap}
+
+/* 개별 발표 상세 */
+.pg-detail-hero{padding:18px;border-bottom:1px solid #bfdbfe}
+.pg-detail-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;display:inline-block;margin-bottom:6px}
+.pg-detail-title{font-family:var(--serif);font-size:18px;font-weight:700;color:#111;line-height:1.4;margin-bottom:8px}
+.pg-detail-meta{font-family:var(--mono);font-size:10px;color:#888;display:flex;gap:10px}
+.pg-detail-sec{padding:14px 18px;border-top:1px solid #ededea}
+.pg-detail-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.pg-detail-text{font-size:13px;color:#333;line-height:1.8}
+
+/* 키워드 상세 */
+.pg-kw-hero{padding:18px;background:linear-gradient(135deg,#f5f3ff,#fff);border-bottom:1px solid #ddd6fe}
+.pg-kw-name{font-family:var(--serif);font-size:22px;font-weight:700;color:#111;margin-bottom:4px}
+.pg-kw-meta{font-size:12px;color:#555}
+.pg-kw-bar-row{display:flex;align-items:center;gap:8px;padding:8px 0;font-size:12px}
+.pg-kw-bar-label{width:70px;font-weight:700;color:#222}
+.pg-kw-bar-wrap{flex:1;height:12px;background:#f0f0f0;border-radius:3px;overflow:hidden}
+.pg-kw-bar{height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa)}
+.pg-kw-bar-cnt{font-family:var(--mono);font-size:10px;color:#7c3aed;font-weight:700;width:40px;text-align:right}
+
+/* 관계도 상세 */
+.pg-ref-graph{background:#fafaf8;padding:20px;text-align:center;font-size:12px;color:#888;min-height:200px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #ededea}
+
+/* 피드 카드 */
+.pg-feed{display:flex;flex-direction:column}
+.pg-feed-row{display:grid;grid-template-columns:50px 1fr 80px;gap:10px;padding:12px 18px;border-top:1px solid #ededea;align-items:center;font-size:12px}
+.pg-feed-type{font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 7px;border-radius:3px;text-align:center}
+.pg-feed-name{font-family:var(--serif);font-size:13px;font-weight:700;color:#1a1a1a}
+.pg-feed-sub{font-size:11px;color:#555;margin-top:2px}
+.pg-feed-meta{font-family:var(--mono);font-size:10px;color:#888;text-align:right}
+
+.pg-footer{padding:16px 18px;text-align:center;border-top:1px solid #ededea}
+.pg-footer-motto{font-family:var(--serif);font-size:12px;color:#555}
+.pg-footer-site{font-family:var(--mono);font-size:10px;color:#888;margin-top:3px}
+
+@media(max-width:900px){.section{padding:36px 20px}.doc-hdr{padding:36px 20px 28px}}
+</style>
+</head>
+<body>
+
+<div class="doc-hdr">
+  <div class="badge">ALL SUBPAGES · V2 MOCKUP</div>
+  <h1>전체 상세 페이지 목업</h1>
+  <p>홈·정부 발표·키워드 분석·금융 규제 트래커의 모든 하위 페이지를 v2 디자인으로 구성</p>
+  <nav class="doc-nav">
+    <a href="#brief-ai">정부 발표 AI</a>
+    <a href="#brief-weekly">주간 브리핑</a>
+    <a href="#brief-articles">전체 발표</a>
+    <a href="#brief-detail">발표 상세</a>
+    <a href="#kw-detail">키워드 상세</a>
+    <a href="#kw-press">언론 반응</a>
+    <a href="#finlaw-ref">관계도 상세</a>
+    <a href="#finlaw-changes">개정 전체</a>
+    <a href="#finlaw-cases">판례 전체</a>
+  </nav>
+</div>
+
+<!-- ═══════════ 1. 정부 발표 AI ═══════════ -->
+<hr class="divider">
+<div class="section" id="brief-ai">
+  <div class="section-title">SCREEN 01 · 정부 발표</div>
+  <div class="section-heading">AI 질의응답</div>
+  <div class="section-url">/brief/ai/</div>
+  <div class="frame">
+    <div class="frame-bar"><div class="frame-dots"><span></span><span></span><span></span></div><div class="frame-url">govbrief.kr/brief/ai/</div></div>
+    <div class="pg">
+      <div class="pg-nav"><span class="pg-logo">브리핑룸</span><span class="pg-navitem">홈</span><span class="pg-navitem blue">정부 발표</span><span class="pg-navitem">키워드</span><span class="pg-navitem">금융 규제</span></div>
+      <div class="pg-shell">
+        <div class="pg-panel">
+          <div class="pg-panel-hdr"><h2 class="pg-panel-title"><span class="bar" style="background:#1e40af"></span>AI 질의응답</h2><span class="pg-panel-more">초기화</span></div>
+          <div style="display:flex;gap:4px;padding:8px 18px;font-size:11px">
+            <span style="padding:5px 10px;border-radius:14px;background:#1e40af;color:#fff;font-weight:600">오늘</span>
+            <span style="padding:5px 10px;border-radius:14px;border:1px solid #ededea;color:#555;font-weight:600">이번 주</span>
+            <span style="padding:5px 10px;border-radius:14px;border:1px solid #ededea;color:#555;font-weight:600">이번 달</span>
+          </div>
+          <div class="pg-ai-ctx">
+            <span style="color:#1e40af;font-weight:700;margin-right:4px">참조 보도자료</span>
+            <span class="pg-ai-chip">기재부 · 추경 확정</span>
+            <span class="pg-ai-chip">과기부 · AI 반도체</span>
+            <span class="pg-ai-chip">+21건</span>
+          </div>
+          <div class="pg-ai-msgs">
+            <div class="pg-bubble user">오늘 기재부 추경 규모와 주요 투자 분야 정리해줘</div>
+            <div class="pg-bubble bot">2026년 1회 추경은 총 <b>13.9조원</b> 규모입니다.<br><br><b>주요 투자 분야</b><br>· 수출 중소기업 금융지원 4.2조<br>· 소상공인 민생안정 3.1조<br>· AI 반도체 R&D 2.8조<span class="cite">📎 기재부 보도자료 2026-04-12 · 중기부 2026-04-12</span></div>
+          </div>
+          <div class="pg-ai-input"><div class="pg-ai-input-box">추가 질문을 입력하세요...</div><button class="pg-ai-btn">전송</button></div>
+        </div>
+        <div class="pg-footer"><div class="pg-footer-motto">정부 정책과 금융 규제, 한 화면에</div><div class="pg-footer-site">govbrief.kr</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 2. 주간 브리핑 ═══════════ -->
+<hr class="divider">
+<div class="section" id="brief-weekly">
+  <div class="section-title">SCREEN 02 · 정부 발표</div>
+  <div class="section-heading">주간 브리핑</div>
+  <div class="section-url">/brief/weekly/</div>
+  <div class="frame">
+    <div class="frame-bar"><div class="frame-dots"><span></span><span></span><span></span></div><div class="frame-url">govbrief.kr/brief/weekly/</div></div>
+    <div class="pg">
+      <div class="pg-nav"><span class="pg-logo">브리핑룸</span><span class="pg-navitem">홈</span><span class="pg-navitem blue">정부 발표</span><span class="pg-navitem">키워드</span><span class="pg-navitem">금융 규제</span></div>
+      <div class="pg-shell">
+        <div class="pg-panel">
+          <div class="pg-panel-hdr"><h2 class="pg-panel-title"><span class="bar" style="background:#1e40af"></span>주간 브리핑</h2></div>
+          <div class="pg-wk-card">
+            <div class="pg-wk-top"><span class="pg-wk-badge" style="background:#1e40af">16주차</span><span class="pg-wk-title">2026년 4월 2주</span><span class="pg-wk-range">04.06 — 04.12</span></div>
+            <div class="pg-wk-kws"><span>추경</span><span>AI 반도체</span><span>소상공인</span><span>수출</span><span>중동 리스크</span></div>
+            <div class="pg-wk-sig">기재부 추경 13.9조 국회 최종 확정 · 수출·소상공인 집중</div>
+            <div class="pg-wk-sig">과기부 AI 반도체 국가전략 2030 로드맵 발표</div>
+            <div class="pg-wk-sig">금융위 가계부채 추가 규제 시행 예고 · Q3 시행</div>
+          </div>
+          <div class="pg-wk-card" style="opacity:.7">
+            <div class="pg-wk-top"><span class="pg-wk-badge" style="background:#1e40af">15주차</span><span class="pg-wk-title">2026년 4월 1주</span><span class="pg-wk-range">03.30 — 04.05</span></div>
+            <div class="pg-wk-kws"><span>금리</span><span>환율</span><span>복지</span><span>방산</span></div>
+          </div>
+        </div>
+        <div class="pg-footer"><div class="pg-footer-motto">정부 정책과 금융 규제, 한 화면에</div><div class="pg-footer-site">govbrief.kr</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 3. 전체 발표 아카이브 ═══════════ -->
+<hr class="divider">
+<div class="section" id="brief-articles">
+  <div class="section-title">SCREEN 03 · 정부 발표</div>
+  <div class="section-heading">전체 발표 아카이브</div>
+  <div class="section-url">/brief/articles/</div>
+  <div class="frame">
+    <div class="frame-bar"><div class="frame-dots"><span></span><span></span><span></span></div><div class="frame-url">govbrief.kr/brief/articles/</div></div>
+    <div class="pg">
+      <div class="pg-nav"><span class="pg-logo">브리핑룸</span><span class="pg-navitem">홈</span><span class="pg-navitem blue">정부 발표</span><span class="pg-navitem">키워드</span><span class="pg-navitem">금융 규제</span></div>
+      <div class="pg-shell">
+        <div class="pg-panel">
+          <div class="pg-panel-hdr"><h2 class="pg-panel-title"><span class="bar" style="background:#1e40af"></span>전체 발표<span style="font-family:var(--mono);font-size:11px;color:#888;margin-left:8px">2,361건</span></h2></div>
+          <div style="display:flex;gap:4px;padding:8px 18px">
+            <span style="padding:5px 10px;border-radius:14px;background:#1e40af;color:#fff;font-size:11px;font-weight:600">2026년 4월</span>
+            <span style="padding:5px 10px;border-radius:14px;border:1px solid #ededea;color:#555;font-size:11px;font-weight:600">3월</span>
+            <span style="padding:5px 10px;border-radius:14px;border:1px solid #ededea;color:#555;font-size:11px;font-weight:600">2월</span>
+          </div>
+          <div class="pg-arc-row" style="background:#fafaf8"><span class="pg-arc-date">04-12 토</span><span class="pg-arc-cnt">24</span><div class="pg-arc-topics"><span class="pg-arc-topic">추경 확정</span><span class="pg-arc-topic">AI 반도체</span><span class="pg-arc-topic">중동 대응</span></div></div>
+          <div class="pg-arc-row"><span class="pg-arc-date">04-11 금</span><span class="pg-arc-cnt">31</span><div class="pg-arc-topics"><span class="pg-arc-topic">가계부채</span><span class="pg-arc-topic">수출 지원</span><span class="pg-arc-topic">청년 일자리</span></div></div>
+          <div class="pg-arc-row"><span class="pg-arc-date">04-10 목</span><span class="pg-arc-cnt">18</span><div class="pg-arc-topics"><span class="pg-arc-topic">주택 공급</span><span class="pg-arc-topic">탄소중립</span></div></div>
+          <div class="pg-arc-row"><span class="pg-arc-date">04-09 수</span><span class="pg-arc-cnt">22</span><div class="pg-arc-topics"><span class="pg-arc-topic">방산 수출</span><span class="pg-arc-topic">외교 일정</span></div></div>
+        </div>
+        <div class="pg-footer"><div class="pg-footer-motto">정부 정책과 금융 규제, 한 화면에</div><div class="pg-footer-site">govbrief.kr</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 4. 개별 발표 상세 ═══════════ -->
+<hr class="divider">
+<div class="section" id="brief-detail">
+  <div class="section-title">SCREEN 04 · 정부 발표</div>
+  <div class="section-heading">개별 발표 상세</div>
+  <div class="section-url">/brief/articles/{date}/{id}/</div>
+  <div class="frame">
+    <div class="frame-bar"><div class="frame-dots"><span></span><span></span><span></span></div><div class="frame-url">govbrief.kr/brief/articles/2026-04-12/001/</div></div>
+    <div class="pg">
+      <div class="pg-nav"><span class="pg-logo">브리핑룸</span><span class="pg-navitem">홈</span><span class="pg-navitem blue">정부 발표</span><span class="pg-navitem">키워드</span><span class="pg-navitem">금융 규제</span></div>
+      <div class="pg-shell">
+        <div class="pg-panel">
+          <div class="pg-detail-hero" style="background:#eff6ff">
+            <span class="pg-detail-tag" style="background:#1e40af;color:#fff">금융·경제</span>
+            <div style="font-size:11px;color:#888;margin-bottom:4px">기획재정부</div>
+            <div class="pg-detail-title">2026년 1회 추경 13.9조 최종 확정</div>
+            <div class="pg-detail-meta"><span>2026-04-12</span><span style="color:#dc2626;font-weight:700">영향도 상</span></div>
+          </div>
+          <div class="pg-detail-sec">
+            <div class="pg-detail-label" style="color:#1e40af">AI 쉬운 요약</div>
+            <div class="pg-detail-text">정부가 중동 전쟁 영향으로 어려워진 수출 기업과 소상공인을 지원하기 위해 13조 9천억원의 추가 예산을 확정했습니다.</div>
+          </div>
+          <div class="pg-detail-sec">
+            <div class="pg-detail-label" style="color:#1e40af">핵심 포인트</div>
+            <div class="pg-detail-text">· 수출 중소기업 금융지원 4.2조 · 무역보험 확대
+· 소상공인 민생안정 3.1조 · 채무조정
+· AI 반도체 R&D 2.8조 · 국가전략기술
+· 지역 균형발전 1.4조</div>
+          </div>
+          <div class="pg-detail-sec">
+            <div class="pg-detail-label" style="color:#1e40af">관련 법령</div>
+            <div class="pg-detail-text" style="font-size:12px">· 국가재정법 §89 (추가경정예산안의 편성)
+· 중소기업기본법 §23 (자금지원)</div>
+          </div>
+        </div>
+        <div class="pg-footer"><div class="pg-footer-motto">정부 정책과 금융 규제, 한 화면에</div><div class="pg-footer-site">govbrief.kr</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 5. 키워드 상세 ═══════════ -->
+<hr class="divider">
+<div class="section" id="kw-detail">
+  <div class="section-title">SCREEN 05 · 키워드 분석</div>
+  <div class="section-heading">개별 키워드 상세</div>
+  <div class="section-url">/keywords/{slug}/</div>
+  <div class="frame">
+    <div class="frame-bar"><div class="frame-dots"><span></span><span></span><span></span></div><div class="frame-url">govbrief.kr/keywords/인공지능/</div></div>
+    <div class="pg">
+      <div class="pg-nav"><span class="pg-logo">브리핑룸</span><span class="pg-navitem">홈</span><span class="pg-navitem">정부 발표</span><span class="pg-navitem purple">키워드 분석</span><span class="pg-navitem">금융 규제</span></div>
+      <div class="pg-shell">
+        <div class="pg-panel">
+          <div class="pg-kw-hero">
+            <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;background:#7c3aed;color:#fff;display:inline-block;margin-bottom:8px">산업·기술</span>
+            <div class="pg-kw-name">인공지능</div>
+            <div class="pg-kw-meta">30일간 <b>60회</b> 언급 · 전주 대비 <span style="color:#dc2626;font-weight:700">▲ 22%</span> · 참여 기관 11개</div>
+          </div>
+          <div class="pg-detail-sec">
+            <div class="pg-detail-label" style="color:#7c3aed">부처별 언급</div>
+            <div class="pg-kw-bar-row"><span class="pg-kw-bar-label">과기부</span><div class="pg-kw-bar-wrap"><div class="pg-kw-bar" style="width:85%"></div></div><span class="pg-kw-bar-cnt">18</span></div>
+            <div class="pg-kw-bar-row"><span class="pg-kw-bar-label">산업부</span><div class="pg-kw-bar-wrap"><div class="pg-kw-bar" style="width:50%"></div></div><span class="pg-kw-bar-cnt">11</span></div>
+            <div class="pg-kw-bar-row"><span class="pg-kw-bar-label">금융위</span><div class="pg-kw-bar-wrap"><div class="pg-kw-bar" style="width:35%"></div></div><span class="pg-kw-bar-cnt">8</span></div>
+          </div>
+          <div class="pg-detail-sec">
+            <div class="pg-detail-label" style="color:#7c3aed">주요 발표</div>
+            <div class="pg-detail-text" style="font-size:12px">· AI 반도체 국가전략 2030 로드맵 발표 (04-12, 과기부)
+· AI 안전 기준 마련 TF 구성 (04-10, 과기부)
+· 금융 분야 AI 활용 가이드라인 (04-08, 금융위)</div>
+          </div>
+          <div class="pg-detail-sec">
+            <div class="pg-detail-label" style="color:#7c3aed">연관 키워드</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap">
+              <span style="font-size:11px;padding:4px 10px;border-radius:10px;background:#f5f3ff;border:1px solid #ddd6fe;color:#6d28d9">반도체</span>
+              <span style="font-size:11px;padding:4px 10px;border-radius:10px;background:#f5f3ff;border:1px solid #ddd6fe;color:#6d28d9">디지털 전환</span>
+              <span style="font-size:11px;padding:4px 10px;border-radius:10px;background:#f5f3ff;border:1px solid #ddd6fe;color:#6d28d9">R&D</span>
+            </div>
+          </div>
+        </div>
+        <div class="pg-footer"><div class="pg-footer-motto">정부 정책과 금융 규제, 한 화면에</div><div class="pg-footer-site">govbrief.kr</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 6. 언론 반응 전체 ═══════════ -->
+<hr class="divider">
+<div class="section" id="kw-press">
+  <div class="section-title">SCREEN 06 · 키워드 분석</div>
+  <div class="section-heading">언론 반응 분석 전체</div>
+  <div class="section-url">/keywords/press/</div>
+  <div class="frame">
+    <div class="frame-bar"><div class="frame-dots"><span></span><span></span><span></span></div><div class="frame-url">govbrief.kr/keywords/press/</div></div>
+    <div class="pg">
+      <div class="pg-nav"><span class="pg-logo">브리핑룸</span><span class="pg-navitem">홈</span><span class="pg-navitem">정부 발표</span><span class="pg-navitem purple">키워드 분석</span><span class="pg-navitem">금융 규제</span></div>
+      <div class="pg-shell">
+        <div class="pg-panel">
+          <div class="pg-panel-hdr"><h2 class="pg-panel-title"><span class="bar" style="background:#7c3aed"></span>언론 반응 분석</h2></div>
+          <div style="padding:12px 18px;font-size:13px;color:#555"><b style="color:#1a1a1a">AI 반도체</b>가 반도체·금융 업계에서 <b style="color:#1a1a1a">1,247건</b>으로 최다 언급</div>
+          <div style="padding:0 18px 18px">
+            <div class="pg-kw-bar-row"><span class="pg-kw-bar-label">1 AI 반도체</span><div class="pg-kw-bar-wrap"><div class="pg-kw-bar" style="width:92%"></div></div><span class="pg-kw-bar-cnt">1,247</span></div>
+            <div class="pg-kw-bar-row"><span class="pg-kw-bar-label">2 추경 예산</span><div class="pg-kw-bar-wrap"><div class="pg-kw-bar" style="width:74%"></div></div><span class="pg-kw-bar-cnt">983</span></div>
+            <div class="pg-kw-bar-row"><span class="pg-kw-bar-label">3 중동전쟁</span><div class="pg-kw-bar-wrap"><div class="pg-kw-bar" style="width:58%"></div></div><span class="pg-kw-bar-cnt">776</span></div>
+            <div class="pg-kw-bar-row"><span class="pg-kw-bar-label">4 가상자산</span><div class="pg-kw-bar-wrap"><div class="pg-kw-bar" style="width:42%"></div></div><span class="pg-kw-bar-cnt">552</span></div>
+            <div class="pg-kw-bar-row"><span class="pg-kw-bar-label">5 탄소중립</span><div class="pg-kw-bar-wrap"><div class="pg-kw-bar" style="width:28%"></div></div><span class="pg-kw-bar-cnt">361</span></div>
+            <div class="pg-kw-bar-row"><span class="pg-kw-bar-label">6 소상공인</span><div class="pg-kw-bar-wrap"><div class="pg-kw-bar" style="width:22%"></div></div><span class="pg-kw-bar-cnt">287</span></div>
+            <div class="pg-kw-bar-row"><span class="pg-kw-bar-label">7 디지털전환</span><div class="pg-kw-bar-wrap"><div class="pg-kw-bar" style="width:18%"></div></div><span class="pg-kw-bar-cnt">234</span></div>
+          </div>
+        </div>
+        <div class="pg-footer"><div class="pg-footer-motto">정부 정책과 금융 규제, 한 화면에</div><div class="pg-footer-site">govbrief.kr</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 7. 관계도 상세 ═══════════ -->
+<hr class="divider">
+<div class="section" id="finlaw-ref">
+  <div class="section-title">SCREEN 07 · 금융 규제</div>
+  <div class="section-heading">관계도 상세</div>
+  <div class="section-url">/finlaw/ref/?q=자본시장법+제3조</div>
+  <div class="frame">
+    <div class="frame-bar"><div class="frame-dots"><span></span><span></span><span></span></div><div class="frame-url">govbrief.kr/finlaw/ref/?q=자본시장법+제3조</div></div>
+    <div class="pg">
+      <div class="pg-nav"><span class="pg-logo">브리핑룸</span><span class="pg-navitem">홈</span><span class="pg-navitem">정부 발표</span><span class="pg-navitem">키워드</span><span class="pg-navitem orange">금융 규제</span></div>
+      <div class="pg-shell">
+        <div class="pg-panel">
+          <div class="pg-panel-hdr"><h2 class="pg-panel-title"><span class="bar" style="background:#c2410c"></span>자본시장법 제3조 관계도 상세</h2></div>
+          <div class="pg-ref-graph">[D3.js 관계도 그래프 — 랜딩과 동일 + 확대 버전]</div>
+          <div class="pg-detail-sec">
+            <div class="pg-detail-label" style="color:#c2410c">자본시장법 · 제3조 (금융투자상품)</div>
+            <div class="pg-detail-text">① 이 법에서 "금융투자상품"이란 이익을 얻거나 손실을 회피할 목적으로 현재 또는 장래의 특정 시점에 금전등을 지급하기로 약정함으로써 취득하는 권리로서, 투자성이 있는 것을 말한다.</div>
+          </div>
+          <div class="pg-detail-sec">
+            <div class="pg-detail-label" style="color:#c2410c">자본시장법 시행령 · 제4조 (금융투자상품 범위)</div>
+            <div class="pg-detail-text">① 법 제3조에 따른 금융투자상품의 범위는 채무증권, 지분증권, 수익증권, 투자계약증권, 파생결합증권, 증권예탁증권, 장내파생상품, 장외파생상품으로 한다.</div>
+          </div>
+          <div class="pg-detail-sec">
+            <div class="pg-detail-label" style="color:#c2410c">보험업법 · 제108조 (변액보험 특례)</div>
+            <div class="pg-detail-text">① 보험회사는 「자본시장과 금융투자업에 관한 법률」 제3조의 금융투자상품에 투자하여 그 수익을 변액보험계약자에게 배분하는 변액보험상품을 판매할 수 있다.</div>
+          </div>
+        </div>
+        <div class="pg-footer"><div class="pg-footer-motto">정부 정책과 금융 규제, 한 화면에</div><div class="pg-footer-site">govbrief.kr</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 8. 법령 개정 전체 ═══════════ -->
+<hr class="divider">
+<div class="section" id="finlaw-changes">
+  <div class="section-title">SCREEN 08 · 금융 규제</div>
+  <div class="section-heading">법령 개정 전체</div>
+  <div class="section-url">/finlaw/changes/</div>
+  <div class="frame">
+    <div class="frame-bar"><div class="frame-dots"><span></span><span></span><span></span></div><div class="frame-url">govbrief.kr/finlaw/changes/</div></div>
+    <div class="pg">
+      <div class="pg-nav"><span class="pg-logo">브리핑룸</span><span class="pg-navitem">홈</span><span class="pg-navitem">정부 발표</span><span class="pg-navitem">키워드</span><span class="pg-navitem orange">금융 규제</span></div>
+      <div class="pg-shell">
+        <div class="pg-panel">
+          <div class="pg-panel-hdr"><h2 class="pg-panel-title"><span class="bar" style="background:#c2410c"></span>법령 개정 이력<span style="font-family:var(--mono);font-size:11px;color:#888;margin-left:8px">85건</span></h2></div>
+          <div class="pg-feed">
+            <div class="pg-feed-row"><span class="pg-feed-type" style="background:#fef2e8;color:#c2410c">일부개정</span><div><div class="pg-feed-name">금융위원회와 그 소속기관 직제</div><div class="pg-feed-sub">금융위원회 · 행정안전부</div></div><span class="pg-feed-meta">2026.03.31</span></div>
+            <div class="pg-feed-row"><span class="pg-feed-type" style="background:#fef2e8;color:#c2410c">일부개정</span><div><div class="pg-feed-name">자본시장과 금융투자업에 관한 법률</div><div class="pg-feed-sub">금융위원회</div></div><span class="pg-feed-meta">2025.03.18</span></div>
+            <div class="pg-feed-row"><span class="pg-feed-type" style="background:#fef2e8;color:#c2410c">일부개정</span><div><div class="pg-feed-name">새마을금고법</div><div class="pg-feed-sub">행정안전부</div></div><span class="pg-feed-meta">2025.01.07</span></div>
+            <div class="pg-feed-row"><span class="pg-feed-type" style="background:#e0e7ff;color:#4338ca">예고</span><div><div class="pg-feed-name">금융투자업규정 개정안</div><div class="pg-feed-sub">금융위원회</div></div><span class="pg-feed-meta">마감 04-20</span></div>
+          </div>
+        </div>
+        <div class="pg-footer"><div class="pg-footer-motto">정부 정책과 금융 규제, 한 화면에</div><div class="pg-footer-site">govbrief.kr</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 9. 판례 전체 ═══════════ -->
+<hr class="divider">
+<div class="section" id="finlaw-cases">
+  <div class="section-title">SCREEN 09 · 금융 규제</div>
+  <div class="section-heading">최근 판례 전체</div>
+  <div class="section-url">/finlaw/cases/</div>
+  <div class="frame">
+    <div class="frame-bar"><div class="frame-dots"><span></span><span></span><span></span></div><div class="frame-url">govbrief.kr/finlaw/cases/</div></div>
+    <div class="pg">
+      <div class="pg-nav"><span class="pg-logo">브리핑룸</span><span class="pg-navitem">홈</span><span class="pg-navitem">정부 발표</span><span class="pg-navitem">키워드</span><span class="pg-navitem orange">금융 규제</span></div>
+      <div class="pg-shell">
+        <div class="pg-panel">
+          <div class="pg-panel-hdr"><h2 class="pg-panel-title"><span class="bar" style="background:#c2410c"></span>최근 판례<span style="font-family:var(--mono);font-size:11px;color:#888;margin-left:8px">204건</span></h2></div>
+          <div class="pg-feed">
+            <div class="pg-feed-row"><span class="pg-feed-type" style="background:#f5f5f5;color:#555">대법원</span><div><div class="pg-feed-name">불공정거래 과징금 산정 기준</div><div class="pg-feed-sub">2026다12345</div></div><span class="pg-feed-meta">2026.04.08</span></div>
+            <div class="pg-feed-row"><span class="pg-feed-type" style="background:#f5f5f5;color:#555">서울고법</span><div><div class="pg-feed-name">투자자 보호의무 범위</div><div class="pg-feed-sub">2025나67890</div></div><span class="pg-feed-meta">2026.04.02</span></div>
+            <div class="pg-feed-row"><span class="pg-feed-type" style="background:#f5f5f5;color:#555">대법원</span><div><div class="pg-feed-name">금융상품 설명의무 위반 손해배상</div><div class="pg-feed-sub">2025다33456</div></div><span class="pg-feed-meta">2026.03.28</span></div>
+          </div>
+        </div>
+        <div class="pg-footer"><div class="pg-footer-motto">정부 정책과 금융 규제, 한 화면에</div><div class="pg-footer-site">govbrief.kr</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

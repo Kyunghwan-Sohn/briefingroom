@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주간 브리핑 · 정부 발표 · 브리핑룸</title>
+<meta name="description" content="매주 토요일, 51개 부처 보도자료를 AI가 분석하여 이번 주 정부가 집중한 정책 방향을 선별합니다.">
+<link rel="canonical" href="https://govbrief.kr/brief/weekly/">
+<meta property="og:title" content="주간 브리핑 · 정부 발표 · 브리핑룸">
+<meta property="og:description" content="매주 토요일, 51개 부처 보도자료를 AI가 분석하여 이번 주 정부가 집중한 정책 방향을 선별합니다.">
+<meta property="og:url" content="https://govbrief.kr/brief/weekly/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="govbrief.kr">
+<meta property="og:locale" content="ko_KR">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var ua = navigator.userAgent;
+  var isMobileUA = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+  var isMobileParam = window.location.search.indexOf('mobile=1') !== -1;
+  if (isMobileUA || isMobileParam) document.documentElement.classList.add('is-mobile');
+})();
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all;overflow-wrap:break-word}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.06);
+  --bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;
+  --t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;
+  --up:#dc2626;--down:#2563eb;
+  --sec:#1e40af;--sec-light:#3b82f6;--sec-bg:#eff6ff;--sec-border:#bfdbfe;
+  --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.6;min-width:1120px}
+.is-mobile body{min-width:0}
+
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--sec);background:var(--sec-bg);font-weight:700}
+.hdr-nav .lbl-short{display:none}
+.hdr-search{position:relative;width:280px;margin-right:16px}
+.hdr-search input{width:100%;padding:10px 14px 10px 36px;font-size:13px;border:1px solid var(--b);border-radius:6px;background:var(--s2);outline:none;font-family:var(--sans)}
+.hdr-search input:focus{border-color:var(--sec);background:#fff}
+.hdr-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:15px}
+.hdr-time{font-family:var(--mono);font-size:12px;color:var(--t3)}
+
+.mobile-search{display:none}
+.is-mobile .mobile-search{display:block;background:#fff;padding:10px 14px;border-bottom:1px solid var(--bl);position:sticky;top:52px;z-index:90}
+.mobile-search-box{position:relative}
+.mobile-search-box input{width:100%;padding:10px 14px 10px 36px;font-size:13px;border:1px solid var(--b);border-radius:8px;background:var(--s2);outline:none;font-family:var(--sans);color:var(--t)}
+.mobile-search-box input:focus{border-color:var(--sec);background:#fff}
+.mobile-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:14px;pointer-events:none}
+
+.sec-hero{background:linear-gradient(180deg,var(--sec-bg),#fff);border-bottom:1px solid var(--sec-border);padding:40px 32px 32px}
+.sec-hero-inner{max-width:1080px;margin:0 auto}
+.sec-hero-eyebrow{font-family:var(--mono);font-size:11px;color:var(--sec);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.sec-hero-title{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--t);margin-bottom:8px;letter-spacing:-.01em}
+.sec-hero-sub{font-size:14px;color:var(--t2);line-height:1.7;max-width:640px}
+.sec-hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px;max-width:540px}
+.sec-hero-stat{background:#fff;border:1px solid var(--sec-border);border-radius:8px;padding:14px 16px}
+.sec-hero-stat .label{font-size:11px;color:var(--sec);font-weight:700;letter-spacing:.03em}
+.sec-hero-stat .num{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--sec);line-height:1.1;margin-top:4px;display:flex;align-items:baseline;gap:3px}
+.sec-hero-stat .num .unit{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t3)}
+
+.shell{max-width:1080px;margin:0 auto;padding:20px 16px 40px}
+.main{display:flex;flex-direction:column;gap:16px;min-width:0}
+
+.panel{background:#fff;border:1px solid var(--b);border-radius:8px;overflow:hidden}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 22px 12px}
+.panel-title{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--t);display:flex;align-items:center;gap:12px}
+.panel-title::before{content:'';width:3px;height:16px;background:var(--sec);border-radius:1px}
+.panel-title .num{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--t3)}
+
+/* 주간 카드 */
+.weekly-card{background:#fff;border:1px solid var(--bl);border-radius:8px;padding:18px 22px;margin:0 22px 14px;cursor:pointer;transition:border-color .15s}
+.weekly-card:hover{border-color:var(--sec)}
+.weekly-card:last-of-type{margin-bottom:22px}
+.weekly-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.weekly-badge{font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;background:var(--sec);padding:4px 12px;border-radius:5px;letter-spacing:.04em}
+.weekly-title{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--t);flex:1}
+.weekly-range{font-family:var(--mono);font-size:12px;color:var(--t3)}
+.weekly-kws{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.weekly-kws span{font-size:12px;color:var(--sec);background:var(--sec-bg);border:1px solid var(--sec-border);padding:4px 12px;border-radius:14px;white-space:nowrap;font-weight:600}
+.weekly-signals{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.weekly-sig{display:flex;gap:10px;font-size:13px;color:var(--t2);line-height:1.6}
+.weekly-sig::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sec);margin-top:8px;flex-shrink:0}
+.weekly-stats{display:flex;gap:16px;font-size:12px;color:var(--t3);padding-top:14px;border-top:1px solid var(--bl)}
+.weekly-stats strong{color:var(--sec);font-weight:700}
+
+/* CTA */
+.cta{background:linear-gradient(135deg,var(--sec),#2563eb);border-radius:8px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#fff}
+.cta-text{flex:1}
+.cta-title{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:6px}
+.cta-desc{font-size:13px;opacity:.88;line-height:1.6}
+.cta-btn{background:#fff;color:var(--sec);padding:12px 24px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;flex-shrink:0}
+
+/* 푸터 */
+.footer{max-width:1240px;margin:20px auto 0;padding:24px 16px 32px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer-links a{color:var(--t2);text-decoration:none;font-weight:600;margin:0 10px;font-size:12px}
+.footer-links a:hover{color:var(--sec)}
+.footer-motto{margin-top:14px;font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{margin-top:6px;font-family:var(--mono);font-size:11px;color:var(--t3)}
+
+.bottom-nav{display:none}
+.is-mobile body{padding-bottom:68px}
+.is-mobile .footer-links{display:none}
+.is-mobile .footer{padding:18px 14px 22px}
+.is-mobile .footer-motto{font-size:13px;margin-top:0}
+.is-mobile .footer-site{font-size:10px}
+.is-mobile .bottom-nav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(0,0,0,.06)}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600;padding:4px 0}
+.bottom-nav a.on{color:var(--sec)}
+.bottom-nav svg{width:22px;height:22px;stroke-width:2;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+.bottom-nav a.on svg{stroke-width:2.4}
+
+.is-mobile body{font-size:14px;line-height:1.55}
+.is-mobile .hdr{padding:0 12px;height:52px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav{gap:2px;flex:1;min-width:0}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+.is-mobile .hdr-nav .lbl-full{display:none}
+.is-mobile .hdr-nav .lbl-short{display:inline}
+.is-mobile .hdr-search{display:none}
+.is-mobile .hdr-time{display:none}
+.is-mobile .sec-hero{padding:24px 16px 20px}
+.is-mobile .sec-hero-title{font-size:24px}
+.is-mobile .sec-hero-sub{font-size:13px}
+.is-mobile .sec-hero-stats{grid-template-columns:repeat(3,1fr);gap:6px}
+.is-mobile .sec-hero-stat{padding:9px 10px}
+.is-mobile .sec-hero-stat .label{font-size:10px}
+.is-mobile .sec-hero-stat .num{font-size:18px}
+.is-mobile .sec-hero-stat .num .unit{font-size:10px}
+.is-mobile .shell{padding:12px 10px 20px;max-width:100%}
+.is-mobile .main{gap:12px}
+.is-mobile .weekly-card{margin:0 14px 8px;padding:14px 16px}
+.is-mobile .weekly-card:last-of-type{margin-bottom:14px}
+.is-mobile .weekly-title{font-size:14px}
+.is-mobile .weekly-sig{font-size:12px}
+.is-mobile .cta{flex-direction:row;align-items:center;padding:12px 16px;gap:10px}
+.is-mobile .cta-text{flex:1;min-width:0}
+.is-mobile .cta-title{font-size:14px;margin-bottom:2px;line-height:1.3}
+.is-mobile .cta-desc{font-size:11px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.is-mobile .cta-btn{padding:8px 14px;font-size:12px;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="hdr-logo" href="/">브리핑룸</a>
+  <nav class="hdr-nav">
+    <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
+    <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
+    <a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a>
+    <a href="/finlaw/"><span class="lbl-full">금융 규제 트래커</span><span class="lbl-short">금융 규제</span></a>
+  </nav>
+  <div class="hdr-search">
+    <span class="hdr-search-icon">⌕</span>
+    <input placeholder="AI 기반 법령·키워드·부처 검색" />
+  </div>
+  <div class="hdr-time">2026.04.12 · 16:32 KST</div>
+</header>
+
+<div class="mobile-search">
+  <div class="mobile-search-box">
+    <span class="mobile-search-icon">⌕</span>
+    <input placeholder="AI 기반 법령, 키워드 부처 검색" />
+  </div>
+</div>
+
+<section class="sec-hero">
+  <div class="sec-hero-inner">
+    <div class="sec-hero-eyebrow">GOVERNMENT BRIEFING &middot; WEEKLY</div>
+    <h1 class="sec-hero-title">주간 브리핑</h1>
+    <p class="sec-hero-sub">매주 토요일, 51개 부처 보도자료를 AI가 분석하여 이번 주 정부가 집중한 정책 방향 5가지를 선별합니다.</p>
+    <div class="sec-hero-stats">
+      <div class="sec-hero-stat">
+        <div class="label">총 발행</div>
+        <div class="num">2<span class="unit">호</span></div>
+      </div>
+      <div class="sec-hero-stat">
+        <div class="label">분석 보도자료</div>
+        <div class="num">891<span class="unit">건</span></div>
+      </div>
+      <div class="sec-hero-stat">
+        <div class="label">참여 부처</div>
+        <div class="num">57<span class="unit">개</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="shell">
+  <main class="main">
+
+    <section class="panel">
+      <div class="panel-hdr">
+        <h2 class="panel-title">주간 브리핑</h2>
+      </div>
+
+      <!-- 16주차 -->
+      <div class="weekly-card">
+        <div class="weekly-top">
+          <span class="weekly-badge">16주차</span>
+          <span class="weekly-title">2026년 4월 2주</span>
+          <span class="weekly-range">04.06 — 04.12</span>
+        </div>
+        <div class="weekly-kws">
+          <span>추경</span><span>AI 반도체</span><span>소상공인</span><span>수출</span><span>중동 리스크</span>
+        </div>
+        <div class="weekly-signals">
+          <div class="weekly-sig">기재부 추경 13.9조 국회 최종 확정 · 수출·소상공인 집중 지원</div>
+          <div class="weekly-sig">과기부 AI 반도체 국가전략 2030 로드맵 발표</div>
+          <div class="weekly-sig">금융위 가계부채 추가 규제 시행 예고 · Q3 시행</div>
+          <div class="weekly-sig">외교부 중동 정세 대응 TF 가동 · 교민 안전 확보</div>
+          <div class="weekly-sig">중기부 소상공인 긴급 지원 1.6조 확정 · 9월까지 집행</div>
+        </div>
+        <div class="weekly-stats">
+          <span>보도자료 <strong>283건</strong></span>
+          <span>부처 <strong>42개</strong></span>
+          <span>전주 대비 <strong>+15건</strong></span>
+        </div>
+      </div>
+
+      <!-- 15주차 -->
+      <div class="weekly-card">
+        <div class="weekly-top">
+          <span class="weekly-badge">15주차</span>
+          <span class="weekly-title">2026년 4월 1주</span>
+          <span class="weekly-range">03.30 — 04.05</span>
+        </div>
+        <div class="weekly-kws">
+          <span>금리</span><span>환율</span><span>복지</span><span>방산</span><span>탄소중립</span>
+        </div>
+        <div class="weekly-signals">
+          <div class="weekly-sig">한국은행 기준금리 동결 · 물가 안정 우선 기조 재확인</div>
+          <div class="weekly-sig">원/달러 환율 1,380원대 진입 · 외환시장 안정 조치</div>
+          <div class="weekly-sig">복지부 기초연금 인상안 국무회의 의결</div>
+          <div class="weekly-sig">방사청 폴란드 2차 방산 수출 계약 체결</div>
+          <div class="weekly-sig">환경부 2030 탄소중립 이행 로드맵 수정안 발표</div>
+        </div>
+        <div class="weekly-stats">
+          <span>보도자료 <strong>608건</strong></span>
+          <span>부처 <strong>57개</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="cta-text">
+        <div class="cta-title">매주 주간 시그널 받기</div>
+        <div class="cta-desc">텔레그램에서 매주 토요일 자동 발송됩니다.</div>
+      </div>
+      <a class="cta-btn" href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/">홈</a>
+    <a href="/brief/">정부 발표</a>
+    <a href="/keywords/">키워드 분석</a>
+    <a href="/finlaw/">금융 규제 트래커</a>
+  </div>
+  <div class="footer-motto">정부 정책과 금융 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+
+<nav class="bottom-nav">
+  <a href="/">
+    <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg>
+    <span>홈</span>
+  </a>
+  <a class="on" href="/brief/">
+    <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+    <span>정부 발표</span>
+  </a>
+  <a href="/keywords/">
+    <svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>
+    <span>키워드</span>
+  </a>
+  <a href="/finlaw/">
+    <svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg>
+    <span>금융 규제</span>
+  </a>
+</nav>
+
+</body>
+</html>
