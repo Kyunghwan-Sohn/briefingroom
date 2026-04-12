@@ -159,7 +159,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
     <input id="search-input" placeholder="정책이나 법령에 대해 물어보세요..." autocomplete="off">
     <div id="search-results" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:40;margin-top:6px;background:#fff;border:1px solid var(--b);border-radius:10px;max-height:360px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.1)"></div>
   </div>
-  <div class="tags"><span onclick="searchTag(this)">#문체부 2026 년 추경</span><span onclick="searchTag(this)">#문화예술인 지원</span><span onclick="searchTag(this)">#청년 일자리 창출</span><span onclick="searchTag(this)">#영화·공연 할인권</span></div>
+  <div class="tags"><span>#문체부 2026 년 추경</span><span>#문화예술인 지원</span><span>#청년 일자리 창출</span><span>#영화·공연 할인권</span></div>
 </section>
 
 <div class="twin">
@@ -264,69 +264,16 @@ makeCarousel('c-law', 1);
 const searchInput = document.getElementById('search-input');
 const searchResults = document.getElementById('search-results');
 let searchTimer;
-let _classifyResult = null;   // LLM 분류 결과 캐시
-let _classifyPromise = null;  // 진행 중인 분류 요청
-
-// LLM 분류 실패 시 키워드 폴백
-function classifyByKeyword(q) {
-  const lawKw = ['법령','법률','조문','판례','해석례','시행령','시행규칙','규정','조항',
-    '자본시장법','보험업법','은행법','금소법','전금법','여전법','특금법','신용정보법',
-    '대부업법','외환법','가상자산법','금융지주','예보법','금산법','외감법',
-    '금융위','금감원','금융감독원','보험사기','과태료','과징금','벌칙','제재',
-    '인가','허가','처벌','손해배상','자금세탁','aml','vasp','가상자산','코인'];
-  return lawKw.some(kw => q.includes(kw)) ? 'law' : 'policy';
-}
-
-function getDestUrl(q, type) {
-  const enc = encodeURIComponent(q);
-  return type === 'law' ? '/tools/finlaw-gpt/?q=' + enc : '/policy/?q=' + enc;
-}
-
-// govbrief-api 서버리스 함수 → abcLLM 직접 호출 (키 노출 없음)
-async function classifyWithLLM(query) {
-  try {
-    const controller = new AbortController();
-    setTimeout(() => controller.abort(), 7000);
-    const r = await fetch('https://govbrief-api.vercel.app/api/classify', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({query}),
-      signal: controller.signal
-    });
-    if (!r.ok) return null;
-    const data = await r.json();
-    return data.type || null;
-  } catch (e) { return null; }
-}
-
 searchInput.addEventListener('input', function() {
   clearTimeout(searchTimer);
   const q = this.value.trim();
-  if (q.length < 2) {
-    searchResults.style.display = 'none';
-    _classifyResult = null; _classifyPromise = null;
-    return;
-  }
-  searchTimer = setTimeout(() => {
-    doSearch(q);
-    // LLM 분류 병렬 실행 (Enter 누를 때 이미 완료되어 있도록)
-    _classifyResult = null;
-    _classifyPromise = classifyWithLLM(q).then(r => { _classifyResult = r; return r; });
-  }, 300);
+  if (q.length < 2) { searchResults.style.display = 'none'; return; }
+  searchTimer = setTimeout(() => doSearch(q), 300);
 });
-
-searchInput.addEventListener('keydown', async function(e) {
+searchInput.addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && !e.isComposing) {
     const q = this.value.trim();
-    if (!q) return;
-    let type = _classifyResult;
-    if (!type && _classifyPromise) {
-      // 최대 2초 추가 대기 후 LLM 결과 사용, 아니면 키워드 폴백
-      const timeout = new Promise(res => setTimeout(() => res(null), 2000));
-      type = await Promise.race([_classifyPromise, timeout]);
-    }
-    if (!type) type = classifyByKeyword(q);
-    window.location.href = getDestUrl(q, type);
+    if (q) window.location.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(q);
   }
 });
 const SB_URL='https://jxoghnttelexnfoeepbz.supabase.co';
@@ -334,17 +281,18 @@ const SB_KEY='sb_publishable_r3eTQXF419LfIiPdE17gyw_zvAQFd5s';
 const SB_HDR={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY};
 function renderResults(items,query){
   const typeLabel={law:'법령',article:'조문',precedent:'판례'};
-  const enc=encodeURIComponent(query);
   searchResults.textContent='';
-
+  const cta=document.createElement('a');
+  cta.href='/tools/finlaw-gpt/?q='+encodeURIComponent(query);
+  cta.style.cssText='display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none';
+  cta.textContent=items.length?'FinLaw GPT에서 상세 질문 →':'FinLaw GPT에게 질문하기 →';
   if(items.length){
-    // 금융법령 DB 결과가 있으면 결과 목록 + 법령AI CTA
     items.forEach(item=>{
       const link=document.createElement('a');
-      link.href=item.link||'/tools/finlaw-gpt/?q='+enc;
+      link.href=item.link||'/tools/finlaw-gpt/?q='+encodeURIComponent(query);
       link.style.cssText='display:block;padding:12px 16px;border-bottom:1px solid #e0e0e0;text-decoration:none;color:#222';
       const top=document.createElement('div');top.style.cssText='display:flex;align-items:center;gap:8px';
-      const badge=document.createElement('span');badge.style.cssText='font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(4,120,87,.08);color:#047857';
+      const badge=document.createElement('span');badge.style.cssText='font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(217,108,44,.06);color:#d96c2c';
       badge.textContent=typeLabel[item.type]||item.type||'';
       const title=document.createElement('span');title.style.cssText='font-size:14px;font-weight:600';
       title.textContent=String(item.title||'').slice(0,60);
@@ -354,35 +302,12 @@ function renderResults(items,query){
       link.appendChild(top);link.appendChild(sub);
       searchResults.appendChild(link);
     });
-    const cta=document.createElement('a');
-    cta.href='/tools/finlaw-gpt/?q='+enc;
-    cta.style.cssText='display:block;padding:10px 16px;text-align:center;font-size:13px;color:#047857;font-weight:600;text-decoration:none;background:#ecfdf5;border-top:1px solid #a7f3d0';
-    cta.textContent='금융 법령 AI에서 상세 질문 →';
-    searchResults.appendChild(cta);
   }else{
-    // 결과 없음 → 두 가지 선택지 제공
-    const empty=document.createElement('div');
-    empty.style.cssText='padding:14px 16px 10px;font-size:13px;color:#999;text-align:center';
-    empty.textContent='금융법령 DB에서 결과를 찾지 못했습니다. 어느 쪽 AI에게 질문하시겠어요?';
+    const empty=document.createElement('div');empty.style.cssText='padding:16px;text-align:center;font-size:13px;color:#999';
+    empty.textContent='금융법령(139건) 내 검색 결과 없음. 일반 법령은 법제처 국가법령정보센터를 이용하세요.';
     searchResults.appendChild(empty);
-
-    const btns=document.createElement('div');
-    btns.style.cssText='display:flex;gap:8px;padding:0 16px 14px';
-
-    const policyBtn=document.createElement('a');
-    policyBtn.href='/policy/?q='+enc;
-    policyBtn.style.cssText='flex:1;display:block;padding:10px;text-align:center;font-size:13px;color:#1e40af;font-weight:600;text-decoration:none;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px';
-    policyBtn.textContent='정책 AI에서 검색';
-
-    const lawBtn=document.createElement('a');
-    lawBtn.href='/tools/finlaw-gpt/?q='+enc;
-    lawBtn.style.cssText='flex:1;display:block;padding:10px;text-align:center;font-size:13px;color:#047857;font-weight:600;text-decoration:none;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px';
-    lawBtn.textContent='법령 AI에서 질문';
-
-    btns.appendChild(policyBtn);btns.appendChild(lawBtn);
-    searchResults.appendChild(btns);
   }
-  searchResults.style.display='block';
+  searchResults.appendChild(cta);searchResults.style.display='block';
 }
 function searchSupabase(query){
   const kw='%'+query+'%';
@@ -398,14 +323,6 @@ function searchSupabase(query){
     return items;
   });
 }
-function searchTag(el) {
-  const q = el.textContent.replace(/^#/, '').trim();
-  searchInput.value = q;
-  searchInput.focus();
-  doSearch(q);
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
 async function doSearch(query){
   try{
     const items=await searchSupabase(query);
