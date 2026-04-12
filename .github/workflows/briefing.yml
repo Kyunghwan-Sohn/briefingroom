@@ -91,12 +91,16 @@ jobs:
           python -m briefingroom.finlaw_pages
           echo "입법예고 크롤링..."
           python -m briefingroom.legnotice
+          echo "키워드 집계..."
+          python -m briefingroom.keywords_agg
+          echo "법령 참조 인덱스 구축..."
+          python -m briefingroom.law_references
 
       - name: commit
         run: |
           git config user.name "briefing-bot"
           git config user.email "bot@briefingroom.kr"
-          git add briefing.py briefingroom/ data/ feed/ articles/ finlaw/ index.html sitemap.xml .github/workflows/ tools/ policy/
+          git add briefing.py briefingroom/ data/ feed/ articles/ finlaw/ index.html sitemap.xml .github/workflows/ tools/ policy/ brief/ keywords/
           git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d) $(date +%H:%M)"
           git stash --include-untracked
           git pull --rebase origin main

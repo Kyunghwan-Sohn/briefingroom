@@ -628,9 +628,10 @@ finlawSearch?.addEventListener('keydown', function(e) {{
 </body>
 </html>"""
 
-    out = FINLAW_DIR / "index.html"
+    # v2 전환: 새 finlaw/index.html 보호
+    out = FINLAW_DIR / "index_legacy.html"
     out.write_text(page, encoding="utf-8")
-    print(f"[finlaw_pages] index.html 생성 — 법령 {law_count}건 변경, 판례 {prec_count}건")
+    print(f"[finlaw_pages] index_legacy.html 생성 — 법령 {law_count}건 변경, 판례 {prec_count}건")
 
 
 def main():

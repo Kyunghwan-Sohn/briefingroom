@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>정부 발표 · 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var ua = navigator.userAgent;
+  var isMobileUA = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+  var isMobileParam = window.location.search.indexOf('mobile=1') !== -1;
+  if (isMobileUA || isMobileParam) document.documentElement.classList.add('is-mobile');
+})();
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all;overflow-wrap:break-word}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.06);
+  --bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;
+  --t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;
+  --up:#dc2626;--down:#2563eb;
+
+  /* 섹션 컬러 — 정부 발표: 블루 */
+  --sec:#1e40af;--sec-light:#3b82f6;--sec-bg:#eff6ff;--sec-border:#bfdbfe;
+
+  --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.6;min-width:1120px}
+.is-mobile body{min-width:0}
+
+/* 헤더 */
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--sec);background:var(--sec-bg);font-weight:700}
+.hdr-nav .lbl-short{display:none}
+.hdr-search{position:relative;width:280px;margin-right:16px}
+.hdr-search input{width:100%;padding:10px 14px 10px 36px;font-size:13px;border:1px solid var(--b);border-radius:6px;background:var(--s2);outline:none;font-family:var(--sans)}
+.hdr-search input:focus{border-color:var(--sec);background:#fff}
+.hdr-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:15px}
+.hdr-time{font-family:var(--mono);font-size:12px;color:var(--t3)}
+
+/* 모바일 검색 */
+.mobile-search{display:none}
+.is-mobile .mobile-search{display:block;background:#fff;padding:10px 14px;border-bottom:1px solid var(--bl);position:sticky;top:52px;z-index:90}
+.mobile-search-box{position:relative}
+.mobile-search-box input{width:100%;padding:10px 14px 10px 36px;font-size:13px;border:1px solid var(--b);border-radius:8px;background:var(--s2);outline:none;font-family:var(--sans);color:var(--t)}
+.mobile-search-box input:focus{border-color:var(--sec);background:#fff}
+.mobile-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:14px;pointer-events:none}
+
+/* 섹션 Hero */
+.sec-hero{background:linear-gradient(180deg,var(--sec-bg),#fff);border-bottom:1px solid var(--sec-border);padding:40px 32px 32px}
+.sec-hero-inner{max-width:1080px;margin:0 auto}
+.sec-hero-eyebrow{font-family:var(--mono);font-size:11px;color:var(--sec);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.sec-hero-title{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--t);margin-bottom:8px;letter-spacing:-.01em}
+.sec-hero-sub{font-size:14px;color:var(--t2);line-height:1.7;max-width:640px}
+.sec-hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px;max-width:720px}
+.sec-hero-stat{background:#fff;border:1px solid var(--sec-border);border-radius:8px;padding:14px 16px}
+.sec-hero-stat .label{font-size:11px;color:var(--sec);font-weight:700;letter-spacing:.03em}
+.sec-hero-stat .num{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--sec);line-height:1.1;margin-top:4px;display:flex;align-items:baseline;gap:3px}
+.sec-hero-stat .num .unit{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t3)}
+
+/* 셸 */
+.shell{max-width:1080px;margin:0 auto;padding:20px 16px 40px}
+.main{display:flex;flex-direction:column;gap:16px;min-width:0}
+
+/* 패널 */
+.panel{background:#fff;border:1px solid var(--b);border-radius:8px;overflow:hidden}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 22px 12px}
+.panel-title{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--t);display:flex;align-items:center;gap:12px}
+.panel-title::before{content:'';width:3px;height:16px;background:var(--sec);border-radius:1px}
+.panel-title .num{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--t3)}
+.panel-more{font-size:13px;color:var(--t3);text-decoration:none;font-weight:600}
+.panel-more:hover{color:var(--sec)}
+
+/* 2단 필터 (주요 분야 → 부처) */
+.filter-bar{padding:0 22px 14px}
+.filter-primary{display:flex;gap:4px;border-bottom:1.5px solid var(--bl);padding-bottom:0;margin-bottom:12px;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch}
+.filter-primary::-webkit-scrollbar{display:none}
+.filter-ptab{font-size:14px;font-weight:700;padding:10px 18px;border:none;background:none;color:var(--t3);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1.5px;font-family:var(--serif);flex-shrink:0}
+.filter-ptab:hover{color:var(--t)}
+.filter-ptab.on{color:var(--sec);border-bottom-color:var(--sec)}
+.filter-ptab .cnt{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--m);margin-left:4px}
+.filter-ptab.on .cnt{color:var(--sec)}
+
+.filter-secondary{display:flex;gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+.filter-secondary::-webkit-scrollbar{display:none}
+.filter-stab{font-size:12px;font-weight:600;padding:5px 11px;border-radius:14px;border:1.5px solid var(--bl);background:#fff;color:var(--t2);cursor:pointer;white-space:nowrap;flex-shrink:0}
+.filter-stab:hover{border-color:var(--sec);color:var(--sec)}
+.filter-stab.on{background:var(--sec);color:#fff;border-color:var(--sec)}
+.filter-stab .cnt{font-family:var(--mono);font-size:10px;margin-left:4px;opacity:.8}
+
+/* 브리핑 카드 그리드 */
+.brief-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 22px 22px}
+.brief-card{background:var(--s2);border:1px solid var(--bl);border-radius:8px;padding:16px 18px;cursor:pointer;transition:all .15s}
+.brief-card:hover{border-color:var(--sec);background:#fff;box-shadow:0 2px 8px rgba(30,64,175,.06)}
+.brief-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.brief-tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:3px;background:var(--sec-bg);color:var(--sec)}
+.brief-src{font-size:12px;color:var(--t3);font-weight:600}
+.brief-title{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--t);line-height:1.45;margin-bottom:10px}
+.brief-sum{font-size:13px;color:var(--t2);line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.brief-bot{margin-top:12px;display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--t3)}
+.brief-imp.high{color:var(--up);font-weight:700}
+.brief-imp.mid{color:var(--a);font-weight:700}
+
+/* 주간 시그널 카드 */
+.weekly-card{background:#fff;border:1px solid var(--bl);border-radius:8px;padding:14px 18px;margin:0 22px 10px}
+.weekly-card:last-of-type{margin-bottom:22px}
+.weekly-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.weekly-badge{font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;background:var(--sec);padding:3px 10px;border-radius:4px}
+.weekly-title{font-family:var(--serif);font-size:14px;font-weight:700;color:var(--t);flex:1}
+.weekly-range{font-family:var(--mono);font-size:11px;color:var(--t3)}
+.weekly-kws{display:flex;flex-wrap:nowrap;gap:6px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+.weekly-kws::-webkit-scrollbar{display:none}
+.weekly-kws span{font-size:11.5px;color:var(--sec);background:var(--sec-bg);border:1px solid var(--sec-border);padding:4px 11px;border-radius:12px;white-space:nowrap;flex-shrink:0;font-weight:600}
+.weekly-signals{display:flex;flex-direction:column;gap:6px}
+.weekly-sig{display:flex;gap:10px;font-size:12.5px;color:var(--t2);line-height:1.5}
+.weekly-sig::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--sec);margin-top:8px;flex-shrink:0}
+
+/* AI CTA 패널 */
+.ai-cta{background:linear-gradient(135deg,var(--sec),#2563eb);border-radius:8px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#fff}
+.ai-cta-text{flex:1}
+.ai-cta-title{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:6px}
+.ai-cta-desc{font-size:13px;opacity:.88;line-height:1.6}
+.ai-cta-btn{background:#fff;color:var(--sec);padding:12px 24px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;flex-shrink:0}
+
+/* 아카이브 미리보기 — 키워드 중심 */
+.arc-list{display:flex;flex-direction:column}
+.arc-row{display:grid;grid-template-columns:90px 50px 1fr 24px;gap:14px;padding:14px 22px;border-top:1px solid var(--bl);align-items:center;cursor:pointer}
+.arc-row:hover{background:var(--sec-bg)}
+.arc-date{font-family:var(--mono);color:var(--t2);font-weight:600;font-size:13px}
+.arc-cnt{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--sec);background:var(--sec-bg);padding:4px 8px;border-radius:4px;text-align:center}
+.arc-topics{display:flex;flex-wrap:nowrap;gap:6px;align-items:center;min-width:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch}
+.arc-topics::-webkit-scrollbar{display:none}
+.arc-topic{font-size:11.5px;color:var(--t2);background:var(--s2);border:1px solid var(--bl);padding:3px 9px;border-radius:10px;white-space:nowrap;font-weight:600;flex-shrink:0}
+.arc-topic.hot{color:var(--sec);background:var(--sec-bg);border-color:var(--sec-border)}
+.arc-more{font-size:11px;color:var(--t3);font-weight:600}
+.arc-chev{color:var(--m);text-align:right;font-size:16px}
+
+/* 푸터 */
+.footer{max-width:1240px;margin:20px auto 0;padding:24px 16px 32px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer-links a{color:var(--t2);text-decoration:none;font-weight:600;margin:0 10px;font-size:12px}
+.footer-links a:hover{color:var(--sec)}
+.footer-motto{margin-top:14px;font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{margin-top:6px;font-family:var(--mono);font-size:11px;color:var(--t3)}
+
+/* 하단 고정 네비 */
+.bottom-nav{display:none}
+.is-mobile body{padding-bottom:68px}
+.is-mobile .footer-links{display:none}
+.is-mobile .footer{padding:18px 14px 22px}
+.is-mobile .footer-motto{font-size:13px;margin-top:0}
+.is-mobile .footer-site{font-size:10px}
+.is-mobile .bottom-nav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(0,0,0,.06)}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600;padding:4px 0}
+.bottom-nav a.on{color:var(--sec)}
+.bottom-nav svg{width:22px;height:22px;stroke-width:2;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+.bottom-nav a.on svg{stroke-width:2.4}
+
+/* 모바일 */
+.is-mobile body{font-size:14px;line-height:1.55}
+.is-mobile .hdr{padding:0 12px;height:52px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav{gap:2px;flex:1;min-width:0}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+.is-mobile .hdr-nav .lbl-full{display:none}
+.is-mobile .hdr-nav .lbl-short{display:inline}
+.is-mobile .hdr-search{display:none}
+.is-mobile .hdr-time{display:none}
+.is-mobile .sec-hero{padding:24px 16px 20px}
+.is-mobile .sec-hero-title{font-size:24px}
+.is-mobile .sec-hero-sub{font-size:13px}
+.is-mobile .sec-hero-stats{grid-template-columns:repeat(3,1fr);gap:6px}
+.is-mobile .sec-hero-stat{padding:9px 10px}
+.is-mobile .sec-hero-stat .label{font-size:10px}
+.is-mobile .sec-hero-stat .num{font-size:18px}
+.is-mobile .sec-hero-stat .num .unit{font-size:10px}
+.is-mobile .hide-mobile{display:none}
+
+/* 가로 스크롤 힌트 — 우측 페이드 + 화살표 (모바일) */
+.is-mobile .scroll-hint{position:relative}
+.is-mobile .scroll-hint.has-more::after{
+  content:'›';
+  position:absolute;
+  top:50%;
+  right:0;
+  transform:translateY(-50%);
+  width:28px;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding-right:4px;
+  font-size:18px;
+  font-weight:700;
+  color:var(--sec);
+  background:linear-gradient(to right,transparent,#fff 60%);
+  pointer-events:none;
+  z-index:1;
+}
+.is-mobile .weekly-card .scroll-hint.has-more::after{background:linear-gradient(to right,transparent,#fff 60%)}
+.is-mobile .arc-row .scroll-hint.has-more::after{background:linear-gradient(to right,transparent,#fff 60%)}
+.is-mobile .arc-row:hover .scroll-hint.has-more::after{background:linear-gradient(to right,transparent,var(--sec-bg) 60%)}
+.is-mobile .shell{padding:12px 10px 20px;max-width:100%}
+.is-mobile .main{gap:12px}
+.is-mobile .panel-hdr{padding:14px 16px 8px}
+.is-mobile .panel-title{font-size:16px}
+.is-mobile .brief-grid{grid-template-columns:1fr;padding:0 14px 14px;gap:10px}
+.is-mobile .brief-card{padding:14px}
+.is-mobile .brief-title{font-size:15px}
+.is-mobile .brief-sum{font-size:12.5px;-webkit-line-clamp:2}
+.is-mobile .filter-tabs{padding:0 14px 10px}
+.is-mobile .weekly-card{margin:0 14px 8px;padding:12px 14px}
+.is-mobile .weekly-card:last-of-type{margin-bottom:14px}
+.is-mobile .ai-cta{flex-direction:row;align-items:center;padding:12px 16px;gap:10px}
+.is-mobile .ai-cta-text{flex:1;min-width:0}
+.is-mobile .ai-cta-title{font-size:14px;margin-bottom:2px;line-height:1.3}
+.is-mobile .ai-cta-desc{font-size:11px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.is-mobile .ai-cta-btn{padding:8px 14px;font-size:12px;flex-shrink:0}
+.is-mobile .arc-row{grid-template-columns:72px 44px 1fr 20px;gap:10px;padding:11px 16px;font-size:12px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="hdr-logo" href="/">브리핑룸</a>
+  <nav class="hdr-nav">
+    <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
+    <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
+    <a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a>
+    <a href="/finlaw/"><span class="lbl-full">금융 규제 트래커</span><span class="lbl-short">금융 규제</span></a>
+  </nav>
+  <div class="hdr-search">
+    <span class="hdr-search-icon">⌕</span>
+    <input placeholder="AI 기반 법령·키워드·부처 검색" />
+  </div>
+  <div class="hdr-time">2026.04.12 · 16:32 KST</div>
+</header>
+
+<div class="mobile-search">
+  <div class="mobile-search-box">
+    <span class="mobile-search-icon">⌕</span>
+    <input placeholder="AI 기반 법령, 키워드 부처 검색" />
+  </div>
+</div>
+
+<!-- 섹션 Hero -->
+<section class="sec-hero">
+  <div class="sec-hero-inner">
+    <div class="sec-hero-eyebrow">GOVERNMENT BRIEFING</div>
+    <h1 class="sec-hero-title">정부 발표</h1>
+    <p class="sec-hero-sub">매일 오전 수집되는 부처별 보도자료를 AI가 요약하고 카테고리·영향도로 분류. 오늘의 정부 움직임을 한눈에.</p>
+    <div class="sec-hero-stats">
+      <div class="sec-hero-stat">
+        <div class="label">오늘 발표</div>
+        <div class="num">24<span class="unit">건</span></div>
+      </div>
+      <div class="sec-hero-stat">
+        <div class="label">참여 기관</div>
+        <div class="num">11<span class="unit">개 부처</span></div>
+      </div>
+      <div class="sec-hero-stat hide-mobile">
+        <div class="label">영향도 상</div>
+        <div class="num">3<span class="unit">건</span></div>
+      </div>
+      <div class="sec-hero-stat">
+        <div class="label">이번 주 누적</div>
+        <div class="num">142<span class="unit">건</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="shell">
+  <main class="main">
+
+    <!-- AI CTA (최상단) -->
+    <section class="ai-cta">
+      <div class="ai-cta-text">
+        <div class="ai-cta-title">AI에게 오늘의 발표를 질문하세요</div>
+        <div class="ai-cta-desc">정부 보도자료 전체를 컨텍스트로 정확한 답변과 출처 제공. 자연어로 부처·주제·기간 검색.</div>
+      </div>
+      <a class="ai-cta-btn" href="/brief/ai/">AI 질의 →</a>
+    </section>
+
+    <!-- 오늘의 발표 -->
+    <section class="panel">
+      <div class="panel-hdr">
+        <h2 class="panel-title">오늘의 발표<span class="num">04-12 · 24건</span></h2>
+        <a class="panel-more" href="/brief/articles/">전체 →</a>
+      </div>
+      <div class="filter-bar">
+        <!-- 1차: 주요 분야 -->
+        <div class="filter-primary scroll-hint" id="cat-bar">
+          <button class="filter-ptab on" data-cat="all">전체<span class="cnt">24</span></button>
+          <button class="filter-ptab" data-cat="finance">금융·경제<span class="cnt">6</span></button>
+          <button class="filter-ptab" data-cat="industry">산업·기술<span class="cnt">9</span></button>
+          <button class="filter-ptab" data-cat="social">사회·복지<span class="cnt">4</span></button>
+          <button class="filter-ptab" data-cat="foreign">외교·안보<span class="cnt">2</span></button>
+          <button class="filter-ptab" data-cat="admin">행정·법제<span class="cnt">3</span></button>
+        </div>
+        <!-- 2차: 부처 (1차에 따라 교체) -->
+        <div class="filter-secondary scroll-hint" id="dept-bar">
+          <span class="filter-stab on">전체 기관 <span class="cnt">11</span></span>
+          <span class="filter-stab">기재부 <span class="cnt">4</span></span>
+          <span class="filter-stab">과기부 <span class="cnt">3</span></span>
+          <span class="filter-stab">금융위 <span class="cnt">2</span></span>
+          <span class="filter-stab">중기부 <span class="cnt">2</span></span>
+          <span class="filter-stab">외교부 <span class="cnt">2</span></span>
+          <span class="filter-stab">+6개</span>
+        </div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-card">
+          <div class="brief-card-top"><span class="brief-tag">금융·경제</span><span class="brief-src">기획재정부</span></div>
+          <div class="brief-title">2026년 1회 추경 13.9조 최종 확정</div>
+          <div class="brief-sum">수출 중소기업 4.2조, 소상공인 3.1조, AI 반도체 R&D 2.8조 집중 투입. 중동 리스크 대응이 핵심 목적.</div>
+          <div class="brief-bot"><span>04-12</span><span class="brief-imp high">영향도 상</span></div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-card-top"><span class="brief-tag">산업·기술</span><span class="brief-src">과기정통부</span></div>
+          <div class="brief-title">AI 반도체 국가전략 2030 로드맵 발표</div>
+          <div class="brief-sum">2030년까지 AI 반도체 생태계 조성에 3.2조 투입. 팹리스 스타트업 지원과 인재 양성이 핵심.</div>
+          <div class="brief-bot"><span>04-12</span><span class="brief-imp mid">영향도 중</span></div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-card-top"><span class="brief-tag">사회·복지</span><span class="brief-src">중소벤처기업부</span></div>
+          <div class="brief-title">중기부 추경 1조 6,903억 확정</div>
+          <div class="brief-sum">수출 기업·소상공인 긴급 지원, 청년 스타트업 지원 병행. 9월까지 순차 집행.</div>
+          <div class="brief-bot"><span>04-12</span><span class="brief-imp mid">영향도 중</span></div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-card-top"><span class="brief-tag">외교·안보</span><span class="brief-src">외교부</span></div>
+          <div class="brief-title">중동 정세 대응 TF 가동</div>
+          <div class="brief-sum">교민 안전 확보 및 에너지 수급 비상 대응 체계 점검. 호르무즈 해협 상황 실시간 모니터링.</div>
+          <div class="brief-bot"><span>04-12</span><span class="brief-imp mid">영향도 중</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 주간 시그널 -->
+    <section class="panel">
+      <div class="panel-hdr">
+        <h2 class="panel-title">주간 시그널<span class="num">16주차 · 283건</span></h2>
+        <a class="panel-more" href="/brief/weekly/">상세 →</a>
+      </div>
+      <div class="weekly-card">
+        <div class="weekly-top">
+          <span class="weekly-badge">16주차</span>
+          <span class="weekly-title">2026년 4월 2주</span>
+          <span class="weekly-range">04.06 — 04.12</span>
+        </div>
+        <div class="weekly-kws scroll-hint">
+          <span>추경</span><span>AI 반도체</span><span>소상공인</span><span>수출</span><span>중동 리스크</span>
+        </div>
+        <div class="weekly-signals">
+          <div class="weekly-sig">기재부 추경 13.9조 국회 최종 확정 · 수출·소상공인 집중 지원</div>
+          <div class="weekly-sig">과기부 AI 반도체 국가전략 2030 로드맵 발표</div>
+          <div class="weekly-sig">금융위 가계부채 추가 규제 시행 예고 · Q3 시행</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 최근 아카이브 -->
+    <section class="panel">
+      <div class="panel-hdr">
+        <h2 class="panel-title">최근 아카이브<span class="num">최근 5일</span></h2>
+        <a class="panel-more" href="/brief/articles/">전체 →</a>
+      </div>
+      <div class="arc-list">
+        <div class="arc-row">
+          <span class="arc-date">04-12 토</span>
+          <span class="arc-cnt">24</span>
+          <div class="arc-topics scroll-hint">
+            <span class="arc-topic hot">추경 13.9조 확정</span>
+            <span class="arc-topic hot">AI 반도체 전략</span>
+            <span class="arc-topic">중동 대응 TF</span>
+            <span class="arc-topic">소상공인 지원</span>
+            <span class="arc-more">+4</span>
+          </div>
+          <span class="arc-chev">›</span>
+        </div>
+        <div class="arc-row">
+          <span class="arc-date">04-11 금</span>
+          <span class="arc-cnt">31</span>
+          <div class="arc-topics scroll-hint">
+            <span class="arc-topic hot">가계부채 규제</span>
+            <span class="arc-topic">수출 지원책</span>
+            <span class="arc-topic">청년 일자리</span>
+            <span class="arc-topic">산불 방재</span>
+            <span class="arc-more">+5</span>
+          </div>
+          <span class="arc-chev">›</span>
+        </div>
+        <div class="arc-row">
+          <span class="arc-date">04-10 목</span>
+          <span class="arc-cnt">18</span>
+          <div class="arc-topics scroll-hint">
+            <span class="arc-topic hot">주택 공급 로드맵</span>
+            <span class="arc-topic">기초연금 인상</span>
+            <span class="arc-topic">탄소중립 이행</span>
+            <span class="arc-more">+3</span>
+          </div>
+          <span class="arc-chev">›</span>
+        </div>
+        <div class="arc-row">
+          <span class="arc-date">04-09 수</span>
+          <span class="arc-cnt">22</span>
+          <div class="arc-topics scroll-hint">
+            <span class="arc-topic hot">방산 수출 협력</span>
+            <span class="arc-topic">외교 일정</span>
+            <span class="arc-topic">법무 개정안</span>
+            <span class="arc-topic">재난 안전</span>
+            <span class="arc-more">+4</span>
+          </div>
+          <span class="arc-chev">›</span>
+        </div>
+        <div class="arc-row">
+          <span class="arc-date">04-08 화</span>
+          <span class="arc-cnt">9</span>
+          <div class="arc-topics scroll-hint">
+            <span class="arc-topic hot">아동학대 대책</span>
+            <span class="arc-topic">여성 창업 지원</span>
+            <span class="arc-topic">중소기업 판로</span>
+          </div>
+          <span class="arc-chev">›</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/">홈</a>
+    <a href="/brief/">정부 발표</a>
+    <a href="/keywords/">키워드 분석</a>
+    <a href="/finlaw/">금융 규제 트래커</a>
+  </div>
+  <div class="footer-motto">정부 정책과 금융 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+
+<nav class="bottom-nav">
+  <a href="/">
+    <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg>
+    <span>홈</span>
+  </a>
+  <a class="on" href="/brief/">
+    <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+    <span>정부 발표</span>
+  </a>
+  <a href="/keywords/">
+    <svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>
+    <span>키워드</span>
+  </a>
+  <a href="/finlaw/">
+    <svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg>
+    <span>금융 규제</span>
+  </a>
+</nav>
+
+<script>
+// 주요 분야 → 부처 2단 필터 전환
+const CATS = {
+  all:      [['전체 기관',11],['기재부',4],['과기부',3],['금융위',2],['중기부',2],['외교부',2],['+6개',null]],
+  finance:  [['전체 기관',6],['기재부',3],['금융위',2],['한국은행',1],['공정위',1],['조달청',1]],
+  industry: [['전체 기관',9],['과기부',3],['산업부',2],['중기부',2],['국토부',1],['환경부',1]],
+  social:   [['전체 기관',4],['복지부',1],['고용부',1],['여가부',1],['교육부',1]],
+  foreign:  [['전체 기관',2],['외교부',1],['국방부',1]],
+  admin:    [['전체 기관',3],['행안부',1],['법무부',1],['인사처',1]],
+};
+const catBar = document.getElementById('cat-bar');
+const deptBar = document.getElementById('dept-bar');
+catBar.addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-ptab');
+  if (!btn) return;
+  catBar.querySelectorAll('.filter-ptab').forEach(t => t.classList.remove('on'));
+  btn.classList.add('on');
+  const list = CATS[btn.dataset.cat] || [];
+  deptBar.innerHTML = list.map((item, idx) => {
+    const [name, cnt] = item;
+    const cls = idx === 0 ? 'filter-stab on' : 'filter-stab';
+    const cntHtml = cnt != null ? ` <span class="cnt">${cnt}</span>` : '';
+    return `<span class="${cls}">${name}${cntHtml}</span>`;
+  }).join('');
+  updateScrollHints();
+});
+
+// 가로 스크롤 힌트 — 스크롤 가능한 영역에 has-more 클래스 토글
+function updateScrollHints(){
+  document.querySelectorAll('.scroll-hint').forEach(el => {
+    const hasMore = el.scrollLeft + el.clientWidth < el.scrollWidth - 2;
+    el.classList.toggle('has-more', hasMore);
+  });
+}
+function bindScrollHints(){
+  document.querySelectorAll('.scroll-hint').forEach(el => {
+    el.addEventListener('scroll', () => {
+      const hasMore = el.scrollLeft + el.clientWidth < el.scrollWidth - 2;
+      el.classList.toggle('has-more', hasMore);
+    }, {passive:true});
+  });
+}
+bindScrollHints();
+updateScrollHints();
+window.addEventListener('resize', updateScrollHints);
+window.addEventListener('load', updateScrollHints);
+</script>
+</body>
+</html>

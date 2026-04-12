@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard v2 · PC + Mobile 프리뷰</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0f0f0f;color:#f0f0f0;font-family:'Wanted Sans Variable',sans-serif;min-height:100vh;padding:32px 24px}
+.hdr{max-width:1600px;margin:0 auto 28px;display:flex;align-items:center;justify-content:space-between}
+.hdr h1{font-family:'Gowun Batang',serif;font-size:22px;font-weight:700}
+.hdr p{font-size:12px;color:#888;margin-top:4px}
+.hdr .actions{display:flex;gap:8px}
+.hdr .actions a{font-family:'JetBrains Mono',monospace;font-size:11px;color:#f0f0f0;text-decoration:none;padding:7px 14px;border:1px solid #2e2e2e;border-radius:6px}
+.hdr .actions a:hover{border-color:#d96c2c;color:#d96c2c}
+
+.frames{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 400px;gap:24px;align-items:flex-start}
+
+.frame{display:flex;flex-direction:column;gap:10px}
+.frame-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:#d96c2c;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.frame-meta{font-size:11px;color:#666;margin-left:8px;font-family:'Wanted Sans Variable',sans-serif;letter-spacing:0;text-transform:none}
+
+.desktop-frame{border:1px solid #2e2e2e;border-radius:10px;overflow:hidden;background:#000}
+.desktop-chrome{background:#1a1a1a;height:30px;display:flex;align-items:center;padding:0 12px;gap:6px;border-bottom:1px solid #2e2e2e}
+.desktop-chrome span{width:10px;height:10px;border-radius:50%;background:#2e2e2e}
+.desktop-chrome .url{font-family:'JetBrains Mono',monospace;font-size:10px;color:#666;margin-left:12px}
+.desktop-iframe{width:100%;height:1100px;border:0;display:block;background:#f7f7f5}
+
+/* 모바일 기기 프레임 */
+.phone-wrap{display:flex;justify-content:center}
+.phone{width:390px;background:#1a1a1a;border-radius:38px;padding:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);border:1px solid #333}
+.phone-notch{height:24px;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.phone-notch::before{content:'';width:100px;height:24px;background:#000;border-radius:14px}
+.phone-screen{width:100%;height:780px;background:#f7f7f5;border-radius:28px;overflow:hidden}
+.phone-iframe{width:100%;height:100%;border:0;display:block}
+.phone-bar{height:4px;background:#333;border-radius:2px;width:120px;margin:6px auto 2px}
+
+@media(max-width:1280px){
+  .frames{grid-template-columns:1fr;gap:32px}
+  .phone-wrap{margin:0 auto}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div>
+    <h1>브리핑룸 · 홈 대시보드 v2</h1>
+    <p>PC 화면과 모바일 화면을 동시에 비교</p>
+  </div>
+  <div class="actions">
+    <a href="home-dashboard-v2.html" target="_blank">단독 열기 →</a>
+  </div>
+</header>
+
+<div class="frames">
+  <div class="frame">
+    <div class="frame-label">DESKTOP<span class="frame-meta"> · 1080px width</span></div>
+    <div class="desktop-frame">
+      <div class="desktop-chrome"><span></span><span></span><span></span><span class="url">govbrief.kr/</span></div>
+      <iframe class="desktop-iframe" src="home-dashboard-v2.html"></iframe>
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="frame-label">MOBILE<span class="frame-meta"> · 390px (iPhone 14)</span></div>
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <iframe class="phone-iframe" src="home-dashboard-v2.html?mobile=1"></iframe>
+        </div>
+        <div class="phone-bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

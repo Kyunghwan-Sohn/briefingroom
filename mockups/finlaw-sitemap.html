@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>금융 규제 트래커 섹션 구조 설계 — 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.08);--ab:rgba(217,108,44,.18);
+  --bg:#0f0f0f;--s:#1a1a1a;--s2:#222;--b:#2e2e2e;--bl:#383838;
+  --t:#f0f0f0;--t2:#aaa;--m:#666;
+  --fin:#c2410c;--fin-bg:#2a1208;--fin-light:#fb923c;--fin-border:#7c2d12;
+  --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+.doc-header{padding:48px 40px 36px;border-bottom:1px solid var(--b);max-width:1200px;margin:0 auto}
+.doc-header .badge{font-family:var(--mono);font-size:11px;color:var(--a);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.doc-header h1{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--t);margin-bottom:10px}
+.doc-header p{font-size:15px;color:var(--t2);line-height:1.7;max-width:640px}
+.doc-meta{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.doc-meta span{font-family:var(--mono);font-size:11px;color:var(--m)}
+.doc-meta strong{color:var(--t2)}
+
+.section{max-width:1200px;margin:0 auto;padding:48px 40px}
+.section-title{font-family:var(--mono);font-size:11px;color:var(--a);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.section-heading{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--t);margin-bottom:6px}
+.section-desc{font-size:13px;color:var(--t2);margin-bottom:32px;line-height:1.6}
+.divider{border:none;border-top:1px solid var(--b);margin:0}
+
+.sitemap{background:var(--s);border:1px solid var(--b);border-radius:16px;padding:36px;overflow-x:auto}
+.sm-nav{display:flex;gap:0;margin-bottom:36px;justify-content:center}
+.sm-nav-item{display:flex;flex-direction:column;align-items:center;flex:1;max-width:180px;position:relative}
+.sm-nav-item:not(:last-child)::after{content:'';position:absolute;top:22px;right:-1px;width:calc(100% - 80px);height:2px;background:var(--b);left:calc(50% + 40px)}
+.sm-nav-box{width:80px;height:44px;border:2px solid var(--b);border-radius:10px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--t2);position:relative;z-index:1;text-align:center;padding:0 4px}
+.sm-nav-box.active{border-color:var(--fin-light);color:var(--fin-light);background:var(--fin-bg)}
+.sm-nav-box.home{border-color:var(--a);color:var(--a);background:rgba(217,108,44,.08)}
+.sm-nav-label{font-family:var(--mono);font-size:10px;color:var(--m);margin-top:6px;text-align:center}
+
+.sm-pages{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;padding-top:20px;position:relative}
+.sm-pages::before{content:'';position:absolute;top:0;left:12%;right:12%;height:2px;background:var(--fin-border)}
+.sm-page{display:flex;flex-direction:column;align-items:center;position:relative}
+.sm-page::before{content:'';position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:2px;height:20px;background:var(--fin-border)}
+.sm-page-box{background:var(--fin-bg);border:1.5px solid var(--fin-border);border-radius:10px;padding:12px 16px;text-align:center;min-width:120px}
+.sm-page-box .pg-name{font-size:13px;font-weight:700;color:var(--fin-light);margin-bottom:3px}
+.sm-page-box .pg-url{font-family:var(--mono);font-size:10px;color:var(--m)}
+.sm-page-box .pg-tag{font-family:var(--mono);font-size:9px;color:var(--a);background:var(--al);padding:2px 6px;border-radius:4px;margin-top:6px;display:inline-block}
+.sm-page-box.new-page{border-color:var(--a);background:rgba(217,108,44,.06)}
+.sm-page-box.new-page .pg-name{color:var(--a)}
+.sm-page-box.core{border-color:#fb923c;background:#3a1608}
+.sm-page-box.core .pg-name{color:#fed7aa}
+
+.sm-legend{display:flex;gap:20px;margin-top:28px;justify-content:center;flex-wrap:wrap}
+.sm-legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--t2)}
+.sm-legend-dot{width:10px;height:10px;border-radius:3px;border:2px solid}
+
+.change-table{width:100%;border-collapse:collapse;background:var(--s);border-radius:12px;overflow:hidden;border:1px solid var(--b)}
+.change-table th{background:var(--s2);padding:12px 16px;font-size:12px;font-weight:700;color:var(--t2);text-align:left;border-bottom:2px solid var(--b)}
+.change-table td{padding:13px 16px;font-size:13px;border-bottom:1px solid var(--b);vertical-align:top;line-height:1.5}
+.change-table tr:last-child td{border-bottom:none}
+.tag-new{background:rgba(217,108,44,.12);color:var(--a);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.tag-keep{background:var(--s2);color:var(--t2);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.tag-merge{background:rgba(251,146,60,.15);color:var(--fin-light);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.tag-del{background:rgba(239,68,68,.1);color:#f87171;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.t-url{font-family:var(--mono);font-size:12px;color:var(--t2)}
+.t-note{font-size:12px;color:var(--m)}
+
+.screens-grid{display:flex;flex-direction:column;gap:64px}
+.screen-block{display:flex;gap:32px;align-items:flex-start}
+.screen-block.reverse{flex-direction:row-reverse}
+.screen-info{flex:0 0 260px}
+.screen-info .screen-num{font-family:var(--mono);font-size:11px;color:var(--a);letter-spacing:.1em;margin-bottom:8px}
+.screen-info h3{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--t);margin-bottom:8px}
+.screen-info .screen-url{font-family:var(--mono);font-size:11px;color:var(--fin-light);background:var(--fin-bg);padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:14px}
+.screen-info p{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:16px}
+.screen-info ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.screen-info ul li{font-size:12px;color:var(--t2);padding-left:14px;position:relative;line-height:1.5}
+.screen-info ul li::before{content:'—';position:absolute;left:0;color:var(--m)}
+.screen-frame{flex:1;border:1.5px solid var(--b);border-radius:14px;overflow:hidden;background:var(--s);min-width:0}
+.screen-bar{height:36px;background:var(--s2);border-bottom:1px solid var(--b);display:flex;align-items:center;padding:0 14px;gap:10px}
+.screen-bar-dots{display:flex;gap:5px}
+.screen-bar-dots span{width:8px;height:8px;border-radius:50%;background:var(--bl)}
+.screen-bar-url{font-family:var(--mono);font-size:10px;color:var(--m);background:var(--bg);padding:3px 12px;border-radius:4px;flex:1;text-align:center}
+.screen-body{padding:0;background:#fff;color:#222}
+
+.mock-nav{height:42px;background:#f5f5f5;border-bottom:3px solid var(--a);display:flex;align-items:center;padding:0 12px;gap:6px}
+.mock-logo{font-family:var(--serif);font-size:14px;font-weight:700;color:#222;margin-right:6px}
+.mock-navitem{font-size:10px;font-weight:600;padding:4px 8px;border-radius:5px;background:#fff;border:1px solid #e0e0e0;color:#555;white-space:nowrap}
+.mock-navitem.active{background:#c2410c;color:#fff;border-color:#c2410c}
+.mock-navitem.small{font-size:9px;padding:3px 6px}
+
+.mock-hero{padding:18px 18px 16px;background:#fef2e8;border-bottom:1px solid #fed7aa}
+.mock-hero-title{font-family:var(--serif);font-size:18px;font-weight:700;color:#111;margin-bottom:3px}
+.mock-hero-date{font-family:var(--mono);font-size:10px;color:#c2410c;margin-bottom:2px}
+.mock-hero-sub{font-size:11px;color:#9a3412;margin-bottom:12px}
+.mock-stats{display:flex;gap:6px;margin-bottom:12px}
+.mock-stat{flex:1;background:#fff;border:1px solid #fed7aa;border-radius:8px;padding:8px 4px;text-align:center}
+.mock-stat .n{font-family:var(--mono);font-size:16px;font-weight:700;color:#c2410c}
+.mock-stat .l{font-size:9px;font-weight:700;color:#c2410c;margin-top:2px}
+.mock-searchbar{background:#fff;border:2px solid #fed7aa;border-radius:8px;padding:8px 12px;font-size:11px;color:#999;display:flex;align-items:center;gap:6px}
+
+.mock-section{padding:12px 14px;border-bottom:1px solid #f0f0f0}
+.mock-sec-title{font-family:var(--serif);font-size:13px;font-weight:700;color:#222;margin-bottom:4px}
+.mock-sec-desc{font-size:10px;color:#999;margin-bottom:10px}
+.mock-sec-hdr{font-family:var(--serif);font-size:13px;font-weight:700;color:#222;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.mock-sec-more{font-size:10px;color:var(--a);font-weight:600}
+
+/* 변경 피드 카드 */
+.mock-change-card{background:#fff;border:1px solid #e5e7eb;border-left:3px solid #c2410c;border-radius:8px;padding:10px 12px;margin-bottom:6px}
+.mock-change-card.new{border-left-color:#16a34a}
+.mock-change-card.amend{border-left-color:#c2410c}
+.mock-change-card.repeal{border-left-color:#dc2626}
+.mock-change-top{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.mock-change-badge{font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px}
+.mock-change-badge.new{background:#dcfce7;color:#16a34a}
+.mock-change-badge.amend{background:#fed7aa;color:#c2410c}
+.mock-change-badge.repeal{background:#fecaca;color:#dc2626}
+.mock-change-date{font-family:var(--mono);font-size:9px;color:#999;margin-left:auto}
+.mock-change-name{font-size:11px;font-weight:700;color:#222;line-height:1.3;margin-bottom:3px}
+.mock-change-desc{font-size:10px;color:#666;line-height:1.4}
+.mock-change-article{font-family:var(--mono);font-size:9px;color:#c2410c;margin-top:4px;display:inline-block;background:#fef2e8;padding:2px 6px;border-radius:3px}
+
+/* 섹션 탭 바 (sticky) */
+.mock-section-tabs{display:flex;gap:4px;padding:8px 12px;background:#fff;border-bottom:2px solid #fed7aa;position:sticky;top:0;z-index:5}
+.mock-sec-tab{font-size:10px;font-weight:700;padding:6px 12px;border-radius:6px;background:#fff;border:1.5px solid #e5e7eb;color:#666}
+.mock-sec-tab.on{background:#c2410c;color:#fff;border-color:#c2410c}
+
+/* 통합 검색창 + 라우팅 힌트 */
+.mock-search-wrap{padding:12px 14px;background:#fffbf5;border-bottom:1px solid #fed7aa}
+.mock-search-box{background:#fff;border:2px solid #c2410c;border-radius:8px;padding:10px 12px;font-size:11px;color:#999;display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.mock-search-hints{font-size:9px;color:#9a3412;text-align:center}
+.mock-search-hints b{color:#c2410c}
+
+/* 4 stat 카드 (클릭 가능) */
+.mock-stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;padding:10px 14px;background:#fef2e8;border-bottom:1px solid #fed7aa}
+.mock-stat-link{background:#fff;border:1.5px solid #fed7aa;border-radius:8px;padding:8px 6px;text-align:center;cursor:pointer;position:relative}
+.mock-stat-link b{display:block;font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:#c2410c}
+.mock-stat-link .stat-label{font-size:9px;font-weight:700;color:#9a3412;margin-top:2px}
+.mock-stat-link em{font-size:8px;font-style:normal;color:#c2410c;display:block;margin-top:3px;font-weight:600}
+
+/* 변경 카드 inline 액션 */
+.mock-card-actions{display:flex;gap:4px;margin-top:8px;padding-top:8px;border-top:1px dashed #fed7aa}
+.mock-card-act{flex:1;font-size:9px;font-weight:700;padding:5px 4px;border-radius:5px;border:1px solid #fed7aa;background:#fff;color:#c2410c;text-align:center;cursor:pointer}
+.mock-card-act:hover{background:#fef2e8}
+.mock-card-act.primary{background:#c2410c;color:#fff;border-color:#c2410c}
+
+/* 빠른 작업 카드 */
+.mock-quick-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.mock-quick-card{background:#fff;border:1.5px solid #fed7aa;border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:4px;cursor:pointer}
+.mock-quick-card:hover{background:#fef2e8;border-color:#c2410c}
+.mock-quick-icon{font-size:16px;margin-bottom:2px}
+.mock-quick-card b{font-family:'Gowun Batang',serif;font-size:11px;font-weight:700;color:#222}
+.mock-quick-card span{font-size:9px;color:#666;line-height:1.3}
+
+/* 구독 목록 */
+.mock-sub-item{display:flex;align-items:center;gap:6px;padding:6px 10px;background:#fff;border:1px solid #fed7aa;border-radius:6px;margin-bottom:4px;font-size:10px;color:#333}
+.mock-sub-dot{width:6px;height:6px;border-radius:50%;background:#c2410c}
+.mock-sub-name{flex:1;font-weight:700}
+.mock-sub-meta{font-family:'JetBrains Mono',monospace;font-size:9px;color:#9a3412}
+
+/* Carousel */
+.mock-carousel{padding:14px 14px 8px;background:#fff}
+.mock-carousel-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 4px}
+.mock-carousel-slideno{font-family:'JetBrains Mono',monospace;font-size:9px;color:#c2410c;font-weight:700;letter-spacing:.05em}
+.mock-carousel-hint{font-size:9px;color:#9a3412}
+.mock-carousel-frame{position:relative;border:1.5px solid #fed7aa;border-radius:12px;background:#fffbf5;padding:14px;box-shadow:0 2px 8px rgba(194,65,12,.06)}
+.mock-carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#fff;border:1.5px solid #c2410c;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#c2410c;font-weight:700;z-index:2;box-shadow:0 2px 4px rgba(0,0,0,.08)}
+.mock-carousel-arrow.prev{left:-12px}
+.mock-carousel-arrow.next{right:-12px}
+.mock-carousel-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed #fed7aa}
+.mock-carousel-head-left{flex:1}
+.mock-carousel-title{font-family:'Gowun Batang',serif;font-size:15px;font-weight:700;color:#111;margin-bottom:2px}
+.mock-carousel-sub{font-size:9px;color:#9a3412;line-height:1.4}
+.mock-carousel-icon{width:28px;height:28px;border-radius:6px;background:#fef2e8;border:1px solid #fed7aa;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.mock-carousel-cta{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin-top:10px;padding-top:8px;border-top:1px dashed #fed7aa;font-family:'Wanted Sans Variable',sans-serif;font-size:10px;font-weight:700;color:#c2410c}
+.mock-carousel-dots{display:flex;gap:6px;justify-content:center;margin-top:14px;align-items:center}
+.mock-carousel-dot{width:6px;height:6px;border-radius:50%;background:#fed7aa;transition:all .2s}
+.mock-carousel-dot.on{background:#c2410c;width:22px;border-radius:3px}
+
+/* Compact icon chips (버튼 대체) */
+.mock-icon-chips{display:flex;gap:3px;margin-top:6px;padding-top:6px;border-top:1px dashed #fed7aa;align-items:center}
+.mock-icon-chip{width:22px;height:22px;border-radius:5px;background:#fff;border:1px solid #fed7aa;display:flex;align-items:center;justify-content:center;font-size:10px;color:#c2410c;cursor:pointer}
+.mock-icon-chip:hover{background:#fef2e8}
+.mock-icon-chip-flex{flex:1}
+.mock-icon-chip-detail{font-size:9px;font-weight:700;color:#c2410c;padding:4px 8px;border-radius:5px;background:#fef2e8;border:1px solid #fed7aa}
+
+/* 캐스케이드 (법 → 시행령 → 감독규정 → 시행세칙) */
+.mock-cascade{padding:8px 14px 14px;display:flex;flex-direction:column}
+.cascade-layer{display:flex;gap:10px;align-items:flex-start}
+.cascade-step{flex:0 0 80px;padding-top:10px}
+.cascade-tier{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;color:#c2410c;letter-spacing:.05em;margin-bottom:2px}
+.cascade-meta{font-size:8px;color:#999}
+.cascade-card{flex:1;background:#fff;border:1px solid #fed7aa;border-left:3px solid #c2410c;border-radius:6px;padding:10px 12px;position:relative}
+.cascade-card.tier1{border-left-color:#7c2d12;background:#fffbeb}
+.cascade-card.tier2{border-left-color:#c2410c;margin-left:8px}
+.cascade-card.tier3{border-left-color:#fb923c;margin-left:16px}
+.cascade-card.tier4{border-left-color:#fdba74;margin-left:24px}
+.cascade-law-name{font-family:'Gowun Batang',serif;font-size:11px;font-weight:700;color:#111;margin-bottom:6px}
+.cascade-article{background:#fafafa;border-radius:4px;padding:6px 8px;margin-bottom:5px}
+.cascade-article-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;color:#c2410c;margin-bottom:2px}
+.cascade-article-text{font-size:9px;color:#444;line-height:1.5}
+.cascade-delegate{font-size:9px;color:#9a3412;font-style:italic;margin-top:4px}
+.cascade-badge{position:absolute;top:8px;right:8px;font-family:'JetBrains Mono',monospace;font-size:7px;font-weight:700;padding:2px 5px;border-radius:3px}
+.cascade-badge.amend{background:#fed7aa;color:#c2410c}
+.cascade-connector{width:2px;height:14px;background:#fed7aa;margin-left:120px;margin-top:2px;margin-bottom:2px}
+
+/* AI 채팅 */
+.mock-ai-full{display:flex;flex-direction:column;height:340px}
+.mock-ai-topbar{padding:10px 14px;border-bottom:1px solid #eee;display:flex;align-items:center;gap:8px;background:#fff}
+.mock-ai-topbar-title{font-weight:700;font-size:12px;color:#222;flex:1}
+.mock-ai-topbar-sub{font-size:10px;color:#999}
+.mock-ai-messages{flex:1;padding:12px 14px;display:flex;flex-direction:column;gap:7px;overflow:hidden;background:#fafafa}
+.mock-ai-input-bar{padding:10px 14px;border-top:1px solid #eee;display:flex;gap:6px;background:#fff}
+.mock-ai-input-bar input{flex:1;border:1.5px solid #e0e0e0;border-radius:6px;padding:7px 10px;font-size:10px;color:#333}
+.mock-ai-input-bar button{background:#c2410c;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:10px;font-weight:700}
+.mock-chat-bubble{background:#fff;border:1px solid #ddd;border-radius:8px;padding:10px 12px;font-size:11px;color:#555;line-height:1.5}
+.mock-chat-bubble.user{background:#c2410c;color:#fff;border-color:#c2410c;margin-left:30px}
+.mock-chat-bubble.ai{margin-right:30px}
+.mock-ai-context{display:flex;gap:4px;padding:8px 14px;background:#fef2e8;border-bottom:1px solid #fed7aa;flex-wrap:wrap}
+.mock-ai-ctx-chip{font-size:9px;background:#fff;border:1px solid #fed7aa;color:#c2410c;padding:3px 8px;border-radius:10px}
+
+/* 개별 법령 상세 */
+.mock-law-hero{padding:16px 14px;background:#fef2e8;border-bottom:1px solid #fed7aa}
+.mock-law-cat{font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;background:#c2410c;color:#fff;display:inline-block;margin-bottom:6px}
+.mock-law-name{font-family:var(--serif);font-size:16px;font-weight:700;color:#111;line-height:1.3;margin-bottom:4px}
+.mock-law-meta{display:flex;gap:10px;font-size:9px;color:#888;font-family:var(--mono)}
+.mock-law-article-box{background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:10px 12px;margin-bottom:6px}
+.mock-law-article-num{font-family:var(--mono);font-size:10px;font-weight:700;color:#c2410c;margin-bottom:3px}
+.mock-law-article-text{font-size:10px;color:#333;line-height:1.5}
+
+/* 개별 법령 이력 */
+.mock-history-row{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed #eee;font-size:10px}
+.mock-history-row:last-child{border-bottom:none}
+.mock-history-date{font-family:var(--mono);color:#888;width:60px;flex-shrink:0}
+.mock-history-badge{font-family:var(--mono);font-size:8px;font-weight:700;padding:1px 5px;border-radius:2px;background:#fed7aa;color:#c2410c;flex-shrink:0;align-self:flex-start;margin-top:1px}
+.mock-history-desc{color:#444;flex:1;line-height:1.4}
+
+/* 필터 탭 */
+.mock-filter-tabs{display:flex;gap:4px;padding:10px 14px 4px;overflow-x:hidden}
+.mock-filter-tab{font-size:10px;font-weight:600;padding:5px 10px;border-radius:14px;border:1.5px solid #e0e0e0;background:#fff;color:#666;white-space:nowrap}
+.mock-filter-tab.on{background:#c2410c;color:#fff;border-color:#c2410c}
+
+/* 비교 블록 */
+.mock-diff{background:#fff;border:1px solid #e5e7eb;border-radius:6px;overflow:hidden;margin-bottom:6px}
+.mock-diff-hdr{background:#fef2e8;padding:6px 10px;font-size:10px;font-weight:700;color:#c2410c;border-bottom:1px solid #fed7aa}
+.mock-diff-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#eee}
+.mock-diff-cell{background:#fff;padding:8px 10px;font-size:9px;line-height:1.5;color:#555}
+.mock-diff-cell.old{background:#fef2f2}
+.mock-diff-cell.old del{color:#dc2626}
+.mock-diff-cell.new{background:#ecfdf5}
+.mock-diff-cell.new ins{color:#16a34a;text-decoration:none;font-weight:700}
+
+.note-box{background:rgba(251,146,60,.05);border:1px solid var(--fin-border);border-radius:10px;padding:16px 20px;margin-top:20px}
+.note-box p{font-size:13px;color:var(--t2);line-height:1.7}
+.note-box strong{color:var(--fin-light)}
+
+@media(max-width:900px){
+  .screen-block,.screen-block.reverse{flex-direction:column}
+  .screen-info{flex:none;width:100%}
+  .section{padding:36px 20px}
+  .doc-header{padding:36px 20px 28px}
+}
+</style>
+</head>
+<body>
+
+<!-- 문서 헤더 -->
+<div class="doc-header">
+  <div class="badge">DESIGN DOCUMENT · 금융 규제 트래커 섹션</div>
+  <h1>금융 규제 트래커 구조 설계</h1>
+  <p>홈 | 정부 발표 | 키워드 분석 | <strong>금융 규제 트래커</strong> — 금융 법령 변화 감지 + 규제 구조 시각화 + AI 조문 해석을 통합한 섹션</p>
+  <div class="doc-meta">
+    <span><strong>작성일</strong> 2026-04-11</span>
+    <span><strong>상태</strong> 초안</span>
+    <span><strong>기존 경로</strong> /finlaw/* + /tools/finlaw-gpt/ + /tools/lawdiff/ + /tools/mylaw/</span>
+    <span><strong>신규 경로</strong> /finlaw/ (재편)</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 섹션 1: 사이트맵 -->
+<div class="section">
+  <div class="section-title">01 · SITEMAP</div>
+  <div class="section-heading">금융 규제 트래커 섹션 구조</div>
+  <div class="section-desc">기존 /finlaw/ 하위 8개 페이지 + /tools/ 하위 3개 중복 페이지를 정리. 핵심 3축(변화 감지 · 구조 시각화 · AI 해석)을 중심으로 재구성.</div>
+
+  <div class="sitemap">
+    <!-- 글로벌 nav -->
+    <div class="sm-nav">
+      <div class="sm-nav-item">
+        <div class="sm-nav-box home">홈</div>
+        <div class="sm-nav-label">/</div>
+      </div>
+      <div class="sm-nav-item">
+        <div class="sm-nav-box">정부 발표</div>
+        <div class="sm-nav-label">/brief/</div>
+      </div>
+      <div class="sm-nav-item">
+        <div class="sm-nav-box">키워드 분석</div>
+        <div class="sm-nav-label">/keywords/</div>
+      </div>
+      <div class="sm-nav-item">
+        <div class="sm-nav-box active">금융 규제 트래커</div>
+        <div class="sm-nav-label">/finlaw/</div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:center;margin-bottom:0">
+      <div style="width:2px;height:24px;background:#fb923c"></div>
+    </div>
+    <div style="display:flex;justify-content:center">
+      <div style="background:#2a1208;border:2px solid #fb923c;border-radius:10px;padding:10px 24px;text-align:center">
+        <div style="font-size:14px;font-weight:700;color:#fff">금융 규제 트래커 허브</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#fed7aa;margin-top:3px">/finlaw/</div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:center;position:relative;height:24px">
+      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:24px;background:#7c2d12"></div>
+      <div style="position:absolute;top:24px;left:10%;right:10%;height:2px;background:#7c2d12"></div>
+    </div>
+
+    <div class="sm-pages">
+      <div class="sm-page">
+        <div class="sm-page-box core">
+          <div class="pg-name">변경 피드</div>
+          <div class="pg-url">/finlaw/changes/</div>
+          <div class="pg-tag">핵심 · 강화</div>
+        </div>
+      </div>
+      <div class="sm-page">
+        <div class="sm-page-box new-page">
+          <div class="pg-name">규제 구조도</div>
+          <div class="pg-url">/finlaw/map/</div>
+          <div class="pg-tag">신규 ★</div>
+        </div>
+      </div>
+      <div class="sm-page">
+        <div class="sm-page-box">
+          <div class="pg-name">AI 해석</div>
+          <div class="pg-url">/finlaw/ai/</div>
+          <div class="pg-tag">통합 (finlaw-gpt)</div>
+        </div>
+      </div>
+      <div class="sm-page">
+        <div class="sm-page-box">
+          <div class="pg-name">법령 비교</div>
+          <div class="pg-url">/finlaw/diff/</div>
+          <div class="pg-tag">통합 (lawdiff)</div>
+        </div>
+      </div>
+      <div class="sm-page">
+        <div class="sm-page-box">
+          <div class="pg-name">개별 법령</div>
+          <div class="pg-url">/finlaw/{slug}/</div>
+          <div class="pg-tag">신규</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-legend" style="margin-top:32px;padding-top:24px;border-top:1px solid #2e2e2e">
+      <div class="sm-legend-item">
+        <div class="sm-legend-dot" style="border-color:#fb923c;background:#3a1608"></div>
+        핵심 페이지
+      </div>
+      <div class="sm-legend-item">
+        <div class="sm-legend-dot" style="border-color:var(--a);background:rgba(217,108,44,.08)"></div>
+        신규 / 차별화
+      </div>
+      <div class="sm-legend-item">
+        <div class="sm-legend-dot" style="border-color:var(--fin-border);background:var(--fin-bg)"></div>
+        기존 개편 · 통합
+      </div>
+    </div>
+  </div>
+
+  <!-- 변경사항 표 -->
+  <div style="margin-top:24px">
+    <table class="change-table">
+      <thead>
+        <tr>
+          <th>기존 경로</th>
+          <th>신규 경로</th>
+          <th>처리</th>
+          <th>비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="t-url">/finlaw/</td>
+          <td class="t-url">/finlaw/</td>
+          <td><span class="tag-keep">재편</span></td>
+          <td class="t-note">허브 재설계 — 최근 변경 피드·주요 지표·검색 중심</td>
+        </tr>
+        <tr>
+          <td class="t-url">/finlaw/changes/</td>
+          <td class="t-url">/finlaw/changes/</td>
+          <td><span class="tag-keep">강화</span></td>
+          <td class="t-note">변경 피드 핵심화 — 알림·필터·시계열 강화</td>
+        </tr>
+        <tr>
+          <td>—</td>
+          <td class="t-url">/finlaw/map/</td>
+          <td><span class="tag-new">신규 ★</span></td>
+          <td class="t-note">규제 구조도 시각화 — 법령 간 관계 그래프 (차별화)</td>
+        </tr>
+        <tr>
+          <td class="t-url">/finlaw/ask/ + /tools/finlaw-gpt/</td>
+          <td class="t-url">/finlaw/ai/</td>
+          <td><span class="tag-merge">통합</span></td>
+          <td class="t-note">중복 AI 페이지 하나로 통합, 기존 URL redirect</td>
+        </tr>
+        <tr>
+          <td class="t-url">/finlaw/lawdiff/ + /tools/lawdiff/</td>
+          <td class="t-url">/finlaw/diff/</td>
+          <td><span class="tag-merge">통합</span></td>
+          <td class="t-note">중복 비교 도구 통합</td>
+        </tr>
+        <tr>
+          <td>—</td>
+          <td class="t-url">/finlaw/{slug}/</td>
+          <td><span class="tag-new">신규</span></td>
+          <td class="t-note">개별 법령 상세 — 조문·변경 이력·관련 법령</td>
+        </tr>
+        <tr>
+          <td class="t-url">/finlaw/cases/</td>
+          <td class="t-url">/finlaw/{slug}/#cases</td>
+          <td><span class="tag-merge">통합</span></td>
+          <td class="t-note">개별 법령 상세 안으로 흡수 (판례 탭)</td>
+        </tr>
+        <tr>
+          <td class="t-url">/finlaw/opinions/</td>
+          <td class="t-url">/finlaw/{slug}/#opinions</td>
+          <td><span class="tag-merge">통합</span></td>
+          <td class="t-note">개별 법령 상세 안으로 흡수 (해석례 탭)</td>
+        </tr>
+        <tr>
+          <td class="t-url">/finlaw/mylaw/ + /tools/mylaw/</td>
+          <td>—</td>
+          <td><span class="tag-del">제거</span></td>
+          <td class="t-note">사용성 불명 — 구독/알림 기능으로 대체 검토</td>
+        </tr>
+        <tr>
+          <td class="t-url">/finlaw/notices/</td>
+          <td>—</td>
+          <td><span class="tag-del">제거</span></td>
+          <td class="t-note">변경 피드로 역할 흡수</td>
+        </tr>
+        <tr>
+          <td class="t-url">/tools/</td>
+          <td>—</td>
+          <td><span class="tag-del">제거</span></td>
+          <td class="t-note">섹션 자체 해체, 하위 도구 전부 /finlaw/로 이동</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 섹션 2: 개별 화면 -->
+<div class="section">
+  <div class="section-title">02 · SCREENS</div>
+  <div class="section-heading">개별 페이지 화면 설계</div>
+  <div class="section-desc">6개 페이지 — 허브 + 변경 피드 + 구조도 + AI + 개별 법령 + 법령 비교.</div>
+
+  <div class="screens-grid">
+
+    <!-- SCREEN 01: 허브 (캐러셀 재설계) -->
+    <div class="screen-block">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 01 · 캐러셀</div>
+        <h3>금융 규제 트래커 허브</h3>
+        <div class="screen-url">/finlaw/</div>
+        <p>탭 나열 대신 <strong>캐러셀</strong>로 4개 sub-page의 실제 콘텐츠를 미리보기 형태로 보여주며 탐색. 사용자가 각 sub-page에 뭐가 있는지 한번에 파악. 진입 버튼 대신 <strong>아이콘 칩</strong>으로 간결화.</p>
+        <ul>
+          <li><b>Slide 1 · 변경 피드</b> — 최근 변경 카드 3건 미리보기</li>
+          <li><b>Slide 2 · 규제 구조도</b> — 법→시행령→세칙 캐스케이드 샘플</li>
+          <li><b>Slide 3 · AI 조문 해석</b> — 예시 질문·답변 버블</li>
+          <li><b>Slide 4 · 법령 비교</b> — 두 시점 diff 샘플</li>
+        </ul>
+        <p style="margin-top:12px;font-size:12px"><strong style="color:var(--fin-light)">변경된 진입 방식:</strong><br>· 섹션 탭 바 → 캐러셀 dots·arrow로 전환<br>· 빠른 작업 버튼 grid → 캐러셀에 통합<br>· 변경 카드 4버튼 → 아이콘 칩 (🤖 🗂 ⇄ 📄)</p>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/finlaw/</div>
+        </div>
+        <div class="screen-body">
+          <div class="mock-nav">
+            <span class="mock-logo">브리핑룸</span>
+            <span class="mock-navitem">홈</span>
+            <span class="mock-navitem small">정부 발표</span>
+            <span class="mock-navitem small">키워드 분석</span>
+            <span class="mock-navitem active">금융 규제 트래커</span>
+          </div>
+          <div class="mock-hero" style="padding:14px 18px 12px">
+            <div class="mock-hero-title">금융 규제 트래커</div>
+            <div class="mock-hero-date">2026. 04. 11 (토)</div>
+            <div class="mock-hero-sub">금융 법령 변화 감지 · 구조 시각화 · AI 해석</div>
+          </div>
+          <!-- 라우팅 검색창 -->
+          <div class="mock-search-wrap">
+            <div class="mock-search-box">
+              <span>⌕</span>
+              <span>법령명·조문·주제·자연어 질문 모두 검색...</span>
+            </div>
+            <div class="mock-search-hints">
+              <b>법령명</b> → 상세 · <b>조문/주제</b> → 구조도 · <b>자연어</b> → AI
+            </div>
+          </div>
+          <!-- 4 stat 카드 (클릭 가능) -->
+          <div class="mock-stat-grid">
+            <div class="mock-stat-link">
+              <b>7</b>
+              <div class="stat-label">이번 주 변경</div>
+            </div>
+            <div class="mock-stat-link">
+              <b>12</b>
+              <div class="stat-label">시행 예정</div>
+            </div>
+            <div class="mock-stat-link">
+              <b>3</b>
+              <div class="stat-label">입법 예고</div>
+            </div>
+            <div class="mock-stat-link">
+              <b>142</b>
+              <div class="stat-label">추적 법령</div>
+            </div>
+          </div>
+
+          <!-- ═══ CAROUSEL (4 slides) ═══ -->
+          <div class="mock-carousel">
+            <div class="mock-carousel-meta">
+              <span class="mock-carousel-slideno">01 / 04 · 변경 피드</span>
+              <span class="mock-carousel-hint">◀ 스와이프로 4개 섹션 탐색 ▶</span>
+            </div>
+            <div class="mock-carousel-frame">
+              <div class="mock-carousel-arrow prev">‹</div>
+              <div class="mock-carousel-arrow next">›</div>
+              <div class="mock-carousel-head">
+                <div class="mock-carousel-head-left">
+                  <div class="mock-carousel-title">변경 피드</div>
+                  <div class="mock-carousel-sub">이번 주 신설·개정·폐지 전체 추적</div>
+                </div>
+                <div class="mock-carousel-icon">📡</div>
+              </div>
+              <!-- Slide 1 content: 변경 카드 2건 + icon chips -->
+              <div class="mock-change-card amend" style="margin-bottom:6px">
+                <div class="mock-change-top">
+                  <span class="mock-change-badge amend">개정</span>
+                  <span class="mock-change-date">2026-04-10</span>
+                </div>
+                <div class="mock-change-name">자본시장법 §11 투자중개업 인가</div>
+                <div class="mock-change-desc">자기자본 30억 → 50억 상향, 유예 6개월</div>
+                <div class="mock-icon-chips">
+                  <div class="mock-icon-chip" title="AI에 질문">🤖</div>
+                  <div class="mock-icon-chip" title="구조도에서 보기">🗂</div>
+                  <div class="mock-icon-chip" title="개정 전/후 비교">⇄</div>
+                  <div class="mock-icon-chip-flex"></div>
+                  <div class="mock-icon-chip-detail">상세 →</div>
+                </div>
+              </div>
+              <div class="mock-change-card new">
+                <div class="mock-change-top">
+                  <span class="mock-change-badge new">신설</span>
+                  <span class="mock-change-date">2026-04-11</span>
+                </div>
+                <div class="mock-change-name">가상자산이용자보호법 시행령</div>
+                <div class="mock-change-desc">스테이블코인 등록제, 준비금 100%</div>
+                <div class="mock-icon-chips">
+                  <div class="mock-icon-chip">🤖</div>
+                  <div class="mock-icon-chip">🗂</div>
+                  <div class="mock-icon-chip">⇄</div>
+                  <div class="mock-icon-chip-flex"></div>
+                  <div class="mock-icon-chip-detail">상세 →</div>
+                </div>
+              </div>
+              <div class="mock-carousel-cta">전체 피드 열기 →</div>
+            </div>
+            <!-- Dots -->
+            <div class="mock-carousel-dots">
+              <div class="mock-carousel-dot on"></div>
+              <div class="mock-carousel-dot"></div>
+              <div class="mock-carousel-dot"></div>
+              <div class="mock-carousel-dot"></div>
+            </div>
+          </div>
+
+          <!-- 구독 목록 -->
+          <div class="mock-section">
+            <div class="mock-sec-hdr">구독 중인 법령 <span class="mock-sec-more">3건 알림</span></div>
+            <div class="mock-sub-item">
+              <div class="mock-sub-dot"></div>
+              <div class="mock-sub-name">자본시장법</div>
+              <span class="mock-sub-meta">어제 개정 · 1건</span>
+            </div>
+            <div class="mock-sub-item">
+              <div class="mock-sub-dot" style="background:#fdba74"></div>
+              <div class="mock-sub-name">외국환거래법</div>
+              <span class="mock-sub-meta">3일 전</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 02: 변경 피드 -->
+    <div class="screen-block reverse">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 02 · 핵심</div>
+        <h3>법령 변경 피드</h3>
+        <div class="screen-url">/finlaw/changes/</div>
+        <p>금융 법령의 모든 변경 사항을 시계열로 추적. 신설·개정·폐지·입법예고 구분, 필터·알림·출처 링크 제공. 컴플라이언스가 가장 자주 들어올 화면.</p>
+        <ul>
+          <li>변경 타입 필터 (신설/개정/폐지/입법예고)</li>
+          <li>날짜 필터 (시행일·공포일·변경일)</li>
+          <li>카테고리 필터 + 부처 필터</li>
+          <li>변경 상세 — 이전/이후 diff 링크</li>
+          <li>알림 구독 (이 법령의 다음 변경 시)</li>
+          <li>영향도 태그 (상/중/하)</li>
+        </ul>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/finlaw/changes/</div>
+        </div>
+        <div class="screen-body">
+          <div class="mock-nav">
+            <span class="mock-logo">브리핑룸</span>
+            <span class="mock-navitem">홈</span>
+            <span class="mock-navitem small">정부 발표</span>
+            <span class="mock-navitem small">키워드 분석</span>
+            <span class="mock-navitem active">금융 규제 트래커</span>
+          </div>
+          <div class="mock-hero" style="padding:14px 18px">
+            <div class="mock-hero-title">법령 변경 피드</div>
+            <div class="mock-hero-sub">금융 법령 신설·개정·폐지 전체 추적</div>
+          </div>
+          <div class="mock-filter-tabs">
+            <div class="mock-filter-tab on">전체</div>
+            <div class="mock-filter-tab">신설</div>
+            <div class="mock-filter-tab">개정</div>
+            <div class="mock-filter-tab">폐지</div>
+            <div class="mock-filter-tab">입법예고</div>
+          </div>
+          <div class="mock-filter-tabs" style="padding-top:4px">
+            <div class="mock-filter-tab on">이번 주</div>
+            <div class="mock-filter-tab">이번 달</div>
+            <div class="mock-filter-tab">분기</div>
+            <div class="mock-filter-tab">시행 예정</div>
+          </div>
+          <div class="mock-section">
+            <div class="mock-change-card new">
+              <div class="mock-change-top">
+                <span class="mock-change-badge new">신설</span>
+                <span class="mock-change-date">2026-04-11 · 시행 2026-07-01</span>
+              </div>
+              <div class="mock-change-name">가상자산이용자보호법 시행령 개정안</div>
+              <div class="mock-change-desc">스테이블코인 발행·유통 사업자 등록제 도입, 준비금 100% 의무화. 기존 미등록 사업자 90일 유예.</div>
+              <span class="mock-change-article">제2조, 제15조 신설</span>
+              <div class="mock-icon-chips">
+                <div class="mock-icon-chip" title="AI 질문">🤖</div>
+                <div class="mock-icon-chip" title="구조도">🗂</div>
+                <div class="mock-icon-chip" title="전/후 비교">⇄</div>
+                <div class="mock-icon-chip-flex"></div>
+                <div class="mock-icon-chip-detail">상세 →</div>
+              </div>
+            </div>
+            <div class="mock-change-card amend">
+              <div class="mock-change-top">
+                <span class="mock-change-badge amend">개정</span>
+                <span class="mock-change-date">2026-04-10 · 시행 2026-10-01</span>
+              </div>
+              <div class="mock-change-name">자본시장법 제11조 투자중개업 인가 요건</div>
+              <div class="mock-change-desc">자기자본 기준 30억 → 50억 상향, 시행 유예 6개월. 기존 인가 사업자 단계적 증자 요구.</div>
+              <span class="mock-change-article">제11조 ②항 개정</span>
+              <div class="mock-icon-chips">
+                <div class="mock-icon-chip" title="AI 질문">🤖</div>
+                <div class="mock-icon-chip" title="구조도">🗂</div>
+                <div class="mock-icon-chip" title="전/후 비교">⇄</div>
+                <div class="mock-icon-chip-flex"></div>
+                <div class="mock-icon-chip-detail">상세 →</div>
+              </div>
+            </div>
+            <div class="mock-change-card repeal">
+              <div class="mock-change-top">
+                <span class="mock-change-badge repeal">폐지</span>
+                <span class="mock-change-date">2026-04-08</span>
+              </div>
+              <div class="mock-change-name">외국환거래법 시행규칙 제7조의2</div>
+              <div class="mock-change-desc">외국인 직접투자 사전 신고 의무 폐지. 사후 신고로 전환.</div>
+              <span class="mock-change-article">제7조의2 삭제</span>
+              <div class="mock-icon-chips">
+                <div class="mock-icon-chip" title="AI 질문">🤖</div>
+                <div class="mock-icon-chip" title="구조도">🗂</div>
+                <div class="mock-icon-chip" title="전/후 비교">⇄</div>
+                <div class="mock-icon-chip-flex"></div>
+                <div class="mock-icon-chip-detail">상세 →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 03: 규제 구조도 -->
+    <div class="screen-block">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 03 ★</div>
+        <h3>규제 구조도</h3>
+        <div class="screen-url">/finlaw/map/</div>
+        <p>주제 또는 조문을 선택하면 <strong>법 → 시행령 → 감독규정 → 시행세칙</strong> 순으로 관련된 규정 체인을 위에서 아래로 펼쳐 보여줌. 하나의 규제가 어떤 상위법에 근거하고 어떤 하위 규정으로 구체화되는지 한번에 파악.</p>
+        <ul>
+          <li>주제/조문 검색 → 해당 체인 자동 구성</li>
+          <li>법 · 시행령 · 감독규정 · 시행세칙 단계별 표시</li>
+          <li>각 단계에서 해당 조문만 추출 인용</li>
+          <li>위임 관계 (법 §X → 시행령 §Y) 명시</li>
+          <li>특정 조문 클릭 → 개별 법령 상세로 이동</li>
+          <li>각 층에서 최근 개정 여부 배지 표시</li>
+        </ul>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/finlaw/map/?topic=투자중개업-인가</div>
+        </div>
+        <div class="screen-body">
+          <div class="mock-nav">
+            <span class="mock-logo">브리핑룸</span>
+            <span class="mock-navitem">홈</span>
+            <span class="mock-navitem small">정부 발표</span>
+            <span class="mock-navitem small">키워드 분석</span>
+            <span class="mock-navitem active">금융 규제 트래커</span>
+          </div>
+          <div class="mock-hero" style="padding:14px 18px">
+            <div class="mock-hero-title">규제 구조도</div>
+            <div class="mock-hero-sub">법 → 시행령 → 감독규정 → 시행세칙 체인 추적</div>
+          </div>
+          <div class="mock-section" style="padding-bottom:8px">
+            <div class="mock-searchbar" style="background:#fff;border:2px solid #fed7aa">
+              <span>⌕</span>
+              <span>주제·조문·키워드로 구조도 검색 (예: 투자중개업 인가)</span>
+            </div>
+          </div>
+          <div style="padding:6px 14px 4px">
+            <div style="font-size:10px;color:#9a3412;font-weight:700">조회 중인 주제 · <strong>투자중개업 인가 요건</strong></div>
+          </div>
+
+          <!-- 캐스케이드 시작 -->
+          <div class="mock-cascade">
+            <!-- LAYER 1: 법 -->
+            <div class="cascade-layer">
+              <div class="cascade-step">
+                <div class="cascade-tier">LAYER 1 · 법률</div>
+                <div class="cascade-meta">소관 금융위원회</div>
+              </div>
+              <div class="cascade-card tier1">
+                <div class="cascade-law-name">자본시장과 금융투자업에 관한 법률</div>
+                <div class="cascade-article">
+                  <div class="cascade-article-num">제11조 (투자중개업 인가)</div>
+                  <div class="cascade-article-text">투자중개업을 영위하려는 자는 다음 각 호의 요건을 갖추어 금융위원회의 인가를 받아야 한다. ② 자기자본 50억원 이상...</div>
+                </div>
+                <div class="cascade-delegate">→ 구체적 요건은 시행령 제14조에 위임</div>
+                <span class="cascade-badge amend">2026-04-10 개정</span>
+              </div>
+            </div>
+            <!-- 연결선 -->
+            <div class="cascade-connector"></div>
+
+            <!-- LAYER 2: 시행령 -->
+            <div class="cascade-layer">
+              <div class="cascade-step">
+                <div class="cascade-tier">LAYER 2 · 시행령</div>
+                <div class="cascade-meta">대통령령</div>
+              </div>
+              <div class="cascade-card tier2">
+                <div class="cascade-law-name">자본시장과 금융투자업에 관한 법률 시행령</div>
+                <div class="cascade-article">
+                  <div class="cascade-article-num">제14조 (인가 요건의 세부사항)</div>
+                  <div class="cascade-article-text">법 제11조 ②항에 따른 자기자본은 영업용 순자본으로 산정하고, 외화자산은 시행일 기준환율로 환산한다. ③ 인가 신청 시 첨부서류...</div>
+                </div>
+                <div class="cascade-delegate">→ 신청 절차·서류는 감독규정에 위임</div>
+              </div>
+            </div>
+            <div class="cascade-connector"></div>
+
+            <!-- LAYER 3: 감독규정 -->
+            <div class="cascade-layer">
+              <div class="cascade-step">
+                <div class="cascade-tier">LAYER 3 · 감독규정</div>
+                <div class="cascade-meta">금융위 고시</div>
+              </div>
+              <div class="cascade-card tier3">
+                <div class="cascade-law-name">금융투자업규정</div>
+                <div class="cascade-article">
+                  <div class="cascade-article-num">제3-11조 (인가 신청·심사)</div>
+                  <div class="cascade-article-text">시행령 §14③에 따라 인가 신청 시 사업계획서·내부통제기준·임원 자격 증빙을 제출한다. 금융감독원장은 60일 이내 심사한다...</div>
+                </div>
+                <div class="cascade-delegate">→ 세부 서식·심사 기준은 시행세칙에 위임</div>
+                <span class="cascade-badge amend">2026-03-28 개정</span>
+              </div>
+            </div>
+            <div class="cascade-connector"></div>
+
+            <!-- LAYER 4: 시행세칙 -->
+            <div class="cascade-layer">
+              <div class="cascade-step">
+                <div class="cascade-tier">LAYER 4 · 시행세칙</div>
+                <div class="cascade-meta">금감원 지침</div>
+              </div>
+              <div class="cascade-card tier4">
+                <div class="cascade-law-name">금융투자업규정 시행세칙</div>
+                <div class="cascade-article">
+                  <div class="cascade-article-num">제7조 (인가 심사 세부 기준)</div>
+                  <div class="cascade-article-text">감독규정 §3-11에 따른 심사 시 사업계획서에는 3년간 손익 추정, 리스크관리 체계, 전산설비 현황을 포함한다. 임원 결격사유 확인...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mock-section" style="background:#fef2e8;border-top:1px solid #fed7aa">
+            <div class="mock-sec-title" style="color:#c2410c">✦ 최근 변경 파급 알림</div>
+            <div style="font-size:10px;color:#9a3412;line-height:1.6">
+              2026-04-10 자본시장법 §11 개정 → 하위 시행령·감독규정·세칙 중 <strong>2건</strong>에 파급 예정 (시행령 §14 개정안 입법예고, 감독규정 §3-11 개정안 준비 중).
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 04: AI 해석 -->
+    <div class="screen-block reverse">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 04</div>
+        <h3>AI 조문 해석</h3>
+        <div class="screen-url">/finlaw/ai/</div>
+        <p>기존 /tools/finlaw-gpt/ 통합. 금융 법령·판례·해석례 전체를 컨텍스트로 AI가 답변. 답변에 조문·판례 출처 명시.</p>
+        <ul>
+          <li>법령 전체 기반 RAG 챗봇</li>
+          <li>참조 조문/판례를 칩으로 표시</li>
+          <li>답변에 조문 번호 인용</li>
+          <li>멀티턴 대화 + 맥락 유지</li>
+          <li>기존 /finlaw/ask/, /tools/finlaw-gpt/ redirect</li>
+        </ul>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/finlaw/ai/</div>
+        </div>
+        <div class="screen-body">
+          <div class="mock-nav">
+            <span class="mock-logo">브리핑룸</span>
+            <span class="mock-navitem">홈</span>
+            <span class="mock-navitem small">정부 발표</span>
+            <span class="mock-navitem small">키워드 분석</span>
+            <span class="mock-navitem active">금융 규제 트래커</span>
+          </div>
+          <div class="mock-ai-full">
+            <div class="mock-ai-topbar">
+              <div style="font-size:11px;font-weight:700;color:#c2410c">● AI</div>
+              <div class="mock-ai-topbar-title">금융 규제 AI</div>
+              <div class="mock-ai-topbar-sub">법령·판례·해석례 기반</div>
+            </div>
+            <div class="mock-ai-context">
+              <span style="font-size:9px;color:#c2410c;font-weight:700;margin-right:4px">참조 범위</span>
+              <span class="mock-ai-ctx-chip">금융법령 142건</span>
+              <span class="mock-ai-ctx-chip">판례 3,412건</span>
+              <span class="mock-ai-ctx-chip">해석례 1,208건</span>
+            </div>
+            <div class="mock-ai-messages">
+              <div class="mock-chat-bubble user">자본시장법 제11조 투자중개업 인가 자기자본 요건이 어떻게 바뀌었어?</div>
+              <div class="mock-chat-bubble ai">
+                자본시장법 제11조 ②항의 투자중개업 인가 자기자본 요건이 <strong>2026년 4월 10일 개정</strong>되어 기존 30억원에서 <strong>50억원</strong>으로 상향되었습니다.<br><br>
+                <strong>주요 내용</strong><br>
+                · 시행일: 2026년 10월 1일<br>
+                · 기존 인가 사업자는 6개월 유예<br>
+                · 단계적 증자 허용<br><br>
+                <span style="font-size:9px;color:#c2410c">📎 자본시장법 §11②, 시행령 §14③</span>
+              </div>
+            </div>
+            <div class="mock-ai-input-bar">
+              <input placeholder="법령·판례에 대해 질문하세요..." />
+              <button>전송</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 05: 개별 법령 상세 -->
+    <div class="screen-block">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 05</div>
+        <h3>개별 법령 상세</h3>
+        <div class="screen-url">/finlaw/{slug}/</div>
+        <p>개별 금융 법령의 조문, 변경 이력, 관련 판례·해석례, 구조도 내 위치를 통합 표시. 기존 /finlaw/cases/, /finlaw/opinions/ 흡수.</p>
+        <ul>
+          <li>법령 메타 (소관 부처, 최신 시행일)</li>
+          <li>조문 네비게이터 (장/절/조)</li>
+          <li>변경 이력 타임라인</li>
+          <li>관련 판례 탭 (기존 /cases/)</li>
+          <li>유권해석 탭 (기존 /opinions/)</li>
+          <li>상위법/하위법 링크 (구조도 연결)</li>
+          <li>변경 알림 구독 버튼</li>
+        </ul>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/finlaw/자본시장법/</div>
+        </div>
+        <div class="screen-body">
+          <div class="mock-nav">
+            <span class="mock-logo">브리핑룸</span>
+            <span class="mock-navitem">홈</span>
+            <span class="mock-navitem small">정부 발표</span>
+            <span class="mock-navitem small">키워드 분석</span>
+            <span class="mock-navitem active">금융 규제 트래커</span>
+          </div>
+          <div class="mock-law-hero">
+            <span class="mock-law-cat">자본시장</span>
+            <div class="mock-law-name">자본시장과 금융투자업에 관한 법률</div>
+            <div class="mock-law-meta">
+              <span>소관 · 금융위원회</span>
+              <span>최종 시행 · 2026-04-10</span>
+              <span>전 449조</span>
+            </div>
+          </div>
+          <div class="mock-filter-tabs">
+            <div class="mock-filter-tab on">조문</div>
+            <div class="mock-filter-tab">변경 이력</div>
+            <div class="mock-filter-tab">판례</div>
+            <div class="mock-filter-tab">유권해석</div>
+            <div class="mock-filter-tab">관련 법령</div>
+          </div>
+          <div class="mock-section">
+            <div class="mock-sec-title">주요 조문</div>
+            <div class="mock-law-article-box">
+              <div class="mock-law-article-num">제11조 (투자중개업 인가)</div>
+              <div class="mock-law-article-text">투자중개업을 영위하려는 자는 다음 각 호의 요건을 갖추어 금융위원회의 인가를 받아야 한다. ② 자기자본이 <strong style="color:#c2410c">50억원</strong> 이상일 것...</div>
+            </div>
+            <div class="mock-law-article-box">
+              <div class="mock-law-article-num">제12조 (인가 요건의 유지)</div>
+              <div class="mock-law-article-text">제11조에 따라 인가를 받은 자는 그 인가 요건을 계속 유지하여야 한다...</div>
+            </div>
+          </div>
+          <div class="mock-section">
+            <div class="mock-sec-title">변경 이력</div>
+            <div class="mock-history-row">
+              <span class="mock-history-date">2026-04-10</span>
+              <span class="mock-history-badge">개정</span>
+              <span class="mock-history-desc">제11조 투자중개업 자기자본 요건 30억 → 50억 상향</span>
+            </div>
+            <div class="mock-history-row">
+              <span class="mock-history-date">2025-11-22</span>
+              <span class="mock-history-badge">개정</span>
+              <span class="mock-history-desc">제133조 공매도 관련 조항 신설</span>
+            </div>
+            <div class="mock-history-row">
+              <span class="mock-history-date">2025-07-15</span>
+              <span class="mock-history-badge">개정</span>
+              <span class="mock-history-desc">제178조의2 불공정거래 과징금 상향</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 06: 법령 비교 -->
+    <div class="screen-block reverse">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 06</div>
+        <h3>법령 비교 (diff)</h3>
+        <div class="screen-url">/finlaw/diff/</div>
+        <p>두 시점의 법령 조문을 나란히 비교. 변경 전/후 diff로 어떤 문구가 추가·삭제·변경됐는지 한눈에. 기존 /tools/lawdiff/ 통합.</p>
+        <ul>
+          <li>법령 선택 + 두 시점 선택</li>
+          <li>조문별 left/right 병렬 비교</li>
+          <li>삭제 = 빨강 취소선 / 추가 = 초록</li>
+          <li>AI 요약 — "이 개정의 실무 영향"</li>
+          <li>기존 /finlaw/lawdiff/, /tools/lawdiff/ redirect</li>
+        </ul>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/finlaw/diff/?law=자본시장법&from=2025-11&to=2026-04</div>
+        </div>
+        <div class="screen-body">
+          <div class="mock-nav">
+            <span class="mock-logo">브리핑룸</span>
+            <span class="mock-navitem">홈</span>
+            <span class="mock-navitem small">정부 발표</span>
+            <span class="mock-navitem small">키워드 분석</span>
+            <span class="mock-navitem active">금융 규제 트래커</span>
+          </div>
+          <div class="mock-hero" style="padding:14px 18px">
+            <div class="mock-hero-title">법령 비교</div>
+            <div class="mock-hero-sub">자본시장법 · 2025.11.22 vs 2026.04.10</div>
+          </div>
+          <div class="mock-section">
+            <div class="mock-sec-title">조문별 변경사항</div>
+            <div class="mock-diff">
+              <div class="mock-diff-hdr">제11조 ②항 (투자중개업 인가 자기자본)</div>
+              <div class="mock-diff-row">
+                <div class="mock-diff-cell old">자기자본이 <del>30억원</del> 이상일 것</div>
+                <div class="mock-diff-cell new">자기자본이 <ins>50억원</ins> 이상일 것</div>
+              </div>
+            </div>
+            <div class="mock-diff">
+              <div class="mock-diff-hdr">제11조 ④항 (경과 규정 신설)</div>
+              <div class="mock-diff-row">
+                <div class="mock-diff-cell old">—</div>
+                <div class="mock-diff-cell new"><ins>기존 인가 사업자에 대해서는 시행일부터 6개월간 종전 규정에 따른다.</ins></div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-section" style="background:#fef2e8">
+            <div class="mock-sec-title" style="color:#c2410c">✦ AI 요약 · 실무 영향</div>
+            <div style="font-size:10px;color:#444;line-height:1.6">
+              투자중개업 신규 진입 장벽이 <strong>66% 상승</strong>했습니다. 기존 30억 자본으로 운영 중인 중개업자는 2027년 4월까지 20억 추가 증자가 필요하며, 증자 미달 시 인가 취소 가능성이 있습니다. 특히 중소 핀테크 중개업자에 직접 영향.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /screens-grid -->
+
+  <div class="note-box" style="margin-top:48px">
+    <p>
+      <strong>핵심 차별화:</strong> 기존 /finlaw/가 단순 법령 DB였다면, 재편 후엔 <strong>변화 감지(Changes) · 구조 시각화(Map) · AI 해석</strong> 3축 구조. 특히 <strong>규제 구조도</strong>는 시장에 없는 고유 기능으로, 복잡한 금융 규제의 상하위 관계를 한눈에 파악. 컴플라이언스 팀이 하나의 개정이 어떤 하위 규정에 파급되는지 즉시 추적 가능.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

@@ -16,8 +16,9 @@ import sqlite3
 
 from briefingroom.config import BASE_DIR, DATA_DIR
 
-INDEX_PATH = BASE_DIR / "index.html"
-POLICY_INDEX_PATH = BASE_DIR / "policy" / "index.html"
+# v2 전환: 기존 생성 경로를 _legacy로 변경하여 새 index.html 보호
+INDEX_PATH = BASE_DIR / "index_legacy.html"
+POLICY_INDEX_PATH = BASE_DIR / "policy" / "index_legacy.html"
 FINLAW_DB = BASE_DIR / "finance_law.db"
 
 # 카테고리 한글명

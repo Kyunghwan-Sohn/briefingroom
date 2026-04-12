@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드 분석 섹션 구조 설계 — 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.08);--ab:rgba(217,108,44,.18);
+  --bg:#0f0f0f;--s:#1a1a1a;--s2:#222;--b:#2e2e2e;--bl:#383838;
+  --t:#f0f0f0;--t2:#aaa;--m:#666;
+  --blue:#1e40af;--blue-bg:#0f1e3d;--blue-light:#3b82f6;--blue-border:#1e3a6e;
+  --purple:#7c3aed;--purple-bg:#1e1035;--purple-light:#a78bfa;--purple-border:#4c1d95;
+  --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* 문서 헤더 */
+.doc-header{padding:48px 40px 36px;border-bottom:1px solid var(--b);max-width:1200px;margin:0 auto}
+.doc-header .badge{font-family:var(--mono);font-size:11px;color:var(--a);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.doc-header h1{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--t);margin-bottom:10px}
+.doc-header p{font-size:15px;color:var(--t2);line-height:1.7;max-width:640px}
+.doc-meta{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.doc-meta span{font-family:var(--mono);font-size:11px;color:var(--m)}
+.doc-meta strong{color:var(--t2)}
+
+.section{max-width:1200px;margin:0 auto;padding:48px 40px}
+.section-title{font-family:var(--mono);font-size:11px;color:var(--a);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.section-heading{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--t);margin-bottom:6px}
+.section-desc{font-size:13px;color:var(--t2);margin-bottom:32px;line-height:1.6}
+.divider{border:none;border-top:1px solid var(--b);margin:0}
+
+/* 사이트맵 */
+.sitemap{background:var(--s);border:1px solid var(--b);border-radius:16px;padding:36px;overflow-x:auto}
+.sm-nav{display:flex;gap:0;margin-bottom:36px;justify-content:center}
+.sm-nav-item{display:flex;flex-direction:column;align-items:center;flex:1;max-width:180px;position:relative}
+.sm-nav-item:not(:last-child)::after{content:'';position:absolute;top:22px;right:-1px;width:calc(100% - 80px);height:2px;background:var(--b);left:calc(50% + 40px)}
+.sm-nav-box{width:80px;height:44px;border:2px solid var(--b);border-radius:10px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--t2);position:relative;z-index:1}
+.sm-nav-box.active{border-color:var(--purple-light);color:var(--purple-light);background:var(--purple-bg)}
+.sm-nav-box.home{border-color:var(--a);color:var(--a);background:rgba(217,108,44,.08)}
+.sm-nav-label{font-family:var(--mono);font-size:10px;color:var(--m);margin-top:6px;text-align:center}
+
+.sm-pages{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;padding-top:20px;position:relative}
+.sm-pages::before{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:var(--purple-border)}
+.sm-page{display:flex;flex-direction:column;align-items:center;position:relative}
+.sm-page::before{content:'';position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:2px;height:20px;background:var(--purple-border)}
+.sm-page-box{background:var(--purple-bg);border:1.5px solid var(--purple-border);border-radius:10px;padding:12px 16px;text-align:center;min-width:120px}
+.sm-page-box .pg-name{font-size:13px;font-weight:700;color:var(--purple-light);margin-bottom:3px}
+.sm-page-box .pg-url{font-family:var(--mono);font-size:10px;color:var(--m)}
+.sm-page-box .pg-tag{font-family:var(--mono);font-size:9px;color:var(--a);background:var(--al);padding:2px 6px;border-radius:4px;margin-top:6px;display:inline-block}
+.sm-page-box.new-page{border-color:var(--a);background:rgba(217,108,44,.06)}
+.sm-page-box.new-page .pg-name{color:var(--a)}
+
+.sm-legend{display:flex;gap:20px;margin-top:28px;justify-content:center;flex-wrap:wrap}
+.sm-legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--t2)}
+.sm-legend-dot{width:10px;height:10px;border-radius:3px;border:2px solid}
+
+/* 변경사항 표 */
+.change-table{width:100%;border-collapse:collapse;background:var(--s);border-radius:12px;overflow:hidden;border:1px solid var(--b)}
+.change-table th{background:var(--s2);padding:12px 16px;font-size:12px;font-weight:700;color:var(--t2);text-align:left;border-bottom:2px solid var(--b)}
+.change-table td{padding:13px 16px;font-size:13px;border-bottom:1px solid var(--b);vertical-align:top;line-height:1.5}
+.change-table tr:last-child td{border-bottom:none}
+.tag-new{background:rgba(217,108,44,.12);color:var(--a);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.tag-promote{background:rgba(167,139,250,.15);color:var(--purple-light);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.t-url{font-family:var(--mono);font-size:12px;color:var(--t2)}
+.t-note{font-size:12px;color:var(--m)}
+
+/* 화면 목업 */
+.screens-grid{display:flex;flex-direction:column;gap:64px}
+.screen-block{display:flex;gap:32px;align-items:flex-start}
+.screen-block.reverse{flex-direction:row-reverse}
+.screen-info{flex:0 0 260px}
+.screen-info .screen-num{font-family:var(--mono);font-size:11px;color:var(--a);letter-spacing:.1em;margin-bottom:8px}
+.screen-info h3{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--t);margin-bottom:8px}
+.screen-info .screen-url{font-family:var(--mono);font-size:11px;color:var(--purple-light);background:var(--purple-bg);padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:14px}
+.screen-info p{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:16px}
+.screen-info ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.screen-info ul li{font-size:12px;color:var(--t2);padding-left:14px;position:relative;line-height:1.5}
+.screen-info ul li::before{content:'—';position:absolute;left:0;color:var(--m)}
+.screen-frame{flex:1;border:1.5px solid var(--b);border-radius:14px;overflow:hidden;background:var(--s);min-width:0}
+.screen-bar{height:36px;background:var(--s2);border-bottom:1px solid var(--b);display:flex;align-items:center;padding:0 14px;gap:10px}
+.screen-bar-dots{display:flex;gap:5px}
+.screen-bar-dots span{width:8px;height:8px;border-radius:50%;background:var(--bl)}
+.screen-bar-url{font-family:var(--mono);font-size:10px;color:var(--m);background:var(--bg);padding:3px 12px;border-radius:4px;flex:1;text-align:center}
+.screen-body{padding:0;background:#fff;color:#222}
+
+/* 공통 nav */
+.mock-nav{height:42px;background:#f5f5f5;border-bottom:3px solid var(--a);display:flex;align-items:center;padding:0 12px;gap:6px}
+.mock-logo{font-family:var(--serif);font-size:14px;font-weight:700;color:#222;margin-right:6px}
+.mock-navitem{font-size:10px;font-weight:600;padding:4px 8px;border-radius:5px;background:#fff;border:1px solid #e0e0e0;color:#555;white-space:nowrap}
+.mock-navitem.active{background:#7c3aed;color:#fff;border-color:#7c3aed}
+.mock-navitem.small{font-size:9px;padding:3px 6px}
+
+/* Hero */
+.mock-hero{padding:18px 18px 16px;background:#f5f3ff;border-bottom:1px solid #ddd6fe;text-align:center}
+.mock-hero-title{font-family:var(--serif);font-size:18px;font-weight:700;color:#111;margin-bottom:3px}
+.mock-hero-sub{font-size:11px;color:#888;margin-bottom:12px}
+.mock-stats{display:flex;gap:6px;max-width:340px;margin:0 auto}
+.mock-stat{flex:1;background:#fff;border:1px solid #ddd6fe;border-radius:8px;padding:8px 4px;text-align:center}
+.mock-stat .n{font-family:var(--mono);font-size:16px;font-weight:700;color:#7c3aed}
+.mock-stat .l{font-size:9px;font-weight:700;color:#7c3aed;margin-top:2px}
+
+.mock-section{padding:14px;border-bottom:1px solid #f0f0f0}
+.mock-sec-title{font-family:var(--serif);font-size:13px;font-weight:700;color:#222;margin-bottom:4px}
+.mock-sec-desc{font-size:10px;color:#999;margin-bottom:10px}
+
+/* Period tabs */
+.mock-period-tabs{display:flex;gap:4px;margin-bottom:10px;overflow-x:hidden}
+.mock-period-tab{font-size:10px;font-weight:600;padding:5px 10px;border-radius:14px;border:1.5px solid #e0e0e0;background:#fff;color:#666;white-space:nowrap}
+.mock-period-tab.on{background:#7c3aed;color:#fff;border-color:#7c3aed}
+
+/* Treemap (간단한 목업) */
+.mock-treemap{display:grid;gap:2px;border-radius:6px;overflow:hidden}
+.mock-treemap-row{display:grid;gap:2px}
+.mock-tm-cell{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px;color:#fff;font-weight:700}
+.mock-tm-cell .kw{font-family:var(--serif);font-size:12px;line-height:1.2}
+.mock-tm-cell .ct{font-family:var(--mono);font-size:9px;opacity:.85;margin-top:2px}
+
+/* Legend */
+.mock-tm-legend{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px;padding:8px;background:#f9f9f9;border-radius:6px;border:1px solid #eee}
+.mock-tm-leg{display:flex;align-items:center;gap:4px;font-size:9px;color:#555;font-weight:600}
+.mock-tm-leg-dot{width:8px;height:8px;border-radius:50%}
+
+/* Top keywords list */
+.mock-top-list{display:flex;flex-direction:column;gap:4px}
+.mock-top-row{display:flex;align-items:center;gap:8px;padding:6px 8px;background:#f9f9f9;border-radius:6px}
+.mock-top-rank{font-family:var(--mono);font-size:10px;font-weight:700;color:#7c3aed;width:20px}
+.mock-top-kw{font-size:11px;font-weight:700;color:#222;flex:1}
+.mock-top-delta{font-family:var(--mono);font-size:9px;font-weight:700}
+.mock-top-delta.up{color:#16a34a}
+.mock-top-delta.down{color:#dc2626}
+.mock-top-count{font-family:var(--mono);font-size:10px;color:#666;width:36px;text-align:right}
+
+/* Keyword detail header */
+.mock-kw-hero{padding:18px;background:linear-gradient(135deg,#ede9fe,#f5f3ff);border-bottom:1px solid #ddd6fe}
+.mock-kw-cat{font-size:9px;font-weight:700;color:#fff;background:#7c3aed;padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:6px}
+.mock-kw-name{font-family:var(--serif);font-size:22px;font-weight:700;color:#111;margin-bottom:4px}
+.mock-kw-meta{font-size:10px;color:#666}
+
+/* Mini chart */
+.mock-chart{background:#fff;border:1px solid #eee;border-radius:8px;padding:10px;height:100px;display:flex;align-items:flex-end;gap:3px;justify-content:space-around;position:relative}
+.mock-bar{background:linear-gradient(to top,#7c3aed,#a78bfa);border-radius:2px 2px 0 0;flex:1;position:relative}
+.mock-bar-label{font-size:7px;color:#999;position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);white-space:nowrap}
+
+/* Ministry block */
+.mock-ministry-block{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px;margin-bottom:6px}
+.mock-ministry-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.mock-ministry-name{font-family:var(--serif);font-size:12px;font-weight:700;color:#222}
+.mock-ministry-count{font-family:var(--mono);font-size:10px;color:#7c3aed;font-weight:700}
+.mock-ministry-article{font-size:10px;color:#555;padding:4px 0;border-top:1px dashed #eee;line-height:1.4}
+.mock-ministry-article:first-of-type{border-top:none}
+
+/* Trends: rising/falling list */
+.mock-trend-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mock-trend-col{background:#fff;border:1px solid #eee;border-radius:8px;padding:10px}
+.mock-trend-col-hdr{font-size:10px;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.mock-trend-col.up .mock-trend-col-hdr{color:#16a34a}
+.mock-trend-col.down .mock-trend-col-hdr{color:#dc2626}
+.mock-trend-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0;font-size:10px;border-top:1px dashed #f0f0f0}
+.mock-trend-row:first-of-type{border-top:none}
+.mock-trend-kw{color:#222;font-weight:700}
+.mock-trend-delta{font-family:var(--mono);font-weight:700}
+.mock-trend-row.up .mock-trend-delta{color:#16a34a}
+.mock-trend-row.down .mock-trend-delta{color:#dc2626}
+
+/* Line chart (SVG) */
+.mock-line-chart{background:#fff;border:1px solid #eee;border-radius:8px;padding:10px;position:relative}
+.mock-line-chart svg{width:100%;height:120px;display:block}
+
+/* Category cards */
+.mock-cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mock-cat-card{background:#fff;border:1.5px solid #eee;border-radius:8px;padding:10px 12px}
+.mock-cat-card.fin{border-left:3px solid #1e40af}
+.mock-cat-card.ind{border-left:3px solid #7c3aed}
+.mock-cat-card.soc{border-left:3px solid #059669}
+.mock-cat-card.adm{border-left:3px solid #dc2626}
+.mock-cat-name{font-family:var(--serif);font-size:12px;font-weight:700;margin-bottom:4px}
+.mock-cat-count{font-family:var(--mono);font-size:9px;color:#888;margin-bottom:6px}
+.mock-cat-kws{display:flex;flex-wrap:wrap;gap:3px}
+.mock-cat-kw{font-size:9px;background:#f5f5f5;padding:2px 6px;border-radius:8px;color:#555}
+
+.note-box{background:rgba(167,139,250,.05);border:1px solid var(--purple-border);border-radius:10px;padding:16px 20px;margin-top:20px}
+.note-box p{font-size:13px;color:var(--t2);line-height:1.7}
+.note-box strong{color:var(--purple-light)}
+
+@media(max-width:900px){
+  .screen-block,.screen-block.reverse{flex-direction:column}
+  .screen-info{flex:none;width:100%}
+  .section{padding:36px 20px}
+  .doc-header{padding:36px 20px 28px}
+}
+</style>
+</head>
+<body>
+
+<!-- 문서 헤더 -->
+<div class="doc-header">
+  <div class="badge">DESIGN DOCUMENT · 키워드 분석 섹션</div>
+  <h1>키워드 분석 구조 설계</h1>
+  <p>홈 | 정부 발표 | <strong>키워드 분석</strong> | 금융 규제 트래커 — 정부 보도자료에서 추출한 핵심 키워드를 빅데이터로 구조화·시각화·심층 분석하는 섹션</p>
+  <div class="doc-meta">
+    <span><strong>작성일</strong> 2026-04-11</span>
+    <span><strong>상태</strong> 초안</span>
+    <span><strong>기존 위치</strong> mockups/keyword-intelligence-final.html (미배포)</span>
+    <span><strong>신규 경로</strong> /keywords/</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 섹션 1: 사이트맵 -->
+<div class="section">
+  <div class="section-title">01 · SITEMAP</div>
+  <div class="section-heading">키워드 분석 섹션 구조</div>
+  <div class="section-desc">mockups에만 있던 트리맵 시각화를 실제 서비스로 승격. 메인(트리맵) + 개별 드릴다운 + 산업 반응 분석 + 카테고리 뷰로 확장. 산업 반응 분석은 정부·시장 갭을 드러내는 차별화 포인트.</div>
+
+  <div class="sitemap">
+    <!-- 글로벌 nav -->
+    <div class="sm-nav">
+      <div class="sm-nav-item">
+        <div class="sm-nav-box home">홈</div>
+        <div class="sm-nav-label">/</div>
+      </div>
+      <div class="sm-nav-item">
+        <div class="sm-nav-box">정부 발표</div>
+        <div class="sm-nav-label">/brief/</div>
+      </div>
+      <div class="sm-nav-item">
+        <div class="sm-nav-box active">키워드 분석</div>
+        <div class="sm-nav-label">/keywords/</div>
+      </div>
+      <div class="sm-nav-item">
+        <div class="sm-nav-box">금융 규제 트래커</div>
+        <div class="sm-nav-label">/finlaw/</div>
+      </div>
+    </div>
+
+    <!-- 메인 허브 -->
+    <div style="display:flex;justify-content:center;margin-bottom:0">
+      <div style="width:2px;height:24px;background:#a78bfa"></div>
+    </div>
+    <div style="display:flex;justify-content:center">
+      <div style="background:#1e1035;border:2px solid #a78bfa;border-radius:10px;padding:10px 24px;text-align:center">
+        <div style="font-size:14px;font-weight:700;color:#fff">키워드 분석 허브</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#c4b5fd;margin-top:3px">/keywords/</div>
+      </div>
+    </div>
+
+    <!-- 수평선 -->
+    <div style="display:flex;justify-content:center;position:relative;height:24px">
+      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:24px;background:#4c1d95"></div>
+      <div style="position:absolute;top:24px;left:18%;right:18%;height:2px;background:#4c1d95"></div>
+    </div>
+
+    <!-- 하위 페이지들 -->
+    <div class="sm-pages">
+      <div class="sm-page">
+        <div class="sm-page-box new-page">
+          <div class="pg-name">트리맵 메인</div>
+          <div class="pg-url">/keywords/</div>
+          <div class="pg-tag">mockup 승격 ★</div>
+        </div>
+      </div>
+      <div class="sm-page">
+        <div class="sm-page-box new-page">
+          <div class="pg-name">개별 키워드</div>
+          <div class="pg-url">/keywords/{slug}/</div>
+          <div class="pg-tag">신규</div>
+        </div>
+      </div>
+      <div class="sm-page">
+        <div class="sm-page-box new-page">
+          <div class="pg-name">산업 반응 분석</div>
+          <div class="pg-url">/keywords/industry/</div>
+          <div class="pg-tag">차별화 ★</div>
+        </div>
+      </div>
+      <div class="sm-page">
+        <div class="sm-page-box new-page">
+          <div class="pg-name">카테고리 뷰</div>
+          <div class="pg-url">/keywords/categories/</div>
+          <div class="pg-tag">신규</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-legend" style="margin-top:32px;padding-top:24px;border-top:1px solid #2e2e2e">
+      <div class="sm-legend-item">
+        <div class="sm-legend-dot" style="border-color:#a78bfa;background:#1e1035"></div>
+        메인 허브 (신규 경로)
+      </div>
+      <div class="sm-legend-item">
+        <div class="sm-legend-dot" style="border-color:var(--a);background:rgba(217,108,44,.08)"></div>
+        신규 페이지 (mockup 승격 ★)
+      </div>
+    </div>
+  </div>
+
+  <!-- 변경사항 표 -->
+  <div style="margin-top:24px">
+    <table class="change-table">
+      <thead>
+        <tr>
+          <th>기존 위치</th>
+          <th>신규 경로</th>
+          <th>처리</th>
+          <th>비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="t-url">mockups/keyword-intelligence-final.html</td>
+          <td class="t-url">/keywords/</td>
+          <td><span class="tag-promote">승격</span></td>
+          <td class="t-note">mockup을 실제 서비스 페이지로 배포, nav 연결</td>
+        </tr>
+        <tr>
+          <td>—</td>
+          <td class="t-url">/keywords/{slug}/</td>
+          <td><span class="tag-new">신규</span></td>
+          <td class="t-note">개별 키워드 드릴다운 — 부처별·기사별·시계열</td>
+        </tr>
+        <tr>
+          <td>—</td>
+          <td class="t-url">/keywords/industry/</td>
+          <td><span class="tag-new">신규 ★</span></td>
+          <td class="t-note">정부 키워드 × 국내 뉴스 — 산업이 실제로 어디에 반응하는지 분석 (정책·시장 갭)</td>
+        </tr>
+        <tr>
+          <td>—</td>
+          <td class="t-url">/keywords/categories/</td>
+          <td><span class="tag-new">신규</span></td>
+          <td class="t-note">카테고리별 상위 키워드 그룹 뷰</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 섹션 2: 개별 화면 -->
+<div class="section">
+  <div class="section-title">02 · SCREENS</div>
+  <div class="section-heading">개별 페이지 화면 설계</div>
+  <div class="section-desc">4개 페이지 각각의 레이아웃과 핵심 컴포넌트.</div>
+
+  <div class="screens-grid">
+
+    <!-- SCREEN 1: 트리맵 메인 -->
+    <div class="screen-block">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 01</div>
+        <h3>트리맵 메인</h3>
+        <div class="screen-url">/keywords/</div>
+        <p>키워드 분석 섹션의 메인. 최근 30일 (또는 선택 기간) 정부 보도자료에서 빈도 기반으로 추출한 키워드를 트리맵으로 시각화. 크기 = 언급 빈도, 색 = 카테고리.</p>
+        <ul>
+          <li>기간 선택 (7일 / 30일 / 90일 / 커스텀)</li>
+          <li>트리맵 (카테고리별 색상, 빈도별 크기)</li>
+          <li>카테고리 범례</li>
+          <li>Top 10 키워드 랭킹 (전주 대비 등락)</li>
+          <li>각 셀 클릭 → 개별 키워드 드릴다운</li>
+        </ul>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/keywords/</div>
+        </div>
+        <div class="screen-body">
+          <div class="mock-nav">
+            <span class="mock-logo">브리핑룸</span>
+            <span class="mock-navitem">홈</span>
+            <span class="mock-navitem small">정부 발표</span>
+            <span class="mock-navitem active">키워드 분석</span>
+            <span class="mock-navitem small">금융 규제 트래커</span>
+          </div>
+          <div class="mock-hero">
+            <div class="mock-hero-title">키워드 분석</div>
+            <div class="mock-hero-sub">정부 발표를 빅데이터로 구조화</div>
+            <div class="mock-stats">
+              <div class="mock-stat"><div class="n">283</div><div class="l">분석 발표</div></div>
+              <div class="mock-stat"><div class="n">142</div><div class="l">추출 키워드</div></div>
+              <div class="mock-stat"><div class="n">30</div><div class="l">분석 일수</div></div>
+            </div>
+          </div>
+          <div class="mock-section">
+            <div class="mock-period-tabs">
+              <div class="mock-period-tab">7일</div>
+              <div class="mock-period-tab on">30일</div>
+              <div class="mock-period-tab">90일</div>
+              <div class="mock-period-tab">기간 설정</div>
+            </div>
+            <div class="mock-treemap">
+              <div class="mock-treemap-row" style="grid-template-columns:9fr 7fr 6fr 5fr">
+                <div class="mock-tm-cell" style="background:#1e40af;height:80px"><div class="kw">추경 예산</div><div class="ct">48회</div></div>
+                <div class="mock-tm-cell" style="background:#7c3aed;height:80px"><div class="kw">AI 반도체</div><div class="ct">36회</div></div>
+                <div class="mock-tm-cell" style="background:#059669;height:80px"><div class="kw">소상공인</div><div class="ct">29회</div></div>
+                <div class="mock-tm-cell" style="background:#1e40af;height:80px"><div class="kw">수출</div><div class="ct">24회</div></div>
+              </div>
+              <div class="mock-treemap-row" style="grid-template-columns:4fr 4fr 3fr 3fr">
+                <div class="mock-tm-cell" style="background:#2563eb;height:50px"><div class="kw">가계부채</div><div class="ct">18회</div></div>
+                <div class="mock-tm-cell" style="background:#8b5cf6;height:50px"><div class="kw">반도체 인재</div><div class="ct">16회</div></div>
+                <div class="mock-tm-cell" style="background:#10b981;height:50px"><div class="kw">복지</div><div class="ct">14회</div></div>
+                <div class="mock-tm-cell" style="background:#dc2626;height:50px"><div class="kw">외교</div><div class="ct">12회</div></div>
+              </div>
+              <div class="mock-treemap-row" style="grid-template-columns:3fr 3fr 3fr 4fr 3fr">
+                <div class="mock-tm-cell" style="background:#3b82f6;height:38px"><div class="kw">환율</div><div class="ct">9회</div></div>
+                <div class="mock-tm-cell" style="background:#a78bfa;height:38px"><div class="kw">스타트업</div><div class="ct">8회</div></div>
+                <div class="mock-tm-cell" style="background:#34d399;height:38px"><div class="kw">청년</div><div class="ct">7회</div></div>
+                <div class="mock-tm-cell" style="background:#ef4444;height:38px"><div class="kw">국방</div><div class="ct">7회</div></div>
+                <div class="mock-tm-cell" style="background:#60a5fa;height:38px"><div class="kw">금리</div><div class="ct">6회</div></div>
+              </div>
+            </div>
+            <div class="mock-tm-legend">
+              <div class="mock-tm-leg"><div class="mock-tm-leg-dot" style="background:#1e40af"></div>금융·경제</div>
+              <div class="mock-tm-leg"><div class="mock-tm-leg-dot" style="background:#7c3aed"></div>산업·기술</div>
+              <div class="mock-tm-leg"><div class="mock-tm-leg-dot" style="background:#059669"></div>사회·복지</div>
+              <div class="mock-tm-leg"><div class="mock-tm-leg-dot" style="background:#dc2626"></div>외교·안보</div>
+            </div>
+          </div>
+          <div class="mock-section">
+            <div class="mock-sec-title">Top 10 키워드 · 전주 대비</div>
+            <div class="mock-top-list">
+              <div class="mock-top-row"><span class="mock-top-rank">01</span><span class="mock-top-kw">추경 예산</span><span class="mock-top-delta up">▲ 48%</span><span class="mock-top-count">48회</span></div>
+              <div class="mock-top-row"><span class="mock-top-rank">02</span><span class="mock-top-kw">AI 반도체</span><span class="mock-top-delta up">▲ 22%</span><span class="mock-top-count">36회</span></div>
+              <div class="mock-top-row"><span class="mock-top-rank">03</span><span class="mock-top-kw">소상공인</span><span class="mock-top-delta up">▲ 14%</span><span class="mock-top-count">29회</span></div>
+              <div class="mock-top-row"><span class="mock-top-rank">04</span><span class="mock-top-kw">수출</span><span class="mock-top-delta down">▼ 6%</span><span class="mock-top-count">24회</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: 개별 키워드 드릴다운 -->
+    <div class="screen-block reverse">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 02</div>
+        <h3>개별 키워드 드릴다운</h3>
+        <div class="screen-url">/keywords/{slug}/</div>
+        <p>트리맵에서 키워드 클릭 시 진입. 해당 키워드가 포함된 보도자료 전체, 언급한 부처 분포, 30일 시계열 추이를 보여줌.</p>
+        <ul>
+          <li>키워드 헤더 (카테고리, 총 언급 수, 전주 대비)</li>
+          <li>시계열 미니 차트 (일별 언급 수)</li>
+          <li>부처별 언급 블록 — 각 부처 내 발표 리스트</li>
+          <li>연관 키워드 (공출현 빈도 기반)</li>
+          <li>"이 키워드를 AI에 질문" CTA → /brief/ai/?q={keyword}</li>
+        </ul>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/keywords/추경-예산/</div>
+        </div>
+        <div class="screen-body">
+          <div class="mock-nav">
+            <span class="mock-logo">브리핑룸</span>
+            <span class="mock-navitem">홈</span>
+            <span class="mock-navitem small">정부 발표</span>
+            <span class="mock-navitem active">키워드 분석</span>
+            <span class="mock-navitem small">금융 규제 트래커</span>
+          </div>
+          <div class="mock-kw-hero">
+            <span class="mock-kw-cat">금융·경제</span>
+            <div class="mock-kw-name">추경 예산</div>
+            <div class="mock-kw-meta">30일간 48회 언급 · 전주 대비 <span style="color:#16a34a;font-weight:700">▲ 48%</span> · 참여 기관 11개</div>
+          </div>
+          <div class="mock-section">
+            <div class="mock-sec-title">30일 언급 추이</div>
+            <div class="mock-chart">
+              <div class="mock-bar" style="height:18%"></div>
+              <div class="mock-bar" style="height:25%"></div>
+              <div class="mock-bar" style="height:15%"></div>
+              <div class="mock-bar" style="height:32%"></div>
+              <div class="mock-bar" style="height:28%"></div>
+              <div class="mock-bar" style="height:22%"></div>
+              <div class="mock-bar" style="height:40%"></div>
+              <div class="mock-bar" style="height:55%"></div>
+              <div class="mock-bar" style="height:48%"></div>
+              <div class="mock-bar" style="height:62%"></div>
+              <div class="mock-bar" style="height:78%"></div>
+              <div class="mock-bar" style="height:90%"></div>
+              <div class="mock-bar" style="height:100%"></div>
+              <div class="mock-bar" style="height:85%"></div>
+            </div>
+          </div>
+          <div class="mock-section">
+            <div class="mock-sec-title">부처별 언급</div>
+            <div class="mock-ministry-block">
+              <div class="mock-ministry-hdr">
+                <span class="mock-ministry-name">기획재정부</span>
+                <span class="mock-ministry-count">18건</span>
+              </div>
+              <div class="mock-ministry-article">· 2026년 1회 추경 13.9조 국회 확정 (04.11)</div>
+              <div class="mock-ministry-article">· 추경 집행 로드맵 발표 (04.09)</div>
+              <div class="mock-ministry-article">· 추경 재원 마련 방안 (04.05)</div>
+            </div>
+            <div class="mock-ministry-block">
+              <div class="mock-ministry-hdr">
+                <span class="mock-ministry-name">중소벤처기업부</span>
+                <span class="mock-ministry-count">9건</span>
+              </div>
+              <div class="mock-ministry-article">· 중기부 추경 1조 6,903억 확정 (04.11)</div>
+              <div class="mock-ministry-article">· 소상공인 지원 집행 계획 (04.08)</div>
+            </div>
+          </div>
+          <div class="mock-section" style="background:#f5f3ff">
+            <div class="mock-sec-title">연관 키워드</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px">
+              <span class="mock-cat-kw" style="background:#ede9fe;color:#6d28d9">소상공인</span>
+              <span class="mock-cat-kw" style="background:#ede9fe;color:#6d28d9">수출</span>
+              <span class="mock-cat-kw" style="background:#ede9fe;color:#6d28d9">민생안정</span>
+              <span class="mock-cat-kw" style="background:#ede9fe;color:#6d28d9">중동 리스크</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: 산업 반응 분석 -->
+    <div class="screen-block">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 03 ★</div>
+        <h3>산업 반응 분석</h3>
+        <div class="screen-url">/keywords/industry/</div>
+        <p>정부 키워드에 대해 국내 뉴스가 어떻게 반응하는지 분석. "정부가 X를 발표했을 때 산업·시장은 실제로 어디에 집중하는가"를 보여줌. 정부 의도와 시장 현안 사이의 갭을 드러내는 시장 차별화 기능.</p>
+        <ul>
+          <li>키워드 선택 → 관련 뉴스 기사 집계</li>
+          <li>반응 큰 산업 Top 5 (뉴스 언급 기업·섹터 기반)</li>
+          <li>산업 관점 주요 우려 (뉴스 헤드라인 클러스터링)</li>
+          <li>정부 방향 vs 산업 현안 갭 분석</li>
+          <li>시계열 — 정부 발표 후 뉴스 반응 지연·증폭 곡선</li>
+        </ul>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/keywords/industry/?kw=AI-반도체</div>
+        </div>
+        <div class="screen-body">
+          <div class="mock-nav">
+            <span class="mock-logo">브리핑룸</span>
+            <span class="mock-navitem">홈</span>
+            <span class="mock-navitem small">정부 발표</span>
+            <span class="mock-navitem active">키워드 분석</span>
+            <span class="mock-navitem small">금융 규제 트래커</span>
+          </div>
+          <div class="mock-kw-hero">
+            <span class="mock-kw-cat">산업·기술</span>
+            <div class="mock-kw-name">AI 반도체 · 산업 반응 분석</div>
+            <div class="mock-kw-meta">정부 언급 36회 · 관련 뉴스 <strong style="color:#7c3aed">1,247건</strong> · 반응 지수 <strong style="color:#16a34a">+184%</strong></div>
+          </div>
+
+          <div class="mock-section">
+            <div class="mock-sec-title">반응 큰 산업 Top 5</div>
+            <div class="mock-sec-desc">관련 뉴스에서 언급된 기업·섹터 기반 집계</div>
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:10px;font-weight:700;color:#222;width:70px">반도체</span>
+                <div style="flex:1;height:14px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:92%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7c3aed;font-weight:700;width:40px;text-align:right">412건</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:10px;font-weight:700;color:#222;width:70px">금융</span>
+                <div style="flex:1;height:14px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:42%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7c3aed;font-weight:700;width:40px;text-align:right">188건</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:10px;font-weight:700;color:#222;width:70px">에너지</span>
+                <div style="flex:1;height:14px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:21%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7c3aed;font-weight:700;width:40px;text-align:right">94건</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:10px;font-weight:700;color:#222;width:70px">통신</span>
+                <div style="flex:1;height:14px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:15%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7c3aed;font-weight:700;width:40px;text-align:right">68건</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:10px;font-weight:700;color:#222;width:70px">자동차</span>
+                <div style="flex:1;height:14px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:11%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7c3aed;font-weight:700;width:40px;text-align:right">49건</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mock-section">
+            <div class="mock-sec-title">산업 관점 주요 우려</div>
+            <div class="mock-sec-desc">관련 뉴스 헤드라인 클러스터링</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #dc2626;border-radius:6px;padding:8px 10px">
+                <div style="font-size:11px;font-weight:700;color:#222">인재 부족</div>
+                <div style="font-size:9px;color:#666;margin-top:2px">312건 · "반도체 석박사 부족, 대학 증원 시급"</div>
+              </div>
+              <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #f59e0b;border-radius:6px;padding:8px 10px">
+                <div style="font-size:11px;font-weight:700;color:#222">전력 인프라</div>
+                <div style="font-size:9px;color:#666;margin-top:2px">204건 · "AI 데이터센터 전력 수요 폭증, 송전망 부족"</div>
+              </div>
+              <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #f59e0b;border-radius:6px;padding:8px 10px">
+                <div style="font-size:11px;font-weight:700;color:#222">미국 수출 규제</div>
+                <div style="font-size:9px;color:#666;margin-top:2px">176건 · "HBM 대중 수출 제한, 삼성·SK 영향"</div>
+              </div>
+              <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #3b82f6;border-radius:6px;padding:8px 10px">
+                <div style="font-size:11px;font-weight:700;color:#222">팹리스 생태계</div>
+                <div style="font-size:9px;color:#666;margin-top:2px">98건 · "설계 전문기업 투자 부족, 생태계 격차"</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mock-section" style="background:#fff7ed">
+            <div class="mock-sec-title" style="color:#c2410c">✦ 정부 방향 vs 산업 현안 갭</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div style="background:#fff;border:1px solid #fed7aa;border-radius:6px;padding:8px 10px">
+                <div style="font-size:9px;font-weight:700;color:#1e40af;margin-bottom:4px;text-transform:uppercase">정부가 강조</div>
+                <div style="font-size:10px;color:#222;line-height:1.4">R&D 투자 2.8조, 국가전략기술, 팹리스 스타트업 지원</div>
+              </div>
+              <div style="background:#fff;border:1px solid #fed7aa;border-radius:6px;padding:8px 10px">
+                <div style="font-size:9px;font-weight:700;color:#c2410c;margin-bottom:4px;text-transform:uppercase">산업이 요구</div>
+                <div style="font-size:10px;color:#222;line-height:1.4">인재 양성, 전력 인프라, 대중 수출 대응</div>
+              </div>
+            </div>
+            <div style="font-size:10px;color:#9a3412;margin-top:8px;line-height:1.5">
+              → 정부는 <strong>R&D 자금 투입</strong>에 집중했지만, 뉴스에서 나온 산업 현안은 <strong>인재·전력·지정학 리스크</strong>에 쏠려있음. 예산 배분이 실제 산업 병목을 완화하지 못할 가능성.
+            </div>
+          </div>
+
+          <div class="mock-section">
+            <div class="mock-sec-title">반응 곡선 · 정부 발표 이후 7일</div>
+            <div class="mock-chart">
+              <div class="mock-bar" style="height:30%"></div>
+              <div class="mock-bar" style="height:55%"></div>
+              <div class="mock-bar" style="height:82%"></div>
+              <div class="mock-bar" style="height:100%"></div>
+              <div class="mock-bar" style="height:78%"></div>
+              <div class="mock-bar" style="height:52%"></div>
+              <div class="mock-bar" style="height:38%"></div>
+            </div>
+            <div style="font-size:9px;color:#888;margin-top:6px;text-align:center">발표 당일 → D+3 피크 → D+7 수렴</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: 카테고리 뷰 -->
+    <div class="screen-block reverse">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 04</div>
+        <h3>카테고리 뷰</h3>
+        <div class="screen-url">/keywords/categories/</div>
+        <p>카테고리별로 상위 키워드를 묶어 보여줌. 금융·경제 / 산업·기술 / 사회·복지 / 외교·안보 / 행정·법제 5개 축으로 "어느 영역에서 무슨 일이 벌어지는지" 파악.</p>
+        <ul>
+          <li>카테고리 카드 그리드 (5개)</li>
+          <li>각 카드 — 카테고리 내 Top 10 키워드</li>
+          <li>카테고리별 발표 건수·참여 기관</li>
+          <li>카테고리 선택 시 해당 카테고리 트리맵으로 이동</li>
+        </ul>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/keywords/categories/</div>
+        </div>
+        <div class="screen-body">
+          <div class="mock-nav">
+            <span class="mock-logo">브리핑룸</span>
+            <span class="mock-navitem">홈</span>
+            <span class="mock-navitem small">정부 발표</span>
+            <span class="mock-navitem active">키워드 분석</span>
+            <span class="mock-navitem small">금융 규제 트래커</span>
+          </div>
+          <div class="mock-hero" style="padding:14px 18px">
+            <div class="mock-hero-title">카테고리 뷰</div>
+            <div class="mock-hero-sub">5개 영역별 상위 키워드 그룹</div>
+          </div>
+          <div class="mock-section">
+            <div class="mock-cat-grid">
+              <div class="mock-cat-card fin">
+                <div class="mock-cat-name">금융·경제</div>
+                <div class="mock-cat-count">발표 82건 · 12 기관</div>
+                <div class="mock-cat-kws">
+                  <span class="mock-cat-kw">추경</span>
+                  <span class="mock-cat-kw">수출</span>
+                  <span class="mock-cat-kw">환율</span>
+                  <span class="mock-cat-kw">가계부채</span>
+                  <span class="mock-cat-kw">금리</span>
+                </div>
+              </div>
+              <div class="mock-cat-card ind">
+                <div class="mock-cat-name">산업·기술</div>
+                <div class="mock-cat-count">발표 64건 · 9 기관</div>
+                <div class="mock-cat-kws">
+                  <span class="mock-cat-kw">AI 반도체</span>
+                  <span class="mock-cat-kw">스타트업</span>
+                  <span class="mock-cat-kw">R&D</span>
+                  <span class="mock-cat-kw">인재</span>
+                </div>
+              </div>
+              <div class="mock-cat-card soc">
+                <div class="mock-cat-name">사회·복지</div>
+                <div class="mock-cat-count">발표 58건 · 8 기관</div>
+                <div class="mock-cat-kws">
+                  <span class="mock-cat-kw">소상공인</span>
+                  <span class="mock-cat-kw">복지</span>
+                  <span class="mock-cat-kw">청년</span>
+                  <span class="mock-cat-kw">주거</span>
+                </div>
+              </div>
+              <div class="mock-cat-card adm">
+                <div class="mock-cat-name">외교·안보</div>
+                <div class="mock-cat-count">발표 41건 · 6 기관</div>
+                <div class="mock-cat-kws">
+                  <span class="mock-cat-kw">중동</span>
+                  <span class="mock-cat-kw">국방</span>
+                  <span class="mock-cat-kw">외교</span>
+                  <span class="mock-cat-kw">방산</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /screens-grid -->
+
+  <div class="note-box" style="margin-top:48px">
+    <p>
+      <strong>데이터 파이프라인:</strong> 정부 발표 (/brief/articles/) → 키워드 추출 (NLP/LLM) → 카테고리 분류 → 빈도·시계열 집계 → 트리맵/차트 렌더링. 기존 <code>mockups/keyword-intelligence-final.html</code>을 /keywords/로 승격하며 나머지 3개 페이지는 동일 데이터 소스로 확장.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

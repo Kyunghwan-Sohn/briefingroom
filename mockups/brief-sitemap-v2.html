@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>정부 발표 섹션 구조 설계 v2 — 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all;overflow-wrap:break-word}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.08);--ab:rgba(217,108,44,.18);
+  --doc-bg:#0f0f0f;--doc-s:#1a1a1a;--doc-s2:#222;--doc-b:#2e2e2e;--doc-bl:#383838;
+  --doc-t:#f0f0f0;--doc-t2:#aaa;--doc-m:#666;
+  --blue:#1e40af;--blue-bg:#0f1e3d;--blue-light:#3b82f6;--blue-border:#1e3a6e;
+  --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--doc-bg);color:var(--doc-t);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;font-size:14px;line-height:1.6}
+
+/* ─── 문서 헤더 ─── */
+.doc-header{padding:52px 40px 40px;border-bottom:1px solid var(--doc-b);max-width:1280px;margin:0 auto}
+.doc-header .badge{font-family:var(--mono);font-size:11px;color:var(--a);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.doc-header h1{font-family:var(--serif);font-size:38px;font-weight:700;color:var(--doc-t);margin-bottom:12px;letter-spacing:-.01em}
+.doc-header p{font-size:15px;color:var(--doc-t2);line-height:1.75;max-width:680px}
+.doc-header p strong{color:var(--doc-t)}
+.doc-meta{display:flex;gap:28px;margin-top:24px;flex-wrap:wrap}
+.doc-meta span{font-family:var(--mono);font-size:11px;color:var(--doc-m)}
+.doc-meta strong{color:var(--doc-t2);margin-right:4px}
+
+/* ─── 섹션 ─── */
+.section{max-width:1280px;margin:0 auto;padding:52px 40px}
+.section-title{font-family:var(--mono);font-size:11px;color:var(--a);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.section-heading{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--doc-t);margin-bottom:8px}
+.section-desc{font-size:14px;color:var(--doc-t2);margin-bottom:36px;line-height:1.7;max-width:720px}
+.divider{border:none;border-top:1px solid var(--doc-b);margin:0}
+
+/* ─── 사이트맵 다이어그램 ─── */
+.sitemap{background:var(--doc-s);border:1px solid var(--doc-b);border-radius:16px;padding:40px 36px}
+.sm-nav{display:flex;gap:0;margin-bottom:36px;justify-content:center}
+.sm-nav-item{display:flex;flex-direction:column;align-items:center;flex:1;max-width:200px;position:relative}
+.sm-nav-item:not(:last-child)::after{content:'';position:absolute;top:22px;right:-1px;width:calc(100% - 80px);height:2px;background:var(--doc-b);left:calc(50% + 40px)}
+.sm-nav-box{width:80px;height:44px;border:2px solid var(--doc-b);border-radius:10px;background:var(--doc-s2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--doc-t2);position:relative;z-index:1}
+.sm-nav-box.active{border-color:var(--blue-light);color:var(--blue-light);background:var(--blue-bg)}
+.sm-nav-box.home{border-color:var(--a);color:var(--a);background:rgba(217,108,44,.08)}
+.sm-nav-label{font-family:var(--mono);font-size:10px;color:var(--doc-m);margin-top:7px;text-align:center}
+
+.sm-hub{display:flex;flex-direction:column;align-items:center;margin-bottom:0}
+.sm-hub-connector{width:2px;height:24px;background:var(--blue-light)}
+.sm-hub-box{background:var(--blue);border:2px solid var(--blue-light);border-radius:10px;padding:12px 28px;text-align:center}
+.sm-hub-box .name{font-size:14px;font-weight:700;color:#fff}
+.sm-hub-box .url{font-family:var(--mono);font-size:10px;color:#93c5fd;margin-top:3px}
+
+.sm-fork{display:flex;justify-content:center;position:relative;height:26px;margin-top:0}
+.sm-fork::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:26px;background:var(--blue-border)}
+.sm-fork::after{content:'';position:absolute;top:26px;left:14%;right:14%;height:2px;background:var(--blue-border)}
+
+.sm-pages{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;padding-top:22px;position:relative}
+.sm-page{display:flex;flex-direction:column;align-items:center;position:relative}
+.sm-page::before{content:'';position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:2px;height:22px;background:var(--blue-border)}
+.sm-page-box{background:var(--blue-bg);border:1.5px solid var(--blue-border);border-radius:10px;padding:14px 18px;text-align:center;min-width:140px}
+.sm-page-box .pg-name{font-size:13px;font-weight:700;color:var(--blue-light);margin-bottom:4px}
+.sm-page-box .pg-url{font-family:var(--mono);font-size:10px;color:var(--doc-m)}
+.sm-page-box .pg-tag{font-family:var(--mono);font-size:9px;color:var(--a);background:var(--al);padding:2px 7px;border-radius:4px;margin-top:7px;display:inline-block}
+.sm-page-box.new-page{border-color:var(--a);background:rgba(217,108,44,.06)}
+.sm-page-box.new-page .pg-name{color:var(--a)}
+
+.sm-legend{display:flex;gap:24px;margin-top:34px;justify-content:center;padding-top:26px;border-top:1px solid var(--doc-b);flex-wrap:wrap}
+.sm-legend-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--doc-t2)}
+.sm-legend-dot{width:12px;height:12px;border-radius:3px;border:2px solid}
+
+/* ─── 변경사항 표 ─── */
+.change-table{width:100%;border-collapse:collapse;background:var(--doc-s);border-radius:12px;overflow:hidden;border:1px solid var(--doc-b);margin-top:28px}
+.change-table th{background:var(--doc-s2);padding:14px 18px;font-size:12px;font-weight:700;color:var(--doc-t2);text-align:left;border-bottom:2px solid var(--doc-b)}
+.change-table td{padding:14px 18px;font-size:13px;border-bottom:1px solid var(--doc-b);vertical-align:top;line-height:1.55}
+.change-table tr:last-child td{border-bottom:none}
+.tag-new{background:rgba(217,108,44,.15);color:var(--a);padding:3px 9px;border-radius:4px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.tag-keep{background:var(--doc-s2);color:var(--doc-t2);padding:3px 9px;border-radius:4px;font-size:11px;font-weight:700;font-family:var(--mono);border:1px solid var(--doc-b)}
+.tag-merge{background:rgba(59,130,246,.15);color:var(--blue-light);padding:3px 9px;border-radius:4px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.tag-del{background:rgba(239,68,68,.12);color:#f87171;padding:3px 9px;border-radius:4px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.t-url{font-family:var(--mono);font-size:12px;color:var(--doc-t2)}
+.t-note{font-size:12px;color:var(--doc-m)}
+
+/* ─── 스크린 블록 ─── */
+.screens-grid{display:flex;flex-direction:column;gap:72px}
+.screen-block{display:flex;gap:36px;align-items:flex-start}
+.screen-block.reverse{flex-direction:row-reverse}
+.screen-info{flex:0 0 280px}
+.screen-info .screen-num{font-family:var(--mono);font-size:11px;color:var(--a);letter-spacing:.12em;margin-bottom:10px}
+.screen-info h3{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--doc-t);margin-bottom:10px}
+.screen-info .screen-url{font-family:var(--mono);font-size:11px;color:var(--blue-light);background:var(--blue-bg);padding:5px 11px;border-radius:6px;display:inline-block;margin-bottom:16px}
+.screen-info p{font-size:13px;color:var(--doc-t2);line-height:1.75;margin-bottom:18px}
+.screen-info ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.screen-info ul li{font-size:12px;color:var(--doc-t2);padding-left:16px;position:relative;line-height:1.6}
+.screen-info ul li::before{content:'—';position:absolute;left:0;color:var(--doc-m)}
+.screen-info .info-note{background:rgba(59,130,246,.08);border:1px solid var(--blue-border);border-radius:8px;padding:12px 14px;margin-top:16px;font-size:12px;color:var(--doc-t2);line-height:1.65}
+.screen-info .info-note strong{color:var(--blue-light)}
+
+.screen-frame{flex:1;border:1.5px solid var(--doc-b);border-radius:14px;overflow:hidden;background:var(--doc-s);min-width:0}
+.screen-bar{height:38px;background:var(--doc-s2);border-bottom:1px solid var(--doc-b);display:flex;align-items:center;padding:0 16px;gap:12px}
+.screen-bar-dots{display:flex;gap:6px}
+.screen-bar-dots span{width:9px;height:9px;border-radius:50%;background:var(--doc-bl)}
+.screen-bar-url{font-family:var(--mono);font-size:10px;color:var(--doc-m);background:var(--doc-bg);padding:4px 14px;border-radius:4px;flex:1;text-align:center}
+
+/* ─── v2 스크린 콘텐츠 (스크린 프레임 내부) ─── */
+.scr{background:#f7f7f5;font-family:var(--sans);color:#1a1a1a}
+
+/* v2 header */
+.scr-hdr{background:#fff;border-bottom:1px solid #dcdcd8;height:52px;display:flex;align-items:center;padding:0 22px}
+.scr-hdr-logo{font-family:var(--serif);font-size:19px;font-weight:700;color:#1a1a1a;margin-right:32px}
+.scr-hdr-nav{display:flex;gap:4px;flex:1}
+.scr-hdr-nav a{font-size:12px;font-weight:600;color:#555;text-decoration:none;padding:8px 13px;border-radius:6px}
+.scr-hdr-nav a.on{color:var(--a);background:rgba(217,108,44,.06);font-weight:700}
+.scr-hdr-search{width:200px;background:#fafaf8;border:1px solid #dcdcd8;border-radius:6px;padding:7px 12px;font-size:11px;color:#bbb;margin-right:12px}
+.scr-hdr-time{font-family:var(--mono);font-size:10px;color:#888}
+
+/* shell */
+.scr-shell{max-width:1000px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+
+/* v2 panel */
+.scr-panel{background:#fff;border:1px solid #dcdcd8;border-radius:8px;overflow:hidden}
+.scr-panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:15px 20px 10px}
+.scr-panel-title{font-family:var(--serif);font-size:17px;font-weight:700;color:#1a1a1a;display:flex;align-items:center;gap:10px}
+.scr-panel-title::before{content:'';width:3px;height:15px;background:var(--a);border-radius:1px}
+.scr-panel-title .num{font-family:var(--mono);font-size:11px;font-weight:500;color:#888}
+.scr-panel-more{font-size:11px;color:#888;font-weight:600;text-decoration:none}
+
+/* 필터 탭 */
+.scr-tabs{display:flex;gap:4px;padding:0 20px 10px;overflow-x:hidden;flex-wrap:wrap}
+.scr-tab{font-size:11px;font-weight:600;padding:5px 11px;border-radius:14px;border:1.5px solid #e5e5e5;background:#fff;color:#666;white-space:nowrap}
+.scr-tab.on{background:var(--a);color:#fff;border-color:var(--a)}
+
+/* 브리핑 카드 */
+.scr-brief-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:0 20px 18px}
+.scr-brief-card{background:#fafaf8;border:1px solid #ededea;border-radius:6px;padding:13px 15px}
+.scr-brief-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.scr-brief-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;background:#eff6ff;color:var(--blue)}
+.scr-brief-src{font-size:10px;color:#888;font-weight:600}
+.scr-brief-title{font-family:var(--serif);font-size:13px;font-weight:700;color:#111;line-height:1.45;margin-bottom:7px}
+.scr-brief-sum{font-size:11px;color:#555;line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.scr-brief-bot{margin-top:9px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:#888}
+.scr-brief-imp.high{color:#dc2626;font-weight:700}
+.scr-brief-imp.mid{color:var(--a);font-weight:700}
+
+/* 주간 카드 */
+.scr-weekly-card{background:#fff;border:1px solid #ededea;border-radius:8px;padding:14px 18px;margin:0 20px 10px}
+.scr-weekly-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.scr-weekly-badge{font-family:var(--mono);font-size:9px;font-weight:700;color:#fff;background:var(--blue);padding:3px 9px;border-radius:4px}
+.scr-weekly-title{font-family:var(--serif);font-size:14px;font-weight:700;color:#111;margin-left:8px;flex:1}
+.scr-weekly-range{font-family:var(--mono);font-size:10px;color:#888}
+.scr-weekly-kws{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.scr-weekly-kws span{font-size:10px;color:var(--blue);background:#eff6ff;border:1px solid #bfdbfe;padding:2px 8px;border-radius:10px}
+.scr-weekly-signals{display:flex;flex-direction:column;gap:4px}
+.scr-weekly-sig{display:flex;gap:8px;font-size:11px;color:#444;line-height:1.4}
+.scr-weekly-sig::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--blue);margin-top:6px;flex-shrink:0}
+
+/* 아카이브 날짜 행 */
+.scr-arc-row{display:grid;grid-template-columns:80px 42px 1fr 20px;gap:12px;align-items:center;padding:11px 20px;border-top:1px solid #ededea;font-size:11.5px}
+.scr-arc-row:hover{background:#fafaf8}
+.scr-arc-date{font-family:var(--mono);font-size:11px;color:#888;font-weight:600}
+.scr-arc-cnt{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--blue);background:#eff6ff;padding:3px 7px;border-radius:4px;text-align:center}
+.scr-arc-depts{color:#555}
+.scr-arc-chev{color:#ccc;text-align:right}
+
+/* AI 채팅 */
+.scr-ai-panel{display:flex;flex-direction:column}
+.scr-ai-ctx{display:flex;gap:4px;padding:12px 20px;background:#fafaf8;border-top:1px solid #ededea;flex-wrap:wrap;align-items:center}
+.scr-ai-ctx-label{font-size:9px;color:var(--a);font-weight:700;margin-right:4px;text-transform:uppercase;letter-spacing:.05em}
+.scr-ai-ctx-chip{font-size:10px;background:#fff;border:1px solid #ededea;color:#555;padding:3px 9px;border-radius:10px}
+.scr-ai-msgs{padding:14px 20px;display:flex;flex-direction:column;gap:9px;background:#f7f7f5;min-height:200px}
+.scr-ai-bubble{background:#fff;border:1px solid #ededea;border-radius:10px;padding:11px 14px;font-size:11.5px;color:#444;line-height:1.6;max-width:80%}
+.scr-ai-bubble.user{background:var(--a);color:#fff;border-color:var(--a);align-self:flex-end}
+.scr-ai-bubble strong{color:#1a1a1a}
+.scr-ai-bubble.user strong{color:#fff}
+.scr-ai-cite{font-size:9px;color:var(--blue);margin-top:7px;padding-top:7px;border-top:1px dashed #ededea}
+.scr-ai-input{display:flex;gap:6px;padding:12px 20px;background:#fff;border-top:1px solid #ededea}
+.scr-ai-input-box{flex:1;background:#fafaf8;border:1px solid #dcdcd8;border-radius:6px;padding:8px 11px;font-size:11px;color:#bbb}
+.scr-ai-input-btn{background:var(--a);color:#fff;border:none;border-radius:6px;padding:8px 16px;font-size:11px;font-weight:700}
+
+/* 개별 발표 상세 hero */
+.scr-detail-hero{padding:20px;background:#eff6ff;border-bottom:1px solid #bfdbfe}
+.scr-detail-tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:3px;background:var(--blue);color:#fff;display:inline-block;margin-bottom:8px}
+.scr-detail-src{font-size:11px;color:#666;margin-bottom:5px;font-weight:600}
+.scr-detail-title{font-family:var(--serif);font-size:18px;font-weight:700;color:#111;line-height:1.4;margin-bottom:10px}
+.scr-detail-meta{display:flex;gap:12px;align-items:center;font-family:var(--mono);font-size:10px;color:#666}
+.scr-detail-meta .imp{font-weight:700;padding:2px 7px;border-radius:3px;background:#fef2f2;color:#dc2626;font-family:var(--sans)}
+
+/* 상세 섹션 */
+.scr-detail-sec{padding:15px 20px;border-bottom:1px solid #ededea}
+.scr-detail-sec-label{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.scr-detail-text{font-size:12px;color:#333;line-height:1.75}
+.scr-detail-points{display:flex;flex-direction:column;gap:6px}
+.scr-detail-pt{font-size:11.5px;color:#333;line-height:1.55;padding-left:14px;position:relative}
+.scr-detail-pt::before{content:'·';position:absolute;left:4px;color:var(--blue);font-weight:700}
+
+/* footer + 하단 네비 (모바일) */
+.scr-footer{padding:20px;text-align:center;border-top:1px solid #ededea}
+.scr-footer-motto{font-family:var(--serif);font-size:12px;color:#555;margin-bottom:4px}
+.scr-footer-site{font-family:var(--mono);font-size:10px;color:#888}
+
+/* 반응형 */
+@media(max-width:900px){
+  .screen-block,.screen-block.reverse{flex-direction:column}
+  .screen-info{flex:none;width:100%}
+  .section{padding:40px 22px}
+  .doc-header{padding:40px 22px 32px}
+  .scr-brief-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- 문서 헤더 -->
+<div class="doc-header">
+  <div class="badge">DESIGN DOCUMENT · v2 · 정부 발표 섹션</div>
+  <h1>정부 발표 구조 설계 v2</h1>
+  <p>홈 대시보드 v2와 일관된 디자인 언어로 정부 발표 섹션의 모든 페이지 재설계. <strong>헤더 · 패널 · 푸터 · 하단 네비</strong>가 홈과 동일한 구성 요소를 사용.</p>
+  <div class="doc-meta">
+    <span><strong>작성일</strong>2026-04-12</span>
+    <span><strong>상태</strong>초안</span>
+    <span><strong>기준</strong>home-dashboard-v2.html</span>
+    <span><strong>경로</strong>/brief/*</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ─── 01 · 사이트맵 ─── -->
+<section class="section">
+  <div class="section-title">01 · SITEMAP</div>
+  <div class="section-heading">정부 발표 섹션 구조</div>
+  <div class="section-desc">기존 <code>/policy/</code>, <code>/archive/</code>, <code>/articles/</code> 3개 경로를 <code>/brief/</code> 하나로 통합. 아카이브는 하위 페이지로 흡수.</div>
+
+  <div class="sitemap">
+    <div class="sm-nav">
+      <div class="sm-nav-item">
+        <div class="sm-nav-box home">홈</div>
+        <div class="sm-nav-label">/</div>
+      </div>
+      <div class="sm-nav-item">
+        <div class="sm-nav-box active">정부 발표</div>
+        <div class="sm-nav-label">/brief/</div>
+      </div>
+      <div class="sm-nav-item">
+        <div class="sm-nav-box">키워드 분석</div>
+        <div class="sm-nav-label">/keywords/</div>
+      </div>
+      <div class="sm-nav-item">
+        <div class="sm-nav-box">금융 규제 트래커</div>
+        <div class="sm-nav-label">/finlaw/</div>
+      </div>
+    </div>
+
+    <div class="sm-hub">
+      <div class="sm-hub-connector"></div>
+      <div class="sm-hub-box">
+        <div class="name">정부 발표 허브</div>
+        <div class="url">/brief/</div>
+      </div>
+    </div>
+
+    <div class="sm-fork"></div>
+
+    <div class="sm-pages">
+      <div class="sm-page">
+        <div class="sm-page-box">
+          <div class="pg-name">오늘의 발표</div>
+          <div class="pg-url">/brief/</div>
+          <div class="pg-tag">기존 /policy/ 개편</div>
+        </div>
+      </div>
+      <div class="sm-page">
+        <div class="sm-page-box">
+          <div class="pg-name">AI 질의응답</div>
+          <div class="pg-url">/brief/ai/</div>
+          <div class="pg-tag">기존 /policy/ai/</div>
+        </div>
+      </div>
+      <div class="sm-page">
+        <div class="sm-page-box">
+          <div class="pg-name">주간 브리핑</div>
+          <div class="pg-url">/brief/weekly/</div>
+          <div class="pg-tag">기존 /policy/weekly/</div>
+        </div>
+      </div>
+      <div class="sm-page">
+        <div class="sm-page-box new-page">
+          <div class="pg-name">전체 발표</div>
+          <div class="pg-url">/brief/articles/</div>
+          <div class="pg-tag">/articles/ 통합 ★</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-legend">
+      <div class="sm-legend-item">
+        <div class="sm-legend-dot" style="border-color:var(--blue-light);background:var(--blue-bg)"></div>
+        기존 페이지 개편
+      </div>
+      <div class="sm-legend-item">
+        <div class="sm-legend-dot" style="border-color:var(--a);background:rgba(217,108,44,.08)"></div>
+        구조 통합 / 신규 ★
+      </div>
+    </div>
+  </div>
+
+  <!-- 변경 표 -->
+  <table class="change-table">
+    <thead>
+      <tr>
+        <th style="width:26%">기존 경로</th>
+        <th style="width:26%">신규 경로</th>
+        <th style="width:12%">처리</th>
+        <th>비고</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="t-url">/policy/</td>
+        <td class="t-url">/brief/</td>
+        <td><span class="tag-keep">이전</span></td>
+        <td class="t-note">v2 디자인으로 허브 재설계</td>
+      </tr>
+      <tr>
+        <td class="t-url">/policy/ai/</td>
+        <td class="t-url">/brief/ai/</td>
+        <td><span class="tag-keep">이전</span></td>
+        <td class="t-note">AI 질의 채팅 유지</td>
+      </tr>
+      <tr>
+        <td class="t-url">/policy/weekly/</td>
+        <td class="t-url">/brief/weekly/</td>
+        <td><span class="tag-keep">이전</span></td>
+        <td class="t-note">주간 시그널 카드 유지</td>
+      </tr>
+      <tr>
+        <td class="t-url">/archive/ · /articles/</td>
+        <td class="t-url">/brief/articles/</td>
+        <td><span class="tag-merge">통합</span></td>
+        <td class="t-note">두 경로 통합, 구 URL 301 redirect</td>
+      </tr>
+      <tr>
+        <td class="t-url">/articles/{date}/{id}/</td>
+        <td class="t-url">/brief/articles/{date}/{id}/</td>
+        <td><span class="tag-merge">이전</span></td>
+        <td class="t-note">개별 발표 상세, 기존 URL redirect로 SEO 보호</td>
+      </tr>
+      <tr>
+        <td class="t-url">/policy/all/</td>
+        <td>—</td>
+        <td><span class="tag-del">제거</span></td>
+        <td class="t-note">/brief/articles/가 역할 대체</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="divider">
+
+<!-- ─── 02 · 개별 화면 ─── -->
+<section class="section">
+  <div class="section-title">02 · SCREENS</div>
+  <div class="section-heading">개별 페이지 v2 레이아웃</div>
+  <div class="section-desc">홈 대시보드 v2와 동일한 헤더·패널·푸터 구성. 각 스크린은 단일 칼럼 1000px 셸 안에서 패널이 쌓이는 형태.</div>
+
+  <div class="screens-grid">
+
+    <!-- ───────── SCREEN 01 ───────── -->
+    <div class="screen-block">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 01</div>
+        <h3>오늘의 발표 허브</h3>
+        <div class="screen-url">/brief/</div>
+        <p>섹션 메인 진입점. 오늘 날짜 기준 발표 목록을 v2 패널 카드 스타일로 표시. 카테고리·부처 필터, AI 질의 CTA.</p>
+        <ul>
+          <li>통계 패널 (발표 수 · 참여 기관 · 영향도 상)</li>
+          <li>필터 탭 (카테고리 × 부처)</li>
+          <li>브리핑 카드 2칼럼 그리드</li>
+          <li>AI 질의 CTA → /brief/ai/</li>
+          <li>주간 브리핑 · 전체 아카이브 바로가기</li>
+        </ul>
+        <div class="info-note"><strong>v2 일관성</strong><br>홈의 "오늘의 정부 발표" 패널을 확장한 형태. 같은 카드 디자인 그대로 재사용.</div>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/brief/</div>
+        </div>
+        <div class="scr">
+          <div class="scr-hdr">
+            <span class="scr-hdr-logo">브리핑룸</span>
+            <nav class="scr-hdr-nav">
+              <a href="/">홈</a>
+              <a class="on" href="/brief/">정부 발표</a>
+              <a href="/keywords/">키워드 분석</a>
+              <a href="/finlaw/">금융 규제 트래커</a>
+            </nav>
+            <div class="scr-hdr-search">⌕ 검색</div>
+            <div class="scr-hdr-time">04.12 16:32</div>
+          </div>
+          <div class="scr-shell">
+
+            <div class="scr-panel">
+              <div class="scr-panel-hdr">
+                <h2 class="scr-panel-title">오늘의 정부 발표<span class="num">04.12 · 24건</span></h2>
+                <a class="scr-panel-more" href="/brief/articles/">전체 →</a>
+              </div>
+              <div class="scr-tabs">
+                <span class="scr-tab on">전체 24</span>
+                <span class="scr-tab">금융·경제 6</span>
+                <span class="scr-tab">산업·기술 9</span>
+                <span class="scr-tab">사회·복지 4</span>
+                <span class="scr-tab">외교·안보 2</span>
+                <span class="scr-tab">행정·법제 3</span>
+              </div>
+              <div class="scr-tabs" style="padding-top:0">
+                <span class="scr-tab on">전체 기관</span>
+                <span class="scr-tab">기재부</span>
+                <span class="scr-tab">금융위</span>
+                <span class="scr-tab">과기부</span>
+                <span class="scr-tab">중기부</span>
+                <span class="scr-tab">+7</span>
+              </div>
+              <div class="scr-brief-grid">
+                <div class="scr-brief-card">
+                  <div class="scr-brief-top"><span class="scr-brief-tag">금융·경제</span><span class="scr-brief-src">기획재정부</span></div>
+                  <div class="scr-brief-title">2026년 1회 추경 13.9조 최종 확정</div>
+                  <div class="scr-brief-sum">수출 중소기업 4.2조, 소상공인 3.1조, AI 반도체 R&D 2.8조 집중 투입. 중동 리스크 대응이 핵심.</div>
+                  <div class="scr-brief-bot"><span>04-12</span><span class="scr-brief-imp high">영향도 상</span></div>
+                </div>
+                <div class="scr-brief-card">
+                  <div class="scr-brief-top"><span class="scr-brief-tag">산업·기술</span><span class="scr-brief-src">과기정통부</span></div>
+                  <div class="scr-brief-title">AI 반도체 국가전략 2030 로드맵</div>
+                  <div class="scr-brief-sum">팹리스 생태계 조성 3.2조, 인재 양성, 국가전략기술 지정. 2030년까지 단계적 집행.</div>
+                  <div class="scr-brief-bot"><span>04-12</span><span class="scr-brief-imp mid">영향도 중</span></div>
+                </div>
+                <div class="scr-brief-card">
+                  <div class="scr-brief-top"><span class="scr-brief-tag">사회·복지</span><span class="scr-brief-src">중소벤처부</span></div>
+                  <div class="scr-brief-title">중기부 추경 1조 6,903억 확정</div>
+                  <div class="scr-brief-sum">수출 기업과 소상공인 긴급 지원, 청년 스타트업 병행 지원.</div>
+                  <div class="scr-brief-bot"><span>04-12</span><span class="scr-brief-imp mid">영향도 중</span></div>
+                </div>
+                <div class="scr-brief-card">
+                  <div class="scr-brief-top"><span class="scr-brief-tag">외교·안보</span><span class="scr-brief-src">외교부</span></div>
+                  <div class="scr-brief-title">중동 정세 대응 TF 가동</div>
+                  <div class="scr-brief-sum">교민 안전 확보 및 에너지 수급 비상 대응 체계 점검.</div>
+                  <div class="scr-brief-bot"><span>04-12</span><span class="scr-brief-imp mid">영향도 중</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="scr-footer">
+              <div class="scr-footer-motto">정부 정책과 금융 규제, 한 화면에</div>
+              <div class="scr-footer-site">govbrief.kr</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───────── SCREEN 02 ───────── -->
+    <div class="screen-block reverse">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 02</div>
+        <h3>AI 질의응답</h3>
+        <div class="screen-url">/brief/ai/</div>
+        <p>보도자료 전체를 컨텍스트로 AI가 답변. 참조한 출처 보도자료 표시, 대화 맥락 유지.</p>
+        <ul>
+          <li>참조 범위 선택 — 오늘 · 이번주 · 이번달</li>
+          <li>참조 보도자료 칩 (AI가 실제 사용한 것)</li>
+          <li>답변에 출처 인용 카드</li>
+          <li>멀티턴 대화</li>
+        </ul>
+        <div class="info-note"><strong>데이터 현황</strong><br>보도자료 임베딩 파이프라인(B6) 구축 필요. 현재 data/YYYY-MM-DD.json 소비 방식에서 pgvector 전환 예정.</div>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/brief/ai/</div>
+        </div>
+        <div class="scr">
+          <div class="scr-hdr">
+            <span class="scr-hdr-logo">브리핑룸</span>
+            <nav class="scr-hdr-nav">
+              <a href="/">홈</a>
+              <a class="on" href="/brief/">정부 발표</a>
+              <a href="/keywords/">키워드 분석</a>
+              <a href="/finlaw/">금융 규제 트래커</a>
+            </nav>
+            <div class="scr-hdr-search">⌕ 검색</div>
+            <div class="scr-hdr-time">04.12 16:32</div>
+          </div>
+          <div class="scr-shell">
+
+            <div class="scr-panel scr-ai-panel">
+              <div class="scr-panel-hdr">
+                <h2 class="scr-panel-title">AI 질의응답<span class="num">보도자료 RAG</span></h2>
+                <span class="scr-panel-more">초기화</span>
+              </div>
+              <div class="scr-tabs">
+                <span class="scr-tab on">오늘</span>
+                <span class="scr-tab">이번 주</span>
+                <span class="scr-tab">이번 달</span>
+                <span class="scr-tab">기간 설정</span>
+              </div>
+              <div class="scr-ai-ctx">
+                <span class="scr-ai-ctx-label">참조 보도자료</span>
+                <span class="scr-ai-ctx-chip">기재부 · 추경 확정</span>
+                <span class="scr-ai-ctx-chip">과기부 · AI 반도체</span>
+                <span class="scr-ai-ctx-chip">중기부 · 소상공인</span>
+                <span class="scr-ai-ctx-chip">+21건</span>
+              </div>
+              <div class="scr-ai-msgs">
+                <div class="scr-ai-bubble user">오늘 기재부 추경 규모와 주요 투자 분야 정리해줘</div>
+                <div class="scr-ai-bubble">
+                  2026년 1회 추경은 총 <strong>13.9조원</strong> 규모로 확정됐습니다.<br><br>
+                  <strong>주요 투자 분야</strong><br>
+                  · 수출 중소기업 금융지원 4.2조<br>
+                  · 소상공인 민생안정 3.1조<br>
+                  · AI 반도체 R&D 2.8조<br>
+                  · 지역 균형발전 1.4조
+                  <div class="scr-ai-cite">📎 출처: 기재부 보도자료 2026-04-12 · 중기부 2026-04-12</div>
+                </div>
+              </div>
+              <div class="scr-ai-input">
+                <div class="scr-ai-input-box">추가 질문을 입력하세요...</div>
+                <button class="scr-ai-input-btn">전송</button>
+              </div>
+            </div>
+
+            <div class="scr-footer">
+              <div class="scr-footer-motto">정부 정책과 금융 규제, 한 화면에</div>
+              <div class="scr-footer-site">govbrief.kr</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───────── SCREEN 03 ───────── -->
+    <div class="screen-block">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 03</div>
+        <h3>주간 브리핑</h3>
+        <div class="screen-url">/brief/weekly/</div>
+        <p>주 단위 정부 발표 시그널 요약. 핵심 키워드, 주요 동향을 주차별 카드로 제공.</p>
+        <ul>
+          <li>주차별 카드 (최신 주차가 상단)</li>
+          <li>핵심 키워드 태그</li>
+          <li>주요 시그널 3~5개 불릿</li>
+          <li>클릭 → 해당 주 발표 목록</li>
+        </ul>
+        <div class="info-note"><strong>데이터 현황</strong><br>기존 weekly_analysis.py 주간 집계 파이프라인 유지. v2 카드 디자인으로 렌더링만 교체.</div>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/brief/weekly/</div>
+        </div>
+        <div class="scr">
+          <div class="scr-hdr">
+            <span class="scr-hdr-logo">브리핑룸</span>
+            <nav class="scr-hdr-nav">
+              <a href="/">홈</a>
+              <a class="on" href="/brief/">정부 발표</a>
+              <a href="/keywords/">키워드 분석</a>
+              <a href="/finlaw/">금융 규제 트래커</a>
+            </nav>
+            <div class="scr-hdr-search">⌕ 검색</div>
+            <div class="scr-hdr-time">04.12 16:32</div>
+          </div>
+          <div class="scr-shell">
+
+            <div class="scr-panel">
+              <div class="scr-panel-hdr">
+                <h2 class="scr-panel-title">주간 브리핑<span class="num">16주차 · 283건</span></h2>
+                <a class="scr-panel-more" href="/brief/articles/">전체 →</a>
+              </div>
+
+              <div class="scr-weekly-card">
+                <div class="scr-weekly-top">
+                  <span class="scr-weekly-badge">16주차</span>
+                  <span class="scr-weekly-title">2026년 4월 2주</span>
+                  <span class="scr-weekly-range">04.06 — 04.12</span>
+                </div>
+                <div class="scr-weekly-kws">
+                  <span>추경</span><span>AI 반도체</span><span>소상공인</span><span>수출</span><span>중동 리스크</span>
+                </div>
+                <div class="scr-weekly-signals">
+                  <div class="scr-weekly-sig">기재부 추경 13.9조 국회 최종 확정 · 수출·소상공인 집중</div>
+                  <div class="scr-weekly-sig">과기부 AI 반도체 국가전략 2030 로드맵 발표</div>
+                  <div class="scr-weekly-sig">금융위 가계부채 추가 규제 시행 예고 · Q3 시행</div>
+                </div>
+              </div>
+
+              <div class="scr-weekly-card" style="opacity:.7">
+                <div class="scr-weekly-top">
+                  <span class="scr-weekly-badge">15주차</span>
+                  <span class="scr-weekly-title">2026년 4월 1주</span>
+                  <span class="scr-weekly-range">03.30 — 04.05</span>
+                </div>
+                <div class="scr-weekly-kws">
+                  <span>금리</span><span>환율</span><span>복지</span><span>방산</span>
+                </div>
+                <div class="scr-weekly-signals">
+                  <div class="scr-weekly-sig">한은 기준금리 동결 결정 · 중동 변수 주시</div>
+                  <div class="scr-weekly-sig">복지부 청년 주거지원 확대 발표</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="scr-footer">
+              <div class="scr-footer-motto">정부 정책과 금융 규제, 한 화면에</div>
+              <div class="scr-footer-site">govbrief.kr</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───────── SCREEN 04 ───────── -->
+    <div class="screen-block reverse">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 04</div>
+        <h3>전체 발표 아카이브</h3>
+        <div class="screen-url">/brief/articles/</div>
+        <p>기존 /articles/ 를 정부 발표 섹션 하위로 통합. 날짜별로 발표 건수와 주요 참여 부처를 한 행으로 표시.</p>
+        <ul>
+          <li>월별 탭 필터</li>
+          <li>날짜별 행 (건수 + 참여 기관 요약)</li>
+          <li>부처 검색</li>
+          <li>클릭 → 해당 날짜 발표 상세 목록</li>
+        </ul>
+        <div class="info-note"><strong>구조 변경</strong><br>/archive/와 /articles/ 양쪽 모두 301 redirect로 /brief/articles/ 통합. SEO 보호.</div>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/brief/articles/</div>
+        </div>
+        <div class="scr">
+          <div class="scr-hdr">
+            <span class="scr-hdr-logo">브리핑룸</span>
+            <nav class="scr-hdr-nav">
+              <a href="/">홈</a>
+              <a class="on" href="/brief/">정부 발표</a>
+              <a href="/keywords/">키워드 분석</a>
+              <a href="/finlaw/">금융 규제 트래커</a>
+            </nav>
+            <div class="scr-hdr-search">⌕ 검색</div>
+            <div class="scr-hdr-time">04.12 16:32</div>
+          </div>
+          <div class="scr-shell">
+
+            <div class="scr-panel">
+              <div class="scr-panel-hdr">
+                <h2 class="scr-panel-title">전체 발표 아카이브<span class="num">총 2,361건</span></h2>
+                <span class="scr-panel-more">부처 검색 ⌕</span>
+              </div>
+              <div class="scr-tabs">
+                <span class="scr-tab on">2026년 4월</span>
+                <span class="scr-tab">2026년 3월</span>
+                <span class="scr-tab">2026년 2월</span>
+                <span class="scr-tab">2026년 1월</span>
+                <span class="scr-tab">2025</span>
+              </div>
+
+              <div class="scr-arc-row" style="background:#fafaf8">
+                <span class="scr-arc-date">04-12 토</span>
+                <span class="scr-arc-cnt">24</span>
+                <span class="scr-arc-depts">기재부, 과기부, 중기부, 금융위, 외교부 외 6개 기관</span>
+                <span class="scr-arc-chev">›</span>
+              </div>
+              <div class="scr-arc-row">
+                <span class="scr-arc-date">04-11 금</span>
+                <span class="scr-arc-cnt">31</span>
+                <span class="scr-arc-depts">기재부, 금융위, 산업부, 고용부 외 9개 기관</span>
+                <span class="scr-arc-chev">›</span>
+              </div>
+              <div class="scr-arc-row">
+                <span class="scr-arc-date">04-10 목</span>
+                <span class="scr-arc-cnt">18</span>
+                <span class="scr-arc-depts">국토부, 복지부, 환경부, 교육부 외 4개 기관</span>
+                <span class="scr-arc-chev">›</span>
+              </div>
+              <div class="scr-arc-row">
+                <span class="scr-arc-date">04-09 수</span>
+                <span class="scr-arc-cnt">22</span>
+                <span class="scr-arc-depts">외교부, 국방부, 법무부, 행안부 외 5개 기관</span>
+                <span class="scr-arc-chev">›</span>
+              </div>
+              <div class="scr-arc-row">
+                <span class="scr-arc-date">04-08 화</span>
+                <span class="scr-arc-cnt">9</span>
+                <span class="scr-arc-depts">복지부, 여가부, 중기부</span>
+                <span class="scr-arc-chev">›</span>
+              </div>
+            </div>
+
+            <div class="scr-footer">
+              <div class="scr-footer-motto">정부 정책과 금융 규제, 한 화면에</div>
+              <div class="scr-footer-site">govbrief.kr</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───────── SCREEN 05 ───────── -->
+    <div class="screen-block">
+      <div class="screen-info">
+        <div class="screen-num">SCREEN 05</div>
+        <h3>개별 발표 상세</h3>
+        <div class="screen-url">/brief/articles/{date}/{id}/</div>
+        <p>보도자료 하나의 상세 페이지. AI 요약, 핵심 포인트, 관련 법령, 관련 발표 제공.</p>
+        <ul>
+          <li>카테고리·부처·영향도 메타</li>
+          <li>AI 쉬운 요약</li>
+          <li>핵심 포인트 불릿</li>
+          <li>원문 PDF·HWP 링크</li>
+          <li>관련 법령 카드 (기존 related_laws 활용)</li>
+          <li>관련 발표 추천</li>
+        </ul>
+      </div>
+      <div class="screen-frame">
+        <div class="screen-bar">
+          <div class="screen-bar-dots"><span></span><span></span><span></span></div>
+          <div class="screen-bar-url">govbrief.kr/brief/articles/2026-04-12/001/</div>
+        </div>
+        <div class="scr">
+          <div class="scr-hdr">
+            <span class="scr-hdr-logo">브리핑룸</span>
+            <nav class="scr-hdr-nav">
+              <a href="/">홈</a>
+              <a class="on" href="/brief/">정부 발표</a>
+              <a href="/keywords/">키워드 분석</a>
+              <a href="/finlaw/">금융 규제 트래커</a>
+            </nav>
+            <div class="scr-hdr-search">⌕ 검색</div>
+            <div class="scr-hdr-time">04.12 16:32</div>
+          </div>
+          <div class="scr-shell">
+
+            <div class="scr-panel" style="overflow:hidden">
+              <div class="scr-detail-hero">
+                <span class="scr-detail-tag">금융·경제</span>
+                <div class="scr-detail-src">기획재정부</div>
+                <div class="scr-detail-title">2026년 1회 추가경정예산 13조 9천억원 국회 최종 확정</div>
+                <div class="scr-detail-meta">
+                  <span>2026-04-12</span>
+                  <span class="imp">영향도 상</span>
+                </div>
+              </div>
+              <div class="scr-detail-sec">
+                <div class="scr-detail-sec-label">AI 쉬운 요약</div>
+                <div class="scr-detail-text">정부가 중동 전쟁 영향으로 어려워진 수출 기업과 소상공인을 지원하기 위해 13조 9천억원의 추가 예산을 국회에서 확정했습니다. 수출 중소기업에 가장 많이 투입되고, 자영업자 지원과 AI 반도체 R&D에도 쓰입니다.</div>
+              </div>
+              <div class="scr-detail-sec">
+                <div class="scr-detail-sec-label">핵심 포인트</div>
+                <div class="scr-detail-points">
+                  <div class="scr-detail-pt">수출 중소기업 금융지원 4.2조 · 무역보험 확대</div>
+                  <div class="scr-detail-pt">소상공인 민생안정 3.1조 · 채무조정 · 임차료 지원</div>
+                  <div class="scr-detail-pt">AI·반도체 R&D 2.8조 · 국가전략기술 집중</div>
+                  <div class="scr-detail-pt">지역 균형발전 1.4조 · 지방 인프라 긴급 보수</div>
+                </div>
+              </div>
+              <div class="scr-detail-sec">
+                <div class="scr-detail-sec-label">관련 법령</div>
+                <div class="scr-detail-points">
+                  <div class="scr-detail-pt">국가재정법 §89 (추가경정예산안의 편성)</div>
+                  <div class="scr-detail-pt">중소기업기본법 §23 (자금지원)</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="scr-footer">
+              <div class="scr-footer-motto">정부 정책과 금융 규제, 한 화면에</div>
+              <div class="scr-footer-site">govbrief.kr</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="background:rgba(59,130,246,.05);border:1px solid var(--blue-border);border-radius:10px;padding:20px 24px;margin-top:56px">
+    <p style="font-size:13px;color:var(--doc-t2);line-height:1.8">
+      <strong style="color:var(--blue-light)">다음 단계:</strong> ① 키워드 분석 섹션(keywords-sitemap-v2) 동일 방식으로 재작성 → ② 금융 규제 트래커(finlaw-sitemap-v2) 재작성 → ③ 3개 sub-page 전체의 디자인 일관성 확정 후 home_gen.py 실제 코드 재작성 착수.
+    </p>
+  </div>
+</section>
+
+</body>
+</html>
