@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import html as h
 import json
+import os
 from collections import Counter, defaultdict
 from datetime import date
 from pathlib import Path
@@ -902,7 +903,10 @@ def generate_home_panel_json(target_date: str = ""):
 
 
 def main():
-    generate_home()
+    if os.environ.get("HOME_LEGACY_ENABLED", "").lower() in ("1", "true", "yes"):
+        generate_home()
+    else:
+        print("[home_gen] 실홈은 index.html에서 JSON을 직접 로드하므로 legacy 홈 생성은 건너뜁니다")
     generate_home_panel_json()
 
 

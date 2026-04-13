@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-04-14T08:35:04",
+  "total": 3151,
+  "content_count": 0,
+  "reply_count": 0,
+  "content_pct": 0.0,
+  "reply_pct": 0.0,
+  "by_gubun": [
+    {
+      "name": "비조치의견서",
+      "count": 1734
+    },
+    {
+      "name": "법령해석",
+      "count": 1417
+    }
+  ],
+  "by_category": [
+    {
+      "name": "공통",
+      "count": 1204
+    },
+    {
+      "name": "기타",
+      "count": 1041
+    },
+    {
+      "name": "보험",
+      "count": 258
+    },
+    {
+      "name": "전자금융",
+      "count": 253
+    },
+    {
+      "name": "자본시장",
+      "count": 133
+    },
+    {
+      "name": "상호·저축은행업",
+      "count": 94
+    },
+    {
+      "name": "은행",
+      "count": 92
+    },
+    {
+      "name": "여신전문금융업",
+      "count": 75
+    },
+    {
+      "name": "정책금융",
+      "count": 1
+    }
+  ]
+}

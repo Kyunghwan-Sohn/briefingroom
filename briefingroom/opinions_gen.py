@@ -15,7 +15,8 @@ from briefingroom.config import BASE_DIR
 from briefingroom.site_templates import render_top_nav, render_footer
 
 DB_PATH = BASE_DIR / "finance_law.db"
-OUT_PATH = BASE_DIR / "finlaw" / "opinions" / "index.html"
+LEGACY_OUT_PATH = BASE_DIR / "finlaw" / "opinions" / "index.html"
+REGULATION_OUT_PATH = BASE_DIR / "regulation" / "finlaw" / "opinions" / "index.html"
 
 
 def _read_css() -> str:
@@ -35,6 +36,12 @@ def generate_opinions_page():
         "SELECT opinion_id, opinion_number, gubun, category, title, status, reg_date, detail_link "
         "FROM fsc_opinions ORDER BY opinion_id DESC"
     ).fetchall()
+    coverage = conn.execute(
+        "SELECT COUNT(*), "
+        "SUM(CASE WHEN COALESCE(content, '') != '' THEN 1 ELSE 0 END), "
+        "SUM(CASE WHEN COALESCE(reply, '') != '' THEN 1 ELSE 0 END) "
+        "FROM fsc_opinions"
+    ).fetchone()
 
     # 통계
     by_gubun = {}
@@ -73,6 +80,15 @@ def generate_opinions_page():
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>비조치의견서 · 법령해석 - 브리핑룸</title>
+<meta name="description" content="금융위원회 비조치의견서와 법령해석 사례를 검색하고 주요 본문 확보 현황까지 확인합니다.">
+<link rel="canonical" href="https://govbrief.kr/regulation/finlaw/opinions/">
+<meta property="og:title" content="비조치의견서 · 법령해석 - 브리핑룸">
+<meta property="og:description" content="금융위원회 비조치의견서와 법령해석 사례를 검색하고 주요 본문 확보 현황까지 확인합니다.">
+<meta property="og:url" content="https://govbrief.kr/regulation/finlaw/opinions/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="govbrief.kr">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://govbrief.kr/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -92,15 +108,19 @@ tr:last-child td{{border-bottom:none}}
 {render_top_nav("finlaw")}
 
 <div style="padding:24px 20px 80px">
-<a href="/finlaw/" style="color:var(--m);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px">← 금융 법령 AI</a>
+<a href="/regulation/finlaw/" style="color:var(--m);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px">← 금융 규제</a>
 <h1 style="font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:6px">비조치의견서 · 법령해석</h1>
 <p style="font-size:14px;color:var(--t2);margin-bottom:16px">금융위원회 비조치의견서 {by_gubun.get('비조치의견서',0)}건 + 법령해석 {by_gubun.get('법령해석',0)}건 = 전체 {len(rows)}건</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+  <div style="padding:10px 12px;border:1px solid var(--b);border-radius:10px;background:var(--s2);font-size:12px;color:var(--t2)">본문 확보 <strong style="font-family:var(--mono);color:var(--t)">{coverage[1] or 0}</strong>건</div>
+  <div style="padding:10px 12px;border:1px solid var(--b);border-radius:10px;background:var(--s2);font-size:12px;color:var(--t2)">회신 확보 <strong style="font-family:var(--mono);color:var(--t)">{coverage[2] or 0}</strong>건</div>
+</div>
 
 <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-  <a href="/finlaw/" style="padding:8px 16px;border-radius:8px;border:1px solid var(--b);background:var(--s);font-size:13px;font-weight:600;color:var(--t);text-decoration:none">법령 목록</a>
-  <a href="/finlaw/cases/" style="padding:8px 16px;border-radius:8px;border:1px solid var(--b);background:var(--s);font-size:13px;font-weight:600;color:var(--t);text-decoration:none">판례</a>
+  <a href="/regulation/finlaw/" style="padding:8px 16px;border-radius:8px;border:1px solid var(--b);background:var(--s);font-size:13px;font-weight:600;color:var(--t);text-decoration:none">법령 목록</a>
+  <a href="/regulation/finlaw/cases/" style="padding:8px 16px;border-radius:8px;border:1px solid var(--b);background:var(--s);font-size:13px;font-weight:600;color:var(--t);text-decoration:none">판례</a>
   <a href="/finlaw/notices/" style="padding:8px 16px;border-radius:8px;border:1px solid var(--b);background:var(--s);font-size:13px;font-weight:600;color:var(--t);text-decoration:none">법령 개정 이력</a>
-  <a href="/finlaw/opinions/" style="padding:8px 16px;border-radius:8px;border:1px solid var(--a);background:var(--a);font-size:13px;font-weight:600;color:#fff;text-decoration:none">비조치의견서 {len(rows)}건</a>
+  <a href="/regulation/finlaw/opinions/" style="padding:8px 16px;border-radius:8px;border:1px solid var(--a);background:var(--a);font-size:13px;font-weight:600;color:#fff;text-decoration:none">비조치의견서 {len(rows)}건</a>
 </div>
 
 <div style="position:relative;margin-bottom:12px">
@@ -142,8 +162,9 @@ updateCount();
 </body>
 </html>"""
 
-    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUT_PATH.write_text(page, encoding="utf-8")
+    for out_path in (LEGACY_OUT_PATH, REGULATION_OUT_PATH):
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(page, encoding="utf-8")
     print(f"[opinions_gen] index.html 생성 — {len(rows)}건")
     return len(rows)
 

@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-04-14T08:35:03",
+  "window_days": 30,
+  "total_recent": 6,
+  "new_alerts": 6,
+  "items": [
+    {
+      "alert_key": "285251:20260331:일부개정",
+      "law_id": "013827",
+      "law_mst": "285251",
+      "name": "개인정보 보호위원회 직제 시행규칙",
+      "ministry": "개인정보보호위원회",
+      "categories": "금융",
+      "revision_type": "일부개정",
+      "promulgation_date": "20260331",
+      "enforcement_date": "20260331",
+      "diff_url": "/finlaw/diff/285251/",
+      "detail_url": "/finlaw/detail/013827/",
+      "is_new": true
+    },
+    {
+      "alert_key": "285253:20260331:일부개정",
+      "law_id": "010690",
+      "law_mst": "285253",
+      "name": "금융위원회와 그 소속기관 직제 시행규칙",
+      "ministry": "금융위원회",
+      "categories": "금융",
+      "revision_type": "일부개정",
+      "promulgation_date": "20260331",
+      "enforcement_date": "20260331",
+      "diff_url": "/finlaw/diff/285253/",
+      "detail_url": "/finlaw/detail/010690/",
+      "is_new": true
+    },
+    {
+      "alert_key": "285213:20260331:일부개정",
+      "law_id": "010674",
+      "law_mst": "285213",
+      "name": "금융위원회와 그 소속기관 직제",
+      "ministry": "금융위원회,행정안전부",
+      "categories": "금융",
+      "revision_type": "일부개정",
+      "promulgation_date": "20260331",
+      "enforcement_date": "20260331",
+      "diff_url": "/finlaw/diff/285213/",
+      "detail_url": "/finlaw/detail/010674/",
+      "is_new": true
+    },
+    {
+      "alert_key": "285255:20260327:일부개정",
+      "law_id": "009655",
+      "law_mst": "285255",
+      "name": "한국주택금융공사법 시행규칙",
+      "ministry": "금융위원회",
+      "categories": "금융,부동산",
+      "revision_type": "일부개정",
+      "promulgation_date": "20260327",
+      "enforcement_date": "20260327",
+      "diff_url": "",
+      "detail_url": "/finlaw/detail/009655/",
+      "is_new": true
+    },
+    {
+      "alert_key": "284641:20260324:일부개정",
+      "law_id": "013821",
+      "law_mst": "284641",
+      "name": "개인정보 보호위원회 직제",
+      "ministry": "개인정보보호위원회,행정안전부",
+      "categories": "금융",
+      "revision_type": "일부개정",
+      "promulgation_date": "20260324",
+      "enforcement_date": "20260324",
+      "diff_url": "/finlaw/diff/284641/",
+      "detail_url": "/finlaw/detail/013821/",
+      "is_new": true
+    },
+    {
+      "alert_key": "284613:20260320:일부개정",
+      "law_id": "008301",
+      "law_mst": "284613",
+      "name": "증권거래세법 시행규칙",
+      "ministry": "재정경제부",
+      "categories": "금융",
+      "revision_type": "일부개정",
+      "promulgation_date": "20260320",
+      "enforcement_date": "20260320",
+      "diff_url": "",
+      "detail_url": "/finlaw/detail/008301/",
+      "is_new": true
+    }
+  ]
+}

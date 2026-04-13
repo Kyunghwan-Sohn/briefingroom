@@ -84,17 +84,31 @@ jobs:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_API_URL: ${{ secrets.LLM_API_URL }}
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          PROXY_URL: ${{ secrets.PROXY_URL }}
+          FSC_DETAIL_BACKFILL_LIMIT: '50'
         run: |
           echo "홈 페이지 생성..."
           python -m briefingroom.home_gen
+          echo "finance_law.db 보강..."
+          python -m briefingroom.finlaw_sync
+          echo "비조치의견서 동기화..."
+          python -m briefingroom.fsc_opinions
+          echo "법령 참조 인덱스 구축..."
+          python -m briefingroom.law_references
           echo "finlaw 페이지 생성..."
           python -m briefingroom.finlaw_pages
+          echo "비조치의견서 페이지 생성..."
+          python -m briefingroom.opinions_gen
+          echo "LawDiff 페이지 생성..."
+          python -m briefingroom.lawdiff_gen
+          echo "LawDiff 알림 데이터 생성..."
+          python -m briefingroom.lawdiff_alerts
           echo "입법예고 크롤링..."
           python -m briefingroom.legnotice
           echo "키워드 집계..."
           python -m briefingroom.keywords_agg
-          echo "법령 참조 인덱스 구축..."
-          python -m briefingroom.law_references
+          echo "정적 산출물 검증..."
+          python -m briefingroom.site_audit
 
       - name: commit
         run: |
