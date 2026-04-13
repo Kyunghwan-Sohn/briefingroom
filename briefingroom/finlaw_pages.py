@@ -13,7 +13,7 @@ import sqlite3
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
-from briefingroom.site_templates import SITE_NAV_CSS, render_top_nav, render_footer
+from briefingroom.site_templates import SITE_NAV_CSS, render_bottom_nav, render_top_nav, render_footer
 
 from briefingroom.config import BASE_DIR
 
@@ -606,9 +606,9 @@ def generate_finlaw_index():
   <a href="https://t.me/govbrief" target="_blank" style="padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap">구독</a>
 </div>
 
-<div class="footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</div>
+{render_footer()}
 
-<nav class="bnav"><a href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="#"><span style="font-size:16px">⌕</span>검색</a><a href="#"><span style="font-size:16px">≡</span>달력</a><a class="on" href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
+{render_bottom_nav("regulation")}
 <script>
 const finlawSearch = document.getElementById('finlaw-search');
 const finlawItems = Array.from(document.querySelectorAll('.finlaw-searchable'));

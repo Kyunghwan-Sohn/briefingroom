@@ -11,7 +11,10 @@ from xml.sax.saxutils import escape as xml_escape
 from briefingroom.config import DATA_DIR
 from briefingroom.finlaw_pages import generate_cases_page, generate_finlaw_index, generate_notices_page
 from briefingroom.home_gen import generate_home, generate_policy_page
-from briefingroom.site_templates import SITE_BASE_CSS, SITE_FONT_LINKS, SITE_NAV_CSS, render_crosslinks, render_top_nav
+from briefingroom.site_templates import (
+    SITE_BASE_CSS, SITE_FONT_LINKS, SITE_NAV_CSS,
+    render_bottom_nav, render_crosslinks, render_footer, render_top_nav,
+)
 
 SITE_URL = "https://govbrief.kr"
 SITE_TITLE = "브리핑룸 — 정부 보도자료 AI 요약"
@@ -288,8 +291,8 @@ def generate_article_pages(target_date: str) -> int:
     <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
   </div>
 </div>
-<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
-<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
+{render_footer()}
+{render_bottom_nav("brief")}
 </body>
 </html>
 """

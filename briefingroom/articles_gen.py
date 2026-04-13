@@ -13,7 +13,7 @@ from pathlib import Path
 from briefingroom.config import BASE_DIR, DATA_DIR
 from briefingroom.site_templates import (
     SITE_BASE_CSS, SITE_NAV_CSS, SITE_FONT_LINKS,
-    render_top_nav, render_footer,
+    render_top_nav, render_footer, render_bottom_nav,
 )
 
 ARTICLES_DIR = BASE_DIR / "articles"
@@ -377,7 +377,7 @@ def generate_articles_index():
 </div>
 
 {footer_html}
-<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
+{render_bottom_nav("brief")}
 
 {_JS}
 </body>
@@ -590,7 +590,7 @@ document.querySelectorAll('.filter-tab').forEach(function(tab){
 </div>
 
 {footer_html}
-<nav class="bnav"><a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a><a href="/policy/"><span style="font-size:14px;font-weight:700">P</span>정책</a><a href="/finlaw/"><span style="font-size:14px;font-weight:700">L</span>법령</a><a href="/articles/"><span style="font-size:14px;font-weight:700">A</span>기록</a></nav>
+{render_bottom_nav("brief")}
 
 {filter_js}
 </body>
