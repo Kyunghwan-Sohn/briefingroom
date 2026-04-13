@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>금융/부동산 규제 - 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.06);
+  --bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;
+  --t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;
+  --fin:#1e40af;--fin-bg:#eff6ff;--fin-border:#bfdbfe;
+  --re:#92400e;--re-bg:#fffbeb;--re-border:#fde68a;
+  --cross:#7c3aed;--cross-bg:#f5f3ff;--cross-border:#ddd6fe;
+  --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:56px 0 0;-webkit-font-smoothing:antialiased}
+
+/* Header */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f3;border-bottom:2px solid var(--a);height:52px;display:flex;align-items:center;padding:0 16px;gap:6px}
+.hdr-logo{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--t);text-decoration:none;flex-shrink:0}
+.hdr-nav{display:flex;gap:4px;flex:1;overflow-x:auto}
+.hdr-nav::-webkit-scrollbar{display:none}
+.hdr-nav a{font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl)}
+.hdr-nav a:hover{border-color:var(--a);color:var(--a)}
+.hdr-nav a.on{color:#fff;background:var(--a);border-color:var(--a)}
+
+/* Shell */
+.shell{padding:16px}
+
+/* Tab bar */
+.tab-bar{display:flex;gap:0;background:var(--s);border:1px solid var(--b);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.tab{flex:1;padding:14px 8px;text-align:center;font-size:14px;font-weight:700;font-family:var(--sans);cursor:pointer;border:none;background:none;color:var(--t3);transition:all .15s;position:relative}
+.tab:not(:last-child){border-right:1px solid var(--bl)}
+.tab.on-fin{color:var(--fin);background:var(--fin-bg)}
+.tab.on-re{color:var(--re);background:var(--re-bg)}
+.tab.on-cross{color:var(--cross);background:var(--cross-bg)}
+.tab .tab-count{font-family:var(--mono);font-size:11px;font-weight:400;margin-left:4px}
+
+/* Hero */
+.hero{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:28px 24px;margin-bottom:16px;text-align:center}
+.hero-title{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:6px}
+.hero-sub{font-size:13px;color:var(--t3);margin-bottom:18px}
+.hero-stats{display:flex;gap:10px;margin-bottom:16px}
+.hero-stat{flex:1;border-radius:10px;padding:14px 8px;text-align:center;border:1px solid}
+.hero-stat .num{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1}
+.hero-stat .label{font-size:11px;font-weight:600;margin-top:4px}
+.sbox{max-width:460px;margin:0 auto;position:relative}
+.sbox input{width:100%;padding:12px 14px 12px 38px;font-size:14px;border:2px solid var(--b);border-radius:10px;background:var(--s2);color:var(--t);outline:none;font-family:var(--sans)}
+.sbox input:focus{border-color:var(--a)}
+.sbox input::placeholder{color:var(--m)}
+.si{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:14px}
+
+/* Panel */
+.panel{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:22px;margin-bottom:16px}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-title{font-family:var(--serif);font-size:17px;font-weight:700}
+.panel-title .num{font-family:var(--mono);font-size:12px;color:var(--t3);font-weight:400;margin-left:6px}
+.panel-more{font-size:12px;color:var(--t3);text-decoration:none;font-weight:600}
+.panel-more:hover{color:var(--a)}
+
+/* Feed rows */
+.feed-row{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px dashed var(--bl)}
+.feed-row:last-child{border-bottom:none}
+.feed-type{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;color:#fff;flex-shrink:0;margin-top:2px}
+.feed-type.amend{background:#1e40af}
+.feed-type.new{background:#047857}
+.feed-type.repeal{background:#dc2626}
+.feed-type.notice{background:#6b7280}
+.feed-main{flex:1;min-width:0}
+.feed-name{font-size:14px;font-weight:600;line-height:1.4;margin-bottom:2px}
+.feed-sub{font-size:12px;color:var(--t3);line-height:1.4}
+.feed-meta{font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0;text-align:right;margin-top:2px}
+.feed-impact{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:2px}
+.feed-impact.high{background:#fee2e2;color:#dc2626}
+.feed-impact.mid{background:#fef3c7;color:#d97706}
+.feed-impact.low{background:#f3f4f6;color:#6b7280}
+
+/* Category grid */
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cat-card{background:var(--s2);border:1px solid var(--bl);border-radius:10px;padding:16px;cursor:pointer;transition:border-color .15s}
+.cat-card:hover{border-color:var(--a)}
+.cat-name{font-family:var(--serif);font-size:15px;font-weight:700;margin-bottom:4px}
+.cat-count{font-family:var(--mono);font-size:12px;font-weight:700;margin-bottom:6px}
+.cat-desc{font-size:11px;color:var(--t3);line-height:1.4}
+
+/* Cross badge */
+.cross-badge{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;margin-left:6px}
+.cross-badge.fin{background:var(--fin-bg);color:var(--fin);border:1px solid var(--fin-border)}
+.cross-badge.re{background:var(--re-bg);color:var(--re);border:1px solid var(--re-border)}
+
+/* Cross section */
+.cross-card{background:var(--cross-bg);border:1px solid var(--cross-border);border-radius:10px;padding:16px;margin-bottom:8px}
+.cross-card-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.cross-card-name{font-family:var(--serif);font-size:15px;font-weight:700}
+.cross-card-tags{display:flex;gap:4px}
+.cross-card-desc{font-size:12px;color:var(--t2);line-height:1.5}
+
+/* Tab content */
+.tab-content{display:none}
+.tab-content.on{display:block}
+
+/* Footer */
+.footer{padding:24px 16px;text-align:center}
+.footer-links{display:flex;gap:16px;justify-content:center;font-size:12px;margin-bottom:12px}
+.footer-links a{color:var(--t3);text-decoration:none;font-weight:600}
+.footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
+
+/* Bottom nav */
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);max-width:960px;margin:0 auto;grid-template-columns:repeat(4,1fr);align-items:center}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--t3);font-size:9px;font-weight:600;line-height:1.2;text-align:center}
+.bnav a.on{color:var(--a)}
+
+@media(max-width:768px){
+  body{padding-top:48px;padding-bottom:62px}
+  .hdr{height:48px;padding:0 10px;gap:4px}
+  .hdr-logo{font-size:15px}
+  .hdr-nav a{font-size:11px;padding:5px 8px}
+  .shell{padding:10px}
+  .hero{padding:20px 16px}
+  .hero-title{font-size:20px}
+  .hero-stats{flex-wrap:nowrap;gap:6px}
+  .hero-stat{min-width:0;padding:10px 4px}
+  .hero-stat .num{font-size:18px}
+  .hero-stat .label{font-size:9px}
+  .panel{padding:16px}
+  .tab-bar{flex-direction:row;border-radius:10px}
+  .tab{padding:10px 4px;font-size:11px;flex:1}
+  .tab .tab-count{display:inline;margin-left:2px;font-size:10px}
+  .cat-grid{grid-template-columns:1fr 1fr}
+  .bnav{display:grid}
+  .footer-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="hdr-logo" href="/">브리핑룸</a>
+  <nav class="hdr-nav">
+    <a href="/">홈</a>
+    <a href="/brief/">정부 발표</a>
+    <a href="/keywords/">키워드 분석</a>
+    <a class="on" href="/regulation/">금융/부동산 규제</a>
+  </nav>
+</header>
+
+<div class="shell">
+
+  <!-- 탭 바 -->
+  <div class="tab-bar">
+    <button class="tab on-fin" onclick="switchTab('fin')" id="tab-fin">금융 규제<span class="tab-count">140건</span></button>
+    <button class="tab" onclick="switchTab('re')" id="tab-re">부동산 규제<span class="tab-count">38건</span></button>
+    <button class="tab" onclick="switchTab('cross')" id="tab-cross">교차 영역<span class="tab-count">24건</span></button>
+  </div>
+
+  <!-- ===== 금융 규제 탭 ===== -->
+  <div class="tab-content on" id="content-fin">
+
+    <div class="hero" style="border-color:var(--fin-border)">
+      <div class="hero-title" style="color:var(--fin)">금융 규제 트래커</div>
+      <div class="hero-sub">은행/증권/보험/여신 등 140개 금융법령의 변경사항을 추적합니다</div>
+      <div class="hero-stats">
+        <div class="hero-stat" style="border-color:var(--fin-border);background:var(--fin-bg)"><div class="num" style="color:var(--fin)">140</div><div class="label" style="color:var(--fin)">추적 법령</div></div>
+        <div class="hero-stat" style="border-color:var(--fin-border);background:var(--fin-bg)"><div class="num" style="color:var(--fin)">526</div><div class="label" style="color:var(--fin)">관련 판례</div></div>
+        <div class="hero-stat" style="border-color:var(--fin-border);background:var(--fin-bg)"><div class="num" style="color:var(--fin)">3,151</div><div class="label" style="color:var(--fin)">비조치의견서</div></div>
+      </div>
+      <div class="sbox"><span class="si">&#x2315;</span><input placeholder="금융 법령명, 조문, 판례 검색..." /></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-hdr">
+        <div class="panel-title">최근 금융 규제 변경 <span class="num">이번 주 5건</span></div>
+        <a class="panel-more" href="/finlaw/changes/">전체 &#8594;</a>
+      </div>
+      <div class="feed-row">
+        <span class="feed-type amend">개정</span>
+        <div class="feed-main">
+          <div class="feed-name">자본시장법 제11조 투자중개업 자기자본<span class="cross-badge re">부동산</span></div>
+          <div class="feed-sub">30억 -> 50억 상향, 시행 유예 6개월 / 금융위원회</div>
+        </div>
+        <div class="feed-meta">04-10</div>
+        <span class="feed-impact high">상</span>
+      </div>
+      <div class="feed-row">
+        <span class="feed-type new">신설</span>
+        <div class="feed-main">
+          <div class="feed-name">가상자산이용자보호법 시행령</div>
+          <div class="feed-sub">스테이블코인 사업자 등록제 / 금융위원회</div>
+        </div>
+        <div class="feed-meta">04-11</div>
+        <span class="feed-impact high">상</span>
+      </div>
+      <div class="feed-row">
+        <span class="feed-type amend">개정</span>
+        <div class="feed-main">
+          <div class="feed-name">은행법 제35조 동일차주 신용공여<span class="cross-badge re">부동산</span></div>
+          <div class="feed-sub">주택담보대출 한도 산정 방식 명확화 / 금융위원회</div>
+        </div>
+        <div class="feed-meta">04-07</div>
+        <span class="feed-impact mid">중</span>
+      </div>
+      <div class="feed-row">
+        <span class="feed-type notice">예고</span>
+        <div class="feed-main">
+          <div class="feed-name">금융투자업규정 제3-11조</div>
+          <div class="feed-sub">인가 심사 세부 절차 / 금융위원회</div>
+        </div>
+        <div class="feed-meta">04-05</div>
+        <span class="feed-impact low">하</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-hdr">
+        <div class="panel-title">금융 법령 카테고리</div>
+        <a class="panel-more" href="/finlaw/">전체 보기 &#8594;</a>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card"><div class="cat-name">은행</div><div class="cat-count" style="color:var(--fin)">10건</div><div class="cat-desc">은행법, 예금자보호법, 한국은행법 등</div></div>
+        <div class="cat-card"><div class="cat-name">자본시장/증권</div><div class="cat-count" style="color:var(--fin)">5건</div><div class="cat-desc">자본시장법, 증권거래세법 등</div></div>
+        <div class="cat-card"><div class="cat-name">보험</div><div class="cat-count" style="color:var(--fin)">2건</div><div class="cat-desc">보험업법, 보험사기방지특별법</div></div>
+        <div class="cat-card"><div class="cat-name">여신/신용</div><div class="cat-count" style="color:var(--fin)">7건</div><div class="cat-desc">여신전문금융업법, 신용정보법 등</div></div>
+        <div class="cat-card"><div class="cat-name">전자금융/핀테크</div><div class="cat-count" style="color:var(--fin)">3건</div><div class="cat-desc">전자금융거래법, 가상자산법 등</div></div>
+        <div class="cat-card"><div class="cat-name">금융지주/지배구조</div><div class="cat-count" style="color:var(--fin)">2건</div><div class="cat-desc">금융지주회사법, 지배구조법</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 부동산 규제 탭 ===== -->
+  <div class="tab-content" id="content-re">
+
+    <div class="hero" style="border-color:var(--re-border)">
+      <div class="hero-title" style="color:var(--re)">부동산 규제 트래커</div>
+      <div class="hero-sub">주택/토지/건축/세금 관련 38개 법령의 변경사항을 추적합니다</div>
+      <div class="hero-stats">
+        <div class="hero-stat" style="border-color:var(--re-border);background:var(--re-bg)"><div class="num" style="color:var(--re)">38</div><div class="label" style="color:var(--re)">추적 법령</div></div>
+        <div class="hero-stat" style="border-color:var(--re-border);background:var(--re-bg)"><div class="num" style="color:var(--re)">7</div><div class="label" style="color:var(--re)">관련 부처</div></div>
+        <div class="hero-stat" style="border-color:var(--re-border);background:var(--re-bg)"><div class="num" style="color:var(--re)">24</div><div class="label" style="color:var(--re)">금융 연동</div></div>
+      </div>
+      <div class="sbox"><span class="si">&#x2315;</span><input placeholder="부동산 법령명, 조문, 키워드 검색..." /></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-hdr">
+        <div class="panel-title">최근 부동산 규제 변경 <span class="num">이번 주 4건</span></div>
+        <a class="panel-more" href="#">전체 &#8594;</a>
+      </div>
+      <div class="feed-row">
+        <span class="feed-type amend">개정</span>
+        <div class="feed-main">
+          <div class="feed-name">소득세법 제104조 양도세 중과<span class="cross-badge fin">금융</span></div>
+          <div class="feed-sub">다주택자 양도세 중과 유예 연장 / 기획재정부</div>
+        </div>
+        <div class="feed-meta">04-11</div>
+        <span class="feed-impact high">상</span>
+      </div>
+      <div class="feed-row">
+        <span class="feed-type amend">개정</span>
+        <div class="feed-main">
+          <div class="feed-name">지방세법 제13조의2 취득세 감면</div>
+          <div class="feed-sub">생애최초 주택 취득세 감면 한도 상향 / 행정안전부</div>
+        </div>
+        <div class="feed-meta">04-10</div>
+        <span class="feed-impact high">상</span>
+      </div>
+      <div class="feed-row">
+        <span class="feed-type notice">예고</span>
+        <div class="feed-main">
+          <div class="feed-name">주택법 시행령 분양가상한제</div>
+          <div class="feed-sub">분양가상한제 적용지역 재검토 / 국토교통부</div>
+        </div>
+        <div class="feed-meta">04-08</div>
+        <span class="feed-impact mid">중</span>
+      </div>
+      <div class="feed-row">
+        <span class="feed-type amend">개정</span>
+        <div class="feed-main">
+          <div class="feed-name">주택임대차보호법 제6조의3</div>
+          <div class="feed-sub">계약갱신청구권 관련 해석 명확화 / 법무부</div>
+        </div>
+        <div class="feed-meta">04-05</div>
+        <span class="feed-impact mid">중</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-hdr">
+        <div class="panel-title">부동산 법령 카테고리</div>
+        <a class="panel-more" href="/realestate/">전체 보기 &#8594;</a>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card"><div class="cat-name">거래/취득</div><div class="cat-count" style="color:var(--re)">8건</div><div class="cat-desc">부동산거래신고법, 공인중개사법 등</div></div>
+        <div class="cat-card"><div class="cat-name">주택 공급/임대</div><div class="cat-count" style="color:var(--re)">7건</div><div class="cat-desc">주택법, 임대차보호법, 공공주택법 등</div></div>
+        <div class="cat-card"><div class="cat-name">토지/건축</div><div class="cat-count" style="color:var(--re)">6건</div><div class="cat-desc">국토계획법, 건축법, 도시개발법 등</div></div>
+        <div class="cat-card"><div class="cat-name">세금</div><div class="cat-count" style="color:var(--re)">5건</div><div class="cat-desc">양도세, 취득세, 종부세, 재산세 등</div></div>
+        <div class="cat-card"><div class="cat-name">재건축/재개발</div><div class="cat-count" style="color:var(--re)">4건</div><div class="cat-desc">도시정비법, 재건축초과이익환수 등</div></div>
+        <div class="cat-card"><div class="cat-name">가격/공시</div><div class="cat-count" style="color:var(--re)">3건</div><div class="cat-desc">공시가격법, 감정평가법 등</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 교차 영역 탭 ===== -->
+  <div class="tab-content" id="content-cross">
+
+    <div class="hero" style="border-color:var(--cross-border)">
+      <div class="hero-title" style="color:var(--cross)">금융 + 부동산 교차 규제</div>
+      <div class="hero-sub">금융과 부동산 양쪽에 영향을 미치는 24개 법령. LTV, 주택담보대출, 리츠 등</div>
+      <div class="hero-stats">
+        <div class="hero-stat" style="border-color:var(--cross-border);background:var(--cross-bg)"><div class="num" style="color:var(--cross)">24</div><div class="label" style="color:var(--cross)">교차 법령</div></div>
+        <div class="hero-stat" style="border-color:var(--cross-border);background:var(--cross-bg)"><div class="num" style="color:var(--cross)">5</div><div class="label" style="color:var(--cross)">핵심 이슈</div></div>
+        <div class="hero-stat" style="border-color:var(--cross-border);background:var(--cross-bg)"><div class="num" style="color:var(--cross)">2</div><div class="label" style="color:var(--cross)">이번 주 변경</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-hdr">
+        <div class="panel-title">핵심 교차 규제</div>
+      </div>
+
+      <div class="cross-card">
+        <div class="cross-card-top">
+          <div class="cross-card-name">은행법 (LTV/DTI/DSR)</div>
+          <div class="cross-card-tags">
+            <span class="cross-badge fin">금융</span>
+            <span class="cross-badge re">부동산</span>
+          </div>
+        </div>
+        <div class="cross-card-desc">주택담보대출 비율(LTV) 규제의 법적 근거. 금융위원회 감독규정으로 LTV 50~70%, DSR 40~60% 기준 운용. 부동산 시장 과열 시 강화, 침체 시 완화.</div>
+      </div>
+
+      <div class="cross-card">
+        <div class="cross-card-top">
+          <div class="cross-card-name">한국주택금융공사법</div>
+          <div class="cross-card-tags">
+            <span class="cross-badge fin">금융</span>
+            <span class="cross-badge re">부동산</span>
+          </div>
+        </div>
+        <div class="cross-card-desc">보금자리론, MBS(주택저당증권), 역모기지 운영 근거. 주택금융 접근성과 부동산 시장 유동성에 직접 영향.</div>
+      </div>
+
+      <div class="cross-card">
+        <div class="cross-card-top">
+          <div class="cross-card-name">여신전문금융업법</div>
+          <div class="cross-card-tags">
+            <span class="cross-badge fin">금융</span>
+            <span class="cross-badge re">부동산</span>
+          </div>
+        </div>
+        <div class="cross-card-desc">카드사/캐피탈의 부동산 담보대출, 리스 규제. 비은행권 부동산 대출 규제의 근거.</div>
+      </div>
+
+      <div class="cross-card">
+        <div class="cross-card-top">
+          <div class="cross-card-name">주택도시기금법</div>
+          <div class="cross-card-tags">
+            <span class="cross-badge fin">금융</span>
+            <span class="cross-badge re">부동산</span>
+          </div>
+        </div>
+        <div class="cross-card-desc">디딤돌/버팀목 대출 운영, 주택도시보증공사(HUG) 전세보증 근거. 서민 주거 안정 금융의 핵심.</div>
+      </div>
+
+      <div class="cross-card">
+        <div class="cross-card-top">
+          <div class="cross-card-name">소득세법 (양도소득세)</div>
+          <div class="cross-card-tags">
+            <span class="cross-badge re">부동산</span>
+          </div>
+        </div>
+        <div class="cross-card-desc">다주택자 양도세 중과, 1세대1주택 비과세. 부동산 거래 의사결정에 직접 영향. 금융기관 대출 심사 시에도 참고.</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-hdr">
+        <div class="panel-title">교차 영역 최근 변경</div>
+      </div>
+      <div class="feed-row">
+        <span class="feed-type amend">개정</span>
+        <div class="feed-main">
+          <div class="feed-name">은행법 제35조 동일차주 신용공여</div>
+          <div class="feed-sub">주택담보대출 한도 산정 방식 명확화 / 금융위원회</div>
+        </div>
+        <div class="feed-meta">04-07</div>
+        <span class="feed-impact mid">중</span>
+      </div>
+      <div class="feed-row">
+        <span class="feed-type amend">개정</span>
+        <div class="feed-main">
+          <div class="feed-name">소득세법 제104조 양도세 중과</div>
+          <div class="feed-sub">다주택자 양도세 중과 유예 연장 / 기획재정부</div>
+        </div>
+        <div class="feed-meta">04-11</div>
+        <span class="feed-impact high">상</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/">홈</a>
+    <a href="/brief/">정부 발표</a>
+    <a href="/keywords/">키워드 분석</a>
+    <a href="/regulation/">금융/부동산 규제</a>
+  </div>
+  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+
+<nav class="bnav">
+  <a href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a>
+  <a href="/brief/"><span style="font-size:14px;font-weight:700">B</span>정부 발표</a>
+  <a href="/keywords/"><span style="font-size:14px;font-weight:700">K</span>키워드</a>
+  <a class="on" href="/regulation/"><span style="font-size:14px;font-weight:700">R</span>금융/부동산</a>
+</nav>
+
+<script>
+function switchTab(tab) {
+  // Reset all tabs
+  document.querySelectorAll('.tab').forEach(function(t) {
+    t.className = 'tab';
+  });
+  document.querySelectorAll('.tab-content').forEach(function(c) {
+    c.classList.remove('on');
+  });
+
+  // Activate selected
+  var tabEl = document.getElementById('tab-' + tab);
+  var contentEl = document.getElementById('content-' + tab);
+
+  if (tab === 'fin') tabEl.classList.add('on-fin');
+  else if (tab === 're') tabEl.classList.add('on-re');
+  else if (tab === 'cross') tabEl.classList.add('on-cross');
+
+  contentEl.classList.add('on');
+}
+</script>
+
+</body>
+</html>

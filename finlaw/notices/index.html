@@ -74,7 +74,7 @@ tr:last-child td{border-bottom:none}
   <button onclick="filterByDate()">조회</button>
   <span id="result-count" style="font-family:var(--mono);font-size:11px;color:var(--m);margin-left:8px"></span>
 </div>
-<table>
+<table id="law-table">
 <colgroup><col class="c-date"><col class="c-type"><col class="c-name"><col class="c-link"></colgroup>
 <thead><tr><th>공포일</th><th>구분</th><th>법령명 / 소관부처</th><th>전문</th></tr></thead>
 <tbody><tr>
@@ -505,35 +505,9 @@ tr:last-child td{border-bottom:none}
     </tr></tbody>
 </table>
 </div>
+<script src="/js/search-unified.js"></script>
 <script>
-const rows = document.querySelectorAll('table tbody tr');
-const searchInput = document.getElementById('law-search');
-const countEl = document.getElementById('result-count');
-function updateCount() {
-  const visible = document.querySelectorAll('table tbody tr:not([style*="display: none"])').length;
-  countEl.textContent = visible + '건 표시';
-}
-searchInput.addEventListener('input', function() {
-  const val = this.value.trim().toLowerCase();
-  if (!val) { rows.forEach(r => r.style.display = ''); updateCount(); return; }
-  const terms = val.split(/\s+/);
-  rows.forEach(r => {
-    const text = r.textContent.toLowerCase();
-    const match = terms.every(t => text.includes(t));
-    r.style.display = match ? '' : 'none';
-  });
-  updateCount();
-});
-function filterByDate() {
-  const from = document.getElementById('date-from').value.replace(/-/g, '.');
-  const to = document.getElementById('date-to').value.replace(/-/g, '.');
-  rows.forEach(r => {
-    const dateCell = r.cells[0].textContent.trim();
-    r.style.display = (dateCell >= from && dateCell <= to) ? '' : 'none';
-  });
-  updateCount();
-}
-updateCount();
+govSearch.initTableFilter('law-search', 'law-table', 'result-count');
 </script>
 </body>
 </html>

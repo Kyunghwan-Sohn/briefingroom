@@ -22,7 +22,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 
 SITE_NAV_CSS = """
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+.logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
 .hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .hnav::-webkit-scrollbar{display:none}
 .hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
@@ -32,7 +32,7 @@ SITE_NAV_CSS = """
 .hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
 .bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
 .site-footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.site-footer a{color:var(--t);text-decoration:none;font-weight:600}
-@media(max-width:768px){body{padding-top:48px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
+@media(max-width:768px){body{padding-top:52px}.hdr{height:52px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:12px;padding:5px 7px}}
 """
 
 SITE_FONT_LINKS = (
@@ -46,20 +46,28 @@ SITE_FONT_LINKS = (
 # 네비게이션 탭 정의 (순서 고정)
 _NAV_LINKS = [
     ("/", "홈", "home"),
-    ("/policy/", "정부 정책 AI", "policy"),
-    ("/finlaw/", "금융 법령 AI", "finlaw"),
-    ("/articles/", "아카이브", "archive"),
+    ("/brief/", "정부 발표", "brief"),
+    ("/keywords/", "키워드 분석", "keywords"),
+    ("/regulation/", "금융/부동산 규제", "regulation"),
 ]
 
 
 def render_top_nav(active: str = "home") -> str:
-    """통합 헤더 렌더링. active = home | policy | finlaw | archive"""
+    """통합 헤더 렌더링. active = home | brief | keywords | regulation"""
+    active = {
+        "policy": "brief",
+        "weekly": "brief",
+        "schedule": "brief",
+        "archive": "brief",
+        "finlaw": "regulation",
+        "law": "regulation",
+    }.get(active, active)
     parts = []
     for href, label, key in _NAV_LINKS:
         if key == active:
-            if key == "policy":
+            if key == "brief":
                 cls = "on-policy"
-            elif key == "finlaw":
+            elif key == "regulation":
                 cls = "on-law"
             else:
                 cls = "on"
@@ -81,9 +89,9 @@ def render_footer() -> str:
     return (
         '<footer class="site-footer">'
         '<a href="/">홈</a> · '
-        '<a href="/policy/">정부 정책 AI</a> · '
-        '<a href="/finlaw/">금융 법령 AI</a> · '
-        '<a href="/articles/">아카이브</a> · '
+        '<a href="/brief/">정부 발표</a> · '
+        '<a href="/keywords/">키워드 분석</a> · '
+        '<a href="/regulation/">금융/부동산 규제</a> · '
         '<a href="https://t.me/govbrief" target="_blank">텔레그램</a>'
         '<br>govbrief.kr'
         '</footer>'

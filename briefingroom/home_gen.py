@@ -759,7 +759,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 <section class="hero">
   <h1>정부가 발표하면,<br>AI가 해석합니다</h1>
   <p>정부 정책 · 금융 법령 · 입법 예고, 핵심만 브리핑</p>
-  <div class="sbox" style="position:relative">
+  <div class="sbox search-unified-wrap" style="position:relative">
     <span class="si">⌕</span>
     <input id="search-input" placeholder="정책이나 법령에 대해 물어보세요..." autocomplete="off">
     <div id="search-results" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:40;margin-top:6px;background:#fff;border:1px solid var(--b);border-radius:10px;max-height:360px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.1)"></div>
@@ -785,6 +785,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px
 
 <nav class="bnav"><a class="on" href="/"><span style="font-size:16px;font-weight:700">B</span>브리핑</a><a href="javascript:void(0)" onclick="document.getElementById('search-input').focus();window.scrollTo(0,0)"><span style="font-size:16px">⌕</span>검색</a><a href="/articles/"><span style="font-size:16px">≡</span>달력</a><a href="/finlaw/"><span style="font-size:16px;font-weight:700">L</span>법령AI</a><a href="https://t.me/govbrief"><span style="font-size:16px">→</span>알림</a></nav>
 
+<script src="/js/search-unified.js"></script>
 <script>
 function makeCarousel(id, count) {{
   let cur = 0;
@@ -808,79 +809,12 @@ makeCarousel('c1', {c1_count});
 makeCarousel('c-policy', {twin_p_count});
 makeCarousel('c-law', {twin_l_count});
 
-const searchInput = document.getElementById('search-input');
-const searchResults = document.getElementById('search-results');
-let searchTimer;
-searchInput.addEventListener('input', function() {{
-  clearTimeout(searchTimer);
-  const q = this.value.trim();
-  if (q.length < 2) {{ searchResults.style.display = 'none'; return; }}
-  searchTimer = setTimeout(() => doSearch(q), 300);
-}});
-searchInput.addEventListener('keydown', function(e) {{
-  if (e.key === 'Enter' && !e.isComposing) {{
-    const q = this.value.trim();
-    if (q) window.location.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(q);
-  }}
-}});
-const SB_URL='https://jxoghnttelexnfoeepbz.supabase.co';
-const SB_KEY='sb_publishable_r3eTQXF419LfIiPdE17gyw_zvAQFd5s';
-const SB_HDR={{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}};
-function renderResults(items,query){{
-  const typeLabel={{law:'법령',article:'조문',precedent:'판례'}};
-  searchResults.textContent='';
-  const cta=document.createElement('a');
-  cta.href='/tools/finlaw-gpt/?q='+encodeURIComponent(query);
-  cta.style.cssText='display:block;padding:12px 16px;text-align:center;font-size:13px;color:#d96c2c;font-weight:600;text-decoration:none';
-  cta.textContent=items.length?'FinLaw GPT에서 상세 질문 \u2192':'FinLaw GPT에게 질문하기 \u2192';
-  if(items.length){{
-    items.forEach(item=>{{
-      const link=document.createElement('a');
-      link.href=item.link||'/tools/finlaw-gpt/?q='+encodeURIComponent(query);
-      link.style.cssText='display:block;padding:12px 16px;border-bottom:1px solid #e0e0e0;text-decoration:none;color:#222';
-      const top=document.createElement('div');top.style.cssText='display:flex;align-items:center;gap:8px';
-      const badge=document.createElement('span');badge.style.cssText='font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(217,108,44,.06);color:#d96c2c';
-      badge.textContent=typeLabel[item.type]||item.type||'';
-      const title=document.createElement('span');title.style.cssText='font-size:14px;font-weight:600';
-      title.textContent=String(item.title||'').slice(0,60);
-      top.appendChild(badge);top.appendChild(title);
-      const sub=document.createElement('div');sub.style.cssText='font-size:12px;color:#999;margin-top:3px';
-      sub.textContent=String(item.subtitle||'').slice(0,80);
-      link.appendChild(top);link.appendChild(sub);
-      searchResults.appendChild(link);
-    }});
-  }}else{{
-    const empty=document.createElement('div');empty.style.cssText='padding:16px;text-align:center;font-size:13px;color:#999';
-    empty.textContent='금융법령(139건) 내 검색 결과 없음. 일반 법령은 법제처 국가법령정보센터를 이용하세요.';
-    searchResults.appendChild(empty);
-  }}
-  searchResults.appendChild(cta);searchResults.style.display='block';
-}}
-function searchSupabase(query){{
-  const kw='%'+query+'%';
-  return Promise.all([
-    fetch(SB_URL+'/rest/v1/laws?or=(name.ilike.'+encodeURIComponent(kw)+',amendment_reason.ilike.'+encodeURIComponent(kw)+')&select=law_id,name,ministry,law_type&limit=5',{{headers:SB_HDR}}).then(r=>r.json()),
-    fetch(SB_URL+'/rest/v1/articles?or=(article_title.ilike.'+encodeURIComponent(kw)+',content.ilike.'+encodeURIComponent(kw)+')&select=id,law_id,article_no,article_title&limit=5',{{headers:SB_HDR}}).then(r=>r.json()),
-    fetch(SB_URL+'/rest/v1/precedents?or=(case_name.ilike.'+encodeURIComponent(kw)+',summary.ilike.'+encodeURIComponent(kw)+')&select=prec_id,case_name,court,decision_date&limit=5',{{headers:SB_HDR}}).then(r=>r.json())
-  ]).then(res=>{{
-    const items=[];
-    (res[0]||[]).forEach(r=>items.push({{type:'law',title:r.name,subtitle:(r.ministry||'')+' '+(r.law_type||''),link:'/finlaw/detail/'+r.law_id+'/'}}));
-    (res[1]||[]).forEach(r=>items.push({{type:'article',title:(r.article_no?'제'+r.article_no+'조 ':'')+(r.article_title||''),subtitle:'',link:'/finlaw/detail/'+r.law_id+'/'}}));
-    (res[2]||[]).forEach(r=>items.push({{type:'precedent',title:r.case_name,subtitle:(r.court||'')+' '+(r.decision_date||''),link:'/finlaw/cases/'+r.prec_id+'/'}}));
-    return items;
-  }});
-}}
-async function doSearch(query){{
-  try{{
-    const items=await searchSupabase(query);
-    renderResults(items,query);
-  }}catch(e){{
-    renderResults([],query);
-  }}
-}}
-document.addEventListener('click', function(e) {{
-  if (!e.target.closest('.sbox')) searchResults.style.display = 'none';
-}});
+// 통합 검색 (search-unified.js)
+govSearch.init(
+  document.getElementById('search-input'),
+  document.getElementById('search-results'),
+  {{ askUrl: '/finlaw/ask/' }}
+);
 
 // 부처별 브리핑 필터링
 (function(){{

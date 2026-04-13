@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>홈 - 정부 발표 시안</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.06);
+  --bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;
+  --t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;
+  --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:20px}
+h3{font-family:var(--serif);font-size:18px;margin-bottom:20px;color:var(--t2)}
+
+/* ====== 시안 A: 헤드라인 한 줄 ====== */
+.option{background:var(--s);border:1px solid var(--b);border-radius:16px;padding:28px;margin-bottom:32px}
+.option-label{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+
+/* A: 헤드라인 */
+.headline-wrap{text-align:center;padding:20px 0 24px}
+.headline-date{font-family:var(--mono);font-size:12px;color:var(--t3);margin-bottom:10px}
+.headline-text{font-family:var(--serif);font-size:26px;font-weight:700;line-height:1.4;color:var(--t);margin-bottom:8px;letter-spacing:-.02em}
+.headline-meta{font-size:13px;color:var(--t3)}
+.headline-meta b{color:var(--a);font-weight:700}
+
+.분야바{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:20px 0 8px;gap:2px}
+.분야바 div{border-radius:3px}
+.분야범례{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--t3);margin-bottom:20px}
+.분야범례 span::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.c-ind::before{background:#d97706}
+.c-fin::before{background:#1e40af}
+.c-soc::before{background:#047857}
+.c-dip::before{background:#7c3aed}
+.c-adm::before{background:#6b7280}
+
+.top-list{margin-top:16px}
+.top-item{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-top:1px dashed var(--bl);text-decoration:none;color:var(--t)}
+.top-item:first-child{border-top:none}
+.top-item:hover{color:var(--a)}
+.top-imp{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;background:#fee2e2;color:#dc2626;flex-shrink:0;margin-top:2px}
+.top-title{font-size:14px;font-weight:600;line-height:1.5;flex:1}
+.top-src{font-size:11px;color:var(--t3);flex-shrink:0;margin-left:8px}
+.panel-more{display:block;text-align:right;font-size:13px;color:var(--a);text-decoration:none;font-weight:600;margin-top:12px;padding-top:12px;border-top:1px solid var(--bl)}
+
+/* ====== 시안 B: 오늘의 숫자 ====== */
+.numbers{display:flex;gap:12px;margin-bottom:20px}
+.num-card{flex:1;background:var(--s2);border:1px solid var(--bl);border-radius:12px;padding:18px;text-align:center}
+.num-big{font-family:var(--mono);font-size:32px;font-weight:700;color:var(--a);line-height:1;margin-bottom:6px}
+.num-label{font-size:12px;color:var(--t2);line-height:1.4}
+.num-src{font-size:10px;color:var(--t3);margin-top:4px}
+
+/* ====== 시안 C: 키워드 클라우드 + 리스트 ====== */
+.kw-hero{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:16px 0 20px}
+.kw-pill{font-family:var(--serif);font-weight:700;color:var(--s);padding:8px 18px;border-radius:20px;cursor:pointer;text-decoration:none;transition:opacity .15s}
+.kw-pill:hover{opacity:.8}
+.kw-pill.sz1{font-size:22px}
+.kw-pill.sz2{font-size:17px}
+.kw-pill.sz3{font-size:14px}
+
+@media(max-width:768px){
+  body{padding:14px}
+  .headline-text{font-size:20px}
+  .numbers{flex-direction:column;gap:8px}
+  .num-big{font-size:26px}
+  .kw-pill.sz1{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<h3>오늘의 정부 발표 - 홈 패널 시안 3종</h3>
+
+<!-- ====== 시안 A: 헤드라인 한 줄 ====== -->
+<div class="option">
+  <div class="option-label">시안 A -- 오늘의 헤드라인</div>
+
+  <div class="headline-wrap">
+    <div class="headline-date">2026. 04. 13 (일) 24건 발표</div>
+    <div class="headline-text">"관리재정수지 1.4조 적자,<br>부동산 불법행위 단속 강화"</div>
+    <div class="headline-meta">기획예산처 · 국토교통부 외 — 영향도 <b>상 5건</b></div>
+  </div>
+
+  <div class="분야바">
+    <div style="flex:31;background:#d97706"></div>
+    <div style="flex:24;background:#1e40af"></div>
+    <div style="flex:20;background:#047857"></div>
+    <div style="flex:6;background:#7c3aed"></div>
+    <div style="flex:5;background:#6b7280"></div>
+  </div>
+  <div class="분야범례">
+    <span class="c-ind">산업기술 31%</span>
+    <span class="c-fin">금융경제 24%</span>
+    <span class="c-soc">사회복지 20%</span>
+    <span class="c-dip">외교안보 6%</span>
+    <span class="c-adm">행정법제 5%</span>
+  </div>
+
+  <div class="top-list">
+    <a class="top-item" href="#">
+      <span class="top-imp">상</span>
+      <span class="top-title">통합재정통계 - 관리재정수지 1.4조 적자</span>
+      <span class="top-src">기획예산처</span>
+    </a>
+    <a class="top-item" href="#">
+      <span class="top-imp">상</span>
+      <span class="top-title">부동산 불법행위 대응협의회 개최</span>
+      <span class="top-src">국토교통부</span>
+    </a>
+    <a class="top-item" href="#">
+      <span class="top-imp">상</span>
+      <span class="top-title">민생물가 특별관리 TF 6차 회의</span>
+      <span class="top-src">재정경제부</span>
+    </a>
+  </div>
+  <a class="panel-more" href="/brief/">전체 24건 보기 &#8594;</a>
+</div>
+
+<!-- ====== 시안 B: 오늘의 숫자 ====== -->
+<div class="option">
+  <div class="option-label">시안 B -- 오늘의 숫자</div>
+
+  <div class="headline-date" style="text-align:center;margin-bottom:16px;font-family:var(--mono);font-size:12px;color:var(--t3)">2026. 04. 13 (일) 24건 발표</div>
+
+  <div class="numbers">
+    <div class="num-card">
+      <div class="num-big">1.4조</div>
+      <div class="num-label">관리재정수지 적자</div>
+      <div class="num-src">기획예산처</div>
+    </div>
+    <div class="num-card">
+      <div class="num-big">9,241억</div>
+      <div class="num-label">추가경정예산 편성</div>
+      <div class="num-src">산업통상부</div>
+    </div>
+    <div class="num-card">
+      <div class="num-big">15%</div>
+      <div class="num-label">어린이 보험료 할인</div>
+      <div class="num-src">금융위원회</div>
+    </div>
+  </div>
+
+  <div class="분야바">
+    <div style="flex:31;background:#d97706"></div>
+    <div style="flex:24;background:#1e40af"></div>
+    <div style="flex:20;background:#047857"></div>
+    <div style="flex:6;background:#7c3aed"></div>
+    <div style="flex:5;background:#6b7280"></div>
+  </div>
+  <div class="분야범례">
+    <span class="c-ind">산업기술 31%</span>
+    <span class="c-fin">금융경제 24%</span>
+    <span class="c-soc">사회복지 20%</span>
+    <span class="c-dip">외교안보 6%</span>
+    <span class="c-adm">행정법제 5%</span>
+  </div>
+
+  <div class="top-list">
+    <a class="top-item" href="#">
+      <span class="top-imp">상</span>
+      <span class="top-title">부동산 불법행위 대응협의회 개최</span>
+      <span class="top-src">국토교통부</span>
+    </a>
+    <a class="top-item" href="#">
+      <span class="top-imp">상</span>
+      <span class="top-title">미래핵심 분야 규제과학 인재 양성</span>
+      <span class="top-src">식약처</span>
+    </a>
+  </div>
+  <a class="panel-more" href="/brief/">전체 24건 보기 &#8594;</a>
+</div>
+
+<!-- ====== 시안 C: 키워드 임팩트 ====== -->
+<div class="option">
+  <div class="option-label">시안 C -- 오늘의 키워드</div>
+
+  <div class="headline-date" style="text-align:center;margin-bottom:8px;font-family:var(--mono);font-size:12px;color:var(--t3)">2026. 04. 13 (일) 24건 발표</div>
+
+  <div class="kw-hero">
+    <a class="kw-pill sz1" style="background:#1e40af" href="#">재정적자</a>
+    <a class="kw-pill sz1" style="background:#d97706" href="#">부동산단속</a>
+    <a class="kw-pill sz2" style="background:#047857" href="#">민생물가</a>
+    <a class="kw-pill sz2" style="background:#7c3aed" href="#">중동전쟁</a>
+    <a class="kw-pill sz2" style="background:#1e40af" href="#">추경예산</a>
+    <a class="kw-pill sz3" style="background:#047857" href="#">규제과학</a>
+    <a class="kw-pill sz3" style="background:#d97706" href="#">K-푸드</a>
+    <a class="kw-pill sz3" style="background:#6b7280" href="#">양도세</a>
+    <a class="kw-pill sz3" style="background:#047857" href="#">유학생</a>
+    <a class="kw-pill sz3" style="background:#d97706" href="#">데이터요금</a>
+  </div>
+
+  <div class="분야바">
+    <div style="flex:31;background:#d97706"></div>
+    <div style="flex:24;background:#1e40af"></div>
+    <div style="flex:20;background:#047857"></div>
+    <div style="flex:6;background:#7c3aed"></div>
+    <div style="flex:5;background:#6b7280"></div>
+  </div>
+  <div class="분야범례">
+    <span class="c-ind">산업기술 31%</span>
+    <span class="c-fin">금융경제 24%</span>
+    <span class="c-soc">사회복지 20%</span>
+    <span class="c-dip">외교안보 6%</span>
+    <span class="c-adm">행정법제 5%</span>
+  </div>
+
+  <div class="top-list">
+    <a class="top-item" href="#">
+      <span class="top-imp">상</span>
+      <span class="top-title">통합재정통계 - 관리재정수지 1.4조 적자</span>
+      <span class="top-src">기획예산처</span>
+    </a>
+    <a class="top-item" href="#">
+      <span class="top-imp">상</span>
+      <span class="top-title">부동산 불법행위 대응협의회 개최</span>
+      <span class="top-src">국토교통부</span>
+    </a>
+    <a class="top-item" href="#">
+      <span class="top-imp">상</span>
+      <span class="top-title">민생물가 특별관리 TF 6차 회의</span>
+      <span class="top-src">재정경제부</span>
+    </a>
+  </div>
+  <a class="panel-more" href="/brief/">전체 24건 보기 &#8594;</a>
+</div>
+
+</body>
+</html>

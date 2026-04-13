@@ -3,19 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>브리핑룸 · 정부 발표와 규제 모니터링</title>
+<title>홈 3패널 시안 - 브리핑룸</title>
 <link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<script>
-(function(){
-  var ua = navigator.userAgent;
-  var isMobileUA = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
-  var isMobileParam = window.location.search.indexOf('mobile=1') !== -1;
-  if (isMobileUA || isMobileParam) document.documentElement.classList.add('is-mobile');
-})();
-</script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all;overflow-wrap:break-word}
+*{box-sizing:border-box;margin:0;padding:0}
 :root{
   --a:#d96c2c;--al:rgba(217,108,44,.06);
   --bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;
@@ -23,62 +15,45 @@
   --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
 }
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.6;min-width:1120px}
-.is-mobile body{min-width:0}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:56px 0 0;-webkit-font-smoothing:antialiased}
 
-/* Header -- brief/keywords와 동일 */
-.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
-.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
-.hdr-nav{display:flex;gap:6px;flex:1}
+/* Header */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f3;border-bottom:2px solid var(--a);height:52px;display:flex;align-items:center;padding:0 16px;gap:8px}
+.hdr-logo{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--t);text-decoration:none;flex-shrink:0}
+.hdr-nav{display:flex;gap:4px;flex:1;overflow-x:auto}
 .hdr-nav::-webkit-scrollbar{display:none}
-.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
-.hdr-nav a:hover{background:var(--bl)}
-.hdr-nav a.on{color:var(--a);background:var(--al);font-weight:700}
-.hdr-nav .lbl-short{display:none}
-.hdr-search{position:relative;width:280px;margin-right:16px}
-.hdr-search input{width:100%;padding:10px 14px 10px 36px;font-size:13px;border:1px solid var(--b);border-radius:6px;background:var(--s2);outline:none;font-family:var(--sans)}
-.hdr-search input:focus{border-color:var(--a);background:#fff}
-.hdr-search input::placeholder{color:var(--m)}
-.hdr-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:15px}
-.hdr-time{font-family:var(--mono);font-size:12px;color:var(--t3)}
-
-/* 모바일 검색 */
-.mobile-search{display:none}
-.is-mobile .mobile-search{display:block;background:#fff;padding:10px 14px;border-bottom:1px solid var(--bl);position:sticky;top:52px;z-index:90}
-.mobile-search-box{position:relative}
-.mobile-search-box input{width:100%;padding:10px 14px 10px 36px;font-size:13px;border:1px solid var(--b);border-radius:8px;background:var(--s2);outline:none;font-family:var(--sans);color:var(--t)}
-.mobile-search-box input:focus{border-color:var(--a);background:#fff}
-.mobile-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:14px;pointer-events:none}
+.hdr-nav a{font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 12px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl)}
+.hdr-nav a:hover{border-color:var(--a);color:var(--a)}
+.hdr-nav a.on{color:#fff;background:var(--a);border-color:var(--a)}
+.hdr-time{font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0;white-space:nowrap}
 
 /* Panel common */
-.shell{max-width:1080px;margin:0 auto;padding:20px 16px 40px}
-.main{display:flex;flex-direction:column;gap:16px;min-width:0}
-.panel{background:#fff;border:1px solid var(--b);border-radius:8px;overflow:hidden}
-.panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 22px 12px}
-.panel-title{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--t);display:flex;align-items:center;gap:12px}
-.panel-title::before{content:'';width:3px;height:16px;background:var(--a);border-radius:1px}
-.panel-title .num{font-family:var(--mono);font-size:13px;color:var(--t3);font-weight:500;margin-left:0}
-.panel-more{font-size:13px;color:var(--t3);text-decoration:none;font-weight:600}
+.shell{padding:16px}
+.panel{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:24px;margin-bottom:16px}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.panel-title{font-family:var(--serif);font-size:18px;font-weight:700}
+.panel-title .num{font-family:var(--mono);font-size:13px;color:var(--t3);font-weight:400;margin-left:6px}
+.panel-more{font-size:12px;color:var(--t3);text-decoration:none;font-weight:600}
 .panel-more:hover{color:var(--a)}
 
 /* ====== 1. 오늘의 정부 발표 ====== */
-.today-date{font-family:var(--mono);font-size:12px;color:var(--t3);text-align:center;margin:0 22px 12px}
+.today-date{font-family:var(--mono);font-size:12px;color:var(--t3);text-align:center;margin-bottom:12px}
 
-.kw-hero{display:flex;flex-wrap:nowrap;gap:8px;justify-content:center;padding:8px 22px 18px;overflow:hidden}
+.kw-hero{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:8px 0 18px}
 .kw-pill{font-family:var(--serif);font-weight:700;color:#fff;border-radius:8px;text-decoration:none;transition:opacity .15s;display:inline-flex;align-items:center;justify-content:center;text-align:center}
 .kw-pill:hover{opacity:.8}
 .kw-pill.sz1{font-size:20px;padding:14px 28px;min-width:120px;min-height:54px}
 .kw-pill.sz2{font-size:16px;padding:10px 22px;min-width:100px;min-height:46px}
 .kw-pill.sz3{font-size:13px;padding:8px 16px;min-width:80px;min-height:38px}
 
-.분야바{display:flex;height:8px;border-radius:4px;overflow:hidden;gap:2px;margin:0 22px}
+.분야바{display:flex;height:8px;border-radius:4px;overflow:hidden;gap:2px}
 .분야바 div{border-radius:3px}
-.분야범례{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--t3);margin:6px 22px 16px}
+.분야범례{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--t3);margin-top:6px;margin-bottom:16px}
 .분야범례 span{display:flex;align-items:center;gap:4px}
 .범례dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
 
-.top-list{border-top:1px solid var(--bl);padding-top:0}
-.top-item{display:flex;align-items:flex-start;gap:10px;padding:10px 22px;border-bottom:1px dashed var(--bl);text-decoration:none;color:var(--t)}
+.top-list{border-top:1px solid var(--bl);padding-top:12px}
+.top-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px dashed var(--bl);text-decoration:none;color:var(--t)}
 .top-item:last-child{border-bottom:none}
 .top-item:hover .top-title{color:var(--a)}
 .top-imp{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;margin-top:1px}
@@ -88,12 +63,12 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
 .top-src{font-size:11px;color:var(--t3);flex-shrink:0;margin-left:8px;margin-top:2px}
 
 /* ====== 2. 키워드 트렌드 + 언론 반응 ====== */
-.kw-section-tabs{display:flex;gap:4px;margin:0 22px 16px}
+.kw-section-tabs{display:flex;gap:4px;margin-bottom:16px}
 .kw-section-tab{font-size:12px;font-weight:600;padding:6px 14px;border-radius:16px;border:1px solid var(--bl);background:var(--s);color:var(--t3);cursor:pointer;white-space:nowrap}
 .kw-section-tab.on{background:var(--t);color:#fff;border-color:var(--t)}
 
 /* Treemap */
-.kw-tree-canvas{border-radius:6px;overflow:hidden;margin:0 22px 8px}
+.kw-tree-canvas{border-radius:8px;overflow:hidden;margin-bottom:8px}
 .kw-tree-row{display:grid;gap:2px;margin-bottom:2px}
 .kw-tree-row:last-child{margin-bottom:0}
 .kw-cell{border-radius:3px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8px 4px;cursor:pointer;transition:opacity .15s}
@@ -108,7 +83,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
 .kw-tree-row.r3 .kw-cell{height:clamp(36px,4vw,55px)}
 .kw-tree-row.r3 .kw{font-size:clamp(10px,1.1vw,13px)}
 
-.kw-rank{margin:12px 22px 0}
+.kw-rank{margin-top:12px}
 .kw-rank-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--bl);font-size:13px}
 .kw-rank-row:last-child{border-bottom:none}
 .kw-rank-no{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--t3);width:18px}
@@ -121,9 +96,9 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
 /* 언론 반응 */
 .signal-panel{display:none}
 .signal-panel.on{display:block}
-.signal-lead{font-size:14px;color:var(--t2);line-height:1.7;margin:0 22px 14px}
+.signal-lead{font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:14px}
 .signal-lead b{color:var(--t);font-weight:700}
-.signal-row{display:flex;align-items:center;gap:8px;padding:8px 22px;border-bottom:1px dashed var(--bl);font-size:13px}
+.signal-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px dashed var(--bl);font-size:13px}
 .signal-row:last-child{border-bottom:none}
 .signal-rank{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--t3);width:18px}
 .signal-kw{font-weight:600;width:70px;flex-shrink:0}
@@ -132,8 +107,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
 .signal-ind{font-size:11px;color:var(--t3);width:80px;flex-shrink:0;text-align:right}
 .signal-cnt{font-family:var(--mono);font-size:12px;color:var(--t3);width:40px;text-align:right;flex-shrink:0}
 
-/* ====== 3. 금융/부동산 규제 ====== */
-.feed-row{display:flex;align-items:flex-start;gap:10px;padding:12px 22px;border-top:1px solid var(--bl)}
+/* ====== 3. 금융 규제 ====== */
+.feed-row{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px dashed var(--bl)}
 .feed-row:last-child{border-bottom:none}
 .feed-type{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;margin-top:2px;color:#fff}
 .feed-type.amend{background:#1e40af}
@@ -149,49 +124,34 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
 .feed-impact.mid{background:#fef3c7;color:#d97706}
 
 /* Footer */
-.footer{max-width:1240px;margin:20px auto 0;padding:24px 16px 32px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer{padding:24px 16px;text-align:center}
 .footer-links{display:flex;gap:16px;justify-content:center;font-size:12px;margin-bottom:12px}
 .footer-links a{color:var(--t3);text-decoration:none;font-weight:600}
 .footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
 .footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
 
 /* Bottom nav */
-.bottom-nav{display:none}
-.is-mobile .bottom-nav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(0,0,0,.06)}
-.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600;padding:4px 0}
-.bottom-nav a.on{color:var(--a)}
-.bottom-nav svg{width:22px;height:22px;stroke-width:2;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
-.bottom-nav a.on svg{stroke-width:2.4}
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);max-width:960px;margin:0 auto;grid-template-columns:repeat(3,1fr);align-items:center}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--t3);font-size:10px;font-weight:600}
+.bnav a.on{color:var(--a)}
 
-.is-mobile body{font-size:14px;line-height:1.55;padding-bottom:68px}
-.is-mobile .hdr{height:52px;padding:0 12px;gap:4px}
-.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
-.is-mobile .hdr-nav{gap:2px;flex:1;min-width:0}
-.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
-.is-mobile .hdr-nav .lbl-full{display:none}
-.is-mobile .hdr-nav .lbl-short{display:inline}
-.is-mobile .hdr-search,.is-mobile .hdr-time{display:none}
-.is-mobile .shell{padding:12px 10px 20px;max-width:100%}
-.is-mobile .main{gap:12px}
-.is-mobile .panel-hdr{padding:14px 16px 8px}
-.is-mobile .panel-title{font-size:16px}
-.is-mobile .today-date{margin:0 16px 10px}
-.is-mobile .kw-hero{flex-wrap:wrap;justify-content:center;gap:6px;padding:6px 14px 14px;max-height:92px;overflow:hidden}
-.is-mobile .kw-pill.sz1{font-size:16px;padding:8px 12px;min-width:88px;min-height:38px}
-.is-mobile .kw-pill.sz2{font-size:13px;padding:7px 10px;min-width:78px;min-height:34px}
-.is-mobile .kw-pill.sz3{font-size:12px;padding:6px 8px;min-width:66px;min-height:30px}
-.is-mobile .분야바{margin:0 16px}
-.is-mobile .분야범례{margin:6px 16px 14px}
-.is-mobile .top-item{padding:10px 16px}
-.is-mobile .kw-section-tabs{margin:0 16px 14px}
-.is-mobile .kw-tree-canvas{margin:0 16px 8px}
-.is-mobile .kw-rank{margin:10px 16px 0}
-.is-mobile .signal-lead{margin:0 16px 12px}
-.is-mobile .signal-row{padding:8px 16px}
-.is-mobile .feed-row{padding:11px 16px}
-.is-mobile .signal-kw{width:60px}
-.is-mobile .signal-ind{width:60px}
-.is-mobile .footer-links{display:none}
+@media(max-width:768px){
+  body{padding-top:48px;padding-bottom:62px}
+  .hdr{height:48px;padding:0 10px;gap:4px}
+  .hdr-logo{font-size:15px}
+  .hdr-nav a{font-size:11px;padding:5px 8px}
+  .hdr-time{display:none}
+  .shell{padding:10px}
+  .panel{padding:18px;margin-bottom:10px}
+  .panel-title{font-size:16px}
+  .kw-pill.sz1{font-size:17px;padding:8px 16px}
+  .kw-pill.sz2{font-size:14px;padding:6px 14px}
+  .kw-pill.sz3{font-size:12px;padding:5px 10px}
+  .signal-kw{width:60px}
+  .signal-ind{width:60px}
+  .bnav{display:grid}
+  .footer-links{display:none}
+}
 </style>
 </head>
 <body>
@@ -199,27 +159,15 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
 <header class="hdr">
   <a class="hdr-logo" href="/">브리핑룸</a>
   <nav class="hdr-nav">
-    <a class="on" href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
-    <a href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
-    <a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a>
-    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+    <a class="on" href="/">홈</a>
+    <a href="/brief/">정부 발표</a>
+    <a href="/keywords/">키워드 분석</a>
+    <a href="/finlaw/">금융 규제 트래커</a>
   </nav>
-  <div class="hdr-search">
-    <span class="hdr-search-icon">&#x2315;</span>
-    <input placeholder="검색">
-  </div>
   <div class="hdr-time">2026.04.13</div>
 </header>
 
-<div class="mobile-search">
-  <div class="mobile-search-box">
-    <span class="mobile-search-icon">&#x2315;</span>
-    <input placeholder="검색">
-  </div>
-</div>
-
 <div class="shell">
-  <main class="main">
 
   <!-- ① 오늘의 정부 발표 -->
   <section class="panel">
@@ -237,6 +185,8 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
       <a class="kw-pill sz2" style="background:#7c3aed" href="/brief/">중동전쟁</a><!-- 외교안보 -->
       <a class="kw-pill sz2" style="background:#1e40af" href="/brief/">추경예산</a><!-- 금융경제 -->
       <a class="kw-pill sz3" style="background:#047857" href="/brief/">규제과학</a><!-- 사회복지 -->
+      <a class="kw-pill sz3" style="background:#d97706" href="/brief/">K-푸드</a><!-- 산업기술 -->
+      <a class="kw-pill sz3" style="background:#6b7280" href="/brief/">양도세</a><!-- 행정법제 -->
     </div>
 
     <div class="분야바">
@@ -255,27 +205,27 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
     </div>
 
     <div class="top-list">
-      <a class="top-item" href="/brief/">
+      <a class="top-item" href="#">
         <span class="top-imp top-imp-h">상</span>
         <span class="top-title">통합재정통계 - 관리재정수지 1.4조 적자</span>
         <span class="top-src">기획예산처</span>
       </a>
-      <a class="top-item" href="/brief/">
+      <a class="top-item" href="#">
         <span class="top-imp top-imp-h">상</span>
         <span class="top-title">부동산 불법행위 대응협의회 개최</span>
         <span class="top-src">국토교통부</span>
       </a>
-      <a class="top-item" href="/brief/">
+      <a class="top-item" href="#">
         <span class="top-imp top-imp-h">상</span>
         <span class="top-title">민생물가 특별관리 TF 6차 회의</span>
         <span class="top-src">재정경제부</span>
       </a>
-      <a class="top-item" href="/brief/">
+      <a class="top-item" href="#">
         <span class="top-imp top-imp-m">중</span>
         <span class="top-title">미래핵심 분야 규제과학 인재 양성</span>
         <span class="top-src">식약처</span>
       </a>
-      <a class="top-item" href="/brief/">
+      <a class="top-item" href="#">
         <span class="top-imp top-imp-m">중</span>
         <span class="top-title">다주택자 양도세 중과 유예 보완 추진</span>
         <span class="top-src">국토교통부</span>
@@ -370,11 +320,11 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
     </div>
   </section>
 
-  <!-- ③ 금융/부동산 규제 -->
+  <!-- ③ 금융 규제 -->
   <section class="panel">
     <div class="panel-hdr">
-      <h2 class="panel-title">금융/부동산 규제 <span class="num">금융 7건 / 부동산 4건</span></h2>
-      <a class="panel-more" href="/regulation/">전체 &#8594;</a>
+      <h2 class="panel-title">금융 규제 변경 <span class="num">이번 주 7건</span></h2>
+      <a class="panel-more" href="/finlaw/">전체 &#8594;</a>
     </div>
     <div class="feed-row">
       <span class="feed-type amend">개정</span>
@@ -423,7 +373,6 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
     </div>
   </section>
 
-  </main>
 </div>
 
 <footer class="footer">
@@ -431,29 +380,16 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
     <a href="/">홈</a>
     <a href="/brief/">정부 발표</a>
     <a href="/keywords/">키워드 분석</a>
-    <a href="/regulation/">금융/부동산 규제</a>
+    <a href="/finlaw/">금융 규제 트래커</a>
   </div>
-  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-motto">정부 정책과 금융 규제, 한 화면에</div>
   <div class="footer-site">govbrief.kr</div>
 </footer>
 
-<nav class="bottom-nav">
-  <a class="on" href="/">
-    <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg>
-    <span>홈</span>
-  </a>
-  <a href="/brief/">
-    <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
-    <span>정부 발표</span>
-  </a>
-  <a href="/keywords/">
-    <svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>
-    <span>키워드</span>
-  </a>
-  <a href="/regulation/">
-    <svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg>
-    <span>금융/부동산</span>
-  </a>
+<nav class="bnav">
+  <a class="on" href="/"><span style="font-size:14px;font-weight:700">H</span>홈</a>
+  <a href="/keywords/"><span style="font-size:14px;font-weight:700">K</span>키워드</a>
+  <a href="/finlaw/"><span style="font-size:14px;font-weight:700">F</span>금융규제</a>
 </nav>
 
 <script>

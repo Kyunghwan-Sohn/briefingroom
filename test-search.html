@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Search Test</title>
+<style>
+body{font-family:sans-serif;max-width:600px;margin:40px auto;padding:0 20px}
+.wrap{position:relative;margin-bottom:20px}
+input{width:100%;padding:12px;font-size:16px;border:2px solid #ccc;border-radius:8px;box-sizing:border-box}
+#results{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #ccc;border-radius:8px;max-height:400px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1);z-index:10}
+#log{background:#1a1a1a;color:#0f0;padding:16px;border-radius:8px;font-family:monospace;font-size:13px;white-space:pre-wrap;max-height:500px;overflow-y:auto}
+.ok{color:#0f0}.err{color:#f44}.warn{color:#fa0}
+</style>
+</head>
+<body>
+<h2>Search Unified Test</h2>
+
+<div class="wrap search-unified-wrap">
+  <input id="test-input" placeholder="은행법, 자본시장법 등 입력 (2글자 이상)..." autocomplete="off" />
+  <div id="results"></div>
+</div>
+
+<h3>Test Log</h3>
+<div id="log"></div>
+
+<script>
+// Catch all errors
+window.onerror = function(msg, url, line, col, err) {
+  addLog('err', 'JS ERROR: ' + msg + ' (line ' + line + ')');
+};
+window.addEventListener('unhandledrejection', function(e) {
+  addLog('err', 'PROMISE REJECT: ' + e.reason);
+});
+
+var logEl = document.getElementById('log');
+function addLog(cls, msg) {
+  var span = document.createElement('span');
+  span.className = cls;
+  span.textContent = msg + '\n';
+  logEl.appendChild(span);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+addLog('ok', '[1] Page loaded');
+</script>
+
+<script>
+// Inline test - bypass external file to isolate the issue
+addLog('ok', '[2] Testing Supabase fetch directly...');
+
+var SB_URL = 'https://jxoghnttelexnfoeepbz.supabase.co';
+var SB_KEY = 'sb_publishable_r3eTQXF419LfIiPdE17gyw_zvAQFd5s';
+
+fetch(SB_URL + '/rest/v1/laws?name=ilike.%25%EC%9D%80%ED%96%89%EB%B2%95%25&select=law_id,name&limit=3', {
+  headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+})
+.then(function(r) {
+  addLog('ok', '[2] HTTP status: ' + r.status);
+  return r.json();
+})
+.then(function(data) {
+  addLog('ok', '[2] Results: ' + data.length + ' items');
+  data.forEach(function(d) { addLog('ok', '    ' + d.name); });
+})
+.catch(function(err) {
+  addLog('err', '[2] FETCH ERROR: ' + err.message);
+});
+</script>
+
+<script src="/js/search-unified.js"></script>
+<script>
+addLog('ok', '[3] search-unified.js loaded: ' + (typeof govSearch !== 'undefined' ? 'YES' : 'NO'));
+
+if (typeof govSearch !== 'undefined') {
+  addLog('ok', '[3] govSearch.init = ' + typeof govSearch.init);
+  addLog('ok', '[3] govSearch.search = ' + typeof govSearch.search);
+
+  // Test govSearch.search directly
+  addLog('ok', '[4] Testing govSearch.search("은행법")...');
+  govSearch.search('은행법')
+    .then(function(items) {
+      addLog('ok', '[4] Results: ' + items.length + ' items');
+      items.forEach(function(item) {
+        addLog('ok', '    [' + item.type + '] ' + item.title + ' -> ' + item.link);
+      });
+    })
+    .catch(function(err) {
+      addLog('err', '[4] ERROR: ' + err.message);
+    });
+
+  // Init search on the input
+  addLog('ok', '[5] Calling govSearch.init()...');
+  govSearch.init(
+    document.getElementById('test-input'),
+    document.getElementById('results'),
+    { askUrl: '/finlaw/ask/' }
+  );
+  addLog('ok', '[5] init() done. Type 2+ chars in the search box.');
+} else {
+  addLog('err', '[3] govSearch NOT FOUND - check js/search-unified.js');
+}
+</script>
+
+</body>
+</html>
