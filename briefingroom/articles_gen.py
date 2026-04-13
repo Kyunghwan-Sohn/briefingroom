@@ -149,13 +149,15 @@ def _find_weekly_signals(week_dates: list[str]) -> tuple[str, list[str]] | None:
         dt = datetime.strptime(d, "%Y-%m-%d")
         # weekly 파일은 토요일 날짜로 생성됨 — 해당 주의 토요일 찾기
         sat = dt + timedelta(days=(5 - dt.weekday()) % 7)
-        weekly_path = ARTICLES_DIR / "weekly" / sat.strftime("%Y-%m-%d") / "index.html"
-        if weekly_path.exists():
+        weekly_path = BASE_DIR / "brief" / "weekly" / sat.strftime("%Y-%m-%d") / "index.html"
+        legacy_weekly_path = BASE_DIR / "policy" / "weekly" / sat.strftime("%Y-%m-%d") / "index.html"
+        existing_path = weekly_path if weekly_path.exists() else legacy_weekly_path
+        if existing_path.exists():
             # 시그널 제목 추출
             import re
-            text = weekly_path.read_text(encoding="utf-8")
+            text = existing_path.read_text(encoding="utf-8")
             signals = re.findall(r'<h3>([^<]+)</h3>', text)[:5]
-            return f"/policy/weekly/{sat.strftime('%Y-%m-%d')}/", signals
+            return f"/brief/weekly/{sat.strftime('%Y-%m-%d')}/", signals
     return None
 
 

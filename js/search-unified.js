@@ -36,7 +36,7 @@
 
   function renderResults(container, items, query, askUrl) {
     container.textContent = '';
-    var gptUrl = askUrl || '/finlaw/ask/?q=' + encodeURIComponent(query);
+    var gptUrl = askUrl || '/regulation/finlaw-gpt/?q=' + encodeURIComponent(query);
 
     if (items.length) {
       items.forEach(function(item) {
@@ -105,7 +105,7 @@
     inputEl.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' && !e.isComposing) {
         var q = this.value.trim();
-        if (q) window.location.href = (askUrl || '/finlaw/ask/') + '?q=' + encodeURIComponent(q);
+        if (q) window.location.href = (askUrl || '/regulation/finlaw-gpt/') + '?q=' + encodeURIComponent(q);
       }
     });
 

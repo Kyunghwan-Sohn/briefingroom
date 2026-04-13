@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>브리핑룸 · 정부 발표와 규제 모니터링</title>
+<meta name="description" content="대한민국 정부 발표와 금융·부동산 규제를 한 화면에서 확인하는 AI 요약 서비스입니다.">
+<link rel="canonical" href="https://govbrief.kr/">
+<meta property="og:title" content="브리핑룸 · 정부 발표와 규제 모니터링">
+<meta property="og:description" content="대한민국 정부 발표와 금융·부동산 규제를 한 화면에서 확인하는 AI 요약 서비스입니다.">
+<meta property="og:url" content="https://govbrief.kr/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="govbrief.kr">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://govbrief.kr/og-image.png">
 <link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <script>
@@ -259,13 +268,13 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
   <!-- ① 오늘의 정부 발표 -->
   <section class="panel">
     <div class="panel-hdr">
-      <h2 class="panel-title">오늘의 정부 발표 <span class="num">24건</span></h2>
+      <h2 class="panel-title">오늘의 정부 발표 <span class="num" id="home-total-count">24건</span></h2>
       <a class="panel-more" href="/brief/">전체 &#8594;</a>
     </div>
 
-    <div class="today-date">2026. 04. 13 (일)</div>
+    <div class="today-date" id="home-today-date">2026. 04. 13 (일)</div>
 
-    <div class="kw-hero">
+    <div class="kw-hero" id="home-keyword-pills">
       <a class="kw-pill sz1" style="background:#1e40af" href="/brief/">재정적자</a><!-- 금융경제 -->
       <a class="kw-pill sz1" style="background:#d97706" href="/brief/">부동산단속</a><!-- 산업기술 -->
       <a class="kw-pill sz2" style="background:#1e40af" href="/brief/">민생물가</a><!-- 금융경제 -->
@@ -274,14 +283,14 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
       <a class="kw-pill sz3" style="background:#047857" href="/brief/">규제과학</a><!-- 사회복지 -->
     </div>
 
-    <div class="분야바">
+    <div class="분야바" id="home-category-bar">
       <div style="flex:31;background:#d97706"></div>
       <div style="flex:24;background:#1e40af"></div>
       <div style="flex:20;background:#047857"></div>
       <div style="flex:6;background:#7c3aed"></div>
       <div style="flex:5;background:#6b7280"></div>
     </div>
-    <div class="분야범례">
+    <div class="분야범례" id="home-category-legend">
       <span><span class="범례dot" style="background:#d97706"></span>산업기술 31%</span>
       <span><span class="범례dot" style="background:#1e40af"></span>금융경제 24%</span>
       <span><span class="범례dot" style="background:#047857"></span>사회복지 20%</span>
@@ -289,7 +298,7 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
       <span><span class="범례dot" style="background:#6b7280"></span>행정법제 5%</span>
     </div>
 
-    <div class="top-list">
+    <div class="top-list" id="home-top-list">
       <a class="top-item" href="/brief/">
         <span class="top-imp top-imp-h">상</span>
         <span class="top-title">통합재정통계 - 관리재정수지 1.4조 적자</span>
@@ -316,7 +325,7 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
         <span class="top-src">국토교통부</span>
       </a>
     </div>
-    <a class="panel-more" href="/brief/" style="display:block;text-align:right;margin-top:12px;padding-top:10px;border-top:1px solid var(--bl)">전체 24건 보기 &#8594;</a>
+    <a class="panel-more" id="home-total-link" href="/brief/" style="display:block;text-align:right;margin-top:12px;padding-top:10px;border-top:1px solid var(--bl)">전체 24건 보기 &#8594;</a>
   </section>
 
   <!-- ② 키워드 트렌드 + 언론 반응 -->
@@ -415,26 +424,26 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
         <div class="reg-grid">
       <a class="reg-card" href="/regulation/finlaw/" style="border-left:3px solid #1e40af">
         <div class="reg-card-title" style="color:#1e40af">금융 규제 트래커</div>
-        <div class="reg-card-num" style="color:#1e40af">140건 추적 / 판례 779건</div>
-        <div class="reg-card-recent">최근: 자본시장법 제11조 자기자본 상향<br>비조치의견서 3,151건 검색 가능</div>
+        <div class="reg-card-num" id="home-finlaw-num" style="color:#1e40af">140건 추적 / 판례 779건</div>
+        <div class="reg-card-recent" id="home-finlaw-recent">최근: 자본시장법 제11조 자기자본 상향<br>비조치의견서 3,151건 검색 가능</div>
         <div class="reg-card-arrow">상세 &#8594;</div>
       </a>
       <a class="reg-card" href="/regulation/realestate/" style="border-left:3px solid #92400e">
         <div class="reg-card-title" style="color:#92400e">부동산 규제 트래커</div>
-        <div class="reg-card-num" style="color:#92400e">38건 추적 / 판례 253건</div>
-        <div class="reg-card-recent">최근: 소득세법 양도세 중과 유예 연장<br>주택법, 종부세법, 임대차보호법 등</div>
+        <div class="reg-card-num" id="home-realestate-num" style="color:#92400e">38건 추적 / 판례 253건</div>
+        <div class="reg-card-recent" id="home-realestate-recent">최근: 소득세법 양도세 중과 유예 연장<br>주택법, 종부세법, 임대차보호법 등</div>
         <div class="reg-card-arrow">상세 &#8594;</div>
       </a>
       <a class="reg-card" href="/regulation/cross/" style="border-left:3px solid #7c3aed">
         <div class="reg-card-title" style="color:#7c3aed">금융/부동산 교차 영향</div>
-        <div class="reg-card-num" style="color:#7c3aed">24건 교차 법령</div>
-        <div class="reg-card-recent">은행법(LTV/DSR) + 주택법 + 소득세법<br>하나의 규제가 양쪽에 연쇄 영향</div>
+        <div class="reg-card-num" id="home-cross-num" style="color:#7c3aed">24건 교차 법령</div>
+        <div class="reg-card-recent" id="home-cross-recent">은행법(LTV/DSR) + 주택법 + 소득세법<br>하나의 규제가 양쪽에 연쇄 영향</div>
         <div class="reg-card-arrow">상세 &#8594;</div>
       </a>
       <a class="reg-card" href="/regulation/finlaw-gpt/" style="border-left:3px solid var(--a)">
         <div class="reg-card-title" style="color:var(--a)">FinLaw GPT</div>
-        <div class="reg-card-num" style="color:var(--a)">AI 법령 질의응답</div>
-        <div class="reg-card-recent">154건 법령, 5,046건 조문 기반<br>비조치의견서 3,151건 통합 검색</div>
+        <div class="reg-card-num" id="home-finlaw-gpt-num" style="color:var(--a)">AI 법령 질의응답</div>
+        <div class="reg-card-recent" id="home-finlaw-gpt-recent">154건 법령, 5,046건 조문 기반<br>비조치의견서 3,151건 통합 검색</div>
         <div class="reg-card-arrow">질문하기 &#8594;</div>
       </a>
     </div>
@@ -463,6 +472,104 @@ function switchKwTab(tab) {
   document.getElementById('tab-' + tab).classList.add('on');
   event.target.classList.add('on');
 }
+
+(function() {
+  function escapeHtml(value) {
+    return String(value || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  fetch('/data/home-panel.json')
+    .then(function(res) { return res.ok ? res.json() : null; })
+    .then(function(data) {
+      if (!data) return;
+
+      var totalEl = document.getElementById('home-total-count');
+      var dateEl = document.getElementById('home-today-date');
+      var pillsEl = document.getElementById('home-keyword-pills');
+      var barEl = document.getElementById('home-category-bar');
+      var legendEl = document.getElementById('home-category-legend');
+      var topListEl = document.getElementById('home-top-list');
+      var totalLinkEl = document.getElementById('home-total-link');
+
+      if (totalEl && typeof data.total === 'number') {
+        totalEl.textContent = data.total + '건';
+      }
+      if (dateEl && data.date) {
+        dateEl.textContent = data.date.replace(/-/g, '. ');
+      }
+      if (pillsEl && Array.isArray(data.keywords) && data.keywords.length) {
+        pillsEl.innerHTML = data.keywords.slice(0, 6).map(function(item, idx) {
+          var size = idx < 2 ? 'sz1' : idx < 5 ? 'sz2' : 'sz3';
+          return '<a class="kw-pill ' + size + '" style="background:' + escapeHtml(item.color || '#d96c2c') + '" href="/keywords/">' + escapeHtml(item.name) + '</a>';
+        }).join('');
+      }
+      if (barEl && Array.isArray(data.categories) && data.categories.length) {
+        barEl.innerHTML = data.categories.map(function(item) {
+          return '<div style="flex:' + escapeHtml(item.pct || 0) + ';background:' + escapeHtml(item.color || '#6b7280') + '"></div>';
+        }).join('');
+      }
+      if (legendEl && Array.isArray(data.categories) && data.categories.length) {
+        legendEl.innerHTML = data.categories.map(function(item) {
+          return '<span><span class="범례dot" style="background:' + escapeHtml(item.color || '#6b7280') + '"></span>' + escapeHtml(item.name) + ' ' + escapeHtml(item.pct || 0) + '%</span>';
+        }).join('');
+      }
+      if (topListEl && Array.isArray(data.top_items) && data.top_items.length) {
+        topListEl.innerHTML = data.top_items.slice(0, 5).map(function(item, idx) {
+          var cls = idx < 3 ? 'top-imp top-imp-h' : 'top-imp top-imp-m';
+          var imp = idx < 3 ? '상' : '중';
+          return '<a class="top-item" href="' + escapeHtml(item.link || '/brief/') + '">'
+            + '<span class="' + cls + '">' + imp + '</span>'
+            + '<span class="top-title">' + escapeHtml(item.title) + '</span>'
+            + '<span class="top-src">' + escapeHtml(item.source) + '</span>'
+            + '</a>';
+        }).join('');
+      }
+      if (totalLinkEl && typeof data.total === 'number') {
+        totalLinkEl.innerHTML = '전체 ' + data.total + '건 보기 &#8594;';
+      }
+    })
+    .catch(function() {});
+
+  fetch('/data/regulation-stats.json')
+    .then(function(res) { return res.ok ? res.json() : null; })
+    .then(function(data) {
+      if (!data) return;
+      var finNum = document.getElementById('home-finlaw-num');
+      var finRecent = document.getElementById('home-finlaw-recent');
+      var reNum = document.getElementById('home-realestate-num');
+      var reRecent = document.getElementById('home-realestate-recent');
+      var crossNum = document.getElementById('home-cross-num');
+      var crossRecent = document.getElementById('home-cross-recent');
+      var gptNum = document.getElementById('home-finlaw-gpt-num');
+      var gptRecent = document.getElementById('home-finlaw-gpt-recent');
+
+      if (finNum) finNum.textContent = (data.fin_count || 0) + '건 추적 / 판례 ' + (data.prec_count || 0) + '건';
+      if (finRecent) {
+        var finTitle = data.fin_recent && data.fin_recent[0] ? data.fin_recent[0].name : '최근 변경 법령 추적';
+        finRecent.innerHTML = '최근: ' + escapeHtml(finTitle) + '<br>비조치의견서 ' + escapeHtml(data.opinion_count || 0) + '건 검색 가능';
+      }
+      if (reNum) reNum.textContent = (data.re_count || 0) + '건 추적 / 판례 253건';
+      if (reRecent) {
+        var reTitle = data.re_recent && data.re_recent[0] ? data.re_recent[0].name : '주택법, 종부세법, 임대차보호법 등';
+        reRecent.innerHTML = '최근: ' + escapeHtml(reTitle) + '<br>주택법, 종부세법, 임대차보호법 등';
+      }
+      if (crossNum) crossNum.textContent = (data.cross_count || 0) + '건 교차 법령';
+      if (crossRecent) {
+        var crossTitle = data.cross_laws && data.cross_laws[0] ? data.cross_laws[0].name : '교차 규제 연결';
+        crossRecent.innerHTML = escapeHtml(crossTitle) + '<br>하나의 규제가 양쪽에 연쇄 영향';
+      }
+      if (gptNum) gptNum.textContent = 'AI 법령 질의응답';
+      if (gptRecent) {
+        gptRecent.innerHTML = escapeHtml((data.fin_count || 0) + (data.re_count || 0) - (data.cross_count || 0)) + '건 법령, 5,046건 조문 기반<br>비조치의견서 ' + escapeHtml(data.opinion_count || 0) + '건 통합 검색';
+      }
+    })
+    .catch(function() {});
+})();
 </script>
 
 <nav class="bottom-nav">

@@ -16,7 +16,7 @@ import sqlite3
 
 from briefingroom.config import BASE_DIR, DATA_DIR
 
-# v2 전환: 기존 생성 경로를 _legacy로 변경하여 새 index.html 보호
+# 현재 생성기는 구 IA를 전제로 하므로 운영 페이지에는 아직 직접 쓰지 않는다.
 INDEX_PATH = BASE_DIR / "index_legacy.html"
 POLICY_INDEX_PATH = BASE_DIR / "policy" / "index_legacy.html"
 FINLAW_DB = BASE_DIR / "finance_law.db"
@@ -562,7 +562,7 @@ applyPolicyFilters();
 
     POLICY_INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
     POLICY_INDEX_PATH.write_text(page, encoding="utf-8")
-    print(f"[home_gen] policy/index.html 생성 — {len(items)}건")
+    print(f"[home_gen] policy/index_legacy.html 생성 — {len(items)}건")
 
 
 def generate_home(target_date: str = ""):
@@ -813,7 +813,7 @@ makeCarousel('c-law', {twin_l_count});
 govSearch.init(
   document.getElementById('search-input'),
   document.getElementById('search-results'),
-  {{ askUrl: '/finlaw/ask/' }}
+  {{ askUrl: '/regulation/finlaw-gpt/' }}
 );
 
 // 부처별 브리핑 필터링
@@ -838,7 +838,7 @@ govSearch.init(
 </html>"""
 
     INDEX_PATH.write_text(page, encoding="utf-8")
-    print(f"[home_gen] index.html 생성 — {len(items)}건, 캐러셀 {c1_count}슬라이드")
+    print(f"[home_gen] index_legacy.html 생성 — {len(items)}건, 캐러셀 {c1_count}슬라이드")
 
 
 def generate_home_panel_json(target_date: str = ""):

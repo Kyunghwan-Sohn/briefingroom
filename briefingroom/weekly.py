@@ -351,12 +351,12 @@ def generate_pdf(analysis: dict, selected: dict, target: date) -> Path:
 # ═══════════════════════════════════════════════════════════
 
 def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
-    """주간 리포트 HTML 포스트 생성 → articles/weekly/{date}/index.html"""
+    """주간 리포트 HTML 포스트 생성 → brief/weekly/{date}/index.html"""
     s = analysis["start"]
     e = analysis["end"]
     top_kw = [kw for kw, _ in analysis["keywords"].most_common(5)]
     signals = build_weekly_signals(analysis, selected)
-    post_url = f"{SITE_URL}/policy/weekly/{target.isoformat()}/"
+    post_url = f"{SITE_URL}/brief/weekly/{target.isoformat()}/"
 
     h = _html.escape
     schedule_link = f"{SITE_URL}/articles/schedule/{target.isoformat()}/"
@@ -480,11 +480,27 @@ td.num{{text-align:center;white-space:nowrap}}
 </body>
 </html>"""
 
-    out_dir = BASE_DIR / "policy" / "weekly" / target.isoformat()
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir / "index.html"
-    out_path.write_text(page_html, encoding="utf-8")
-    print(f"  [HTML] {out_path}")
+    brief_dir = BASE_DIR / "brief" / "weekly" / target.isoformat()
+    brief_dir.mkdir(parents=True, exist_ok=True)
+    brief_path = brief_dir / "index.html"
+    brief_path.write_text(page_html, encoding="utf-8")
+
+    policy_dir = BASE_DIR / "policy" / "weekly" / target.isoformat()
+    policy_dir.mkdir(parents=True, exist_ok=True)
+    policy_path = policy_dir / "index.html"
+    policy_redirect = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="0; url=/brief/weekly/{target.isoformat()}/">
+<link rel="canonical" href="{post_url}">
+<title>Redirecting...</title>
+<script>location.replace('/brief/weekly/{target.isoformat()}/');</script>
+</head>
+<body><p><a href="/brief/weekly/{target.isoformat()}/">/brief/weekly/{target.isoformat()}/ 로 이동합니다.</a></p></body>
+</html>"""
+    policy_path.write_text(policy_redirect, encoding="utf-8")
+    print(f"  [HTML] {brief_path}")
     return post_url
 
 
