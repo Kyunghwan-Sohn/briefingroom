@@ -634,10 +634,87 @@ finlawSearch?.addEventListener('keydown', function(e) {{
     print(f"[finlaw_pages] index_legacy.html 생성 — 법령 {law_count}건 변경, 판례 {prec_count}건")
 
 
+def generate_regulation_stats():
+    """regulation 페이지용 DB 통계 JSON 생성"""
+    conn = sqlite3.connect(str(DB_PATH))
+    conn.row_factory = sqlite3.Row
+    today = date.today()
+    month_ago = (today - timedelta(days=30)).strftime("%Y%m%d")
+
+    # 카테고리별 법령 수
+    fin_count = conn.execute("SELECT COUNT(*) FROM laws WHERE categories LIKE '%금융%'").fetchone()[0]
+    re_count = conn.execute("SELECT COUNT(*) FROM laws WHERE categories LIKE '%부동산%'").fetchone()[0]
+    cross_count = conn.execute("SELECT COUNT(*) FROM laws WHERE categories LIKE '%금융%' AND categories LIKE '%부동산%'").fetchone()[0]
+
+    # 판례/비조치의견서
+    prec_count = conn.execute("SELECT COUNT(*) FROM precedents").fetchone()[0]
+    try:
+        opinion_count = conn.execute("SELECT COUNT(*) FROM fsc_opinions").fetchone()[0]
+    except Exception:
+        opinion_count = 0
+
+    # 부동산 관련 부처 수
+    re_ministries = conn.execute(
+        "SELECT COUNT(DISTINCT ministry) FROM laws WHERE categories = '부동산'"
+    ).fetchone()[0]
+
+    # 최근 변경 법령 (금융)
+    fin_recent = conn.execute(
+        "SELECT name, promulgation_date, revision_type, ministry FROM laws "
+        "WHERE categories LIKE '%금융%' AND promulgation_date >= ? "
+        "ORDER BY promulgation_date DESC LIMIT 5",
+        (month_ago,)
+    ).fetchall()
+
+    # 최근 변경 법령 (부동산)
+    re_recent = conn.execute(
+        "SELECT name, promulgation_date, revision_type, ministry FROM laws "
+        "WHERE categories LIKE '%부동산%' AND promulgation_date >= ? "
+        "ORDER BY promulgation_date DESC LIMIT 5",
+        (month_ago,)
+    ).fetchall()
+
+    # 교차 법령 목록
+    cross_laws = conn.execute(
+        "SELECT name, ministry FROM laws "
+        "WHERE categories LIKE '%금융%' AND categories LIKE '%부동산%' "
+        "ORDER BY name"
+    ).fetchall()
+
+    # 법령 참조 관계
+    try:
+        ref_count = conn.execute("SELECT COUNT(*) FROM law_references").fetchone()[0]
+    except Exception:
+        ref_count = 0
+
+    conn.close()
+
+    import json
+    stats = {
+        "generated_at": today.isoformat(),
+        "fin_count": fin_count,
+        "re_count": re_count,
+        "cross_count": cross_count,
+        "prec_count": prec_count,
+        "opinion_count": opinion_count,
+        "re_ministries": re_ministries,
+        "ref_count": ref_count,
+        "fin_recent": [{"name": r["name"], "date": r["promulgation_date"], "type": r["revision_type"], "ministry": r["ministry"]} for r in fin_recent],
+        "re_recent": [{"name": r["name"], "date": r["date"] if "date" in r.keys() else r["promulgation_date"], "type": r["revision_type"], "ministry": r["ministry"]} for r in re_recent],
+        "cross_laws": [{"name": r["name"], "ministry": r["ministry"]} for r in cross_laws],
+    }
+
+    out_path = BASE_DIR / "data" / "regulation-stats.json"
+    out_path.write_text(json.dumps(stats, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"[finlaw_pages] regulation-stats.json 생성 — 금융 {fin_count}건, 부동산 {re_count}건, 교차 {cross_count}건, 참조 {ref_count}건")
+    return stats
+
+
 def main():
     generate_finlaw_index()
     generate_cases_page()
     generate_notices_page()
+    generate_regulation_stats()
     print("finlaw 페이지 재생성 완료")
 
 

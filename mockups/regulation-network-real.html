@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>금융/부동산 규제 연결 네트워크</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+--fin:#1e40af;--fin-bg:#eff6ff;--re:#92400e;--re-bg:#fffbeb;--cross:#7c3aed;--cross-bg:#f5f3ff;
+--t:#1a1a1a;--t2:#555;--t3:#888;--b:#dcdcd8;--bl:#ededea;--s:#fff;--a:#d96c2c}
+body{background:#f7f7f5;font-family:var(--sans);max-width:960px;margin:0 auto;padding:20px}
+
+.network-panel{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:24px;overflow:hidden}
+.network-title{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:4px}
+.network-sub{font-size:13px;color:var(--t3);margin-bottom:16px}
+
+.network-svg{width:100%;height:420px}
+
+.legend{display:flex;gap:18px;justify-content:center;margin-top:14px;font-size:12px;color:var(--t2)}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-dot{width:12px;height:12px;border-radius:3px}
+
+.tooltip{position:absolute;background:#fff;border:1px solid var(--b);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--t);box-shadow:0 4px 12px rgba(0,0,0,.1);pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;max-width:260px}
+.tooltip-law{font-family:var(--serif);font-size:13px;font-weight:700;margin-bottom:4px}
+.tooltip-ref{font-size:11px;color:var(--t3);line-height:1.5}
+
+.network-note{font-size:11px;color:var(--t3);text-align:center;margin-top:10px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+
+<div class="network-panel" style="position:relative">
+  <div class="network-title">금융/부동산 규제 연결 네트워크</div>
+  <div class="network-sub">법령 조문 내 실제 참조 관계 기반 (5,046개 조문 분석)</div>
+
+  <svg class="network-svg" viewBox="0 0 900 420" id="network">
+    <!-- 배경 영역 -->
+    <rect x="0" y="30" width="300" height="360" rx="12" fill="#eff6ff" opacity=".3"/>
+    <rect x="310" y="30" width="280" height="360" rx="12" fill="#f5f3ff" opacity=".3"/>
+    <rect x="600" y="30" width="300" height="360" rx="12" fill="#fffbeb" opacity=".3"/>
+
+    <text x="150" y="22" text-anchor="middle" font-size="11" fill="#1e40af" font-weight="700" font-family="var(--mono)">금융 규제</text>
+    <text x="450" y="22" text-anchor="middle" font-size="11" fill="#7c3aed" font-weight="700" font-family="var(--mono)">교차 영역</text>
+    <text x="750" y="22" text-anchor="middle" font-size="11" fill="#92400e" font-weight="700" font-family="var(--mono)">부동산 규제</text>
+
+    <!-- 연결선 (실제 참조 기반) -->
+    <!-- 보험업법 -> 금융회사지배구조법 (3건) -->
+    <path d="M200,80 Q300,60 370,100" stroke="#7c3aed" stroke-width="3" fill="none" opacity=".25" class="edge" data-from="보험업법" data-to="금융회사지배구조법"/>
+    <!-- 자본시장법 -> 금융회사지배구조법 (3건) -->
+    <path d="M200,160 Q300,130 370,100" stroke="#7c3aed" stroke-width="3" fill="none" opacity=".25" class="edge" data-from="자본시장법" data-to="금융회사지배구조법"/>
+    <!-- 여신전문금융업법 -> 자본시장법 (2건) -->
+    <path d="M370,180 Q280,170 200,160" stroke="#1e40af" stroke-width="2" fill="none" opacity=".25" class="edge" data-from="여신전문금융업법" data-to="자본시장법"/>
+    <!-- 인터넷전문은행법 -> 은행법 (2건) -->
+    <path d="M200,240 Q280,220 370,260" stroke="#7c3aed" stroke-width="2" fill="none" opacity=".25" class="edge" data-from="인터넷전문은행법" data-to="은행법"/>
+    <!-- 금융실명거래법 -> 소득세법 (1건, 금융->부동산!) -->
+    <path d="M200,320 Q450,350 700,120" stroke="#d96c2c" stroke-width="2.5" fill="none" opacity=".4" stroke-dasharray="6,3" class="edge cross-edge" data-from="금융실명거래법" data-to="소득세법"/>
+    <!-- 한국주택금융공사법 -> 부동산등기특별조치법 (교차->부동산) -->
+    <path d="M370,340 Q550,360 700,200" stroke="#d96c2c" stroke-width="2" fill="none" opacity=".4" stroke-dasharray="6,3" class="edge cross-edge" data-from="한국주택금융공사법" data-to="부동산등기특별조치법"/>
+    <!-- 건축법 -> 국토계획법 (2건) -->
+    <path d="M700,280 Q780,250 700,200" stroke="#92400e" stroke-width="2" fill="none" opacity=".25" class="edge" data-from="건축법" data-to="국토계획법"/>
+    <!-- 공공주택법 -> 국토계획법 (2건) -->
+    <path d="M700,360 Q790,300 700,200" stroke="#92400e" stroke-width="2" fill="none" opacity=".25" class="edge" data-from="공공주택법" data-to="국토계획법"/>
+    <!-- 민간임대주택법 -> 주택법 (2건) -->
+    <path d="M700,280 Q750,100 700,60" stroke="#92400e" stroke-width="2" fill="none" opacity=".25" class="edge" data-from="민간임대주택법" data-to="주택법"/>
+    <!-- 종합부동산세법 -> 지방세법 (1건) -->
+    <path d="M700,120 Q750,160 700,200" stroke="#92400e" stroke-width="1.5" fill="none" opacity=".25" class="edge" data-from="종합부동산세법" data-to="지방세법"/>
+    <!-- 금융지주회사법 -> 은행법 (1건) -->
+    <path d="M200,400 Q300,380 370,260" stroke="#7c3aed" stroke-width="1.5" fill="none" opacity=".25" class="edge" data-from="금융지주회사법" data-to="은행법"/>
+
+    <!-- 금융 노드 (왼쪽) -->
+    <g class="node" data-law="보험업법" data-cat="금융" data-refs="상법(9), 금융회사지배구조법(3)">
+      <rect x="80" y="60" width="140" height="36" rx="6" fill="#1e40af"/>
+      <text x="150" y="83" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="var(--serif)">보험업법</text>
+    </g>
+    <g class="node" data-law="자본시장법" data-cat="금융" data-refs="금융회사지배구조법(3), 상법(2)">
+      <rect x="80" y="140" width="140" height="36" rx="6" fill="#1e40af"/>
+      <text x="150" y="163" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="var(--serif)">자본시장법</text>
+    </g>
+    <g class="node" data-law="인터넷전문은행법" data-cat="금융" data-refs="은행법(2)">
+      <rect x="60" y="220" width="160" height="36" rx="6" fill="#1e40af"/>
+      <text x="140" y="243" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="var(--serif)">인터넷전문은행법</text>
+    </g>
+    <g class="node" data-law="금융실명거래법" data-cat="금융" data-refs="소득세법(1) - 금융/부동산 교차">
+      <rect x="70" y="300" width="150" height="36" rx="6" fill="#1e40af" stroke="#d96c2c" stroke-width="2"/>
+      <text x="145" y="323" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="var(--serif)">금융실명거래법</text>
+    </g>
+    <g class="node" data-law="금융지주회사법" data-cat="금융" data-refs="은행법(1)">
+      <rect x="70" y="380" width="150" height="36" rx="6" fill="#1e40af"/>
+      <text x="145" y="403" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="var(--serif)">금융지주회사법</text>
+    </g>
+
+    <!-- 교차 노드 (가운데) -->
+    <g class="node" data-law="금융회사지배구조법" data-cat="교차" data-refs="보험업법에서 3건, 자본시장법에서 3건 참조">
+      <rect x="330" y="80" width="160" height="36" rx="6" fill="#7c3aed"/>
+      <text x="410" y="103" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="var(--serif)">금융회사지배구조법</text>
+    </g>
+    <g class="node" data-law="여신전문금융업법" data-cat="교차" data-refs="자본시장법(2), 금융소비자보호법(1)">
+      <rect x="330" y="160" width="160" height="36" rx="6" fill="#7c3aed"/>
+      <text x="410" y="183" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="var(--serif)">여신전문금융업법</text>
+    </g>
+    <g class="node" data-law="은행법" data-cat="교차" data-refs="인터넷전문은행법에서 2건, 금융지주회사법에서 1건 참조">
+      <rect x="340" y="240" width="140" height="36" rx="6" fill="#7c3aed"/>
+      <text x="410" y="263" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="var(--serif)">은행법</text>
+    </g>
+    <g class="node" data-law="한국주택금융공사법" data-cat="교차" data-refs="부동산등기특별조치법(1) - 금융/부동산 교차">
+      <rect x="320" y="320" width="180" height="36" rx="6" fill="#7c3aed" stroke="#d96c2c" stroke-width="2"/>
+      <text x="410" y="343" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="var(--serif)">한국주택금융공사법</text>
+    </g>
+
+    <!-- 부동산 노드 (오른쪽) -->
+    <g class="node" data-law="주택법" data-cat="부동산" data-refs="민간임대주택법에서 2건 참조받음">
+      <rect x="640" y="40" width="120" height="36" rx="6" fill="#92400e"/>
+      <text x="700" y="63" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="var(--serif)">주택법</text>
+    </g>
+    <g class="node" data-law="소득세법" data-cat="부동산" data-refs="금융실명거래법에서 1건 참조 - 금융/부동산 교차">
+      <rect x="640" y="100" width="120" height="36" rx="6" fill="#92400e" stroke="#d96c2c" stroke-width="2"/>
+      <text x="700" y="123" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="var(--serif)">소득세법</text>
+    </g>
+    <g class="node" data-law="국토계획법" data-cat="부동산" data-refs="건축법에서 2건, 공공주택법에서 2건 참조받음">
+      <rect x="640" y="180" width="120" height="36" rx="6" fill="#92400e"/>
+      <text x="700" y="203" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="var(--serif)">국토계획법</text>
+    </g>
+    <g class="node" data-law="건축법" data-cat="부동산" data-refs="국토계획법(2)">
+      <rect x="640" y="260" width="120" height="36" rx="6" fill="#92400e"/>
+      <text x="700" y="283" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="var(--serif)">건축법</text>
+    </g>
+    <g class="node" data-law="공공주택법" data-cat="부동산" data-refs="국토계획법(2)">
+      <rect x="640" y="340" width="120" height="36" rx="6" fill="#92400e"/>
+      <text x="700" y="363" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="var(--serif)">공공주택법</text>
+    </g>
+    <g class="node" data-law="부동산등기특별조치법" data-cat="부동산" data-refs="한국주택금융공사법에서 1건 참조 - 교차">
+      <rect x="620" y="180" width="160" height="0" rx="6" fill="none"/>
+    </g>
+  </svg>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#1e40af"></div>금융 전용 법령</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div>교차 영역 (금융+부동산)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#92400e"></div>부동산 전용 법령</div>
+    <div class="legend-item"><div class="legend-dot" style="background:none;border:2px dashed #d96c2c;width:16px;height:3px;border-radius:0"></div>교차 참조</div>
+  </div>
+
+  <div class="network-note">5,046개 조문의 실제 참조 관계 기반 / 145개 참조 중 주요 관계 표시</div>
+
+  <div class="tooltip" id="tooltip"></div>
+</div>
+
+<script>
+var nodes = document.querySelectorAll('.node');
+var edges = document.querySelectorAll('.edge');
+var tooltip = document.getElementById('tooltip');
+var svgRect = document.querySelector('.network-svg').getBoundingClientRect();
+
+nodes.forEach(function(node) {
+  node.style.cursor = 'pointer';
+
+  node.addEventListener('mouseenter', function(e) {
+    var law = this.getAttribute('data-law');
+    var cat = this.getAttribute('data-cat');
+    var refs = this.getAttribute('data-refs');
+
+    // Highlight connected edges
+    edges.forEach(function(edge) {
+      var from = edge.getAttribute('data-from');
+      var to = edge.getAttribute('data-to');
+      if (from === law || to === law) {
+        edge.style.opacity = '0.8';
+        edge.style.strokeWidth = parseFloat(edge.getAttribute('stroke-width')) + 1.5 + 'px';
+      } else {
+        edge.style.opacity = '0.08';
+      }
+    });
+
+    // Dim other nodes
+    nodes.forEach(function(n) {
+      if (n !== node) n.style.opacity = '0.3';
+    });
+
+    // Show tooltip
+    tooltip.innerHTML = '<div class="tooltip-law">' + law + ' <span style="font-size:10px;color:' +
+      (cat === '금융' ? '#1e40af' : cat === '부동산' ? '#92400e' : '#7c3aed') + '">' + cat + '</span></div>' +
+      '<div class="tooltip-ref">참조: ' + refs + '</div>';
+    tooltip.style.opacity = '1';
+
+    var rect = this.getBoundingClientRect();
+    var panel = document.querySelector('.network-panel').getBoundingClientRect();
+    tooltip.style.left = (rect.left - panel.left + rect.width/2 - 100) + 'px';
+    tooltip.style.top = (rect.top - panel.top - 60) + 'px';
+  });
+
+  node.addEventListener('mouseleave', function() {
+    edges.forEach(function(edge) {
+      edge.style.opacity = edge.classList.contains('cross-edge') ? '0.4' : '0.25';
+      edge.style.strokeWidth = edge.getAttribute('stroke-width');
+    });
+    nodes.forEach(function(n) { n.style.opacity = '1'; });
+    tooltip.style.opacity = '0';
+  });
+});
+</script>
+
+</body>
+</html>

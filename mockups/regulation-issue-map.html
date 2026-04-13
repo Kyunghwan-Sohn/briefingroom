@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>규제 이슈 맵 - 대출 총량 규제</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+  --a:#d96c2c;--al:rgba(217,108,44,.06);
+  --fin:#1e40af;--fin-bg:#eff6ff;--fin-border:#bfdbfe;
+  --re:#92400e;--re-bg:#fffbeb;--re-border:#fde68a;
+  --cross:#7c3aed;--cross-bg:#f5f3ff;
+  --t:#1a1a1a;--t2:#555;--t3:#888;--b:#dcdcd8;--bl:#ededea;--s:#fff;--s2:#fafaf8
+}
+body{background:#f7f7f5;font-family:var(--sans);max-width:960px;margin:0 auto;padding:20px}
+
+.issue-panel{background:var(--s);border:1px solid var(--b);border-radius:14px;overflow:hidden}
+
+/* 이슈 헤더 */
+.issue-header{background:linear-gradient(135deg,#1e293b,#334155);padding:24px 28px;color:#fff}
+.issue-tag{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--a);background:rgba(217,108,44,.15);padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:10px;letter-spacing:.05em}
+.issue-title{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:6px;line-height:1.35}
+.issue-sub{font-size:13px;color:rgba(255,255,255,.7);line-height:1.5}
+
+/* 맵 영역 */
+.issue-map{padding:24px}
+
+/* 플로우 */
+.flow{display:flex;flex-direction:column;gap:0;align-items:center}
+
+/* 시작점 (규제 이슈) */
+.flow-origin{background:#1e293b;color:#fff;border-radius:10px;padding:16px 24px;text-align:center;width:100%;max-width:420px}
+.flow-origin-label{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,.6);margin-bottom:4px}
+.flow-origin-name{font-family:var(--serif);font-size:18px;font-weight:700}
+.flow-origin-detail{font-size:12px;color:rgba(255,255,255,.7);margin-top:4px}
+
+/* 연결선 */
+.flow-connector{width:2px;height:24px;background:var(--b);margin:0 auto}
+.flow-branch-line{display:flex;align-items:flex-start;justify-content:center;position:relative;margin:0 auto;width:100%;max-width:700px}
+.flow-branch-line::before{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:var(--b)}
+
+/* 적용 대상 (금융기관) */
+.flow-targets{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:700px;margin:0 auto}
+.flow-target{background:var(--fin-bg);border:1px solid var(--fin-border);border-radius:10px;padding:14px;text-align:center;position:relative}
+.flow-target::before{content:'';position:absolute;top:-13px;left:50%;width:2px;height:13px;background:var(--b)}
+.flow-target-type{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--fin);margin-bottom:6px}
+.flow-target-name{font-family:var(--serif);font-size:15px;font-weight:700;margin-bottom:6px}
+.flow-target-rules{font-size:11px;color:var(--t2);line-height:1.6;text-align:left}
+.flow-target-rules div{padding:3px 0;border-bottom:1px dashed var(--fin-border)}
+.flow-target-rules div:last-child{border-bottom:none}
+.flow-target-rules span{font-family:var(--mono);font-size:10px;color:var(--fin);font-weight:700}
+
+/* 연쇄 영향 */
+.flow-impact-label{font-family:var(--mono);font-size:11px;color:var(--t3);text-align:center;margin:20px 0 8px;letter-spacing:.05em}
+
+.flow-impacts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:100%;max-width:700px;margin:0 auto}
+.flow-impact{border-radius:10px;padding:14px;position:relative}
+.flow-impact::before{content:'';position:absolute;top:-11px;left:50%;width:2px;height:11px;background:var(--b)}
+.flow-impact.re{background:var(--re-bg);border:1px solid var(--re-border)}
+.flow-impact.cross{background:var(--cross-bg);border:1px solid #ddd6fe}
+.flow-impact-law{font-family:var(--serif);font-size:14px;font-weight:700;margin-bottom:4px}
+.flow-impact-law .tag{font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;margin-left:6px}
+.flow-impact-law .tag-re{background:var(--re-bg);color:var(--re);border:1px solid var(--re-border)}
+.flow-impact-law .tag-cross{background:var(--cross-bg);color:var(--cross);border:1px solid #ddd6fe}
+.flow-impact-desc{font-size:12px;color:var(--t2);line-height:1.5;margin-bottom:6px}
+.flow-impact-article{font-family:var(--mono);font-size:11px;color:var(--t3)}
+
+/* 최종 영향 */
+.flow-result{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:16px 20px;width:100%;max-width:700px;margin:12px auto 0;text-align:center}
+.flow-result-title{font-family:var(--serif);font-size:15px;font-weight:700;color:#dc2626;margin-bottom:6px}
+.flow-result-desc{font-size:12px;color:var(--t2);line-height:1.6}
+
+/* 범례 */
+.flow-legend{display:flex;gap:16px;justify-content:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--bl);font-size:11px;color:var(--t3)}
+.flow-legend-item{display:flex;align-items:center;gap:5px}
+.flow-legend-dot{width:10px;height:10px;border-radius:3px}
+
+/* 하단 CTA */
+.issue-cta{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-top:1px solid var(--bl)}
+.issue-cta-text{font-size:13px;color:var(--t2)}
+.issue-cta-link{font-size:13px;color:var(--a);text-decoration:none;font-weight:700}
+.issue-cta-link:hover{text-decoration:underline}
+
+.issue-note{font-family:var(--mono);font-size:10px;color:var(--t3);text-align:center;padding:0 24px 16px}
+
+@media(max-width:768px){
+  body{padding:10px}
+  .issue-header{padding:18px}
+  .issue-title{font-size:18px}
+  .issue-map{padding:16px}
+  .flow-targets{grid-template-columns:1fr;max-width:320px}
+  .flow-branch-line::before{left:50%;right:50%;width:2px}
+  .flow-impacts{grid-template-columns:1fr;max-width:320px}
+}
+</style>
+</head>
+<body>
+
+<div class="issue-panel">
+
+  <div class="issue-header">
+    <div class="issue-tag">HOT ISSUE</div>
+    <div class="issue-title">가계대출 총량 규제 강화</div>
+    <div class="issue-sub">2026년 상반기, 금융당국이 가계대출 증가세 억제를 위해 DSR 규제를 전 금융권으로 확대 적용. 은행/저축은행/여전사 모두 영향.</div>
+  </div>
+
+  <div class="issue-map">
+    <div class="flow">
+
+      <!-- 시작: 핵심 규제 -->
+      <div class="flow-origin">
+        <div class="flow-origin-label">규제 근거</div>
+        <div class="flow-origin-name">은행업감독규정 + 여신심사 가이드라인</div>
+        <div class="flow-origin-detail">스트레스 DSR 2단계 시행 / 총부채원리금상환비율 40% 적용</div>
+      </div>
+
+      <div class="flow-connector"></div>
+      <div class="flow-branch-line" style="height:2px"></div>
+
+      <!-- 적용 대상: 3개 금융기관 -->
+      <div class="flow-targets">
+        <div class="flow-target">
+          <div class="flow-target-type">은행</div>
+          <div class="flow-target-name">은행법</div>
+          <div class="flow-target-rules">
+            <div><span>LTV</span> 수도권 50% / 비수도권 70%</div>
+            <div><span>DSR</span> 40% (스트레스 가산)</div>
+            <div><span>조항</span> 제35조 동일차주 신용공여</div>
+          </div>
+        </div>
+        <div class="flow-target">
+          <div class="flow-target-type">저축은행</div>
+          <div class="flow-target-name">상호저축은행법</div>
+          <div class="flow-target-rules">
+            <div><span>LTV</span> 50~60%</div>
+            <div><span>DSR</span> 40% (동일 적용)</div>
+            <div><span>조항</span> 제11조 자산운용 제한</div>
+          </div>
+        </div>
+        <div class="flow-target">
+          <div class="flow-target-type">여신전문</div>
+          <div class="flow-target-name">여신전문금융업법</div>
+          <div class="flow-target-rules">
+            <div><span>LTV</span> 적용 제외 (일부)</div>
+            <div><span>DSR</span> 40% (2단계 확대)</div>
+            <div><span>조항</span> 제46조 건전성 기준</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-connector" style="height:16px"></div>
+      <div class="flow-impact-label">연쇄 영향 법령</div>
+      <div class="flow-connector" style="height:8px"></div>
+
+      <!-- 연쇄 영향 -->
+      <div class="flow-impacts">
+        <div class="flow-impact re">
+          <div class="flow-impact-law">주택법 <span class="tag tag-re">부동산</span></div>
+          <div class="flow-impact-desc">분양가상한제 적용 지역에서 대출 한도 추가 제한. 청약 자격 강화.</div>
+          <div class="flow-impact-article">제57조 (분양가상한제), 제64조 (전매행위 제한)</div>
+        </div>
+        <div class="flow-impact re">
+          <div class="flow-impact-law">소득세법 <span class="tag tag-re">부동산</span></div>
+          <div class="flow-impact-desc">다주택자 양도세 중과 유예 종료와 맞물려, 대출 규제 + 세금 이중 부담.</div>
+          <div class="flow-impact-article">제104조 (양도세율), 제104조의3 (다주택 중과)</div>
+        </div>
+        <div class="flow-impact re">
+          <div class="flow-impact-law">종합부동산세법 <span class="tag tag-re">부동산</span></div>
+          <div class="flow-impact-desc">보유세 부담과 대출 원리금 상환 부담이 동시 작용. 다주택자 매물 압력.</div>
+          <div class="flow-impact-article">제7조 (세율), 제9조 (세액 계산)</div>
+        </div>
+        <div class="flow-impact cross">
+          <div class="flow-impact-law">한국주택금융공사법 <span class="tag tag-cross">교차</span></div>
+          <div class="flow-impact-desc">보금자리론/디딤돌 대출 한도 및 금리 연동. 정책 모기지 조건 변경.</div>
+          <div class="flow-impact-article">제28조 (주택저당채권 양도), 제56조 (채권발행)</div>
+        </div>
+      </div>
+
+      <div class="flow-connector" style="height:12px"></div>
+
+      <!-- 최종 영향 -->
+      <div class="flow-result">
+        <div class="flow-result-title">실생활 영향</div>
+        <div class="flow-result-desc">
+          내 집 마련 시 대출 가능 금액 축소 / 다주택자 보유 비용 증가 / 전세 대출 한도 조정 / 분양 청약 시 자금 계획 재검토 필요
+        </div>
+      </div>
+
+    </div>
+
+    <div class="flow-legend">
+      <div class="flow-legend-item"><div class="flow-legend-dot" style="background:var(--fin)"></div>금융 규제</div>
+      <div class="flow-legend-item"><div class="flow-legend-dot" style="background:var(--re)"></div>부동산 규제</div>
+      <div class="flow-legend-item"><div class="flow-legend-dot" style="background:var(--cross)"></div>교차 영역</div>
+    </div>
+  </div>
+
+  <div class="issue-note">은행법 제35조, 상호저축은행법 제11조, 여신전문금융업법 제46조 등 실제 법령 조문 기반</div>
+
+  <div class="issue-cta">
+    <div class="issue-cta-text">금융/부동산 규제의 전체 연결 관계를 확인하세요</div>
+    <a class="issue-cta-link" href="/regulation/">전체 보기 &#8594;</a>
+  </div>
+
+</div>
+
+</body>
+</html>

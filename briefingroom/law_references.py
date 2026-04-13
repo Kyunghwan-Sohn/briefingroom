@@ -200,17 +200,17 @@ def build_reference_index():
 
     # 모든 조문 가져오기
     articles = conn.execute("""
-        SELECT a.law_id, l.name as law_name, a.article_no, a.content, a.full_text
+        SELECT a.law_id, l.name as law_name, a.article_no, a.article_content as content
         FROM articles a
         JOIN laws l ON a.law_id = l.law_id
-        WHERE a.content IS NOT NULL AND a.content != ''
+        WHERE a.article_content IS NOT NULL AND a.article_content != ''
     """).fetchall()
 
     print(f"[law_references] {len(articles)}개 조문 스캔 시작")
 
     total_refs = 0
     for art in articles:
-        text = (art["content"] or "") + "\n" + (art["full_text"] or "")
+        text = art["content"] or ""
         refs = extract_references_from_article(
             source_law_id=art["law_id"],
             source_law_name=art["law_name"],
