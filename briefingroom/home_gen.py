@@ -841,8 +841,69 @@ govSearch.init(
     print(f"[home_gen] index.html 생성 — {len(items)}건, 캐러셀 {c1_count}슬라이드")
 
 
+def generate_home_panel_json(target_date: str = ""):
+    """홈 3패널용 JSON 생성 (index.html JS에서 동적 로드)"""
+    from collections import Counter
+
+    if not target_date:
+        target_date = date.today().isoformat()
+
+    json_path = DATA_DIR / f"{target_date}.json"
+    if not json_path.exists():
+        # 가장 최근 데이터 사용
+        candidates = sorted(
+            [f for f in DATA_DIR.iterdir() if f.name.startswith("2026-") and f.suffix == ".json"
+             and "weekly" not in f.name and "schedule" not in f.name and "latest" not in f.name
+             and "keywords" not in f.name and "regulation" not in f.name],
+            reverse=True,
+        )
+        if not candidates:
+            print("[home_gen] 홈 패널 JSON: 데이터 없음")
+            return
+        json_path = candidates[0]
+        target_date = json_path.stem
+
+    data = json.loads(json_path.read_text(encoding="utf-8"))
+    items = data.get("items", data) if isinstance(data, dict) else data
+
+    cat_colors = {"금융경제": "#1e40af", "산업기술": "#d97706", "사회복지": "#047857",
+                  "외교안보": "#7c3aed", "행정법제": "#6b7280"}
+
+    kws = Counter()
+    cats = Counter()
+    top_items = []
+    for it in items:
+        for k in it.get("keywords", []):
+            kws[k] += 1
+        cat = it.get("category", "기타")
+        cats[cat] += 1
+        if it.get("impact") == "상":
+            slug = it.get("slug") or "000"
+            top_items.append({
+                "title": it.get("title", "")[:60],
+                "source": it.get("source", ""),
+                "category": cat,
+                "link": f"/articles/{target_date}/{slug}/",
+            })
+
+    home_data = {
+        "date": target_date,
+        "total": len(items),
+        "keywords": [{"name": k, "count": c, "color": cat_colors.get(
+            next((cat for it2 in items if k in it2.get("keywords", []) for cat in [it2.get("category", "")]), ""), "#d97706"
+        )} for k, c in kws.most_common(8)],
+        "categories": [{"name": c, "count": n, "pct": round(n / len(items) * 100), "color": cat_colors.get(c, "#6b7280")} for c, n in cats.most_common()],
+        "top_items": top_items[:5],
+    }
+
+    out = DATA_DIR / "home-panel.json"
+    out.write_text(json.dumps(home_data, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"[home_gen] home-panel.json 생성 — {target_date}, {len(items)}건, 키워드 {len(kws)}개")
+
+
 def main():
     generate_home()
+    generate_home_panel_json()
 
 
 if __name__ == "__main__":
