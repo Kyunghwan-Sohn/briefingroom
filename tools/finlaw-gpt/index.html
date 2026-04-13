@@ -506,7 +506,7 @@ function renderFollowups(botDiv, query) {
 }
 
 const SYSTEM_PROMPT = '당신은 한국 금융법령 전문 AI 어시스턴트입니다.\n\n' +
-'역할: 금융법령 139건, 조문 3,893건, 판례 526건, 해석례 193건 데이터베이스를 기반으로 질문에 정확하고 체계적으로 답변합니다.\n' +
+'역할: 금융/부동산 법령 154건, 조문 5,046건, 판례 779건, 해석례 193건, 비조치의견서 3,151건 데이터베이스를 기반으로 질문에 정확하고 체계적으로 답변합니다.\n' +
 '반드시 제공된 컨텍스트(검색 결과)를 근거로 답변하세요. 컨텍스트에 없는 내용은 절대 추측하지 마세요.\n\n' +
 '답변 구조 (아래 순서를 지키세요):\n' +
 '### 핵심 답변\n질문의 핵심을 2~3문장으로 먼저 명확히 답하세요.\n' +
@@ -569,12 +569,30 @@ async function sendMessage() {
 
   chatHistory.push({role:'user', text:q});
 
-  // 약칭 확장 + 검색
+  // 1단계: 약칭 확장 + Supabase 검색 -> 즉시 표시
   showLoading('search');
   var expanded = expandQuery(q);
   var ctx = await searchSupabase(expanded);
   lastSearchCtx = ctx;
   var contextText = buildContext(ctx);
+  hideLoading();
+
+  // 검색 결과 즉시 표시 (카드)
+  var totalFound = (ctx.laws?.length||0) + (ctx.articles?.length||0) + (ctx.precedents?.length||0) + (ctx.interpretations?.length||0);
+  if (totalFound > 0) {
+    var searchDiv = document.createElement('div');
+    searchDiv.className = 'msg bot';
+    var searchText = '관련 자료 ' + totalFound + '건을 찾았습니다.';
+    if (ctx.laws?.length) searchText += ' 법령 ' + ctx.laws.length + '건';
+    if (ctx.articles?.length) searchText += ', 조문 ' + ctx.articles.length + '건';
+    if (ctx.precedents?.length) searchText += ', 판례 ' + ctx.precedents.length + '건';
+    renderBotContent(searchDiv, searchText);
+    renderSourceCards(searchDiv, ctx);
+    messagesEl.appendChild(searchDiv);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  // 2단계: LLM 종합 분석 시작
   showLoading('ai');
 
   // 대화 맥락 구성

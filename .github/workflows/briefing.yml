@@ -100,7 +100,7 @@ jobs:
         run: |
           git config user.name "briefing-bot"
           git config user.email "bot@briefingroom.kr"
-          git add briefing.py briefingroom/ data/ feed/ articles/ finlaw/ index.html sitemap.xml .github/workflows/ tools/ policy/ brief/ keywords/
+          git add briefing.py briefingroom/ data/ feed/ articles/ finlaw/ index.html sitemap.xml .github/workflows/ tools/ policy/ brief/ keywords/ regulation/
           git diff --staged --quiet || git commit -m "briefing $(date +%Y-%m-%d) $(date +%H:%M)"
           git stash --include-untracked
           git pull --rebase origin main
