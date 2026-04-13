@@ -192,6 +192,15 @@ def build_reference_index():
     # 기존 데이터 삭제 (재구축)
     conn.execute("DELETE FROM law_references")
 
+    # laws 테이블 존재 여부 확인
+    table_check = conn.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='laws'"
+    ).fetchone()
+    if not table_check:
+        print("[law_references] laws 테이블 없음 → 스킵")
+        conn.close()
+        return
+
     # 모든 법령명 → law_id 매핑
     all_laws = {
         r["name"]: r["law_id"]

@@ -132,21 +132,20 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
 .signal-ind{font-size:11px;color:var(--t3);width:80px;flex-shrink:0;text-align:right}
 .signal-cnt{font-family:var(--mono);font-size:12px;color:var(--t3);width:40px;text-align:right;flex-shrink:0}
 
-/* ====== 3. 금융/부동산 규제 ====== */
-.feed-row{display:flex;align-items:flex-start;gap:10px;padding:12px 22px;border-top:1px solid var(--bl)}
-.feed-row:last-child{border-bottom:none}
-.feed-type{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;margin-top:2px;color:#fff}
-.feed-type.amend{background:#1e40af}
-.feed-type.new{background:#047857}
-.feed-type.repeal{background:#dc2626}
-.feed-type.notice{background:#6b7280}
-.feed-main{flex:1;min-width:0}
-.feed-name{font-size:14px;font-weight:600;line-height:1.4;margin-bottom:2px}
-.feed-sub{font-size:12px;color:var(--t3);line-height:1.4}
-.feed-meta{font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0;text-align:right;margin-top:2px}
-.feed-impact{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:2px}
-.feed-impact.high{background:#fee2e2;color:#dc2626}
-.feed-impact.mid{background:#fef3c7;color:#d97706}
+/* ====== 3. 금융/부동산 규제 2x2 ====== */
+.reg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px 16px}
+.reg-card{background:var(--s2);border:1px solid var(--bl);border-radius:10px;padding:22px;text-decoration:none;color:var(--t);display:flex;flex-direction:column;transition:border-color .15s}
+.reg-card:hover{border-color:var(--a)}
+.reg-card-title{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:6px}
+.reg-card-num{font-family:var(--mono);font-size:16px;font-weight:700;margin-bottom:10px}
+.reg-card-recent{font-size:15px;color:var(--t2);line-height:1.6;flex:1}
+.reg-card-arrow{font-size:16px;color:var(--a);font-weight:700;margin-top:12px;text-align:right}
+.is-mobile .reg-grid{grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 12px}
+.is-mobile .reg-card{padding:14px}
+.is-mobile .reg-card-title{font-size:16px;margin-bottom:4px}
+.is-mobile .reg-card-num{font-size:12px;margin-bottom:6px}
+.is-mobile .reg-card-recent{font-size:11px;line-height:1.5}
+.is-mobile .reg-card-arrow{font-size:12px;margin-top:8px}
 
 /* Footer */
 .footer{max-width:1240px;margin:20px auto 0;padding:24px 16px 32px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
@@ -406,122 +405,41 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
     </div>
   </section>
 
-  <!-- ③ 금융/부동산 규제 이슈 맵 -->
+  <!-- ③ 금융/부동산 규제 2x2 -->
   <section class="panel">
     <div class="panel-hdr">
-      <h2 class="panel-title">금융/부동산 규제 <span class="num">HOT ISSUE</span></h2>
+      <h2 class="panel-title">금융/부동산 규제</h2>
       <a class="panel-more" href="/regulation/">전체 &#8594;</a>
     </div>
 
-    <!-- 이슈 헤더 -->
-    <div style="background:linear-gradient(135deg,#1e293b,#334155);padding:16px 22px;color:#fff">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-family:var(--mono);font-size:9px;font-weight:700;color:#fff;background:var(--a);padding:2px 8px;border-radius:3px">ISSUE MAP</span>
-        <span style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.5)">2026.04.11 금융위원회 보도자료</span>
-      </div>
-      <div style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:4px">가계대출 총량 규제 강화</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.5">하나의 규제가 금융권 전체와 부동산 시장에 어떻게 연쇄 영향을 미치는지 보여드립니다</div>
+        <div class="reg-grid">
+      <a class="reg-card" href="/regulation/finlaw/" style="border-left:3px solid #1e40af">
+        <div class="reg-card-title" style="color:#1e40af">금융 규제 트래커</div>
+        <div class="reg-card-num" style="color:#1e40af">140건 추적 / 판례 779건</div>
+        <div class="reg-card-recent">최근: 자본시장법 제11조 자기자본 상향<br>비조치의견서 3,151건 검색 가능</div>
+        <div class="reg-card-arrow">상세 &#8594;</div>
+      </a>
+      <a class="reg-card" href="/regulation/realestate/" style="border-left:3px solid #92400e">
+        <div class="reg-card-title" style="color:#92400e">부동산 규제 트래커</div>
+        <div class="reg-card-num" style="color:#92400e">38건 추적 / 판례 253건</div>
+        <div class="reg-card-recent">최근: 소득세법 양도세 중과 유예 연장<br>주택법, 종부세법, 임대차보호법 등</div>
+        <div class="reg-card-arrow">상세 &#8594;</div>
+      </a>
+      <a class="reg-card" href="/regulation/cross/" style="border-left:3px solid #7c3aed">
+        <div class="reg-card-title" style="color:#7c3aed">금융/부동산 교차 영향</div>
+        <div class="reg-card-num" style="color:#7c3aed">24건 교차 법령</div>
+        <div class="reg-card-recent">은행법(LTV/DSR) + 주택법 + 소득세법<br>하나의 규제가 양쪽에 연쇄 영향</div>
+        <div class="reg-card-arrow">상세 &#8594;</div>
+      </a>
+      <a class="reg-card" href="/regulation/finlaw-gpt/" style="border-left:3px solid var(--a)">
+        <div class="reg-card-title" style="color:var(--a)">FinLaw GPT</div>
+        <div class="reg-card-num" style="color:var(--a)">AI 법령 질의응답</div>
+        <div class="reg-card-recent">154건 법령, 5,046건 조문 기반<br>비조치의견서 3,151건 통합 검색</div>
+        <div class="reg-card-arrow">질문하기 &#8594;</div>
+      </a>
     </div>
-
-    <!-- SVG 도식 -->
-    <div style="padding:16px 12px 8px;overflow-x:auto">
-      <svg viewBox="0 0 680 350" style="width:100%;min-width:500px;height:auto;display:block">
-        <!-- 규제 근거 -->
-        <rect x="200" y="8" width="280" height="38" rx="8" fill="#1e293b"/>
-        <text x="340" y="23" text-anchor="middle" fill="rgba(255,255,255,.6)" font-size="8" font-family="var(--mono)">규제 근거</text>
-        <text x="340" y="37" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="var(--serif)">은행업감독규정 / 스트레스 DSR 2단계</text>
-
-        <!-- 연결선: 근거 -> 3개 금융기관 -->
-        <line x1="340" y1="46" x2="340" y2="58" stroke="#94a3b8" stroke-width="1.5"/>
-        <line x1="120" y1="58" x2="560" y2="58" stroke="#94a3b8" stroke-width="1.5"/>
-        <line x1="120" y1="58" x2="120" y2="68" stroke="#94a3b8" stroke-width="1.5"/>
-        <line x1="340" y1="58" x2="340" y2="68" stroke="#94a3b8" stroke-width="1.5"/>
-        <line x1="560" y1="58" x2="560" y2="68" stroke="#94a3b8" stroke-width="1.5"/>
-
-        <!-- 은행 -->
-        <rect x="40" y="68" width="160" height="70" rx="7" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-        <text x="120" y="84" text-anchor="middle" fill="#1e40af" font-size="9" font-weight="700" font-family="var(--mono)">은행</text>
-        <text x="120" y="98" text-anchor="middle" fill="#1e40af" font-size="12" font-weight="700" font-family="var(--serif)">은행법 제35조</text>
-        <text x="120" y="112" text-anchor="middle" fill="#555" font-size="9">LTV 50~70% / DSR 40%</text>
-        <text x="120" y="126" text-anchor="middle" fill="#888" font-size="8" font-family="var(--mono)">동일차주 신용공여</text>
-
-        <!-- 저축은행 -->
-        <rect x="260" y="68" width="160" height="70" rx="7" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-        <text x="340" y="84" text-anchor="middle" fill="#1e40af" font-size="9" font-weight="700" font-family="var(--mono)">저축은행</text>
-        <text x="340" y="98" text-anchor="middle" fill="#1e40af" font-size="12" font-weight="700" font-family="var(--serif)">상호저축은행법 제11조</text>
-        <text x="340" y="112" text-anchor="middle" fill="#555" font-size="9">LTV 50~60% / DSR 40%</text>
-        <text x="340" y="126" text-anchor="middle" fill="#888" font-size="8" font-family="var(--mono)">자산운용 제한</text>
-
-        <!-- 여전사 -->
-        <rect x="480" y="68" width="160" height="70" rx="7" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-        <text x="560" y="84" text-anchor="middle" fill="#1e40af" font-size="9" font-weight="700" font-family="var(--mono)">여신전문</text>
-        <text x="560" y="98" text-anchor="middle" fill="#1e40af" font-size="12" font-weight="700" font-family="var(--serif)">여신전문금융업법 제46조</text>
-        <text x="560" y="112" text-anchor="middle" fill="#555" font-size="9">DSR 40% (2단계 확대)</text>
-        <text x="560" y="126" text-anchor="middle" fill="#888" font-size="8" font-family="var(--mono)">건전성 기준</text>
-
-        <!-- 연쇄 영향 라벨 -->
-        <line x1="340" y1="138" x2="340" y2="158" stroke="#d96c2c" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <rect x="270" y="156" width="140" height="18" rx="4" fill="var(--al)" stroke="#d96c2c" stroke-width=".5"/>
-        <text x="340" y="169" text-anchor="middle" fill="#d96c2c" font-size="9" font-weight="700" font-family="var(--mono)">연쇄 영향 법령</text>
-
-        <!-- 연결선: 라벨 -> 4개 부동산 -->
-        <line x1="340" y1="174" x2="340" y2="184" stroke="#d96c2c" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="90" y1="184" x2="590" y2="184" stroke="#d96c2c" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="90" y1="184" x2="90" y2="194" stroke="#d96c2c" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="255" y1="184" x2="255" y2="194" stroke="#d96c2c" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="425" y1="184" x2="425" y2="194" stroke="#d96c2c" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="590" y1="184" x2="590" y2="194" stroke="#d96c2c" stroke-width="1" stroke-dasharray="4,3"/>
-
-        <!-- 주택법 -->
-        <rect x="20" y="194" width="140" height="56" rx="7" fill="#fffbeb" stroke="#fde68a" stroke-width="1"/>
-        <text x="90" y="210" text-anchor="middle" fill="#92400e" font-size="11" font-weight="700" font-family="var(--serif)">주택법</text>
-        <text x="90" y="224" text-anchor="middle" fill="#555" font-size="8.5">분양가상한제 / 전매제한</text>
-        <text x="90" y="238" text-anchor="middle" fill="#888" font-size="8" font-family="var(--mono)">제57조, 제64조</text>
-
-        <!-- 소득세법 -->
-        <rect x="185" y="194" width="140" height="56" rx="7" fill="#fffbeb" stroke="#fde68a" stroke-width="1"/>
-        <text x="255" y="210" text-anchor="middle" fill="#92400e" font-size="11" font-weight="700" font-family="var(--serif)">소득세법</text>
-        <text x="255" y="224" text-anchor="middle" fill="#555" font-size="8.5">양도세 중과 유예 종료</text>
-        <text x="255" y="238" text-anchor="middle" fill="#888" font-size="8" font-family="var(--mono)">제104조, 제104조의3</text>
-
-        <!-- 종부세법 -->
-        <rect x="355" y="194" width="140" height="56" rx="7" fill="#fffbeb" stroke="#fde68a" stroke-width="1"/>
-        <text x="425" y="210" text-anchor="middle" fill="#92400e" font-size="11" font-weight="700" font-family="var(--serif)">종합부동산세법</text>
-        <text x="425" y="224" text-anchor="middle" fill="#555" font-size="8.5">보유세 부담 + 대출 이중</text>
-        <text x="425" y="238" text-anchor="middle" fill="#888" font-size="8" font-family="var(--mono)">제7조, 제9조</text>
-
-        <!-- 주택금융공사법 -->
-        <rect x="520" y="194" width="140" height="56" rx="7" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1"/>
-        <text x="590" y="210" text-anchor="middle" fill="#7c3aed" font-size="10" font-weight="700" font-family="var(--serif)">한국주택금융공사법</text>
-        <text x="590" y="224" text-anchor="middle" fill="#555" font-size="8.5">보금자리론 한도 연동</text>
-        <text x="590" y="238" text-anchor="middle" fill="#888" font-size="8" font-family="var(--mono)">제28조, 제56조</text>
-
-        <!-- 실생활 영향: 4개 박스 하단(y=250)에서 합류 -->
-        <line x1="90" y1="250" x2="90" y2="258" stroke="#dc2626" stroke-width="1" stroke-dasharray="3,3"/>
-        <line x1="255" y1="250" x2="255" y2="258" stroke="#dc2626" stroke-width="1" stroke-dasharray="3,3"/>
-        <line x1="425" y1="250" x2="425" y2="258" stroke="#dc2626" stroke-width="1" stroke-dasharray="3,3"/>
-        <line x1="590" y1="250" x2="590" y2="258" stroke="#dc2626" stroke-width="1" stroke-dasharray="3,3"/>
-        <line x1="90" y1="258" x2="590" y2="258" stroke="#dc2626" stroke-width="1" stroke-dasharray="3,3"/>
-        <line x1="340" y1="258" x2="340" y2="270" stroke="#dc2626" stroke-width="1" stroke-dasharray="3,3"/>
-        <rect x="100" y="270" width="480" height="36" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
-        <text x="340" y="284" text-anchor="middle" fill="#dc2626" font-size="10" font-weight="700" font-family="var(--serif)">실생활 영향</text>
-        <text x="340" y="298" text-anchor="middle" fill="#555" font-size="9">대출 가능 금액 축소 / 다주택자 보유 비용 증가 / 전세 한도 조정 / 청약 자금 재검토</text>
-
-        <!-- 범례 (가운데 정렬) -->
-        <rect x="130" y="320" width="10" height="10" rx="2" fill="#1e40af"/>
-        <text x="145" y="329" fill="#888" font-size="9">금융 규제</text>
-        <rect x="220" y="320" width="10" height="10" rx="2" fill="#92400e"/>
-        <text x="235" y="329" fill="#888" font-size="9">부동산 규제</text>
-        <rect x="320" y="320" width="10" height="10" rx="2" fill="#7c3aed"/>
-        <text x="335" y="329" fill="#888" font-size="9">교차 영역</text>
-        <line x1="405" y1="325" x2="425" y2="325" stroke="#d96c2c" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <text x="430" y="329" fill="#888" font-size="9">연쇄 영향</text>
-      </svg>
-    </div>
-
-    <div style="font-family:var(--mono);font-size:10px;color:var(--t3);text-align:center;padding:4px 22px 8px">실제 법령 조문 기반 (5,046개 조문 / 145개 참조 관계 분석)</div>
-    <div style="padding:0 22px 16px;text-align:center">
-      <a href="/regulation/" style="display:inline-block;padding:10px 24px;background:var(--al);border:1px solid var(--a);border-radius:8px;font-size:13px;font-weight:700;color:var(--a);text-decoration:none">금융 규제 / 부동산 규제 / 복합 규제 전체 보기 &#8594;</a>
+    <div style="text-align:center;padding:0 20px 16px">
+      <a href="/regulation/" style="font-size:13px;color:var(--a);text-decoration:none;font-weight:700">금융/부동산 규제 전체 보기 &#8594;</a>
     </div>
   </section>
 

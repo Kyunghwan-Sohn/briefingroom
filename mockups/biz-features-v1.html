@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사업화 3대 기능 시안</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.06);
+  --bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;
+  --t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;
+  --fin:#1e40af;--fin-bg:#eff6ff;--fin-border:#bfdbfe;
+  --re:#92400e;--re-bg:#fffbeb;--re-border:#fde68a;
+  --cross:#7c3aed;--cross-bg:#f5f3ff;
+  --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:20px;font-size:15px;line-height:1.6}
+
+h1{font-family:var(--serif);font-size:28px;text-align:center;margin-bottom:8px}
+.page-sub{text-align:center;font-size:14px;color:var(--t3);margin-bottom:32px}
+
+.feature{margin-bottom:40px}
+.feature-label{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--a);letter-spacing:.1em;margin-bottom:8px}
+.feature-title{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:6px}
+.feature-desc{font-size:13px;color:var(--t3);margin-bottom:16px}
+
+.panel{background:var(--s);border:1px solid var(--b);border-radius:12px;overflow:hidden}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px}
+.panel-title{font-family:var(--serif);font-size:17px;font-weight:700}
+.panel-title .num{font-family:var(--mono);font-size:12px;color:var(--t3);font-weight:400;margin-left:6px}
+.panel-more{font-size:12px;color:var(--t3);text-decoration:none;font-weight:600}
+
+/* 비조치의견서 */
+.opinion-search{padding:0 20px 14px}
+.opinion-search input{width:100%;padding:10px 14px 10px 36px;font-size:13px;border:1px solid var(--b);border-radius:8px;background:var(--s2);outline:none;font-family:var(--sans)}
+.opinion-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:14px}
+.opinion-tabs{display:flex;gap:4px;padding:0 20px 12px;overflow-x:auto}
+.opinion-tabs::-webkit-scrollbar{display:none}
+.opinion-tab{font-size:11px;font-weight:600;padding:5px 12px;border-radius:14px;border:1px solid var(--bl);background:var(--s);color:var(--t3);cursor:pointer;white-space:nowrap}
+.opinion-tab.on{background:var(--fin);color:#fff;border-color:var(--fin)}
+.opinion-item{display:flex;align-items:flex-start;gap:10px;padding:12px 20px;border-top:1px dashed var(--bl);text-decoration:none;color:var(--t)}
+.opinion-item:hover{background:var(--al)}
+.opinion-cat{font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 6px;border-radius:3px;background:var(--fin-bg);color:var(--fin);flex-shrink:0;margin-top:2px;white-space:nowrap}
+.opinion-body{flex:1;min-width:0}
+.opinion-title{font-size:13px;font-weight:600;line-height:1.4;margin-bottom:2px}
+.opinion-meta{font-size:11px;color:var(--t3)}
+.opinion-link{font-size:11px;color:var(--fin);text-decoration:none;font-weight:600;flex-shrink:0}
+
+/* FinLaw GPT 비조치의견서 카드 */
+.gpt-demo{padding:20px}
+.gpt-user{background:var(--al);border-radius:12px 12px 4px 12px;padding:12px 16px;font-size:13px;margin-bottom:12px;max-width:80%}
+.gpt-search-result{background:var(--s2);border:1px solid var(--bl);border-radius:8px;padding:14px;margin-bottom:12px}
+.gpt-search-label{font-family:var(--mono);font-size:10px;color:var(--t3);margin-bottom:8px}
+.gpt-cards{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.gpt-card{font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;text-decoration:none}
+.gpt-card.law{background:var(--fin-bg);color:var(--fin);border:1px solid var(--fin-border)}
+.gpt-card.prec{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.gpt-card.opinion{background:#fdf4ff;color:#86198f;border:1px solid #f0abfc}
+.gpt-ai{background:var(--s2);border:1px solid var(--bl);border-radius:4px 12px 12px 12px;padding:14px 16px;font-size:13px;color:var(--t2);line-height:1.7}
+.gpt-ai b{color:var(--t);font-weight:700}
+
+/* LawDiff 알림 */
+.alert-box{background:linear-gradient(135deg,var(--fin),#3b82f6);border-radius:12px;padding:24px;color:#fff}
+.alert-title{font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:6px}
+.alert-desc{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:16px;line-height:1.5}
+.alert-form{display:flex;gap:8px}
+.alert-form input{flex:1;padding:10px 14px;border:none;border-radius:8px;font-size:13px;outline:none;font-family:var(--sans)}
+.alert-form input::placeholder{color:var(--m)}
+.alert-form button{padding:10px 20px;background:#fff;color:var(--fin);border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.alert-tags{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.alert-tag{font-size:11px;padding:4px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.9);cursor:pointer}
+.alert-tag.on{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.6)}
+
+.alert-preview{margin-top:16px;background:var(--s);border-radius:8px;padding:16px;color:var(--t)}
+.alert-preview-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.alert-preview-badge{font-family:var(--mono);font-size:9px;font-weight:700;color:#fff;background:#dc2626;padding:2px 6px;border-radius:3px}
+.alert-preview-title{font-size:14px;font-weight:700}
+.alert-diff{font-size:12px;line-height:1.6}
+.alert-diff .old{background:#fee2e2;text-decoration:line-through;padding:1px 4px;border-radius:2px;color:#dc2626}
+.alert-diff .new{background:#dcfce7;padding:1px 4px;border-radius:2px;color:#166534}
+
+/* 이슈맵 카드 */
+.issue-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px}
+.issue-card{background:var(--s);border:1px solid var(--b);border-radius:10px;overflow:hidden;text-decoration:none;color:var(--t);transition:border-color .15s}
+.issue-card:hover{border-color:var(--a)}
+.issue-card-header{padding:12px 14px;color:#fff;font-size:13px;font-weight:700;font-family:var(--serif)}
+.issue-card-body{padding:12px 14px}
+.issue-card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.issue-card-tag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px}
+.issue-card-tag.fin{background:var(--fin-bg);color:var(--fin)}
+.issue-card-tag.re{background:var(--re-bg);color:var(--re)}
+.issue-card-tag.cross{background:var(--cross-bg);color:var(--cross)}
+.issue-card-impact{font-size:11px;color:var(--t3);line-height:1.5}
+.issue-card-footer{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;border-top:1px solid var(--bl);font-size:10px;color:var(--t3)}
+.issue-card-share{display:flex;gap:6px}
+.issue-card-share a{font-size:10px;color:var(--fin);text-decoration:none;font-weight:600;padding:2px 8px;border:1px solid var(--fin-border);border-radius:4px}
+
+@media(max-width:768px){
+  body{padding:10px}
+  .issue-grid{grid-template-columns:1fr}
+  .alert-form{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<h1>사업화 3대 기능 시안</h1>
+<p class="page-sub">비조치의견서 전면 노출 / LawDiff 알림 베타 / 이슈맵 확장</p>
+
+<!-- ====== 1. 비조치의견서 전면 노출 ====== -->
+<div class="feature">
+  <div class="feature-label">FEATURE 1</div>
+  <div class="feature-title">비조치의견서 전면 노출</div>
+  <div class="feature-desc">regulation 금융 규제 탭 + FinLaw GPT 검색 결과에 비조치의견서 3,151건 통합</div>
+
+  <!-- regulation 페이지 내 비조치의견서 섹션 -->
+  <div class="panel" style="margin-bottom:16px">
+    <div class="panel-hdr">
+      <div class="panel-title">비조치의견서 <span class="num">3,151건</span></div>
+      <a class="panel-more" href="#">전체 &#8594;</a>
+    </div>
+    <div class="opinion-search" style="position:relative">
+      <span class="opinion-search-icon" style="position:absolute;z-index:1">&#x2315;</span>
+      <input placeholder="비조치의견서 제목, 키워드 검색..." />
+    </div>
+    <div class="opinion-tabs">
+      <span class="opinion-tab on">전체 3,151</span>
+      <span class="opinion-tab">공통 1,204</span>
+      <span class="opinion-tab">보험 258</span>
+      <span class="opinion-tab">전자금융 253</span>
+      <span class="opinion-tab">자본시장 133</span>
+      <span class="opinion-tab">은행 92</span>
+      <span class="opinion-tab">여신전문 75</span>
+    </div>
+    <a class="opinion-item" href="#">
+      <span class="opinion-cat">여신전문</span>
+      <div class="opinion-body">
+        <div class="opinion-title">여전법상 신용카드사의 부수업무로 "전자고지결제업" 영위 가능 여부</div>
+        <div class="opinion-meta">150001 / 완료</div>
+      </div>
+      <span class="opinion-link">원문 &#8594;</span>
+    </a>
+    <a class="opinion-item" href="#">
+      <span class="opinion-cat">자본시장</span>
+      <div class="opinion-body">
+        <div class="opinion-title">비계열사와의 복합점포 운영관련 비조치의견서 요청</div>
+        <div class="opinion-meta">150002 / 완료</div>
+      </div>
+      <span class="opinion-link">원문 &#8594;</span>
+    </a>
+    <a class="opinion-item" href="#">
+      <span class="opinion-cat">여신전문</span>
+      <div class="opinion-body">
+        <div class="opinion-title">여신전문금융업법상 은행이 신용카드 가맹점모집인이 되어 업무를 처리할 수 있는지 여부</div>
+        <div class="opinion-meta">150003 / 완료</div>
+      </div>
+      <span class="opinion-link">원문 &#8594;</span>
+    </a>
+    <a class="opinion-item" href="#">
+      <span class="opinion-cat">보험</span>
+      <div class="opinion-body">
+        <div class="opinion-title">보험회사의 퇴직연금 실적배당형 운용 관련 비조치의견서</div>
+        <div class="opinion-meta">150015 / 완료</div>
+      </div>
+      <span class="opinion-link">원문 &#8594;</span>
+    </a>
+  </div>
+
+  <!-- FinLaw GPT에서 비조치의견서 노출 -->
+  <div class="panel">
+    <div class="panel-hdr">
+      <div class="panel-title">FinLaw GPT에서의 노출</div>
+    </div>
+    <div class="gpt-demo">
+      <div class="gpt-user">신용카드사가 전자고지결제업을 할 수 있나요?</div>
+
+      <div class="gpt-search-result">
+        <div class="gpt-search-label">관련 자료 8건을 찾았습니다</div>
+        <div class="gpt-cards">
+          <a class="gpt-card law" href="#">여신전문금융업법</a>
+          <a class="gpt-card law" href="#">제46조 건전성 기준</a>
+          <a class="gpt-card prec" href="#">대법원 2024다12345</a>
+          <a class="gpt-card opinion" href="#">비조치의견서 150001</a>
+          <a class="gpt-card opinion" href="#">비조치의견서 150003</a>
+          <a class="gpt-card opinion" href="#">비조치의견서 150078</a>
+        </div>
+        <div style="font-size:11px;color:var(--t3)">법령 2건 / 판례 1건 / <b style="color:#86198f">비조치의견서 3건</b></div>
+      </div>
+
+      <div class="gpt-ai">
+        <b>핵심 답변</b><br>
+        신용카드사는 여신전문금융업법상 부수업무로 전자고지결제업을 영위할 수 있습니다.<br><br>
+        <b>비조치의견서 근거</b><br>
+        금융위원회 비조치의견서(150001)에서 "여전법 제46조의 부수업무 범위에 전자고지결제업이 포함된다"고 회신한 바 있습니다. 다만, 별도 등록 없이 영위 가능한 것은 아니며...
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 2. LawDiff 알림 베타 ====== -->
+<div class="feature">
+  <div class="feature-label">FEATURE 2</div>
+  <div class="feature-title">LawDiff 알림 베타</div>
+  <div class="feature-desc">관심 법령 개정 시 변경 전후 비교(diff)를 이메일로 자동 발송</div>
+
+  <div class="alert-box">
+    <div class="alert-title">법령 개정 알림 받기</div>
+    <div class="alert-desc">관심 법령이 개정되면 변경 전후 비교(LawDiff)를 이메일로 보내드립니다. 무료 베타 운영 중.</div>
+    <div class="alert-form">
+      <input placeholder="이메일 주소 입력" type="email" />
+      <button>알림 신청</button>
+    </div>
+    <div class="alert-tags">
+      <span class="alert-tag on">은행법</span>
+      <span class="alert-tag on">자본시장법</span>
+      <span class="alert-tag">보험업법</span>
+      <span class="alert-tag on">주택법</span>
+      <span class="alert-tag">소득세법</span>
+      <span class="alert-tag">여신전문금융업법</span>
+      <span class="alert-tag">가상자산법</span>
+      <span class="alert-tag">종합부동산세법</span>
+    </div>
+
+    <div class="alert-preview">
+      <div class="alert-preview-hdr">
+        <span class="alert-preview-badge">DIFF</span>
+        <span class="alert-preview-title">은행법 제35조 개정 알림 예시</span>
+      </div>
+      <div class="alert-diff">
+        <div style="margin-bottom:6px"><b>제35조(동일차주에 대한 신용공여의 한도)</b></div>
+        <div>은행은 동일한 개인이나 법인에 대하여 자기자본의 <span class="old">100분의 20</span> <span class="new">100분의 25</span>을 초과하는 신용공여를 할 수 없다.</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--t3)">2026.04.10 일부개정 / 금융위원회</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 3. 이슈맵 확장 + permalink ====== -->
+<div class="feature">
+  <div class="feature-label">FEATURE 3</div>
+  <div class="feature-title">이슈맵 5개 확장 + 공유</div>
+  <div class="feature-desc">금융/부동산 교차 규제 이슈를 시각화. 각 이슈맵에 고유 URL + 공유 기능</div>
+
+  <div class="issue-grid">
+    <a class="issue-card" href="/regulation/issue/loan-total/">
+      <div class="issue-card-header" style="background:linear-gradient(135deg,#1e293b,#334155)">가계대출 총량 규제 강화</div>
+      <div class="issue-card-body">
+        <div class="issue-card-tags">
+          <span class="issue-card-tag fin">은행법</span>
+          <span class="issue-card-tag fin">저축은행법</span>
+          <span class="issue-card-tag fin">여전법</span>
+          <span class="issue-card-tag re">주택법</span>
+          <span class="issue-card-tag re">소득세법</span>
+        </div>
+        <div class="issue-card-impact">DSR 전 금융권 확대 -> 대출 한도 축소 + 부동산 세금 이중 부담</div>
+      </div>
+      <div class="issue-card-footer">
+        <span>2026.04.11 금융위원회</span>
+        <div class="issue-card-share">
+          <a href="#">URL 복사</a>
+          <a href="#">공유</a>
+        </div>
+      </div>
+    </a>
+
+    <a class="issue-card" href="/regulation/issue/jeonse-fraud/">
+      <div class="issue-card-header" style="background:linear-gradient(135deg,#92400e,#b45309)">전세사기 방지 종합대책</div>
+      <div class="issue-card-body">
+        <div class="issue-card-tags">
+          <span class="issue-card-tag re">임대차보호법</span>
+          <span class="issue-card-tag re">전세사기특별법</span>
+          <span class="issue-card-tag cross">주택금융공사법</span>
+          <span class="issue-card-tag fin">은행법</span>
+        </div>
+        <div class="issue-card-impact">전세보증 의무화 + 임대인 신용조회 + 중개사 확인의무 강화</div>
+      </div>
+      <div class="issue-card-footer">
+        <span>2026.03.28 국토부/법무부</span>
+        <div class="issue-card-share">
+          <a href="#">URL 복사</a>
+          <a href="#">공유</a>
+        </div>
+      </div>
+    </a>
+
+    <a class="issue-card" href="/regulation/issue/crypto/">
+      <div class="issue-card-header" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">가상자산 규제 체계</div>
+      <div class="issue-card-body">
+        <div class="issue-card-tags">
+          <span class="issue-card-tag fin">가상자산법</span>
+          <span class="issue-card-tag fin">특금법</span>
+          <span class="issue-card-tag fin">전자금융거래법</span>
+          <span class="issue-card-tag fin">자본시장법</span>
+        </div>
+        <div class="issue-card-impact">스테이블코인 등록제 + 이용자 자산 분리 보관 + 불공정거래 금지</div>
+      </div>
+      <div class="issue-card-footer">
+        <span>2026.04.11 금융위원회</span>
+        <div class="issue-card-share">
+          <a href="#">URL 복사</a>
+          <a href="#">공유</a>
+        </div>
+      </div>
+    </a>
+
+    <a class="issue-card" href="/regulation/issue/pf-risk/">
+      <div class="issue-card-header" style="background:linear-gradient(135deg,#dc2626,#b91c1c)">부동산 PF 리스크 관리</div>
+      <div class="issue-card-body">
+        <div class="issue-card-tags">
+          <span class="issue-card-tag fin">은행법</span>
+          <span class="issue-card-tag fin">저축은행법</span>
+          <span class="issue-card-tag re">건축법</span>
+          <span class="issue-card-tag re">주택법</span>
+        </div>
+        <div class="issue-card-impact">PF 대출 건전성 강화 + 사업장 평가 기준 변경 + 브릿지론 관리</div>
+      </div>
+      <div class="issue-card-footer">
+        <span>2026.03.15 금감원</span>
+        <div class="issue-card-share">
+          <a href="#">URL 복사</a>
+          <a href="#">공유</a>
+        </div>
+      </div>
+    </a>
+
+    <a class="issue-card" href="/regulation/issue/capital-gains/" style="grid-column:1/-1">
+      <div class="issue-card-header" style="background:linear-gradient(135deg,#059669,#047857)">양도세 중과 유예 종료</div>
+      <div class="issue-card-body">
+        <div class="issue-card-tags">
+          <span class="issue-card-tag re">소득세법 제104조</span>
+          <span class="issue-card-tag re">종합부동산세법</span>
+          <span class="issue-card-tag re">지방세법</span>
+          <span class="issue-card-tag re">주택법</span>
+          <span class="issue-card-tag cross">한국주택금융공사법</span>
+        </div>
+        <div class="issue-card-impact">다주택자 양도세 중과 재적용 + 보유세 부담 증가 + 정책 모기지 조건 변경. 2025년 5월 유예 종료 이후 부동산 시장 전반에 영향.</div>
+      </div>
+      <div class="issue-card-footer">
+        <span>2026.04.11 기획재정부</span>
+        <div class="issue-card-share">
+          <a href="#">URL 복사</a>
+          <a href="#">공유</a>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>

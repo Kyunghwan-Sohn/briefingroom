@@ -267,352 +267,177 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
 <div class="shell">
   <main class="main">
 
-  <!-- 탭 바 -->
-  <div class="tab-bar">
-    <button class="tab on-all" onclick="switchTab('all')" id="tab-all">전체<span class="tab-count">178건</span></button>
-    <button class="tab" onclick="switchTab('fin')" id="tab-fin">금융 규제<span class="tab-count">140건</span></button>
-    <button class="tab" onclick="switchTab('re')" id="tab-re">부동산 규제<span class="tab-count">38건</span></button>
-    <button class="tab" onclick="switchTab('cross')" id="tab-cross">교차 영역<span class="tab-count">24건</span></button>
-  </div>
-
-  <!-- ===== 전체 탭 ===== -->
-  <div class="tab-content on" id="content-all">
-
-    <!-- 이슈맵 1: 대출 총량 규제 -->
-    <div class="panel" style="overflow:hidden">
-      <div style="background:linear-gradient(135deg,#1e293b,#334155);padding:14px 22px;color:#fff">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-          <span style="font-family:var(--mono);font-size:9px;font-weight:700;color:#fff;background:var(--a);padding:2px 8px;border-radius:3px">ISSUE MAP 1</span>
-          <span style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.5)">2026.04.11 금융위원회</span>
-        </div>
-        <div style="font-family:var(--serif);font-size:15px;font-weight:700">가계대출 총량 규제 강화 -- 전 금융권 DSR 확대</div>
-      </div>
-      <div style="padding:14px 16px 10px;font-size:12px;color:var(--t2);line-height:1.6">
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--fin-bg);color:var(--fin);border:1px solid var(--fin-border)">은행법 제35조</span>
-          <span style="font-size:11px;padding:2px 6px;color:var(--t3)">&#8594;</span>
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--fin-bg);color:var(--fin);border:1px solid var(--fin-border)">상호저축은행법 제11조</span>
-          <span style="font-size:11px;padding:2px 6px;color:var(--t3)">&#8594;</span>
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--fin-bg);color:var(--fin);border:1px solid var(--fin-border)">여신전문금융업법 제46조</span>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">
-          <span style="font-size:10px;color:var(--a);font-weight:700">연쇄 영향 &#8595;</span>
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--re-bg);color:var(--re);border:1px solid var(--re-border)">주택법 제57조</span>
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--re-bg);color:var(--re);border:1px solid var(--re-border)">소득세법 제104조</span>
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--re-bg);color:var(--re);border:1px solid var(--re-border)">종합부동산세법</span>
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--cross-bg);color:var(--cross);border:1px solid #ddd6fe">한국주택금융공사법</span>
-        </div>
-        <div style="font-size:11px;color:var(--t3)">대출 한도 축소 / 다주택자 보유비용 증가 / 전세 대출 조정 / 청약 자금 재검토</div>
-      </div>
-    </div>
-
-    <!-- 이슈맵 2: 전세사기 방지 -->
-    <div class="panel" style="overflow:hidden">
-      <div style="background:linear-gradient(135deg,#1e293b,#334155);padding:14px 22px;color:#fff">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-          <span style="font-family:var(--mono);font-size:9px;font-weight:700;color:#fff;background:var(--a);padding:2px 8px;border-radius:3px">ISSUE MAP 2</span>
-          <span style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.5)">2026.03.28 국토교통부 / 법무부</span>
-        </div>
-        <div style="font-family:var(--serif);font-size:15px;font-weight:700">전세사기 방지 종합대책 -- 보증/등기/대출 규제 연동</div>
-      </div>
-      <div style="padding:14px 16px 10px;font-size:12px;color:var(--t2);line-height:1.6">
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--re-bg);color:var(--re);border:1px solid var(--re-border)">주택임대차보호법 제3조의6</span>
-          <span style="font-size:11px;padding:2px 6px;color:var(--t3)">&#8594;</span>
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--re-bg);color:var(--re);border:1px solid var(--re-border)">전세사기피해자 지원 특별법</span>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">
-          <span style="font-size:10px;color:var(--a);font-weight:700">연쇄 영향 &#8595;</span>
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--cross-bg);color:var(--cross);border:1px solid #ddd6fe">한국주택금융공사법 (전세보증)</span>
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--fin-bg);color:var(--fin);border:1px solid var(--fin-border)">은행법 (전세대출 심사)</span>
-          <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--re-bg);color:var(--re);border:1px solid var(--re-border)">공인중개사법 (중개 책임)</span>
-        </div>
-        <div style="font-size:11px;color:var(--t3)">전세보증금 반환 보증 의무화 / 임대인 신용조회 강화 / 공인중개사 확인의무 강화</div>
-      </div>
-    </div>
-
-    <!-- 기존 3개 개괄 블록 -->
-    <div class="panel" style="border-left:3px solid var(--fin)">
+    <!-- FinLaw GPT CTA -->
+    <section class="panel" style="border-left:3px solid var(--a)">
       <div class="panel-hdr">
-        <div class="panel-title" style="color:var(--fin)">금융 규제 <span class="num">140건</span></div>
-        <a class="panel-more" href="javascript:switchTab('fin')">상세 보기 &#8594;</a>
+        <div class="panel-title" style="color:var(--a)">FinLaw GPT</div>
+        <a class="panel-more" href="/regulation/finlaw-gpt/">질문하기 &#8594;</a>
       </div>
-      <div class="hero-stats">
-        <div class="hero-stat" style="border-color:var(--fin-border);background:var(--fin-bg)"><div class="num" style="color:var(--fin)">140</div><div class="label" style="color:var(--fin)">추적 법령</div></div>
-        <div class="hero-stat" style="border-color:var(--fin-border);background:var(--fin-bg)"><div class="num" style="color:var(--fin)">526</div><div class="label" style="color:var(--fin)">관련 판례</div></div>
-        <div class="hero-stat" style="border-color:var(--fin-border);background:var(--fin-bg)"><div class="num" style="color:var(--fin)">3,151</div><div class="label" style="color:var(--fin)">비조치의견서</div></div>
+      <div style="padding:0 20px 18px">
+        <div style="font-size:15px;color:var(--t2);line-height:1.6;margin-bottom:14px">금융/부동산 법령 154건, 조문 5,046건, 판례 779건, 비조치의견서 3,151건을 기반으로 AI가 답변합니다.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+          <span style="font-size:12px;padding:5px 12px;border-radius:14px;border:1px solid var(--bl);color:var(--t3);cursor:pointer">가상자산법 주요 내용은?</span>
+          <span style="font-size:12px;padding:5px 12px;border-radius:14px;border:1px solid var(--bl);color:var(--t3);cursor:pointer">LTV 규제 현황 알려줘</span>
+          <span style="font-size:12px;padding:5px 12px;border-radius:14px;border:1px solid var(--bl);color:var(--t3);cursor:pointer">양도세 중과 유예 기간은?</span>
+        </div>
+        <a href="/regulation/finlaw-gpt/" style="display:inline-block;padding:12px 28px;background:var(--a);color:#fff;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none">AI에게 법령 질문하기 &#8594;</a>
       </div>
-      <div class="overview-copy">은행, 증권, 보험, 여신, 핀테크 법령의 개정과 입법예고를 추적합니다.</div>
-    </div>
-    <div class="panel" style="border-left:3px solid var(--re)">
+    </section>
+
+    <!-- 금융 규제 -->
+    <section class="panel" style="border-left:3px solid #1e40af">
       <div class="panel-hdr">
-        <div class="panel-title" style="color:var(--re)">부동산 규제 <span class="num">38건</span></div>
-        <a class="panel-more" href="javascript:switchTab('re')">상세 보기 &#8594;</a>
+        <div class="panel-title" style="color:#1e40af">금융 규제 <span class="num">140건</span></div>
+        <a class="panel-more" href="/regulation/finlaw/">상세 &#8594;</a>
       </div>
-      <div class="hero-stats">
-        <div class="hero-stat" style="border-color:var(--re-border);background:var(--re-bg)"><div class="num" style="color:var(--re)">38</div><div class="label" style="color:var(--re)">추적 법령</div></div>
-        <div class="hero-stat" style="border-color:var(--re-border);background:var(--re-bg)"><div class="num" style="color:var(--re)">7</div><div class="label" style="color:var(--re)">관련 부처</div></div>
-        <div class="hero-stat" style="border-color:var(--re-border);background:var(--re-bg)"><div class="num" style="color:var(--re)">24</div><div class="label" style="color:var(--re)">금융 연동</div></div>
-      </div>
-      <div class="overview-copy">주택, 토지, 건축, 세금, 재건축 관련 법령의 변경사항을 추적합니다.</div>
-    </div>
-    <div class="panel" style="border-left:3px solid var(--cross)">
-      <div class="panel-hdr">
-        <div class="panel-title" style="color:var(--cross)">교차 영역 <span class="num">24건</span></div>
-        <a class="panel-more" href="javascript:switchTab('cross')">상세 보기 &#8594;</a>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat" style="border-color:var(--cross-border);background:var(--cross-bg)"><div class="num" style="color:var(--cross)">24</div><div class="label" style="color:var(--cross)">교차 법령</div></div>
-        <div class="hero-stat" style="border-color:var(--cross-border);background:var(--cross-bg)"><div class="num" style="color:var(--cross)">5</div><div class="label" style="color:var(--cross)">핵심 이슈</div></div>
-        <div class="hero-stat" style="border-color:var(--cross-border);background:var(--cross-bg)"><div class="num" style="color:var(--cross)">2</div><div class="label" style="color:var(--cross)">이번 주 변경</div></div>
-      </div>
-      <div class="overview-copy">LTV, DSR, 주택담보대출, 양도세처럼 금융과 부동산 양쪽에 영향을 주는 규제를 묶어 봅니다.</div>
-    </div>
-  </div>
-
-  <!-- ===== 금융 규제 탭 ===== -->
-  <div class="tab-content" id="content-fin">
-
-    <div class="hero" style="border-color:var(--fin-border)">
-      <div class="hero-title" style="color:var(--fin)">금융 규제</div>
-      <div class="hero-sub">은행/증권/보험/여신 등 140개 금융법령의 변경사항을 추적합니다</div>
-      <div class="hero-stats">
-        <div class="hero-stat" style="border-color:var(--fin-border);background:var(--fin-bg)"><div class="num" style="color:var(--fin)">140</div><div class="label" style="color:var(--fin)">추적 법령</div></div>
-        <div class="hero-stat" style="border-color:var(--fin-border);background:var(--fin-bg)"><div class="num" style="color:var(--fin)">526</div><div class="label" style="color:var(--fin)">관련 판례</div></div>
-        <div class="hero-stat" style="border-color:var(--fin-border);background:var(--fin-bg)"><div class="num" style="color:var(--fin)">3,151</div><div class="label" style="color:var(--fin)">비조치의견서</div></div>
-      </div>
-      <div class="sbox"><span class="si">&#x2315;</span><input placeholder="금융 법령명, 조문, 판례 검색..." /></div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-title">최근 금융 규제 변경 <span class="num">이번 주 5건</span></div>
-        <a class="panel-more" href="/finlaw/changes/">전체 &#8594;</a>
-      </div>
-      <div class="feed-row">
-        <span class="feed-type amend">개정</span>
-        <div class="feed-main">
-          <div class="feed-name">자본시장법 제11조 투자중개업 자기자본<span class="cross-badge re">부동산</span></div>
-          <div class="feed-sub">30억 -> 50억 상향, 시행 유예 6개월 / 금융위원회</div>
-        </div>
-        <div class="feed-meta">04-10</div>
-        <span class="feed-impact high">상</span>
-      </div>
-      <div class="feed-row">
-        <span class="feed-type new">신설</span>
-        <div class="feed-main">
-          <div class="feed-name">가상자산이용자보호법 시행령</div>
-          <div class="feed-sub">스테이블코인 사업자 등록제 / 금융위원회</div>
-        </div>
-        <div class="feed-meta">04-11</div>
-        <span class="feed-impact high">상</span>
-      </div>
-      <div class="feed-row">
-        <span class="feed-type amend">개정</span>
-        <div class="feed-main">
-          <div class="feed-name">은행법 제35조 동일차주 신용공여<span class="cross-badge re">부동산</span></div>
-          <div class="feed-sub">주택담보대출 한도 산정 방식 명확화 / 금융위원회</div>
-        </div>
-        <div class="feed-meta">04-07</div>
-        <span class="feed-impact mid">중</span>
-      </div>
-      <div class="feed-row">
-        <span class="feed-type notice">예고</span>
-        <div class="feed-main">
-          <div class="feed-name">금융투자업규정 제3-11조</div>
-          <div class="feed-sub">인가 심사 세부 절차 / 금융위원회</div>
-        </div>
-        <div class="feed-meta">04-05</div>
-        <span class="feed-impact low">하</span>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-title">금융 법령 카테고리</div>
-        <a class="panel-more" href="/finlaw/">전체 보기 &#8594;</a>
-      </div>
-      <div class="cat-grid">
-        <div class="cat-card"><div class="cat-name">은행</div><div class="cat-count" style="color:var(--fin)">10건</div><div class="cat-desc">은행법, 예금자보호법, 한국은행법 등</div></div>
-        <div class="cat-card"><div class="cat-name">자본시장/증권</div><div class="cat-count" style="color:var(--fin)">5건</div><div class="cat-desc">자본시장법, 증권거래세법 등</div></div>
-        <div class="cat-card"><div class="cat-name">보험</div><div class="cat-count" style="color:var(--fin)">2건</div><div class="cat-desc">보험업법, 보험사기방지특별법</div></div>
-        <div class="cat-card"><div class="cat-name">여신/신용</div><div class="cat-count" style="color:var(--fin)">7건</div><div class="cat-desc">여신전문금융업법, 신용정보법 등</div></div>
-        <div class="cat-card"><div class="cat-name">전자금융/핀테크</div><div class="cat-count" style="color:var(--fin)">3건</div><div class="cat-desc">전자금융거래법, 가상자산법 등</div></div>
-        <div class="cat-card"><div class="cat-name">금융지주/지배구조</div><div class="cat-count" style="color:var(--fin)">2건</div><div class="cat-desc">금융지주회사법, 지배구조법</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== 부동산 규제 탭 ===== -->
-  <div class="tab-content" id="content-re">
-
-    <div class="hero" style="border-color:var(--re-border)">
-      <div class="hero-title" style="color:var(--re)">부동산 규제 트래커</div>
-      <div class="hero-sub">주택/토지/건축/세금 관련 38개 법령의 변경사항을 추적합니다</div>
-      <div class="hero-stats">
-        <div class="hero-stat" style="border-color:var(--re-border);background:var(--re-bg)"><div class="num" style="color:var(--re)">38</div><div class="label" style="color:var(--re)">추적 법령</div></div>
-        <div class="hero-stat" style="border-color:var(--re-border);background:var(--re-bg)"><div class="num" style="color:var(--re)">7</div><div class="label" style="color:var(--re)">관련 부처</div></div>
-        <div class="hero-stat" style="border-color:var(--re-border);background:var(--re-bg)"><div class="num" style="color:var(--re)">24</div><div class="label" style="color:var(--re)">금융 연동</div></div>
-      </div>
-      <div class="sbox"><span class="si">&#x2315;</span><input placeholder="부동산 법령명, 조문, 키워드 검색..." /></div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-title">최근 부동산 규제 변경 <span class="num">이번 주 4건</span></div>
-        <a class="panel-more" href="/regulation/">전체 &#8594;</a>
-      </div>
-      <div class="feed-row">
-        <span class="feed-type amend">개정</span>
-        <div class="feed-main">
-          <div class="feed-name">소득세법 제104조 양도세 중과<span class="cross-badge fin">금융</span></div>
-          <div class="feed-sub">다주택자 양도세 중과 유예 연장 / 기획재정부</div>
-        </div>
-        <div class="feed-meta">04-11</div>
-        <span class="feed-impact high">상</span>
-      </div>
-      <div class="feed-row">
-        <span class="feed-type amend">개정</span>
-        <div class="feed-main">
-          <div class="feed-name">지방세법 제13조의2 취득세 감면</div>
-          <div class="feed-sub">생애최초 주택 취득세 감면 한도 상향 / 행정안전부</div>
-        </div>
-        <div class="feed-meta">04-10</div>
-        <span class="feed-impact high">상</span>
-      </div>
-      <div class="feed-row">
-        <span class="feed-type notice">예고</span>
-        <div class="feed-main">
-          <div class="feed-name">주택법 시행령 분양가상한제</div>
-          <div class="feed-sub">분양가상한제 적용지역 재검토 / 국토교통부</div>
-        </div>
-        <div class="feed-meta">04-08</div>
-        <span class="feed-impact mid">중</span>
-      </div>
-      <div class="feed-row">
-        <span class="feed-type amend">개정</span>
-        <div class="feed-main">
-          <div class="feed-name">주택임대차보호법 제6조의3</div>
-          <div class="feed-sub">계약갱신청구권 관련 해석 명확화 / 법무부</div>
-        </div>
-        <div class="feed-meta">04-05</div>
-        <span class="feed-impact mid">중</span>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-title">부동산 법령 카테고리</div>
-        <a class="panel-more" href="/regulation/">전체 보기 &#8594;</a>
-      </div>
-      <div class="cat-grid">
-        <div class="cat-card"><div class="cat-name">거래/취득</div><div class="cat-count" style="color:var(--re)">8건</div><div class="cat-desc">부동산거래신고법, 공인중개사법 등</div></div>
-        <div class="cat-card"><div class="cat-name">주택 공급/임대</div><div class="cat-count" style="color:var(--re)">7건</div><div class="cat-desc">주택법, 임대차보호법, 공공주택법 등</div></div>
-        <div class="cat-card"><div class="cat-name">토지/건축</div><div class="cat-count" style="color:var(--re)">6건</div><div class="cat-desc">국토계획법, 건축법, 도시개발법 등</div></div>
-        <div class="cat-card"><div class="cat-name">세금</div><div class="cat-count" style="color:var(--re)">5건</div><div class="cat-desc">양도세, 취득세, 종부세, 재산세 등</div></div>
-        <div class="cat-card"><div class="cat-name">재건축/재개발</div><div class="cat-count" style="color:var(--re)">4건</div><div class="cat-desc">도시정비법, 재건축초과이익환수 등</div></div>
-        <div class="cat-card"><div class="cat-name">가격/공시</div><div class="cat-count" style="color:var(--re)">3건</div><div class="cat-desc">공시가격법, 감정평가법 등</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== 교차 영역 탭 ===== -->
-  <div class="tab-content" id="content-cross">
-
-    <div class="hero" style="border-color:var(--cross-border)">
-      <div class="hero-title" style="color:var(--cross)">금융 + 부동산 교차 규제</div>
-      <div class="hero-sub">금융과 부동산 양쪽에 영향을 미치는 24개 법령. LTV, 주택담보대출, 리츠 등</div>
-      <div class="hero-stats">
-        <div class="hero-stat" style="border-color:var(--cross-border);background:var(--cross-bg)"><div class="num" style="color:var(--cross)">24</div><div class="label" style="color:var(--cross)">교차 법령</div></div>
-        <div class="hero-stat" style="border-color:var(--cross-border);background:var(--cross-bg)"><div class="num" style="color:var(--cross)">5</div><div class="label" style="color:var(--cross)">핵심 이슈</div></div>
-        <div class="hero-stat" style="border-color:var(--cross-border);background:var(--cross-bg)"><div class="num" style="color:var(--cross)">2</div><div class="label" style="color:var(--cross)">이번 주 변경</div></div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-title">핵심 교차 규제</div>
-      </div>
-
-      <div class="cross-card">
-        <div class="cross-card-top">
-          <div class="cross-card-name">은행법 (LTV/DTI/DSR)</div>
-          <div class="cross-card-tags">
-            <span class="cross-badge fin">금융</span>
-            <span class="cross-badge re">부동산</span>
+      <div style="padding:0 20px">
+        <div style="display:flex;gap:10px;margin-bottom:14px">
+          <div style="flex:1;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#1e40af">140</div>
+            <div style="font-size:11px;font-weight:600;color:#1e40af">추적 법령</div>
+          </div>
+          <div style="flex:1;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#1e40af">779</div>
+            <div style="font-size:11px;font-weight:600;color:#1e40af">관련 판례</div>
+          </div>
+          <div style="flex:1;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#1e40af">3,151</div>
+            <div style="font-size:11px;font-weight:600;color:#1e40af">비조치의견서</div>
           </div>
         </div>
-        <div class="cross-card-desc">주택담보대출 비율(LTV) 규제의 법적 근거. 금융위원회 감독규정으로 LTV 50~70%, DSR 40~60% 기준 운용. 부동산 시장 과열 시 강화, 침체 시 완화.</div>
+        <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:14px">은행/증권/보험/여신/핀테크 등 금융 분야 법령의 제개정, 신설, 폐지를 실시간 추적합니다.</div>
       </div>
-
-      <div class="cross-card">
-        <div class="cross-card-top">
-          <div class="cross-card-name">한국주택금융공사법</div>
-          <div class="cross-card-tags">
-            <span class="cross-badge fin">금융</span>
-            <span class="cross-badge re">부동산</span>
-          </div>
-        </div>
-        <div class="cross-card-desc">보금자리론, MBS(주택저당증권), 역모기지 운영 근거. 주택금융 접근성과 부동산 시장 유동성에 직접 영향.</div>
+      <div style="border-top:1px dashed var(--bl);padding:10px 20px;font-size:12px;font-weight:600;color:var(--t3)">최근 변경</div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 20px;border-bottom:1px dashed var(--bl)">
+        <span style="font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 6px;border-radius:4px;color:#fff;background:#1e40af">개정</span>
+        <span style="font-size:13px;font-weight:600;flex:1">자본시장법 제11조 투자중개업 자기자본 상향</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--t3)">04-10</span>
       </div>
-
-      <div class="cross-card">
-        <div class="cross-card-top">
-          <div class="cross-card-name">여신전문금융업법</div>
-          <div class="cross-card-tags">
-            <span class="cross-badge fin">금융</span>
-            <span class="cross-badge re">부동산</span>
-          </div>
-        </div>
-        <div class="cross-card-desc">카드사/캐피탈의 부동산 담보대출, 리스 규제. 비은행권 부동산 대출 규제의 근거.</div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 20px;border-bottom:1px dashed var(--bl)">
+        <span style="font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 6px;border-radius:4px;color:#fff;background:#047857">신설</span>
+        <span style="font-size:13px;font-weight:600;flex:1">가상자산이용자보호법 시행령</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--t3)">04-11</span>
       </div>
-
-      <div class="cross-card">
-        <div class="cross-card-top">
-          <div class="cross-card-name">주택도시기금법</div>
-          <div class="cross-card-tags">
-            <span class="cross-badge fin">금융</span>
-            <span class="cross-badge re">부동산</span>
-          </div>
-        </div>
-        <div class="cross-card-desc">디딤돌/버팀목 대출 운영, 주택도시보증공사(HUG) 전세보증 근거. 서민 주거 안정 금융의 핵심.</div>
+      <div style="padding:10px 20px 16px;text-align:right">
+        <a href="/regulation/finlaw/" style="font-size:13px;color:#1e40af;text-decoration:none;font-weight:700">금융 규제 전체 보기 &#8594;</a>
       </div>
+    </section>
 
-      <div class="cross-card">
-        <div class="cross-card-top">
-          <div class="cross-card-name">소득세법 (양도소득세)</div>
-          <div class="cross-card-tags">
-            <span class="cross-badge re">부동산</span>
-          </div>
-        </div>
-        <div class="cross-card-desc">다주택자 양도세 중과, 1세대1주택 비과세. 부동산 거래 의사결정에 직접 영향. 금융기관 대출 심사 시에도 참고.</div>
-      </div>
-    </div>
-
-    <div class="panel">
+    <!-- 부동산 규제 -->
+    <section class="panel" style="border-left:3px solid #92400e">
       <div class="panel-hdr">
-        <div class="panel-title">교차 영역 최근 변경</div>
+        <div class="panel-title" style="color:#92400e">부동산 규제 <span class="num">38건</span></div>
+        <a class="panel-more" href="/regulation/realestate/">상세 &#8594;</a>
       </div>
-      <div class="feed-row">
-        <span class="feed-type amend">개정</span>
-        <div class="feed-main">
-          <div class="feed-name">은행법 제35조 동일차주 신용공여</div>
-          <div class="feed-sub">주택담보대출 한도 산정 방식 명확화 / 금융위원회</div>
+      <div style="padding:0 20px">
+        <div style="display:flex;gap:10px;margin-bottom:14px">
+          <div style="flex:1;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#92400e">38</div>
+            <div style="font-size:11px;font-weight:600;color:#92400e">추적 법령</div>
+          </div>
+          <div style="flex:1;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#92400e">253</div>
+            <div style="font-size:11px;font-weight:600;color:#92400e">관련 판례</div>
+          </div>
+          <div style="flex:1;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#92400e">7</div>
+            <div style="font-size:11px;font-weight:600;color:#92400e">관련 부처</div>
+          </div>
         </div>
-        <div class="feed-meta">04-07</div>
-        <span class="feed-impact mid">중</span>
+        <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:14px">주택/토지/건축/세금/재건축 관련 법령의 변경사항을 추적합니다.</div>
       </div>
-      <div class="feed-row">
-        <span class="feed-type amend">개정</span>
-        <div class="feed-main">
-          <div class="feed-name">소득세법 제104조 양도세 중과</div>
-          <div class="feed-sub">다주택자 양도세 중과 유예 연장 / 기획재정부</div>
+      <div style="border-top:1px dashed var(--bl);padding:10px 20px;font-size:12px;font-weight:600;color:var(--t3)">최근 변경</div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 20px;border-bottom:1px dashed var(--bl)">
+        <span style="font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 6px;border-radius:4px;color:#fff;background:#1e40af">개정</span>
+        <span style="font-size:13px;font-weight:600;flex:1">소득세법 제104조 양도세 중과 유예 연장</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--t3)">04-11</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 20px;border-bottom:1px dashed var(--bl)">
+        <span style="font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 6px;border-radius:4px;color:#fff;background:#1e40af">개정</span>
+        <span style="font-size:13px;font-weight:600;flex:1">지방세법 제13조의2 취득세 감면 한도 상향</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--t3)">04-10</span>
+      </div>
+      <div style="padding:10px 20px 16px;text-align:right">
+        <a href="/regulation/realestate/" style="font-size:13px;color:#92400e;text-decoration:none;font-weight:700">부동산 규제 전체 보기 &#8594;</a>
+      </div>
+    </section>
+
+    <!-- 금융/부동산 교차 영향 -->
+    <section class="panel" style="border-left:3px solid #7c3aed">
+      <div class="panel-hdr">
+        <div class="panel-title" style="color:#7c3aed">금융/부동산 교차 영향 <span class="num">24건</span></div>
+        <a class="panel-more" href="/regulation/cross/">상세 &#8594;</a>
+      </div>
+      <div style="padding:0 20px">
+        <div style="display:flex;gap:10px;margin-bottom:14px">
+          <div style="flex:1;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#7c3aed">24</div>
+            <div style="font-size:11px;font-weight:600;color:#7c3aed">교차 법령</div>
+          </div>
+          <div style="flex:1;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#7c3aed">145</div>
+            <div style="font-size:11px;font-weight:600;color:#7c3aed">참조 관계</div>
+          </div>
+          <div style="flex:1;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#7c3aed">5</div>
+            <div style="font-size:11px;font-weight:600;color:#7c3aed">이슈맵</div>
+          </div>
         </div>
-        <div class="feed-meta">04-11</div>
-        <span class="feed-impact high">상</span>
+        <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:14px">금융과 부동산 양쪽에 영향을 미치는 법령. LTV/DSR, 주택담보대출, 양도세 등 하나의 규제가 양쪽에 연쇄 영향.</div>
       </div>
-    </div>
-  </div>
+
+      <!-- 이슈맵 카드 (컴팩트) -->
+      <div style="border-top:1px dashed var(--bl);padding:10px 20px;font-size:12px;font-weight:600;color:var(--t3)">이슈맵</div>
+      <div style="padding:0 20px 6px">
+        <a href="/regulation/issue/loan-total/" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--bl);text-decoration:none;color:var(--t)">
+          <span style="font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 6px;border-radius:3px;background:var(--al);color:var(--a)">ISSUE</span>
+          <span style="font-size:13px;font-weight:600;flex:1">가계대출 총량 규제 강화</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--t3)">04-11</span>
+        </a>
+        <a href="/regulation/issue/jeonse-fraud/" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--bl);text-decoration:none;color:var(--t)">
+          <span style="font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 6px;border-radius:3px;background:var(--al);color:var(--a)">ISSUE</span>
+          <span style="font-size:13px;font-weight:600;flex:1">전세사기 방지 종합대책</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--t3)">03-28</span>
+        </a>
+        <a href="/regulation/issue/crypto/" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--bl);text-decoration:none;color:var(--t)">
+          <span style="font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 6px;border-radius:3px;background:var(--al);color:var(--a)">ISSUE</span>
+          <span style="font-size:13px;font-weight:600;flex:1">가상자산 규제 체계</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--t3)">04-11</span>
+        </a>
+        <a href="/regulation/issue/pf-risk/" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--bl);text-decoration:none;color:var(--t)">
+          <span style="font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 6px;border-radius:3px;background:var(--al);color:var(--a)">ISSUE</span>
+          <span style="font-size:13px;font-weight:600;flex:1">부동산 PF 리스크 관리</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--t3)">03-15</span>
+        </a>
+        <a href="/regulation/issue/capital-gains/" style="display:flex;align-items:center;gap:10px;padding:10px 0;text-decoration:none;color:var(--t)">
+          <span style="font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 6px;border-radius:3px;background:var(--al);color:var(--a)">ISSUE</span>
+          <span style="font-size:13px;font-weight:600;flex:1">양도세 중과 유예 종료</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--t3)">04-11</span>
+        </a>
+      </div>
+      <div style="padding:10px 20px 16px;text-align:right">
+        <a href="/regulation/cross/" style="font-size:13px;color:#7c3aed;text-decoration:none;font-weight:700">교차 규제 전체 보기 &#8594;</a>
+      </div>
+    </section>
+
+    <!-- LawDiff 알림 베타 -->
+    <section class="panel" style="overflow:hidden">
+      <div style="background:linear-gradient(135deg,#1e40af,#3b82f6);padding:22px 20px;color:#fff">
+        <div style="font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:6px">법령 개정 알림 받기</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.8);margin-bottom:14px;line-height:1.5">관심 법령이 개정되면 변경 전후 비교(LawDiff)를 이메일로 보내드립니다.</div>
+        <div style="display:flex;gap:8px">
+          <input style="flex:1;padding:10px 14px;border:none;border-radius:8px;font-size:13px;outline:none" placeholder="이메일 주소 입력" />
+          <button style="padding:10px 20px;background:#fff;color:#1e40af;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">무료 신청</button>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
+          <span style="font-size:11px;padding:4px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.9)">은행법</span>
+          <span style="font-size:11px;padding:4px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.9)">자본시장법</span>
+          <span style="font-size:11px;padding:4px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.9)">주택법</span>
+          <span style="font-size:11px;padding:4px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.9)">소득세법</span>
+          <span style="font-size:11px;padding:4px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.9)">가상자산법</span>
+        </div>
+      </div>
+    </section>
 
   </main>
 </div>
