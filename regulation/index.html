@@ -446,7 +446,30 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
           <span style="font-size:11px;padding:4px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.9)">가상자산법</span>
         </div>
       </div>
+      <div style="padding:16px 20px 6px">
+        <div style="font-size:12px;font-weight:700;color:var(--t3);margin-bottom:10px">최근 법령 개정 (30일)</div>
+        <div id="lawdiff-feed"></div>
+      </div>
     </section>
+    <script>
+    fetch('/data/lawdiff-alerts.json').then(function(r){return r.json()}).then(function(d){
+      var feed=document.getElementById('lawdiff-feed');
+      if(!d.items||!d.items.length){feed.innerHTML='<div style="font-size:13px;color:var(--t3);padding:8px 0">최근 30일간 법령 개정 없음</div>';return}
+      var html='';
+      d.items.forEach(function(it){
+        var date=it.promulgation_date||'';
+        if(date.length===8) date=date.slice(0,4)+'.'+date.slice(4,6)+'.'+date.slice(6);
+        var diffLink=it.diff_url?it.diff_url.replace('/finlaw/','/regulation/finlaw/'):'#';
+        html+='<a href="'+diffLink+'" style="display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px dashed #ededea;text-decoration:none;color:#1a1a1a">';
+        html+='<span style="font-family:monospace;font-size:10px;font-weight:700;padding:3px 6px;border-radius:4px;color:#fff;background:#1e40af;flex-shrink:0">'+(it.revision_type||'').slice(0,4)+'</span>';
+        html+='<span style="font-size:13px;font-weight:600;flex:1">'+it.name+'</span>';
+        html+='<span style="font-family:monospace;font-size:10px;color:#888;flex-shrink:0">'+date+'</span>';
+        if(it.is_new) html+='<span style="font-family:monospace;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:#fee2e2;color:#dc2626;flex-shrink:0">NEW</span>';
+        html+='</a>';
+      });
+      feed.innerHTML=html;
+    }).catch(function(){});
+    </script>
 
   </main>
 </div>
