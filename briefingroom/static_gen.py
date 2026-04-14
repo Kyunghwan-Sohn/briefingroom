@@ -754,6 +754,11 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
 .is-mobile .bnav{{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom))}}
 .bnav a{{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600}}
 .bnav a.on{{color:var(--sec)}}
+.pag{{display:flex;justify-content:center;align-items:center;gap:4px;margin-top:24px;padding:16px 0}}
+.pb{{font-family:var(--mono);font-size:13px;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--b);background:#fff;color:var(--t2);cursor:pointer}}
+.pb:hover{{border-color:var(--sec);color:var(--sec)}}
+.pb.on{{background:var(--sec);color:#fff;border-color:var(--sec)}}
+.pb.off{{opacity:.3;pointer-events:none}}
 </style>
 </head>
 <body>
@@ -796,6 +801,7 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
   <div id="card-list">
 {cards_html}
   </div>
+  <div class="pag" id="pag"></div>
 </div>
 <footer class="footer">
   <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
@@ -806,39 +812,80 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
 </nav>
 <script>
 (function(){{
-  var activeCat='all', activeSrc='all';
-  function filter(){{
-    var cards=document.querySelectorAll('.tc');
-    var vis=0;
-    cards.forEach(function(c){{
+  var PER=10, page=1, activeCat='all', activeSrc='all';
+  var allCards=[].slice.call(document.querySelectorAll('.tc'));
+
+  function getFiltered(){{
+    return allCards.filter(function(c){{
       var catOk=activeCat==='all'||c.dataset.cat===activeCat;
       var srcOk=activeSrc==='all'||c.dataset.src===activeSrc;
-      c.style.display=(catOk&&srcOk)?'':'none';
-      if(catOk&&srcOk)vis++;
+      return catOk&&srcOk;
     }});
-    document.getElementById('vis-count').textContent=vis;
   }}
+
+  function render(){{
+    var filtered=getFiltered();
+    var total=filtered.length;
+    var pages=Math.ceil(total/PER)||1;
+    if(page>pages)page=pages;
+    var start=(page-1)*PER, end=start+PER;
+
+    allCards.forEach(function(c){{c.style.display='none'}});
+    filtered.forEach(function(c,i){{
+      c.style.display=(i>=start&&i<end)?'':'none';
+    }});
+
+    document.getElementById('vis-count').textContent=total;
+
+    // 페이지네이션 렌더
+    var pagEl=document.getElementById('pag');
+    var h='<span class="pb'+(page<=1?' off':'')+'" data-p="prev">&#8592; 이전</span>';
+    for(var i=1;i<=pages;i++){{
+      if(pages>7&&i>3&&i<pages-1&&Math.abs(i-page)>1){{
+        if(i===4||i===pages-2)h+='<span style="padding:0 4px;color:var(--t3)">...</span>';
+        continue;
+      }}
+      h+='<span class="pb'+(i===page?' on':'')+'" data-p="'+i+'">'+i+'</span>';
+    }}
+    h+='<span class="pb'+(page>=pages?' off':'')+'" data-p="next">다음 &#8594;</span>';
+    pagEl.innerHTML=h;
+  }}
+
+  document.getElementById('pag').addEventListener('click',function(e){{
+    var t=e.target.closest('.pb');if(!t||t.classList.contains('off'))return;
+    var v=t.dataset.p;
+    var filtered=getFiltered();
+    var pages=Math.ceil(filtered.length/PER)||1;
+    if(v==='prev')page=Math.max(1,page-1);
+    else if(v==='next')page=Math.min(pages,page+1);
+    else page=parseInt(v)||1;
+    render();
+    window.scrollTo({{top:document.getElementById('card-list').offsetTop-80,behavior:'smooth'}});
+  }});
+
   document.getElementById('f-cat').addEventListener('click',function(e){{
     var t=e.target.closest('.fp');if(!t)return;
     this.querySelectorAll('.fp').forEach(function(p){{p.classList.remove('on')}});
     t.classList.add('on');
     activeCat=t.dataset.f||'all';
-    filter();
+    page=1;render();
   }});
   document.getElementById('f-src').addEventListener('click',function(e){{
     var t=e.target.closest('.fp');if(!t)return;
     this.querySelectorAll('.fp').forEach(function(p){{p.classList.remove('on')}});
     t.classList.add('on');
     activeSrc=t.dataset.s||'all';
-    filter();
+    page=1;render();
   }});
   document.getElementById('f-reset').addEventListener('click',function(){{
-    activeCat='all';activeSrc='all';
+    activeCat='all';activeSrc='all';page=1;
     document.querySelectorAll('.fp').forEach(function(p){{p.classList.remove('on')}});
     document.querySelector('#f-cat .fp').classList.add('on');
     document.querySelector('#f-src .fp').classList.add('on');
-    filter();
+    render();
   }});
+
+  render();
 }})();
 </script>
 </body>
