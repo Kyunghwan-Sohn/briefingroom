@@ -650,7 +650,8 @@ def generate_today_page(target_date: str) -> Path:
         if easy and easy.strip():
             easy_block = f'<div class="ce"><div class="cel">EASY SUMMARY</div>{html.escape(easy.strip())}</div>'
 
-        cards_html += f'''<a class="tc" href="/articles/{date}/{slug}/" data-cat="{html.escape(cat)}" data-src="{html.escape(source)}">
+        kw_data = ",".join(keywords[:5])
+        cards_html += f'''<a class="tc" href="/articles/{date}/{slug}/" data-cat="{html.escape(cat)}" data-src="{html.escape(source)}" data-kw="{html.escape(kw_data)}">
 <div class="tt"><span class="ti {imp_cls}">{html.escape(imp)}</span><span class="ts">{html.escape(source)}</span><span class="tg {cat_cls}">{html.escape(cat_label)}</span></div>
 <div class="tn">{html.escape(title)}</div>
 {easy_block}
@@ -718,6 +719,7 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
 .fc{{font-family:var(--mono);font-size:10px;margin-left:3px;opacity:.7}}
 .fk{{font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid var(--sec-border);background:#fff;color:var(--sec);text-decoration:none;cursor:pointer}}
 .fk:hover{{background:var(--sec);color:#fff;border-color:var(--sec)}}
+.fk.on{{background:var(--sec);color:#fff;border-color:var(--sec)}}
 .frs{{font-size:11px;color:var(--t3);cursor:pointer;font-weight:600;text-decoration:underline;flex-shrink:0}}
 .lt{{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 4px}}
 .ls{{display:flex;gap:4px}}
@@ -812,14 +814,19 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
 </nav>
 <script>
 (function(){{
-  var PER=10, page=1, activeCat='all', activeSrc='all';
+  var PER=10, page=1, activeCat='all', activeSrc='all', activeKw='';
   var allCards=[].slice.call(document.querySelectorAll('.tc'));
+
+  // URL ?kw= 파라미터 읽기
+  var urlKw=new URLSearchParams(window.location.search).get('kw')||'';
+  if(urlKw)activeKw=urlKw;
 
   function getFiltered(){{
     return allCards.filter(function(c){{
       var catOk=activeCat==='all'||c.dataset.cat===activeCat;
       var srcOk=activeSrc==='all'||c.dataset.src===activeSrc;
-      return catOk&&srcOk;
+      var kwOk=!activeKw||(c.dataset.kw&&c.dataset.kw.indexOf(activeKw)!==-1);
+      return catOk&&srcOk&&kwOk;
     }});
   }}
 
@@ -878,12 +885,32 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
     page=1;render();
   }});
   document.getElementById('f-reset').addEventListener('click',function(){{
-    activeCat='all';activeSrc='all';page=1;
+    activeCat='all';activeSrc='all';activeKw='';page=1;
     document.querySelectorAll('.fp').forEach(function(p){{p.classList.remove('on')}});
     document.querySelector('#f-cat .fp').classList.add('on');
     document.querySelector('#f-src .fp').classList.add('on');
+    document.querySelectorAll('.fk').forEach(function(k){{k.classList.remove('on')}});
+    history.replaceState(null,'',location.pathname);
     render();
   }});
+
+  // 키워드 pill 클릭 시 필터링 (페이지 이동 대신 인라인 필터)
+  document.querySelectorAll('.fk').forEach(function(k){{
+    k.addEventListener('click',function(e){{
+      e.preventDefault();
+      var kw=this.textContent.trim().replace(/\\s*\\d+$/,'');
+      if(activeKw===kw){{activeKw='';this.classList.remove('on')}}
+      else{{activeKw=kw;document.querySelectorAll('.fk').forEach(function(f){{f.classList.remove('on')}});this.classList.add('on')}}
+      page=1;render();
+    }});
+  }});
+
+  // URL kw 파라미터가 있으면 해당 키워드 pill 활성화
+  if(activeKw){{
+    document.querySelectorAll('.fk').forEach(function(k){{
+      if(k.textContent.trim().replace(/\\s*\\d+$/,'')===activeKw)k.classList.add('on');
+    }});
+  }}
 
   render();
 }})();
