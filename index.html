@@ -275,12 +275,12 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
     <div class="today-date" id="home-today-date">2026. 04. 13 (일)</div>
 
     <div class="kw-hero" id="home-keyword-pills">
-      <a class="kw-pill sz1" style="background:#1e40af" href="/brief/">재정적자</a><!-- 금융경제 -->
-      <a class="kw-pill sz1" style="background:#d97706" href="/brief/">부동산단속</a><!-- 산업기술 -->
-      <a class="kw-pill sz2" style="background:#1e40af" href="/brief/">민생물가</a><!-- 금융경제 -->
-      <a class="kw-pill sz2" style="background:#7c3aed" href="/brief/">중동전쟁</a><!-- 외교안보 -->
-      <a class="kw-pill sz2" style="background:#1e40af" href="/brief/">추경예산</a><!-- 금융경제 -->
-      <a class="kw-pill sz3" style="background:#047857" href="/brief/">규제과학</a><!-- 사회복지 -->
+      <a class="kw-pill sz1" style="background:#1e40af" href="/brief/articles/?kw=재정적자">재정적자</a>
+      <a class="kw-pill sz1" style="background:#d97706" href="/brief/articles/?kw=부동산단속">부동산단속</a>
+      <a class="kw-pill sz2" style="background:#1e40af" href="/brief/articles/?kw=민생물가">민생물가</a>
+      <a class="kw-pill sz2" style="background:#7c3aed" href="/brief/articles/?kw=중동전쟁">중동전쟁</a>
+      <a class="kw-pill sz2" style="background:#1e40af" href="/brief/articles/?kw=추경예산">추경예산</a>
+      <a class="kw-pill sz3" style="background:#047857" href="/brief/articles/?kw=규제과학">규제과학</a>
     </div>
 
     <div class="분야바" id="home-category-bar">
@@ -505,7 +505,7 @@ function switchKwTab(tab) {
       if (pillsEl && Array.isArray(data.keywords) && data.keywords.length) {
         pillsEl.innerHTML = data.keywords.slice(0, 6).map(function(item, idx) {
           var size = idx < 2 ? 'sz1' : idx < 5 ? 'sz2' : 'sz3';
-          return '<a class="kw-pill ' + size + '" style="background:' + escapeHtml(item.color || '#d96c2c') + '" href="/keywords/">' + escapeHtml(item.name) + '</a>';
+          return '<a class="kw-pill ' + size + '" style="background:' + escapeHtml(item.color || '#d96c2c') + '" href="/brief/articles/?kw=' + encodeURIComponent(item.name) + '">' + escapeHtml(item.name) + '</a>';
         }).join('');
       }
       if (barEl && Array.isArray(data.categories) && data.categories.length) {

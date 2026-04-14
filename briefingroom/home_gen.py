@@ -95,10 +95,17 @@ def _build_policy_carousel(items: list[dict], target_date: str) -> str:
 
     # 슬라이드 1: 종합
     top_cats = sorted(by_cat.items(), key=lambda x: -len(x[1]))[:3]
+    from briefingroom.config import CAT_MAP as _cat_map
+    _org_names = set(_cat_map.keys())
+    _person_suffixes = ("총리", "장관", "위원장", "차관", "청장", "처장", "원장", "대통령")
     top_keywords = []
-    for it in items[:20]:
-        for kw in (it.get("keywords") or [])[:2]:
-            if kw and f"#{kw}" not in top_keywords and len(top_keywords) < 3:
+    for it in items[:30]:
+        for kw in (it.get("keywords") or [])[:3]:
+            if not kw or kw in _org_names:
+                continue
+            if any(kw.endswith(s) for s in _person_suffixes):
+                continue
+            if f"#{kw}" not in top_keywords and len(top_keywords) < 6:
                 top_keywords.append(f"#{kw}")
 
     summary_title = " · ".join(CAT_LABELS.get(c, c) for c, _ in top_cats[:3])
@@ -870,11 +877,21 @@ def generate_home_panel_json(target_date: str = ""):
     cat_colors = {"금융경제": "#1e40af", "산업기술": "#d97706", "사회복지": "#047857",
                   "외교안보": "#7c3aed", "행정법제": "#6b7280"}
 
+    # 부처명/기관명 집합 (키워드에서 제외용)
+    from briefingroom.config import CAT_MAP
+    org_names = set(CAT_MAP.keys())
+
     kws = Counter()
     cats = Counter()
     top_items = []
     for it in items:
         for k in it.get("keywords", []):
+            # 부처명/기관명이면 스킵
+            if k in org_names:
+                continue
+            # 인명(~총리, ~장관, ~위원장 등) 스킵
+            if any(k.endswith(suffix) for suffix in ("총리", "장관", "위원장", "차관", "청장", "처장", "원장", "대통령")):
+                continue
             kws[k] += 1
         cat = it.get("category", "기타")
         cats[cat] += 1
