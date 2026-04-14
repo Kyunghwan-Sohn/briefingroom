@@ -1,110 +1,79 @@
 {
-  "date": "2026-04-10",
-  "total": 139,
+  "date": "2026-04-14",
+  "total": 107,
   "keywords": [
     {
-      "name": "중동전쟁",
-      "count": 5,
-      "color": "#7c3aed"
-    },
-    {
-      "name": "미래모빌리티",
-      "count": 3,
+      "name": "문체부 2026 년 추경",
+      "count": 1,
       "color": "#d97706"
     },
     {
-      "name": "국제협력",
-      "count": 3,
-      "color": "#047857"
-    },
-    {
-      "name": "간담회",
-      "count": 3,
+      "name": "문화예술인 지원",
+      "count": 1,
       "color": "#d97706"
     },
     {
-      "name": "공적개발원조",
-      "count": 3,
-      "color": "#6b7280"
-    },
-    {
-      "name": "ODA",
-      "count": 3,
-      "color": "#6b7280"
-    },
-    {
-      "name": "해외건설",
-      "count": 2,
+      "name": "청년 일자리 창출",
+      "count": 1,
       "color": "#d97706"
     },
     {
-      "name": "카자흐스탄",
-      "count": 2,
+      "name": "영화·공연 할인권",
+      "count": 1,
+      "color": "#d97706"
+    },
+    {
+      "name": "내수 진작",
+      "count": 1,
+      "color": "#d97706"
+    },
+    {
+      "name": "2026 년 추경예산",
+      "count": 1,
+      "color": "#d97706"
+    },
+    {
+      "name": "수출 중소기업",
+      "count": 1,
+      "color": "#d97706"
+    },
+    {
+      "name": "소상공인 민생안정",
+      "count": 1,
       "color": "#d97706"
     }
   ],
   "categories": [
     {
       "name": "산업기술",
-      "count": 61,
-      "pct": 44,
+      "count": 48,
+      "pct": 45,
       "color": "#d97706"
     },
     {
       "name": "사회복지",
       "count": 27,
-      "pct": 19,
+      "pct": 25,
       "color": "#047857"
-    },
-    {
-      "name": "외교안보",
-      "count": 24,
-      "pct": 17,
-      "color": "#7c3aed"
     },
     {
       "name": "금융경제",
       "count": 19,
-      "pct": 14,
+      "pct": 18,
       "color": "#1e40af"
     },
     {
-      "name": "행정법제",
+      "name": "외교안보",
       "count": 8,
-      "pct": 6,
+      "pct": 7,
+      "color": "#7c3aed"
+    },
+    {
+      "name": "행정법제",
+      "count": 5,
+      "pct": 5,
       "color": "#6b7280"
     }
   ],
-  "top_items": [
-    {
-      "title": "[차관동정] 김이탁 제1차관, 카자흐스탄 알리벡 바카예프 외교부 차관 면담[차관동정] 김이탁 제1차관",
-      "source": "국토교통부",
-      "category": "산업기술",
-      "link": "/articles/2026-04-10/002/"
-    },
-    {
-      "title": "일본 2026년 외교청서에 대한 외교부 대변인 논평",
-      "source": "외교부",
-      "category": "외교안보",
-      "link": "/articles/2026-04-10/019/"
-    },
-    {
-      "title": "'유효기간 만료' 방송사, 재허가 의결",
-      "source": "방송미디어통신위원회",
-      "category": "산업기술",
-      "link": "/articles/2026-04-10/029/"
-    },
-    {
-      "title": "대한민국 우주항공 역량 결집, 방위사업청·우주항공청 '원팀'으로 협력 강화",
-      "source": "방위사업청",
-      "category": "외교안보",
-      "link": "/articles/2026-04-10/035/"
-    },
-    {
-      "title": "인공지능 학습용데이터 보유 현황, 전 부처 대상 첫 전수조사 실시",
-      "source": "과학기술정보통신부",
-      "category": "산업기술",
-      "link": "/articles/2026-04-10/046/"
-    }
-  ]
+  "top_items": []
 }
