@@ -104,6 +104,11 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
 .filter-stab.on{background:var(--sec);color:#fff;border-color:var(--sec)}
 .filter-stab .cnt{font-family:var(--mono);font-size:10px;margin-left:4px;opacity:.8}
 
+.filter-kw-row{display:flex;gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;padding-bottom:2px;margin-top:8px}
+.filter-kw-row::-webkit-scrollbar{display:none}
+.filter-kw{font-size:12px;font-weight:600;padding:5px 11px;border-radius:14px;border:1.5px solid var(--sec-border);background:#fff;color:var(--sec);cursor:pointer;white-space:nowrap;flex-shrink:0;text-decoration:none}
+.filter-kw:hover{background:var(--sec);color:#fff;border-color:var(--sec)}
+
 /* 브리핑 카드 그리드 */
 .brief-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 22px 22px}
 .brief-card{background:var(--s2);border:1px solid var(--bl);border-radius:8px;padding:16px 18px;cursor:pointer;transition:all .15s}
@@ -359,6 +364,15 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
           <span class="filter-stab">외교부 <span class="cnt">2</span></span>
           <span class="filter-stab">+6개</span>
         </div>
+        <!-- 3차: 키워드 -->
+        <div class="filter-kw-row" id="kw-bar">
+          <a class="filter-kw" href="/brief/articles/?kw=중동전쟁">중동전쟁</a>
+          <a class="filter-kw" href="/brief/articles/?kw=추경예산">추경예산</a>
+          <a class="filter-kw" href="/brief/articles/?kw=소상공인">소상공인</a>
+          <a class="filter-kw" href="/brief/articles/?kw=AI 반도체">AI 반도체</a>
+          <a class="filter-kw" href="/brief/articles/?kw=민생물가">민생물가</a>
+          <a class="filter-kw" href="/brief/articles/?kw=수출 중소기업">수출 중소기업</a>
+        </div>
       </div>
       <div class="brief-grid">
         <div class="brief-card">
@@ -537,6 +551,19 @@ bindScrollHints();
 updateScrollHints();
 window.addEventListener('resize', updateScrollHints);
 window.addEventListener('load', updateScrollHints);
+
+// 키워드 동적 로드
+fetch('/data/home-panel.json')
+  .then(function(r){return r.ok?r.json():null})
+  .then(function(d){
+    if(!d||!d.keywords||!d.keywords.length)return;
+    var kwBar=document.getElementById('kw-bar');
+    if(!kwBar)return;
+    kwBar.innerHTML=d.keywords.slice(0,8).map(function(k){
+      return '<a class="filter-kw" href="/brief/articles/?kw='+encodeURIComponent(k.name)+'">'+k.name+'</a>';
+    }).join('');
+    updateScrollHints();
+  });
 </script>
 <nav class="bottom-nav">
   <a href="/"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg><span>홈</span></a>
