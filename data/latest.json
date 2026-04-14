@@ -1,84 +1,3440 @@
 {
-  "generated_at": "2026-04-11T02:14:00",
-  "target_date": "2026-04-11",
-  "count": 2,
+  "generated_at": "2026-04-14T21:59:05",
+  "target_date": "2026-04-14",
+  "count": 107,
   "top3": [
+    0,
     1,
-    0
+    2
   ],
   "items": [
     {
       "slug": "000",
-      "source": "문화체육관광부",
-      "raw_title": "문체부 2026년 1회 추경 확정",
-      "title": "문체부 2026년 1회 추경 확정",
-      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754077",
-      "date": "2026-04-11",
-      "category": "산업기술",
+      "source": "외교부",
+      "raw_title": "정부, 중동 피해지역에 대한 인도적 지원 제공",
+      "title": "정부, 중동 피해지역에 대한 인도적 지원 제공",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755044",
+      "date": "2026-04-14",
+      "category": "외교안보",
       "finance_sub": "",
       "pdfs": [
-        "https://www.korea.kr/common/download.do?fileId=198421138&tblKey=GMN"
+        "https://www.korea.kr/common/download.do?fileId=198425284&tblKey=GMN"
       ],
       "hwps": [
-        "https://www.korea.kr/common/download.do?fileId=198421137&tblKey=GMN"
+        "https://www.korea.kr/common/download.do?fileId=198425283&tblKey=GMN"
       ],
       "files": [
-        "/home/runner/work/briefingroom/briefingroom/pdfs/2026-04-11_문화체육_문체부_2026년_1회_추경_확정_1.pdf",
-        "/home/runner/work/briefingroom/briefingroom/pdfs/2026-04-11_문화체육_문체부_2026년_1회_추경_확정_1.hwp"
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_외교부_정부__중동_피해지역에_대한_인도적_지원_제공_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_외교부_정부__중동_피해지역에_대한_인도적_지원_제공_1.hwp"
       ],
-      "summary": "문화체육관광부는 중동 전쟁 등 고유가·고물가로 위축된 문화·체육·관광 산업을 보호하고 민생을 지원하기 위해 2026 년 1 차 추경 예산 4,614 억 원을 최종 확정했습니다. 주요 사업으로 예술인·콘텐츠 제작 지원, 청년 일자리 확대, 영화·공연 할인권 지급, 숙박 및 여행 지원 등 내수 활성화를 위한 다양한 지원이 포함됩니다. 이번 예산은 오는 2026 년 4 월 11 일 확정 발표되었으며, 기초예술인 생계 안정과 지역경제 활성화를 목표로 합니다.",
-      "easy_summary": "정부가 중동 전쟁 여파로 힘든 문화·체육·관광 산업을 살리기 위해 4,614 억 원을 추가로 집행하기로 했습니다. 예술인들과 콘텐츠 업계에 직접적인 자금 지원을 늘리고 청년 일자리를 대폭 늘렸습니다. 또 영화나 공연 예매 할인권과 여행 숙박 할인권을 나눠 국민들이 소비를 돕고 지역경제를 살리겠습니다.",
-      "why_important": "고유가 등 경제적 어려움으로 힘들어하는 문화예술인이나 스포츠 종사자, 그리고 여행 계획을 세우고 계신 국민에게 실질적인 경제적 지원과 혜택이 제공되기 때문입니다.",
-      "practical_impact": "예술인과 청년들은 창작 활동과 취업을 위한 재정적 지원을 받고, 일반 국민은 영화와 공연을 더 저렴하게 즐길 수 있으며 지역 여행 시 할인 혜택을 받아 지갑을 덜 열게 됩니다.",
-      "keywords": [
-        "문체부 2026 년 추경",
-        "문화예술인 지원",
-        "청년 일자리 창출",
-        "영화·공연 할인권",
-        "내수 진작"
-      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
       "impact": "중",
-      "raw_summary": "요약: 문화체육관광부는 중동 전쟁 등 고유가·고물가로 위축된 문화·체육·관광 산업을 보호하고 민생을 지원하기 위해 2026 년 1 차 추경 예산 4,614 억 원을 최종 확정했습니다. 주요 사업으로 예술인·콘텐츠 제작 지원, 청년 일자리 확대, 영화·공연 할인권 지급, 숙박 및 여행 지원 등 내수 활성화를 위한 다양한 지원이 포함됩니다. 이번 예산은 오는 2026 년 4 월 11 일 확정 발표되었으며, 기초예술인 생계 안정과 지역경제 활성화를 목표로 합니다.\n쉬운요약: 정부가 중동 전쟁 여파로 힘든 문화·체육·관광 산업을 살리기 위해 4,614 억 원을 추가로 집행하기로 했습니다. 예술인들과 콘텐츠 업계에 직접적인 자금 지원을 늘리고 청년 일자리를 대폭 늘렸습니다. 또 영화나 공연 예매 할인권과 여행 숙박 할인권을 나눠 국민들이 소비를 돕고 지역경제를 살리겠습니다.\n왜 알아야 하나: 고유가 등 경제적 어려움으로 힘들어하는 문화예술인이나 스포츠 종사자, 그리고 여행 계획을 세우고 계신 국민에게 실질적인 경제적 지원과 혜택이 제공되기 때문입니다.\n그래서 뭐가 달라지나: 예술인과 청년들은 창작 활동과 취업을 위한 재정적 지원을 받고, 일반 국민은 영화와 공연을 더 저렴하게 즐길 수 있으며 지역 여행 시 할인 혜택을 받아 지갑을 덜 열게 됩니다.\n키워드: 문체부 2026 년 추경, 문화예술인 지원, 청년 일자리 창출, 영화·공연 할인권, 내수 진작\n영향도: 중",
+      "raw_summary": "[오류] HTTP 403",
       "has_text": true,
-      "text_path": "/home/runner/work/briefingroom/briefingroom/texts/2026-04-11_문화체육_문체부_2026년_1회_추경_확정_5c5af4242d.txt",
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_외교부_정부__중동_피해지역에_대한_인도적_지원_제공_3d1e5f9e29.txt",
       "related_laws": []
     },
     {
       "slug": "001",
-      "source": "중소벤처기업부",
-      "raw_title": "중기부 '26년 추경예산 1조 6,903억원 확정",
-      "title": "중기부 '26년 추경예산 1조 6,903억원 확정",
-      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754060",
-      "date": "2026-04-11",
+      "source": "문화체육관광부",
+      "raw_title": "정부, 투명하고 공정한 선거관리 총력 지원",
+      "title": "정부, 투명하고 공정한 선거관리 총력 지원",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755042",
+      "date": "2026-04-14",
       "category": "산업기술",
       "finance_sub": "",
       "pdfs": [
-        "https://www.korea.kr/common/download.do?fileId=198421102&tblKey=GMN"
+        "https://www.korea.kr/common/download.do?fileId=198425212&tblKey=GMN"
       ],
       "hwps": [
-        "https://www.korea.kr/common/download.do?fileId=198421101&tblKey=GMN"
+        "https://www.korea.kr/common/download.do?fileId=198425211&tblKey=GMN"
       ],
       "files": [
-        "/home/runner/work/briefingroom/briefingroom/pdfs/2026-04-11_중소벤처_중기부__26년_추경예산_1조_6_903억원_확정_1.pdf",
-        "/home/runner/work/briefingroom/briefingroom/pdfs/2026-04-11_중소벤처_중기부__26년_추경예산_1조_6_903억원_확정_1.hwp"
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_문화체육_정부__투명하고_공정한_선거관리_총력_지원_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_문화체육_정부__투명하고_공정한_선거관리_총력_지원_1.hwp"
       ],
-      "summary": "중소벤처기업부는 2026 년 제 1 차 추가경정예산 1 조 6,903 억원을 최종 확정했다고 밝혔으며, 주요 내역은 수출 중소기업 지원 4,622 억원, 소상공인 민생안정 4,952 억원, 스타트업 육성 6,719 억원 등이다. 한성숙 중기부 장관은 중동 전쟁 피해 기업과 청년 일자리를 위한 예산을 신속히 집행하여 경영 안정과 혁신 성장을 도모한다고 밝혔다. 이번 예산은 2026 년 4 월 10 일 국회 본회의 의결을 통해 확정되었으며, 추후 온누리상품권 확대 방안에 대해서는 재정 당국과 추가 협의한다.",
-      "easy_summary": "중소벤처기업부가 내년에 쓸 추가 예산 1 조 6,900 여억원을 국회에서 최종 확정했다고 합니다. 중동 전쟁으로 힘든 수출 기업과 소상공인 살리기, 청년이 창업해서 일할 수 있도록 돕는 스타트업 지원에 집중적으로 투입됩니다. 한성숙 장관은 이 예산을 빠르게 집행해 기업들이 다시 일할 수 있는 기반을 마련하겠다고 밝혔습니다.",
-      "why_important": "이 예산은 중동 전쟁 여파로 어려움을 겪는 소상공인과 수출 기업에 직접적인 재정 지원을 제공하여 생계와 경영 안정을 돕기 때문입니다. 또한 청년들의 창업과 지역 기업의 첨단 기술 도입을 지원해 일자리 창출과 지역 경제 활성화에 기여합니다.",
-      "practical_impact": "수출 중소기업은 전쟁 피해 복구 자금과 수출 서비스 바우처를 받아 경영 위기를 넘길 수 있고 소상공인은 자금 지원과 혁신 사업을 통해 생계를 지킬 수 있습니다. 청년과 지역 기업은 창업 교육, 자금, 인프라 지원을 받아 창업에 도전하고 스마트 공장을 구축할 수 있게 됩니다.",
-      "keywords": [
-        "2026 년 추경예산",
-        "수출 중소기업",
-        "소상공인 민생안정",
-        "스타트업",
-        "지역 중소 제조 AI 전환"
-      ],
-      "impact": "상",
-      "raw_summary": "요약: 중소벤처기업부는 2026 년 제 1 차 추가경정예산 1 조 6,903 억원을 최종 확정했다고 밝혔으며, 주요 내역은 수출 중소기업 지원 4,622 억원, 소상공인 민생안정 4,952 억원, 스타트업 육성 6,719 억원 등이다. 한성숙 중기부 장관은 중동 전쟁 피해 기업과 청년 일자리를 위한 예산을 신속히 집행하여 경영 안정과 혁신 성장을 도모한다고 밝혔다. 이번 예산은 2026 년 4 월 10 일 국회 본회의 의결을 통해 확정되었으며, 추후 온누리상품권 확대 방안에 대해서는 재정 당국과 추가 협의한다.\n쉬운요약: 중소벤처기업부가 내년에 쓸 추가 예산 1 조 6,900 여억원을 국회에서 최종 확정했다고 합니다. 중동 전쟁으로 힘든 수출 기업과 소상공인 살리기, 청년이 창업해서 일할 수 있도록 돕는 스타트업 지원에 집중적으로 투입됩니다. 한성숙 장관은 이 예산을 빠르게 집행해 기업들이 다시 일할 수 있는 기반을 마련하겠다고 밝혔습니다.\n왜 알아야 하나: 이 예산은 중동 전쟁 여파로 어려움을 겪는 소상공인과 수출 기업에 직접적인 재정 지원을 제공하여 생계와 경영 안정을 돕기 때문입니다. 또한 청년들의 창업과 지역 기업의 첨단 기술 도입을 지원해 일자리 창출과 지역 경제 활성화에 기여합니다.\n그래서 뭐가 달라지나: 수출 중소기업은 전쟁 피해 복구 자금과 수출 서비스 바우처를 받아 경영 위기를 넘길 수 있고 소상공인은 자금 지원과 혁신 사업을 통해 생계를 지킬 수 있습니다. 청년과 지역 기업은 창업 교육, 자금, 인프라 지원을 받아 창업에 도전하고 스마트 공장을 구축할 수 있게 됩니다.\n키워드: 2026 년 추경예산, 수출 중소기업, 소상공인 민생안정, 스타트업, 지역 중소 제조 AI 전환\n영향도: 상",
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
       "has_text": true,
-      "text_path": "/home/runner/work/briefingroom/briefingroom/texts/2026-04-11_중소벤처_중기부__26년_추경예산_1조_6_903억원_확정_f3e984c686.txt",
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_문화체육_정부__투명하고_공정한_선거관리_총력_지원_2926bf40f2.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "002",
+      "source": "해양경찰청",
+      "raw_title": "해양경찰청, 지역인재와 함께하는 사이버위기 대응 훈련 추진해양경찰청",
+      "title": "해양경찰청, 지역인재와 함께하는 사이버위기 대응 훈련 추진해양경찰청",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755043",
+      "date": "2026-04-14",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425230&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425231&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_해양경찰_해양경찰청__지역인재와_함께하는_사이버위기_대응_훈련__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_해양경찰_해양경찰청__지역인재와_함께하는_사이버위기_대응_훈련__f9b2a8f45a.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "003",
+      "source": "외교부",
+      "raw_title": "주NATO 30개국 대사단 방한",
+      "title": "주NATO 30개국 대사단 방한",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755040",
+      "date": "2026-04-14",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425218&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198425219&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198425220&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198425221&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198425222&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198425223&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425217&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_외교부_주NATO_30개국_대사단_방한_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_외교부_주NATO_30개국_대사단_방한_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_외교부_주NATO_30개국_대사단_방한_969ab73559.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "004",
+      "source": "해양경찰청",
+      "raw_title": "제3기 해양경찰위원회 출범, 해양경찰 정책 심의 본격화제3기 해양경찰위원회 출범",
+      "title": "제3기 해양경찰위원회 출범, 해양경찰 정책 심의 본격화제3기 해양경찰위원회 출범",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755039",
+      "date": "2026-04-14",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425227&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425226&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_해양경찰_제3기_해양경찰위원회_출범__해양경찰_정책_심의_본격화_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_해양경찰_제3기_해양경찰위원회_출범__해양경찰_정책_심의_본격화_7fc86c45f5.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "005",
+      "source": "법무부",
+      "raw_title": "정부, 투명하고 공정한 선거관리 총력 지원",
+      "title": "정부, 투명하고 공정한 선거관리 총력 지원",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755038",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425148&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425149&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_법무부_정부__투명하고_공정한_선거관리_총력_지원_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_법무부_정부__투명하고_공정한_선거관리_총력_지원_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_법무부_정부__투명하고_공정한_선거관리_총력_지원_640aba965e.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "006",
+      "source": "국무조정실",
+      "raw_title": "[보도자료] 김민석 국무총리 주재 공명선거 관계장관회의",
+      "title": "[보도자료] 김민석 국무총리 주재 공명선거 관계장관회의",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755036",
+      "date": "2026-04-14",
+      "category": "행정법제",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425147&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425146&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국무조정__보도자료__김민석_국무총리_주재_공명선거_관계장관회의_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국무조정__보도자료__김민석_국무총리_주재_공명선거_관계장관회의_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국무조정__보도자료__김민석_국무총리_주재_공명선거_관계장관회의_607779fb9c.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "007",
+      "source": "보건복지부",
+      "raw_title": "2026년 제3차 국민연금기금운용위원회 개최",
+      "title": "2026년 제3차 국민연금기금운용위원회 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755019",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425072&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425071&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_2026년_제3차_국민연금기금운용위원회_개최_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_2026년_제3차_국민연금기금운용위원회_개최_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_보건복지_2026년_제3차_국민연금기금운용위원회_개최_c9b29ea571.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "008",
+      "source": "외교부",
+      "raw_title": "태풍 '신라쿠(SINLAKU)' 사이판 관통 예상에 따른 재외국민 안전조치 강화",
+      "title": "태풍 '신라쿠(SINLAKU)' 사이판 관통 예상에 따른 재외국민 안전조치 강화",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755018",
+      "date": "2026-04-14",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425070&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425069&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_외교부_태풍__신라쿠_SINLAKU___사이판_관통_예상에_따_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_외교부_태풍__신라쿠_SINLAKU___사이판_관통_예상에_따_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_외교부_태풍__신라쿠_SINLAKU___사이판_관통_예상에_따_7fa928c502.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "009",
+      "source": "과학기술정보통신부",
+      "raw_title": "과기정통부, 세계적 인공지능 기업의 사이버보안 사업(프로젝트) 관련, 연속(릴레이) 현안 점검 회의 개최",
+      "title": "과기정통부, 세계적 인공지능 기업의 사이버보안 사업(프로젝트) 관련, 연속(릴레이) 현안 점검 회의 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755037",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425145&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425144&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_과학기술_과기정통부__세계적_인공지능_기업의_사이버보안_사업_프_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_과학기술_과기정통부__세계적_인공지능_기업의_사이버보안_사업_프_babe23110e.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "010",
+      "source": "고용노동부",
+      "raw_title": "안전보건공단 '지방공기업 안전활동 수준평가' 본격 시행",
+      "title": "안전보건공단 '지방공기업 안전활동 수준평가' 본격 시행",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755016",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425065&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425066&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_고용노동_안전보건공단__지방공기업_안전활동_수준평가__본격_시행_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_고용노동_안전보건공단__지방공기업_안전활동_수준평가__본격_시행_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_고용노동_안전보건공단__지방공기업_안전활동_수준평가__본격_시행_d39cef7ac1.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "011",
+      "source": "고용노동부",
+      "raw_title": "노사발전재단, '광역형 해운업 특화 서비스' 추진을 위한 다자간 업무협약 체결",
+      "title": "노사발전재단, '광역형 해운업 특화 서비스' 추진을 위한 다자간 업무협약 체결",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755015",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425064&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425063&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_고용노동_노사발전재단___광역형_해운업_특화_서비스__추진을_위_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_고용노동_노사발전재단___광역형_해운업_특화_서비스__추진을_위_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_고용노동_노사발전재단___광역형_해운업_특화_서비스__추진을_위_cc165a867a.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "012",
+      "source": "고용노동부",
+      "raw_title": "일가정양립, 산업단지로 확산 노동부 '산단 행복일터 프로젝트' 본격 추진",
+      "title": "일가정양립, 산업단지로 확산 노동부 '산단 행복일터 프로젝트' 본격 추진",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755014",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425059&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425060&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_고용노동_일가정양립__산업단지로_확산_노동부__산단_행복일터_프_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_고용노동_일가정양립__산업단지로_확산_노동부__산단_행복일터_프_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_고용노동_일가정양립__산업단지로_확산_노동부__산단_행복일터_프_f6ba623f1c.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "013",
+      "source": "고용노동부",
+      "raw_title": "KDT AI 캠퍼스 참여기관 44개소 확정, 5월부터 수강생 모집 등 운영 개시",
+      "title": "KDT AI 캠퍼스 참여기관 44개소 확정, 5월부터 수강생 모집 등 운영 개시",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755013",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425142&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425143&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_고용노동_KDT_AI_캠퍼스_참여기관_44개소_확정__5월부터__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_고용노동_KDT_AI_캠퍼스_참여기관_44개소_확정__5월부터__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_고용노동_KDT_AI_캠퍼스_참여기관_44개소_확정__5월부터__544cb2c95b.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "014",
+      "source": "농림축산식품부",
+      "raw_title": "농식품부 장관, 사람과 동물이 더불어 행복한 현장으로…",
+      "title": "농식품부 장관, 사람과 동물이 더불어 행복한 현장으로…",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755011",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425009&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425010&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198425011&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_농림축산_농식품부_장관__사람과_동물이_더불어_행복한_현장으로__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_농림축산_농식품부_장관__사람과_동물이_더불어_행복한_현장으로__1.hwp",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_농림축산_농식품부_장관__사람과_동물이_더불어_행복한_현장으로__2.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_농림축산_농식품부_장관__사람과_동물이_더불어_행복한_현장으로__8147947cd2.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "015",
+      "source": "중소벤처기업부",
+      "raw_title": "위기를 기회로 바꾸는 상생 '신속한 대금 조정' 협력모델 본격 가동",
+      "title": "위기를 기회로 바꾸는 상생 '신속한 대금 조정' 협력모델 본격 가동",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755010",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424992&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424991&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_중소벤처_위기를_기회로_바꾸는_상생__신속한_대금_조정__협력모_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_중소벤처_위기를_기회로_바꾸는_상생__신속한_대금_조정__협력모_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_중소벤처_위기를_기회로_바꾸는_상생__신속한_대금_조정__협력모_b7745b6504.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "016",
+      "source": "과학기술정보통신부",
+      "raw_title": "불법 쓰레기 편지(불법 스팸) 대응 민관 협의체 제5차 전체 회의",
+      "title": "불법 쓰레기 편지(불법 스팸) 대응 민관 협의체 제5차 전체 회의",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755007",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424964&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424963&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_과학기술_불법_쓰레기_편지_불법_스팸__대응_민관_협의체_제5차_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_과학기술_불법_쓰레기_편지_불법_스팸__대응_민관_협의체_제5차_d855183a66.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "017",
+      "source": "국가데이터처",
+      "raw_title": "국가데이터처-중소기업중앙회 간 업무협약식 개최",
+      "title": "국가데이터처-중소기업중앙회 간 업무협약식 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755012",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425021&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425022&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가데이_국가데이터처_중소기업중앙회_간_업무협약식_개최_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가데이_국가데이터처_중소기업중앙회_간_업무협약식_개최_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국가데이_국가데이터처_중소기업중앙회_간_업무협약식_개최_ec89556ea8.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "018",
+      "source": "방송미디어통신위원회",
+      "raw_title": "[관계부처 합동] 불법스팸 대응 민관 협의체 제5차 전체회의",
+      "title": "[관계부처 합동] 불법스팸 대응 민관 협의체 제5차 전체회의",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755008",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425004&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425003&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198425005&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_방송미디__관계부처_합동__불법스팸_대응_민관_협의체_제5차_전_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_방송미디__관계부처_합동__불법스팸_대응_민관_협의체_제5차_전_1.hwp",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_방송미디__관계부처_합동__불법스팸_대응_민관_협의체_제5차_전_2.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_방송미디__관계부처_합동__불법스팸_대응_민관_협의체_제5차_전_e3340c74ae.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "019",
+      "source": "중소벤처기업부",
+      "raw_title": "중소기업 재도약을 위한 정책 간담회 개최",
+      "title": "중소기업 재도약을 위한 정책 간담회 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755006",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424923&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424922&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_중소벤처_중소기업_재도약을_위한_정책_간담회_개최_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_중소벤처_중소기업_재도약을_위한_정책_간담회_개최_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_중소벤처_중소기업_재도약을_위한_정책_간담회_개최_3c9ed9a13c.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "020",
+      "source": "관세청",
+      "raw_title": "관세청, 미국산 원유 '입항 전 수입통관'으로 에너지 수급 안정 지원",
+      "title": "관세청, 미국산 원유 '입항 전 수입통관'으로 에너지 수급 안정 지원",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755001",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "금융정책",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424999&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198425000&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198425001&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198425002&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424998&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_관세청_관세청__미국산_원유__입항_전_수입통관_으로_에너지__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_관세청_관세청__미국산_원유__입항_전_수입통관_으로_에너지__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_관세청_관세청__미국산_원유__입항_전_수입통관_으로_에너지__60b02ba79a.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "021",
+      "source": "관세청",
+      "raw_title": "관세청, 한-아랍에미리트연합국(UAE) 포괄적경제동반자협정(CEPA) 발효 즉시 활용 지원 ··",
+      "title": "관세청, 한-아랍에미리트연합국(UAE) 포괄적경제동반자협정(CEPA) 발효 즉시 활용 지원 ··",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755000",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "금융정책",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424896&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424895&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_관세청_관세청__한_아랍에미리트연합국_UAE__포괄적경제동반자_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_관세청_관세청__한_아랍에미리트연합국_UAE__포괄적경제동반자_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_관세청_관세청__한_아랍에미리트연합국_UAE__포괄적경제동반자_d7a31784ad.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "022",
+      "source": "관세청",
+      "raw_title": "관세청, 관세국경 지키는 가치 새로 세운다 ···'혁신, 소통, 공정, 수호'를 핵심가치로 선포",
+      "title": "관세청, 관세국경 지키는 가치 새로 세운다 ···'혁신, 소통, 공정, 수호'를 핵심가치로 선포",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754999",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "금융정책",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424994&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424995&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424996&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424997&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424993&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_관세청_관세청__관세국경_지키는_가치_새로_세운다_____혁신_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_관세청_관세청__관세국경_지키는_가치_새로_세운다_____혁신_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_관세청_관세청__관세국경_지키는_가치_새로_세운다_____혁신_89eabe9298.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "023",
+      "source": "산림청",
+      "raw_title": "정부, 산불 유발 불법행위 특별단속, '무관용 원칙' 엄정 대응정부, 산불 유발 불법행위 특별단속",
+      "title": "정부, 산불 유발 불법행위 특별단속, '무관용 원칙' 엄정 대응정부, 산불 유발 불법행위 특별단속",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754997",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424883&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424884&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424887&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424885&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424886&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_정부__산불_유발_불법행위_특별단속___무관용_원칙___3.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_정부__산불_유발_불법행위_특별단속___무관용_원칙___1.hwp",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_정부__산불_유발_불법행위_특별단속___무관용_원칙___2.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_산림청_정부__산불_유발_불법행위_특별단속___무관용_원칙___a3713ebebf.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "024",
+      "source": "산림청",
+      "raw_title": "산림재난, 하나로 묶어 더 강하게··· 한국산림재난안전기술공단 출범산림재난",
+      "title": "산림재난, 하나로 묶어 더 강하게··· 한국산림재난안전기술공단 출범산림재난",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754995",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424873&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424874&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424877&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424875&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424876&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_산림재난__하나로_묶어_더_강하게____한국산림재난안전_3.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_산림재난__하나로_묶어_더_강하게____한국산림재난안전_1.hwp",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_산림재난__하나로_묶어_더_강하게____한국산림재난안전_2.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_산림청_산림재난__하나로_묶어_더_강하게____한국산림재난안전_04c3bf64f2.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "025",
+      "source": "산림청",
+      "raw_title": "올봄, 숲으로 떠나요! 국민의 봄여행을 응원합니다",
+      "title": "올봄, 숲으로 떠나요! 국민의 봄여행을 응원합니다",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754993",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424838&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424839&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424840&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424841&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424842&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424845&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424843&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424844&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_올봄__숲으로_떠나요__국민의_봄여행을_응원합니다_6.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_올봄__숲으로_떠나요__국민의_봄여행을_응원합니다_1.hwp",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_올봄__숲으로_떠나요__국민의_봄여행을_응원합니다_2.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_산림청_올봄__숲으로_떠나요__국민의_봄여행을_응원합니다_b87c2e8c04.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "026",
+      "source": "해양수산부",
+      "raw_title": "해수부·금융위, 호르무즈 해협 통항 대비 우리 선사의 애로사항 해소에 힘 합쳐해수부·금융위",
+      "title": "해수부·금융위, 호르무즈 해협 통항 대비 우리 선사의 애로사항 해소에 힘 합쳐해수부·금융위",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754991",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424802&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424803&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_해양수산_해수부_금융위__호르무즈_해협_통항_대비_우리_선사의__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_해양수산_해수부_금융위__호르무즈_해협_통항_대비_우리_선사의__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_해양수산_해수부_금융위__호르무즈_해협_통항_대비_우리_선사의__c86b4855c3.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "027",
+      "source": "과학기술정보통신부",
+      "raw_title": "정보통신공사업의 공정한 산업 성장 기반 마련",
+      "title": "정보통신공사업의 공정한 산업 성장 기반 마련",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754982",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424761&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424760&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_과학기술_정보통신공사업의_공정한_산업_성장_기반_마련_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_과학기술_정보통신공사업의_공정한_산업_성장_기반_마련_5dfc01d688.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "028",
+      "source": "산업통상부",
+      "raw_title": "민관 협업의 '상생 무역금융' 확산, 연내 10조원 조성민관 협업의 '상생 무역금융' 확산",
+      "title": "민관 협업의 '상생 무역금융' 확산, 연내 10조원 조성민관 협업의 '상생 무역금융' 확산",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754983",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424762&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424763&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상_민관_협업의__상생_무역금융__확산__연내_10조원_조_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상_민관_협업의__상생_무역금융__확산__연내_10조원_조_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_산업통상_민관_협업의__상생_무역금융__확산__연내_10조원_조_28cd1d935b.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "029",
+      "source": "국민권익위원회",
+      "raw_title": "고유가 위기에 석유가격 담합 등 불법행위를 바로 잡고, 취약한 민생현장부터 살피겠습니다고유가 위기에 석유가격 담합 등",
+      "title": "고유가 위기에 석유가격 담합 등 불법행위를 바로 잡고, 취약한 민생현장부터 살피겠습니다고유가 위기에 석유가격 담합 등",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754981",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424759&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424758&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국민권익_고유가_위기에_석유가격_담합_등_불법행위를_바로_잡고__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국민권익_고유가_위기에_석유가격_담합_등_불법행위를_바로_잡고__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국민권익_고유가_위기에_석유가격_담합_등_불법행위를_바로_잡고__c8b1ec392a.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "030",
+      "source": "국토교통부",
+      "raw_title": "국가대표 교통카드 「모두의카드」, 이용자 500만 명 돌파",
+      "title": "국가대표 교통카드 「모두의카드」, 이용자 500만 명 돌파",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754979",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424757&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424756&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국토교통_국가대표_교통카드__모두의카드___이용자_500만_명__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국토교통_국가대표_교통카드__모두의카드___이용자_500만_명__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국토교통_국가대표_교통카드__모두의카드___이용자_500만_명__2905e720aa.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "031",
+      "source": "재정경제부",
+      "raw_title": "허장 재정경제부 2차관, 해외 파견 재경관들과 영상회의 개최",
+      "title": "허장 재정경제부 2차관, 해외 파견 재경관들과 영상회의 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754980",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "금융정책",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424755&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424754&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_재정경제_허장_재정경제부_2차관__해외_파견_재경관들과_영상회의_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_재정경제_허장_재정경제부_2차관__해외_파견_재경관들과_영상회의_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_재정경제_허장_재정경제부_2차관__해외_파견_재경관들과_영상회의_5e37157ddc.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "032",
+      "source": "국가보훈부",
+      "raw_title": "보훈부, 제대군인 고용 우수기업 인증을 지정 제도로 전환",
+      "title": "보훈부, 제대군인 고용 우수기업 인증을 지정 제도로 전환",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754978",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424742&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424741&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가보훈_보훈부__제대군인_고용_우수기업_인증을_지정_제도로_전_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가보훈_보훈부__제대군인_고용_우수기업_인증을_지정_제도로_전_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국가보훈_보훈부__제대군인_고용_우수기업_인증을_지정_제도로_전_e6698ec83f.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "033",
+      "source": "보건복지부",
+      "raw_title": "비상경제 상황, 이웃 위기 더 빨리 찾는다... 복지위기 알림 앱 활용 확대비상경제 상황",
+      "title": "비상경제 상황, 이웃 위기 더 빨리 찾는다... 복지위기 알림 앱 활용 확대비상경제 상황",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754972",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424681&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424680&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_비상경제_상황__이웃_위기_더_빨리_찾는다____복지위_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_비상경제_상황__이웃_위기_더_빨리_찾는다____복지위_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_보건복지_비상경제_상황__이웃_위기_더_빨리_찾는다____복지위_bbd1212ecf.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "034",
+      "source": "중소벤처기업부",
+      "raw_title": "중기부, 비대면진료 제도 개선 논의 이어간다",
+      "title": "중기부, 비대면진료 제도 개선 논의 이어간다",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754974",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424687&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424686&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_중소벤처_중기부__비대면진료_제도_개선_논의_이어간다_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_중소벤처_중기부__비대면진료_제도_개선_논의_이어간다_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_중소벤처_중기부__비대면진료_제도_개선_논의_이어간다_f699c10dd7.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "035",
+      "source": "산업통상부",
+      "raw_title": "반도체･배터리 분야 등 8개 기업 사업재편 승인",
+      "title": "반도체･배터리 분야 등 8개 기업 사업재편 승인",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754975",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424694&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424695&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상_반도체_배터리_분야_등_8개_기업_사업재편_승인_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상_반도체_배터리_분야_등_8개_기업_사업재편_승인_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_산업통상_반도체_배터리_분야_등_8개_기업_사업재편_승인_0541a8a2de.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "036",
+      "source": "산업통상부",
+      "raw_title": "「석유화학 특별법 시행령」 제정안 국무회의 의결",
+      "title": "「석유화학 특별법 시행령」 제정안 국무회의 의결",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754971",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424678&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424679&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상__석유화학_특별법_시행령__제정안_국무회의_의결_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상__석유화학_특별법_시행령__제정안_국무회의_의결_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_산업통상__석유화학_특별법_시행령__제정안_국무회의_의결_581885ffdd.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "037",
+      "source": "산업통상부",
+      "raw_title": "2026년 3월 정보통신산업(ICT) 수출입 동향",
+      "title": "2026년 3월 정보통신산업(ICT) 수출입 동향",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754970",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424676&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424677&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상_2026년_3월_정보통신산업_ICT__수출입_동향_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상_2026년_3월_정보통신산업_ICT__수출입_동향_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_산업통상_2026년_3월_정보통신산업_ICT__수출입_동향_b72c9f54e7.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "038",
+      "source": "산업통상부",
+      "raw_title": "중견·중소기업 기술협력으로 함께 성장해 나간다",
+      "title": "중견·중소기업 기술협력으로 함께 성장해 나간다",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754969",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424674&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424675&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상_중견_중소기업_기술협력으로_함께_성장해_나간다_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상_중견_중소기업_기술협력으로_함께_성장해_나간다_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_산업통상_중견_중소기업_기술협력으로_함께_성장해_나간다_2f5b8a7554.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "039",
+      "source": "문화체육관광부",
+      "raw_title": "'26년 1분기 지역관광 데이터 뚜렷한 상승세, 지역관광 대도약 청신호'26년 1분기 지역관광 데이터 뚜렷한 상승세",
+      "title": "'26년 1분기 지역관광 데이터 뚜렷한 상승세, 지역관광 대도약 청신호'26년 1분기 지역관광 데이터 뚜렷한 상승세",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754968",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424693&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424692&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_문화체육__26년_1분기_지역관광_데이터_뚜렷한_상승세__지역관_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_문화체육__26년_1분기_지역관광_데이터_뚜렷한_상승세__지역관_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_문화체육__26년_1분기_지역관광_데이터_뚜렷한_상승세__지역관_3148806366.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "040",
+      "source": "기후에너지환경부",
+      "raw_title": "실내공기질 우수시설 지정제도 시행… 다중이용시설 이용하는 국민 건강 보호",
+      "title": "실내공기질 우수시설 지정제도 시행… 다중이용시설 이용하는 국민 건강 보호",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754967",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424715&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424714&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_기후에너_실내공기질_우수시설_지정제도_시행__다중이용시설_이용하_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_기후에너_실내공기질_우수시설_지정제도_시행__다중이용시설_이용하_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_기후에너_실내공기질_우수시설_지정제도_시행__다중이용시설_이용하_0d3c93fdf3.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "041",
+      "source": "국토교통부",
+      "raw_title": "노후계획도시 정비사업 부담은 줄고 속도는 빨라진다",
+      "title": "노후계획도시 정비사업 부담은 줄고 속도는 빨라진다",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754966",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424662&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424661&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국토교통_노후계획도시_정비사업_부담은_줄고_속도는_빨라진다_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국토교통_노후계획도시_정비사업_부담은_줄고_속도는_빨라진다_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국토교통_노후계획도시_정비사업_부담은_줄고_속도는_빨라진다_2942911c17.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "042",
+      "source": "국토교통부",
+      "raw_title": "노선버스·심야화물차 재정고속도로 통행료 1개월 면제",
+      "title": "노선버스·심야화물차 재정고속도로 통행료 1개월 면제",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754965",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424660&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424659&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국토교통_노선버스_심야화물차_재정고속도로_통행료_1개월_면제_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국토교통_노선버스_심야화물차_재정고속도로_통행료_1개월_면제_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국토교통_노선버스_심야화물차_재정고속도로_통행료_1개월_면제_ef72faea28.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "043",
+      "source": "법무부",
+      "raw_title": "형사미성년자(촉법소년) 연령 기준 2차 공개포럼 개최",
+      "title": "형사미성년자(촉법소년) 연령 기준 2차 공개포럼 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754964",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424630&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424631&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_법무부_형사미성년자_촉법소년__연령_기준_2차_공개포럼_개최_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_법무부_형사미성년자_촉법소년__연령_기준_2차_공개포럼_개최_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_법무부_형사미성년자_촉법소년__연령_기준_2차_공개포럼_개최_abb9282799.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "044",
+      "source": "보건복지부",
+      "raw_title": "형사미성년자(촉법소년) 연령 기준 2차 공개포럼 개최",
+      "title": "형사미성년자(촉법소년) 연령 기준 2차 공개포럼 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754961",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424746&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424745&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_형사미성년자_촉법소년__연령_기준_2차_공개포럼_개최_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_형사미성년자_촉법소년__연령_기준_2차_공개포럼_개최_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_보건복지_형사미성년자_촉법소년__연령_기준_2차_공개포럼_개최_74c3a4b57e.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "045",
+      "source": "보건복지부",
+      "raw_title": "통합돌봄 시작 2주 만에 9천여 명 신청... 국민 수요에 맞춰 필요 서비스 제공",
+      "title": "통합돌봄 시작 2주 만에 9천여 명 신청... 국민 수요에 맞춰 필요 서비스 제공",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754960",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424705&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424704&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_통합돌봄_시작_2주_만에_9천여_명_신청____국민_수_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_통합돌봄_시작_2주_만에_9천여_명_신청____국민_수_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_보건복지_통합돌봄_시작_2주_만에_9천여_명_신청____국민_수_411c4451cb.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "046",
+      "source": "과학기술정보통신부",
+      "raw_title": "과기정통부, ｢2025년 연구 산업 실태조사｣ 결과 발표",
+      "title": "과기정통부, ｢2025년 연구 산업 실태조사｣ 결과 발표",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754943",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424567&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424568&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424566&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_과학기술_과기정통부___2025년_연구_산업_실태조사__결과_발_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_과학기술_과기정통부___2025년_연구_산업_실태조사__결과_발_01922381a7.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "047",
+      "source": "행정안전부",
+      "raw_title": "살기 좋은 동네 사람이 모이는 지역에 집중 투자",
+      "title": "살기 좋은 동네 사람이 모이는 지역에 집중 투자",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754959",
+      "date": "2026-04-14",
+      "category": "행정법제",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424599&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424598&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_행정안전_살기_좋은_동네_사람이_모이는_지역에_집중_투자_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_행정안전_살기_좋은_동네_사람이_모이는_지역에_집중_투자_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_행정안전_살기_좋은_동네_사람이_모이는_지역에_집중_투자_f9b4d8341b.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "048",
+      "source": "행정안전부",
+      "raw_title": "정부, 산불 유발 불법행위 특별단속, '무관용 원칙' 엄정 대응",
+      "title": "정부, 산불 유발 불법행위 특별단속, '무관용 원칙' 엄정 대응",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754957",
+      "date": "2026-04-14",
+      "category": "행정법제",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424595&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424594&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_행정안전_정부__산불_유발_불법행위_특별단속___무관용_원칙___1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_행정안전_정부__산불_유발_불법행위_특별단속___무관용_원칙___1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_행정안전_정부__산불_유발_불법행위_특별단속___무관용_원칙___d5898aa99c.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "049",
+      "source": "행정안전부",
+      "raw_title": "지난해 산불·호우 피해 주민과 기업에게 피해 지원금 추가로 지급한다",
+      "title": "지난해 산불·호우 피해 주민과 기업에게 피해 지원금 추가로 지급한다",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754955",
+      "date": "2026-04-14",
+      "category": "행정법제",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424591&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424590&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_행정안전_지난해_산불_호우_피해_주민과_기업에게_피해_지원금_추_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_행정안전_지난해_산불_호우_피해_주민과_기업에게_피해_지원금_추_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_행정안전_지난해_산불_호우_피해_주민과_기업에게_피해_지원금_추_a45f37195f.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "050",
+      "source": "행정안전부",
+      "raw_title": "재난시에도 행정 멈춤 없다, 공공정보시스템 1만 6천여 개 등급 전면 재분류",
+      "title": "재난시에도 행정 멈춤 없다, 공공정보시스템 1만 6천여 개 등급 전면 재분류",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754953",
+      "date": "2026-04-14",
+      "category": "행정법제",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424587&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424586&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_행정안전_재난시에도_행정_멈춤_없다__공공정보시스템_1만_6천여_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_행정안전_재난시에도_행정_멈춤_없다__공공정보시스템_1만_6천여_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_행정안전_재난시에도_행정_멈춤_없다__공공정보시스템_1만_6천여_372958e70a.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "051",
+      "source": "교육부",
+      "raw_title": "케이(K)-에듀파인 3세대 사업 본격 추진, 차세대 시스템 전환",
+      "title": "케이(K)-에듀파인 3세대 사업 본격 추진, 차세대 시스템 전환",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754951",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424619&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_교육부_케이_K__에듀파인_3세대_사업_본격_추진__차세대_시_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_교육부_케이_K__에듀파인_3세대_사업_본격_추진__차세대_시_0fa3a4b4b0.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "052",
+      "source": "교육부",
+      "raw_title": "형사미성년자(촉법소년) 연령 기준 2차 공개포럼 개최",
+      "title": "형사미성년자(촉법소년) 연령 기준 2차 공개포럼 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754949",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424618&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_교육부_형사미성년자_촉법소년__연령_기준_2차_공개포럼_개최_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_교육부_형사미성년자_촉법소년__연령_기준_2차_공개포럼_개최_15ab4a31ba.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "053",
+      "source": "교육부",
+      "raw_title": "2026년 학교복합시설 사업 1차 공모 결과, 총 5개 사업 선정",
+      "title": "2026년 학교복합시설 사업 1차 공모 결과, 총 5개 사업 선정",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754950",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424582&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_교육부_2026년_학교복합시설_사업_1차_공모_결과__총_5개_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_교육부_2026년_학교복합시설_사업_1차_공모_결과__총_5개_dead333503.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "054",
+      "source": "기후에너지환경부",
+      "raw_title": "낮엔 낮추고 저녁은 높인다… 계절·시간대별 전기요금 개편안 시행",
+      "title": "낮엔 낮추고 저녁은 높인다… 계절·시간대별 전기요금 개편안 시행",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754948",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424701&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424700&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_기후에너_낮엔_낮추고_저녁은_높인다__계절_시간대별_전기요금_개_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_기후에너_낮엔_낮추고_저녁은_높인다__계절_시간대별_전기요금_개_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_기후에너_낮엔_낮추고_저녁은_높인다__계절_시간대별_전기요금_개_2bc41de1a6.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "055",
+      "source": "기후에너지환경부",
+      "raw_title": "전국 121곳 동물원에 질병관리 지침 배포",
+      "title": "전국 121곳 동물원에 질병관리 지침 배포",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754947",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424627&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424626&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_기후에너_전국_121곳_동물원에_질병관리_지침_배포_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_기후에너_전국_121곳_동물원에_질병관리_지침_배포_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_기후에너_전국_121곳_동물원에_질병관리_지침_배포_4998c07157.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "056",
+      "source": "기후에너지환경부",
+      "raw_title": "여름철 홍수 대비, 제3회 대한민국 홍수안전강조기간 운영",
+      "title": "여름철 홍수 대비, 제3회 대한민국 홍수안전강조기간 운영",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754946",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424635&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424634&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_기후에너_여름철_홍수_대비__제3회_대한민국_홍수안전강조기간_운_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_기후에너_여름철_홍수_대비__제3회_대한민국_홍수안전강조기간_운_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_기후에너_여름철_홍수_대비__제3회_대한민국_홍수안전강조기간_운_336e713dfd.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "057",
+      "source": "질병관리청",
+      "raw_title": "[4.15.수.조간] 우울증상 관련요인 1위 수면, 적정 수면과 생활습관 관리 중요",
+      "title": "[4.15.수.조간] 우울증상 관련요인 1위 수면, 적정 수면과 생활습관 관리 중요",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754944",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424620&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424621&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_질병관리__4_15_수_조간__우울증상_관련요인_1위_수면__적_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_질병관리__4_15_수_조간__우울증상_관련요인_1위_수면__적_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_질병관리__4_15_수_조간__우울증상_관련요인_1위_수면__적_02866b23a2.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "058",
+      "source": "문화체육관광부",
+      "raw_title": "'홀드백' 등 영화계 주요 현안에 대한 현장 의견 듣는다",
+      "title": "'홀드백' 등 영화계 주요 현안에 대한 현장 의견 듣는다",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754940",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424532&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424531&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_문화체육__홀드백__등_영화계_주요_현안에_대한_현장_의견_듣는_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_문화체육__홀드백__등_영화계_주요_현안에_대한_현장_의견_듣는_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_문화체육__홀드백__등_영화계_주요_현안에_대한_현장_의견_듣는_31d1259730.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "059",
+      "source": "과학기술정보통신부",
+      "raw_title": "대한민국, 세계 인공지능 3대 강국 향해 순항",
+      "title": "대한민국, 세계 인공지능 3대 강국 향해 순항",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754939",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424658&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424657&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_과학기술_대한민국__세계_인공지능_3대_강국_향해_순항_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_과학기술_대한민국__세계_인공지능_3대_강국_향해_순항_b62342e119.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "060",
+      "source": "과학기술정보통신부",
+      "raw_title": "2026년 3월 정보통신산업(ICT) 수출입 동향",
+      "title": "2026년 3월 정보통신산업(ICT) 수출입 동향",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754934",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424512&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424511&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_과학기술_2026년_3월_정보통신산업_ICT__수출입_동향_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_과학기술_2026년_3월_정보통신산업_ICT__수출입_동향_f2352ae845.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "061",
+      "source": "과학기술정보통신부",
+      "raw_title": "과기정통부, 국제(글로벌) 녹색성장기구(GGGI)와 공공기후 기술 실증 및 해외 진출을 위한 협력 사업 착수과기정통부",
+      "title": "과기정통부, 국제(글로벌) 녹색성장기구(GGGI)와 공공기후 기술 실증 및 해외 진출을 위한 협력 사업 착수과기정통부",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754933",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424510&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424509&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_과학기술_과기정통부__국제_글로벌__녹색성장기구_GGGI_와_공_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_과학기술_과기정통부__국제_글로벌__녹색성장기구_GGGI_와_공_7c1aaf88a6.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "062",
+      "source": "국토교통부",
+      "raw_title": "KTX와 SRT 하나로 달린다… 좌석 늘고 운임 10% 할인",
+      "title": "KTX와 SRT 하나로 달린다… 좌석 늘고 운임 10% 할인",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754938",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424520&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424519&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국토교통_KTX와_SRT_하나로_달린다__좌석_늘고_운임_10__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국토교통_KTX와_SRT_하나로_달린다__좌석_늘고_운임_10__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국토교통_KTX와_SRT_하나로_달린다__좌석_늘고_운임_10__ac22e80061.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "063",
+      "source": "해양수산부",
+      "raw_title": "손흥민과 이정후, 'K-김(GIM)'을 미국 시장에 외치다!손흥민과 이정후",
+      "title": "손흥민과 이정후, 'K-김(GIM)'을 미국 시장에 외치다!손흥민과 이정후",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754937",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424517&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424518&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_해양수산_손흥민과_이정후___K_김_GIM__을_미국_시장에_외_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_해양수산_손흥민과_이정후___K_김_GIM__을_미국_시장에_외_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_해양수산_손흥민과_이정후___K_김_GIM__을_미국_시장에_외_e3b404b7f5.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "064",
+      "source": "해양수산부",
+      "raw_title": "선박 탄소포집 기술 국제 표준 선점 위한 협의체 가동",
+      "title": "선박 탄소포집 기술 국제 표준 선점 위한 협의체 가동",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754936",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424542&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424541&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_해양수산_선박_탄소포집_기술_국제_표준_선점_위한_협의체_가동_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_해양수산_선박_탄소포집_기술_국제_표준_선점_위한_협의체_가동_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_해양수산_선박_탄소포집_기술_국제_표준_선점_위한_협의체_가동_52e25a73f7.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "065",
+      "source": "해양수산부",
+      "raw_title": "중국어선 불법조업 막는다...봄철 불법어업 합동단속 실시중국어선 불법조업 막는다...봄철 불법어업 합동단속 실시 - 고유가",
+      "title": "중국어선 불법조업 막는다...봄철 불법어업 합동단속 실시중국어선 불법조업 막는다...봄철 불법어업 합동단속 실시 - 고유가",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754935",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424513&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424514&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_해양수산_중국어선_불법조업_막는다___봄철_불법어업_합동단속_실_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_해양수산_중국어선_불법조업_막는다___봄철_불법어업_합동단속_실_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_해양수산_중국어선_불법조업_막는다___봄철_불법어업_합동단속_실_da8db70700.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "066",
+      "source": "고용노동부",
+      "raw_title": "2026년 1분기 산업재해 현황 부가통계 \"재해조사 대상 사망사고 발생 현황\" 잠정결과 발표",
+      "title": "2026년 1분기 산업재해 현황 부가통계 \"재해조사 대상 사망사고 발생 현황\" 잠정결과 발표",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754932",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424527&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424528&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_고용노동_2026년_1분기_산업재해_현황_부가통계__재해조사_대_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_고용노동_2026년_1분기_산업재해_현황_부가통계__재해조사_대_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_고용노동_2026년_1분기_산업재해_현황_부가통계__재해조사_대_75309282da.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "067",
+      "source": "산림청",
+      "raw_title": "임도사업 다년화로 공사품질 잡고, 공개경쟁 확대로 계약의 투명성을 높인다",
+      "title": "임도사업 다년화로 공사품질 잡고, 공개경쟁 확대로 계약의 투명성을 높인다",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754679",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424473&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424474&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424477&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424475&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424476&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_임도사업_다년화로_공사품질_잡고__공개경쟁_확대로_계약_3.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_임도사업_다년화로_공사품질_잡고__공개경쟁_확대로_계약_1.hwp",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_임도사업_다년화로_공사품질_잡고__공개경쟁_확대로_계약_2.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_산림청_임도사업_다년화로_공사품질_잡고__공개경쟁_확대로_계약_96173cc037.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "068",
+      "source": "국토교통부",
+      "raw_title": "[참고] \"중앙·지방정부가 함께 지역 건설업계 애로를 직접 듣고 해소하겠습니다.\"[참고] \"중앙",
+      "title": "[참고] \"중앙·지방정부가 함께 지역 건설업계 애로를 직접 듣고 해소하겠습니다.\"[참고] \"중앙",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754661",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423846&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423845&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국토교통__참고___중앙_지방정부가_함께_지역_건설업계_애로를__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국토교통__참고___중앙_지방정부가_함께_지역_건설업계_애로를__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국토교통__참고___중앙_지방정부가_함께_지역_건설업계_애로를__bda045ab41.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "069",
+      "source": "과학기술정보통신부",
+      "raw_title": "기후기술의 이전·확산 촉진을 위해 선진국·개도국 대표들이 한 자리에 모인다",
+      "title": "기후기술의 이전·확산 촉진을 위해 선진국·개도국 대표들이 한 자리에 모인다",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754931",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424483&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424482&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_과학기술_기후기술의_이전_확산_촉진을_위해_선진국_개도국_대표들_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_과학기술_기후기술의_이전_확산_촉진을_위해_선진국_개도국_대표들_3dae52e133.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "070",
+      "source": "과학기술정보통신부",
+      "raw_title": "인공지능확장현실 시대를 이끌 인재, 지금 시작합니다. 「가상 융합기술 아카데미」 제5기 입학식 개최",
+      "title": "인공지능확장현실 시대를 이끌 인재, 지금 시작합니다. 「가상 융합기술 아카데미」 제5기 입학식 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754567",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423631&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423630&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_과학기술_인공지능_확장현실_시대를_이끌_인재__지금_시작합니다__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_과학기술_인공지능_확장현실_시대를_이끌_인재__지금_시작합니다__8a117d6895.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "071",
+      "source": "국가보훈부",
+      "raw_title": "보훈부, 고 박승원 소방경 등 순직소방관 애도 조기게양",
+      "title": "보훈부, 고 박승원 소방경 등 순직소방관 애도 조기게양",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754565",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423627&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423626&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가보훈_보훈부__고_박승원_소방경_등_순직소방관_애도_조기게양_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가보훈_보훈부__고_박승원_소방경_등_순직소방관_애도_조기게양_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국가보훈_보훈부__고_박승원_소방경_등_순직소방관_애도_조기게양_2272cbffd2.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "072",
+      "source": "산림청",
+      "raw_title": "나무에서 바이오플라스틱 원료 뽑아낸다…5-HMF 회수 기술 개발나무에서 바이오플라스틱 원료 뽑아낸다",
+      "title": "나무에서 바이오플라스틱 원료 뽑아낸다…5-HMF 회수 기술 개발나무에서 바이오플라스틱 원료 뽑아낸다",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754391",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423084&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198423085&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198423086&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423083&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산림청_나무에서_바이오플라스틱_원료_뽑아낸다_5_HMF_회수__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_산림청_나무에서_바이오플라스틱_원료_뽑아낸다_5_HMF_회수__e1de587f40.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "073",
+      "source": "보건복지부",
+      "raw_title": "복지부·중기부, 유망 바이오헬스 중소벤처기업 키운다…최대 60억 원 지원",
+      "title": "복지부·중기부, 유망 바이오헬스 중소벤처기업 키운다…최대 60억 원 지원",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754394",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424485&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424484&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_복지부_중기부__유망_바이오헬스_중소벤처기업_키운다_최_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_복지부_중기부__유망_바이오헬스_중소벤처기업_키운다_최_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_보건복지_복지부_중기부__유망_바이오헬스_중소벤처기업_키운다_최_a6fac62b5f.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "074",
+      "source": "국가유산청",
+      "raw_title": "궁궐과 왕릉에서 경험하는 '단종의 일생' 서사",
+      "title": "궁궐과 왕릉에서 경험하는 '단종의 일생' 서사",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754389",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423063&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423064&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가유산_궁궐과_왕릉에서_경험하는__단종의_일생__서사_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가유산_궁궐과_왕릉에서_경험하는__단종의_일생__서사_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국가유산_궁궐과_왕릉에서_경험하는__단종의_일생__서사_7ed232988e.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "075",
+      "source": "국가유산청",
+      "raw_title": "국립조선왕조실록박물관에서 정조의 군사 의례 담은 디지털 실감영상 공개",
+      "title": "국립조선왕조실록박물관에서 정조의 군사 의례 담은 디지털 실감영상 공개",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754386",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423053&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423054&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가유산_국립조선왕조실록박물관에서_정조의_군사_의례_담은_디지털_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가유산_국립조선왕조실록박물관에서_정조의_군사_의례_담은_디지털_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국가유산_국립조선왕조실록박물관에서_정조의_군사_의례_담은_디지털_b44aa88c46.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "076",
+      "source": "우주항공청",
+      "raw_title": "본격 도약하는 우주항공청... 미국, 유럽, UAE 등 우주 강국과 활발한 국제 행보 이어가",
+      "title": "본격 도약하는 우주항공청... 미국, 유럽, UAE 등 우주 강국과 활발한 국제 행보 이어가",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754392",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423073&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198423074&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_우주항공_본격_도약하는_우주항공청____미국__유럽__UAE_등_1.hwp",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_우주항공_본격_도약하는_우주항공청____미국__유럽__UAE_등_2.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_우주항공_본격_도약하는_우주항공청____미국__유럽__UAE_등_877f44b541.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "077",
+      "source": "국가유산청",
+      "raw_title": "'2026년 국가유산 방문 캠페인', 전년 대비 2배 확대된 풍성한 혜택",
+      "title": "'2026년 국가유산 방문 캠페인', 전년 대비 2배 확대된 풍성한 혜택",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754384",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423841&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423842&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가유산__2026년_국가유산_방문_캠페인___전년_대비_2배__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가유산__2026년_국가유산_방문_캠페인___전년_대비_2배__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국가유산__2026년_국가유산_방문_캠페인___전년_대비_2배__b4d641bdd5.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "078",
+      "source": "국가유산청",
+      "raw_title": "국가유산 연구개발사업 성과 '문화유산 실측 소프트웨어' 장영실상 수상",
+      "title": "국가유산 연구개발사업 성과 '문화유산 실측 소프트웨어' 장영실상 수상",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754382",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423045&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423046&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가유산_국가유산_연구개발사업_성과__문화유산_실측_소프트웨어__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가유산_국가유산_연구개발사업_성과__문화유산_실측_소프트웨어__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국가유산_국가유산_연구개발사업_성과__문화유산_실측_소프트웨어__330b8b5f60.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "079",
+      "source": "산업통상부",
+      "raw_title": "산업부, 소부장 기업 밀착 지원을 위한 '찾아가는 설명회' 개최산업부",
+      "title": "산업부, 소부장 기업 밀착 지원을 위한 '찾아가는 설명회' 개최산업부",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754381",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423037&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423038&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상_산업부__소부장_기업_밀착_지원을_위한__찾아가는_설명_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_산업통상_산업부__소부장_기업_밀착_지원을_위한__찾아가는_설명_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_산업통상_산업부__소부장_기업_밀착_지원을_위한__찾아가는_설명_fb3c1ef7d4.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "080",
+      "source": "산림청",
+      "raw_title": "정읍국유림관리소 안전보건협의체 정기회의 개최",
+      "title": "정읍국유림관리소 안전보건협의체 정기회의 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754379",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423041&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198423042&tblKey=GMN"
+      ],
+      "hwps": [],
+      "files": [],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "",
+      "related_laws": []
+    },
+    {
+      "slug": "081",
+      "source": "국민권익위원회",
+      "raw_title": "\"전자정부 시대에 아직도 방문 발급이라니\"… 구조·구급증명서, '온라인' 발급 가능해야",
+      "title": "\"전자정부 시대에 아직도 방문 발급이라니\"… 구조·구급증명서, '온라인' 발급 가능해야",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754377",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423016&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423015&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국민권익__전자정부_시대에_아직도_방문_발급이라니___구조_구급_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국민권익__전자정부_시대에_아직도_방문_발급이라니___구조_구급_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국민권익__전자정부_시대에_아직도_방문_발급이라니___구조_구급_6317ba845f.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "082",
+      "source": "방위사업청",
+      "raw_title": "지방 중소기업도 쉽게 본다... 방위사업 자료열람 서비스 확대!",
+      "title": "지방 중소기업도 쉽게 본다... 방위사업 자료열람 서비스 확대!",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754376",
+      "date": "2026-04-14",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423018&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423017&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_방위사업_지방_중소기업도_쉽게_본다____방위사업_자료열람_서비_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_방위사업_지방_중소기업도_쉽게_본다____방위사업_자료열람_서비_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_방위사업_지방_중소기업도_쉽게_본다____방위사업_자료열람_서비_1cb3b6db9b.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "083",
+      "source": "보건복지부",
+      "raw_title": "주사기·주사침 매점매석 금지에 따른 긴급현장점검 등 후속조치 추진",
+      "title": "주사기·주사침 매점매석 금지에 따른 긴급현장점검 등 후속조치 추진",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754393",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424479&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424478&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_주사기_주사침_매점매석_금지에_따른_긴급현장점검_등_후_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_주사기_주사침_매점매석_금지에_따른_긴급현장점검_등_후_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_보건복지_주사기_주사침_매점매석_금지에_따른_긴급현장점검_등_후_13e55d49b8.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "084",
+      "source": "중소벤처기업부",
+      "raw_title": "중기부, 「모두의 챌린지 팹리스」 로 팹리스 스타트업의 성장 전폭 지원",
+      "title": "중기부, 「모두의 챌린지 팹리스」 로 팹리스 스타트업의 성장 전폭 지원",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754364",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423000&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198422999&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_중소벤처_중기부___모두의_챌린지_팹리스__로_팹리스_스타트업의_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_중소벤처_중기부___모두의_챌린지_팹리스__로_팹리스_스타트업의_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_중소벤처_중기부___모두의_챌린지_팹리스__로_팹리스_스타트업의_48653a568f.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "085",
+      "source": "소방청",
+      "raw_title": "\"국가 화재안전 이끌어갈 최고 전문가 찾습니다\" 소방청, 제15기 중앙소방기술심의위원 모집",
+      "title": "\"국가 화재안전 이끌어갈 최고 전문가 찾습니다\" 소방청, 제15기 중앙소방기술심의위원 모집",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754363",
+      "date": "2026-04-14",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423001&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_소방청__국가_화재안전_이끌어갈_최고_전문가_찾습니다__소방청_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_소방청__국가_화재안전_이끌어갈_최고_전문가_찾습니다__소방청_4063d326b8.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "086",
+      "source": "교육부",
+      "raw_title": "교육부-삼성화재-장애인먼저실천운동본부, 국민의 장애 인식 개선 위해 맞손",
+      "title": "교육부-삼성화재-장애인먼저실천운동본부, 국민의 장애 인식 개선 위해 맞손",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754362",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198422996&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_교육부_교육부_삼성화재_장애인먼저실천운동본부__국민의_장애_인_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_교육부_교육부_삼성화재_장애인먼저실천운동본부__국민의_장애_인_f452bd57b9.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "087",
+      "source": "농림축산식품부",
+      "raw_title": "유통이력관리 대상 수입 국화 신규 지정 및 현장 맞춤형 신고 간소화 시행",
+      "title": "유통이력관리 대상 수입 국화 신규 지정 및 현장 맞춤형 신고 간소화 시행",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754361",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198422992&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198422993&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198422994&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_농림축산_유통이력관리_대상_수입_국화_신규_지정_및_현장_맞춤형_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_농림축산_유통이력관리_대상_수입_국화_신규_지정_및_현장_맞춤형_1.hwp",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_농림축산_유통이력관리_대상_수입_국화_신규_지정_및_현장_맞춤형_2.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_농림축산_유통이력관리_대상_수입_국화_신규_지정_및_현장_맞춤형_362577fd52.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "088",
+      "source": "성평등가족부",
+      "raw_title": "형사미성년자(촉법소년) 연령 기준 2차 공개포럼 개최",
+      "title": "형사미성년자(촉법소년) 연령 기준 2차 공개포럼 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754976",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424710&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424711&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_성평등가_형사미성년자_촉법소년__연령_기준_2차_공개포럼_개최_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_성평등가_형사미성년자_촉법소년__연령_기준_2차_공개포럼_개최_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_성평등가_형사미성년자_촉법소년__연령_기준_2차_공개포럼_개최_0ad6a8899e.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "089",
+      "source": "재정경제부",
+      "raw_title": "정부, 석유화학 원료·제품까지 공급망 안정화에 적극 대응",
+      "title": "정부, 석유화학 원료·제품까지 공급망 안정화에 적극 대응",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755041",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "금융정책",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198425225&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198425224&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_재정경제_정부__석유화학_원료_제품까지_공급망_안정화에_적극_대_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_재정경제_정부__석유화학_원료_제품까지_공급망_안정화에_적극_대_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_재정경제_정부__석유화학_원료_제품까지_공급망_안정화에_적극_대_bbc5a795ff.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "090",
+      "source": "금융위원회",
+      "raw_title": "가상자산사업자 ㈜코인원 종합검사 결과에 대한 조치 통보가상자산사업자 ㈜코인원 종합검사 결과에 대한 조치",
+      "title": "가상자산사업자 ㈜코인원 종합검사 결과에 대한 조치 통보가상자산사업자 ㈜코인원 종합검사 결과에 대한 조치",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754659",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "금융정책",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198423838&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198423837&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융위원_가상자산사업자__코인원_종합검사_결과에_대한_조치_통보_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_금융위원_가상자산사업자__코인원_종합검사_결과에_대한_조치_통보_b6cedfb69a.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "091",
+      "source": "금융위원회",
+      "raw_title": "해수부·금융위, 호르무즈 해협 통항 대비 우리 선사의 애로사항 해소에 힘 합쳐 -선사 보험료 부담 경감 및 신속 가입 여건",
+      "title": "해수부·금융위, 호르무즈 해협 통항 대비 우리 선사의 애로사항 해소에 힘 합쳐 -선사 보험료 부담 경감 및 신속 가입 여건",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755004",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "금융정책",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424917&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424916&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융위원_해수부_금융위__호르무즈_해협_통항_대비_우리_선사의__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융위원_해수부_금융위__호르무즈_해협_통항_대비_우리_선사의__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_금융위원_해수부_금융위__호르무즈_해협_통항_대비_우리_선사의__4ae76429b4.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "092",
+      "source": "금융위원회",
+      "raw_title": "국민성장펀드가첨단산업 생태계 지원을 강화합니다. - 국민성장펀드 전략위원회(자문기구) 제2차 회의 개최",
+      "title": "국민성장펀드가첨단산업 생태계 지원을 강화합니다. - 국민성장펀드 전략위원회(자문기구) 제2차 회의 개최",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156755002",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "금융정책",
+      "pdfs": [
+        "https://www.korea.kr/common/download.do?fileId=198424905&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424907&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424909&tblKey=GMN"
+      ],
+      "hwps": [
+        "https://www.korea.kr/common/download.do?fileId=198424904&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424906&tblKey=GMN",
+        "https://www.korea.kr/common/download.do?fileId=198424908&tblKey=GMN"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융위원_국민성장펀드가첨단산업_생태계_지원을_강화합니다____국_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융위원_국민성장펀드가첨단산업_생태계_지원을_강화합니다____국_2.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융위원_국민성장펀드가첨단산업_생태계_지원을_강화합니다____국_3.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융위원_국민성장펀드가첨단산업_생태계_지원을_강화합니다____국_1.hwp",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융위원_국민성장펀드가첨단산업_생태계_지원을_강화합니다____국_2.hwp",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융위원_국민성장펀드가첨단산업_생태계_지원을_강화합니다____국_3.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_금융위원_국민성장펀드가첨단산업_생태계_지원을_강화합니다____국_7c75edeb2b.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "093",
+      "source": "금융감독원",
+      "raw_title": "자본시장의 투명성 제고를 위해 25년 자산운용사 의결권 행사 내역을 점검하겠습니다",
+      "title": "자본시장의 투명성 제고를 위해 25년 자산운용사 의결권 행사 내역을 점검하겠습니다",
+      "url": "https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=217212&menuNo=200218&pageIndex=1",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "감독규제",
+      "pdfs": [
+        "https://www.fss.or.kr/fss/cmmn/file/fileDown.do?menuNo=200218&atchFileId=e6f4bdfee25e4577ba79b9b762ad8928&fileSn=2&bbsId="
+      ],
+      "hwps": [
+        "https://www.fss.or.kr/fss/cmmn/file/fileDown.do?menuNo=200218&atchFileId=e6f4bdfee25e4577ba79b9b762ad8928&fileSn=1&bbsId="
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융감독_자본시장의_투명성_제고를_위해_25년_자산운용사_의결권_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융감독_자본시장의_투명성_제고를_위해_25년_자산운용사_의결권_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_금융감독_자본시장의_투명성_제고를_위해_25년_자산운용사_의결권_9379184e0b.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "094",
+      "source": "금융감독원",
+      "raw_title": "K-IFRS 제1118호 영향 관련 사전 주석공시 모범사례 마련",
+      "title": "K-IFRS 제1118호 영향 관련 사전 주석공시 모범사례 마련",
+      "url": "https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=217193&menuNo=200218&pageIndex=1",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "감독규제",
+      "pdfs": [
+        "https://www.fss.or.kr/fss/cmmn/file/fileDown.do?menuNo=200218&atchFileId=6d2813baa1a545fc8cb67dd133cf5025&fileSn=2&bbsId="
+      ],
+      "hwps": [
+        "https://www.fss.or.kr/fss/cmmn/file/fileDown.do?menuNo=200218&atchFileId=6d2813baa1a545fc8cb67dd133cf5025&fileSn=1&bbsId="
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융감독_K_IFRS_제1118호_영향_관련_사전_주석공시_모범_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융감독_K_IFRS_제1118호_영향_관련_사전_주석공시_모범_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_금융감독_K_IFRS_제1118호_영향_관련_사전_주석공시_모범_3e630f5d2e.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "095",
+      "source": "금융감독원",
+      "raw_title": "2026년 FSS금융아카데미를 신청하세요",
+      "title": "2026년 FSS금융아카데미를 신청하세요",
+      "url": "https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=217194&menuNo=200218&pageIndex=1",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "감독규제",
+      "pdfs": [
+        "https://www.fss.or.kr/fss/cmmn/file/fileDown.do?menuNo=200218&atchFileId=f67cbcdf76c447c3bf216523ec60b5f5&fileSn=2&bbsId="
+      ],
+      "hwps": [
+        "https://www.fss.or.kr/fss/cmmn/file/fileDown.do?menuNo=200218&atchFileId=f67cbcdf76c447c3bf216523ec60b5f5&fileSn=1&bbsId="
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융감독_2026년_FSS금융아카데미를_신청하세요_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융감독_2026년_FSS금융아카데미를_신청하세요_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_금융감독_2026년_FSS금융아카데미를_신청하세요_4067f0759d.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "096",
+      "source": "한국은행",
+      "raw_title": "금융통화위원회 의사록(2026년 제6차)(2026.3.26)",
+      "title": "금융통화위원회 의사록(2026년 제6차)(2026.3.26)",
+      "url": "https://www.bok.or.kr/portal/bbs/P0000559/view.do?nttId=10097307&searchCnd=1&searchKwd=&depth2=200038&depth3=201263&depth=201263&pageUnit=10&pageIndex=1&programType=newsData&menuNo=200690&oldMenuNo=201263",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "시장통화",
+      "pdfs": [
+        "https://www.bok.or.kr/fileSrc/portal/81fa9ef6039047e196d4e243d6b805af/2/e4bc074679164f9bb811074260659bb4.pdf"
+      ],
+      "hwps": [
+        "https://www.bok.or.kr/fileSrc/portal/81fa9ef6039047e196d4e243d6b805af/1/341c682f69aa4f3ba80675c5ee074dea.hwp"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_한국은행_금융통화위원회_의사록_2026년_제6차__2026_3__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_한국은행_금융통화위원회_의사록_2026년_제6차__2026_3__1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_한국은행_금융통화위원회_의사록_2026년_제6차__2026_3__6c8ffd1c58.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "097",
+      "source": "금융위원회",
+      "raw_title": "가상자산사업자 ㈜코인원 종합검사 결과에 대한 조치 통보",
+      "title": "가상자산사업자 ㈜코인원 종합검사 결과에 대한 조치 통보",
+      "url": "https://www.fsc.go.kr/no010101/86695",
+      "date": "2026-04-14",
+      "category": "금융경제",
+      "finance_sub": "금융정책",
+      "pdfs": [
+        "https://www.fsc.go.kr/comm/getFile?srvcId=BBSTY1&upperNo=86695&fileTy=ATTACH&fileNo=2"
+      ],
+      "hwps": [
+        "https://www.fsc.go.kr/comm/getFile?srvcId=BBSTY1&upperNo=86695&fileTy=ATTACH&fileNo=1"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_금융위원_가상자산사업자__코인원_종합검사_결과에_대한_조치_통보_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_금융위원_가상자산사업자__코인원_종합검사_결과에_대한_조치_통보_46d5cccc81.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "098",
+      "source": "보건복지부",
+      "raw_title": "비상경제 상황, 이웃 위기 더 빨리 찾는다... 복지위기 알림 앱 활용 확대",
+      "title": "비상경제 상황, 이웃 위기 더 빨리 찾는다... 복지위기 알림 앱 활용 확대",
+      "url": "https://www.mohw.go.kr/board.es?mid=a10503000000&bid=0027&act=view&list_no=1490075&tag=&nPage=1",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [
+        "https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1490075&seq=1",
+        "https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1490075&seq=2"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_보건복지_비상경제_상황__이웃_위기_더_빨리_찾는다____복지위_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_보건복지_비상경제_상황__이웃_위기_더_빨리_찾는다____복지위_719fb49627.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "099",
+      "source": "문화체육관광부",
+      "raw_title": "'26년 1분기 지역관광 데이터 뚜렷한 상승세, 지역관광 대도약 청신호",
+      "title": "'26년 1분기 지역관광 데이터 뚜렷한 상승세, 지역관광 대도약 청신호",
+      "url": "https://www.mcst.go.kr/kor/s_notice/press/pressView.jsp?pSeq=22342",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [
+        "https://www.mcst.go.kr/attachFiles/20260414130302491099368752_PRESS20260414010302638294.hwpx"
+      ],
+      "files": [],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": false,
+      "text_path": "",
+      "related_laws": []
+    },
+    {
+      "slug": "100",
+      "source": "농림축산식품부",
+      "raw_title": "농식품부 장관, 사람과 동물이 더불어 행복한 현장으로…새글",
+      "title": "농식품부 장관, 사람과 동물이 더불어 행복한 현장으로…새글",
+      "url": "https://www.mafra.go.kr/bbs/home/792/577617/artclView.do",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.mafra.go.kr/sn3hcv_v2023/view.jsp?filepath=/home/atchmnfl/bbs/792/FFC53F0D-E7FD-9552-99E6-A0F166D18086.pdf"
+      ],
+      "hwps": [
+        "https://www.mafra.go.kr/sn3hcv_v2023/view.jsp?filepath=/home/atchmnfl/bbs/792/383E23EF-76CF-6B1D-1CC5-2EBF70C66BFF.hwpx",
+        "https://www.mafra.go.kr/sn3hcv_v2023/view.jsp?filepath=/home/atchmnfl/bbs/792/BFFD2FAB-A576-30EB-3949-90EECB71884F.hwp"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_농림축산_농식품부_장관__사람과_동물이_더불어_행복한_현장으로__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_농림축산_농식품부_장관__사람과_동물이_더불어_행복한_현장으로__2.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_농림축산_농식품부_장관__사람과_동물이_더불어_행복한_현장으로__08ba81331d.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "101",
+      "source": "농림축산식품부",
+      "raw_title": "유통이력관리 대상 수입 국화 신규 지정 및 현장 맞춤형 신고 간소화 시행새글",
+      "title": "유통이력관리 대상 수입 국화 신규 지정 및 현장 맞춤형 신고 간소화 시행새글",
+      "url": "https://www.mafra.go.kr/bbs/home/792/577607/artclView.do",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.mafra.go.kr/sn3hcv_v2023/view.jsp?filepath=/home/atchmnfl/bbs/792/E5E14529-418F-4515-2D26-4981EF33A638.pdf"
+      ],
+      "hwps": [
+        "https://www.mafra.go.kr/sn3hcv_v2023/view.jsp?filepath=/home/atchmnfl/bbs/792/5B1C45C2-5EAD-9121-CB16-B5CD003D9295.hwpx",
+        "https://www.mafra.go.kr/sn3hcv_v2023/view.jsp?filepath=/home/atchmnfl/bbs/792/F3943931-319C-DE2A-EF47-553BCCD5E078.hwp"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_농림축산_유통이력관리_대상_수입_국화_신규_지정_및_현장_맞춤형_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_농림축산_유통이력관리_대상_수입_국화_신규_지정_및_현장_맞춤형_2.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_농림축산_유통이력관리_대상_수입_국화_신규_지정_및_현장_맞춤형_3875fa2868.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "102",
+      "source": "국민권익위원회",
+      "raw_title": "고유가 위기에 석유가격 담합 등 불법행위를 바로 잡고, 취약한 민생현장부터 살피겠습니다",
+      "title": "고유가 위기에 석유가격 담합 등 불법행위를 바로 잡고, 취약한 민생현장부터 살피겠습니다",
+      "url": "https://www.acrc.go.kr/board.es?mid=a10402010000&bid=4A&act=view&list_no=109979&tag=&nPage=1",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.acrc.go.kr/attachPreview.es?bid=4A&list_no=109979&seq=2&filename=17761446760412.pdf&filenameOrg=%28260414%29+%EA%B3%A0%EC%9C%A0%EA%B0%80+%EC%9C%84%EA%B8%B0%EF%BC%8C+%EC%84%9D%EC%9C%A0%EA%B0%80%EA%B2%A9+%EB%8B%B4%ED%95%A9+%EB%93%B1+%EB%B6%88%EB%B2%95%ED%96%89%EC%9C%84%EB%8A%94+%EB%B0%94%EB%A1%9C+%EC%9E%A1%EA%B3%A0%EF%BC%8C+%EC%B7%A8%EC%95%BD%ED%95%9C+%EB%AF%BC%EC%83%9D%ED%98%84%EC%9E%A5%EB%B6%80%ED%84%B0+%EC%82%B4%ED%94%BC%EA%B2%A0%EC%8A%B5%EB%8B%88%EB%8B%A4.pdf&type=board&initTTS=true",
+        "https://www.acrc.go.kr/attachPreview.es?bid=4A&list_no=109979&seq=2&filename=17761446760412.pdf&filenameOrg=%28260414%29+%EA%B3%A0%EC%9C%A0%EA%B0%80+%EC%9C%84%EA%B8%B0%EF%BC%8C+%EC%84%9D%EC%9C%A0%EA%B0%80%EA%B2%A9+%EB%8B%B4%ED%95%A9+%EB%93%B1+%EB%B6%88%EB%B2%95%ED%96%89%EC%9C%84%EB%8A%94+%EB%B0%94%EB%A1%9C+%EC%9E%A1%EA%B3%A0%EF%BC%8C+%EC%B7%A8%EC%95%BD%ED%95%9C+%EB%AF%BC%EC%83%9D%ED%98%84%EC%9E%A5%EB%B6%80%ED%84%B0+%EC%82%B4%ED%94%BC%EA%B2%A0%EC%8A%B5%EB%8B%88%EB%8B%A4.pdf&type=board"
+      ],
+      "hwps": [
+        "https://www.acrc.go.kr/attachPreview.es?bid=4A&list_no=109979&seq=1&filename=17761446756391.hwpx&filenameOrg=%28260414%29+%EA%B3%A0%EC%9C%A0%EA%B0%80+%EC%9C%84%EA%B8%B0%EF%BC%8C+%EC%84%9D%EC%9C%A0%EA%B0%80%EA%B2%A9+%EB%8B%B4%ED%95%A9+%EB%93%B1+%EB%B6%88%EB%B2%95%ED%96%89%EC%9C%84%EB%8A%94+%EB%B0%94%EB%A1%9C+%EC%9E%A1%EA%B3%A0%EF%BC%8C+%EC%B7%A8%EC%95%BD%ED%95%9C+%EB%AF%BC%EC%83%9D%ED%98%84%EC%9E%A5%EB%B6%80%ED%84%B0+%EC%82%B4%ED%94%BC%EA%B2%A0%EC%8A%B5%EB%8B%88%EB%8B%A4.hwpx&type=board&initTTS=true",
+        "https://www.acrc.go.kr/attachPreview.es?bid=4A&list_no=109979&seq=1&filename=17761446756391.hwpx&filenameOrg=%28260414%29+%EA%B3%A0%EC%9C%A0%EA%B0%80+%EC%9C%84%EA%B8%B0%EF%BC%8C+%EC%84%9D%EC%9C%A0%EA%B0%80%EA%B2%A9+%EB%8B%B4%ED%95%A9+%EB%93%B1+%EB%B6%88%EB%B2%95%ED%96%89%EC%9C%84%EB%8A%94+%EB%B0%94%EB%A1%9C+%EC%9E%A1%EA%B3%A0%EF%BC%8C+%EC%B7%A8%EC%95%BD%ED%95%9C+%EB%AF%BC%EC%83%9D%ED%98%84%EC%9E%A5%EB%B6%80%ED%84%B0+%EC%82%B4%ED%94%BC%EA%B2%A0%EC%8A%B5%EB%8B%88%EB%8B%A4.hwpx&type=board",
+        "https://www.acrc.go.kr/boardDownload.es?bid=4A&list_no=109979&seq=1",
+        "https://www.acrc.go.kr/boardDownload.es?bid=4A&list_no=109979&seq=2"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국민권익_고유가_위기에_석유가격_담합_등_불법행위를_바로_잡고__1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국민권익_고유가_위기에_석유가격_담합_등_불법행위를_바로_잡고__3.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국민권익_고유가_위기에_석유가격_담합_등_불법행위를_바로_잡고__0e3aeab7f6.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "103",
+      "source": "국가보훈부",
+      "raw_title": "보훈부, 제대군인 고용 우수기업 인증을 지정 제도로 전환새글",
+      "title": "보훈부, 제대군인 고용 우수기업 인증을 지정 제도로 전환새글",
+      "url": "https://www.mpva.go.kr/mpva/selectBbsNttView.do?key=77&bbsNo=16&nttNo=271850&searchCtgry=&searchCnd=all&searchKrwd=&integrDeptCode=&pageIndex=1",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.mpva.go.kr/downloadBbsFile.do?atchmnflNo=166670"
+      ],
+      "hwps": [
+        "https://www.mpva.go.kr/downloadBbsFile.do?atchmnflNo=166669"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가보훈_보훈부__제대군인_고용_우수기업_인증을_지정_제도로_전_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가보훈_보훈부__제대군인_고용_우수기업_인증을_지정_제도로_전_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국가보훈_보훈부__제대군인_고용_우수기업_인증을_지정_제도로_전_bfa2ea9317.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "104",
+      "source": "국가보훈부",
+      "raw_title": "보훈부, 고 박승원 소방경 등 순직소방관 애도 조기게양새글",
+      "title": "보훈부, 고 박승원 소방경 등 순직소방관 애도 조기게양새글",
+      "url": "https://www.mpva.go.kr/mpva/selectBbsNttView.do?key=77&bbsNo=16&nttNo=271842&searchCtgry=&searchCnd=all&searchKrwd=&integrDeptCode=&pageIndex=1",
+      "date": "2026-04-14",
+      "category": "사회복지",
+      "finance_sub": "",
+      "pdfs": [
+        "https://www.mpva.go.kr/downloadBbsFile.do?atchmnflNo=166661"
+      ],
+      "hwps": [
+        "https://www.mpva.go.kr/downloadBbsFile.do?atchmnflNo=166660"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가보훈_보훈부__고_박승원_소방경_등_순직소방관_애도_조기게양_1.pdf",
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국가보훈_보훈부__고_박승원_소방경_등_순직소방관_애도_조기게양_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국가보훈_보훈부__고_박승원_소방경_등_순직소방관_애도_조기게양_af0d69c135.txt",
+      "related_laws": []
+    },
+    {
+      "slug": "105",
+      "source": "과학기술정보통신부",
+      "raw_title": "과기정통부, 국제(글로벌) 녹색성장기구(GGGI)와 공공기후 기술 실증 및 해외 진출을 위한 협력 사업 착수",
+      "title": "과기정통부, 국제(글로벌) 녹색성장기구(GGGI)와 공공기후 기술 실증 및 해외 진출을 위한 협력 사업 착수",
+      "url": "https://www.msit.go.kr/bbs/view.do?sCode=user&mPid=208&mId=307&nttSeqNo=3187143",
+      "date": "2026-04-14",
+      "category": "산업기술",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [],
+      "files": [],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": false,
+      "text_path": "",
+      "related_laws": []
+    },
+    {
+      "slug": "106",
+      "source": "국방부",
+      "raw_title": "연동테스트",
+      "title": "연동테스트",
+      "url": "https://www.mnd.go.kr/user/newsInUserRecord.action?siteId=mnd&newsId=I_669&newsSeq=I_110492&page=1&command=view&id=mnd_020500000000",
+      "date": "2026-04-14",
+      "category": "외교안보",
+      "finance_sub": "",
+      "pdfs": [],
+      "hwps": [
+        "https://www.mnd.go.kr/user/newsInFileDown.action?siteId=mnd&newsSeq=I_110492&num=1",
+        "https://www.mnd.go.kr/mbshome/mbs/mnd/synap.jsp?filename=I_110492_1_B0C7F24BC81C49B7B654A72CC2A353CD.hwp&boardType=newsIn"
+      ],
+      "files": [
+        "/Users/kyunghwansohn/Desktop/briefingroom_new/pdfs/2026-04-14_국방부_연동테스트_1.hwp"
+      ],
+      "summary": "[오류] HTTP 403",
+      "easy_summary": "",
+      "key_points": [],
+      "detailed_analysis": "",
+      "why_important": "",
+      "practical_impact": "",
+      "keywords": [],
+      "impact": "중",
+      "raw_summary": "[오류] HTTP 403",
+      "has_text": true,
+      "text_path": "/Users/kyunghwansohn/Desktop/briefingroom_new/texts/2026-04-14_국방부_연동테스트_70c84da99f.txt",
       "related_laws": []
     }
   ],
-  "snapshot": "2026-04-11.json"
+  "snapshot": "2026-04-14.json"
 }

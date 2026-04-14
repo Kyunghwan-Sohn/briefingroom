@@ -396,8 +396,10 @@ def generate_article_pages(target_date: str) -> int:
 
         # 쉬운 요약
         easy_html = ""
-        if easy_summary and easy_summary.strip():
-            easy_html = f'<div class="easy-box"><div class="easy-label">EASY SUMMARY</div><div class="easy-text">{html.escape(easy_summary.strip())}</div></div>'
+        # 쉬운요약이 없으면 일반 요약을 대신 사용
+        easy_text = easy_summary.strip() if easy_summary and easy_summary.strip() else summary.strip()
+        if easy_text:
+            easy_html = f'<div class="easy-box"><div class="easy-label">EASY SUMMARY</div><div class="easy-text">{html.escape(easy_text)}</div></div>'
 
         # 핵심 포인트
         points_html = _build_key_points_html(key_points)

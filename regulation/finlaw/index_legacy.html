@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>금융 법령 AI - 브리핑룸</title>
+<meta name="description" content="한국 금융 법령 154건과 최근 판례, 입법예고를 모니터링하고 핵심 변화만 빠르게 확인합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;--t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;line-height:1.6;min-width:1120px}
+.is-mobile body{min-width:0;font-size:14px;padding-bottom:68px}
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--a);background:var(--al);font-weight:700}
+.hdr-nav .lbl-short{display:none}
+.is-mobile .hdr{height:52px;padding:0 12px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+.is-mobile .hdr-nav .lbl-full{display:none}
+.is-mobile .hdr-nav .lbl-short{display:inline}
+.shell{max-width:1080px;margin:0 auto;padding:20px 16px 40px}
+.panel{background:#fff;border:1px solid var(--b);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px}
+.panel-title{font-family:var(--serif);font-size:20px;font-weight:700}
+.panel-title .num{font-family:var(--mono);font-size:13px;color:var(--t3);font-weight:400;margin-left:6px}
+.panel-more{font-size:13px;color:var(--t3);text-decoration:none;font-weight:600}
+.panel-more:hover{color:var(--a)}
+.back-link{display:inline-block;font-size:13px;color:var(--t3);text-decoration:none;font-weight:600;margin-bottom:16px}
+.back-link:hover{color:var(--a)}
+.item-row{display:flex;align-items:flex-start;gap:10px;padding:12px 20px;border-top:1px dashed var(--bl);text-decoration:none;color:var(--t)}
+.item-row:hover{background:var(--al)}
+.item-row:first-child{border-top:none}
+.item-tag{font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 6px;border-radius:3px;flex-shrink:0;margin-top:2px;white-space:nowrap}
+.item-body{flex:1;min-width:0}
+.item-title{font-size:14px;font-weight:600;line-height:1.4;margin-bottom:2px}
+.item-meta{font-size:11px;color:var(--t3)}
+.item-link{font-size:11px;color:var(--a);text-decoration:none;font-weight:600;flex-shrink:0}
+.footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
+.bnav{display:none}
+.is-mobile .bnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom))}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600;padding:4px 0}
+.bnav a.on{color:var(--a)}
+</style>
+</head>
+<body>
+
+<header class="hdr"><a class="hdr-logo" href="/">브리핑룸</a><nav class="hdr-nav"><a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a> <a href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a> <a href="/keywords/"><span class="lbl-full">키워드 트렌드</span><span class="lbl-short">키워드</span></a> <a class="on-law" href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a></nav><div class="hdr-search"><span class="hdr-search-icon">&#x2315;</span><input placeholder="검색"></div><div class="hdr-time">2026.04.13</div></header><div class="mobile-search"><div class="mobile-search-box"><span class="mobile-search-icon">&#x2315;</span><input placeholder="검색"></div></div>
+
+<section class="hero" style="background:var(--law-bg);border-bottom:1px solid var(--law-border)">
+  <div class="hero-top">
+    <h1>금융 법령 AI</h1>
+    <div class="hero-date">2026. 04. 14 (화)</div>
+    <div class="hero-sub">금융 법령 154건 · 판례 779건 · 매일 모니터링</div>
+  </div>
+
+  <div class="hero-dash">
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">12</div><div class="label" style="color:var(--law)">법령 개정</div></div>
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">779</div><div class="label" style="color:var(--law)">판례</div></div>
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">5</div><div class="label" style="color:var(--law)">입법예고</div></div>
+    <div class="hero-stat" style="border-color:var(--law-border)"><div class="num" style="color:var(--law)">154</div><div class="label" style="color:var(--law)">전체 법령</div></div>
+  </div>
+
+  <div class="sbox"><span class="si">&#x2315;</span><input id="finlaw-search" placeholder="법령명, 조문, 판례를 검색하세요..." autocomplete="off"></div>
+</section>
+
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">최근 법령 변경<a class="sec-more" href="/finlaw/notices/">전체 보기 →</a></div>
+  <a href="/finlaw/detail/285213/" class="finlaw-searchable" data-type="change" data-search="금융위원회와 그 소속기관 직제 금융위원회,행정안전부 일부개정 국무회의의 심의를 거친 금융위원회와 그 소속기관 직제 일부개정령을 이에 공포한다. 대통령 이재명 (인) 국무총리 김민석" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
+    <div class="change-head">
+      <span class="change-tag edit">일부개정</span>
+      <span class="change-date">2026.03.31</span>
+    </div>
+    <div class="change-title">금융위원회와 그 소속기관 직제</div>
+    <div class="change-desc">국무회의의 심의를 거친 금융위원회와 그 소속기관 직제 일부개정령을 이에 공포한다. 대통령 이재명 (인) 국무총리 김민석</div>
+  </div></a>  <a href="/finlaw/detail/285253/" class="finlaw-searchable" data-type="change" data-search="금융위원회와 그 소속기관 직제 시행규칙 금융위원회 일부개정 금융위원회와 그 소속기관 직제 시행규칙 일부개정령을 이에 공포한다. 금융위원회와 그 소속기관 직제 시행규칙 일부개정령 금융위원회와 그 소속기관 직제 시행규칙 일부를 다음과 같이 개정한다." style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
+    <div class="change-head">
+      <span class="change-tag edit">일부개정</span>
+      <span class="change-date">2026.03.31</span>
+    </div>
+    <div class="change-title">금융위원회와 그 소속기관 직제 시행규칙</div>
+    <div class="change-desc">금융위원회와 그 소속기관 직제 시행규칙 일부개정령을 이에 공포한다. 금융위원회와 그 소속기관 직제 시행규칙 일부개정령 금융위원회와 그 소속기관 직제 시행규칙 일부를 다음과 같이 개정한다.</div>
+  </div></a>  <a href="/finlaw/detail/285251/" class="finlaw-searchable" data-type="change" data-search="개인정보 보호위원회 직제 시행규칙 개인정보보호위원회 일부개정 개인정보 보호위원회 직제 시행규칙 일부개정령을 이에 공포한다. 개인정보 보호위원회 직제 시행규칙 일부개정령 개인정보 보호위원회 직제 시행규칙 일부를 다음과 같이 개정한다." style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
+    <div class="change-head">
+      <span class="change-tag edit">일부개정</span>
+      <span class="change-date">2026.03.31</span>
+    </div>
+    <div class="change-title">개인정보 보호위원회 직제 시행규칙</div>
+    <div class="change-desc">개인정보 보호위원회 직제 시행규칙 일부개정령을 이에 공포한다. 개인정보 보호위원회 직제 시행규칙 일부개정령 개인정보 보호위원회 직제 시행규칙 일부를 다음과 같이 개정한다.</div>
+  </div></a>  <a href="/finlaw/detail/285255/" class="finlaw-searchable" data-type="change" data-search="한국주택금융공사법 시행규칙 금융위원회 일부개정 한국주택금융공사법 시행규칙 일부개정령을 이에 공포한다. 한국주택금융공사법 시행규칙 일부를 다음과 같이 개정한다." style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
+    <div class="change-head">
+      <span class="change-tag edit">일부개정</span>
+      <span class="change-date">2026.03.27</span>
+    </div>
+    <div class="change-title">한국주택금융공사법 시행규칙</div>
+    <div class="change-desc">한국주택금융공사법 시행규칙 일부개정령을 이에 공포한다. 한국주택금융공사법 시행규칙 일부를 다음과 같이 개정한다.</div>
+  </div></a>  <a href="/finlaw/detail/284695/" class="finlaw-searchable" data-type="change" data-search="금융회사의 지배구조에 관한 법률 시행령 금융위원회 타법개정 ⊙대통령령 제36220호(2026.3.24) 규제 재검토기한 정비를 위한 136개 법령의 일부개정에 관한 대통령령 제23조(「금융회사의 지배구조에 관한 법률 시행령」의 개정) 금융회사의 지배구조에…" style="text-decoration:none;color:inherit"><div class="change-card" style="cursor:pointer">
+    <div class="change-head">
+      <span class="change-tag edit">타법개정</span>
+      <span class="change-date">2026.03.24</span>
+    </div>
+    <div class="change-title">금융회사의 지배구조에 관한 법률 시행령</div>
+    <div class="change-desc">⊙대통령령 제36220호(2026.3.24) 규제 재검토기한 정비를 위한 136개 법령의 일부개정에 관한 대통령령 제23조(「금융회사의 지배구조에 관한 법률 시행령」의 개정) 금융회사의 지배구조에…</div>
+  </div></a>
+</section>
+
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">최근 판례<a class="sec-more" href="/finlaw/cases/">전체 보기 →</a></div>
+  <a href="/finlaw/cases/615975/" class="finlaw-searchable" data-type="case" data-search="자본시장과금융투자업에관한법률위반 대법원 2024도11686 금융 [1] 구 자본시장과 금융투자업에 관한 법률 제178조 제1항 제1호 에서 정한 ‘부정한 수단, 계획 또는 기교’의 의미 및 그 판단 기준 [2] 투자자문업자 등이 추천하는 증권을 제3자가…" style="text-decoration:none;color:inherit"><div class="case-card">
+    <div class="case-court">대법원 · 2026.01.15 · 2024도11686</div>
+    <div class="case-title">자본시장과금융투자업에관한법률위반</div>
+    <div class="case-summary">[1] 구 자본시장과 금융투자업에 관한 법률 제178조 제1항 제1호 에서 정한 ‘부정한 수단, 계획 또는 기교’의 의미 및 그 판단 기준 [2] 투자자문업자 등이 추천하는 증권을 제3자가…</div>
+    <div class="case-laws"><span>금융</span></div>
+  </div></a>  <a href="/finlaw/cases/616027/" class="finlaw-searchable" data-type="case" data-search="폭력행위등처벌에관한법률위반(단체등의구성·활동)·공갈미수·전기통신금융사기피해방지및피해금환급에관한특별법위반방조 대법원 2025도14142 금융 [1] 폭력행위 등 처벌에 관한 법률 제4조 제1항 에서 정한 범죄단체를 구성하거나 이에 가입한 자가 더 나아가 구성원으로 활동하는 경우, 포괄일죄의 관계에 있는지 여부 (적극) [2] 포괄일죄의…" style="text-decoration:none;color:inherit"><div class="case-card">
+    <div class="case-court">대법원 · 2026.01.15 · 2025도14142</div>
+    <div class="case-title">폭력행위등처벌에관한법률위반(단체등의구성·활동)·공갈미수·전기통신금융사기피해방지및피해금환급에관한특별법위반방조</div>
+    <div class="case-summary">[1] 폭력행위 등 처벌에 관한 법률 제4조 제1항 에서 정한 범죄단체를 구성하거나 이에 가입한 자가 더 나아가 구성원으로 활동하는 경우, 포괄일죄의 관계에 있는지 여부 (적극) [2] 포괄일죄의…</div>
+    <div class="case-laws"><span>금융</span></div>
+  </div></a>  <a href="/finlaw/cases/615943/" class="finlaw-searchable" data-type="case" data-search="개인정보보호법위반·금융실명거래및비밀보장에관한법률위반 대법원 2023도8339 금융 [1] 임직원, 파견근로자, 시간제근로자 등 개인정보처리자의 지휘·감독을 받아 개인정보를 처리하는 자인 개인정보취급자가 개인정보처리자의 업무 수행을 위하여 개인정보를 이전받는 경우, 구 개인정보…" style="text-decoration:none;color:inherit"><div class="case-card">
+    <div class="case-court">대법원 · 2026.01.08 · 2023도8339</div>
+    <div class="case-title">개인정보보호법위반·금융실명거래및비밀보장에관한법률위반</div>
+    <div class="case-summary">[1] 임직원, 파견근로자, 시간제근로자 등 개인정보처리자의 지휘·감독을 받아 개인정보를 처리하는 자인 개인정보취급자가 개인정보처리자의 업무 수행을 위하여 개인정보를 이전받는 경우, 구 개인정보…</div>
+    <div class="case-laws"><span>금융</span></div>
+  </div></a>
+</section>
+
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">입법예고 트래커<span class="sec-date">5건 진행 중</span></div>
+  <a href="https://opinion.lawmaking.go.kr/gcom/ogLmPp/86122?pageIndex=4&amp;amp;cntPerPage=100" class="finlaw-searchable" data-type="notice" data-search="국민건강보험법 시행령 일부개정령안 입법예고   일부 보건복지부 대통령령" style="text-decoration:none;color:inherit"><div class="notice-card">
+    <div class="notice-dday far"><span class="d">D-</span><span class="n">33</span></div>
+    <div class="notice-body">
+      <div class="notice-title">국민건강보험법 시행령 일부개정령안 입법예고   일부</div>
+      <div class="notice-meta">보건복지부 · 2026-03-25 ~ 2026-05-04 · 의견 0건</div>
+    </div>
+  </div></a>  <a href="https://opinion.lawmaking.go.kr/gcom/ogLmPp/86120?pageIndex=4&amp;amp;cntPerPage=100" class="finlaw-searchable" data-type="notice" data-search="국민건강보험법 시행규칙 일부개정령안 입법예고   일부 보건복지부 부령" style="text-decoration:none;color:inherit"><div class="notice-card">
+    <div class="notice-dday far"><span class="d">D-</span><span class="n">33</span></div>
+    <div class="notice-body">
+      <div class="notice-title">국민건강보험법 시행규칙 일부개정령안 입법예고   일부</div>
+      <div class="notice-meta">보건복지부 · 2026-03-25 ~ 2026-05-04 · 의견 0건</div>
+    </div>
+  </div></a>  <a href="https://opinion.lawmaking.go.kr/gcom/ogLmPp/86118?pageIndex=4&amp;amp;cntPerPage=100" class="finlaw-searchable" data-type="notice" data-search="국민건강보험 요양급여의 기준에 관한 규칙 일부개정령안 입법예고   일부 보건복지부 부령" style="text-decoration:none;color:inherit"><div class="notice-card">
+    <div class="notice-dday far"><span class="d">D-</span><span class="n">33</span></div>
+    <div class="notice-body">
+      <div class="notice-title">국민건강보험 요양급여의 기준에 관한 규칙 일부개정령안 입법예고   일부</div>
+      <div class="notice-meta">보건복지부 · 2026-03-25 ~ 2026-05-04 · 의견 0건</div>
+    </div>
+  </div></a>  <a href="https://opinion.lawmaking.go.kr/gcom/ogLmPp/86134?pageIndex=3&amp;amp;cntPerPage=100" class="finlaw-searchable" data-type="notice" data-search="고용보험법 시행령 일부개정령안 입법예고   일부 고용노동부 대통령령" style="text-decoration:none;color:inherit"><div class="notice-card">
+    <div class="notice-dday far"><span class="d">D-</span><span class="n">35</span></div>
+    <div class="notice-body">
+      <div class="notice-title">고용보험법 시행령 일부개정령안 입법예고   일부</div>
+      <div class="notice-meta">고용노동부 · 2026-03-26 ~ 2026-05-06 · 의견 0건</div>
+    </div>
+  </div></a>  <a href="https://opinion.lawmaking.go.kr/gcom/ogLmPp/86132?pageIndex=3&amp;amp;cntPerPage=100" class="finlaw-searchable" data-type="notice" data-search="고용보험법 시행규칙 일부개정령안 입법예고   일부 고용노동부 부령" style="text-decoration:none;color:inherit"><div class="notice-card">
+    <div class="notice-dday far"><span class="d">D-</span><span class="n">35</span></div>
+    <div class="notice-body">
+      <div class="notice-title">고용보험법 시행규칙 일부개정령안 입법예고   일부</div>
+      <div class="notice-meta">고용노동부 · 2026-03-26 ~ 2026-05-06 · 의견 0건</div>
+    </div>
+  </div></a>
+</section>
+
+<div class="divider"></div>
+<section class="sec">
+  <div class="sec-hdr">법령 데이터베이스<span class="sec-date">154개 법령</span></div>
+  <div class="fl-grid">
+    <div class="fl-card"><div class="fl-name">금융감독 기본법</div><div class="fl-meta">3건 · 금융소비자보호법, 금융위설치법 등</div></div>    <div class="fl-card"><div class="fl-name">은행</div><div class="fl-meta">10건 · 은행법, 예금자보호법, 한국은행법 등</div></div>    <div class="fl-card"><div class="fl-name">자본시장 / 증권</div><div class="fl-meta">5건 · 자본시장법, 증권거래세법 등</div></div>    <div class="fl-card"><div class="fl-name">보험</div><div class="fl-meta">2건 · 보험업법, 보험사기방지특별법</div></div>    <div class="fl-card"><div class="fl-name">여신 / 신용</div><div class="fl-meta">7건 · 여신전문금융업법, 신용정보법 등</div></div>    <div class="fl-card"><div class="fl-name">전자금융 / 핀테크</div><div class="fl-meta">3건 · 전자금융거래법, 가상자산법 등</div></div>    <div class="fl-card"><div class="fl-name">개인정보 / 정보보호</div><div class="fl-meta">4건 · 개인정보보호법, 정보통신망법 등</div></div>    <div class="fl-card"><div class="fl-name">금융지주 / 지배구조</div><div class="fl-meta">2건 · 금융지주회사법, 지배구조법</div></div>    <div class="fl-card"><div class="fl-name">외환</div><div class="fl-meta">1건 · 외국환거래법</div></div>    <div class="fl-card"><div class="fl-name">자금세탁방지</div><div class="fl-meta">1건 · 특정금융거래정보법</div></div>    <div class="fl-card"><div class="fl-name">정책금융</div><div class="fl-meta">3건 · 한국주택금융공사법 등</div></div>    <div class="fl-card"><div class="fl-name">기타 금융</div><div class="fl-meta">12건 · 금융실명거래법, 금융혁신지원법 등</div></div>
+  </div>
+</section>
+
+<div style="margin:24px;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+  <div><h3 style="font-family:var(--serif);font-size:16px;color:#fff">법령 변경 알림</h3><p style="font-size:11px;color:rgba(255,255,255,.6)">텔레그램으로 실시간 알림</p></div>
+  <a href="https://t.me/govbrief" target="_blank" style="padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap">구독</a>
+</div>
+
+<footer class="site-footer"><a href="/">홈</a> · <a href="/brief/">정부 발표</a> · <a href="/keywords/">키워드 트렌드</a> · <a href="/regulation/">금융/부동산 규제</a> · <a href="https://t.me/govbrief" target="_blank">텔레그램</a><br>govbrief.kr</footer>
+
+<nav class="bottom-nav"><a href="/"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg><span>홈</span></a><a href="/brief/"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>정부 발표</span></a><a href="/keywords/"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>키워드</span></a><a class="on" href="/regulation/"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg><span>금융/부동산</span></a></nav>
+<script>
+const finlawSearch = document.getElementById('finlaw-search');
+const finlawItems = Array.from(document.querySelectorAll('.finlaw-searchable'));
+finlawSearch?.addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  finlawItems.forEach((node) => {
+    node.style.display = !q || node.dataset.search.includes(q) ? '' : 'none';
+  });
+});
+finlawSearch?.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.isComposing) {
+    const q = this.value.trim();
+    if (q) window.location.href = '/tools/finlaw-gpt/?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

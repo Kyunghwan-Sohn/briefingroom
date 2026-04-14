@@ -371,6 +371,44 @@ def generate_weekly_post(analysis: dict, selected: dict, target: date) -> str:
     }
     report = generate_weekly_report(report_payload)
 
+    # LLM 보고서가 비어있으면 기존 데이터로 fallback 생성
+    if not report.get("summary"):
+        sig_titles = ", ".join(sig.get("title", "") for sig in signals if sig.get("title"))
+        top_kw_str = ", ".join(top_kw[:5])
+        cat_parts = []
+        for cat_key in ("금융경제", "산업기술", "사회복지", "외교안보"):
+            cnt = analysis["by_cat"].get(cat_key, 0)
+            if cnt > 0:
+                cat_parts.append(f"{CAT_NAMES.get(cat_key, cat_key)} {cnt}건")
+        cat_summary = ", ".join(cat_parts)
+        report["summary"] = f"이번 주 {analysis['sources_count']}개 부처에서 총 {analysis['total']}건의 보도자료가 발표되었습니다. 주요 정책 시그널은 {sig_titles}입니다. 핵심 키워드는 {top_kw_str}이며, 분야별로는 {cat_summary}이 발표되었습니다."
+
+    if not report.get("sectors"):
+        for cat_key, cat_name in CAT_NAMES.items():
+            cnt = analysis["by_cat"].get(cat_key, 0)
+            if cnt == 0:
+                continue
+            if cat_key in selected:
+                src, item, _, _, _ = selected[cat_key]
+                report["sectors"][cat_name] = f"{src}에서 '{_clean(item.get('title', ''))[:40]}'을 발표했습니다. {cat_name} 분야에서 총 {cnt}건의 보도자료가 나왔습니다."
+            else:
+                report["sectors"][cat_name] = f"{cat_name} 분야에서 총 {cnt}건의 보도자료가 발표되었습니다."
+
+    if not report.get("comparison"):
+        delta = analysis["total"] - analysis["prev_total"]
+        direction = "증가" if delta > 0 else ("감소" if delta < 0 else "동일")
+        report["comparison"] = f"전주 대비 보도자료가 {abs(delta)}건 {direction}했습니다. 전주 {analysis['prev_total']}건에서 이번 주 {analysis['total']}건으로 변화했습니다."
+
+    if not report.get("outlook"):
+        report["outlook"] = f"이번 주 발표된 정책들의 후속 조치와 시행이 다음 주에 이어질 전망입니다. 특히 {top_kw[0] if top_kw else '주요 정책'} 관련 후속 발표가 예상됩니다."
+
+    if not report.get("key_figures"):
+        report["key_figures"] = [
+            {"name": "총 보도자료", "value": f"{analysis['total']}건"},
+            {"name": "참여 부처", "value": f"{analysis['sources_count']}개"},
+            {"name": "전주 대비", "value": f"{td:+d}건"},
+        ]
+
     # 시그널 카드 HTML
     signal_cards = ""
     for idx, signal in enumerate(signals, start=1):
