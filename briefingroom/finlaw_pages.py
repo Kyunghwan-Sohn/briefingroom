@@ -18,7 +18,7 @@ from briefingroom.site_templates import SITE_NAV_CSS, render_bottom_nav, render_
 from briefingroom.config import BASE_DIR
 
 DB_PATH = BASE_DIR / "finance_law.db"
-FINLAW_DIR = BASE_DIR / "finlaw"
+FINLAW_DIR = BASE_DIR / "regulation" / "finlaw"
 
 # CSS는 별도 파일로 관리하지 않고 인라인
 # finlaw/index.html의 <style> 블록을 읽어서 재사용
