@@ -75,7 +75,7 @@ SITE_FONT_LINKS = (
 _NAV_LINKS = [
     ("/", "홈", "home"),
     ("/brief/", "정부 발표", "brief"),
-    ("/keywords/", "키워드 분석", "keywords"),
+    ("/keywords/", "키워드 트렌드", "keywords"),
     ("/regulation/", "금융/부동산 규제", "regulation"),
 ]
 
@@ -126,7 +126,7 @@ def render_footer() -> str:
         '<footer class="site-footer">'
         '<a href="/">홈</a> · '
         '<a href="/brief/">정부 발표</a> · '
-        '<a href="/keywords/">키워드 분석</a> · '
+        '<a href="/keywords/">키워드 트렌드</a> · '
         '<a href="/regulation/">금융/부동산 규제</a> · '
         '<a href="https://t.me/govbrief" target="_blank">텔레그램</a>'
         '<br>govbrief.kr'
