@@ -486,9 +486,6 @@ def generate_article_pages(target_date: str) -> int:
 <meta property="og:site_name" content="브리핑룸">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="{date_str}T09:00:00+09:00">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="{h_title} - 브리핑룸">
-<meta name="twitter:description" content="{h_desc}">
 <script type="application/ld+json">
 {{
   "@context": "https://schema.org",
@@ -667,9 +664,27 @@ def generate_today_page(target_date: str, output_path: str = "brief/today", hero
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>오늘의 정부 발표 - 브리핑룸</title>
+<title>{hero_title} - 브리핑룸</title>
 <meta name="description" content="{date_display} 정부 보도자료 {len(items)}건을 AI가 분석했습니다.">
 <link rel="canonical" href="{SITE_URL}/{output_path}/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{hero_title} - 브리핑룸">
+<meta property="og:description" content="{date_display} 정부 보도자료 {len(items)}건을 AI가 분석했습니다.">
+<meta property="og:url" content="{SITE_URL}/{output_path}/">
+<meta property="og:site_name" content="govbrief.kr">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="{SITE_URL}/og-image.png">
+<script type="application/ld+json">
+{{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{hero_title}",
+  "description": "{date_display} 정부 보도자료 {len(items)}건을 AI가 분석했습니다.",
+  "url": "{SITE_URL}/{output_path}/",
+  "publisher": {{"@type": "Organization", "name": "브리핑룸", "url": "{SITE_URL}"}},
+  "numberOfItems": {len(items)}
+}}
+</script>
 <link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <script>(function(){{if(/Mobi|Android|iPhone/i.test(navigator.userAgent))document.documentElement.classList.add('is-mobile')}})();</script>
@@ -1047,14 +1062,17 @@ def generate_sitemap(target_date: str) -> Path:
     import glob as _glob
 
     urls = [
+        # 메인
         f'  <url><loc>{SITE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>',
+        # 정부 발표
         f'  <url><loc>{SITE_URL}/brief/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
-        f'  <url><loc>{SITE_URL}/brief/ai/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>',
-        f'  <url><loc>{SITE_URL}/brief/articles/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>',
         f'  <url><loc>{SITE_URL}/brief/today/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
         f'  <url><loc>{SITE_URL}/brief/weekly/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>',
+        f'  <url><loc>{SITE_URL}/brief/ai/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>',
+        # 키워드
         f'  <url><loc>{SITE_URL}/keywords/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
         f'  <url><loc>{SITE_URL}/keywords/press/</loc><changefreq>daily</changefreq><priority>0.7</priority></url>',
+        # 규제
         f'  <url><loc>{SITE_URL}/regulation/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
         f'  <url><loc>{SITE_URL}/regulation/finlaw/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>',
         f'  <url><loc>{SITE_URL}/regulation/finlaw/cases/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
@@ -1062,34 +1080,46 @@ def generate_sitemap(target_date: str) -> Path:
         f'  <url><loc>{SITE_URL}/regulation/finlaw/issues/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
         f'  <url><loc>{SITE_URL}/regulation/realestate/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>',
         f'  <url><loc>{SITE_URL}/regulation/realestate/cases/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
-        f'  <url><loc>{SITE_URL}/regulation/realestate/issues/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
         f'  <url><loc>{SITE_URL}/regulation/cross/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>',
-        f'  <url><loc>{SITE_URL}/regulation/cross/issues/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
         f'  <url><loc>{SITE_URL}/regulation/finlaw-gpt/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>',
-        f'  <url><loc>{SITE_URL}/finlaw/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>',
-        f'  <url><loc>{SITE_URL}/finlaw/cases/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
-        f'  <url><loc>{SITE_URL}/finlaw/notices/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
-        f'  <url><loc>{SITE_URL}/finlaw/opinions/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
-        f'  <url><loc>{SITE_URL}/finlaw/ref/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
-        f'  <url><loc>{SITE_URL}/finlaw/changes/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
-        f'  <url><loc>{SITE_URL}/tools/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>',
-        f'  <url><loc>{SITE_URL}/tools/mylaw/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>',
-        f'  <url><loc>{SITE_URL}/articles/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>',
     ]
 
-    # 법령 상세 페이지
-    detail_dir = Path(DATA_DIR).parent / "finlaw" / "detail"
+    base = Path(DATA_DIR).parent
+
+    # 일자별 보도자료 페이지 (/brief/date/2026-04-14/)
+    date_dir = base / "brief" / "date"
+    if date_dir.exists():
+        for d in sorted(date_dir.iterdir()):
+            if d.is_dir() and (d / "index.html").exists():
+                urls.append(f'  <url><loc>{SITE_URL}/brief/date/{d.name}/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>')
+
+    # 주간 보고서 (/brief/weekly/2026-04-12/)
+    weekly_dir = base / "brief" / "weekly"
+    if weekly_dir.exists():
+        for d in sorted(weekly_dir.iterdir()):
+            if d.is_dir() and (d / "index.html").exists():
+                urls.append(f'  <url><loc>{SITE_URL}/brief/weekly/{d.name}/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>')
+
+    # 법령 상세 페이지 (regulation/finlaw/detail/)
+    detail_dir = base / "regulation" / "finlaw" / "detail"
     if detail_dir.exists():
         for d in sorted(detail_dir.iterdir()):
             if d.is_dir() and (d / "index.html").exists():
-                urls.append(f'  <url><loc>{SITE_URL}/finlaw/detail/{d.name}/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>')
+                urls.append(f'  <url><loc>{SITE_URL}/regulation/finlaw/detail/{d.name}/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>')
 
-    # 법령 diff 페이지
-    diff_dir = Path(DATA_DIR).parent / "finlaw" / "diff"
+    # 판례 상세 페이지 (regulation/finlaw/cases/)
+    cases_dir = base / "regulation" / "finlaw" / "cases"
+    if cases_dir.exists():
+        for d in sorted(cases_dir.iterdir()):
+            if d.is_dir() and (d / "index.html").exists():
+                urls.append(f'  <url><loc>{SITE_URL}/regulation/finlaw/cases/{d.name}/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>')
+
+    # 법령 diff 페이지 (regulation/finlaw/diff/)
+    diff_dir = base / "regulation" / "finlaw" / "diff"
     if diff_dir.exists():
         for d in sorted(diff_dir.iterdir()):
             if d.is_dir() and (d / "index.html").exists():
-                urls.append(f'  <url><loc>{SITE_URL}/finlaw/diff/{d.name}/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>')
+                urls.append(f'  <url><loc>{SITE_URL}/regulation/finlaw/diff/{d.name}/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>')
 
     # 날짜별 JSON에서 기사 URL 수집
     for json_file in sorted(Path(DATA_DIR).glob("20*.json")):
