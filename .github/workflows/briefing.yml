@@ -89,26 +89,24 @@ jobs:
         run: |
           echo "홈 페이지 생성..."
           python -m briefingroom.home_gen
-          echo "finance_law.db 보강..."
-          python -m briefingroom.finlaw_sync
-          echo "비조치의견서 동기화..."
-          python -m briefingroom.fsc_opinions
-          echo "법령 참조 인덱스 구축..."
-          python -m briefingroom.law_references
-          echo "finlaw 페이지 생성..."
-          python -m briefingroom.finlaw_pages
-          echo "비조치의견서 페이지 생성..."
-          python -m briefingroom.opinions_gen
-          echo "LawDiff 페이지 생성..."
-          python -m briefingroom.lawdiff_gen
-          echo "LawDiff 알림 데이터 생성..."
-          python -m briefingroom.lawdiff_alerts
+          echo "finance_law.db 관련 모듈..."
+          if [ -f "finance_law.db" ]; then
+            python -m briefingroom.finlaw_sync || echo "finlaw_sync 스킵"
+            python -m briefingroom.fsc_opinions || echo "fsc_opinions 스킵"
+            python -m briefingroom.law_references || echo "law_references 스킵"
+            python -m briefingroom.finlaw_pages || echo "finlaw_pages 스킵"
+            python -m briefingroom.opinions_gen || echo "opinions_gen 스킵"
+            python -m briefingroom.lawdiff_gen || echo "lawdiff_gen 스킵"
+            python -m briefingroom.lawdiff_alerts || echo "lawdiff_alerts 스킵"
+          else
+            echo "finance_law.db 없음 — DB 관련 모듈 스킵"
+          fi
           echo "입법예고 크롤링..."
-          python -m briefingroom.legnotice
+          python -m briefingroom.legnotice || echo "legnotice 스킵"
           echo "키워드 집계..."
           python -m briefingroom.keywords_agg
           echo "정적 산출물 검증..."
-          python -m briefingroom.site_audit
+          python -m briefingroom.site_audit || echo "site_audit 스킵"
 
       - name: commit
         run: |

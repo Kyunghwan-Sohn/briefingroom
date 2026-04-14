@@ -904,6 +904,26 @@ def generate_home_panel_json(target_date: str = ""):
                 "link": f"/articles/{target_date}/{slug}/",
             })
 
+    # 키워드가 0개면 키워드 있는 가장 최신 날짜 데이터에서 가져오기
+    if not kws:
+        fallback_candidates = sorted(
+            [f for f in DATA_DIR.iterdir() if f.name.startswith("2026-") and f.suffix == ".json"
+             and "weekly" not in f.name and "schedule" not in f.name and "latest" not in f.name
+             and "keywords" not in f.name and "regulation" not in f.name],
+            reverse=True,
+        )
+        for fb in fallback_candidates:
+            fb_data = json.loads(fb.read_text(encoding="utf-8"))
+            fb_items = fb_data.get("items", [])
+            for it2 in fb_items:
+                for k in it2.get("keywords", []):
+                    if k in org_names or any(k.endswith(s) for s in ("총리", "장관", "위원장", "차관", "청장", "처장", "원장", "대통령")):
+                        continue
+                    kws[k] += 1
+            if kws:
+                print(f"[home_gen] 키워드 fallback: {fb.stem} 사용")
+                break
+
     home_data = {
         "date": target_date,
         "total": len(items),

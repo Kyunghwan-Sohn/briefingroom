@@ -182,6 +182,19 @@ def main():
     print("=" * 50)
     print("finance_law.db 동기화 시작")
     print("=" * 50)
+    if not DB_PATH.exists():
+        print(f"[finlaw_sync] {DB_PATH} 없음 — 스킵")
+        return
+    try:
+        conn = sqlite3.connect(str(DB_PATH))
+        tables = {r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()}
+        conn.close()
+        if "laws" not in tables:
+            print("[finlaw_sync] laws 테이블 없음 — 스킵")
+            return
+    except Exception as e:
+        print(f"[finlaw_sync] DB 접근 실패: {e} — 스킵")
+        return
     sync_amendment_reasons()
     sync_precedent_summaries()
     print("동기화 완료")
