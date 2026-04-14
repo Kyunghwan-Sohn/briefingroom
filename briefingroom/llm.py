@@ -3,7 +3,7 @@ import time
 
 import requests
 
-from .config import API_KEY, API_URL, MAX_TEXT, MODEL, SYSTEM_PROMPT, WEEKLY_SIGNAL_PROMPT
+from .config import API_KEY, API_URL, MAX_TEXT, MODEL, SYSTEM_PROMPT, WEEKLY_SIGNAL_PROMPT, WEEKLY_REPORT_PROMPT
 
 MAX_RETRIES = 3
 _quota_exhausted = False  # 일일 한도 초과 플래그
@@ -138,6 +138,51 @@ def summarize(item: dict) -> str:
         return draft  # 교정 실패 시 초안 사용
 
     return reviewed
+
+
+def generate_weekly_report(payload: dict) -> dict:
+    """주간 데이터를 바탕으로 종합 보고서를 생성한다."""
+    response = _chat_completion(
+        [
+            {"role": "system", "content": WEEKLY_REPORT_PROMPT},
+            {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
+        ],
+        temperature=0.3,
+    )
+
+    result = {"summary": "", "sectors": {}, "comparison": "", "outlook": "", "key_figures": []}
+    if not response or response.startswith("["):
+        return result
+
+    import re
+    markers = []
+    for m in re.finditer(r'^(주간요약|분야별동향|전주대비|향후전망|핵심수치):', response, re.MULTILINE):
+        markers.append((m.start(), m.group(1), m.end()))
+
+    for i, (start, label, content_start) in enumerate(markers):
+        end = markers[i + 1][0] if i + 1 < len(markers) else len(response)
+        content = response[content_start:end].strip()
+
+        if label == "주간요약":
+            result["summary"] = content
+        elif label == "분야별동향":
+            for line in content.split("\n"):
+                line = line.strip().lstrip("- ")
+                if ":" in line:
+                    sector, desc = line.split(":", 1)
+                    result["sectors"][sector.strip()] = desc.strip()
+        elif label == "전주대비":
+            result["comparison"] = content
+        elif label == "향후전망":
+            result["outlook"] = content
+        elif label == "핵심수치":
+            for line in content.split("\n"):
+                line = line.strip().lstrip("- ")
+                if ":" in line:
+                    name, val = line.split(":", 1)
+                    result["key_figures"].append({"name": name.strip(), "value": val.strip()})
+
+    return result
 
 
 def generate_weekly_signals(payload: dict) -> list[dict]:
