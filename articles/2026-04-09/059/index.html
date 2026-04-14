@@ -34,162 +34,158 @@
   "mainEntityOfPage": "https://govbrief.kr/articles/2026-04-09/059/"
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://cdn.jsdelivr.net"><link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){ if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) document.documentElement.classList.add('is-mobile'); })();
+</script>
 <style>
 
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--ab:rgba(217,108,44,.15);--bg:#fafafa;--s:#fff;--b:#c8c8c8;--bl:#e0e0e0;--t:#222;--t2:#555;--m:#999;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
---policy:#1e40af;--policy-bg:#eff6ff;--policy-border:#bfdbfe;
---law:#047857;--law-bg:#ecfdf5;--law-border:#a7f3d0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--t);font-family:var(--sans);max-width:960px;margin:0 auto;padding:58px 0 0;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;--t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;--sec:#1e40af;--sec-bg:#eff6ff;--sec-border:#bfdbfe;--red:#dc2626;--red-bg:#fee2e2;--amber:#d97706;--amber-bg:#fef3c7;--green:#047857;--green-bg:#ecfdf5;--purple:#7c3aed;--purple-bg:#f5f3ff;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:17px;line-height:1.7;min-width:1120px}
+.is-mobile body{min-width:0;font-size:16px;padding-bottom:68px}
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--sec);background:var(--sec-bg);font-weight:700}
+.hdr-nav .lbl-short{display:none}
+.is-mobile .hdr{height:52px;padding:0 12px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+.is-mobile .hdr-nav .lbl-full{display:none}
+.is-mobile .hdr-nav .lbl-short{display:inline}
+.hero{background:linear-gradient(180deg,var(--sec-bg),#fff);border-bottom:1px solid var(--sec-border);padding:40px 32px 32px}
+.hero-inner{max-width:1080px;margin:0 auto}
+.hero-bc{font-size:13px;color:var(--t3);margin-bottom:14px}
+.hero-bc a{color:var(--sec);text-decoration:none;font-weight:600}
+.hero-bc span{margin:0 6px;color:var(--m)}
+.hero-badges{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.hero-imp{font-family:var(--mono);font-size:12px;font-weight:700;padding:5px 12px;border-radius:4px}
+.hero-imp-h{background:var(--red-bg);color:var(--red)}
+.hero-imp-m{background:var(--amber-bg);color:var(--amber)}
+.hero-imp-l{background:#f3f4f6;color:#6b7280}
+.hero-cat{font-size:13px;font-weight:600;padding:4px 10px;border-radius:4px;color:var(--sec);background:var(--sec-bg)}
+.hero-source{font-size:14px;font-weight:600;color:var(--t2)}
+.hero-date{font-family:var(--mono);font-size:13px;color:var(--t3)}
+.hero-title{font-family:var(--serif);font-size:32px;font-weight:700;line-height:1.4;margin-bottom:16px;max-width:860px}
+.hero-kws{display:flex;gap:8px;flex-wrap:wrap}
+.hero-kw{font-size:13px;font-weight:600;padding:5px 12px;border-radius:10px;border:1px solid var(--sec-border);color:var(--sec)}
+.is-mobile .hero{padding:24px 16px 20px}
+.is-mobile .hero-title{font-size:23px}
+.shell{max-width:1080px;margin:0 auto;padding:24px 16px 40px}
+.easy-box{background:var(--sec-bg);border-left:4px solid var(--sec);border-radius:0 10px 10px 0;padding:20px 24px;margin-bottom:16px}
+.easy-label{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--sec);letter-spacing:.06em;margin-bottom:6px}
+.easy-text{font-size:16px;color:var(--t);line-height:1.9}
+.sec-title{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.sec-title::before{content:'';width:3px;height:18px;background:var(--sec);border-radius:1px}
+.points-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:24px 28px;margin-bottom:16px}
+.pt-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px dashed var(--bl)}
+.pt-item:first-of-type{border-top:none}
+.pt-num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--sec);background:var(--sec-bg);border-radius:4px;padding:3px 8px;flex-shrink:0;margin-top:3px}
+.pt-text{font-size:15px;color:var(--t);line-height:1.8}
+.pt-text strong{font-weight:700}
+.analysis-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:24px 28px;margin-bottom:16px}
+.analysis-text{font-size:15px;color:var(--t2);line-height:1.9}
+.analysis-text p{margin-bottom:14px}
+.analysis-text p:last-child{margin-bottom:0}
+.context-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:24px 28px;margin-bottom:16px}
+.ctx-section{margin-bottom:14px}
+.ctx-section:last-child{margin-bottom:0}
+.ctx-label{font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:.02em;margin-bottom:8px}
+.ctx-label-why{color:var(--sec)}
+.ctx-label-impact{color:var(--amber)}
+.ctx-label-who{color:var(--green)}
+.ctx-body{border-left:4px solid var(--sec);background:var(--sec-bg);border-radius:0 10px 10px 0;padding:18px 24px;font-size:17px;color:var(--t);line-height:1.9}
+.ctx-body-impact{border-left-color:var(--amber);background:var(--amber-bg)}
+.ctx-body-who{border-left-color:var(--green);background:var(--green-bg)}
+.kw-box{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.kw-tag{font-size:13px;font-weight:600;padding:5px 12px;border-radius:10px;border:1px solid var(--sec-border);color:var(--sec)}
+.attach-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px 28px;margin-bottom:16px}
+.attach-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--bl);font-size:14px}
+.attach-item:first-of-type{border-top:none}
+.attach-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0}
+.attach-badge-pdf{background:var(--red-bg);color:var(--red)}
+.attach-badge-hwp{background:var(--sec-bg);color:var(--sec)}
+.attach-link{color:var(--t);text-decoration:none;font-weight:500}
+.attach-link:hover{color:var(--sec)}
+.related-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px 28px;margin-bottom:16px}
+.rel-item{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-top:1px dashed var(--bl)}
+.rel-item:first-of-type{border-top:none}
+.rel-imp{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:3px}
+.ri-h{background:var(--red-bg);color:var(--red)}
+.ri-m{background:var(--amber-bg);color:var(--amber)}
+.ri-l{background:#f3f4f6;color:#6b7280}
+.rel-content{flex:1}
+.rel-link{font-size:15px;color:var(--t);text-decoration:none;font-weight:600;line-height:1.5;display:block}
+.rel-link:hover{color:var(--sec)}
+.rel-meta{font-size:12px;color:var(--t3);margin-top:2px}
+.source-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:18px 28px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.source-info{font-size:15px;color:var(--t2)}
+.source-info strong{color:var(--t);font-weight:700}
+.source-link{font-size:14px;font-weight:700;color:var(--sec);text-decoration:none;padding:8px 18px;border:1px solid var(--sec-border);border-radius:6px}
+.source-link:hover{background:var(--sec-bg)}
+.nav-box{display:flex;gap:12px;margin-top:16px}
+.nav-prev,.nav-next{flex:1;background:#fff;border:1px solid var(--b);border-radius:10px;padding:18px 22px;text-decoration:none;color:var(--t)}
+.nav-prev:hover,.nav-next:hover{border-color:var(--sec);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.nav-label{font-size:12px;color:var(--t3);font-weight:600;margin-bottom:6px}
+.nav-title{font-family:var(--serif);font-size:15px;font-weight:700;line-height:1.4}
+.nav-next{text-align:right}
+.footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
+.bnav{display:none}
+.is-mobile .bnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom))}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600}
+.bnav a.on{color:var(--sec)}
 
-.wrap{max-width:960px;margin:0 auto;padding:24px 20px 72px;position:relative;z-index:1}
-.back{display:inline-flex;align-items:center;gap:6px;color:var(--m);text-decoration:none;font-family:var(--mono);font-size:12px;margin-bottom:20px;padding:7px 14px;background:var(--s);border:1px solid var(--b);border-radius:8px;transition:all .15s}
-.back:hover{color:var(--t)}
-
-.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid var(--a);height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
-.hnav{display:flex;gap:4px;align-items:center;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.hnav::-webkit-scrollbar{display:none}
-.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:var(--s);border:1px solid var(--bl);flex-shrink:0}
-.hnav a:hover{border-color:var(--a);color:var(--a)}
-.hnav a.on{color:#fff;background:var(--a);border-color:var(--a);font-weight:700}
-.hnav a.on-policy{color:#fff;background:var(--policy);border-color:var(--policy);font-weight:700}
-.hnav a.on-law{color:#fff;background:var(--law);border-color:var(--law);font-weight:700}
-.bell{color:var(--m);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;white-space:nowrap}
-.site-footer{padding:20px 24px;text-align:center;font-size:10px;color:var(--m)}.site-footer a{color:var(--t);text-decoration:none;font-weight:600}
-@media(max-width:768px){body{padding-top:48px}.hdr{height:48px;padding:0 10px}.logo{font-size:16px;margin-right:8px}.hnav{gap:3px}.hnav a{font-size:11px;padding:5px 7px}}
-
-.post-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--al);color:var(--a);border:1px solid var(--ab);margin-bottom:14px}
-.post-title{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--t);margin-bottom:20px}
-.post-meta{display:flex;gap:20px;padding:14px 0;border-top:1px solid var(--b);border-bottom:1px solid var(--b);margin-bottom:24px}
-.meta-i{font-family:var(--mono);font-size:11px;color:var(--m);display:flex;flex-direction:column;gap:3px}
-.meta-i strong{color:var(--t2);font-weight:500}
-.post-content{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:28px}
-.summary h3,.info-section h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--t);margin:0 0 10px}
-.section-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:8px}
-.summary p{font-size:14px;color:var(--t2);line-height:1.8;background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:14px 16px}
-.info-section{margin-top:18px}
-.info-section p{font-size:14px;line-height:1.8;padding:14px 16px;border-radius:8px;border:1px solid var(--b);background:#fff}
-.why-box p{border-left:4px solid #4a6cf7;background:#eef2ff}
-.impact-box p{border-left:4px solid var(--a);background:var(--al)}
-.law-box{background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:4px 14px}
-.keywords{display:flex;flex-wrap:wrap;gap:5px;margin:16px 0}
-.keywords span{font-family:var(--mono);font-size:11px;color:#fff;background:var(--a);padding:4px 10px;border-radius:4px;font-weight:500}
-.links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}
-.links a{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}
-.links a:hover{text-decoration:underline}
-.cta{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.cta h3{font-family:var(--serif);font-size:16px;color:#fff}
-.cta p{font-size:11px;color:rgba(255,255,255,.6)}
-.cta a{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
-.bnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}
-.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}body{padding-bottom:62px}.bnav{display:grid}}
-</style>
-<script id="site-unified-mobile-detector">
-(function(){
-  var ua = navigator.userAgent;
-  var isMobileUA = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
-  var isMobileParam = window.location.search.indexOf('mobile=1') !== -1;
-  if (isMobileUA || isMobileParam) document.documentElement.classList.add('is-mobile');
-})();
-</script>
-<style id="site-unified-header-system">
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{max-width:none!important;margin:0!important;padding:0!important;min-width:1120px;background:var(--bg,#f7f7f5);color:var(--t,#1a1a1a);font-family:var(--sans,'Wanted Sans Variable',sans-serif);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
-.is-mobile body{min-width:0!important;font-size:14px;line-height:1.55;padding-bottom:68px!important}
-.hdr{background:#fff!important;border-bottom:1px solid var(--b,#dcdcd8)!important;border-top:0!important;height:64px!important;display:flex!important;align-items:center!important;padding:0 32px!important;position:sticky!important;top:0!important;left:auto!important;right:auto!important;z-index:100!important;width:100%!important;max-width:none!important;margin:0!important;box-shadow:none!important}
-.hdr-logo,.logo{font-family:var(--serif,'Gowun Batang',serif)!important;font-size:24px!important;font-weight:700!important;color:var(--t,#1a1a1a)!important;text-decoration:none!important;margin-right:44px!important;white-space:nowrap!important;flex-shrink:0!important}
-.hdr-nav,.hnav{display:flex!important;gap:6px!important;align-items:center!important;flex:1!important;min-width:0!important;overflow:visible!important;background:transparent!important;border:0!important}
-.hdr-nav::-webkit-scrollbar,.hnav::-webkit-scrollbar{display:none}
-.hdr-nav a,.hnav a{font-family:var(--sans,'Wanted Sans Variable',sans-serif)!important;font-size:15px!important;font-weight:600!important;color:var(--t2,#555)!important;text-decoration:none!important;padding:10px 16px!important;border-radius:6px!important;white-space:nowrap!important;background:transparent!important;border:0!important;flex-shrink:0!important;line-height:1.2!important}
-.hdr-nav a:hover,.hnav a:hover{background:var(--bl,#ededea)!important;color:var(--t2,#555)!important}
-.hdr-nav a.on,.hnav a.on{color:var(--a,#d96c2c)!important;background:var(--al,rgba(217,108,44,.06))!important;font-weight:700!important}
-.hdr-nav a.on-policy,.hnav a.on-policy{color:#1e40af!important;background:#eff6ff!important;font-weight:700!important}
-.hdr-nav a.on-law,.hnav a.on-law{color:#047857!important;background:#ecfdf5!important;font-weight:700!important}
-.hdr-nav .lbl-short,.hnav .lbl-short{display:none!important}
-.hdr-search{position:relative!important;width:280px!important;margin-right:16px!important;display:block!important;flex-shrink:0!important}
-.hdr-search input{width:100%!important;padding:10px 14px 10px 36px!important;font-size:13px!important;border:1px solid var(--b,#dcdcd8)!important;border-radius:6px!important;background:var(--s2,#fafaf8)!important;outline:none!important;font-family:var(--sans,'Wanted Sans Variable',sans-serif)!important;color:var(--t,#1a1a1a)!important;line-height:1.2!important}
-.hdr-search input:focus{border-color:var(--a,#d96c2c)!important;background:#fff!important}
-.hdr-search input::placeholder{color:var(--m,#bbb)!important}
-.hdr-search-icon{position:absolute!important;left:12px!important;top:50%!important;transform:translateY(-50%)!important;color:var(--m,#bbb)!important;font-size:15px!important;line-height:1!important}
-.hdr-time{font-family:var(--mono,'JetBrains Mono',monospace)!important;font-size:12px!important;color:var(--t3,#888)!important;white-space:nowrap!important}
-.bell{display:none!important}
-.mobile-search{display:none}
-.is-mobile .mobile-search{display:block!important;background:#fff!important;padding:10px 14px!important;border-bottom:1px solid var(--bl,#ededea)!important;position:sticky!important;top:52px!important;z-index:90!important}
-.mobile-search-box{position:relative!important}
-.mobile-search-box input{width:100%!important;padding:10px 14px 10px 36px!important;font-size:13px!important;border:1px solid var(--b,#dcdcd8)!important;border-radius:8px!important;background:var(--s2,#fafaf8)!important;outline:none!important;font-family:var(--sans,'Wanted Sans Variable',sans-serif)!important;color:var(--t,#1a1a1a)!important}
-.mobile-search-box input:focus{border-color:var(--a,#d96c2c)!important;background:#fff!important}
-.mobile-search-icon{position:absolute!important;left:12px!important;top:50%!important;transform:translateY(-50%)!important;color:var(--m,#bbb)!important;font-size:14px!important;pointer-events:none!important}
-.bottom-nav,.bnav{display:none!important}
-.bottom-nav a,.bnav a{display:flex!important;flex-direction:column!important;align-items:center!important;gap:3px!important;text-decoration:none!important;color:var(--t3,#888)!important;font-size:10.5px!important;font-weight:600!important;padding:4px 0!important;line-height:1.2!important}
-.bottom-nav a.on,.bnav a.on{color:var(--a,#d96c2c)!important}
-.bottom-nav svg,.bnav svg{width:22px!important;height:22px!important;stroke-width:2!important;fill:none!important;stroke:currentColor!important;stroke-linecap:round!important;stroke-linejoin:round!important}
-.bottom-nav a.on svg,.bnav a.on svg{stroke-width:2.4!important}
-.is-mobile .hdr{height:52px!important;padding:0 12px!important;gap:4px!important}
-.is-mobile .hdr-logo,.is-mobile .logo{font-size:17px!important;margin-right:8px!important}
-.is-mobile .hdr-nav,.is-mobile .hnav{gap:2px!important;flex:1!important;min-width:0!important;overflow:visible!important}
-.is-mobile .hdr-nav a,.is-mobile .hnav a{font-size:12px!important;padding:7px 8px!important}
-.is-mobile .hdr-nav .lbl-full,.is-mobile .hnav .lbl-full{display:none!important}
-.is-mobile .hdr-nav .lbl-short,.is-mobile .hnav .lbl-short{display:inline!important}
-.is-mobile .hdr-search,.is-mobile .hdr-time{display:none!important}
-.is-mobile .wrap,.is-mobile .shell{max-width:100%!important}
-.is-mobile .bottom-nav,.is-mobile .bnav{display:grid!important;grid-template-columns:repeat(4,1fr)!important;position:fixed!important;bottom:0!important;left:0!important;right:0!important;z-index:200!important;background:#fff!important;border-top:1px solid var(--b,#dcdcd8)!important;padding:8px 0 calc(10px + env(safe-area-inset-bottom))!important;box-shadow:0 -2px 12px rgba(0,0,0,.06)!important;max-width:none!important;margin:0!important;height:auto!important;align-items:center!important}
-@media(max-width:768px){html:not(.is-mobile) body{min-width:1120px!important;font-size:15px!important;line-height:1.6!important;padding:0!important}html:not(.is-mobile) .hdr{height:64px!important;padding:0 32px!important}html:not(.is-mobile) .hdr-logo,html:not(.is-mobile) .logo{font-size:24px!important;margin-right:44px!important}html:not(.is-mobile) .hdr-nav a,html:not(.is-mobile) .hnav a{font-size:15px!important;padding:10px 16px!important}html:not(.is-mobile) .hdr-nav .lbl-full,html:not(.is-mobile) .hnav .lbl-full{display:inline!important}html:not(.is-mobile) .hdr-nav .lbl-short,html:not(.is-mobile) .hnav .lbl-short{display:none!important}html:not(.is-mobile) .hdr-search,html:not(.is-mobile) .hdr-time{display:block!important}html:not(.is-mobile) .bottom-nav,html:not(.is-mobile) .bnav{display:none!important}}
 </style>
 </head>
 <body>
 <header class="hdr">
   <a class="hdr-logo" href="/">브리핑룸</a>
-  <nav class="hdr-nav"><a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a><a class="on-policy" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a><a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a><a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a></nav>
-  <div class="hdr-search"><span class="hdr-search-icon">&#x2315;</span><input placeholder="검색"></div>
-  <div class="hdr-time">2026.04.13</div>
+  <nav class="hdr-nav">
+    <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
+    <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
+    <a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a>
+    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+  </nav>
 </header>
-<div class="mobile-search"><div class="mobile-search-box"><span class="mobile-search-icon">&#x2315;</span><input placeholder="검색"></div></div>
-
-<div class="wrap">
-<div class="post-badge">재정경제부 보도자료</div>
-  <h1 class="post-title">아세안+3 재무차관 및 중앙은행 부총재 회의 참석 결과</h1>
-  <div class="post-meta">
-    <div class="meta-i"><span>날짜</span><strong>2026-04-09</strong></div>
-    <div class="meta-i"><span>분야</span><strong>금융경제</strong></div>
-    <div class="meta-i"><span>기관</span><strong>재정경제부</strong></div>
-  </div>
-  <div class="post-content">
-    <section style="background:var(--al);border:2px solid var(--ab);border-radius:12px;padding:18px;margin-bottom:18px">
-      <div style="font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">한눈에 보기</div>
-      <p style="font-size:14px;color:var(--t);line-height:1.8;margin:0">중동 전쟁 때문에 경제 상황이 불안해져서 아시아 국가들이 모여서 대책을 상의했습니다. 한국 문지성 국제경제관리관이 회의를 주관하면서 실시간으로 정보를 공유하고 협력하자고 제안했습니다. 한국은 추경 (필요할 때 긴급하게 편성하는 예산) 으로 26 조 원 규모의 지원책을 마련해 대응 중이라고 알렸습니다. 에너지 공급망의 문제점과 미래 금융 위험을 미리 막기 위한 새로운 협력 방안도 함께 논의했습니다. 이번 회의에서 논의된 내용은 5 월에 열리는 더 큰 장관급 회의에서 최종 결정될 예정입니다.</p>
-    </section>
-    <section class="info-section why-box">
-      <div class="section-kicker">Why It Matters</div>
-      <h3>왜 알아야 하나?</h3>
-      <p>중동 전쟁 등 국제 정세로 인한 우리 경제의 물가 및 공급망 변화와 정부 대응책을 파악하기 위해 필요합니다.</p>
-    </section>
-    <section class="info-section impact-box">
-      <div class="section-kicker">What Changes</div>
-      <h3>그래서 뭐가 달라지나?</h3>
-      <p>이번 회의 결과를 바탕으로 역내 국가 간 금융 안전망 강화 및 공급망 안정화를 위한 구체적인 협력 방향이 마련됩니다.</p>
-    </section>
-    <div class='keywords'><span>#아세안 +3</span><span>#한중일 재무차관 회의</span><span>#중동 전쟁</span><span>#치앙마이 이니셔티브</span><span>#공급망 다변화</span></div>
-    
-    <div class="links">
-      <h4>원문</h4>
-      <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753628" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-bc"><a href="/brief/">정부 발표</a><span>/</span><a href="/brief/articles/">오늘의 정부 발표</a><span>/</span>보도자료</div>
+    <div class="hero-badges">
+      <span class="hero-imp hero-imp-m">영향도 중</span>
+      <span class="hero-cat">금융경제</span>
+      <span class="hero-source">재정경제부</span>
+      <span class="hero-date">2026-04-09</span>
     </div>
+    <h1 class="hero-title">아세안+3 재무차관 및 중앙은행 부총재 회의 참석 결과</h1>
+    <div class="hero-kws"><span class="hero-kw">#아세안 +3</span><span class="hero-kw">#한중일 재무차관 회의</span><span class="hero-kw">#중동 전쟁</span><span class="hero-kw">#치앙마이 이니셔티브</span><span class="hero-kw">#공급망 다변화</span></div>
   </div>
-  <div class="cta">
-    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
-    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
-  </div>
+</section>
+<div class="shell">
+  <div class="easy-box"><div class="easy-label">EASY SUMMARY</div><div class="easy-text">중동 전쟁 때문에 경제 상황이 불안해져서 아시아 국가들이 모여서 대책을 상의했습니다. 한국 문지성 국제경제관리관이 회의를 주관하면서 실시간으로 정보를 공유하고 협력하자고 제안했습니다. 한국은 추경 (필요할 때 긴급하게 편성하는 예산) 으로 26 조 원 규모의 지원책을 마련해 대응 중이라고 알렸습니다. 에너지 공급망의 문제점과 미래 금융 위험을 미리 막기 위한 새로운 협력 방안도 함께 논의했습니다. 이번 회의에서 논의된 내용은 5 월에 열리는 더 큰 장관급 회의에서 최종 결정될 예정입니다.</div></div>
+  
+  
+  <div class="context-box"><div class="sec-title">영향 분석</div><div class="ctx-section"><div class="ctx-label ctx-label-why">WHY IT MATTERS - 왜 알아야 하나</div><div class="ctx-body">중동 전쟁 등 국제 정세로 인한 우리 경제의 물가 및 공급망 변화와 정부 대응책을 파악하기 위해 필요합니다.</div></div><div class="ctx-section"><div class="ctx-label ctx-label-impact">WHAT CHANGES - 그래서 뭐가 달라지나</div><div class="ctx-body ctx-body-impact">이번 회의 결과를 바탕으로 역내 국가 간 금융 안전망 강화 및 공급망 안정화를 위한 구체적인 협력 방향이 마련됩니다.</div></div><div class="ctx-section"><div class="ctx-label ctx-label-who">WHO IS AFFECTED - 영향 대상</div><div class="ctx-body ctx-body-who">금융기관, 투자자, 기업, 자영업자</div></div></div>
+  <div class="kw-box"><span class="kw-tag">#아세안 +3</span><span class="kw-tag">#한중일 재무차관 회의</span><span class="kw-tag">#중동 전쟁</span><span class="kw-tag">#치앙마이 이니셔티브</span><span class="kw-tag">#공급망 다변화</span></div>
+  <div class="attach-box"><div class="sec-title">첨부파일</div><div class="attach-item"><span class="attach-badge attach-badge-pdf">PDF</span><a class="attach-link" href="https://www.korea.kr/common/download.do?fileId=198418391&amp;tblKey=GMN" target="_blank" rel="noopener">첨부파일 1 (PDF)</a></div><div class="attach-item"><span class="attach-badge attach-badge-hwp">HWP</span><a class="attach-link" href="https://www.korea.kr/common/download.do?fileId=198418390&amp;tblKey=GMN" target="_blank" rel="noopener">첨부파일 1 (HWP)</a></div></div>
+  
+  <div class="source-box"><div class="source-info"><strong>재정경제부</strong> 보도자료 원문</div><a class="source-link" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753628" target="_blank" rel="noopener">원문 보기 &#8594;</a></div>
+  <div class="nav-box"><a class="nav-prev" href="/articles/2026-04-09/058/"><div class="nav-label">이전 보도자료</div><div class="nav-title">민생물가 특별관리 관계장관 TF 6차 회의 개최</div></a><a class="nav-next" href="/articles/2026-04-09/060/"><div class="nav-label">다음 보도자료</div><div class="nav-title">학원 교습비 관리 강화 방안</div></a></div>
 </div>
-<footer class="site-footer"><a href="/">홈</a> · <a href="/policy/">정부 정책 AI</a> · <a href="/finlaw/">금융 법령 AI</a> · <a href="/articles/">아카이브</a> · <a href="https://t.me/govbrief" target="_blank" rel="noopener">텔레그램</a><br>govbrief.kr</footer>
-<nav class="bottom-nav">
-  <a href="/"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg><span>홈</span></a>
-  <a class="on" href="/brief/"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>정부 발표</span></a>
-  <a href="/keywords/"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>키워드</span></a>
-  <a href="/regulation/"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg><span>금융/부동산</span></a>
+<footer class="footer">
+  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+<nav class="bnav">
+  <a href="/">홈</a>
+  <a class="on" href="/brief/">정부 발표</a>
+  <a href="/keywords/">키워드</a>
+  <a href="/regulation/">금융/부동산</a>
 </nav>
 </body>
 </html>

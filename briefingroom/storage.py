@@ -7,30 +7,32 @@ from typing import Iterable
 from .config import CAT_MAP, DATA_DIR, FINANCE_SUB_MAP
 
 
-def extract_summary_parts(summary: str) -> tuple[str, str, str, list[str], str, str]:
-    """LLM 응답에서 요약, 쉬운요약, 키워드, 영향도를 추출한다.
+def extract_summary_parts(summary: str) -> tuple[str, str, str, list[str], str, str, list[str], str]:
+    """LLM 응답에서 요약, 쉬운요약, 핵심포인트, 상세분석, 키워드, 영향도를 추출한다.
 
     Returns:
-        (summary_text, why_important, practical_impact, keywords, impact, easy_summary)
+        (summary_text, why_important, practical_impact, keywords, impact, easy_summary, key_points, detailed_analysis)
         impact는 "상", "중", "하" 중 하나. 파싱 실패 시 "중".
     """
     if not summary:
-        return "", "", "", [], "중", ""
+        return "", "", "", [], "중", "", [], ""
 
     summary_text = ""
     easy_summary = ""
     why_important = ""
     practical_impact = ""
+    key_points: list[str] = []
+    detailed_analysis = ""
     keywords: list[str] = []
     impact = "중"
 
     # 각 섹션의 시작 위치 찾기
     markers = []
-    for m in re.finditer(r'^(요약|쉬운요약|왜 중요한가|왜 알아야 하나|실무 영향|그래서 뭐가 달라지나|키워드|영향도):', summary, re.MULTILINE):
+    for m in re.finditer(r'^(요약|쉬운요약|핵심포인트|상세분석|왜 중요한가|왜 알아야 하나|실무 영향|그래서 뭐가 달라지나|키워드|영향도):', summary, re.MULTILINE):
         markers.append((m.start(), m.group(1), m.end()))
 
     if not markers:
-        return summary.strip(), "", "", [], "중", ""
+        return summary.strip(), "", "", [], "중", "", [], ""
 
     for i, (start, label, content_start) in enumerate(markers):
         end = markers[i + 1][0] if i + 1 < len(markers) else len(summary)
@@ -40,6 +42,11 @@ def extract_summary_parts(summary: str) -> tuple[str, str, str, list[str], str, 
             summary_text = content
         elif label == "쉬운요약":
             easy_summary = content
+        elif label == "핵심포인트":
+            key_points = [line.strip().lstrip("- ").strip() for line in content.split("\n") if line.strip().startswith("-") or (line.strip() and not line.strip().startswith("핵심"))]
+            key_points = [p for p in key_points if p]
+        elif label == "상세분석":
+            detailed_analysis = content
         elif label in ("왜 중요한가", "왜 알아야 하나"):
             why_important = content
         elif label in ("실무 영향", "그래서 뭐가 달라지나"):
@@ -57,12 +64,14 @@ def extract_summary_parts(summary: str) -> tuple[str, str, str, list[str], str, 
         easy_summary = ""
         why_important = ""
         practical_impact = ""
+        key_points = []
+        detailed_analysis = ""
 
-    return summary_text, why_important, practical_impact, keywords, impact, easy_summary
+    return summary_text, why_important, practical_impact, keywords, impact, easy_summary, key_points, detailed_analysis
 
 
 def serialize_item(item: dict, slug: str = "") -> dict:
-    summary_text, why_important, practical_impact, keywords, impact, easy_summary = extract_summary_parts(item.get("summary", ""))
+    summary_text, why_important, practical_impact, keywords, impact, easy_summary, key_points, detailed_analysis = extract_summary_parts(item.get("summary", ""))
     return {
         "slug": slug,
         "source": item.get("source", ""),
@@ -77,6 +86,8 @@ def serialize_item(item: dict, slug: str = "") -> dict:
         "files": item.get("files", []),
         "summary": summary_text,
         "easy_summary": easy_summary,
+        "key_points": key_points,
+        "detailed_analysis": detailed_analysis,
         "why_important": why_important,
         "practical_impact": practical_impact,
         "keywords": keywords,

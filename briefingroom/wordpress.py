@@ -168,7 +168,7 @@ def wp_post(item):
     keywords = []
     if has_summary:
         from briefingroom.storage import extract_summary_parts
-        summary, _, _, keywords, _, _ = extract_summary_parts(item["summary"])
+        summary, _, _, keywords, _, _, _, _ = extract_summary_parts(item["summary"])
     if not summary:
         summary = f'{item["source"]} 보도자료입니다. 원문 링크에서 상세 내용을 확인하세요.'
 

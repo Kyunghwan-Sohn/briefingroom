@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오늘의 정부 발표 - 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){ if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) document.documentElement.classList.add('is-mobile'); })();
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all}
+:root{--bg:#f7f7f5;--s:#fff;--b:#dcdcd8;--bl:#ededea;--t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;--sec:#1e40af;--sec-bg:#eff6ff;--sec-border:#bfdbfe;--red:#dc2626;--red-bg:#fee2e2;--amber:#d97706;--amber-bg:#fef3c7;--green:#047857;--green-bg:#ecfdf5;--purple:#7c3aed;--purple-bg:#f5f3ff;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;line-height:1.6;min-width:1120px}
+.is-mobile body{min-width:0;font-size:14px;padding-bottom:68px}
+
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--sec);background:var(--sec-bg);font-weight:700}
+.hdr-nav .lbl-short{display:none}
+.is-mobile .hdr{height:52px;padding:0 12px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+.is-mobile .hdr-nav .lbl-full{display:none}
+.is-mobile .hdr-nav .lbl-short{display:inline}
+
+/* 히어로 */
+.hero{background:linear-gradient(180deg,var(--sec-bg),#fff);border-bottom:1px solid var(--sec-border);padding:36px 32px 28px}
+.hero-inner{max-width:1080px;margin:0 auto}
+.hero-breadcrumb{font-size:12px;color:var(--t3);margin-bottom:12px}
+.hero-breadcrumb a{color:var(--sec);text-decoration:none;font-weight:600}
+.hero-breadcrumb span{margin:0 6px;color:var(--m)}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;color:var(--sec);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.hero-title{font-family:var(--serif);font-size:30px;font-weight:700;margin-bottom:6px}
+.hero-sub{font-size:14px;color:var(--t2);line-height:1.7;max-width:640px;margin-bottom:20px}
+.hero-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:900px}
+.hero-stat{background:#fff;border:1px solid var(--sec-border);border-radius:8px;padding:12px 14px}
+.hero-stat .label{font-size:10px;color:var(--sec);font-weight:700}
+.hero-stat .num{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--sec);line-height:1.1;margin-top:3px}
+.hero-stat .num .unit{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--t3)}
+.is-mobile .hero{padding:20px 16px}
+.is-mobile .hero-title{font-size:22px}
+.is-mobile .hero-stats{grid-template-columns:repeat(3,1fr)}
+
+/* 히어로 하이라이트 */
+.hero-highlights{margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:900px}
+.hero-hl{background:#fff;border:1px solid var(--sec-border);border-left:3px solid var(--red);border-radius:8px;padding:14px 16px}
+.hero-hl-cat{font-size:10px;font-weight:700;color:var(--red);margin-bottom:4px}
+.hero-hl-title{font-family:var(--serif);font-size:14px;font-weight:700;line-height:1.4;margin-bottom:4px}
+.hero-hl-summary{font-size:12px;color:var(--t2);line-height:1.6}
+.is-mobile .hero-highlights{grid-template-columns:1fr}
+
+/* 본문 */
+.shell{max-width:1080px;margin:0 auto;padding:20px 16px 40px}
+
+/* 필터 */
+.filter-bar{background:#fff;border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:20px;position:sticky;top:64px;z-index:50}
+.is-mobile .filter-bar{top:52px;padding:12px 14px}
+.filter-row{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.filter-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filter-label{font-size:12px;font-weight:700;color:var(--t2);min-width:52px;flex-shrink:0}
+.filter-pills{display:flex;flex-wrap:wrap;gap:6px}
+.filter-pill{font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid var(--b);background:#fff;color:var(--t2);cursor:pointer;transition:all .15s}
+.filter-pill:hover{border-color:var(--sec);color:var(--sec)}
+.filter-pill.on{background:var(--sec);color:#fff;border-color:var(--sec)}
+.filter-pill .cnt{font-family:var(--mono);font-size:10px;margin-left:3px;opacity:.7}
+.filter-reset{font-size:11px;color:var(--t3);cursor:pointer;font-weight:600;text-decoration:underline;flex-shrink:0}
+.filter-reset:hover{color:var(--red)}
+
+/* 정렬 */
+.list-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 4px}
+.list-sort{display:flex;gap:4px}
+.list-sort-btn{font-size:12px;font-weight:600;color:var(--t3);padding:4px 10px;border-radius:4px;cursor:pointer;border:1px solid transparent}
+.list-sort-btn.on{color:var(--sec);border-color:var(--sec-border);background:var(--sec-bg)}
+.list-count{font-size:13px;color:var(--t2)}
+.list-count strong{font-family:var(--mono);color:var(--sec)}
+
+/* 일자 구분 */
+.day-header{display:flex;align-items:center;gap:12px;margin:28px 0 14px;padding:0 4px}
+.day-header:first-child{margin-top:0}
+.day-header-title{font-family:var(--serif);font-size:18px;font-weight:700;flex-shrink:0}
+.day-header-date{font-family:var(--mono);font-size:12px;color:var(--sec);font-weight:600;flex-shrink:0}
+.day-header-count{font-family:var(--mono);font-size:12px;color:var(--t3);flex-shrink:0}
+.day-header-line{flex:1;height:1px;background:var(--bl)}
+
+/* 일자 비교 */
+.day-compare{background:#fff;border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.dc-item{text-align:center}
+.dc-label{font-size:11px;color:var(--t3);font-weight:600;margin-bottom:4px}
+.dc-val{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--t)}
+.dc-diff{font-family:var(--mono);font-size:11px;font-weight:700;margin-top:2px}
+.dc-up{color:var(--red)}
+.dc-down{color:var(--sec)}
+.dc-same{color:var(--t3)}
+.is-mobile .day-compare{grid-template-columns:repeat(2,1fr);gap:8px}
+
+/* 카드 */
+.card{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px 22px;margin-bottom:10px;border-left:3px solid var(--b)}
+.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.card[data-imp="h"]{border-left-color:var(--red)}
+.card[data-imp="m"]{border-left-color:var(--amber)}
+.card[data-imp="l"]{border-left-color:var(--m)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.card-imp{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.card-imp-h{background:var(--red-bg);color:var(--red)}
+.card-imp-m{background:var(--amber-bg);color:var(--amber)}
+.card-imp-l{background:#f3f4f6;color:#6b7280}
+.card-source{font-size:12px;color:var(--t3);font-weight:600}
+.card-cat{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;margin-left:auto}
+.card-cat-fin{color:var(--sec);background:var(--sec-bg)}
+.card-cat-ind{color:var(--green);background:var(--green-bg)}
+.card-cat-soc{color:var(--purple);background:var(--purple-bg)}
+.card-cat-dip{color:var(--amber);background:var(--amber-bg)}
+.card-title{font-family:var(--serif);font-size:17px;font-weight:700;line-height:1.4;margin-bottom:10px}
+.card-title a{color:var(--t);text-decoration:none}
+.card-title a:hover{color:var(--sec)}
+.card-easy{font-size:14px;color:var(--t2);line-height:1.8;background:var(--sec-bg);border-left:3px solid var(--sec);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:10px}
+.card-easy-label{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--sec);letter-spacing:.06em;margin-bottom:4px}
+.card-keywords{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.card-kw{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid var(--bl);color:var(--t3)}
+.card-meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3)}
+.card-meta a{color:var(--sec);font-weight:600;text-decoration:none}
+.card-meta a:hover{text-decoration:underline}
+
+/* 페이지네이션 */
+.pagination{display:flex;justify-content:center;align-items:center;gap:4px;margin-top:24px;padding:16px 0}
+.page-btn{font-family:var(--mono);font-size:13px;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--b);background:#fff;color:var(--t2);cursor:pointer;text-decoration:none}
+.page-btn:hover{border-color:var(--sec);color:var(--sec)}
+.page-btn.on{background:var(--sec);color:#fff;border-color:var(--sec)}
+.page-btn.disabled{opacity:.3;pointer-events:none}
+
+.footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
+.bnav{display:none}
+.is-mobile .bnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom))}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600}
+.bnav a.on{color:var(--sec)}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="hdr-logo" href="/">브리핑룸</a>
+  <nav class="hdr-nav">
+    <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
+    <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
+    <a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a>
+    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+  </nav>
+</header>
+
+<!-- 히어로 -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-breadcrumb">
+      <a href="/brief/">정부 발표</a>
+      <span>/</span>
+      오늘의 정부 발표
+    </div>
+    <div class="hero-eyebrow">TODAY'S GOVERNMENT BRIEFING</div>
+    <h1 class="hero-title">오늘의 정부 발표</h1>
+    <p class="hero-sub">2026년 4월 10일 51개 부처에서 발표한 보도자료를 AI가 분석했습니다.</p>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="label">전체 발표</div><div class="num">139<span class="unit">건</span></div></div>
+      <div class="hero-stat"><div class="label">참여 부처</div><div class="num">42<span class="unit">개</span></div></div>
+      <div class="hero-stat"><div class="label">영향도 상</div><div class="num">14<span class="unit">건</span></div></div>
+      <div class="hero-stat"><div class="label">영향도 중</div><div class="num">53<span class="unit">건</span></div></div>
+      <div class="hero-stat"><div class="label">영향도 하</div><div class="num">72<span class="unit">건</span></div></div>
+    </div>
+
+    <div class="hero-highlights">
+      <div class="hero-hl">
+        <div class="hero-hl-cat">금융경제 핵심</div>
+        <div class="hero-hl-title">관리재정수지 1.4조 적자 - 재정건전성 경고</div>
+        <div class="hero-hl-summary">2월 통합재정통계에서 적자가 지속. 세수 부족과 지출 확대가 동시에 진행 중.</div>
+      </div>
+      <div class="hero-hl">
+        <div class="hero-hl-cat">산업기술 핵심</div>
+        <div class="hero-hl-title">부동산 불법행위 단속 강화 - 제11차 협의회</div>
+        <div class="hero-hl-summary">불법 전매, 허위 매물 등 부동산 시장 교란 행위에 대한 처벌 수위 상향.</div>
+      </div>
+      <div class="hero-hl">
+        <div class="hero-hl-cat">사회복지 핵심</div>
+        <div class="hero-hl-title">민생물가 특별관리 TF - 식품/에너지 집중 안정</div>
+        <div class="hero-hl-summary">장관급 TF에서 생필품 가격 안정 방안 확정. 유통 구조 개선과 수급 관리 병행.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="shell">
+
+  <!-- 필터 -->
+  <div class="filter-bar">
+    <div class="filter-row">
+      <div class="filter-group">
+        <span class="filter-label">분야</span>
+        <div class="filter-pills">
+          <span class="filter-pill on">전체 <span class="cnt">139</span></span>
+          <span class="filter-pill">산업기술 <span class="cnt">61</span></span>
+          <span class="filter-pill">금융경제 <span class="cnt">19</span></span>
+          <span class="filter-pill">사회복지 <span class="cnt">27</span></span>
+          <span class="filter-pill">외교안보 <span class="cnt">24</span></span>
+          <span class="filter-pill">교육문화 <span class="cnt">8</span></span>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">부처</span>
+        <div class="filter-pills">
+          <span class="filter-pill on">전체</span>
+          <span class="filter-pill">기재부 <span class="cnt">8</span></span>
+          <span class="filter-pill">국토부 <span class="cnt">12</span></span>
+          <span class="filter-pill">산자부 <span class="cnt">9</span></span>
+          <span class="filter-pill">복지부 <span class="cnt">11</span></span>
+          <span class="filter-pill">과기부 <span class="cnt">7</span></span>
+          <span class="filter-pill">금융위 <span class="cnt">5</span></span>
+          <span class="filter-pill">환경부 <span class="cnt">6</span></span>
+          <span class="filter-pill" style="color:var(--sec);border-color:var(--sec-border)">+35개</span>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">키워드</span>
+        <div class="filter-pills">
+          <span class="filter-pill on">전체</span>
+          <span class="filter-pill">재정적자 <span class="cnt">6</span></span>
+          <span class="filter-pill">부동산단속 <span class="cnt">4</span></span>
+          <span class="filter-pill">민생물가 <span class="cnt">5</span></span>
+          <span class="filter-pill">중동전쟁 <span class="cnt">7</span></span>
+          <span class="filter-pill">추경예산 <span class="cnt">3</span></span>
+          <span class="filter-pill">인공지능 <span class="cnt">8</span></span>
+          <span class="filter-pill">소상공인 <span class="cnt">5</span></span>
+        </div>
+        <span class="filter-reset">초기화</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 정렬 -->
+  <div class="list-toolbar">
+    <div class="list-sort">
+      <span class="list-sort-btn on">영향도순</span>
+      <span class="list-sort-btn">최신순</span>
+      <span class="list-sort-btn">부처순</span>
+    </div>
+    <div class="list-count">총 <strong>139</strong>건 표시 중</div>
+  </div>
+
+  <!-- ===== 4월 10일 (목) ===== -->
+  <div class="day-header">
+    <span class="day-header-title">4월 10일 (목)</span>
+    <span class="day-header-date">2026.04.10</span>
+    <span class="day-header-count">139건 / 42개 부처</span>
+    <span class="day-header-line"></span>
+  </div>
+
+  <div class="day-compare">
+    <div class="dc-item">
+      <div class="dc-label">보도자료</div>
+      <div class="dc-val">139건</div>
+      <div class="dc-diff dc-up">+57건 (전일 대비)</div>
+    </div>
+    <div class="dc-item">
+      <div class="dc-label">영향도 상</div>
+      <div class="dc-val">14건</div>
+      <div class="dc-diff dc-up">+6건</div>
+    </div>
+    <div class="dc-item">
+      <div class="dc-label">신규 키워드</div>
+      <div class="dc-val">2개</div>
+      <div class="dc-diff dc-up">재정적자, 가상자산</div>
+    </div>
+    <div class="dc-item">
+      <div class="dc-label">지속 키워드</div>
+      <div class="dc-val">5개</div>
+      <div class="dc-diff dc-same">중동전쟁, 민생물가, 인공지능 등</div>
+    </div>
+  </div>
+
+  <!-- 카드 1 -->
+  <div class="card" data-imp="h">
+    <div class="card-top">
+      <span class="card-imp card-imp-h">영향도 상</span>
+      <span class="card-source">기획재정부</span>
+      <span class="card-cat card-cat-fin">금융경제</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-10/000/">통합재정통계(2026년 2월) - 관리재정수지 1.4조 적자</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      정부가 2월에 번 돈보다 쓴 돈이 1조 4천억 원 더 많았습니다. 국민연금 같은 사회보험 기금을 빼고 계산한 수치로, 재정 적자가 이어지고 있습니다. 세수는 줄어드는데 복지 지출은 계속 늘고 있어서, 하반기에는 추경 편성 가능성도 거론됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#재정적자</span>
+      <span class="card-kw">#세수부족</span>
+      <span class="card-kw">#추경</span>
+      <span class="card-kw">#국가채무</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.10 09:00</span>
+      <a href="/articles/2026-04-10/000/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 카드 2 -->
+  <div class="card" data-imp="h">
+    <div class="card-top">
+      <span class="card-imp card-imp-h">영향도 상</span>
+      <span class="card-source">국토교통부</span>
+      <span class="card-cat card-cat-ind">산업기술</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-10/016/">부동산감독추진단, 제11차 부동산 불법행위 대응협의회 개최</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      정부가 부동산 사기나 불법 거래를 잡기 위한 회의를 열었습니다. 불법 전매, 편법 증여, 허위 매물 등을 중점 단속하며, 적발 시 처벌 수위를 높이기로 했습니다. 특히 분양권 불법 전매에 대한 조사를 전국적으로 확대합니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#부동산단속</span>
+      <span class="card-kw">#불법전매</span>
+      <span class="card-kw">#분양권</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.10 10:30</span>
+      <a href="/articles/2026-04-10/016/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 카드 3 -->
+  <div class="card" data-imp="h">
+    <div class="card-top">
+      <span class="card-imp card-imp-h">영향도 상</span>
+      <span class="card-source">기획재정부</span>
+      <span class="card-cat card-cat-fin">금융경제</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-10/058/">민생물가 특별관리 관계장관 TF 6차 회의 개최</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      장관들이 모여 국민 생활에 직접 영향을 주는 물가를 낮추기 위한 방안을 논의했습니다. 식품, 에너지, 공공요금 등 생필품 가격 안정에 집중하고 있습니다. 이번 회의에서는 농산물 수급 안정과 유통 단계 축소 방안이 구체적으로 결정되었습니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#민생물가</span>
+      <span class="card-kw">#식품가격</span>
+      <span class="card-kw">#공공요금</span>
+      <span class="card-kw">#유통구조</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.10 11:00</span>
+      <a href="/articles/2026-04-10/058/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 카드 4 -->
+  <div class="card" data-imp="h">
+    <div class="card-top">
+      <span class="card-imp card-imp-h">영향도 상</span>
+      <span class="card-source">국무조정실</span>
+      <span class="card-cat card-cat-dip">외교안보</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-10/022/">중동 정세 관련 건설업 긴급 지원 대책 발표</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      중동 지역의 분쟁이 길어지면서 해외 공사를 진행하던 국내 건설사들이 큰 어려움을 겪고 있습니다. 정부가 긴급 금융 보증과 대출 지원을 통해 유동성 위기를 막겠다고 발표했습니다. 근로자 안전 귀국 지원도 포함됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#중동전쟁</span>
+      <span class="card-kw">#건설업</span>
+      <span class="card-kw">#긴급지원</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.10 14:00</span>
+      <a href="/articles/2026-04-10/022/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 카드 5 -->
+  <div class="card" data-imp="h">
+    <div class="card-top">
+      <span class="card-imp card-imp-h">영향도 상</span>
+      <span class="card-source">과학기술정보통신부</span>
+      <span class="card-cat card-cat-ind">산업기술</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-10/031/">인공지능 안전 관리 가이드라인 시행 방안 발표</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      기업들이 AI를 개발하거나 서비스에 활용할 때 지켜야 할 안전 기준이 나왔습니다. 고위험 AI 시스템은 사전 영향 평가를 의무화하고, 이용자에게 AI가 사용됐다는 사실을 알리도록 합니다. 자율 규제를 우선하되 위반 시 제재 근거도 마련됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#인공지능</span>
+      <span class="card-kw">#AI안전</span>
+      <span class="card-kw">#가이드라인</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.10 10:00</span>
+      <a href="/articles/2026-04-10/031/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 카드 6 -->
+  <div class="card" data-imp="m">
+    <div class="card-top">
+      <span class="card-imp card-imp-m">영향도 중</span>
+      <span class="card-source">중소벤처기업부</span>
+      <span class="card-cat card-cat-fin">금융경제</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-10/045/">소상공인 긴급 경영안정자금 2차 신청 안내</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      매출이 줄어든 소상공인들이 저금리로 돈을 빌릴 수 있는 2차 신청이 시작됩니다. 연 매출 3억 원 이하 사업자가 대상이며, 최대 5천만 원까지 연 2%대 금리로 대출받을 수 있습니다. 온라인으로 간편하게 신청 가능합니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#소상공인</span>
+      <span class="card-kw">#경영안정자금</span>
+      <span class="card-kw">#저금리대출</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.10 09:30</span>
+      <a href="/articles/2026-04-10/045/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 카드 7 -->
+  <div class="card" data-imp="m">
+    <div class="card-top">
+      <span class="card-imp card-imp-m">영향도 중</span>
+      <span class="card-source">금융위원회</span>
+      <span class="card-cat card-cat-fin">금융경제</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-10/102/">가상자산 이용자 보호법 세부 시행령 입법예고</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      가상화폐 거래소를 이용하는 사람들의 자산을 보호하기 위한 세부 규정이 공개됩니다. 거래소가 고객 자산을 자기 돈과 분리해서 보관해야 하고, 이상 거래를 감지하면 즉시 거래를 정지할 수 있게 됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#가상자산</span>
+      <span class="card-kw">#이용자보호</span>
+      <span class="card-kw">#시행령</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.10 15:00</span>
+      <a href="/articles/2026-04-10/102/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- ===== 4월 9일 (수) ===== -->
+  <div class="day-header">
+    <span class="day-header-title">4월 9일 (수)</span>
+    <span class="day-header-date">2026.04.09</span>
+    <span class="day-header-count">82건 / 38개 부처</span>
+    <span class="day-header-line"></span>
+  </div>
+
+  <div class="day-compare">
+    <div class="dc-item">
+      <div class="dc-label">보도자료</div>
+      <div class="dc-val">82건</div>
+      <div class="dc-diff dc-down">-39건 (전일 대비)</div>
+    </div>
+    <div class="dc-item">
+      <div class="dc-label">영향도 상</div>
+      <div class="dc-val">8건</div>
+      <div class="dc-diff dc-down">-3건</div>
+    </div>
+    <div class="dc-item">
+      <div class="dc-label">신규 키워드</div>
+      <div class="dc-val">1개</div>
+      <div class="dc-diff dc-up">유학생</div>
+    </div>
+    <div class="dc-item">
+      <div class="dc-label">지속 키워드</div>
+      <div class="dc-val">4개</div>
+      <div class="dc-diff dc-same">중동전쟁, 인공지능, 소상공인, 물가</div>
+    </div>
+  </div>
+
+  <!-- 4/9 카드 1 -->
+  <div class="card" data-imp="h">
+    <div class="card-top">
+      <span class="card-imp card-imp-h">영향도 상</span>
+      <span class="card-source">금융감독원</span>
+      <span class="card-cat card-cat-fin">금융경제</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-09/003/">ETF 및 ELD 관련 간담회 개최 - 투자자 보호 강화 방안 논의</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      ETF(상장지수펀드)와 ELD(주가연계예금)에 투자한 사람들을 더 잘 보호하기 위한 방안을 논의했습니다. 금융사의 설명 의무를 강화하고 불완전 판매를 줄이는 게 목표입니다. 특히 고령 투자자에 대한 보호 조치가 강화됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#ETF</span>
+      <span class="card-kw">#투자자보호</span>
+      <span class="card-kw">#불완전판매</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.09 10:00</span>
+      <a href="/articles/2026-04-09/003/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 4/9 카드 2 -->
+  <div class="card" data-imp="m">
+    <div class="card-top">
+      <span class="card-imp card-imp-m">영향도 중</span>
+      <span class="card-source">교육부</span>
+      <span class="card-cat card-cat-soc">사회복지</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-09/021/">외국인 유학생, 이제는 질 관리 체계로 전환</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      외국인 유학생을 무조건 많이 받기보다 교육의 질을 높이는 방향으로 정책이 바뀝니다. 대학별 관리 역량을 평가해서 우수한 곳에 더 많은 유학생을 배정합니다. 불법 체류 방지를 위한 출입국 관리도 강화됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#유학생</span>
+      <span class="card-kw">#교육질관리</span>
+      <span class="card-kw">#대학평가</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.09 14:00</span>
+      <a href="/articles/2026-04-09/021/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 4/9 카드 3 -->
+  <div class="card" data-imp="m">
+    <div class="card-top">
+      <span class="card-imp card-imp-m">영향도 중</span>
+      <span class="card-source">과학기술정보통신부</span>
+      <span class="card-cat card-cat-ind">산업기술</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-09/035/">데이터 요금제 개편 추진 - 소비자 선택권 강화</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      휴대폰 데이터 요금제가 더 다양해집니다. 통신사들이 소비자 사용 패턴에 맞는 세분화된 요금제를 의무적으로 제공하도록 하고, 요금 비교를 쉽게 할 수 있는 플랫폼도 개선합니다. 알뜰폰 활성화 방안도 포함됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#데이터요금</span>
+      <span class="card-kw">#통신</span>
+      <span class="card-kw">#소비자선택권</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.09 11:00</span>
+      <a href="/articles/2026-04-09/035/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- ===== 4월 8일 (화) ===== -->
+  <div class="day-header">
+    <span class="day-header-title">4월 8일 (화)</span>
+    <span class="day-header-date">2026.04.08</span>
+    <span class="day-header-count">121건 / 40개 부처</span>
+    <span class="day-header-line"></span>
+  </div>
+
+  <div class="day-compare">
+    <div class="dc-item">
+      <div class="dc-label">보도자료</div>
+      <div class="dc-val">121건</div>
+      <div class="dc-diff dc-up">+15건 (전일 대비)</div>
+    </div>
+    <div class="dc-item">
+      <div class="dc-label">영향도 상</div>
+      <div class="dc-val">11건</div>
+      <div class="dc-diff dc-up">+2건</div>
+    </div>
+    <div class="dc-item">
+      <div class="dc-label">신규 키워드</div>
+      <div class="dc-val">2개</div>
+      <div class="dc-diff dc-up">산사태, 기초생활보장</div>
+    </div>
+    <div class="dc-item">
+      <div class="dc-label">지속 키워드</div>
+      <div class="dc-val">3개</div>
+      <div class="dc-diff dc-same">중동전쟁, 인공지능, 민생물가</div>
+    </div>
+  </div>
+
+  <!-- 4/8 카드 1 -->
+  <div class="card" data-imp="h">
+    <div class="card-top">
+      <span class="card-imp card-imp-h">영향도 상</span>
+      <span class="card-source">국무조정실</span>
+      <span class="card-cat card-cat-fin">금융경제</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-08/005/">중동상황 건설기업 금융애로 점검 간담회 개최</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      중동 분쟁 때문에 해외 공사가 중단된 건설사들이 자금난을 겪고 있습니다. 정부가 긴급 금융 지원과 보증 확대를 통해 기업들의 어려움을 해소하겠다고 밝혔습니다. 대금 회수 지연에 따른 연쇄 부실도 차단합니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#중동전쟁</span>
+      <span class="card-kw">#건설업</span>
+      <span class="card-kw">#금융지원</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.08 10:00</span>
+      <a href="/articles/2026-04-08/005/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 4/8 카드 2 -->
+  <div class="card" data-imp="m">
+    <div class="card-top">
+      <span class="card-imp card-imp-m">영향도 중</span>
+      <span class="card-source">보건복지부</span>
+      <span class="card-cat card-cat-soc">사회복지</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-08/042/">2026년 하반기 기초생활보장 급여 기준 조정 예고</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      생활이 어려운 분들에게 지급하는 기초생활보장 급여의 기준이 하반기부터 올라갑니다. 중위소득 기준이 상향되면서 의료, 주거, 교육급여 대상자가 늘어나게 됩니다. 약 12만 가구가 새롭게 혜택을 받을 것으로 예상됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#기초생활보장</span>
+      <span class="card-kw">#중위소득</span>
+      <span class="card-kw">#복지확대</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.08 11:30</span>
+      <a href="/articles/2026-04-08/042/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 4/8 카드 3 -->
+  <div class="card" data-imp="m">
+    <div class="card-top">
+      <span class="card-imp card-imp-m">영향도 중</span>
+      <span class="card-source">산림청</span>
+      <span class="card-cat card-cat-ind">산업기술</span>
+    </div>
+    <div class="card-title"><a href="/articles/2026-04-08/018/">산사태 예방 강화 - 전국 취약지역 현장조사 착수</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      봄철 집중호우에 대비해 산사태 위험이 높은 지역을 직접 찾아가 조사합니다. 위험 지역 주민에게 미리 알리고 대피 체계를 점검하는 작업입니다. 전국 1,200곳의 급경사지를 우선 조사합니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#산사태</span>
+      <span class="card-kw">#재난예방</span>
+      <span class="card-kw">#현장조사</span>
+    </div>
+    <div class="card-meta">
+      <span>2026.04.08 09:30</span>
+      <a href="/articles/2026-04-08/018/">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 페이지네이션 -->
+  <div class="pagination">
+    <span class="page-btn disabled">&#8592; 이전</span>
+    <span class="page-btn on">1</span>
+    <a class="page-btn" href="#">2</a>
+    <a class="page-btn" href="#">3</a>
+    <a class="page-btn" href="#">4</a>
+    <a class="page-btn" href="#">다음 &#8594;</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+
+<nav class="bnav">
+  <a href="/">홈</a>
+  <a class="on" href="/brief/">정부 발표</a>
+  <a href="/keywords/">키워드</a>
+  <a href="/regulation/">금융/부동산</a>
+</nav>
+
+</body>
+</html>

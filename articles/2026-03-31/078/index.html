@@ -30,154 +30,162 @@
     "name": "브리핑룸",
     "url": "https://govbrief.kr"
   },
-  "keywords": ["세종대왕릉", "진달래숲길", "특별개방", "기념사진", "관광활성화"],
+  "keywords": [],
   "mainEntityOfPage": "https://govbrief.kr/articles/2026-03-31/078/"
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f4f1ea;--surface:#fff;--border:#d9d5cc;--text:#1c1b18;--text2:#4a4844;--muted:#7b776d;--accent:#16213d;--accent-l:#eef2f7;--serif:'Noto Serif KR',serif;--sans:'Pretendard',sans-serif;--mono:'DM Mono',monospace}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;padding-top:58px}
-.wrap{max-width:960px;margin:0 auto;padding:24px 20px 72px;position:relative;z-index:1}
-.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:12px;margin-bottom:20px;padding:7px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:all .15s}
-.back:hover{color:var(--text)}
-
-.hdr{position:fixed;top:0;left:0;right:0;z-index:50;max-width:960px;margin:0 auto;background:#f5f5f5;border-bottom:3px solid #d96c2c;height:54px;display:flex;align-items:center;padding:0 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}.logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t);text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}.hnav{display:flex;gap:4px;align-items:center;flex:1;overflow-x:auto;-webkit-overflow-scrolling:touch}.hnav a{font-family:var(--sans);font-size:12px;font-weight:600;color:#555;text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap;background:#fff;border:1px solid #e0e0e0}.hnav a:hover{border-color:#d96c2c;color:#d96c2c}.hnav a.on{color:#fff;background:#d96c2c;border-color:#d96c2c;font-weight:700}.hnav a.on-policy{color:#fff;background:#1e40af;border-color:#1e40af;font-weight:700}.hnav a.on-law{color:#fff;background:#047857;border-color:#047857;font-weight:700}.bell{color:#999;text-decoration:none;font-size:14px;font-weight:600;margin-left:auto}
-.crosslinks{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 24px}
-.crosslink{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;border-radius:8px;border:1px solid #d9d5cc;background:#fff;color:#16213d;font-size:13px;font-weight:600;text-decoration:none}
-.crosslink:hover{background:#f5f3ee}
-
-.post-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:16px;font-weight:700;padding:8px 16px;border-radius:8px;background:var(--accent-l);color:var(--accent);border:1px solid #d7dde8;margin-bottom:14px}
-.post-title{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--text);margin-bottom:20px}
-.post-meta{display:flex;gap:20px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:24px}
-.meta-i{font-family:var(--sans);font-size:14px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
-.meta-i strong{color:var(--text);font-size:16px;font-weight:700}
-.post-content{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px}
-.summary h3,.info-section h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);margin:0 0 10px}
-.section-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7a735f;margin-bottom:8px}
-.summary p{font-size:14px;color:var(--text2);line-height:1.55;border-radius:8px;border:1px solid var(--border);background:#fff;padding:10px 14px}
-.info-section{margin-top:18px}
-.info-section p{font-size:14px;line-height:1.55;padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:#fff}
-.why-box p{background:#fff}
-.impact-box p{background:#fff}
-.law-box{background:#f3f2f1;border:1px solid #d8d4cb;border-radius:8px;padding:4px 14px}
-.keywords{display:flex;flex-wrap:wrap;gap:5px;margin:16px 0}
-.keywords span{font-family:var(--mono);font-size:11px;color:#fff;background:#2f54eb;padding:4px 10px;border-radius:4px;font-weight:500}
-.links h4{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--text);margin:16px 0 8px}
-.links a{color:#1d70b8;text-decoration:none;font-size:13px;font-family:var(--mono)}
-.links a:hover{text-decoration:underline}
-@media(max-width:768px){.wrap{padding:16px 16px 64px}.post-title{font-size:24px}}
-</style>
-<script id="site-unified-mobile-detector">
-(function(){
-  var ua = navigator.userAgent;
-  var isMobileUA = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
-  var isMobileParam = window.location.search.indexOf('mobile=1') !== -1;
-  if (isMobileUA || isMobileParam) document.documentElement.classList.add('is-mobile');
-})();
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){ if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) document.documentElement.classList.add('is-mobile'); })();
 </script>
-<style id="site-unified-header-system">
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{max-width:none!important;margin:0!important;padding:0!important;min-width:1120px;background:var(--bg,#f7f7f5);color:var(--t,#1a1a1a);font-family:var(--sans,'Wanted Sans Variable',sans-serif);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
-.is-mobile body{min-width:0!important;font-size:14px;line-height:1.55;padding-bottom:68px!important}
-.hdr{background:#fff!important;border-bottom:1px solid var(--b,#dcdcd8)!important;border-top:0!important;height:64px!important;display:flex!important;align-items:center!important;padding:0 32px!important;position:sticky!important;top:0!important;left:auto!important;right:auto!important;z-index:100!important;width:100%!important;max-width:none!important;margin:0!important;box-shadow:none!important}
-.hdr-logo,.logo{font-family:var(--serif,'Gowun Batang',serif)!important;font-size:24px!important;font-weight:700!important;color:var(--t,#1a1a1a)!important;text-decoration:none!important;margin-right:44px!important;white-space:nowrap!important;flex-shrink:0!important}
-.hdr-nav,.hnav{display:flex!important;gap:6px!important;align-items:center!important;flex:1!important;min-width:0!important;overflow:visible!important;background:transparent!important;border:0!important}
-.hdr-nav::-webkit-scrollbar,.hnav::-webkit-scrollbar{display:none}
-.hdr-nav a,.hnav a{font-family:var(--sans,'Wanted Sans Variable',sans-serif)!important;font-size:15px!important;font-weight:600!important;color:var(--t2,#555)!important;text-decoration:none!important;padding:10px 16px!important;border-radius:6px!important;white-space:nowrap!important;background:transparent!important;border:0!important;flex-shrink:0!important;line-height:1.2!important}
-.hdr-nav a:hover,.hnav a:hover{background:var(--bl,#ededea)!important;color:var(--t2,#555)!important}
-.hdr-nav a.on,.hnav a.on{color:var(--a,#d96c2c)!important;background:var(--al,rgba(217,108,44,.06))!important;font-weight:700!important}
-.hdr-nav a.on-policy,.hnav a.on-policy{color:#1e40af!important;background:#eff6ff!important;font-weight:700!important}
-.hdr-nav a.on-law,.hnav a.on-law{color:#047857!important;background:#ecfdf5!important;font-weight:700!important}
-.hdr-nav .lbl-short,.hnav .lbl-short{display:none!important}
-.hdr-search{position:relative!important;width:280px!important;margin-right:16px!important;display:block!important;flex-shrink:0!important}
-.hdr-search input{width:100%!important;padding:10px 14px 10px 36px!important;font-size:13px!important;border:1px solid var(--b,#dcdcd8)!important;border-radius:6px!important;background:var(--s2,#fafaf8)!important;outline:none!important;font-family:var(--sans,'Wanted Sans Variable',sans-serif)!important;color:var(--t,#1a1a1a)!important;line-height:1.2!important}
-.hdr-search input:focus{border-color:var(--a,#d96c2c)!important;background:#fff!important}
-.hdr-search input::placeholder{color:var(--m,#bbb)!important}
-.hdr-search-icon{position:absolute!important;left:12px!important;top:50%!important;transform:translateY(-50%)!important;color:var(--m,#bbb)!important;font-size:15px!important;line-height:1!important}
-.hdr-time{font-family:var(--mono,'JetBrains Mono',monospace)!important;font-size:12px!important;color:var(--t3,#888)!important;white-space:nowrap!important}
-.bell{display:none!important}
-.mobile-search{display:none}
-.is-mobile .mobile-search{display:block!important;background:#fff!important;padding:10px 14px!important;border-bottom:1px solid var(--bl,#ededea)!important;position:sticky!important;top:52px!important;z-index:90!important}
-.mobile-search-box{position:relative!important}
-.mobile-search-box input{width:100%!important;padding:10px 14px 10px 36px!important;font-size:13px!important;border:1px solid var(--b,#dcdcd8)!important;border-radius:8px!important;background:var(--s2,#fafaf8)!important;outline:none!important;font-family:var(--sans,'Wanted Sans Variable',sans-serif)!important;color:var(--t,#1a1a1a)!important}
-.mobile-search-box input:focus{border-color:var(--a,#d96c2c)!important;background:#fff!important}
-.mobile-search-icon{position:absolute!important;left:12px!important;top:50%!important;transform:translateY(-50%)!important;color:var(--m,#bbb)!important;font-size:14px!important;pointer-events:none!important}
-.bottom-nav,.bnav{display:none!important}
-.bottom-nav a,.bnav a{display:flex!important;flex-direction:column!important;align-items:center!important;gap:3px!important;text-decoration:none!important;color:var(--t3,#888)!important;font-size:10.5px!important;font-weight:600!important;padding:4px 0!important;line-height:1.2!important}
-.bottom-nav a.on,.bnav a.on{color:var(--a,#d96c2c)!important}
-.bottom-nav svg,.bnav svg{width:22px!important;height:22px!important;stroke-width:2!important;fill:none!important;stroke:currentColor!important;stroke-linecap:round!important;stroke-linejoin:round!important}
-.bottom-nav a.on svg,.bnav a.on svg{stroke-width:2.4!important}
-.is-mobile .hdr{height:52px!important;padding:0 12px!important;gap:4px!important}
-.is-mobile .hdr-logo,.is-mobile .logo{font-size:17px!important;margin-right:8px!important}
-.is-mobile .hdr-nav,.is-mobile .hnav{gap:2px!important;flex:1!important;min-width:0!important;overflow:visible!important}
-.is-mobile .hdr-nav a,.is-mobile .hnav a{font-size:12px!important;padding:7px 8px!important}
-.is-mobile .hdr-nav .lbl-full,.is-mobile .hnav .lbl-full{display:none!important}
-.is-mobile .hdr-nav .lbl-short,.is-mobile .hnav .lbl-short{display:inline!important}
-.is-mobile .hdr-search,.is-mobile .hdr-time{display:none!important}
-.is-mobile .wrap,.is-mobile .shell{max-width:100%!important}
-.is-mobile .bottom-nav,.is-mobile .bnav{display:grid!important;grid-template-columns:repeat(4,1fr)!important;position:fixed!important;bottom:0!important;left:0!important;right:0!important;z-index:200!important;background:#fff!important;border-top:1px solid var(--b,#dcdcd8)!important;padding:8px 0 calc(10px + env(safe-area-inset-bottom))!important;box-shadow:0 -2px 12px rgba(0,0,0,.06)!important;max-width:none!important;margin:0!important;height:auto!important;align-items:center!important}
-@media(max-width:768px){html:not(.is-mobile) body{min-width:1120px!important;font-size:15px!important;line-height:1.6!important;padding:0!important}html:not(.is-mobile) .hdr{height:64px!important;padding:0 32px!important}html:not(.is-mobile) .hdr-logo,html:not(.is-mobile) .logo{font-size:24px!important;margin-right:44px!important}html:not(.is-mobile) .hdr-nav a,html:not(.is-mobile) .hnav a{font-size:15px!important;padding:10px 16px!important}html:not(.is-mobile) .hdr-nav .lbl-full,html:not(.is-mobile) .hnav .lbl-full{display:inline!important}html:not(.is-mobile) .hdr-nav .lbl-short,html:not(.is-mobile) .hnav .lbl-short{display:none!important}html:not(.is-mobile) .hdr-search,html:not(.is-mobile) .hdr-time{display:block!important}html:not(.is-mobile) .bottom-nav,html:not(.is-mobile) .bnav{display:none!important}}
+<style>
+
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;--t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;--sec:#1e40af;--sec-bg:#eff6ff;--sec-border:#bfdbfe;--red:#dc2626;--red-bg:#fee2e2;--amber:#d97706;--amber-bg:#fef3c7;--green:#047857;--green-bg:#ecfdf5;--purple:#7c3aed;--purple-bg:#f5f3ff;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:17px;line-height:1.7;min-width:1120px}
+.is-mobile body{min-width:0;font-size:16px;padding-bottom:68px}
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--sec);background:var(--sec-bg);font-weight:700}
+.hdr-nav .lbl-short{display:none}
+.is-mobile .hdr{height:52px;padding:0 12px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+.is-mobile .hdr-nav .lbl-full{display:none}
+.is-mobile .hdr-nav .lbl-short{display:inline}
+.hero{background:linear-gradient(180deg,var(--sec-bg),#fff);border-bottom:1px solid var(--sec-border);padding:40px 32px 32px}
+.hero-inner{max-width:1080px;margin:0 auto}
+.hero-bc{font-size:13px;color:var(--t3);margin-bottom:14px}
+.hero-bc a{color:var(--sec);text-decoration:none;font-weight:600}
+.hero-bc span{margin:0 6px;color:var(--m)}
+.hero-badges{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.hero-imp{font-family:var(--mono);font-size:12px;font-weight:700;padding:5px 12px;border-radius:4px}
+.hero-imp-h{background:var(--red-bg);color:var(--red)}
+.hero-imp-m{background:var(--amber-bg);color:var(--amber)}
+.hero-imp-l{background:#f3f4f6;color:#6b7280}
+.hero-cat{font-size:13px;font-weight:600;padding:4px 10px;border-radius:4px;color:var(--sec);background:var(--sec-bg)}
+.hero-source{font-size:14px;font-weight:600;color:var(--t2)}
+.hero-date{font-family:var(--mono);font-size:13px;color:var(--t3)}
+.hero-title{font-family:var(--serif);font-size:32px;font-weight:700;line-height:1.4;margin-bottom:16px;max-width:860px}
+.hero-kws{display:flex;gap:8px;flex-wrap:wrap}
+.hero-kw{font-size:13px;font-weight:600;padding:5px 12px;border-radius:10px;border:1px solid var(--sec-border);color:var(--sec)}
+.is-mobile .hero{padding:24px 16px 20px}
+.is-mobile .hero-title{font-size:23px}
+.shell{max-width:1080px;margin:0 auto;padding:24px 16px 40px}
+.easy-box{background:var(--sec-bg);border-left:4px solid var(--sec);border-radius:0 10px 10px 0;padding:20px 24px;margin-bottom:16px}
+.easy-label{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--sec);letter-spacing:.06em;margin-bottom:6px}
+.easy-text{font-size:16px;color:var(--t);line-height:1.9}
+.sec-title{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.sec-title::before{content:'';width:3px;height:18px;background:var(--sec);border-radius:1px}
+.points-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:24px 28px;margin-bottom:16px}
+.pt-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px dashed var(--bl)}
+.pt-item:first-of-type{border-top:none}
+.pt-num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--sec);background:var(--sec-bg);border-radius:4px;padding:3px 8px;flex-shrink:0;margin-top:3px}
+.pt-text{font-size:15px;color:var(--t);line-height:1.8}
+.pt-text strong{font-weight:700}
+.analysis-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:24px 28px;margin-bottom:16px}
+.analysis-text{font-size:15px;color:var(--t2);line-height:1.9}
+.analysis-text p{margin-bottom:14px}
+.analysis-text p:last-child{margin-bottom:0}
+.context-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:24px 28px;margin-bottom:16px}
+.ctx-section{margin-bottom:14px}
+.ctx-section:last-child{margin-bottom:0}
+.ctx-label{font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:.02em;margin-bottom:8px}
+.ctx-label-why{color:var(--sec)}
+.ctx-label-impact{color:var(--amber)}
+.ctx-label-who{color:var(--green)}
+.ctx-body{border-left:4px solid var(--sec);background:var(--sec-bg);border-radius:0 10px 10px 0;padding:18px 24px;font-size:17px;color:var(--t);line-height:1.9}
+.ctx-body-impact{border-left-color:var(--amber);background:var(--amber-bg)}
+.ctx-body-who{border-left-color:var(--green);background:var(--green-bg)}
+.kw-box{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.kw-tag{font-size:13px;font-weight:600;padding:5px 12px;border-radius:10px;border:1px solid var(--sec-border);color:var(--sec)}
+.attach-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px 28px;margin-bottom:16px}
+.attach-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--bl);font-size:14px}
+.attach-item:first-of-type{border-top:none}
+.attach-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0}
+.attach-badge-pdf{background:var(--red-bg);color:var(--red)}
+.attach-badge-hwp{background:var(--sec-bg);color:var(--sec)}
+.attach-link{color:var(--t);text-decoration:none;font-weight:500}
+.attach-link:hover{color:var(--sec)}
+.related-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px 28px;margin-bottom:16px}
+.rel-item{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-top:1px dashed var(--bl)}
+.rel-item:first-of-type{border-top:none}
+.rel-imp{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:3px}
+.ri-h{background:var(--red-bg);color:var(--red)}
+.ri-m{background:var(--amber-bg);color:var(--amber)}
+.ri-l{background:#f3f4f6;color:#6b7280}
+.rel-content{flex:1}
+.rel-link{font-size:15px;color:var(--t);text-decoration:none;font-weight:600;line-height:1.5;display:block}
+.rel-link:hover{color:var(--sec)}
+.rel-meta{font-size:12px;color:var(--t3);margin-top:2px}
+.source-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:18px 28px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.source-info{font-size:15px;color:var(--t2)}
+.source-info strong{color:var(--t);font-weight:700}
+.source-link{font-size:14px;font-weight:700;color:var(--sec);text-decoration:none;padding:8px 18px;border:1px solid var(--sec-border);border-radius:6px}
+.source-link:hover{background:var(--sec-bg)}
+.nav-box{display:flex;gap:12px;margin-top:16px}
+.nav-prev,.nav-next{flex:1;background:#fff;border:1px solid var(--b);border-radius:10px;padding:18px 22px;text-decoration:none;color:var(--t)}
+.nav-prev:hover,.nav-next:hover{border-color:var(--sec);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.nav-label{font-size:12px;color:var(--t3);font-weight:600;margin-bottom:6px}
+.nav-title{font-family:var(--serif);font-size:15px;font-weight:700;line-height:1.4}
+.nav-next{text-align:right}
+.footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
+.bnav{display:none}
+.is-mobile .bnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom))}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600}
+.bnav a.on{color:var(--sec)}
+
 </style>
 </head>
 <body>
 <header class="hdr">
   <a class="hdr-logo" href="/">브리핑룸</a>
-  <nav class="hdr-nav"><a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a><a class="on-policy" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a><a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a><a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a></nav>
-  <div class="hdr-search"><span class="hdr-search-icon">&#x2315;</span><input placeholder="검색"></div>
-  <div class="hdr-time">2026.04.13</div>
+  <nav class="hdr-nav">
+    <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
+    <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
+    <a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a>
+    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+  </nav>
 </header>
-<div class="mobile-search"><div class="mobile-search-box"><span class="mobile-search-icon">&#x2315;</span><input placeholder="검색"></div></div>
-
-<div class="wrap">
-<div class="crosslinks" aria-label="탐색"><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px"><a class="crosslink" href="/articles/" style="background:#1e40af;color:#fff;border-color:#1e40af">전체</a><a class="crosslink" href="/articles/?date=2026-03-31&cat=금융경제">금융경제</a><a class="crosslink" href="/articles/?date=2026-03-31&cat=산업기술">산업기술</a><a class="crosslink" href="/articles/?date=2026-03-31&cat=사회복지">사회복지</a><a class="crosslink" href="/articles/?date=2026-03-31&cat=외교안보">외교안보</a><a class="crosslink" href="/articles/?date=2026-03-31&cat=행정법제">행정법제</a></div><div style="display:flex;flex-wrap:wrap;gap:5px"><a class="crosslink" style="font-size:11px;padding:5px 10px;min-height:auto" href="/articles/?date=2026-03-31&dept=금융위">금융위</a><a class="crosslink" style="font-size:11px;padding:5px 10px;min-height:auto" href="/articles/?date=2026-03-31&dept=기재부">기재부</a><a class="crosslink" style="font-size:11px;padding:5px 10px;min-height:auto" href="/articles/?date=2026-03-31&dept=과기부">과기부</a><a class="crosslink" style="font-size:11px;padding:5px 10px;min-height:auto" href="/articles/?date=2026-03-31&dept=국토부">국토부</a><a class="crosslink" style="font-size:11px;padding:5px 10px;min-height:auto" href="/articles/?date=2026-03-31&dept=복지부">복지부</a><a class="crosslink" style="font-size:11px;padding:5px 10px;min-height:auto" href="/articles/?date=2026-03-31&dept=산업부">산업부</a><a class="crosslink" style="font-size:11px;padding:5px 10px;min-height:auto" href="/articles/?date=2026-03-31&dept=고용부">고용부</a><a class="crosslink" style="font-size:11px;padding:5px 10px;min-height:auto" href="/articles/?date=2026-03-31&dept=환경부">환경부</a><a class="crosslink" style="font-size:11px;padding:5px 10px;min-height:auto" href="/articles/?date=2026-03-31&dept=교육부">교육부</a></div></div>
-  <div class="post-badge">국가유산청 보도자료</div>
-  <h1 class="post-title">2년 만에 문 여는 세종대왕릉 진달래숲길에서 봄의 향연 느껴볼까</h1>
-  <div class="post-meta">
-    <div class="meta-i"><span>날짜</span><strong>2026-03-31</strong></div>
-    <div class="meta-i"><span>분야</span><strong>산업기술</strong></div>
-    <div class="meta-i"><span>기관</span><strong>국가유산청</strong></div>
-  </div>
-  <div class="post-content">
-    <section class="summary">
-      <div class="section-kicker">Briefing Summary</div>
-      <h3>요약</h3>
-      <p>국가유산청은 4 월 3 일부터 12 일까지 세종대왕릉 진달래숲길을 2 년 만에 특별 개방한다고 밝혔다. 이 기간 동안 방문객이 기념 사진을 촬영해 응모하면 추첨을 통해 30 명에게 선물이 증정된다. 이번 행사는 국가유산 청의 문화재 체험 프로그램 일환으로 국민들에게 봄의 향연을 제공하여 관광 활성화를 유도할 계획이다.</p>
-    </section>
-    
-    <section class="info-section">
-  <h3>핵심 요약</h3>
-  <p>국가유산청은 2026 년 4 월 3 일부터 12 일까지 약 2 년 만에 문을 여는 세종대왕릉 진달래숲길을 10 일간 특별 개방하며, 방문 기념사진 촬영에 응모한 30 명에게 선물을 추첨으로 증정한다.</p>
-</section>
-    <section class="info-section why-box">
-  <h3>왜 중요한가</h3>
-  <p>국립 문화유산인 세종대왕릉의 계절별 접근성이 확보되어 국민들이 산림 유산을 직접 체험할 수 있는 계기가 마련된다.</p>
-</section>
-    <section class="info-section">
-  <h3>주요 내용</h3>
-  <p>- 개방 기간은 2026 년 4 월 3 일부터 4 월 12 일까지이며, 약 2 년 만에 진달래숲길이 일반에 개방된다.</p><p>- 방문객은 진달래숲길에서의 기념 사진 촬영을 통해 응모할 수 있다.</p><p>- 응모자 중 추첨을 통해 총 30 명에게 선물이 증정된다.</p>
-</section>
-    <section class="info-section impact-box">
-  <h3>시행 일정</h3>
-  <p>2026 년 4 월 3 일 ~ 4 월 12 일</p>
-</section>
-
-        <div class='keywords'><span>#세종대왕릉</span><span>#진달래숲길</span><span>#특별개방</span><span>#기념사진</span><span>#관광활성화</span></div>
-    
-    
-    <div class="links">
-      <h4>원문</h4>
-      <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156751864" target="_blank" rel="noopener noreferrer">원문 보기 →</a>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-bc"><a href="/brief/">정부 발표</a><span>/</span><a href="/brief/articles/">오늘의 정부 발표</a><span>/</span>보도자료</div>
+    <div class="hero-badges">
+      <span class="hero-imp hero-imp-m">영향도 중</span>
+      <span class="hero-cat">산업기술</span>
+      <span class="hero-source">국가유산청</span>
+      <span class="hero-date">2026-03-31</span>
     </div>
+    <h1 class="hero-title">2년 만에 문 여는 세종대왕릉 진달래숲길에서 봄의 향연 느껴볼까</h1>
+    <div class="hero-kws"></div>
   </div>
+</section>
+<div class="shell">
+  
+  
+  
+  
+  
+  <div class="attach-box"><div class="sec-title">첨부파일</div><div class="attach-item"><span class="attach-badge attach-badge-pdf">PDF</span><a class="attach-link" href="https://www.korea.kr/common/download.do?fileId=198405425&amp;tblKey=GMN" target="_blank" rel="noopener">첨부파일 1 (PDF)</a></div><div class="attach-item"><span class="attach-badge attach-badge-hwp">HWP</span><a class="attach-link" href="https://www.korea.kr/common/download.do?fileId=198405426&amp;tblKey=GMN" target="_blank" rel="noopener">첨부파일 1 (HWP)</a></div></div>
+  
+  <div class="source-box"><div class="source-info"><strong>국가유산청</strong> 보도자료 원문</div><a class="source-link" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156751864" target="_blank" rel="noopener">원문 보기 &#8594;</a></div>
+  <div class="nav-box"><a class="nav-prev" href="/articles/2026-03-31/077/"><div class="nav-label">이전 보도자료</div><div class="nav-title">무형유산 전통 예능의 미래를 무대에서 만나다</div></a><a class="nav-next" href="/articles/2026-03-31/079/"><div class="nav-label">다음 보도자료</div><div class="nav-title">국립가야역사문화센터에서 즐기는 교실 밖 &#x27;가야 토기 탐구&#x27;</div></a></div>
 </div>
-<nav class="bottom-nav">
-  <a href="/"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg><span>홈</span></a>
-  <a class="on" href="/brief/"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>정부 발표</span></a>
-  <a href="/keywords/"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>키워드</span></a>
-  <a href="/regulation/"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg><span>금융/부동산</span></a>
+<footer class="footer">
+  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+<nav class="bnav">
+  <a href="/">홈</a>
+  <a class="on" href="/brief/">정부 발표</a>
+  <a href="/keywords/">키워드</a>
+  <a href="/regulation/">금융/부동산</a>
 </nav>
 </body>
 </html>

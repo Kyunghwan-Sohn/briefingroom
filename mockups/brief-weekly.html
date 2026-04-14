@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주간 정책 시그널 - 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){ if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) document.documentElement.classList.add('is-mobile'); })();
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all}
+:root{--bg:#f7f7f5;--s:#fff;--b:#dcdcd8;--bl:#ededea;--t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;--sec:#1e40af;--sec-bg:#eff6ff;--sec-border:#bfdbfe;--red:#dc2626;--red-bg:#fee2e2;--amber:#d97706;--amber-bg:#fef3c7;--green:#047857;--green-bg:#ecfdf5;--purple:#7c3aed;--purple-bg:#f5f3ff;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;line-height:1.6;min-width:1120px}
+.is-mobile body{min-width:0;font-size:14px;padding-bottom:68px}
+
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--sec);background:var(--sec-bg);font-weight:700}
+.hdr-nav .lbl-short{display:none}
+.is-mobile .hdr{height:52px;padding:0 12px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+.is-mobile .hdr-nav .lbl-full{display:none}
+.is-mobile .hdr-nav .lbl-short{display:inline}
+
+/* 히어로 */
+.hero{background:linear-gradient(180deg,var(--sec-bg),#fff);border-bottom:1px solid var(--sec-border);padding:36px 32px 28px}
+.hero-inner{max-width:1080px;margin:0 auto}
+.hero-breadcrumb{font-size:12px;color:var(--t3);margin-bottom:12px}
+.hero-breadcrumb a{color:var(--sec);text-decoration:none;font-weight:600}
+.hero-breadcrumb span{margin:0 6px;color:var(--m)}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;color:var(--sec);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.hero-title{font-family:var(--serif);font-size:30px;font-weight:700;margin-bottom:6px}
+.hero-sub{font-size:14px;color:var(--t2);line-height:1.7;max-width:640px;margin-bottom:20px}
+.hero-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:900px}
+.hero-stat{background:#fff;border:1px solid var(--sec-border);border-radius:8px;padding:12px 14px}
+.hero-stat .label{font-size:10px;color:var(--sec);font-weight:700}
+.hero-stat .num{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--sec);line-height:1.1;margin-top:3px}
+.hero-stat .num .unit{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--t3)}
+.is-mobile .hero{padding:20px 16px}
+.is-mobile .hero-title{font-size:22px}
+.is-mobile .hero-stats{grid-template-columns:repeat(3,1fr)}
+
+/* 히어로 시그널 요약 */
+.hero-signals{margin-top:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:900px}
+.hero-sig{background:#fff;border:1px solid var(--sec-border);border-left:3px solid var(--sec);border-radius:8px;padding:14px 16px}
+.hero-sig-num{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--sec);margin-bottom:4px}
+.hero-sig-title{font-family:var(--serif);font-size:14px;font-weight:700;line-height:1.4;margin-bottom:4px}
+.hero-sig-count{font-size:11px;color:var(--t3)}
+.is-mobile .hero-signals{grid-template-columns:repeat(2,1fr)}
+
+/* 본문 */
+.shell{max-width:1080px;margin:0 auto;padding:20px 16px 40px}
+
+/* 필터 */
+.filter-bar{background:#fff;border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:20px;position:sticky;top:64px;z-index:50}
+.is-mobile .filter-bar{top:52px;padding:12px 14px}
+.filter-row{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.filter-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filter-label{font-size:12px;font-weight:700;color:var(--t2);min-width:52px;flex-shrink:0}
+.filter-pills{display:flex;flex-wrap:wrap;gap:6px}
+.filter-pill{font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid var(--b);background:#fff;color:var(--t2);cursor:pointer;transition:all .15s}
+.filter-pill:hover{border-color:var(--sec);color:var(--sec)}
+.filter-pill.on{background:var(--sec);color:#fff;border-color:var(--sec)}
+.filter-pill .cnt{font-family:var(--mono);font-size:10px;margin-left:3px;opacity:.7}
+.filter-reset{font-size:11px;color:var(--t3);cursor:pointer;font-weight:600;text-decoration:underline;flex-shrink:0}
+.filter-reset:hover{color:var(--red)}
+
+/* 정렬 */
+.list-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 4px}
+.list-sort{display:flex;gap:4px}
+.list-sort-btn{font-size:12px;font-weight:600;color:var(--t3);padding:4px 10px;border-radius:4px;cursor:pointer;border:1px solid transparent}
+.list-sort-btn.on{color:var(--sec);border-color:var(--sec-border);background:var(--sec-bg)}
+.list-count{font-size:13px;color:var(--t2)}
+.list-count strong{font-family:var(--mono);color:var(--sec)}
+
+/* 주차 구분 */
+.week-header{display:flex;align-items:center;gap:12px;margin:28px 0 14px;padding:0 4px}
+.week-header:first-child{margin-top:0}
+.week-header-title{font-family:var(--serif);font-size:18px;font-weight:700;flex-shrink:0}
+.week-header-date{font-family:var(--mono);font-size:12px;color:var(--sec);font-weight:600;flex-shrink:0}
+.week-header-count{font-family:var(--mono);font-size:12px;color:var(--t3);flex-shrink:0}
+.week-header-line{flex:1;height:1px;background:var(--bl)}
+
+/* 주간 비교 */
+.week-compare{background:#fff;border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.wc-item{text-align:center}
+.wc-label{font-size:11px;color:var(--t3);font-weight:600;margin-bottom:4px}
+.wc-val{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--t)}
+.wc-diff{font-family:var(--mono);font-size:11px;font-weight:700;margin-top:2px}
+.wc-up{color:var(--red)}
+.wc-down{color:var(--sec)}
+.wc-same{color:var(--t3)}
+.is-mobile .week-compare{grid-template-columns:repeat(2,1fr);gap:8px}
+
+/* 시그널 카드 */
+.card{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px 22px;margin-bottom:10px;border-left:3px solid var(--sec)}
+.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.card-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;background:var(--sec-bg);color:var(--sec)}
+.card-source{font-size:12px;color:var(--t3);font-weight:600}
+.card-cat{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;margin-left:auto}
+.card-cat-fin{color:var(--sec);background:var(--sec-bg)}
+.card-cat-ind{color:var(--green);background:var(--green-bg)}
+.card-cat-soc{color:var(--purple);background:var(--purple-bg)}
+.card-cat-dip{color:var(--amber);background:var(--amber-bg)}
+.card-title{font-family:var(--serif);font-size:17px;font-weight:700;line-height:1.4;margin-bottom:10px}
+.card-title a{color:var(--t);text-decoration:none}
+.card-title a:hover{color:var(--sec)}
+.card-easy{font-size:14px;color:var(--t2);line-height:1.8;background:var(--sec-bg);border-left:3px solid var(--sec);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:10px}
+.card-easy-label{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--sec);letter-spacing:.06em;margin-bottom:4px}
+.card-keywords{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.card-kw{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid var(--bl);color:var(--t3)}
+.card-related{font-size:12px;color:var(--t3);padding:8px 0;border-top:1px dashed var(--bl);margin-bottom:8px}
+.card-related-item{padding:3px 0}
+.card-related-num{font-family:var(--mono);font-size:10px;color:var(--sec);font-weight:700;margin-right:6px}
+.card-related a{color:var(--t);text-decoration:none;font-weight:500}
+.card-related a:hover{color:var(--sec)}
+.card-meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3)}
+.card-meta a{color:var(--sec);font-weight:600;text-decoration:none}
+.card-meta a:hover{text-decoration:underline}
+
+/* 페이지네이션 */
+.pagination{display:flex;justify-content:center;align-items:center;gap:4px;margin-top:24px;padding:16px 0}
+.page-btn{font-family:var(--mono);font-size:13px;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--b);background:#fff;color:var(--t2);cursor:pointer;text-decoration:none}
+.page-btn:hover{border-color:var(--sec);color:var(--sec)}
+.page-btn.on{background:var(--sec);color:#fff;border-color:var(--sec)}
+.page-btn.disabled{opacity:.3;pointer-events:none}
+
+.footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
+.bnav{display:none}
+.is-mobile .bnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom))}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600}
+.bnav a.on{color:var(--sec)}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="hdr-logo" href="/">브리핑룸</a>
+  <nav class="hdr-nav">
+    <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
+    <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
+    <a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a>
+    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+  </nav>
+</header>
+
+<!-- 히어로 -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-breadcrumb">
+      <a href="/brief/">정부 발표</a>
+      <span>/</span>
+      주간 정책 시그널
+    </div>
+    <div class="hero-eyebrow">WEEKLY POLICY SIGNAL</div>
+    <h1 class="hero-title">주간 정책 시그널</h1>
+    <p class="hero-sub">매주 정부 보도자료를 AI가 분석하여 핵심 정책 흐름을 추출합니다. 개별 발표가 아닌, 정책의 방향과 맥락을 읽습니다.</p>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="label">이번 주 시그널</div><div class="num">5<span class="unit">개</span></div></div>
+      <div class="hero-stat"><div class="label">분석 보도자료</div><div class="num">424<span class="unit">건</span></div></div>
+      <div class="hero-stat"><div class="label">참여 부처</div><div class="num">42<span class="unit">개</span></div></div>
+      <div class="hero-stat"><div class="label">핵심 키워드</div><div class="num">12<span class="unit">개</span></div></div>
+      <div class="hero-stat"><div class="label">누적 주차</div><div class="num">16<span class="unit">주</span></div></div>
+    </div>
+
+    <div class="hero-signals">
+      <div class="hero-sig">
+        <div class="hero-sig-num">SIGNAL 01</div>
+        <div class="hero-sig-title">인공지능 정책 확산</div>
+        <div class="hero-sig-count">관련 18건</div>
+      </div>
+      <div class="hero-sig">
+        <div class="hero-sig-num">SIGNAL 02</div>
+        <div class="hero-sig-title">저출산 금융 지원</div>
+        <div class="hero-sig-count">관련 12건</div>
+      </div>
+      <div class="hero-sig">
+        <div class="hero-sig-num">SIGNAL 03</div>
+        <div class="hero-sig-title">추경예산 편성</div>
+        <div class="hero-sig-count">관련 15건</div>
+      </div>
+      <div class="hero-sig">
+        <div class="hero-sig-num">SIGNAL 04</div>
+        <div class="hero-sig-title">중동 전쟁 대응</div>
+        <div class="hero-sig-count">관련 9건</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="shell">
+
+  <!-- 필터 -->
+  <div class="filter-bar">
+    <div class="filter-row">
+      <div class="filter-group">
+        <span class="filter-label">분야</span>
+        <div class="filter-pills">
+          <span class="filter-pill on">전체 <span class="cnt">5</span></span>
+          <span class="filter-pill">산업기술 <span class="cnt">2</span></span>
+          <span class="filter-pill">금융경제 <span class="cnt">1</span></span>
+          <span class="filter-pill">사회복지 <span class="cnt">1</span></span>
+          <span class="filter-pill">외교안보 <span class="cnt">1</span></span>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">부처</span>
+        <div class="filter-pills">
+          <span class="filter-pill on">전체</span>
+          <span class="filter-pill">과기부 <span class="cnt">18</span></span>
+          <span class="filter-pill">기재부 <span class="cnt">15</span></span>
+          <span class="filter-pill">국토부 <span class="cnt">12</span></span>
+          <span class="filter-pill">복지부 <span class="cnt">11</span></span>
+          <span class="filter-pill">금융위 <span class="cnt">9</span></span>
+          <span class="filter-pill">환경부 <span class="cnt">7</span></span>
+          <span class="filter-pill" style="color:var(--sec);border-color:var(--sec-border)">+35개</span>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">키워드</span>
+        <div class="filter-pills">
+          <span class="filter-pill on">전체</span>
+          <span class="filter-pill">인공지능 <span class="cnt">18</span></span>
+          <span class="filter-pill">저출산 <span class="cnt">12</span></span>
+          <span class="filter-pill">추경 <span class="cnt">15</span></span>
+          <span class="filter-pill">중동전쟁 <span class="cnt">9</span></span>
+          <span class="filter-pill">소상공인 <span class="cnt">7</span></span>
+          <span class="filter-pill">탄소중립 <span class="cnt">5</span></span>
+        </div>
+        <span class="filter-reset">초기화</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 정렬 -->
+  <div class="list-toolbar">
+    <div class="list-sort">
+      <span class="list-sort-btn on">최신순</span>
+      <span class="list-sort-btn">관련도순</span>
+    </div>
+    <div class="list-count">총 <strong>5</strong>개 시그널 / <strong>54</strong>건 관련 보도자료</div>
+  </div>
+
+  <!-- ===== 4월 2주차 ===== -->
+  <div class="week-header">
+    <span class="week-header-title">4월 2주차</span>
+    <span class="week-header-date">2026.04.05 ~ 04.11</span>
+    <span class="week-header-count">시그널 5개 / 424건 분석</span>
+    <span class="week-header-line"></span>
+  </div>
+
+  <div class="week-compare">
+    <div class="wc-item">
+      <div class="wc-label">보도자료</div>
+      <div class="wc-val">424건</div>
+      <div class="wc-diff wc-up">+35건 (전주 대비)</div>
+    </div>
+    <div class="wc-item">
+      <div class="wc-label">영향도 상</div>
+      <div class="wc-val">14건</div>
+      <div class="wc-diff wc-up">+3건</div>
+    </div>
+    <div class="wc-item">
+      <div class="wc-label">신규 키워드</div>
+      <div class="wc-val">3개</div>
+      <div class="wc-diff wc-up">추경, 중동전쟁, 가상자산</div>
+    </div>
+    <div class="wc-item">
+      <div class="wc-label">지속 키워드</div>
+      <div class="wc-val">4개</div>
+      <div class="wc-diff wc-same">인공지능, 저출산, 소상공인, 탄소중립</div>
+    </div>
+  </div>
+
+  <!-- 시그널 01 -->
+  <div class="card">
+    <div class="card-top">
+      <span class="card-badge">SIGNAL 01</span>
+      <span class="card-source">4월 2주차</span>
+      <span class="card-cat card-cat-ind">산업기술</span>
+    </div>
+    <div class="card-title"><a href="/brief/weekly/2026-04-05_04-11/#signal-01">인공지능 정책 확산 - 전 부처 AI 도입 로드맵 공개</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      정부가 모든 부처에서 인공지능을 적극적으로 도입하겠다는 계획을 발표했습니다. 행정 업무 자동화부터 민원 응대까지, AI가 공공 서비스 전반에 들어오게 됩니다. 과기부가 총괄하되, 각 부처가 자체 AI 활용 계획을 6월까지 수립하도록 했습니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#인공지능</span>
+      <span class="card-kw">#AI도입</span>
+      <span class="card-kw">#행정자동화</span>
+      <span class="card-kw">#디지털정부</span>
+    </div>
+    <div class="card-related">
+      <div class="card-related-item"><span class="card-related-num">01</span><a href="/articles/2026-04-10/031/">과기부 - AI 안전 관리 가이드라인 시행 방안 발표</a></div>
+      <div class="card-related-item"><span class="card-related-num">02</span><a href="/articles/2026-04-09/012/">행안부 - 공공부문 AI 활용 현황 및 확산 계획</a></div>
+      <div class="card-related-item"><span class="card-related-num">03</span><a href="/articles/2026-04-07/008/">교육부 - AI 디지털 교과서 2단계 도입 추진</a></div>
+    </div>
+    <div class="card-meta">
+      <span>관련 보도자료 18건</span>
+      <a href="/brief/weekly/2026-04-05_04-11/#signal-01">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 시그널 02 -->
+  <div class="card">
+    <div class="card-top">
+      <span class="card-badge">SIGNAL 02</span>
+      <span class="card-source">4월 2주차</span>
+      <span class="card-cat card-cat-fin">금융경제</span>
+    </div>
+    <div class="card-title"><a href="/brief/weekly/2026-04-05_04-11/#signal-02">저출산 금융 지원 본격화 - 신혼부부 대출 금리 우대 확대</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      신혼부부와 다자녀 가구를 위한 주택 대출 금리를 더 낮춰주기로 했습니다. 전세자금 대출도 조건이 완화되어 젊은 세대의 주거 부담을 줄이는 방향입니다. 금융위원회와 국토부가 공동으로 추진하며, 소득 기준도 상향 조정됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#저출산</span>
+      <span class="card-kw">#신혼부부</span>
+      <span class="card-kw">#주택대출</span>
+      <span class="card-kw">#금리우대</span>
+    </div>
+    <div class="card-related">
+      <div class="card-related-item"><span class="card-related-num">01</span><a href="/articles/2026-04-08/005/">금융위 - 신혼부부 전세대출 금리 우대 확대 방안</a></div>
+      <div class="card-related-item"><span class="card-related-num">02</span><a href="/articles/2026-04-07/019/">국토부 - 생애최초 주택구입 지원 요건 완화</a></div>
+      <div class="card-related-item"><span class="card-related-num">03</span><a href="/articles/2026-04-06/033/">복지부 - 다자녀 가구 주거 지원 강화 대책</a></div>
+    </div>
+    <div class="card-meta">
+      <span>관련 보도자료 12건</span>
+      <a href="/brief/weekly/2026-04-05_04-11/#signal-02">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 시그널 03 -->
+  <div class="card">
+    <div class="card-top">
+      <span class="card-badge">SIGNAL 03</span>
+      <span class="card-source">4월 2주차</span>
+      <span class="card-cat card-cat-fin">금융경제</span>
+    </div>
+    <div class="card-title"><a href="/brief/weekly/2026-04-05_04-11/#signal-03">추가경정예산 편성 - 민생 안정에 5.8조 투입</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      경기 침체와 물가 불안에 대응하기 위해 정부가 추가 예산 5조 8천억 원을 편성합니다. 소상공인 지원, 취약계층 생활비 보조, 고용 안정에 집중됩니다. 국회 심의를 거쳐 5월 중 집행을 목표로 하고 있습니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#추경</span>
+      <span class="card-kw">#민생안정</span>
+      <span class="card-kw">#소상공인</span>
+      <span class="card-kw">#고용안정</span>
+    </div>
+    <div class="card-related">
+      <div class="card-related-item"><span class="card-related-num">01</span><a href="/articles/2026-04-10/058/">기재부 - 2026년 추가경정예산안 편성 방향</a></div>
+      <div class="card-related-item"><span class="card-related-num">02</span><a href="/articles/2026-04-09/045/">중기부 - 소상공인 긴급 경영안정자금 2차 지원</a></div>
+      <div class="card-related-item"><span class="card-related-num">03</span><a href="/articles/2026-04-08/027/">고용부 - 취약계층 긴급 고용안정 지원 확대</a></div>
+    </div>
+    <div class="card-meta">
+      <span>관련 보도자료 15건</span>
+      <a href="/brief/weekly/2026-04-05_04-11/#signal-03">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 시그널 04 -->
+  <div class="card">
+    <div class="card-top">
+      <span class="card-badge">SIGNAL 04</span>
+      <span class="card-source">4월 2주차</span>
+      <span class="card-cat card-cat-dip">외교안보</span>
+    </div>
+    <div class="card-title"><a href="/brief/weekly/2026-04-05_04-11/#signal-04">중동 전쟁 대응 확대 - 건설기업 금융 긴급 지원</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      중동 지역 분쟁으로 피해를 입은 국내 건설사들에 긴급 자금을 지원합니다. 공사 중단과 대금 회수 지연으로 어려움을 겪는 기업들의 유동성을 확보해주는 조치입니다. 외교부는 현지 근로자 안전 귀국도 병행 추진합니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#중동전쟁</span>
+      <span class="card-kw">#건설업</span>
+      <span class="card-kw">#긴급지원</span>
+      <span class="card-kw">#근로자안전</span>
+    </div>
+    <div class="card-related">
+      <div class="card-related-item"><span class="card-related-num">01</span><a href="/articles/2026-04-10/022/">국조실 - 중동상황 건설기업 금융애로 점검 간담회</a></div>
+      <div class="card-related-item"><span class="card-related-num">02</span><a href="/articles/2026-04-09/041/">외교부 - 중동 지역 체류 국민 안전 대책 강화</a></div>
+      <div class="card-related-item"><span class="card-related-num">03</span><a href="/articles/2026-04-07/055/">산자부 - 중동 정세 변화에 따른 에너지 수급 점검</a></div>
+    </div>
+    <div class="card-meta">
+      <span>관련 보도자료 9건</span>
+      <a href="/brief/weekly/2026-04-05_04-11/#signal-04">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 시그널 05 -->
+  <div class="card">
+    <div class="card-top">
+      <span class="card-badge">SIGNAL 05</span>
+      <span class="card-source">4월 2주차</span>
+      <span class="card-cat card-cat-soc">사회복지</span>
+    </div>
+    <div class="card-title"><a href="/brief/weekly/2026-04-05_04-11/#signal-05">복지 전달체계 전면 재점검 - 사각지대 해소 집중</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      복지 혜택이 필요한 사람에게 제대로 전달되고 있는지 정부가 전면 점검에 나섭니다. 특히 1인 가구, 고령층, 장애인 등 복지 사각지대에 놓인 분들을 찾아내는 데 집중합니다. 읍면동 주민센터의 복지 상담 기능도 강화됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#복지사각지대</span>
+      <span class="card-kw">#전달체계</span>
+      <span class="card-kw">#1인가구</span>
+      <span class="card-kw">#고령층</span>
+    </div>
+    <div class="card-related">
+      <div class="card-related-item"><span class="card-related-num">01</span><a href="/articles/2026-04-09/067/">복지부 - 복지 사각지대 발굴 시스템 고도화 추진</a></div>
+      <div class="card-related-item"><span class="card-related-num">02</span><a href="/articles/2026-04-06/029/">행안부 - 읍면동 복지허브화 2단계 계획 발표</a></div>
+    </div>
+    <div class="card-meta">
+      <span>관련 보도자료 7건</span>
+      <a href="/brief/weekly/2026-04-05_04-11/#signal-05">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- ===== 4월 1주차 ===== -->
+  <div class="week-header">
+    <span class="week-header-title">4월 1주차</span>
+    <span class="week-header-date">2026.03.29 ~ 04.04</span>
+    <span class="week-header-count">시그널 4개 / 389건 분석</span>
+    <span class="week-header-line"></span>
+  </div>
+
+  <div class="week-compare">
+    <div class="wc-item">
+      <div class="wc-label">보도자료</div>
+      <div class="wc-val">389건</div>
+      <div class="wc-diff wc-down">-18건 (전주 대비)</div>
+    </div>
+    <div class="wc-item">
+      <div class="wc-label">영향도 상</div>
+      <div class="wc-val">11건</div>
+      <div class="wc-diff wc-same">동일</div>
+    </div>
+    <div class="wc-item">
+      <div class="wc-label">신규 키워드</div>
+      <div class="wc-val">2개</div>
+      <div class="wc-diff wc-up">반도체, 노인돌봄</div>
+    </div>
+    <div class="wc-item">
+      <div class="wc-label">지속 키워드</div>
+      <div class="wc-val">3개</div>
+      <div class="wc-diff wc-same">인공지능, 소상공인, 탄소중립</div>
+    </div>
+  </div>
+
+  <!-- 4월 1주 시그널 01 -->
+  <div class="card">
+    <div class="card-top">
+      <span class="card-badge">SIGNAL 01</span>
+      <span class="card-source">4월 1주차</span>
+      <span class="card-cat card-cat-ind">산업기술</span>
+    </div>
+    <div class="card-title"><a href="/brief/weekly/2026-03-29_04-04/#signal-01">반도체 산업 지원 패키지 - 세액공제 확대와 인력 양성</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      반도체 기업의 시설 투자에 대한 세액공제를 기존 8%에서 15%로 높입니다. 대학과 연구소에서 반도체 전문 인력을 5년간 3만 명 양성하는 계획도 함께 발표되었습니다. 글로벌 공급망 재편에 대비한 전략적 투자입니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#반도체</span>
+      <span class="card-kw">#세액공제</span>
+      <span class="card-kw">#인력양성</span>
+      <span class="card-kw">#공급망</span>
+    </div>
+    <div class="card-related">
+      <div class="card-related-item"><span class="card-related-num">01</span><a href="/articles/2026-04-02/011/">산자부 - 반도체 생태계 강화 종합대책</a></div>
+      <div class="card-related-item"><span class="card-related-num">02</span><a href="/articles/2026-04-01/007/">기재부 - 반도체 투자 세액공제 확대 시행령 개정</a></div>
+      <div class="card-related-item"><span class="card-related-num">03</span><a href="/articles/2026-03-31/022/">교육부 - 반도체 계약학과 확대 및 장학금 지원</a></div>
+    </div>
+    <div class="card-meta">
+      <span>관련 보도자료 14건</span>
+      <a href="/brief/weekly/2026-03-29_04-04/#signal-01">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 4월 1주 시그널 02 -->
+  <div class="card">
+    <div class="card-top">
+      <span class="card-badge">SIGNAL 02</span>
+      <span class="card-source">4월 1주차</span>
+      <span class="card-cat card-cat-soc">사회복지</span>
+    </div>
+    <div class="card-title"><a href="/brief/weekly/2026-03-29_04-04/#signal-02">고령사회 대응 - 노인 돌봄 체계 전면 개편</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      65세 이상 인구가 전체의 20%를 넘기면서 정부가 노인 돌봄 시스템을 전면 개편합니다. 재가돌봄을 중심으로 전환하고, 요양시설의 질 관리를 강화합니다. 돌봄로봇과 AI 모니터링 등 기술 접목도 추진됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#고령사회</span>
+      <span class="card-kw">#노인돌봄</span>
+      <span class="card-kw">#재가돌봄</span>
+      <span class="card-kw">#돌봄로봇</span>
+    </div>
+    <div class="card-related">
+      <div class="card-related-item"><span class="card-related-num">01</span><a href="/articles/2026-04-03/015/">복지부 - 초고령사회 대비 돌봄체계 혁신 방안</a></div>
+      <div class="card-related-item"><span class="card-related-num">02</span><a href="/articles/2026-04-01/038/">과기부 - 돌봄로봇 실증사업 확대 추진</a></div>
+    </div>
+    <div class="card-meta">
+      <span>관련 보도자료 11건</span>
+      <a href="/brief/weekly/2026-03-29_04-04/#signal-02">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 4월 1주 시그널 03 -->
+  <div class="card">
+    <div class="card-top">
+      <span class="card-badge">SIGNAL 03</span>
+      <span class="card-source">4월 1주차</span>
+      <span class="card-cat card-cat-ind">산업기술</span>
+    </div>
+    <div class="card-title"><a href="/brief/weekly/2026-03-29_04-04/#signal-03">탄소중립 산업 전환 가속 - 철강/석화 감축 로드맵</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      탄소를 많이 배출하는 철강과 석유화학 업종의 감축 목표가 구체화되었습니다. 2030년까지 현재 대비 30% 감축을 목표로 하며, 수소환원제철과 바이오 화학 전환에 정부가 투자합니다. 배출권 거래제도 강화됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#탄소중립</span>
+      <span class="card-kw">#철강</span>
+      <span class="card-kw">#석유화학</span>
+      <span class="card-kw">#배출권</span>
+    </div>
+    <div class="card-related">
+      <div class="card-related-item"><span class="card-related-num">01</span><a href="/articles/2026-04-02/029/">환경부 - 산업부문 탄소감축 이행 점검 결과</a></div>
+      <div class="card-related-item"><span class="card-related-num">02</span><a href="/articles/2026-03-30/016/">산자부 - 수소환원제철 기술개발 투자 확대</a></div>
+    </div>
+    <div class="card-meta">
+      <span>관련 보도자료 9건</span>
+      <a href="/brief/weekly/2026-03-29_04-04/#signal-03">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 4월 1주 시그널 04 -->
+  <div class="card">
+    <div class="card-top">
+      <span class="card-badge">SIGNAL 04</span>
+      <span class="card-source">4월 1주차</span>
+      <span class="card-cat card-cat-fin">금융경제</span>
+    </div>
+    <div class="card-title"><a href="/brief/weekly/2026-03-29_04-04/#signal-04">소상공인 종합 대책 - 폐업 지원부터 재기까지</a></div>
+    <div class="card-easy">
+      <div class="card-easy-label">쉬운 요약</div>
+      경기 침체로 어려움을 겪는 소상공인을 위한 종합 대책이 나왔습니다. 폐업 시 재취업 훈련비와 생활비를 지원하고, 재창업을 원하는 분에게는 컨설팅과 저금리 대출을 제공합니다. 임대료 부담 완화 방안도 포함됩니다.
+    </div>
+    <div class="card-keywords">
+      <span class="card-kw">#소상공인</span>
+      <span class="card-kw">#폐업지원</span>
+      <span class="card-kw">#재창업</span>
+      <span class="card-kw">#임대료</span>
+    </div>
+    <div class="card-related">
+      <div class="card-related-item"><span class="card-related-num">01</span><a href="/articles/2026-04-03/042/">중기부 - 소상공인 위기극복 종합대책 발표</a></div>
+      <div class="card-related-item"><span class="card-related-num">02</span><a href="/articles/2026-03-31/011/">고용부 - 폐업 소상공인 재취업 연계 프로그램</a></div>
+    </div>
+    <div class="card-meta">
+      <span>관련 보도자료 8건</span>
+      <a href="/brief/weekly/2026-03-29_04-04/#signal-04">상세 보기 &#8594;</a>
+    </div>
+  </div>
+
+  <!-- 페이지네이션 -->
+  <div class="pagination">
+    <span class="page-btn disabled">&#8592; 이전</span>
+    <span class="page-btn on">1</span>
+    <a class="page-btn" href="#">2</a>
+    <a class="page-btn" href="#">3</a>
+    <a class="page-btn" href="#">4</a>
+    <a class="page-btn" href="#">다음 &#8594;</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+
+<nav class="bnav">
+  <a href="/">홈</a>
+  <a class="on" href="/brief/">정부 발표</a>
+  <a href="/keywords/">키워드</a>
+  <a href="/regulation/">금융/부동산</a>
+</nav>
+
+</body>
+</html>

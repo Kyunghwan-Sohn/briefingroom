@@ -162,8 +162,198 @@ def generate_rss(target_date: str, max_items: int = 50) -> Path:
     return out_path
 
 
+def _find_related_articles(current_idx: int, items: list[dict], max_results: int = 4) -> list[dict]:
+    """키워드 기반으로 관련 보도자료를 찾는다."""
+    current = items[current_idx]
+    current_kws = set(current.get("keywords", []))
+    if not current_kws:
+        return []
+
+    scored = []
+    for idx, it in enumerate(items):
+        if idx == current_idx:
+            continue
+        other_kws = set(it.get("keywords", []))
+        overlap = len(current_kws & other_kws)
+        if overlap > 0:
+            scored.append((overlap, idx))
+
+    scored.sort(key=lambda x: -x[0])
+    return [items[i] for _, i in scored[:max_results]]
+
+
+def _find_related_regulations(keywords: list[str], category: str) -> list[dict]:
+    """금융/부동산 관련 보도자료인 경우 regulation DB에서 관련 법령을 찾는다."""
+    if category not in ("금융경제",):
+        return []
+
+    # regulation-stats.json에서 최근 법령 정보 활용
+    stats_path = DATA_DIR / "regulation-stats.json"
+    if not stats_path.exists():
+        return []
+
+    try:
+        stats = json.loads(stats_path.read_text(encoding="utf-8"))
+        recent = stats.get("recent_changes", [])[:3]
+        return [{"law_name": r.get("name", ""), "detail_link": r.get("link", ""), "description": r.get("desc", "")} for r in recent if r.get("name")]
+    except Exception:
+        return []
+
+
+def _build_key_points_html(points: list[str]) -> str:
+    if not points:
+        return ""
+    rows = ""
+    for i, p in enumerate(points, 1):
+        # "제목 - 설명" 형식 파싱
+        if " - " in p:
+            title_part, desc_part = p.split(" - ", 1)
+            text = f"<strong>{html.escape(title_part.strip())}</strong> - {html.escape(desc_part.strip())}"
+        else:
+            text = html.escape(p)
+        rows += f'<div class="pt-item"><span class="pt-num">{i:02d}</span><div class="pt-text">{text}</div></div>\n'
+    return f'<div class="points-box"><div class="sec-title">핵심 포인트</div>{rows}</div>'
+
+
+def _build_detailed_analysis_html(analysis: str) -> str:
+    if not analysis or not analysis.strip():
+        return ""
+    paragraphs = [p.strip() for p in analysis.split("\n\n") if p.strip()]
+    if not paragraphs:
+        paragraphs = [p.strip() for p in analysis.split("\n") if p.strip()]
+    body = "".join(f"<p>{html.escape(p)}</p>" for p in paragraphs)
+    return f'<div class="analysis-box"><div class="sec-title">상세 분석</div><div class="analysis-text">{body}</div></div>'
+
+
+def _build_related_articles_html(related: list[dict], target_date: str) -> str:
+    if not related:
+        return ""
+    rows = ""
+    for r in related:
+        imp = r.get("impact", "중")
+        imp_cls = "ri-h" if imp == "상" else ("ri-m" if imp == "중" else "ri-l")
+        slug = r.get("slug", "000")
+        date = r.get("date", target_date)
+        rows += f'''<div class="rel-item">
+<a href="/articles/{date}/{slug}/"><span class="rel-imp {imp_cls}">{html.escape(imp)}</span>{html.escape(r.get("title", ""))}</a>
+<div class="rel-meta">{html.escape(r.get("source", ""))} / {date}</div></div>\n'''
+    return f'<div class="related-box"><div class="sb-title">관련 보도자료</div>{rows}</div>'
+
+
+def _build_sidebar_meta_html(it: dict) -> str:
+    imp = it.get("impact", "중")
+    return f'''<div class="meta-box"><div class="sb-title">보도자료 정보</div>
+<div class="mb-row"><span class="mb-label">발표 부처</span><span class="mb-val">{html.escape(it.get("source", ""))}</span></div>
+<div class="mb-row"><span class="mb-label">발표일</span><span class="mb-val">{html.escape(it.get("date", ""))}</span></div>
+<div class="mb-row"><span class="mb-label">분야</span><span class="mb-val">{html.escape(it.get("category", ""))}</span></div>
+<div class="mb-row"><span class="mb-label">영향도</span><span class="mb-val mb-imp">{html.escape(imp)}</span></div></div>'''
+
+
+ARTICLE_DETAIL_CSS = """
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all}
+:root{--a:#d96c2c;--al:rgba(217,108,44,.06);--bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;--t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;--sec:#1e40af;--sec-bg:#eff6ff;--sec-border:#bfdbfe;--red:#dc2626;--red-bg:#fee2e2;--amber:#d97706;--amber-bg:#fef3c7;--green:#047857;--green-bg:#ecfdf5;--purple:#7c3aed;--purple-bg:#f5f3ff;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:17px;line-height:1.7;min-width:1120px}
+.is-mobile body{min-width:0;font-size:16px;padding-bottom:68px}
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--sec);background:var(--sec-bg);font-weight:700}
+.hdr-nav .lbl-short{display:none}
+.is-mobile .hdr{height:52px;padding:0 12px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+.is-mobile .hdr-nav .lbl-full{display:none}
+.is-mobile .hdr-nav .lbl-short{display:inline}
+.hero{background:linear-gradient(180deg,var(--sec-bg),#fff);border-bottom:1px solid var(--sec-border);padding:40px 32px 32px}
+.hero-inner{max-width:1080px;margin:0 auto}
+.hero-bc{font-size:13px;color:var(--t3);margin-bottom:14px}
+.hero-bc a{color:var(--sec);text-decoration:none;font-weight:600}
+.hero-bc span{margin:0 6px;color:var(--m)}
+.hero-badges{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.hero-imp{font-family:var(--mono);font-size:12px;font-weight:700;padding:5px 12px;border-radius:4px}
+.hero-imp-h{background:var(--red-bg);color:var(--red)}
+.hero-imp-m{background:var(--amber-bg);color:var(--amber)}
+.hero-imp-l{background:#f3f4f6;color:#6b7280}
+.hero-cat{font-size:13px;font-weight:600;padding:4px 10px;border-radius:4px;color:var(--sec);background:var(--sec-bg)}
+.hero-source{font-size:14px;font-weight:600;color:var(--t2)}
+.hero-date{font-family:var(--mono);font-size:13px;color:var(--t3)}
+.hero-title{font-family:var(--serif);font-size:32px;font-weight:700;line-height:1.4;margin-bottom:16px;max-width:860px}
+.hero-kws{display:flex;gap:8px;flex-wrap:wrap}
+.hero-kw{font-size:13px;font-weight:600;padding:5px 12px;border-radius:10px;border:1px solid var(--sec-border);color:var(--sec)}
+.is-mobile .hero{padding:24px 16px 20px}
+.is-mobile .hero-title{font-size:23px}
+.shell{max-width:1080px;margin:0 auto;padding:24px 16px 40px}
+.easy-box{background:var(--sec-bg);border-left:4px solid var(--sec);border-radius:0 10px 10px 0;padding:20px 24px;margin-bottom:16px}
+.easy-label{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--sec);letter-spacing:.06em;margin-bottom:6px}
+.easy-text{font-size:16px;color:var(--t);line-height:1.9}
+.sec-title{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.sec-title::before{content:'';width:3px;height:18px;background:var(--sec);border-radius:1px}
+.points-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:24px 28px;margin-bottom:16px}
+.pt-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px dashed var(--bl)}
+.pt-item:first-of-type{border-top:none}
+.pt-num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--sec);background:var(--sec-bg);border-radius:4px;padding:3px 8px;flex-shrink:0;margin-top:3px}
+.pt-text{font-size:15px;color:var(--t);line-height:1.8}
+.pt-text strong{font-weight:700}
+.analysis-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:24px 28px;margin-bottom:16px}
+.analysis-text{font-size:15px;color:var(--t2);line-height:1.9}
+.analysis-text p{margin-bottom:14px}
+.analysis-text p:last-child{margin-bottom:0}
+.context-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:24px 28px;margin-bottom:16px}
+.ctx-section{margin-bottom:14px}
+.ctx-section:last-child{margin-bottom:0}
+.ctx-label{font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:.02em;margin-bottom:8px}
+.ctx-label-why{color:var(--sec)}
+.ctx-label-impact{color:var(--amber)}
+.ctx-label-who{color:var(--green)}
+.ctx-body{border-left:4px solid var(--sec);background:var(--sec-bg);border-radius:0 10px 10px 0;padding:18px 24px;font-size:17px;color:var(--t);line-height:1.9}
+.ctx-body-impact{border-left-color:var(--amber);background:var(--amber-bg)}
+.ctx-body-who{border-left-color:var(--green);background:var(--green-bg)}
+.kw-box{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.kw-tag{font-size:13px;font-weight:600;padding:5px 12px;border-radius:10px;border:1px solid var(--sec-border);color:var(--sec)}
+.attach-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px 28px;margin-bottom:16px}
+.attach-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--bl);font-size:14px}
+.attach-item:first-of-type{border-top:none}
+.attach-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0}
+.attach-badge-pdf{background:var(--red-bg);color:var(--red)}
+.attach-badge-hwp{background:var(--sec-bg);color:var(--sec)}
+.attach-link{color:var(--t);text-decoration:none;font-weight:500}
+.attach-link:hover{color:var(--sec)}
+.related-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px 28px;margin-bottom:16px}
+.rel-item{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-top:1px dashed var(--bl)}
+.rel-item:first-of-type{border-top:none}
+.rel-imp{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:3px}
+.ri-h{background:var(--red-bg);color:var(--red)}
+.ri-m{background:var(--amber-bg);color:var(--amber)}
+.ri-l{background:#f3f4f6;color:#6b7280}
+.rel-content{flex:1}
+.rel-link{font-size:15px;color:var(--t);text-decoration:none;font-weight:600;line-height:1.5;display:block}
+.rel-link:hover{color:var(--sec)}
+.rel-meta{font-size:12px;color:var(--t3);margin-top:2px}
+.source-box{background:#fff;border:1px solid var(--b);border-radius:10px;padding:18px 28px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.source-info{font-size:15px;color:var(--t2)}
+.source-info strong{color:var(--t);font-weight:700}
+.source-link{font-size:14px;font-weight:700;color:var(--sec);text-decoration:none;padding:8px 18px;border:1px solid var(--sec-border);border-radius:6px}
+.source-link:hover{background:var(--sec-bg)}
+.nav-box{display:flex;gap:12px;margin-top:16px}
+.nav-prev,.nav-next{flex:1;background:#fff;border:1px solid var(--b);border-radius:10px;padding:18px 22px;text-decoration:none;color:var(--t)}
+.nav-prev:hover,.nav-next:hover{border-color:var(--sec);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.nav-label{font-size:12px;color:var(--t3);font-weight:600;margin-bottom:6px}
+.nav-title{font-family:var(--serif);font-size:15px;font-weight:700;line-height:1.4}
+.nav-next{text-align:right}
+.footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
+.bnav{display:none}
+.is-mobile .bnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom))}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600}
+.bnav a.on{color:var(--sec)}
+"""
+
+
 def generate_article_pages(target_date: str) -> int:
-    """개별 기사 정적 HTML 생성 (SEO용 meta + JSON-LD)"""
+    """개별 기사 정적 HTML 생성 (새 디자인 - 히어로 + 2컬럼)"""
     json_path = DATA_DIR / f"{target_date}.json"
     if not json_path.exists():
         return 0
@@ -179,23 +369,106 @@ def generate_article_pages(target_date: str) -> int:
         title = it.get("title", "")
         source = it.get("source", "")
         summary = it.get("summary", "")
+        easy_summary = it.get("easy_summary", "")
         why_important = it.get("why_important", "")
         practical_impact = it.get("practical_impact", "")
+        key_points = it.get("key_points", [])
+        detailed_analysis = it.get("detailed_analysis", "")
         url = _safe_url(it.get("url", ""))
         date_str = it.get("date", target_date)
         category = it.get("category", "")
+        impact = it.get("impact", "중")
         keywords = it.get("keywords", [])
 
         slug = it.get("slug") or f"{idx:03d}"
         article_url = f"{SITE_URL}/articles/{target_date}/{slug}/"
         kw_json = json.dumps(keywords, ensure_ascii=False)
-        weekly_link = f"{SITE_URL}/articles/weekly/{target_date}/"
-        schedule_link = f"{SITE_URL}/articles/schedule/{target_date}/"
         h_title = html.escape(title)
         h_source = html.escape(source)
-        h_summary = html.escape(summary)
         desc = f"[{source}] {summary[:120]}" if summary else f"[{source}] {title}"
         h_desc = html.escape(desc)
+
+        # 영향도 CSS 클래스
+        imp_cls = "hero-imp-h" if impact == "상" else ("hero-imp-m" if impact == "중" else "hero-imp-l")
+
+        # 키워드 태그
+        kw_tags = "".join(f'<span class="hero-kw">#{html.escape(k)}</span>' for k in keywords)
+
+        # 쉬운 요약
+        easy_html = ""
+        if easy_summary and easy_summary.strip():
+            easy_html = f'<div class="easy-box"><div class="easy-label">EASY SUMMARY</div><div class="easy-text">{html.escape(easy_summary.strip())}</div></div>'
+
+        # 핵심 포인트
+        points_html = _build_key_points_html(key_points)
+
+        # 상세 분석
+        analysis_html = _build_detailed_analysis_html(detailed_analysis)
+
+        # 왜 알아야 하나 / 뭐가 달라지나 / 누구에게 영향
+        context_html = ""
+        if why_important or practical_impact:
+            ctx_inner = ""
+            if why_important:
+                ctx_inner += f'<div class="ctx-section"><div class="ctx-label ctx-label-why">WHY IT MATTERS - 왜 알아야 하나</div><div class="ctx-body">{html.escape(why_important.strip())}</div></div>'
+            if practical_impact:
+                ctx_inner += f'<div class="ctx-section"><div class="ctx-label ctx-label-impact">WHAT CHANGES - 그래서 뭐가 달라지나</div><div class="ctx-body ctx-body-impact">{html.escape(practical_impact.strip())}</div></div>'
+            # 영향 대상 자동 추론 (카테고리 기반)
+            who_map = {"금융경제": "금융기관, 투자자, 기업, 자영업자", "사회복지": "일반 국민, 취약계층, 복지 수급자", "산업기술": "관련 산업 종사자, 기업, 연구기관", "외교안보": "해외 체류 국민, 수출입 기업, 방위산업", "행정법제": "공무원, 행정서비스 이용자, 지방자치단체"}
+            who = who_map.get(category, "")
+            if who:
+                ctx_inner += f'<div class="ctx-section"><div class="ctx-label ctx-label-who">WHO IS AFFECTED - 영향 대상</div><div class="ctx-body ctx-body-who">{html.escape(who)}</div></div>'
+            context_html = f'<div class="context-box"><div class="sec-title">영향 분석</div>{ctx_inner}</div>'
+
+        # 키워드 박스
+        kw_box_html = ""
+        if keywords:
+            kw_box_html = '<div class="kw-box">' + "".join(f'<span class="kw-tag">#{html.escape(k)}</span>' for k in keywords) + '</div>'
+
+        # 첨부파일
+        attach_html = ""
+        pdfs = it.get("pdfs", [])
+        hwps = it.get("hwps", [])
+        if pdfs or hwps:
+            attach_inner = ""
+            for i, p in enumerate(pdfs):
+                attach_inner += f'<div class="attach-item"><span class="attach-badge attach-badge-pdf">PDF</span><a class="attach-link" href="{html.escape(p)}" target="_blank" rel="noopener">첨부파일 {i+1} (PDF)</a></div>'
+            for i, h in enumerate(hwps):
+                attach_inner += f'<div class="attach-item"><span class="attach-badge attach-badge-hwp">HWP</span><a class="attach-link" href="{html.escape(h)}" target="_blank" rel="noopener">첨부파일 {i+1} (HWP)</a></div>'
+            attach_html = f'<div class="attach-box"><div class="sec-title">첨부파일</div>{attach_inner}</div>'
+
+        # 관련 보도자료
+        related = _find_related_articles(idx, items)
+        related_html = ""
+        if related:
+            rel_inner = ""
+            for r in related:
+                rimp = r.get("impact", "중")
+                ricls = "ri-h" if rimp == "상" else ("ri-m" if rimp == "중" else "ri-l")
+                rslug = r.get("slug", "000")
+                rel_inner += f'<div class="rel-item"><span class="rel-imp {ricls}">{html.escape(rimp)}</span><div class="rel-content"><a class="rel-link" href="/articles/{target_date}/{rslug}/">{html.escape(r.get("title","")[:60])}</a><div class="rel-meta">{html.escape(r.get("source",""))} / {html.escape(r.get("category",""))}</div></div></div>'
+            related_html = f'<div class="related-box"><div class="sec-title">관련 보도자료</div>{rel_inner}</div>'
+
+        # 원문 링크
+        source_html = ""
+        if url:
+            source_html = f'<div class="source-box"><div class="source-info"><strong>{h_source}</strong> 보도자료 원문</div><a class="source-link" href="{url}" target="_blank" rel="noopener">원문 보기 &#8594;</a></div>'
+
+        # 이전/다음
+        nav_html = '<div class="nav-box">'
+        if idx > 0:
+            prev_it = items[idx - 1]
+            prev_slug = prev_it.get("slug") or f"{idx-1:03d}"
+            nav_html += f'<a class="nav-prev" href="/articles/{target_date}/{prev_slug}/"><div class="nav-label">이전 보도자료</div><div class="nav-title">{html.escape(prev_it.get("title", "")[:50])}</div></a>'
+        else:
+            nav_html += f'<a class="nav-prev" href="/brief/articles/"><div class="nav-label">목록으로</div><div class="nav-title">오늘의 정부 발표</div></a>'
+        if idx < len(items) - 1:
+            next_it = items[idx + 1]
+            next_slug = next_it.get("slug") or f"{idx+1:03d}"
+            nav_html += f'<a class="nav-next" href="/articles/{target_date}/{next_slug}/"><div class="nav-label">다음 보도자료</div><div class="nav-title">{html.escape(next_it.get("title", "")[:50])}</div></a>'
+        else:
+            nav_html += f'<a class="nav-next" href="/brief/articles/"><div class="nav-label">목록으로</div><div class="nav-title">오늘의 정부 발표</div></a>'
+        nav_html += '</div>'
 
         article_html = f"""<!DOCTYPE html>
 <html lang="ko">
@@ -233,66 +506,59 @@ def generate_article_pages(target_date: str) -> int:
   "mainEntityOfPage": "{article_url}"
 }}
 </script>
-{SITE_FONT_LINKS}
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){{ if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) document.documentElement.classList.add('is-mobile'); }})();
+</script>
 <style>
-{SITE_BASE_CSS}
-.wrap{{max-width:960px;margin:0 auto;padding:24px 20px 72px;position:relative;z-index:1}}
-.back{{display:inline-flex;align-items:center;gap:6px;color:var(--m);text-decoration:none;font-family:var(--mono);font-size:12px;margin-bottom:20px;padding:7px 14px;background:var(--s);border:1px solid var(--b);border-radius:8px;transition:all .15s}}
-.back:hover{{color:var(--t)}}
-{SITE_NAV_CSS}
-.post-badge{{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:6px;background:var(--al);color:var(--a);border:1px solid var(--ab);margin-bottom:14px}}
-.post-title{{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.35;color:var(--t);margin-bottom:20px}}
-.post-meta{{display:flex;gap:20px;padding:14px 0;border-top:1px solid var(--b);border-bottom:1px solid var(--b);margin-bottom:24px}}
-.meta-i{{font-family:var(--mono);font-size:11px;color:var(--m);display:flex;flex-direction:column;gap:3px}}
-.meta-i strong{{color:var(--t2);font-weight:500}}
-.post-content{{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:28px}}
-.summary h3,.info-section h3{{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--t);margin:0 0 10px}}
-.section-kicker{{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:8px}}
-.summary p{{font-size:14px;color:var(--t2);line-height:1.8;background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:14px 16px}}
-.info-section{{margin-top:18px}}
-.info-section p{{font-size:14px;line-height:1.8;padding:14px 16px;border-radius:8px;border:1px solid var(--b);background:#fff}}
-.why-box p{{border-left:4px solid #4a6cf7;background:#eef2ff}}
-.impact-box p{{border-left:4px solid var(--a);background:var(--al)}}
-.law-box{{background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:4px 14px}}
-.keywords{{display:flex;flex-wrap:wrap;gap:5px;margin:16px 0}}
-.keywords span{{font-family:var(--mono);font-size:11px;color:#fff;background:var(--a);padding:4px 10px;border-radius:4px;font-weight:500}}
-.links h4{{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--t);margin:16px 0 8px}}
-.links a{{color:var(--a);text-decoration:none;font-size:13px;font-family:var(--mono)}}
-.links a:hover{{text-decoration:underline}}
-.cta{{margin:24px 0;padding:20px;background:var(--a);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}}
-.cta h3{{font-family:var(--serif);font-size:16px;color:#fff}}
-.cta p{{font-size:11px;color:rgba(255,255,255,.6)}}
-.cta a{{padding:11px 20px;background:#fff;color:var(--a);border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}}
-.bnav{{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;height:58px;background:#fff;border-top:2px solid var(--b);grid-template-columns:repeat(4,1fr);align-items:center;max-width:960px;margin:0 auto}}
-.bnav a{{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--m);font-size:10px;font-weight:600}}
-@media(max-width:768px){{.wrap{{padding:16px 16px 64px}}.post-title{{font-size:24px}}body{{padding-bottom:62px}}.bnav{{display:grid}}}}
+{ARTICLE_DETAIL_CSS}
 </style>
 </head>
 <body>
-<div class="wrap">
-  {render_top_nav("")}
-  <div class="post-badge">{h_source} 보도자료</div>
-  <h1 class="post-title">{h_title}</h1>
-  <div class="post-meta">
-    <div class="meta-i"><span>날짜</span><strong>{date_str}</strong></div>
-    <div class="meta-i"><span>분야</span><strong>{html.escape(category)}</strong></div>
-    <div class="meta-i"><span>기관</span><strong>{h_source}</strong></div>
+<header class="hdr">
+  <a class="hdr-logo" href="/">브리핑룸</a>
+  <nav class="hdr-nav">
+    <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
+    <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
+    <a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a>
+    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+  </nav>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-bc"><a href="/brief/">정부 발표</a><span>/</span><a href="/brief/articles/">오늘의 정부 발표</a><span>/</span>보도자료</div>
+    <div class="hero-badges">
+      <span class="hero-imp {imp_cls}">영향도 {html.escape(impact)}</span>
+      <span class="hero-cat">{html.escape(category)}</span>
+      <span class="hero-source">{h_source}</span>
+      <span class="hero-date">{date_str}</span>
+    </div>
+    <h1 class="hero-title">{h_title}</h1>
+    <div class="hero-kws">{kw_tags}</div>
   </div>
-  <div class="post-content">
-    {_build_easy_summary(it.get("easy_summary", ""))}
-    {_build_context_section("왜 알아야 하나?", why_important, "why-box", "Why It Matters")}
-    {_build_context_section("그래서 뭐가 달라지나?", practical_impact, "impact-box", "What Changes")}
-    {_build_keyword_section(keywords)}
-    {_build_law_section(it.get("related_laws", []))}
-    {_build_original_link(url)}
-  </div>
-  <div class="cta">
-    <div><h3>매일 3분 브리핑</h3><p>텔레그램에서 받아보세요</p></div>
-    <a href="https://t.me/govbrief" target="_blank" rel="noopener">구독</a>
-  </div>
+</section>
+<div class="shell">
+  {easy_html}
+  {points_html}
+  {analysis_html}
+  {context_html}
+  {kw_box_html}
+  {attach_html}
+  {related_html}
+  {source_html}
+  {nav_html}
 </div>
-{render_footer()}
-{render_bottom_nav("brief")}
+<footer class="footer">
+  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+<nav class="bnav">
+  <a href="/">홈</a>
+  <a class="on" href="/brief/">정부 발표</a>
+  <a href="/keywords/">키워드</a>
+  <a href="/regulation/">금융/부동산</a>
+</nav>
 </body>
 </html>
 """
