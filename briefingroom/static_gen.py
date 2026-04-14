@@ -573,6 +573,283 @@ def generate_article_pages(target_date: str) -> int:
 
 
 
+def generate_today_page(target_date: str) -> Path:
+    """brief/today/index.html 생성 — 오늘의 보도자료 전체 목록 (날짜별 자동 갱신)"""
+    json_path = DATA_DIR / f"{target_date}.json"
+    if not json_path.exists():
+        print(f"  [Today] {json_path} 없음 → 스킵")
+        return None
+
+    data = json.loads(json_path.read_text(encoding="utf-8"))
+    items = data.get("items", [])
+    if not items:
+        return None
+
+    date_display = target_date.replace("-", ".")
+    from collections import Counter
+    from briefingroom.config import CAT_MAP
+
+    # 부처명/인명 제외 키워드 집계
+    org_names = set(CAT_MAP.keys())
+    person_suffixes = ("총리", "장관", "위원장", "차관", "청장", "처장", "원장", "대통령")
+    kw_counter = Counter()
+    cat_counter = Counter()
+    source_counter = Counter()
+    for it in items:
+        cat_counter[it.get("category", "기타")] += 1
+        source_counter[it.get("source", "")] += 1
+        for k in it.get("keywords", []):
+            if k in org_names or any(k.endswith(s) for s in person_suffixes):
+                continue
+            kw_counter[k] += 1
+
+    high_count = sum(1 for it in items if it.get("impact") == "상")
+    mid_count = sum(1 for it in items if it.get("impact") == "중")
+    dept_count = len(source_counter)
+
+    # 분야 필터 pills
+    cat_labels = {"금융경제": "금융경제", "산업기술": "산업기술", "사회복지": "사회복지", "외교안보": "외교안보", "행정법제": "행정법제"}
+    cat_pills = f'<span class="fp on" data-f="all">전체 <span class="fc">{len(items)}</span></span>'
+    for cat, cnt in cat_counter.most_common():
+        label = cat_labels.get(cat, cat)
+        cat_pills += f'<span class="fp" data-f="{html.escape(cat)}">{html.escape(label)} <span class="fc">{cnt}</span></span>'
+
+    # 부처 필터 pills
+    top_sources = source_counter.most_common(7)
+    src_pills = '<span class="fp on" data-s="all">전체</span>'
+    for src, cnt in top_sources:
+        short = src.replace("부", "").replace("청", "")[:4] if len(src) > 5 else src
+        src_pills += f'<span class="fp" data-s="{html.escape(src)}">{html.escape(short)} <span class="fc">{cnt}</span></span>'
+    remaining = len(source_counter) - 7
+    if remaining > 0:
+        src_pills += f'<span class="fp" data-s="more">+{remaining}개</span>'
+
+    # 키워드 필터 pills
+    kw_pills = ""
+    for kw, cnt in kw_counter.most_common(10):
+        kw_pills += f'<a class="fk" href="/brief/articles/?kw={html.escape(kw)}">{html.escape(kw)} <span class="fc">{cnt}</span></a>'
+
+    # 카드 생성
+    cards_html = ""
+    for it in items:
+        slug = it.get("slug", "000")
+        imp = it.get("impact", "중")
+        imp_cls = "ch" if imp == "상" else ("cm" if imp == "중" else "cl")
+        cat = it.get("category", "")
+        cat_cls = {"금융경제": "cf", "산업기술": "ci", "사회복지": "cs", "외교안보": "cd", "행정법제": "ca"}.get(cat, "ca")
+        cat_label = cat_labels.get(cat, cat)
+        source = it.get("source", "")
+        title = it.get("title", "")
+        easy = it.get("easy_summary", "")
+        keywords = it.get("keywords", [])
+        date = it.get("date", target_date)
+
+        kw_tags = "".join(f'<span class="ct">{html.escape(k)}</span>' for k in keywords[:4])
+
+        easy_block = ""
+        if easy and easy.strip():
+            easy_block = f'<div class="ce"><div class="cel">EASY SUMMARY</div>{html.escape(easy.strip())}</div>'
+
+        cards_html += f'''<a class="tc" href="/articles/{date}/{slug}/" data-cat="{html.escape(cat)}" data-src="{html.escape(source)}">
+<div class="tt"><span class="ti {imp_cls}">{html.escape(imp)}</span><span class="ts">{html.escape(source)}</span><span class="tg {cat_cls}">{html.escape(cat_label)}</span></div>
+<div class="tn">{html.escape(title)}</div>
+{easy_block}
+<div class="ck">{kw_tags}</div>
+<div class="tb"><span>{date_display}</span><span class="tl">상세 보기 &#8594;</span></div>
+</a>\n'''
+
+    today_dir = Path(DATA_DIR).parent / "brief" / "today"
+    today_dir.mkdir(parents=True, exist_ok=True)
+
+    today_html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오늘의 정부 발표 - 브리핑룸</title>
+<meta name="description" content="{date_display} 정부 보도자료 {len(items)}건을 AI가 분석했습니다.">
+<link rel="canonical" href="{SITE_URL}/brief/today/">
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>(function(){{if(/Mobi|Android|iPhone/i.test(navigator.userAgent))document.documentElement.classList.add('is-mobile')}})();</script>
+<style>
+*{{box-sizing:border-box;margin:0;padding:0;word-break:keep-all}}
+:root{{--bg:#f7f7f5;--s:#fff;--b:#dcdcd8;--bl:#ededea;--t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;--sec:#1e40af;--sec-bg:#eff6ff;--sec-border:#bfdbfe;--red:#dc2626;--red-bg:#fee2e2;--amber:#d97706;--amber-bg:#fef3c7;--green:#047857;--green-bg:#ecfdf5;--purple:#7c3aed;--purple-bg:#f5f3ff;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}}
+body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;line-height:1.6;min-width:1120px}}
+.is-mobile body{{min-width:0;font-size:14px;padding-bottom:68px}}
+.hdr{{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}}
+.hdr-logo{{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}}
+.hdr-nav{{display:flex;gap:6px;flex:1}}
+.hdr-nav a{{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}}
+.hdr-nav a:hover{{background:var(--bl)}}
+.hdr-nav a.on{{color:var(--sec);background:var(--sec-bg);font-weight:700}}
+.hdr-nav .lbl-short{{display:none}}
+.is-mobile .hdr{{height:52px;padding:0 12px}}
+.is-mobile .hdr-logo{{font-size:17px;margin-right:8px}}
+.is-mobile .hdr-nav a{{font-size:12px;padding:7px 8px}}
+.is-mobile .hdr-nav .lbl-full{{display:none}}
+.is-mobile .hdr-nav .lbl-short{{display:inline}}
+.hero{{background:linear-gradient(180deg,var(--sec-bg),#fff);border-bottom:1px solid var(--sec-border);padding:36px 32px 28px}}
+.hero-inner{{max-width:1080px;margin:0 auto}}
+.hero-bc{{font-size:12px;color:var(--t3);margin-bottom:12px}}
+.hero-bc a{{color:var(--sec);text-decoration:none;font-weight:600}}
+.hero-bc span{{margin:0 6px;color:var(--m)}}
+.hero-ey{{font-family:var(--mono);font-size:11px;color:var(--sec);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}}
+.hero-title{{font-family:var(--serif);font-size:30px;font-weight:700;margin-bottom:6px}}
+.hero-sub{{font-size:14px;color:var(--t2);line-height:1.7;max-width:640px;margin-bottom:20px}}
+.hero-stats{{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:900px}}
+.hs{{background:#fff;border:1px solid var(--sec-border);border-radius:8px;padding:12px 14px}}
+.hs .hl{{font-size:10px;color:var(--sec);font-weight:700}}
+.hs .hn{{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--sec);line-height:1.1;margin-top:3px}}
+.hs .hu{{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--t3)}}
+.is-mobile .hero{{padding:20px 16px}}
+.is-mobile .hero-title{{font-size:22px}}
+.is-mobile .hero-stats{{grid-template-columns:repeat(3,1fr)}}
+.shell{{max-width:1080px;margin:0 auto;padding:20px 16px 40px}}
+.fb{{background:#fff;border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:20px;position:sticky;top:64px;z-index:50}}
+.is-mobile .fb{{top:52px;padding:12px 14px}}
+.fr{{display:flex;flex-direction:column;align-items:flex-start;gap:10px}}
+.fg{{display:flex;align-items:center;gap:8px;flex-wrap:wrap}}
+.fl{{font-size:12px;font-weight:700;color:var(--t2);min-width:52px;flex-shrink:0}}
+.fps{{display:flex;flex-wrap:wrap;gap:6px}}
+.fp{{font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid var(--b);background:#fff;color:var(--t2);cursor:pointer}}
+.fp:hover{{border-color:var(--sec);color:var(--sec)}}
+.fp.on{{background:var(--sec);color:#fff;border-color:var(--sec)}}
+.fc{{font-family:var(--mono);font-size:10px;margin-left:3px;opacity:.7}}
+.fk{{font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid var(--sec-border);background:#fff;color:var(--sec);text-decoration:none;cursor:pointer}}
+.fk:hover{{background:var(--sec);color:#fff;border-color:var(--sec)}}
+.frs{{font-size:11px;color:var(--t3);cursor:pointer;font-weight:600;text-decoration:underline;flex-shrink:0}}
+.lt{{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 4px}}
+.ls{{display:flex;gap:4px}}
+.lsb{{font-size:12px;font-weight:600;color:var(--t3);padding:4px 10px;border-radius:4px;cursor:pointer;border:1px solid transparent}}
+.lsb.on{{color:var(--sec);border-color:var(--sec-border);background:var(--sec-bg)}}
+.lc{{font-size:13px;color:var(--t2)}}
+.lc strong{{font-family:var(--mono);color:var(--sec)}}
+.tc{{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px 22px;margin-bottom:10px;text-decoration:none;color:var(--t);display:block;border-left:3px solid var(--b)}}
+.tc:hover{{box-shadow:0 2px 8px rgba(0,0,0,.04)}}
+.tc[data-imp="상"]{{border-left-color:var(--red)}}
+.tt{{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}}
+.ti{{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}}
+.ch{{background:var(--red-bg);color:var(--red)}}
+.cm{{background:var(--amber-bg);color:var(--amber)}}
+.cl{{background:#f3f4f6;color:#6b7280}}
+.ts{{font-size:12px;color:var(--t3);font-weight:600}}
+.tg{{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;margin-left:auto}}
+.cf{{color:var(--sec);background:var(--sec-bg)}}
+.ci{{color:var(--green);background:var(--green-bg)}}
+.cs{{color:var(--purple);background:var(--purple-bg)}}
+.cd{{color:var(--amber);background:var(--amber-bg)}}
+.ca{{color:var(--t3);background:#f3f4f6}}
+.tn{{font-family:var(--serif);font-size:17px;font-weight:700;line-height:1.4;margin-bottom:10px}}
+.ce{{font-size:14px;color:var(--t2);line-height:1.8;background:var(--sec-bg);border-left:3px solid var(--sec);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:10px}}
+.cel{{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--sec);letter-spacing:.06em;margin-bottom:4px}}
+.ck{{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}}
+.ct{{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid var(--bl);color:var(--t3)}}
+.tb{{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3)}}
+.tl{{color:var(--sec);font-weight:600}}
+.footer{{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}}
+.footer-motto{{font-family:var(--serif);font-size:14px;color:var(--t2)}}
+.footer-site{{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}}
+.bnav{{display:none}}
+.is-mobile .bnav{{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom))}}
+.bnav a{{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600}}
+.bnav a.on{{color:var(--sec)}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-logo" href="/">브리핑룸</a>
+  <nav class="hdr-nav">
+    <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
+    <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
+    <a href="/keywords/"><span class="lbl-full">키워드 분석</span><span class="lbl-short">키워드</span></a>
+    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+  </nav>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-bc"><a href="/brief/">정부 발표</a><span>/</span>오늘의 정부 발표</div>
+    <div class="hero-ey">TODAY'S GOVERNMENT BRIEFING</div>
+    <h1 class="hero-title">오늘의 정부 발표</h1>
+    <p class="hero-sub">{date_display} 51개 부처에서 발표한 보도자료를 AI가 분석했습니다.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hl">전체 발표</div><div class="hn">{len(items)}<span class="hu">건</span></div></div>
+      <div class="hs"><div class="hl">참여 부처</div><div class="hn">{dept_count}<span class="hu">개</span></div></div>
+      <div class="hs"><div class="hl">영향도 상</div><div class="hn">{high_count}<span class="hu">건</span></div></div>
+      <div class="hs"><div class="hl">영향도 중</div><div class="hn">{mid_count}<span class="hu">건</span></div></div>
+      <div class="hs"><div class="hl">영향도 하</div><div class="hn">{len(items) - high_count - mid_count}<span class="hu">건</span></div></div>
+    </div>
+  </div>
+</section>
+<div class="shell">
+  <div class="fb">
+    <div class="fr">
+      <div class="fg"><span class="fl">분야</span><div class="fps" id="f-cat">{cat_pills}</div></div>
+      <div class="fg"><span class="fl">부처</span><div class="fps" id="f-src">{src_pills}</div></div>
+      <div class="fg"><span class="fl">키워드</span><div class="fps">{kw_pills}</div><span class="frs" id="f-reset">초기화</span></div>
+    </div>
+  </div>
+  <div class="lt">
+    <div class="ls"><span class="lsb on" id="sort-imp">영향도순</span><span class="lsb" id="sort-new">최신순</span></div>
+    <div class="lc">총 <strong id="vis-count">{len(items)}</strong>건 표시 중</div>
+  </div>
+  <div id="card-list">
+{cards_html}
+  </div>
+</div>
+<footer class="footer">
+  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+<nav class="bnav">
+  <a href="/">홈</a><a class="on" href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a href="/regulation/">금융/부동산</a>
+</nav>
+<script>
+(function(){{
+  var activeCat='all', activeSrc='all';
+  function filter(){{
+    var cards=document.querySelectorAll('.tc');
+    var vis=0;
+    cards.forEach(function(c){{
+      var catOk=activeCat==='all'||c.dataset.cat===activeCat;
+      var srcOk=activeSrc==='all'||c.dataset.src===activeSrc;
+      c.style.display=(catOk&&srcOk)?'':'none';
+      if(catOk&&srcOk)vis++;
+    }});
+    document.getElementById('vis-count').textContent=vis;
+  }}
+  document.getElementById('f-cat').addEventListener('click',function(e){{
+    var t=e.target.closest('.fp');if(!t)return;
+    this.querySelectorAll('.fp').forEach(function(p){{p.classList.remove('on')}});
+    t.classList.add('on');
+    activeCat=t.dataset.f||'all';
+    filter();
+  }});
+  document.getElementById('f-src').addEventListener('click',function(e){{
+    var t=e.target.closest('.fp');if(!t)return;
+    this.querySelectorAll('.fp').forEach(function(p){{p.classList.remove('on')}});
+    t.classList.add('on');
+    activeSrc=t.dataset.s||'all';
+    filter();
+  }});
+  document.getElementById('f-reset').addEventListener('click',function(){{
+    activeCat='all';activeSrc='all';
+    document.querySelectorAll('.fp').forEach(function(p){{p.classList.remove('on')}});
+    document.querySelector('#f-cat .fp').classList.add('on');
+    document.querySelector('#f-src .fp').classList.add('on');
+    filter();
+  }});
+}})();
+</script>
+</body>
+</html>"""
+
+    out_path = today_dir / "index.html"
+    out_path.write_text(today_html, encoding="utf-8")
+    print(f"  [Today] brief/today/index.html 생성 ({len(items)}건, {date_display})")
+    return out_path
+
+
 def generate_sitemap(target_date: str) -> Path:
     """sitemap.xml 생성 — 날짜별 아카이브 + 기사 페이지 URL"""
     import glob as _glob
@@ -582,6 +859,7 @@ def generate_sitemap(target_date: str) -> Path:
         f'  <url><loc>{SITE_URL}/brief/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
         f'  <url><loc>{SITE_URL}/brief/ai/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>',
         f'  <url><loc>{SITE_URL}/brief/articles/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>',
+        f'  <url><loc>{SITE_URL}/brief/today/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
         f'  <url><loc>{SITE_URL}/brief/weekly/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>',
         f'  <url><loc>{SITE_URL}/keywords/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
         f'  <url><loc>{SITE_URL}/keywords/press/</loc><changefreq>daily</changefreq><priority>0.7</priority></url>',
@@ -655,4 +933,5 @@ def generate_static(target_date: str) -> None:
     generate_notices_page()
     generate_rss(target_date)
     generate_article_pages(target_date)
+    generate_today_page(target_date)
     generate_sitemap(target_date)

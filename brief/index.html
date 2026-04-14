@@ -342,7 +342,7 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
     <section class="panel">
       <div class="panel-hdr">
         <h2 class="panel-title">오늘의 발표<span class="num">04-12 · 24건</span></h2>
-        <a class="panel-more" href="/brief/articles/">전체 →</a>
+        <a class="panel-more" href="/brief/today/">전체 →</a>
       </div>
       <div class="filter-bar">
         <!-- 1차: 주요 분야 -->
@@ -366,12 +366,12 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
         </div>
         <!-- 3차: 키워드 -->
         <div class="filter-kw-row" id="kw-bar">
-          <a class="filter-kw" href="/brief/articles/?kw=중동전쟁">중동전쟁</a>
-          <a class="filter-kw" href="/brief/articles/?kw=추경예산">추경예산</a>
-          <a class="filter-kw" href="/brief/articles/?kw=소상공인">소상공인</a>
-          <a class="filter-kw" href="/brief/articles/?kw=AI 반도체">AI 반도체</a>
-          <a class="filter-kw" href="/brief/articles/?kw=민생물가">민생물가</a>
-          <a class="filter-kw" href="/brief/articles/?kw=수출 중소기업">수출 중소기업</a>
+          <a class="filter-kw" href="/brief/today/?kw=중동전쟁">중동전쟁</a>
+          <a class="filter-kw" href="/brief/today/?kw=추경예산">추경예산</a>
+          <a class="filter-kw" href="/brief/today/?kw=소상공인">소상공인</a>
+          <a class="filter-kw" href="/brief/today/?kw=AI 반도체">AI 반도체</a>
+          <a class="filter-kw" href="/brief/today/?kw=민생물가">민생물가</a>
+          <a class="filter-kw" href="/brief/today/?kw=수출 중소기업">수출 중소기업</a>
         </div>
       </div>
       <div class="brief-grid">
@@ -560,7 +560,7 @@ fetch('/data/home-panel.json')
     var kwBar=document.getElementById('kw-bar');
     if(!kwBar)return;
     kwBar.innerHTML=d.keywords.slice(0,8).map(function(k){
-      return '<a class="filter-kw" href="/brief/articles/?kw='+encodeURIComponent(k.name)+'">'+k.name+'</a>';
+      return '<a class="filter-kw" href="/brief/today/?kw='+encodeURIComponent(k.name)+'">'+k.name+'</a>';
     }).join('');
     updateScrollHints();
   });
