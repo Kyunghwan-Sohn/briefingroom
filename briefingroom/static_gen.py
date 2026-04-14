@@ -708,10 +708,20 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
 .is-mobile .hero-stats{{grid-template-columns:repeat(3,1fr)}}
 .shell{{max-width:1080px;margin:0 auto;padding:20px 16px 40px}}
 .fb{{background:#fff;border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:20px;position:sticky;top:64px;z-index:50}}
-.is-mobile .fb{{top:52px;padding:12px 14px}}
+.is-mobile .fb{{top:52px;padding:8px 12px;position:sticky}}
 .fr{{display:flex;flex-direction:column;align-items:flex-start;gap:10px}}
 .fg{{display:flex;align-items:center;gap:8px;flex-wrap:wrap}}
 .fl{{font-size:12px;font-weight:700;color:var(--t2);min-width:52px;flex-shrink:0}}
+/* 모바일 드롭다운 필터 */
+.is-mobile .fr{{display:none}}
+.m-filter-tabs{{display:none}}
+.is-mobile .m-filter-tabs{{display:flex;gap:6px;align-items:center}}
+.m-ftab{{font-size:13px;font-weight:700;color:var(--t2);padding:6px 12px;border-radius:6px;border:1px solid var(--b);background:#fff;cursor:pointer;flex:1;text-align:center}}
+.m-ftab.active{{color:var(--sec);border-color:var(--sec);background:var(--sec-bg)}}
+.m-ftab .m-sel{{font-size:10px;color:var(--sec);display:block;font-weight:600;margin-top:1px}}
+.m-fdrop{{display:none;padding:8px 0}}
+.m-fdrop.show{{display:flex;flex-wrap:wrap;gap:5px}}
+.m-fdrop .fp,.m-fdrop .fk{{font-size:11px;padding:4px 10px}}
 .fps{{display:flex;flex-wrap:wrap;gap:6px}}
 .fp{{font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid var(--b);background:#fff;color:var(--t2);cursor:pointer}}
 .fp:hover{{border-color:var(--sec);color:var(--sec)}}
@@ -790,11 +800,22 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
 </section>
 <div class="shell">
   <div class="fb">
+    <!-- 데스크톱 필터 -->
     <div class="fr">
       <div class="fg"><span class="fl">분야</span><div class="fps" id="f-cat">{cat_pills}</div></div>
       <div class="fg"><span class="fl">부처</span><div class="fps" id="f-src">{src_pills}</div></div>
       <div class="fg"><span class="fl">키워드</span><div class="fps">{kw_pills}</div><span class="frs" id="f-reset">초기화</span></div>
     </div>
+    <!-- 모바일 드롭다운 필터 -->
+    <div class="m-filter-tabs">
+      <div class="m-ftab" data-target="m-drop-cat">분야<span class="m-sel" id="m-cat-sel">전체</span></div>
+      <div class="m-ftab" data-target="m-drop-src">부처<span class="m-sel" id="m-src-sel">전체</span></div>
+      <div class="m-ftab" data-target="m-drop-kw">키워드<span class="m-sel" id="m-kw-sel">전체</span></div>
+      <div class="m-ftab" id="m-reset" style="flex:0;padding:6px 10px;font-size:11px;color:var(--t3)">초기화</div>
+    </div>
+    <div class="m-fdrop" id="m-drop-cat"><div class="fps" id="mf-cat">{cat_pills}</div></div>
+    <div class="m-fdrop" id="m-drop-src"><div class="fps" id="mf-src">{src_pills}</div></div>
+    <div class="m-fdrop" id="m-drop-kw"><div class="fps">{kw_pills}</div></div>
   </div>
   <div class="lt">
     <div class="ls"><span class="lsb on" id="sort-imp">영향도순</span><span class="lsb" id="sort-new">최신순</span></div>
@@ -910,6 +931,84 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
     document.querySelectorAll('.fk').forEach(function(k){{
       if(k.textContent.trim().replace(/\\s*\\d+$/,'')===activeKw)k.classList.add('on');
     }});
+  }}
+
+  // 모바일 드롭다운 토글
+  document.querySelectorAll('.m-ftab[data-target]').forEach(function(tab){{
+    tab.addEventListener('click',function(){{
+      var target=document.getElementById(this.dataset.target);
+      var isOpen=target.classList.contains('show');
+      document.querySelectorAll('.m-fdrop').forEach(function(d){{d.classList.remove('show')}});
+      document.querySelectorAll('.m-ftab[data-target]').forEach(function(t){{t.classList.remove('active')}});
+      if(!isOpen){{target.classList.add('show');this.classList.add('active')}}
+    }});
+  }});
+
+  // 모바일 분야 필터
+  document.getElementById('mf-cat').addEventListener('click',function(e){{
+    var t=e.target.closest('.fp');if(!t)return;
+    this.querySelectorAll('.fp').forEach(function(p){{p.classList.remove('on')}});
+    t.classList.add('on');
+    activeCat=t.dataset.f||'all';
+    page=1;
+    var label=activeCat==='all'?'전체':t.textContent.replace(/\\d+/g,'').trim();
+    document.getElementById('m-cat-sel').textContent=label;
+    // 데스크톱도 동기화
+    document.querySelectorAll('#f-cat .fp').forEach(function(p){{p.classList.remove('on');if((p.dataset.f||'all')===activeCat)p.classList.add('on')}});
+    document.querySelectorAll('.m-fdrop').forEach(function(d){{d.classList.remove('show')}});
+    document.querySelectorAll('.m-ftab[data-target]').forEach(function(t2){{t2.classList.remove('active')}});
+    render();
+  }});
+
+  // 모바일 부처 필터
+  document.getElementById('mf-src').addEventListener('click',function(e){{
+    var t=e.target.closest('.fp');if(!t)return;
+    this.querySelectorAll('.fp').forEach(function(p){{p.classList.remove('on')}});
+    t.classList.add('on');
+    activeSrc=t.dataset.s||'all';
+    page=1;
+    var label=activeSrc==='all'?'전체':t.textContent.replace(/\\d+/g,'').trim();
+    document.getElementById('m-src-sel').textContent=label;
+    document.querySelectorAll('#f-src .fp').forEach(function(p){{p.classList.remove('on');if((p.dataset.s||'all')===activeSrc)p.classList.add('on')}});
+    document.querySelectorAll('.m-fdrop').forEach(function(d){{d.classList.remove('show')}});
+    document.querySelectorAll('.m-ftab[data-target]').forEach(function(t2){{t2.classList.remove('active')}});
+    render();
+  }});
+
+  // 모바일 키워드 필터
+  document.querySelectorAll('#m-drop-kw .fk').forEach(function(k){{
+    k.addEventListener('click',function(e){{
+      e.preventDefault();
+      var kw=this.textContent.trim().replace(/\\s*\\d+$/,'');
+      if(activeKw===kw){{activeKw='';this.classList.remove('on');document.getElementById('m-kw-sel').textContent='전체'}}
+      else{{activeKw=kw;document.querySelectorAll('#m-drop-kw .fk').forEach(function(f){{f.classList.remove('on')}});this.classList.add('on');document.getElementById('m-kw-sel').textContent=kw}}
+      // 데스크톱도 동기화
+      document.querySelectorAll('.fr .fk').forEach(function(f){{f.classList.remove('on');if(f.textContent.trim().replace(/\\s*\\d+$/,'')===activeKw)f.classList.add('on')}});
+      page=1;
+      document.querySelectorAll('.m-fdrop').forEach(function(d){{d.classList.remove('show')}});
+      document.querySelectorAll('.m-ftab[data-target]').forEach(function(t2){{t2.classList.remove('active')}});
+      render();
+    }});
+  }});
+
+  // 모바일 초기화
+  document.getElementById('m-reset').addEventListener('click',function(){{
+    activeCat='all';activeSrc='all';activeKw='';page=1;
+    document.querySelectorAll('.fp').forEach(function(p){{p.classList.remove('on')}});
+    document.querySelectorAll('#f-cat .fp:first-child,#f-src .fp:first-child,#mf-cat .fp:first-child,#mf-src .fp:first-child').forEach(function(p){{p.classList.add('on')}});
+    document.querySelectorAll('.fk').forEach(function(k){{k.classList.remove('on')}});
+    document.getElementById('m-cat-sel').textContent='전체';
+    document.getElementById('m-src-sel').textContent='전체';
+    document.getElementById('m-kw-sel').textContent='전체';
+    document.querySelectorAll('.m-fdrop').forEach(function(d){{d.classList.remove('show')}});
+    document.querySelectorAll('.m-ftab[data-target]').forEach(function(t2){{t2.classList.remove('active')}});
+    history.replaceState(null,'',location.pathname);
+    render();
+  }});
+
+  // URL kw가 있으면 모바일 키워드 라벨도 업데이트
+  if(activeKw){{
+    document.getElementById('m-kw-sel').textContent=activeKw;
   }}
 
   render();

@@ -44,10 +44,20 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 .is-mobile .hero-stats{grid-template-columns:repeat(3,1fr)}
 .shell{max-width:1080px;margin:0 auto;padding:20px 16px 40px}
 .fb{background:#fff;border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:20px;position:sticky;top:64px;z-index:50}
-.is-mobile .fb{top:52px;padding:12px 14px}
+.is-mobile .fb{top:52px;padding:8px 12px;position:sticky}
 .fr{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
 .fg{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .fl{font-size:12px;font-weight:700;color:var(--t2);min-width:52px;flex-shrink:0}
+/* 모바일 드롭다운 필터 */
+.is-mobile .fr{display:none}
+.m-filter-tabs{display:none}
+.is-mobile .m-filter-tabs{display:flex;gap:6px;align-items:center}
+.m-ftab{font-size:13px;font-weight:700;color:var(--t2);padding:6px 12px;border-radius:6px;border:1px solid var(--b);background:#fff;cursor:pointer;flex:1;text-align:center}
+.m-ftab.active{color:var(--sec);border-color:var(--sec);background:var(--sec-bg)}
+.m-ftab .m-sel{font-size:10px;color:var(--sec);display:block;font-weight:600;margin-top:1px}
+.m-fdrop{display:none;padding:8px 0}
+.m-fdrop.show{display:flex;flex-wrap:wrap;gap:5px}
+.m-fdrop .fp,.m-fdrop .fk{font-size:11px;padding:4px 10px}
 .fps{display:flex;flex-wrap:wrap;gap:6px}
 .fp{font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid var(--b);background:#fff;color:var(--t2);cursor:pointer}
 .fp:hover{border-color:var(--sec);color:var(--sec)}
@@ -126,11 +136,22 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 </section>
 <div class="shell">
   <div class="fb">
+    <!-- 데스크톱 필터 -->
     <div class="fr">
       <div class="fg"><span class="fl">분야</span><div class="fps" id="f-cat"><span class="fp on" data-f="all">전체 <span class="fc">139</span></span><span class="fp" data-f="산업기술">산업기술 <span class="fc">61</span></span><span class="fp" data-f="사회복지">사회복지 <span class="fc">27</span></span><span class="fp" data-f="외교안보">외교안보 <span class="fc">24</span></span><span class="fp" data-f="금융경제">금융경제 <span class="fc">19</span></span><span class="fp" data-f="행정법제">행정법제 <span class="fc">8</span></span></div></div>
       <div class="fg"><span class="fl">부처</span><div class="fps" id="f-src"><span class="fp on" data-s="all">전체</span><span class="fp" data-s="외교부">외교부 <span class="fc">18</span></span><span class="fp" data-s="과학기술정보통신부">과학기술 <span class="fc">8</span></span><span class="fp" data-s="국토교통부">국토교통부 <span class="fc">7</span></span><span class="fp" data-s="방송미디어통신위원회">방송미디 <span class="fc">7</span></span><span class="fp" data-s="국가보훈부">국가보훈부 <span class="fc">7</span></span><span class="fp" data-s="관세청">관세청 <span class="fc">7</span></span><span class="fp" data-s="개인정보보호위원회">개인정보 <span class="fc">6</span></span><span class="fp" data-s="more">+34개</span></div></div>
       <div class="fg"><span class="fl">키워드</span><div class="fps"><a class="fk" href="/brief/articles/?kw=중동전쟁">중동전쟁 <span class="fc">5</span></a><a class="fk" href="/brief/articles/?kw=미래모빌리티">미래모빌리티 <span class="fc">3</span></a><a class="fk" href="/brief/articles/?kw=국제협력">국제협력 <span class="fc">3</span></a><a class="fk" href="/brief/articles/?kw=간담회">간담회 <span class="fc">3</span></a><a class="fk" href="/brief/articles/?kw=공적개발원조">공적개발원조 <span class="fc">3</span></a><a class="fk" href="/brief/articles/?kw=ODA">ODA <span class="fc">3</span></a><a class="fk" href="/brief/articles/?kw=해외건설">해외건설 <span class="fc">2</span></a><a class="fk" href="/brief/articles/?kw=카자흐스탄">카자흐스탄 <span class="fc">2</span></a><a class="fk" href="/brief/articles/?kw=도시개발">도시개발 <span class="fc">2</span></a><a class="fk" href="/brief/articles/?kw=인사발령">인사발령 <span class="fc">2</span></a></div><span class="frs" id="f-reset">초기화</span></div>
     </div>
+    <!-- 모바일 드롭다운 필터 -->
+    <div class="m-filter-tabs">
+      <div class="m-ftab" data-target="m-drop-cat">분야<span class="m-sel" id="m-cat-sel">전체</span></div>
+      <div class="m-ftab" data-target="m-drop-src">부처<span class="m-sel" id="m-src-sel">전체</span></div>
+      <div class="m-ftab" data-target="m-drop-kw">키워드<span class="m-sel" id="m-kw-sel">전체</span></div>
+      <div class="m-ftab" id="m-reset" style="flex:0;padding:6px 10px;font-size:11px;color:var(--t3)">초기화</div>
+    </div>
+    <div class="m-fdrop" id="m-drop-cat"><div class="fps" id="mf-cat"><span class="fp on" data-f="all">전체 <span class="fc">139</span></span><span class="fp" data-f="산업기술">산업기술 <span class="fc">61</span></span><span class="fp" data-f="사회복지">사회복지 <span class="fc">27</span></span><span class="fp" data-f="외교안보">외교안보 <span class="fc">24</span></span><span class="fp" data-f="금융경제">금융경제 <span class="fc">19</span></span><span class="fp" data-f="행정법제">행정법제 <span class="fc">8</span></span></div></div>
+    <div class="m-fdrop" id="m-drop-src"><div class="fps" id="mf-src"><span class="fp on" data-s="all">전체</span><span class="fp" data-s="외교부">외교부 <span class="fc">18</span></span><span class="fp" data-s="과학기술정보통신부">과학기술 <span class="fc">8</span></span><span class="fp" data-s="국토교통부">국토교통부 <span class="fc">7</span></span><span class="fp" data-s="방송미디어통신위원회">방송미디 <span class="fc">7</span></span><span class="fp" data-s="국가보훈부">국가보훈부 <span class="fc">7</span></span><span class="fp" data-s="관세청">관세청 <span class="fc">7</span></span><span class="fp" data-s="개인정보보호위원회">개인정보 <span class="fc">6</span></span><span class="fp" data-s="more">+34개</span></div></div>
+    <div class="m-fdrop" id="m-drop-kw"><div class="fps"><a class="fk" href="/brief/articles/?kw=중동전쟁">중동전쟁 <span class="fc">5</span></a><a class="fk" href="/brief/articles/?kw=미래모빌리티">미래모빌리티 <span class="fc">3</span></a><a class="fk" href="/brief/articles/?kw=국제협력">국제협력 <span class="fc">3</span></a><a class="fk" href="/brief/articles/?kw=간담회">간담회 <span class="fc">3</span></a><a class="fk" href="/brief/articles/?kw=공적개발원조">공적개발원조 <span class="fc">3</span></a><a class="fk" href="/brief/articles/?kw=ODA">ODA <span class="fc">3</span></a><a class="fk" href="/brief/articles/?kw=해외건설">해외건설 <span class="fc">2</span></a><a class="fk" href="/brief/articles/?kw=카자흐스탄">카자흐스탄 <span class="fc">2</span></a><a class="fk" href="/brief/articles/?kw=도시개발">도시개발 <span class="fc">2</span></a><a class="fk" href="/brief/articles/?kw=인사발령">인사발령 <span class="fc">2</span></a></div></div>
   </div>
   <div class="lt">
     <div class="ls"><span class="lsb on" id="sort-imp">영향도순</span><span class="lsb" id="sort-new">최신순</span></div>
@@ -1219,6 +1240,84 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
     document.querySelectorAll('.fk').forEach(function(k){
       if(k.textContent.trim().replace(/\s*\d+$/,'')===activeKw)k.classList.add('on');
     });
+  }
+
+  // 모바일 드롭다운 토글
+  document.querySelectorAll('.m-ftab[data-target]').forEach(function(tab){
+    tab.addEventListener('click',function(){
+      var target=document.getElementById(this.dataset.target);
+      var isOpen=target.classList.contains('show');
+      document.querySelectorAll('.m-fdrop').forEach(function(d){d.classList.remove('show')});
+      document.querySelectorAll('.m-ftab[data-target]').forEach(function(t){t.classList.remove('active')});
+      if(!isOpen){target.classList.add('show');this.classList.add('active')}
+    });
+  });
+
+  // 모바일 분야 필터
+  document.getElementById('mf-cat').addEventListener('click',function(e){
+    var t=e.target.closest('.fp');if(!t)return;
+    this.querySelectorAll('.fp').forEach(function(p){p.classList.remove('on')});
+    t.classList.add('on');
+    activeCat=t.dataset.f||'all';
+    page=1;
+    var label=activeCat==='all'?'전체':t.textContent.replace(/\d+/g,'').trim();
+    document.getElementById('m-cat-sel').textContent=label;
+    // 데스크톱도 동기화
+    document.querySelectorAll('#f-cat .fp').forEach(function(p){p.classList.remove('on');if((p.dataset.f||'all')===activeCat)p.classList.add('on')});
+    document.querySelectorAll('.m-fdrop').forEach(function(d){d.classList.remove('show')});
+    document.querySelectorAll('.m-ftab[data-target]').forEach(function(t2){t2.classList.remove('active')});
+    render();
+  });
+
+  // 모바일 부처 필터
+  document.getElementById('mf-src').addEventListener('click',function(e){
+    var t=e.target.closest('.fp');if(!t)return;
+    this.querySelectorAll('.fp').forEach(function(p){p.classList.remove('on')});
+    t.classList.add('on');
+    activeSrc=t.dataset.s||'all';
+    page=1;
+    var label=activeSrc==='all'?'전체':t.textContent.replace(/\d+/g,'').trim();
+    document.getElementById('m-src-sel').textContent=label;
+    document.querySelectorAll('#f-src .fp').forEach(function(p){p.classList.remove('on');if((p.dataset.s||'all')===activeSrc)p.classList.add('on')});
+    document.querySelectorAll('.m-fdrop').forEach(function(d){d.classList.remove('show')});
+    document.querySelectorAll('.m-ftab[data-target]').forEach(function(t2){t2.classList.remove('active')});
+    render();
+  });
+
+  // 모바일 키워드 필터
+  document.querySelectorAll('#m-drop-kw .fk').forEach(function(k){
+    k.addEventListener('click',function(e){
+      e.preventDefault();
+      var kw=this.textContent.trim().replace(/\s*\d+$/,'');
+      if(activeKw===kw){activeKw='';this.classList.remove('on');document.getElementById('m-kw-sel').textContent='전체'}
+      else{activeKw=kw;document.querySelectorAll('#m-drop-kw .fk').forEach(function(f){f.classList.remove('on')});this.classList.add('on');document.getElementById('m-kw-sel').textContent=kw}
+      // 데스크톱도 동기화
+      document.querySelectorAll('.fr .fk').forEach(function(f){f.classList.remove('on');if(f.textContent.trim().replace(/\s*\d+$/,'')===activeKw)f.classList.add('on')});
+      page=1;
+      document.querySelectorAll('.m-fdrop').forEach(function(d){d.classList.remove('show')});
+      document.querySelectorAll('.m-ftab[data-target]').forEach(function(t2){t2.classList.remove('active')});
+      render();
+    });
+  });
+
+  // 모바일 초기화
+  document.getElementById('m-reset').addEventListener('click',function(){
+    activeCat='all';activeSrc='all';activeKw='';page=1;
+    document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('on')});
+    document.querySelectorAll('#f-cat .fp:first-child,#f-src .fp:first-child,#mf-cat .fp:first-child,#mf-src .fp:first-child').forEach(function(p){p.classList.add('on')});
+    document.querySelectorAll('.fk').forEach(function(k){k.classList.remove('on')});
+    document.getElementById('m-cat-sel').textContent='전체';
+    document.getElementById('m-src-sel').textContent='전체';
+    document.getElementById('m-kw-sel').textContent='전체';
+    document.querySelectorAll('.m-fdrop').forEach(function(d){d.classList.remove('show')});
+    document.querySelectorAll('.m-ftab[data-target]').forEach(function(t2){t2.classList.remove('active')});
+    history.replaceState(null,'',location.pathname);
+    render();
+  });
+
+  // URL kw가 있으면 모바일 키워드 라벨도 업데이트
+  if(activeKw){
+    document.getElementById('m-kw-sel').textContent=activeKw;
   }
 
   render();
