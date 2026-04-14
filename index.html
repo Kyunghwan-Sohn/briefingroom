@@ -269,7 +269,7 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
   <section class="panel">
     <div class="panel-hdr">
       <h2 class="panel-title">오늘의 정부 발표 <span class="num" id="home-total-count">24건</span></h2>
-      <a class="panel-more" href="/brief/">전체 &#8594;</a>
+      <a class="panel-more" href="/brief/today/">전체 &#8594;</a>
     </div>
 
     <div class="today-date" id="home-today-date">2026. 04. 13 (일)</div>
@@ -325,7 +325,6 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
         <span class="top-src">국토교통부</span>
       </a>
     </div>
-    <a class="panel-more" id="home-total-link" href="/brief/" style="display:block;text-align:right;margin-top:12px;padding-top:10px;border-top:1px solid var(--bl)">전체 24건 보기 &#8594;</a>
   </section>
 
   <!-- ② 키워드 트렌드 + 언론 반응 -->
@@ -494,7 +493,6 @@ function switchKwTab(tab) {
       var barEl = document.getElementById('home-category-bar');
       var legendEl = document.getElementById('home-category-legend');
       var topListEl = document.getElementById('home-top-list');
-      var totalLinkEl = document.getElementById('home-total-link');
 
       if (totalEl && typeof data.total === 'number') {
         totalEl.textContent = data.total + '건';
@@ -528,9 +526,6 @@ function switchKwTab(tab) {
             + '<span class="top-src">' + escapeHtml(item.source) + '</span>'
             + '</a>';
         }).join('');
-      }
-      if (totalLinkEl && typeof data.total === 'number') {
-        totalLinkEl.innerHTML = '전체 ' + data.total + '건 보기 &#8594;';
       }
     })
     .catch(function() {});
