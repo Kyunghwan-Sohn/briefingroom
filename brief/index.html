@@ -111,7 +111,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
 
 /* 브리핑 카드 그리드 */
 .brief-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 22px 22px}
-.brief-card{background:var(--s2);border:1px solid var(--bl);border-radius:8px;padding:16px 18px;cursor:pointer;transition:all .15s}
+.brief-card{background:var(--s2);border:1px solid var(--bl);border-radius:8px;padding:16px 18px;cursor:pointer;transition:all .15s;text-decoration:none;color:var(--t);display:block}
 .brief-card:hover{border-color:var(--sec);background:#fff;box-shadow:0 2px 8px rgba(30,64,175,.06)}
 .brief-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .brief-tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:3px;background:var(--sec-bg);color:var(--sec)}
@@ -144,9 +144,21 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-sm
 .ai-cta-btn{background:#fff;color:var(--sec);padding:12px 24px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;flex-shrink:0}
 
 /* 아카이브 미리보기 — 키워드 중심 */
-.arc-list{display:flex;flex-direction:column}
-.arc-row{display:grid;grid-template-columns:90px 50px 1fr 24px;gap:14px;padding:14px 22px;border-top:1px solid var(--bl);align-items:center;cursor:pointer}
-.arc-row:hover{background:var(--sec-bg)}
+.arc-list{display:flex;flex-direction:column;gap:12px}
+.arc-day-block{background:#fff;border:1px solid var(--b);border-radius:10px;padding:16px 20px}
+.arc-day-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bl)}
+.arc-day-hdr .arc-date{font-family:var(--serif);font-size:15px;font-weight:700}
+.arc-day-hdr .arc-cnt{font-family:var(--mono);font-size:12px;color:var(--sec);font-weight:700}
+.arc-day-hdr .arc-all{font-size:12px;color:var(--sec);font-weight:600;text-decoration:none;margin-left:auto}
+.arc-day-hdr .arc-all:hover{text-decoration:underline}
+.arc-article{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px dashed var(--bl);text-decoration:none;color:var(--t);font-size:13px}
+.arc-article:first-of-type{border-top:none}
+.arc-article:hover{color:var(--sec)}
+.arc-article .arc-imp{font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0}
+.arc-article .arc-imp.high{background:#fee2e2;color:#dc2626}
+.arc-article .arc-imp.mid{background:#fef3c7;color:#d97706}
+.arc-article .arc-title{flex:1;font-weight:500;line-height:1.4}
+.arc-article .arc-src{font-size:11px;color:var(--t3);flex-shrink:0}
 .arc-date{font-family:var(--mono);color:var(--t2);font-weight:600;font-size:13px}
 .arc-cnt{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--sec);background:var(--sec-bg);padding:4px 8px;border-radius:4px;text-align:center}
 .arc-topics{display:flex;flex-wrap:nowrap;gap:6px;align-items:center;min-width:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch}
@@ -374,31 +386,31 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
           <a class="filter-kw" href="/brief/today/?kw=수출 중소기업">수출 중소기업</a>
         </div>
       </div>
-      <div class="brief-grid">
-        <div class="brief-card">
+      <div class="brief-grid" id="today-cards">
+        <a class="brief-card" href="/articles/2026-04-11/001/">
           <div class="brief-card-top"><span class="brief-tag">금융·경제</span><span class="brief-src">기획재정부</span></div>
           <div class="brief-title">2026년 1회 추경 13.9조 최종 확정</div>
           <div class="brief-sum">수출 중소기업 4.2조, 소상공인 3.1조, AI 반도체 R&D 2.8조 집중 투입. 중동 리스크 대응이 핵심 목적.</div>
           <div class="brief-bot"><span>04-12</span><span class="brief-imp high">영향도 상</span></div>
-        </div>
-        <div class="brief-card">
+        </a>
+        <a class="brief-card" href="/articles/2026-04-11/000/">
           <div class="brief-card-top"><span class="brief-tag">산업·기술</span><span class="brief-src">과기정통부</span></div>
           <div class="brief-title">AI 반도체 국가전략 2030 로드맵 발표</div>
           <div class="brief-sum">2030년까지 AI 반도체 생태계 조성에 3.2조 투입. 팹리스 스타트업 지원과 인재 양성이 핵심.</div>
           <div class="brief-bot"><span>04-12</span><span class="brief-imp mid">영향도 중</span></div>
-        </div>
-        <div class="brief-card">
+        </a>
+        <a class="brief-card" href="/articles/2026-04-10/000/">
           <div class="brief-card-top"><span class="brief-tag">사회·복지</span><span class="brief-src">중소벤처기업부</span></div>
           <div class="brief-title">중기부 추경 1조 6,903억 확정</div>
           <div class="brief-sum">수출 기업·소상공인 긴급 지원, 청년 스타트업 지원 병행. 9월까지 순차 집행.</div>
           <div class="brief-bot"><span>04-12</span><span class="brief-imp mid">영향도 중</span></div>
-        </div>
-        <div class="brief-card">
+        </a>
+        <a class="brief-card" href="/articles/2026-04-10/019/">
           <div class="brief-card-top"><span class="brief-tag">외교·안보</span><span class="brief-src">외교부</span></div>
           <div class="brief-title">중동 정세 대응 TF 가동</div>
           <div class="brief-sum">교민 안전 확보 및 에너지 수급 비상 대응 체계 점검. 호르무즈 해협 상황 실시간 모니터링.</div>
           <div class="brief-bot"><span>04-12</span><span class="brief-imp mid">영향도 중</span></div>
-        </div>
+        </a>
       </div>
     </section>
 
@@ -408,21 +420,21 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
         <h2 class="panel-title">주간 시그널<span class="num">16주차 · 283건</span></h2>
         <a class="panel-more" href="/brief/weekly/">상세 →</a>
       </div>
-      <div class="weekly-card">
+      <a class="weekly-card" href="/brief/weekly/" style="text-decoration:none;color:var(--t);display:block">
         <div class="weekly-top">
           <span class="weekly-badge">16주차</span>
           <span class="weekly-title">2026년 4월 2주</span>
-          <span class="weekly-range">04.06 — 04.12</span>
+          <span class="weekly-range">04.06 -- 04.12</span>
         </div>
         <div class="weekly-kws scroll-hint">
           <span>추경</span><span>AI 반도체</span><span>소상공인</span><span>수출</span><span>중동 리스크</span>
         </div>
         <div class="weekly-signals">
-          <div class="weekly-sig">기재부 추경 13.9조 국회 최종 확정 · 수출·소상공인 집중 지원</div>
-          <div class="weekly-sig">과기부 AI 반도체 국가전략 2030 로드맵 발표</div>
-          <div class="weekly-sig">금융위 가계부채 추가 규제 시행 예고 · Q3 시행</div>
+          <a class="weekly-sig" href="/articles/2026-04-11/001/" style="text-decoration:none;color:var(--t);display:block">기재부 추경 13.9조 국회 최종 확정 · 수출·소상공인 집중 지원</a>
+          <a class="weekly-sig" href="/articles/2026-04-11/000/" style="text-decoration:none;color:var(--t);display:block">과기부 AI 반도체 국가전략 2030 로드맵 발표</a>
+          <a class="weekly-sig" href="/articles/2026-04-10/019/" style="text-decoration:none;color:var(--t);display:block">금융위 가계부채 추가 규제 시행 예고 · Q3 시행</a>
         </div>
-      </div>
+      </a>
     </section>
 
     <!-- 최근 아카이브 -->
@@ -431,63 +443,62 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
         <h2 class="panel-title">최근 아카이브<span class="num">최근 5일</span></h2>
         <a class="panel-more" href="/brief/articles/">전체 →</a>
       </div>
-      <div class="arc-list">
-        <div class="arc-row">
-          <span class="arc-date">04-12 토</span>
-          <span class="arc-cnt">24</span>
-          <div class="arc-topics scroll-hint">
-            <span class="arc-topic hot">추경 13.9조 확정</span>
-            <span class="arc-topic hot">AI 반도체 전략</span>
-            <span class="arc-topic">중동 대응 TF</span>
-            <span class="arc-topic">소상공인 지원</span>
-            <span class="arc-more">+4</span>
+      <div class="arc-list" id="arc-list">
+        <div class="arc-day-block">
+          <div class="arc-day-hdr">
+            <span class="arc-date">04-10 (목)</span>
+            <span class="arc-cnt">139건</span>
+            <a class="arc-all" href="/brief/date/2026-04-10/">전체 보기 →</a>
           </div>
-          <span class="arc-chev">›</span>
+          <a class="arc-article" href="/articles/2026-04-10/000/">
+            <span class="arc-imp high">상</span>
+            <span class="arc-title">의료필수품 관련 현장애로 점검 합동간담회</span>
+            <span class="arc-src">국무조정실</span>
+          </a>
+          <a class="arc-article" href="/articles/2026-04-10/019/">
+            <span class="arc-imp high">상</span>
+            <span class="arc-title">일본 2026년 외교청서에 대한 외교부 대변인 논평</span>
+            <span class="arc-src">외교부</span>
+          </a>
+          <a class="arc-article" href="/articles/2026-04-10/046/">
+            <span class="arc-imp high">상</span>
+            <span class="arc-title">인공지능 학습용데이터 보유 현황, 전 부처 대상 첫 전수조사</span>
+            <span class="arc-src">과기부</span>
+          </a>
         </div>
-        <div class="arc-row">
-          <span class="arc-date">04-11 금</span>
-          <span class="arc-cnt">31</span>
-          <div class="arc-topics scroll-hint">
-            <span class="arc-topic hot">가계부채 규제</span>
-            <span class="arc-topic">수출 지원책</span>
-            <span class="arc-topic">청년 일자리</span>
-            <span class="arc-topic">산불 방재</span>
-            <span class="arc-more">+5</span>
+        <div class="arc-day-block">
+          <div class="arc-day-hdr">
+            <span class="arc-date">04-09 (수)</span>
+            <span class="arc-cnt">82건</span>
+            <a class="arc-all" href="/brief/date/2026-04-09/">전체 보기 →</a>
           </div>
-          <span class="arc-chev">›</span>
+          <a class="arc-article" href="/articles/2026-04-09/000/">
+            <span class="arc-imp high">상</span>
+            <span class="arc-title">중동 상황 관련 건설업계 금융 지원 간담회</span>
+            <span class="arc-src">국조실</span>
+          </a>
+          <a class="arc-article" href="/articles/2026-04-09/003/">
+            <span class="arc-imp mid">중</span>
+            <span class="arc-title">ETF 및 ELD 관련 간담회 개최</span>
+            <span class="arc-src">금감원</span>
+          </a>
         </div>
-        <div class="arc-row">
-          <span class="arc-date">04-10 목</span>
-          <span class="arc-cnt">18</span>
-          <div class="arc-topics scroll-hint">
-            <span class="arc-topic hot">주택 공급 로드맵</span>
-            <span class="arc-topic">기초연금 인상</span>
-            <span class="arc-topic">탄소중립 이행</span>
-            <span class="arc-more">+3</span>
+        <div class="arc-day-block">
+          <div class="arc-day-hdr">
+            <span class="arc-date">04-08 (화)</span>
+            <span class="arc-cnt">121건</span>
+            <a class="arc-all" href="/brief/date/2026-04-08/">전체 보기 →</a>
           </div>
-          <span class="arc-chev">›</span>
-        </div>
-        <div class="arc-row">
-          <span class="arc-date">04-09 수</span>
-          <span class="arc-cnt">22</span>
-          <div class="arc-topics scroll-hint">
-            <span class="arc-topic hot">방산 수출 협력</span>
-            <span class="arc-topic">외교 일정</span>
-            <span class="arc-topic">법무 개정안</span>
-            <span class="arc-topic">재난 안전</span>
-            <span class="arc-more">+4</span>
-          </div>
-          <span class="arc-chev">›</span>
-        </div>
-        <div class="arc-row">
-          <span class="arc-date">04-08 화</span>
-          <span class="arc-cnt">9</span>
-          <div class="arc-topics scroll-hint">
-            <span class="arc-topic hot">아동학대 대책</span>
-            <span class="arc-topic">여성 창업 지원</span>
-            <span class="arc-topic">중소기업 판로</span>
-          </div>
-          <span class="arc-chev">›</span>
+          <a class="arc-article" href="/articles/2026-04-08/000/">
+            <span class="arc-imp high">상</span>
+            <span class="arc-title">중동상황 건설기업 금융애로 점검 간담회</span>
+            <span class="arc-src">국조실</span>
+          </a>
+          <a class="arc-article" href="/articles/2026-04-08/005/">
+            <span class="arc-imp mid">중</span>
+            <span class="arc-title">산사태 예방 강화 - 전국 취약지역 현장조사</span>
+            <span class="arc-src">산림청</span>
+          </a>
         </div>
       </div>
     </section>

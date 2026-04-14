@@ -573,8 +573,8 @@ def generate_article_pages(target_date: str) -> int:
 
 
 
-def generate_today_page(target_date: str) -> Path:
-    """brief/today/index.html 생성 — 오늘의 보도자료 전체 목록 (날짜별 자동 갱신)"""
+def generate_today_page(target_date: str, output_path: str = "brief/today", hero_title: str = "오늘의 정부 발표", hero_eyebrow: str = "TODAY'S GOVERNMENT BRIEFING") -> Path:
+    """보도자료 목록 페이지 생성 — brief/today/ 또는 brief/date/날짜/"""
     json_path = DATA_DIR / f"{target_date}.json"
     if not json_path.exists():
         print(f"  [Today] {json_path} 없음 → 스킵")
@@ -659,7 +659,7 @@ def generate_today_page(target_date: str) -> Path:
 <div class="tb"><span>{date_display}</span><span class="tl">상세 보기 &#8594;</span></div>
 </a>\n'''
 
-    today_dir = Path(DATA_DIR).parent / "brief" / "today"
+    today_dir = Path(DATA_DIR).parent / output_path
     today_dir.mkdir(parents=True, exist_ok=True)
 
     today_html = f"""<!DOCTYPE html>
@@ -669,7 +669,7 @@ def generate_today_page(target_date: str) -> Path:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>오늘의 정부 발표 - 브리핑룸</title>
 <meta name="description" content="{date_display} 정부 보도자료 {len(items)}건을 AI가 분석했습니다.">
-<link rel="canonical" href="{SITE_URL}/brief/today/">
+<link rel="canonical" href="{SITE_URL}/{output_path}/">
 <link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <script>(function(){{if(/Mobi|Android|iPhone/i.test(navigator.userAgent))document.documentElement.classList.add('is-mobile')}})();</script>
@@ -786,8 +786,8 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-bc"><a href="/brief/">정부 발표</a><span>/</span>오늘의 정부 발표</div>
-    <div class="hero-ey">TODAY'S GOVERNMENT BRIEFING</div>
-    <h1 class="hero-title">오늘의 정부 발표</h1>
+    <div class="hero-ey">{hero_eyebrow}</div>
+    <h1 class="hero-title">{hero_title}</h1>
     <p class="hero-sub">{date_display} 51개 부처에서 발표한 보도자료를 AI가 분석했습니다.</p>
     <div class="hero-stats">
       <div class="hs"><div class="hl">전체 발표</div><div class="hn">{len(items)}<span class="hu">건</span></div></div>
@@ -1019,8 +1019,27 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
 
     out_path = today_dir / "index.html"
     out_path.write_text(today_html, encoding="utf-8")
-    print(f"  [Today] brief/today/index.html 생성 ({len(items)}건, {date_display})")
+    print(f"  [DatePage] {output_path}/index.html 생성 ({len(items)}건, {date_display})")
     return out_path
+
+
+def generate_date_pages() -> int:
+    """모든 일자별 보도자료 페이지 생성 (/brief/date/2026-04-10/ 등)"""
+    import glob as _glob
+    json_files = sorted(_glob.glob(str(DATA_DIR / "2026-*.json")))
+    count = 0
+    for jf in json_files:
+        date_str = Path(jf).stem
+        date_display = date_str.replace("-", ". ")
+        generate_today_page(
+            target_date=date_str,
+            output_path=f"brief/date/{date_str}",
+            hero_title=f"{date_display} 정부 발표",
+            hero_eyebrow="DAILY GOVERNMENT BRIEFING",
+        )
+        count += 1
+    print(f"  [DatePages] {count}일치 일자별 페이지 생성 완료")
+    return count
 
 
 def generate_sitemap(target_date: str) -> Path:
@@ -1107,4 +1126,5 @@ def generate_static(target_date: str) -> None:
     generate_rss(target_date)
     generate_article_pages(target_date)
     generate_today_page(target_date)
+    generate_date_pages()
     generate_sitemap(target_date)
