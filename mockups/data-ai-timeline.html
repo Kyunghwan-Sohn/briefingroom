@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>데이터/AI 규제 변화 타임라인 - 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){ if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) document.documentElement.classList.add('is-mobile'); })();
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all}
+:root{--bg:#f7f7f5;--s:#fff;--b:#dcdcd8;--bl:#ededea;--t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;--sec:#7c3aed;--sec-bg:#f5f3ff;--sec-border:#ddd6fe;--data:#1e40af;--data-bg:#eff6ff;--ai:#047857;--ai-bg:#ecfdf5;--digital:#d97706;--digital-bg:#fef3c7;--red:#dc2626;--red-bg:#fee2e2;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:16px;line-height:1.7;min-width:1120px}
+.is-mobile body{min-width:0;font-size:15px;padding-bottom:68px}
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--sec);background:var(--sec-bg);font-weight:700}
+.is-mobile .hdr{height:52px;padding:0 12px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+
+.hero{background:linear-gradient(180deg,var(--sec-bg),#fff);border-bottom:1px solid var(--sec-border);padding:40px 32px 32px}
+.hero-inner{max-width:1080px;margin:0 auto}
+.hero-bc{font-size:12px;color:var(--t3);margin-bottom:14px}
+.hero-bc a{color:var(--sec);text-decoration:none;font-weight:600}
+.hero-bc span{margin:0 6px;color:var(--m)}
+.hero-ey{font-family:var(--mono);font-size:11px;color:var(--sec);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.hero-title{font-family:var(--serif);font-size:30px;font-weight:700;margin-bottom:6px}
+.hero-sub{font-size:15px;color:var(--t2);line-height:1.7;max-width:700px;margin-bottom:20px}
+.is-mobile .hero{padding:24px 16px 20px}
+.is-mobile .hero-title{font-size:22px}
+
+.shell{max-width:1080px;margin:0 auto;padding:24px 16px 40px}
+
+/* 필터 */
+.tl-filter{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.tl-fbtn{font-size:13px;font-weight:600;padding:6px 14px;border-radius:6px;border:1px solid var(--b);background:#fff;color:var(--t2);cursor:pointer}
+.tl-fbtn:hover{border-color:var(--sec);color:var(--sec)}
+.tl-fbtn.on{background:var(--sec);color:#fff;border-color:var(--sec)}
+
+/* 연도 구분 */
+.tl-year{font-family:var(--mono);font-size:28px;font-weight:700;color:var(--sec);margin:32px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--sec-border)}
+.tl-year:first-child{margin-top:0}
+
+/* 타임라인 */
+.tl{position:relative;padding-left:32px}
+.tl::before{content:'';position:absolute;left:11px;top:0;bottom:0;width:2px;background:var(--bl)}
+
+.tl-entry{position:relative;margin-bottom:20px}
+.tl-dot{position:absolute;left:-32px;top:8px;width:22px;height:22px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--sec)}
+.tl-dot-data{background:var(--data)}
+.tl-dot-ai{background:var(--ai)}
+.tl-dot-digital{background:var(--digital)}
+.tl-dot-red{background:var(--red)}
+
+.tl-card{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px 24px}
+.tl-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.tl-card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.tl-date{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--sec)}
+.tl-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.tl-badge-data{background:var(--data-bg);color:var(--data)}
+.tl-badge-ai{background:var(--ai-bg);color:var(--ai)}
+.tl-badge-digital{background:var(--digital-bg);color:var(--digital)}
+.tl-badge-new{background:var(--red-bg);color:var(--red)}
+.tl-badge-amend{background:var(--sec-bg);color:var(--sec)}
+.tl-ministry{font-size:12px;color:var(--t3);margin-left:auto}
+
+.tl-card-title{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.4;margin-bottom:8px}
+.tl-card-body{font-size:15px;color:var(--t2);line-height:1.8;margin-bottom:10px}
+.tl-card-impact{border-left:3px solid var(--sec);background:var(--sec-bg);border-radius:0 8px 8px 0;padding:10px 16px;font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:10px}
+.tl-card-impact strong{font-weight:700;color:var(--t)}
+.tl-card-kws{display:flex;gap:4px;flex-wrap:wrap}
+.tl-kw{font-size:11px;font-weight:600;padding:3px 8px;border-radius:10px;border:1px solid var(--sec-border);color:var(--sec)}
+.tl-card-link{display:inline-block;margin-top:8px;font-size:13px;color:var(--sec);font-weight:600;text-decoration:none}
+.tl-card-link:hover{text-decoration:underline}
+
+.footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
+.bnav{display:none}
+.is-mobile .bnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom))}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600}
+.bnav a.on{color:var(--sec)}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="hdr-logo" href="/">브리핑룸</a>
+  <nav class="hdr-nav">
+    <a href="/">홈</a>
+    <a href="/brief/">정부 발표</a>
+    <a href="/keywords/">키워드 트렌드</a>
+    <a class="on" href="/regulation/">금융/부동산 규제</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-bc"><a href="/regulation/">규제 트래커</a><span>/</span><a href="/regulation/data-ai/">데이터/AI</a><span>/</span>타임라인</div>
+    <div class="hero-ey">REGULATION CHANGE TIMELINE</div>
+    <h1 class="hero-title">데이터/AI 규제 변화 타임라인</h1>
+    <p class="hero-sub">개인정보보호법, AI기본법, 데이터3법 등 데이터/인공지능 관련 법령의 개정 이력을 시간순으로 추적합니다. 어떤 규제가 언제, 왜, 어떻게 바뀌었는지 한눈에.</p>
+  </div>
+</section>
+
+<div class="shell">
+
+  <div class="tl-filter">
+    <span class="tl-fbtn on" data-f="all">전체</span>
+    <span class="tl-fbtn" data-f="data">개인정보/데이터</span>
+    <span class="tl-fbtn" data-f="ai">인공지능</span>
+    <span class="tl-fbtn" data-f="digital">디지털/플랫폼</span>
+  </div>
+
+  <!-- 2026 -->
+  <div class="tl-year">2026</div>
+  <div class="tl">
+
+    <div class="tl-entry" data-cat="ai">
+      <div class="tl-dot tl-dot-ai"></div>
+      <div class="tl-card">
+        <div class="tl-card-top">
+          <span class="tl-date">2026.01.22 시행</span>
+          <span class="tl-badge tl-badge-ai">인공지능</span>
+          <span class="tl-badge tl-badge-amend">개정 시행</span>
+          <span class="tl-ministry">과학기술정보통신부</span>
+        </div>
+        <div class="tl-card-title">지능정보화 기본법 개정 - 디지털포용법 반영</div>
+        <div class="tl-card-body">디지털포용법 통합에 따른 전면 개정. 지능정보기술의 개발/이용 촉진과 사회적 영향 관리를 위한 기본 프레임워크 재정비. AI 윤리 원칙과 지능정보서비스 이용자 보호 조항 강화.</div>
+        <div class="tl-card-impact"><strong>영향:</strong> AI/데이터 기업은 지능정보서비스 제공 시 이용자 보호 의무가 강화됩니다. 알고리즘 투명성 요구사항이 구체화되어 서비스 설계 단계부터 반영이 필요합니다.</div>
+        <div class="tl-card-kws">
+          <span class="tl-kw">지능정보기술</span>
+          <span class="tl-kw">디지털포용</span>
+          <span class="tl-kw">알고리즘 투명성</span>
+          <span class="tl-kw">이용자 보호</span>
+        </div>
+        <a class="tl-card-link" href="https://www.law.go.kr/법령/지능정보화기본법" target="_blank">법제처 원문 보기 &#8594;</a>
+      </div>
+    </div>
+
+    <div class="tl-entry" data-cat="digital">
+      <div class="tl-dot tl-dot-digital"></div>
+      <div class="tl-card">
+        <div class="tl-card-top">
+          <span class="tl-date">2026.01.02 시행</span>
+          <span class="tl-badge tl-badge-digital">디지털</span>
+          <span class="tl-badge tl-badge-amend">개정 시행</span>
+          <span class="tl-ministry">과학기술정보통신부</span>
+        </div>
+        <div class="tl-card-title">전기통신사업법 개정 - 정부조직법 개편 반영</div>
+        <div class="tl-card-body">방송미디어통신위원회 신설에 따른 소관 부처 변경. 통신 규제 체계 재편으로 전기통신사업 관련 인허가 및 감독 권한이 새 위원회로 이관.</div>
+        <div class="tl-card-impact"><strong>영향:</strong> 통신사업자는 인허가/신고 창구가 변경됩니다. 기존 과기부 소관이던 업무 일부가 방송미디어통신위원회로 이관되어 담당 부서 확인이 필요합니다.</div>
+        <div class="tl-card-kws">
+          <span class="tl-kw">전기통신</span>
+          <span class="tl-kw">정부조직</span>
+          <span class="tl-kw">방통위</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 2025 -->
+  <div class="tl-year">2025</div>
+  <div class="tl">
+
+    <div class="tl-entry" data-cat="data">
+      <div class="tl-dot tl-dot-data"></div>
+      <div class="tl-card">
+        <div class="tl-card-top">
+          <span class="tl-date">2025.10.02 시행</span>
+          <span class="tl-badge tl-badge-data">데이터</span>
+          <span class="tl-badge tl-badge-amend">주요 개정</span>
+          <span class="tl-ministry">개인정보보호위원회</span>
+        </div>
+        <div class="tl-card-title">개인정보 보호법 개정 - 개인정보 이동권 도입</div>
+        <div class="tl-card-body">개인정보 이동권(데이터 포터빌리티) 제도 도입. 개인이 자신의 정보를 다른 서비스로 이전할 수 있는 권리 신설. 가명정보 결합 절차 간소화. 마이데이터 사업자의 의무 사항 구체화.</div>
+        <div class="tl-card-impact"><strong>영향:</strong> 모든 개인정보 처리 기업은 이용자의 데이터 이동 요청에 대응해야 합니다. 특히 금융, 의료, 통신 분야에서 데이터 표준화와 API 개발이 필수화됩니다. 마이데이터 사업자는 보안 체계 강화가 요구됩니다.</div>
+        <div class="tl-card-kws">
+          <span class="tl-kw">개인정보 이동권</span>
+          <span class="tl-kw">데이터 포터빌리티</span>
+          <span class="tl-kw">가명정보</span>
+          <span class="tl-kw">마이데이터</span>
+        </div>
+        <a class="tl-card-link" href="https://www.law.go.kr/법령/개인정보보호법" target="_blank">법제처 원문 보기 &#8594;</a>
+      </div>
+    </div>
+
+    <div class="tl-entry" data-cat="data">
+      <div class="tl-dot tl-dot-data"></div>
+      <div class="tl-card">
+        <div class="tl-card-top">
+          <span class="tl-date">2025.10.01 시행</span>
+          <span class="tl-badge tl-badge-data">데이터</span>
+          <span class="tl-badge tl-badge-amend">개정 시행</span>
+          <span class="tl-ministry">과기부, 방통위</span>
+        </div>
+        <div class="tl-card-title">정보통신망법 / 위치정보법 / 데이터산업기본법 / 클라우드법 동시 개정</div>
+        <div class="tl-card-body">방송미디어통신위원회 설치법 시행에 따른 4개 법률 동시 개정. 소관 부처 변경과 함께 온라인 서비스 제공자의 이용자 보호 의무 강화, 불법 콘텐츠 유통 방지 기술적 조치 의무 확대.</div>
+        <div class="tl-card-impact"><strong>영향:</strong> 온라인 플랫폼, 클라우드 서비스, 위치정보 사업자 모두 소관 부처가 변경됩니다. 기존 과기부/방통위 이중 소관이 방송미디어통신위원회로 일원화되어 규제 대응 창구가 바뀝니다.</div>
+        <div class="tl-card-kws">
+          <span class="tl-kw">방통위 개편</span>
+          <span class="tl-kw">정보통신망</span>
+          <span class="tl-kw">위치정보</span>
+          <span class="tl-kw">클라우드</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-entry" data-cat="digital">
+      <div class="tl-dot tl-dot-digital"></div>
+      <div class="tl-card">
+        <div class="tl-card-top">
+          <span class="tl-date">2025.07.08 시행</span>
+          <span class="tl-badge tl-badge-digital">디지털</span>
+          <span class="tl-badge tl-badge-amend">개정 시행</span>
+          <span class="tl-ministry">행정안전부</span>
+        </div>
+        <div class="tl-card-title">전자정부법 개정 - 디지털 행정서비스 확대</div>
+        <div class="tl-card-body">전자정부 서비스 접근성 강화와 행정정보 공동이용 범위 확대. 공공기관의 정보시스템 클라우드 전환 촉진. 행정 데이터 개방 의무 강화.</div>
+        <div class="tl-card-impact"><strong>영향:</strong> 공공 시스템 구축 기업은 클라우드 네이티브 전환이 가속됩니다. 행정 데이터를 활용하는 스타트업에게는 더 많은 공공 데이터 접근 기회가 열립니다.</div>
+        <div class="tl-card-kws">
+          <span class="tl-kw">전자정부</span>
+          <span class="tl-kw">클라우드 전환</span>
+          <span class="tl-kw">공공데이터</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-entry" data-cat="ai">
+      <div class="tl-dot tl-dot-ai"></div>
+      <div class="tl-card">
+        <div class="tl-card-top">
+          <span class="tl-date">2025.04.23 시행</span>
+          <span class="tl-badge tl-badge-ai">인공지능</span>
+          <span class="tl-badge tl-badge-amend">개정 시행</span>
+          <span class="tl-ministry">과학기술정보통신부</span>
+        </div>
+        <div class="tl-card-title">소프트웨어 진흥법 개정 - SW 안전 관리 강화</div>
+        <div class="tl-card-body">소프트웨어 안전 확인 제도 도입. 공공분야 SW 사업 발주 시 안전 요건 의무화. SW 기업의 기술 인력 보호 조항 신설. AI SW에 대한 품질 관리 기준 마련.</div>
+        <div class="tl-card-impact"><strong>영향:</strong> 공공 SI 사업자는 SW 안전 확인 절차를 추가해야 합니다. AI 서비스 기업은 SW 품질 관리 기준 충족 여부를 점검해야 하며, 특히 공공 조달 참여 시 필수 요건이 됩니다.</div>
+        <div class="tl-card-kws">
+          <span class="tl-kw">SW 안전</span>
+          <span class="tl-kw">품질 관리</span>
+          <span class="tl-kw">공공 조달</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 2024 -->
+  <div class="tl-year">2024</div>
+  <div class="tl">
+
+    <div class="tl-entry" data-cat="data">
+      <div class="tl-dot tl-dot-data"></div>
+      <div class="tl-card">
+        <div class="tl-card-top">
+          <span class="tl-date">2024.08.14 시행</span>
+          <span class="tl-badge tl-badge-data">데이터</span>
+          <span class="tl-badge tl-badge-amend">주요 개정</span>
+          <span class="tl-ministry">금융위원회</span>
+        </div>
+        <div class="tl-card-title">신용정보법 개정 - 마이데이터 2단계</div>
+        <div class="tl-card-body">마이데이터 사업자 간 정보 연계 범위 확대. 금융 데이터 활용 동의 절차 개선. 가명정보를 활용한 데이터 결합 범위 확대. 마이데이터 보안 사고 시 배상 책임 강화.</div>
+        <div class="tl-card-impact"><strong>영향:</strong> 핀테크 기업은 마이데이터 연계 API를 확장해야 합니다. 데이터 결합 사업을 하는 기업에게는 새로운 비즈니스 기회이지만, 보안 사고 시 배상 책임이 강화되어 보안 투자가 필수입니다.</div>
+        <div class="tl-card-kws">
+          <span class="tl-kw">마이데이터</span>
+          <span class="tl-kw">핀테크</span>
+          <span class="tl-kw">데이터 결합</span>
+          <span class="tl-kw">배상 책임</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+
+<nav class="bnav">
+  <a href="/">홈</a>
+  <a href="/brief/">정부 발표</a>
+  <a href="/keywords/">키워드</a>
+  <a class="on" href="/regulation/">금융/부동산</a>
+</nav>
+
+<script>
+document.querySelector('.tl-filter').addEventListener('click', function(e) {
+  var btn = e.target.closest('.tl-fbtn');
+  if (!btn) return;
+  this.querySelectorAll('.tl-fbtn').forEach(function(b) { b.classList.remove('on'); });
+  btn.classList.add('on');
+  var cat = btn.dataset.f;
+  document.querySelectorAll('.tl-entry').forEach(function(entry) {
+    entry.style.display = (cat === 'all' || entry.dataset.cat === cat) ? '' : 'none';
+  });
+});
+</script>
+
+</body>
+</html>
