@@ -57,15 +57,15 @@ HEADER_HTML = """<header class="hdr">
     <a href="/">홈</a>
     <a href="/brief/">정부 발표</a>
     <a href="/keywords/">키워드 트렌드</a>
-    <a class="on" href="/regulation/">금융/부동산 규제</a>
+    <a class="on" href="/regulation/">규제 트래커</a>
   </nav>
 </header>"""
 
 FOOTER_HTML = """<footer style="max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)">
-  <div style="font-family:var(--serif);font-size:14px;color:var(--t2)">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div style="font-family:var(--serif);font-size:14px;color:var(--t2)">정부 정책과 규제 트래커, 한 화면에</div>
   <div style="font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px">govbrief.kr</div>
 </footer>
-<nav class="bnav"><a href="/">홈</a><a href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a class="on" href="/regulation/">금융/부동산</a></nav>"""
+<nav class="bnav"><a href="/">홈</a><a href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a class="on" href="/regulation/">규제</a></nav>"""
 
 
 def _get_data_ai_laws(conn: sqlite3.Connection) -> list[dict]:

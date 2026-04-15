@@ -111,8 +111,15 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 .cel{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--sec);letter-spacing:.06em;margin-bottom:4px}
 .ck{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
 .ct{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid var(--bl);color:var(--t3)}
-.tb{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3)}
+.tai{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:#dbeafe;color:#1e40af;margin-left:4px}
+.to{font-size:11px;color:var(--t3);text-decoration:none;font-weight:600;padding:2px 8px;border:1px solid var(--bl);border-radius:4px;margin-left:auto}
+.to:hover{color:var(--sec);border-color:var(--sec-border)}
+.tb{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3);gap:8px}
 .tl{color:var(--sec);font-weight:600}
+.impact-legend{background:var(--s);border:1px solid var(--bl);border-radius:8px;padding:14px 18px;margin:16px 0 0;font-size:13px;color:var(--t2);line-height:1.7}
+.impact-legend-title{font-size:12px;font-weight:700;color:var(--t3);margin-bottom:6px}
+.impact-legend-row{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.impact-legend-row:last-child{margin-bottom:0}
 .footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
 .footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
 .footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
@@ -134,7 +141,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
     <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
     <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
     <a href="/keywords/"><span class="lbl-full">키워드 트렌드</span><span class="lbl-short">키워드</span></a>
-    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+    <a href="/regulation/"><span class="lbl-full">규제 트래커</span><span class="lbl-short">규제</span></a>
   </nav>
 </header>
 <section class="hero">
@@ -177,7 +184,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
   </div>
   <div id="card-list">
 <a class="tc" href="/articles/2026-04-07/000/" data-cat="외교안보" data-src="재외동포청" data-kw="재외동포청,주한 우즈베키스탄 대사,고려인 역사박물관,김경협,한우즈베키스탄 협력">
-<div class="tt"><span class="ti cm">중</span><span class="ts">재외동포청</span><span class="tg cd">외교안보</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">재외동포청</span><span class="tg cd">외교안보</span><span class="tai">AI 요약</span></div>
 <div class="tn">재외동포청장, 주한 우즈베키스탄 대사 접견</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>김경협 재외동포청장이 우즈베키스탄 대사를 만나 이야기를 나누었다.
 우즈베키스탄에 사는 우리 동포들(고려인)을 위한 박물관을 짓기로 했다.
@@ -185,31 +192,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 양국 정부는 이 박물관이 잘 지어지고 잘 운영될 수 있도록 돕기로 했다.
 우리 동포들의 역사가 보존되고 두 나라의 우정이 더 깊어질 것이다.</div>
 <div class="ck"><span class="ct">재외동포청</span><span class="ct">주한 우즈베키스탄 대사</span><span class="ct">고려인 역사박물관</span><span class="ct">김경협</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753354" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/001/" data-cat="산업기술" data-src="산림청" data-kw="산불예방,전통시장,캠페인,대형산불특별대책,함양국유림관리소">
-<div class="tt"><span class="ti cm">중</span><span class="ts">산림청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">산림청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">&quot;전통시장까지 찾아간 산불예방&quot;</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>산불이 날 확률이 높은 시기에 산림청이 전통시장에서 시민들을 만나 예방을 당부했다. 나무 근처에서 불을 지피거나 산에 들어갈 때 불꽃을 가져가면 큰일이 날 수 있으니 절대 하지 말아야 한다. 산불이 나면 바로 신고하는 것이 가장 중요하다. 시장에 오는 사람들 모두 산불의 위험과 피해를 함께 알려 경계심을 높였다. 예방 활동이 계속될 것이라고 밝혔다.</div>
 <div class="ck"><span class="ct">산불예방</span><span class="ct">전통시장</span><span class="ct">캠페인</span><span class="ct">대형산불특별대책</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753338" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/002/" data-cat="산업기술" data-src="산림청" data-kw="산림청,임산물 수출,중동전쟁,물류비 지원,수출보험료">
-<div class="tt"><span class="ti cm">중</span><span class="ts">산림청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">산림청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">산림청, 중동전쟁 관련 임산물 수출·입기업과 현장 소통 강화산림청</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>전쟁으로 운송비가 비싸져 우리 나무 제품 수출이 어려워졌어요. 정부는 기업들이 더 많은 돈을 쓰지 않아도 되도록 돈을 지원합니다. 지원받는 기업은 수출할 때 쓸 목재를 사는 데 필요한 돈과 보험료를 더 내지 않아도 됩니다. 이 지원은 물건을 나르는 데 드는 비용을 줄여 기업을 돕기 위한 것입니다. 이로 인해 우리 나무 제품이 외국에서 더 잘 팔릴 수 있습니다.</div>
 <div class="ck"><span class="ct">산림청</span><span class="ct">임산물 수출</span><span class="ct">중동전쟁</span><span class="ct">물류비 지원</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753334" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/003/" data-cat="산업기술" data-src="농림축산식품부" data-kw="농식품부,푸드테크,그린바이오,투자 교류회,유망 기업">
-<div class="tt"><span class="ti cl">하</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농식품 유망 기업, 투자 확대로 성장 날개 달다</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>농림축산식품부가 우수한 농업 식품 기업을 지원해 투자를 유치할 수 있는 자리를 만들었습니다. 푸드테크(식품 관련 첨단 기술)와 그린바이오(환경 친화적 바이오) 기업 40 곳과 투자사 11 곳이 모였습니다. 창업한 지 얼마 안 된 기업에서 큰 기업까지 참여해 실제 투자에 대해 논의했습니다. 기존에는 소수만 참여했지만 이번에는 더 많은 기업이 기회를 얻었습니다. 이 투자는 새로운 기술을 상품으로 만들어 기업을 성장시키는 데 도움을 줄 것입니다.</div>
 <div class="ck"><span class="ct">농식품부</span><span class="ct">푸드테크</span><span class="ct">그린바이오</span><span class="ct">투자 교류회</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753329" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/004/" data-cat="산업기술" data-src="산림청" data-kw="산림청,백두대간 생태교육장,산림복지서비스이용권,녹색자금,생태교육">
-<div class="tt"><span class="ti cl">하</span><span class="ts">산림청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">산림청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">&#x27;백두대간의 가치를 새롭게&#x27; 생태교육장 운영 혁신을 위한 간담회 개최</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>산림청이 생태교육장을 더 잘 돌보기 위해 관계자들이 모인 자리가 열렸다.
 백두대간이 있는 6 개 곳에서 교육을 통해 자연의 소중함을 알린다.
@@ -217,10 +224,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 전문가를 배치해 아이들이나 시민들이 더 재미있게 배울 수 있게 했다.
 미래를 위해 우리 숲을 지키는 교육의 중요성을 다시 한번 강조했다.</div>
 <div class="ck"><span class="ct">산림청</span><span class="ct">백두대간 생태교육장</span><span class="ct">산림복지서비스이용권</span><span class="ct">녹색자금</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753332" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/005/" data-cat="사회복지" data-src="병무청" data-kw="병무청,병역판정검사,검사장 휴무,4 월 휴무,신체검사">
-<div class="tt"><span class="ti cl">하</span><span class="ts">병무청</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">병무청</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">병무청, 4월 9일부터 17일까지 병역판정검사장 휴무</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>4 월 초부터 일주 일 동안 병역판정검사장을 휴무합니다.
 병역판정검사는 남성이 군대에 갈 수 있는지 건강 상태를 확인하는 검사입니다.
@@ -228,31 +235,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 하지만 민원을 접수하는 업무는 계속 진행되니 걱정하지 않아도 됩니다.
 검사가 필요한 날짜는 4 월 20 일부터 다시 시작되니 미리 확인해야 합니다.</div>
 <div class="ck"><span class="ct">병무청</span><span class="ct">병역판정검사</span><span class="ct">검사장 휴무</span><span class="ct">4 월 휴무</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753326" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/006/" data-cat="외교안보" data-src="국방부" data-kw="국방부,안규백,공군,지휘역량,안전관리">
-<div class="tt"><span class="ti cm">중</span><span class="ts">국방부</span><span class="tg cd">외교안보</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">국방부</span><span class="tg cd">외교안보</span><span class="tai">AI 요약</span></div>
 <div class="tn">국방부장관, 공군 全 대대장 대상 특별강연 실시</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>국방부 장관이 공군의 모든 대대장에게 직접 강연을 했습니다. 군 지휘관이 일을 잘하려면 먼저 기본을 바로 잡는 것이 중요하다고 말했습니다. 병사를 진심으로 사랑하는 마음이 리더십의 핵심이라고 강조했습니다. 사고를 막기 위해서는 계획하고 실행한 뒤 확인하고 점검하는 과정을 꼭 지켜야 합니다. 장병의 안전을 위해 지휘관의 세심한 관심과 노력이 필요하다고 당부했습니다.</div>
 <div class="ck"><span class="ct">국방부</span><span class="ct">안규백</span><span class="ct">공군</span><span class="ct">지휘역량</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753325" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/007/" data-cat="산업기술" data-src="기후에너지환경부" data-kw="공영주차장,5 부제,기후에너지환경부,주차난 해소,생계형 차량">
-<div class="tt"><span class="ti cm">중</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">(참고) 공영주차장 승용차 5부제 본격 시행…생계형 차량 등은 제외 가능</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>4 월 8 일부터 공영주차장에 주차할 때 평일 날짜 끝자리와 내 차 번호 끝자리를 맞춰야 합니다. 예를 들어 오늘이 8 일이라면 번호 끝이 8,9,0 인 차만 주차가 가능한 규칙이 적용됩니다. 하지만 생계를 위해 택시나 배달용차 같은 &#x27;생계형 차량&#x27;은 이 규칙에서 면제받을 수 있습니다. 이 규칙은 공기 중의 먼지 농도를 줄이고 주차장이 너무 빽빽해지지 않게 만들기 위해 만든 것입니다. 운전자는 주차 가능 날짜를 미리 확인해서 벌금이나 교통 체증을 피할 수 있습니다.</div>
 <div class="ck"><span class="ct">공영주차장</span><span class="ct">5 부제</span><span class="ct">기후에너지환경부</span><span class="ct">주차난 해소</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753327" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/008/" data-cat="외교안보" data-src="외교부" data-kw="한-인도 영사협의회,외교부,영사안전,재외국민 보호,인도">
-<div class="tt"><span class="ti cl">하</span><span class="ts">외교부</span><span class="tg cd">외교안보</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">외교부</span><span class="tg cd">외교안보</span><span class="tai">AI 요약</span></div>
 <div class="tn">제3차 한-인도 영사협의회 개최</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>한국과 인도가 우리 국민들이 인도에서 더 안전하고 편하게 지낼 수 있도록 협력하기로 했다. 작년에는 두 나라를 오가는 사람이 30 만 명이나 될 정도로 교류가 매우 활발해졌다. 이번에는 인도에 있는 우리 국민이 더 잘 보호받고 편리함을 느낄 수 있도록 협의했다. 양국 관리들은 앞으로도 국민 보호를 위해 계속 함께 일하기로 약속했다. 다음 회의는 인도에서 열려 협력이 더욱 끈끈해질 전망이다.</div>
 <div class="ck"><span class="ct">한-인도 영사협의회</span><span class="ct">외교부</span><span class="ct">영사안전</span><span class="ct">재외국민 보호</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753323" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/009/" data-cat="산업기술" data-src="국토교통부" data-kw="KTX,SRT,교차운행,통합예약앱,철도통합">
-<div class="tt"><span class="ti ch">상</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">[참고] KTX·SRT 교차운행 이용객 88.3% &quot;만족&quot;</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>KTX와 SRT가 서로 다른 열차를 같이 탈 수 있게 하는 교차운행에 사람들이 88%나 만족한다고 답했습니다.
 이번 조사는 2 월과 3 월에 KTX 와 SRT 를 탄 사람들 392 명을 조사한 결과입니다.
@@ -260,17 +267,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 특히 기차표가 부족해서 엉뚱한 곳으로 우회해야 하는 불편함을 해결해달라는 요구가 많았습니다.
 국토부와 철도 회사는 오는 9 월까지 통합 운행을 하고 통합 예약 앱을 만들 계획이라고 했습니다.</div>
 <div class="ck"><span class="ct">KTX</span><span class="ct">SRT</span><span class="ct">교차운행</span><span class="ct">통합예약앱</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753321" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/010/" data-cat="산업기술" data-src="기후에너지환경부" data-kw="수송용 수소,자원안보 위기,중동전쟁,수소 수급,기후에너지환경부">
-<div class="tt"><span class="ti cl">하</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">자원안보 위기 격상에 따른 수송용 수소 수급상황 점검</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>중동 전쟁 때문에 원유나 가스 수입에 문제가 생길까 봐 정부가 수소 차에 쓰일 수소를 미리 확인했습니다. 수소 차를 달릴 수 있는 수소를 하루에 63 톤이나 계속 공급하고 있어서 걱정하지 않아도 됩니다. 원료를 구하는 데 어려움이 생겼더라도 다른 방법으로 수소 80% 가량을 더 만들 수 있는 준비가 돼 있습니다. 정부는 기업들에게 비록 어려움이 생길지라도 수소 차 운행이 끊기지 않도록 꾸준히 공급에 힘써달라고 했습니다. 충전소들은 수소 가격이 너무 오르지 않도록 그리고 충전기에 문제가 없도록 잘 관리해달라고 요구했습니다.</div>
 <div class="ck"><span class="ct">수송용 수소</span><span class="ct">자원안보 위기</span><span class="ct">중동전쟁</span><span class="ct">수소 수급</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753322" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/011/" data-cat="사회복지" data-src="고용노동부" data-kw="고용노동부,이주노동자,중상해,기획감독,산재보상">
-<div class="tt"><span class="ti cm">중</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">(참고) 이주노동자 중상해 발생 사업장, 노동부 즉시 기획감독 착수</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>최근 경기 화성의 공장에서 이주노동자가 고압 공기 주입으로 심한 부상을 입은 사건이 발생했습니다.
 고용노동부는 4월 7일부터 해당 공장을 찾아 임금, 폭행, 안전조치 등 모든 법을 위반했는지 철저히 조사합니다.
@@ -278,10 +285,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 부상당한 노동자에게 필요한 치료비를 즉시 지원하고, 피해가 없는지 면밀히 확인하는 절차를 밟습니다.
 앞으로도 외국인 노동자를 많이 쓰는 공장 중 위험한 곳을 골라 지속적으로 점검하여 모든 노동자의 안전을 지킵니다.</div>
 <div class="ck"><span class="ct">고용노동부</span><span class="ct">이주노동자</span><span class="ct">중상해</span><span class="ct">기획감독</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753319" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/012/" data-cat="사회복지" data-src="경찰청" data-kw="경찰청,남양주 스토킹 살인사건,후속조치,범죄수사,여성경찰">
-<div class="tt"><span class="ti cm">중</span><span class="ts">경찰청</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">경찰청</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">경찰청, 남양주 스토킹 살인 후속조치 결과 발표</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>남양주에서 벌어진 끔찍한 스토킹 살인 사건에 대한 경찰의 대응 결과를 발표했습니다.
 경찰이 어떤 새로운 규칙을 만들거나 강화했는지 내용을 공개했습니다.
@@ -289,17 +296,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 사건 당시 수사 과정이나 시스템의 문제점을 점검하고 개선책을 마련했습니다.
 국민들이 이 발표를 통해 경찰이 어떻게 더 안전한 사회를 만들어나가는지 알 수 있습니다.</div>
 <div class="ck"><span class="ct">경찰청</span><span class="ct">남양주 스토킹 살인사건</span><span class="ct">후속조치</span><span class="ct">범죄수사</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753317" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/013/" data-cat="외교안보" data-src="통일부" data-kw="통일부,하나원,북한이탈주민,스마트폰활용,3 월의통일부인물">
-<div class="tt"><span class="ti cl">하</span><span class="ts">통일부</span><span class="tg cd">외교안보</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">통일부</span><span class="tg cd">외교안보</span><span class="tai">AI 요약</span></div>
 <div class="tn">하나원 교육생 스마트폰 활용 개선, 3월의 통일부 인물로 선정</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>통일부는 하나원에서 공부하는 북한이탈주민을 위해 스마트폰 사용 제한을 없앴습니다. 2026 년 1 월부터 교육생 한 명당 스마트폰을 받아 쓰도록 했습니다. 유범곤 주무관과 류형기 주무관이 이 과정을 위해 보안과 개인정보 보호 문제를 해결하며 크게 기여했습니다. 이 변화로 교육생들은 뉴스나 정보를 검색하고, 가족들과 더 편안하게 통화할 수 있게 되었습니다. 두 주무관은 이 공로로 3 월의 통일부 인물로 뽑혀 500 만 원의 포상금을 받았습니다.</div>
 <div class="ck"><span class="ct">통일부</span><span class="ct">하나원</span><span class="ct">북한이탈주민</span><span class="ct">스마트폰활용</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753324" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/014/" data-cat="행정법제" data-src="국무조정실" data-kw="2026 국가 대테러 합동훈련,국무조정실 대테러센터,제주도 훈련,복합 테러 대응,관계기관 협력">
-<div class="tt"><span class="ti cm">중</span><span class="ts">국무조정실</span><span class="tg ca">행정법제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">국무조정실</span><span class="tg ca">행정법제</span><span class="tai">AI 요약</span></div>
 <div class="tn">[보도자료] 2026 국가 대테러 합동훈련 실시</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>정부가 테러가 일어날 때 바로 막아낼 수 있는 능력을 기르기 위해 대규모 훈련을 실시했다.
 국정원, 국방부, 경찰 등 여러 안전 기관이 한자리에 모여 제주도에서 연습했다.
@@ -307,10 +314,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 드론, 화학·생물·방사능 공격 등 새로운 위협에도 대응하는 방법을 확인했다.
 이 훈련을 통해 테러 발생 시 기관들이 서로 잘 협력하며 국민 안전을 지키는 능력을 높였다.</div>
 <div class="ck"><span class="ct">2026 국가 대테러 합동훈련</span><span class="ct">국무조정실 대테러센터</span><span class="ct">제주도 훈련</span><span class="ct">복합 테러 대응</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753316" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/015/" data-cat="산업기술" data-src="과학기술정보통신부" data-kw="한국형 과학,아젠다 랩,과학기술혁신본부장,과학문화,2027 년 연구개발">
-<div class="tt"><span class="ti cm">중</span><span class="ts">과학기술정보통신부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">과학기술정보통신부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">박인규 과학기술혁신본부장, 「한국형 과학(K-Science)」 &#x27;의제 실험실(아젠다 랩)&#x27; 개최박인규 과학기술혁신본부장</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>박인규 본부장이 각 부처와 함께 새로운 과학 프로젝트 아이디어를 모으는 모임을 가졌습니다.
 한국이 가진 역사와 문화를 과학 기술과 섞어서 세상과 공유하는 새로운 방식을 논의했습니다.
@@ -318,10 +325,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 기존의 딱딱한 연구 개발 방식을 벗어나 사람들이 이해하고 공감할 수 있는 이야기로 만들겠습니다.
 이로 인해 과학이 우리 생활과 더 가까워지고 국가 발전에도 도움이 될 것으로 보입니다.</div>
 <div class="ck"><span class="ct">한국형 과학</span><span class="ct">아젠다 랩</span><span class="ct">과학기술혁신본부장</span><span class="ct">과학문화</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753312" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/016/" data-cat="산업기술" data-src="기후에너지환경부" data-kw="공영주차장 5 부제,차량 요일제,교통 혼잡,대기 질 개선,기후에너지환경부">
-<div class="tt"><span class="ti ch">상</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">기후부, 공영주차장 승용차 5부제 준비 상황점검</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>4 월 8 일부터 공영주차장에 가는 차를 요일에 따라 5 개 날짜로 나눕니다.
 매일 다른 요일에 다른 번호의 자동차만 주차장에 들어갈 수 있습니다.
@@ -329,24 +336,24 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 차에서 나오는 나쁜 공기 (대기 오염 물질) 가 줄어들어 숨 쉬기 좋습니다.
 모든 사람이 공영주차장을 이용할 때 이 규칙을 따라야 합니다.</div>
 <div class="ck"><span class="ct">공영주차장 5 부제</span><span class="ct">차량 요일제</span><span class="ct">교통 혼잡</span><span class="ct">대기 질 개선</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753314" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/017/" data-cat="외교안보" data-src="방위사업청" data-kw="K-방산,상생협력,방산 동반성장,협력사 지원,기술국산화">
-<div class="tt"><span class="ti cm">중</span><span class="ts">방위사업청</span><span class="tg cd">외교안보</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">방위사업청</span><span class="tg cd">외교안보</span><span class="tai">AI 요약</span></div>
 <div class="tn">K-방산의 지속가능한 미래, 대·중소기업이 함께 그린다!</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>정부와 대기업들이 함께 일하는 작은 협력업체들을 더 잘 돌보기로 약속했습니다. 대기업들이 협력업체에 돈을 더 주거나 투자를 도와 경영이 잘되게 지원합니다. 함께 기술을 배우고 공유하여 새로운 무기 개발에 도움을 줍니다. 외국에 물건을 팔 때 함께 진출하여 수출을 늘리도록 도울 계획입니다. 기술이 유출되지 않도록 보호하고 매년 회의를 통해 소통합니다.</div>
 <div class="ck"><span class="ct">K-방산</span><span class="ct">상생협력</span><span class="ct">방산 동반성장</span><span class="ct">협력사 지원</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753313" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/018/" data-cat="산업기술" data-src="산림청" data-kw="묘목 품질표시,종자산업법,옥천 묘목시장,유통 단속,산림청">
-<div class="tt"><span class="ti cl">하</span><span class="ts">산림청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">산림청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">묘목, 정확한 품질표시가 소비자를 부른다</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>묘목을 파는 가게에 정확한 품질표시를 하도록 단속을 진행했다. 종자산업법은 씨앗이나 묘목을 팔 때 반드시 법에 따라 등록하고 알린다는 뜻이다. 품질표시는 묘목이 어떤 것인지, 어디에서 왔는지 소비자가 볼 수 있게 붙이는 표시다. 이번에는 법에 따라 등록되지 않은 이름으로 팔거나 번호를 적지 않은 곳을 단속했다. 올해 봄 묘목 살 때 정확한 정보를 확인하면 더 안전하게 살 수 있다.</div>
 <div class="ck"><span class="ct">묘목 품질표시</span><span class="ct">종자산업법</span><span class="ct">옥천 묘목시장</span><span class="ct">유통 단속</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753306" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/019/" data-cat="사회복지" data-src="고용노동부" data-kw="근로복지공단,적극행정,국민 체감형,행정 개선,고용노동부">
-<div class="tt"><span class="ti cl">하</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">&quot;국민 불편 줄인다&quot;··· 적극행정 강화에 나선 근로복지공단</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>근로복지공단이 국민들이 더 편하게 느낄 수 있도록 일을 더 적극적으로 처리하겠다고 발표했습니다.
 2026년 4월 7일에 고용노동부 산하 기관인 근로복지공단이 행정 서비스를 개선하겠다고 다짐했습니다.
@@ -354,17 +361,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 이 정책은 고용 관련 복지 혜택을 받거나 관련 업무를 보는 모든 국민에게 혜택이 돌아가도록 합니다.
 결과적으로 국민들이 관공서를 이용하거나 서비스를 신청할 때 더 쉽고 빠르게 받을 수 있게 됩니다.</div>
 <div class="ck"><span class="ct">근로복지공단</span><span class="ct">적극행정</span><span class="ct">국민 체감형</span><span class="ct">행정 개선</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753302" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/020/" data-cat="사회복지" data-src="고용노동부" data-kw="일·생활 균형,우수기업,재택근무,근로감독 유예,유연근무">
-<div class="tt"><span class="ti cm">중</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">재택근무·시차출퇴근, 일·생활균형으로 달라진 우리 회사! 우수기업에 도전하세요!</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>노동자와 가족의 삶을 균형 있게 지키는 좋은 기업을 찾습니다. 4 월 8 일부터 정부가 이 기업을 접수받아 심사합니다. 재택근무나 출퇴근 시간을 유연하게 운영하는 등 좋은 근로 문화를 만든 기업이 지원할 수 있습니다. 일과 육아나 가족 생활을 균형 있게 여기는 기업은 더 높은 점수를 받습니다. 선정되면 세무 조사를 덜 받고 공공사업도 더 쉽게 참여할 수 있는 혜택이 있습니다. 모든 업종과 크기의 회사라면 누구나 이 기회에 참여할 수 있습니다.</div>
 <div class="ck"><span class="ct">일·생활 균형</span><span class="ct">우수기업</span><span class="ct">재택근무</span><span class="ct">근로감독 유예</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753301" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/021/" data-cat="사회복지" data-src="고용노동부" data-kw="폴리텍대학,교수공개초빙,산업현장고수,직무교육,전문인재육성">
-<div class="tt"><span class="ti cl">하</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">&quot;산업현장 고수가 강단으로&quot;…폴리텍대학, 2026년도 하반기 교수 공개 초빙</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>폴리텍대학이 산업 현장에서 가장 뛰어난 기술자들을 대학 강단에 모시는 공개 채용을 시작합니다.
 반도체, 전기, 로봇 등 다양한 분야의 전문 기술인 82명을 새로 뽑습니다.
@@ -372,45 +379,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 국가에서 인정한 기술 전문가 (명장, 기술사 등) 들의 지원을 특히 환영하고 있습니다.
 지난해 채용된 반도체 수석연구원이나 기술사 출신 교수들이 좋은 예시입니다.</div>
 <div class="ck"><span class="ct">폴리텍대학</span><span class="ct">교수공개초빙</span><span class="ct">산업현장고수</span><span class="ct">직무교육</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753300" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/022/" data-cat="행정법제" data-src="국민통합위원회" data-kw="국민통합위원회,이석연,5.18 민주묘지 참배,광주 현장 간담회,정치갈등해소">
-<div class="tt"><span class="ti cl">하</span><span class="ts">국민통합위원회</span><span class="tg ca">행정법제</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">국민통합위원회</span><span class="tg ca">행정법제</span><span class="tai">AI 요약</span></div>
 <div class="tn">국민과 함께하는 광주 현장 경청 간담회</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>국민통합위원회가 정치와 지역 간의 다툼을 줄이기 위해 광주에 방문했습니다. 위원들은 먼저 5.18 민주화 운동을 추모하고 국민 통합의 의미를 되새겼습니다. 오후에는 전문가들과 시민들이 모여 왜 싸우고 있는지 함께 이야기하며 해법을 찾았습니다. 이 과정은 정치인들이 갈등을 키우는 게 아니라 서로 협력하도록 돕는 역할을 하려 한다는 뜻을 담았습니다. 앞으로 국민들이 참여하는 대화의 장을 더 열어갈 예정입니다.</div>
 <div class="ck"><span class="ct">국민통합위원회</span><span class="ct">이석연</span><span class="ct">5.18 민주묘지 참배</span><span class="ct">광주 현장 간담회</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753299" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/023/" data-cat="행정법제" data-src="기획예산처" data-kw="고유가 대응,에너지 위기,피해 지원금,차량 2 부제,공휴일 지정">
-<div class="tt"><span class="ti ch">상</span><span class="ts">기획예산처</span><span class="tg ca">행정법제</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">기획예산처</span><span class="tg ca">행정법제</span><span class="tai">AI 요약</span></div>
 <div class="tn">월간 해외재정동향: 중동전쟁발 고유가에 대한 해외 주요국 정책대응</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>중동 전쟁 때문에 기름값이 너무 비싸져서 국민들이 힘들어하자 정부가 도움을 주기로 했습니다. 이번 에 정부는 기름값이 오른 만큼 국민 70% 에게 최대 60 만 원의 돈을 준다고 했어요. 또한, 18 일부터 공공기관 차량 2 부제를 시작하고 공영주차장 5 부제를 시행해 에너지를 아낄 거예요. 5 월 1 일 (노동절) 을 63 년 만에 비로소 쉴 수 있는 공휴일로 정해 국민들이 휴식을 누릴 수 있게 됩니다. 에너지가 부족한 상황을 이기기 위해 국민들이 함께 자발적으로 에너지를 아껴 쓰도록 독려했어요.</div>
 <div class="ck"><span class="ct">고유가 대응</span><span class="ct">에너지 위기</span><span class="ct">피해 지원금</span><span class="ct">차량 2 부제</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753298" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/024/" data-cat="외교안보" data-src="국방부" data-kw="전승남 이등중사,유해발굴,호국의 영웅,귀환 행사,유전자 감식">
-<div class="tt"><span class="ti cl">하</span><span class="ts">국방부</span><span class="tg cd">외교안보</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">국방부</span><span class="tg cd">외교안보</span><span class="tai">AI 요약</span></div>
 <div class="tn">고(故) 전승남 이등중사 호국의 영웅 귀환 행사</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>6·25 전쟁에서 나라를 위해 순국한 전승남 이등중사님의 유해가 74 년 만에 가족 품으로 돌아왔습니다. 국방부 발굴팀이 강원도에서 유해를 찾아내 과학적인 유전자 분석으로 누구인지 확인했습니다. 이번에 확인된 분은 2000 년 유해 발굴 사업을 시작한 이후 272 번째로 가족과 재회한 분입니다. 군인 장병들이 현장에서 유해를 정밀하게 발굴하고 수습하여 온전한 모습으로 돌려보냈습니다. 이 행사를 통해 국가와 민족을 위해 희생하신 분들에게 국민이 다시 한번 감사와 보답의 뜻을 전했습니다.</div>
 <div class="ck"><span class="ct">전승남 이등중사</span><span class="ct">유해발굴</span><span class="ct">호국의 영웅</span><span class="ct">귀환 행사</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753297" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/025/" data-cat="산업기술" data-src="농림축산식품부" data-kw="농식품부,박정훈,시설원예,유가연동보조금,쌀 수급안정">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">박정훈 식량실장, 중동상황 관련 시설원예 농가 및 쌀 산지유통업체 경영 안정 총력 대응</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>박정훈 농식품부 식량정책실장은 중동 전쟁으로 가격이 오르는 문제를 해결하기 위해 농가와 유통업체를 직접 찾았습니다. 파프리카를 키우는 농가에게 난방비 보조금을 지원하고 비료 가격을 안정시키기로 했습니다. 쌀을 팔고 사는 회사에서는 플라스틱 대신 종이로 포장하거나 다른 통을 써서 플라스틱 부족 문제를 막으려고 합니다. 정부는 쌀 15 만 톤을 시장에 공급하여 밥값이 오르는 것을 막고 싶습니다. 이 모든 노력은 농부가 잘 살 수 있고 국민이 쌀값 걱정 없이 밥을 지을 수 있게 하기 위한 것입니다.</div>
 <div class="ck"><span class="ct">농식품부</span><span class="ct">박정훈</span><span class="ct">시설원예</span><span class="ct">유가연동보조금</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753296" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/026/" data-cat="산업기술" data-src="새만금개발청" data-kw="새만금개발청,그린트러스트,나무심기,민관학협력,친환경도시">
-<div class="tt"><span class="ti cl">하</span><span class="ts">새만금개발청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">새만금개발청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">새만금청, 그린트러스트(Green Trust) 나무심기 행사 개최새만금청</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>새만금지역을 더 아름답고 깨끗하게 만들기 위해 나무를 심는 행사를 진행했습니다. 새만금개발청을 비롯해 지자체, 기업, 학교 등 많은 분들이 함께 참여했습니다. 이는 정부와 민간, 학교가 힘을 합쳐 환경을 지키려는 협력 모델입니다. 특히 나무를 심은 후에도 잘 관리하며 돌보는 체계를 만들었습니다. 앞으로 새만금이 친환경 도시로 더욱 발전할 수 있는 기초를 닦았습니다.</div>
 <div class="ck"><span class="ct">새만금개발청</span><span class="ct">그린트러스트</span><span class="ct">나무심기</span><span class="ct">민관학협력</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753292" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/027/" data-cat="산업기술" data-src="국가데이터처" data-kw="국가데이터처,공무원 특별성과 포상,지역소득 (GRDP),지역키움통계,데이터 혁신">
-<div class="tt"><span class="ti cm">중</span><span class="ts">국가데이터처</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">국가데이터처</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">국가데이터처, 국민을 위한 특별한 성과로 데이터·통계 혁신을 이끈다</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>정부가 일하는 공무원들이 뛰어난 일을 했을 때 큰 상을 주는 새로운 규칙을 처음으로 만들었다.
 올해 4 월 7 일에 일어난 일로, 데이터와 통계를 이용해 나쁜 문제를 잘 고친 11 명의 공무원에게 상금을 줬다.
@@ -418,10 +425,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 또 다른 팀은 주차난 해결을 위해 새로운 교통수단 (예: 공유자전거, 자율주행 버스) 계획을 만들어냈다.
 이처럼 공무원들이 더 열심히 일하고 좋은 아이디어를 내면 국민도 더 편리하고 좋은 혜택을 받게 된다.</div>
 <div class="ck"><span class="ct">국가데이터처</span><span class="ct">공무원 특별성과 포상</span><span class="ct">지역소득 (GRDP)</span><span class="ct">지역키움통계</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753291" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/028/" data-cat="사회복지" data-src="질병관리청" data-kw="결핵 ZERO,대학생 서포터즈,질병관리청,결핵 예방,건강 캠페인">
-<div class="tt"><span class="ti cl">하</span><span class="ts">질병관리청</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">질병관리청</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">결핵은 아직, 우리 곁에 있어요 결핵ZERO 대학생 서포터즈 출범(4.7.화)결핵은 아직</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>질병관리청이 결핵을 없애기 위해 대학생 서포터즈를 4월 7일에 시작했습니다.
 대학생들이 모여 학교와 동네에서 결핵이 위험하다는 소식을 알리게 됩니다.
@@ -429,10 +436,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 이를 통해 우리 사회의 감염 위험이 줄고 결핵을 없애는 데 기여할 수 있습니다.
 결핵은 아직 우리 곁에 있으므로 꾸준한 관심이 필요합니다.</div>
 <div class="ck"><span class="ct">결핵 ZERO</span><span class="ct">대학생 서포터즈</span><span class="ct">질병관리청</span><span class="ct">결핵 예방</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753288" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/029/" data-cat="사회복지" data-src="교육부" data-kw="대입상담교사단,교육부,대학입시,1:1 상담,사교육 경감">
-<div class="tt"><span class="ti cl">하</span><span class="ts">교육부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">교육부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">대학 입시 고민, 대입상담교사단이 함께 합니다</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>대학 입시 때문에 고민인 학생과 학부모를 위해 전문 교사들이 상담을 시작합니다.
 교육부가 500 명의 현직 교사를 뽑아 특별 상담 그룹을 구성했습니다.
@@ -440,10 +447,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 온라인이나 전화로 누구나 쉽게 전문가의 도움을 받을 수 있습니다.
 사설 학원 (사교육) 비용 대신 국가가 제공하는 신뢰할 수 있는 상담을 받아 공정한 출발을 지원합니다.</div>
 <div class="ck"><span class="ct">대입상담교사단</span><span class="ct">교육부</span><span class="ct">대학입시</span><span class="ct">1:1 상담</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753294" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/030/" data-cat="사회복지" data-src="교육부" data-kw="건강증진 교육,교사용 지도서,학생 건강,교육부,건강수업">
-<div class="tt"><span class="ti cm">중</span><span class="ts">교육부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">교육부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">초·중·고등학교의 건강증진 교육 지원을 위한 교사용 지도서 개발·배포</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>초·중·고등학교 선생님들이 학생들의 건강을 가르칠 때 쓸 수 있는 쉬운 책이 나왔습니다.
 이 책에는 비만이나 스마트폰 중독 같은 요즘 아이들의 건강 문제 해결법이 담겨 있습니다.
@@ -451,17 +458,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 아이들이 성장하면서 배우는 건강 내용이 끊기지 않도록 학년별 내용도 연결해서 만들었습니다.
 앞으로 선생님들은 이 책 하나로 더 효과적으로 아이들의 건강을 지키는 수업을 할 수 있게 됩니다.</div>
 <div class="ck"><span class="ct">건강증진 교육</span><span class="ct">교사용 지도서</span><span class="ct">학생 건강</span><span class="ct">교육부</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753284" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/031/" data-cat="사회복지" data-src="교육부" data-kw="지역 기반형 유보혁신,유아교육·보육,교육청-지자체-대학 협력,워크숍,유보통합">
-<div class="tt"><span class="ti cm">중</span><span class="ts">교육부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">교육부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">지역 기반형 유보혁신, 3년의 결실을 넘어 지역 안착으로</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>교육부와 연구소는 지역별로 유아교육과 보육을 더 잘하기 위한 3 년 간의 성과를 함께 점검하는 자리에 참석합니다. 2024 년부터 8 개 특별 지역에서 관공서, 지자체, 대학이 서로 손을 잡고 아이들을 위한 새로운 교육 방식을 실험한 결과입니다. 작년에는 협력 체계를 만들고 새로운 과정을 만들었으며, 작년에 각 지역의 특성에 맞는 모델을 본격적으로 운영했습니다. 올해는 그동안의 경험을 바탕으로 지역이 스스로 성장할 수 있는 방법을 논의하고 더 나은 모델을 만듭니다. 이 행사를 통해 아이들의 교육 환경이 지역에 맞춰 더 좋아질 것으로 기대됩니다.</div>
 <div class="ck"><span class="ct">지역 기반형 유보혁신</span><span class="ct">유아교육·보육</span><span class="ct">교육청-지자체-대학 협력</span><span class="ct">워크숍</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753285" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/032/" data-cat="산업기술" data-src="과학기술정보통신부" data-kw="과학기술정보통신부,공중케이블,정비계획,도시미관,안전사고">
-<div class="tt"><span class="ti cm">중</span><span class="ts">과학기술정보통신부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">과학기술정보통신부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">2026년도 공중케이블 정비계획 확정</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>정부가 내년에는 아래를 걸을 때 걸려있는 케이블들을 정리하겠다고 결정했어요.
 현재 길거리에 거미줄처럼 얽혀있는 케이블 13만 본을 새로 고쳐나갈 계획입니다.
@@ -469,10 +476,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 케이블이 엉켜있거나 낡아서 떨어지거나 감전의 위험을 없애기 위함입니다.
 결과로 도시가 더 좋아지고 전기나 통신사고가 줄어들어 시민들이 안전하게 살게 됩니다.</div>
 <div class="ck"><span class="ct">과학기술정보통신부</span><span class="ct">공중케이블</span><span class="ct">정비계획</span><span class="ct">도시미관</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753320" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/033/" data-cat="행정법제" data-src="인사혁신처" data-kw="돌봄휴가 확대,국가공무원 특별휴가,학적공백기 휴가,공직사회 활력,국가공무원 복무규정 개정">
-<div class="tt"><span class="ti ch">상</span><span class="ts">인사혁신처</span><span class="tg ca">행정법제</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">인사혁신처</span><span class="tg ca">행정법제</span><span class="tai">AI 요약</span></div>
 <div class="tn">&#x27;일·가정 양립하도록…&#x27; 돌봄휴가 사유 확대</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>공무원도 아이를 돌볼 때 더 쉬워집니다.
 졸업 후 다음 학교 가기 전 공백기에 아이나 손자를 돌보는 휴가를 쓸 수 있습니다.
@@ -480,10 +487,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 노조 회의감사 등 특별한 업무를 볼 때에도 휴가를 쓸 수 있게 됩니다.
 이는 일과 가족 생활을 더 잘 챙길 수 있도록 공무원 근무 환경을 개선한 것입니다.</div>
 <div class="ck"><span class="ct">돌봄휴가 확대</span><span class="ct">국가공무원 특별휴가</span><span class="ct">학적공백기 휴가</span><span class="ct">공직사회 활력</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753282" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/034/" data-cat="행정법제" data-src="행정안전부" data-kw="재난대응 안전한국훈련,극한상황,통합연계훈련,훈련환류체계,행정안전부">
-<div class="tt"><span class="ti cm">중</span><span class="ts">행정안전부</span><span class="tg ca">행정법제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">행정안전부</span><span class="tg ca">행정법제</span><span class="tai">AI 요약</span></div>
 <div class="tn">재난대응 안전한국훈련, 극한 재난상황 대응력 키운다!</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>2026 년부터 재난 훈련을 실제 발생할 수 있는 가장 끔찍한 상황으로 바꾸어 진행합니다.
 기존의 단순 반복 훈련에서 벗어나, 지휘관도 힘들어질 만큼 큰 재난이 나옴을 가정합니다.
@@ -491,10 +498,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 훈련 중 발견된 문제점은 나중에 다시 쓰는 것이 아니라 바로 법과 규칙을 고치는 데 씁니다.
 국민들이 실제 대피를 경험하는 등 훈련에 더 직접 참여할 수 있게 됩니다.</div>
 <div class="ck"><span class="ct">재난대응 안전한국훈련</span><span class="ct">극한상황</span><span class="ct">통합연계훈련</span><span class="ct">훈련환류체계</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753287" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/035/" data-cat="산업기술" data-src="기후에너지환경부" data-kw="고준위방사성폐기물,부지선정,위원회 구성,국회추천위원,부지적합성조사">
-<div class="tt"><span class="ti cm">중</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">고준위방사성폐기물관리위원회, 국회 추천위원 위촉으로 &#x27;9인 성원&#x27; 완료</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>방사성폐기물 관리 위원회에 국회에서 추천한 전문가 4 명이 최종 임명되었습니다.
 원자력 안전, 산업, 환경 등 다양한 분야의 전문가들이 모여 의사결정 기구를 완성했습니다.
@@ -502,10 +509,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 오는 4 월 24 일에 모여 방사성폐기물 저장 시설이 들어설 땅을 선정하는 계획을 논의할 예정입니다.
 이를 통해 국가적으로 해결하기 어려웠던 쓰레기 문제 해결의 초석이 마련되었습니다.</div>
 <div class="ck"><span class="ct">고준위방사성폐기물</span><span class="ct">부지선정</span><span class="ct">위원회 구성</span><span class="ct">국회추천위원</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753283" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/036/" data-cat="금융경제" data-src="관세청" data-kw="관세청,마약단속,국경,밀수,마약척결 대응본부">
-<div class="tt"><span class="ti cl">하</span><span class="ts">관세청</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">관세청</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">&#x27;26년 1/4분기 총 302건, 180kg 국경단계 마약류 적발&#x27;26년 1/4분기 총 302건</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>2026년 1/4분기 동안 국경에서 밀입국하려는 마약 180kg과 사건 302건이 잡혔다.
 지난해보다 사건 수는 늘어났지만 잡힌 마약 양은 조금 줄어들었다.
@@ -513,10 +520,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 관세청장은 각 부서와 함께 마약을 더 철저히 찾아내기로 다짐했다.
 이 모든 노력은 국민들이 안전한 삶을 영위할 수 있도록 하려는 목적이다.</div>
 <div class="ck"><span class="ct">관세청</span><span class="ct">마약단속</span><span class="ct">국경</span><span class="ct">밀수</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753267" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/037/" data-cat="산업기술" data-src="산림청" data-kw="4 월의 임업인,산림복합경영,강구영,산나물,고소득 임업">
-<div class="tt"><span class="ti cl">하</span><span class="ts">산림청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">산림청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">산림청, &#x27;4월의 임업인&#x27;에 경남 함양에서 곰취, 산마늘을 재배하는 강구영 임업인 선정</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>산림청이 4 월에 열심히 일하는 임업인 한 분을 뽑았다.
 그분은 경남 함양에서 산나물과 가축을 함께 기르는 강구영 씨다.
@@ -524,10 +531,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 매년 곰취와 산마늘을 여러 톤 재배하며 일년 동안 4억원을 벌었다.
 또한 마을 사람들이 산에 모여 일하는 법을 배우고 정착할 수 있게 돕고 있다.</div>
 <div class="ck"><span class="ct">4 월의 임업인</span><span class="ct">산림복합경영</span><span class="ct">강구영</span><span class="ct">산나물</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753266" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/038/" data-cat="산업기술" data-src="국토교통부" data-kw="스마트건설,강소기업,기술실증,건설로봇,건설AI">
-<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">건설현장 지능화·자동화 앞당긴다 … 8일부터 스마트건설 강소기업·기술실증 공모건설현장 지능화·자동화 앞당긴다</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>건설현장에서 로봇이나 AI 기술이 더 빨리 쓰이도록 작년에 이은 추가 지원을 시작한다.
 지능형 건설 기술을 가진 중소기업 15 곳에는 5,500 만 원까지 돈을 주고 도와준다.
@@ -535,10 +542,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 기존에 받은 기업에도 추가로 최대 2,500 만 원의 테스트 비용을 새해부터 지원한다.
 시제품을 만들고 투자 유치나 해외 진출도 도와주어 중소기업이 더 커지도록 돕는다.</div>
 <div class="ck"><span class="ct">스마트건설</span><span class="ct">강소기업</span><span class="ct">기술실증</span><span class="ct">건설로봇</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753264" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/039/" data-cat="산업기술" data-src="국토교통부" data-kw="토지이용규제 개선,산업단지 근린생활시설,규제정보 공개,산업단지 활성화,편의시설 확대">
-<div class="tt"><span class="ti ch">상</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">불편한 토지이용규제는 개선하고, 토지규제정보 공개는 확대</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>산업단지 안에 이제 카페와 편의점을 더 쉽게 열 수 있게 되었습니다.
 기존에는 규제가 많아 산업단지에 작은 가게를 만들기 어려웠습니다.
@@ -546,24 +553,24 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 규제 정보를 더 공개하여 기업들이 사업 계획을 세우는 데 도움이 됩니다.
 이 정책은 산업단지의 활력을 높이고 지역 경제를 살리는 효과가 있습니다.</div>
 <div class="ck"><span class="ct">토지이용규제 개선</span><span class="ct">산업단지 근린생활시설</span><span class="ct">규제정보 공개</span><span class="ct">산업단지 활성화</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753263" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/040/" data-cat="산업기술" data-src="농림축산식품부" data-kw="농촌관광,아이디어 경진대회,웰촌,청년 참여,농촌활력">
-<div class="tt"><span class="ti cl">하</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농촌관광 여행자가 바라본 농촌관광의 미래, 정책 아이디어를 제안해 주세요!</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>농촌을 더 즐겁게 만들 새로운 아이디어를 농림축산식품부와 농촌진흥청에서 찾습니다. 어떤 아이디어를 내야 할까요? 여행자들이 불편함을 해결하는 방법이나 새로운 체험을 제안하는 것입니다. 누구나 참여할 수 있으며, 청년과 일반인 개인이나 4 인 이내 팀으로 응모할 수 있습니다. 접수는 5 월 말까지 &#x27;웰촌&#x27;이라는 웹사이트를 통해 할 수 있으며, 심사 결과는 7 월 초에 발표됩니다. 좋은 아이디어를 낸 사람은 상금과 상을 받으며, 이는 실제 농촌 관광 정책을 만들 때 참고됩니다.</div>
 <div class="ck"><span class="ct">농촌관광</span><span class="ct">아이디어 경진대회</span><span class="ct">웰촌</span><span class="ct">청년 참여</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753262" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/041/" data-cat="산업기술" data-src="농림축산식품부" data-kw="혁신 프리미어 1000,반려동물 산업,정책금융,농식품 신산업,중소·중견기업 지원">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농식품부, 신산업 분야 혁신기업 발굴·육성을 위한 &#x27;혁신 프리미어 1000&#x27; 선발</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>농촌과 식품 관련 새로운 기술을 가진 회사 29 곳을 찾습니다. 올해부터는 반려동물 약이나 사료 만드는 회사도 포함해 더 넓게 뽑습니다. 모집 기간은 4 월 8 일부터 21 일까지며, 온라인으로 신청할 수 있습니다. 뽑힌 기업은 은행에서 이자를 더 낮게 받고 큰 투자도 받기 쉽게 됩니다. 정부와 금융기관이 힘을 모아 이 기업들이 세계적으로 성장하도록 돕습니다.</div>
 <div class="ck"><span class="ct">혁신 프리미어 1000</span><span class="ct">반려동물 산업</span><span class="ct">정책금융</span><span class="ct">농식품 신산업</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753261" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/042/" data-cat="사회복지" data-src="국민권익위원회" data-kw="달리는 국민신문고,국민권익위,현장 민원상담,공공갈등조정,생활법률">
-<div class="tt"><span class="ti cm">중</span><span class="ts">국민권익위원회</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">국민권익위원회</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">봄과 함께 찾아가는 &#x27;달리는 국민신문고&#x27;, 현장에서 답을 찾다봄과 함께 찾아가는 &#x27;달리는 국민신문고&#x27;</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>정부가 이동형 상담차를 타고 마을을 찾아와 주민들의 어려운 이야기를 직접 들어줍니다.
 중앙과 지방의 관료들이 만나 주민의 목소리에 따라 더 나은 정책을 찾아가는 자리입니다.
@@ -571,17 +578,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 인접한 마을 주민들까지 모두 참여하여 관공서에 가지 않고도 도움을 받을 수 있습니다.
 이는 민원 처리 과정의 투명성을 높이고 주민과 행정기관 간의 신뢰를 회복하는 데 기여합니다.</div>
 <div class="ck"><span class="ct">달리는 국민신문고</span><span class="ct">국민권익위</span><span class="ct">현장 민원상담</span><span class="ct">공공갈등조정</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753260" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/043/" data-cat="행정법제" data-src="국민통합위원회" data-kw="국민통합위원회,찾아가는 국민통합,국민참여 소통,오픈마이크,현장 소통">
-<div class="tt"><span class="ti cl">하</span><span class="ts">국민통합위원회</span><span class="tg ca">행정법제</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">국민통합위원회</span><span class="tg ca">행정법제</span><span class="tai">AI 요약</span></div>
 <div class="tn">국민통합위원회, 국민참여 소통행사</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>국민통합위원회가 주민들과 얼굴을 맞대며 대화하는 행사를 엽니다. 서울에 있는 넓은 광장에서 직장인과 시민 누구나 무료로 참여할 수 있습니다. 커피를 마시면서 편안하게 의견을 나누는 &#x27;오픈마이크&#x27; 프로그램이 진행됩니다. 나온 의견은 나중에 정부의 중요한 정책 결정 자료로 활용됩니다. 서로 대화하고 공감하면서 사회의 갈등을 풀고 더 좋은 나라를 만들겠습니다.</div>
 <div class="ck"><span class="ct">국민통합위원회</span><span class="ct">찾아가는 국민통합</span><span class="ct">국민참여 소통</span><span class="ct">오픈마이크</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753245" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/044/" data-cat="사회복지" data-src="고용노동부" data-kw="금융권 장애인 고용,한국장애인고용공단,은행권 고용활성화,업무협약 후속조치,장애인 채용 지원">
-<div class="tt"><span class="ti cm">중</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">금융권 장애인 고용, 협약을 넘어 현장으로 -장애인공단, 은행권과 함께 첫발</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>고용노동부와 은행들이 모여 장애인이 은행에 일하기 쉬운 환경을 만들기로 다시 한번 약속했습니다.
 지난달 맺은 협약이 실제로 현장에서 어떻게 작동할지 은행 인사 담당자들이 모인 자리에서 논의했습니다.
@@ -589,10 +596,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 기존에 장애인 185 명을 채용한 기업은행과 발달장애인들이 연주단으로 활동하는 신한은행의 좋은 예시가 공유되었습니다.
 이를 통해 앞으로 장애인들도 은행에서 더 안정적이고 다양한 일을 할 수 있을 것으로 기대됩니다.</div>
 <div class="ck"><span class="ct">금융권 장애인 고용</span><span class="ct">한국장애인고용공단</span><span class="ct">은행권 고용활성화</span><span class="ct">업무협약 후속조치</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753250" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/045/" data-cat="금융경제" data-src="조달청" data-kw="조달청,아스콘,공급망 관리,현장 점검,관급공사">
-<div class="tt"><span class="ti cm">중</span><span class="ts">조달청</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">조달청</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">조달청, 건설자재 현장 점검... 아스콘 공급망 관리 강화조달청</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>조달청 직원들이 아스콘을 만드는 공장을 방문해서 생산 시설과 원자재 수급 상황을 점검했다.
 중동 전쟁 등 세계 상황 때문에 아스콘 값이 오를까 봐 걱정해서 확인했다.
@@ -600,10 +607,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 공장 사장님은 생산이 잘 되고 있다고 답했고, 조달청도 문제를 해결해 주겠다고 약속했다.
 앞으로 도로 공사가 멈추지 않도록 아스콘이 계속 안정적으로 공급되도록 한다.</div>
 <div class="ck"><span class="ct">조달청</span><span class="ct">아스콘</span><span class="ct">공급망 관리</span><span class="ct">현장 점검</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753258" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/046/" data-cat="사회복지" data-src="고용노동부" data-kw="AI 산업안전,산업재해 예방,우수사례 챌린지,고용노동부,산업안전보건의 달">
-<div class="tt"><span class="ti cm">중</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">&quot;내 일터 안전하게, 내일 더 행복하게&quot; AI·스마트 산업안전기술 우수사례 챌린지 개최</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>AI 기술로 사고를 막는 좋은 사례를 모아서 뽑는 대회가 열립니다.
 작은 회사나 혼자서 일하는 사람도 누구나 참여할 수 있습니다.
@@ -611,10 +618,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 사고 위험이 높은 곳 (예: 추락, 화재 등) 에 쓰는 기술은 더 잘 뽑습니다.
 대상에 오르면 500 만 원, 최우수상에 오르면 200 만 원의 돈을 받습니다.</div>
 <div class="ck"><span class="ct">AI 산업안전</span><span class="ct">산업재해 예방</span><span class="ct">우수사례 챌린지</span><span class="ct">고용노동부</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753249" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/047/" data-cat="사회복지" data-src="고용노동부" data-kw="한국산업인력공단,국민아이디어공모전,서비스개선,AI노동대전환,아이디어수상">
-<div class="tt"><span class="ti cl">하</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">한국산업인력공단 「국민아이디어 공모전」 개최</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>한국산업인력공단이 국민들의 아이디어를 받아 서비스를 더 좋게 만들 수 있도록 공모전을 연다.
 공모전 주제는 내가 겪은 불편한 점을 고치는 것뿐만 아니라 AI(지능형 정보처리 시스템) 활용 등 미래 준비와 관련된 것도 포함된다.
@@ -622,24 +629,24 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 뽑힌 아이디어는 그냥 끝나는 게 아니라 실제 사업이나 서비스 개선에 쓰인다.
 김규석 이사장 직무대행은 국민들의 작은 목소리가 혁신의 시작이라고 참여를 당부했다.</div>
 <div class="ck"><span class="ct">한국산업인력공단</span><span class="ct">국민아이디어공모전</span><span class="ct">서비스개선</span><span class="ct">AI노동대전환</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753248" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/048/" data-cat="금융경제" data-src="조달청" data-kw="조달청,간접공사비,안전관리,공공공사,하도급">
-<div class="tt"><span class="ti ch">상</span><span class="ts">조달청</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">조달청</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">조달청, 공사 안전관리 강화 정책에 맞춰 간접공사비 현실화조달청</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>공사 현장에서 일하는 사람들이 더 안전하게 일할 수 있도록 안전 관련 비용이 더 많이 포함됩니다. 2026 년부터 공공기관이 하는 모든 건축 공사부터 이新规定이 적용됩니다. 안전용품, 교육, 관리 인력 등 안전을 위한 추가 비용이 실제 비용만큼 더 지급됩니다. 이로 인해 건설 노동자들이 안전 사고에 더 잘 대비하고 복지도 개선됩니다. 결과적으로 건설 현장이 더 안전해지고 산업 전반의 질이 높아집니다.</div>
 <div class="ck"><span class="ct">조달청</span><span class="ct">간접공사비</span><span class="ct">안전관리</span><span class="ct">공공공사</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753257" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/049/" data-cat="사회복지" data-src="고용노동부" data-kw="프리랜서 SOS,노사발전재단,온라인 법률상담,플랫폼 노동자,무료 법률 지원">
-<div class="tt"><span class="ti cm">중</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">고용노동부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">프리랜서도 혼자 고민하지 마세요! 무료 법률 상담 &#x27;프리랜서SOS&#x27; 개시</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>프리랜서는 이제 혼자 법률 고민을 하지 않아도 됩니다. 카카오톡 채널을 통해 2026 년 4 월 7 일부터 무료 법률 상담이 시작됩니다. 월요일부터 토요일까지 별도 신청 없이 언제든 이용할 수 있습니다. 질문을 올리면 이틀 안에 변호사가 무료로 직접 답장을 줍니다. 불공정 계약이나 돈을 받지 못한 경우 등 어려움이 있을 때 도움을 받을 수 있습니다.</div>
 <div class="ck"><span class="ct">프리랜서 SOS</span><span class="ct">노사발전재단</span><span class="ct">온라인 법률상담</span><span class="ct">플랫폼 노동자</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753247" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/050/" data-cat="금융경제" data-src="조달청" data-kw="주한미군 조달,조달청,해외진출,FED Industry Day,USACE FED">
-<div class="tt"><span class="ti cm">중</span><span class="ts">조달청</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">조달청</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">주한미군 조달 통해 美 본토 조달시장까지 넘본다</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>조달청이 한국 주둔 미군이 물자를 구매하는 시장에 우리 기업이 더 잘 참여할 수 있도록 안내하고 돕는 설명회를 열었습니다.
 미국 군기지 건설이나 장비 수리 같은 큰 프로젝트 정보를 나누고, 기업들이 궁금한 점을 직접 물어볼 수 있는 상담 시간을 가졌습니다.
@@ -647,10 +654,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 주한미군 조달 시장에 성공적으로 참여하면 이를 발판으로 미국 국내 시장에도 진출할 수 있게 됩니다.
 국내 기업이 해외 시장에서 더 큰 기회를 잡을 수 있도록 정부가 발판을 마련해 주고 있습니다.</div>
 <div class="ck"><span class="ct">주한미군 조달</span><span class="ct">조달청</span><span class="ct">해외진출</span><span class="ct">FED Industry Day</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753256" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/051/" data-cat="금융경제" data-src="조달청" data-kw="조달청,우수제품,품질관리,중소기업,현장설명회">
-<div class="tt"><span class="ti cm">중</span><span class="ts">조달청</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">조달청</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">조달품질원, 우수제품 지정업체품질관리 역량 지원 강화</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>조달청에서 우수제품으로 지정받은 기업들이 더 잘 일할 수 있도록 교육과 설명회를 열었습니다.
 2026 년 4 월 7 일에 47 곳의 중소기업이 모여 품질을 높이는 법을 배웠습니다.
@@ -658,10 +665,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 기업의 질의응답을 통해 궁금한 점을 바로 해결해주어 계약이 더 빨리 체결되도록 도왔습니다.
 중소기업들이 공공 기관에 물건을 팔 때 더 쉽게 성장할 수 있도록 돕는 것이 목적입니다.</div>
 <div class="ck"><span class="ct">조달청</span><span class="ct">우수제품</span><span class="ct">품질관리</span><span class="ct">중소기업</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753255" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/052/" data-cat="산업기술" data-src="개인정보보호위원회" data-kw="개인정보보호위원회,개인정보 이노베이션 존,지역 균형 발전,데이터 산업,추가 지정">
-<div class="tt"><span class="ti cm">중</span><span class="ts">개인정보보호위원회</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">개인정보보호위원회</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">지역 균형 발전 전략 구현을 위한 &#x27;개인정보 이노베이션 존&#x27; 추가 지정</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>정부가 지역마다 데이터를 다루는 산업을 키우기 위한 장소를 더 늘린다고 합니다.
 이번 조치의 핵심은 지역 균형 발전입니다.
@@ -669,10 +676,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 기업들이 이곳에서 데이터를 활용한 기술을 배우고 개발할 수 있습니다.
 결과적으로 지역 경제가 살아나고 일자리가 늘어납니다.</div>
 <div class="ck"><span class="ct">개인정보보호위원회</span><span class="ct">개인정보 이노베이션 존</span><span class="ct">지역 균형 발전</span><span class="ct">데이터 산업</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753252" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/053/" data-cat="외교안보" data-src="소방청" data-kw="소방청,김윤지,패럴림픽,장애인 안전,119 안심콜">
-<div class="tt"><span class="ti cm">중</span><span class="ts">소방청</span><span class="tg cd">외교안보</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">소방청</span><span class="tg cd">외교안보</span><span class="tai">AI 요약</span></div>
 <div class="tn">&quot;장애를 넘어 모두가 안전한 세상&quot; 소방청, 패럴림픽 영웅 김윤지와 맞손</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>소방청에서 4 월 20 일 장애인 날을 맞아 특별한 안전 영상을 유튜브에 올립니다.
 패럴림픽에서 금메달을 여러 개 딴 김윤지 선수가 나와 우리 사회의 안전을 부탁합니다.
@@ -680,10 +687,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 특히 아파트 복도에 물건을 두지 않고, 비장애인도 장애인 대피를 도와주면 좋다고 강조합니다.
 누구나 이 영상을 보고 119 안심콜을 등록하며 서로의 안전을 챙기는 마음을 가질 수 있습니다.</div>
 <div class="ck"><span class="ct">소방청</span><span class="ct">김윤지</span><span class="ct">패럴림픽</span><span class="ct">장애인 안전</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753244" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/054/" data-cat="산업기술" data-src="국가유산청" data-kw="궁중문화축전,2026,국가유산청,경복궁,종묘제례악">
-<div class="tt"><span class="ti cm">중</span><span class="ts">국가유산청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">국가유산청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">(국영문 동시배포) 봄날의 궁궐, 직접 보고 느끼고 즐기다 &#x27;궁중문화축전&#x27;</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>4 월 25 일부터 5 월 3 일까지 서울의 궁궐과 종묘에서 전통 문화를 즐길 수 있는 축제가 열린다.
 지난해 137 만 명이 다녀갈 만큼 큰 인기 축제인데, 올해는 12 번째를 맞이한다.
@@ -691,73 +698,73 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 외국인을 위한 프로그램도 늘어나고, 어린이나 어르신 등 누구나 함께할 수 있는 자리도 마련된다.
 각 궁궐마다 왕이나 왕비의 삶을 재현하거나 국악 공연 등을 통해 과거의 모습을 생생하게 만날 수 있다.</div>
 <div class="ck"><span class="ct">궁중문화축전</span><span class="ct">2026</span><span class="ct">국가유산청</span><span class="ct">경복궁</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753242" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/055/" data-cat="산업기술" data-src="지식재산처" data-kw="지식재산처,상표출원,상품선택,상표등록,지식재산">
-<div class="tt"><span class="ti cl">하</span><span class="ts">지식재산처</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">지식재산처</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">상표 출원의 첫걸음, 정확한 상품 선택부터</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>이름이나 로고 등 상표를 보호받으려면 먼저 &#x27;어떤 상품에 사용할지&#x27;를 정해야 합니다. 상표는 이름과 비슷하지만 모든 물건에 자동으로 보호되는 것이 아니라, 사용하는 상품을 정확히 골라야 합니다. 잘못 고르면 나중에 다른 상품을 팔 때 보호를 받지 못하거나 상표권을 사용할 수 없는 상황이 발생할 수 있습니다. 이 보도는 상표 출원 시 상품 목록을 꼼꼼히 확인해야 실수를 줄일 수 있음을 알립니다. 국민과 기업은 상품명을 정할 때 실수를 줄이고 확실한 보호를 받으려면 이 내용을 참고해야 합니다.</div>
 <div class="ck"><span class="ct">지식재산처</span><span class="ct">상표출원</span><span class="ct">상품선택</span><span class="ct">상표등록</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753231" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/056/" data-cat="산업기술" data-src="국가유산청" data-kw="국가유산청,궁중문화축전,왕릉,국민 참여형 프로그램,궁궐 체험">
-<div class="tt"><span class="ti cl">하</span><span class="ts">국가유산청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">국가유산청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">궁궐과 왕릉, 국민의 일상 속으로</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>궁궐과 왕릉이 이제 그냥 구경하는 곳이 아니라 직접 체험하고 즐기는 공간으로 바뀝니다. 매년 5 월과 10 월에 열리는 큰 행사에서 외국인들도 쉽게 참여할 수 있게 서비스가 늘어납니다. 한부모 가족이나 어르신들을 위한 특별한 여행 프로그램도 새로 만들어졌습니다. 한국 역사 속 인물을 기리는 행사도 함께 열려 다양한 볼거리를 제공합니다. 이제 국민들이 일상 속에서 유산을 쉽게 느끼고 즐길 수 있게 됩니다.</div>
 <div class="ck"><span class="ct">국가유산청</span><span class="ct">궁중문화축전</span><span class="ct">왕릉</span><span class="ct">국민 참여형 프로그램</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753228" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/057/" data-cat="산업기술" data-src="지식재산처" data-kw="발명의 날 지원단,지식재산처,발명의 날,국민참여형 지원,발명 문화 확산">
-<div class="tt"><span class="ti cl">하</span><span class="ts">지식재산처</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">지식재산처</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">발명 활성화 지원단, 발명의 가치를 국민과 함께 나눕니다발명 활성화 지원단</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>발명의 날을 알리고 사람들이 발명에 더 관심을 갖기 위해 전문가들이 모였습니다. 이들은 4 월과 5 월 동안 소셜미디어 (SNS) 에서 영상을 찍거나, 발명 이야기를 쓰는 등 다양한 활동을 할 예정입니다. 발명상 수상자, 젊은 창업가, 학교 선생님 등 다양한 사람들이 참여합니다. 발명은 전문 분야가 아니라 누구나 일상에서 아이디어를 내는 창의적인 일입니다. 이 활동을 통해 국민들이 발명의 중요성을 쉽게 이해하고 새로운 꿈이 이루어지기를 바랍니다.</div>
 <div class="ck"><span class="ct">발명의 날 지원단</span><span class="ct">지식재산처</span><span class="ct">발명의 날</span><span class="ct">국민참여형 지원</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753230" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/058/" data-cat="산업기술" data-src="국가유산청" data-kw="국가유산청,ODA 사업,키르기즈공화국,전통공예센터,국제개발협력">
-<div class="tt"><span class="ti cl">하</span><span class="ts">국가유산청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">국가유산청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">국가유산청, 키르기즈공화국에 ODA사업으로 전통공예센터 3개소 성공적 개관</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>대한민국이 키르기즈공화국에 문화 교류를 위한 장소 3 개를 만들었습니다. 비슈케크, 이식쿨주, 나린주 세 곳에 각각 미술관, 유목민 체험장, 갤러리를 지었습니다. 이곳에서는 디지털 기기를 활용한 전시나 공예 체험 같은 다양한 프로그램을 진행합니다. 이 센터들은 앞으로 현지 예술가와 관광객들이 문화를 나누는 주요 장소가 됩니다. 한국의 지원으로 해외의 전통 공예 기술이 더 잘 보존되고 발전할 것으로 기대됩니다.</div>
 <div class="ck"><span class="ct">국가유산청</span><span class="ct">ODA 사업</span><span class="ct">키르기즈공화국</span><span class="ct">전통공예센터</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753226" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/059/" data-cat="산업기술" data-src="국가유산청" data-kw="K-헤리티지,청년 세계유산 지킴이,국가유산청,세계유산 보호,외국인 유학생">
-<div class="tt"><span class="ti cl">하</span><span class="ts">국가유산청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">국가유산청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">K-헤리티지 청년 활동가(120명) 세계유산 보호·홍보 활동 시작</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>2026 년에 청년들이 세계유산(유네스코가 지정한 전 세계의 뛰어난 자연·문화 유적)을 지키는 활동가가 된다. 총 120 명의 청년이 30 개 팀으로 나뉘어 유산의 상태를 체크하고 홍보하는 역할을 한다. 외국인 유학생들도 참여하여 한국 문화의 아름다움을 세계에 알리게 된다. 활동 기간 중에는 전문가의 도움을 받아 교육과 캠페인 등 다양한 활동을 벌인다. 일 년 동안 열심히 활동한 팀에게는 연말에 국가유산청장상이 주어진다.</div>
 <div class="ck"><span class="ct">K-헤리티지</span><span class="ct">청년 세계유산 지킴이</span><span class="ct">국가유산청</span><span class="ct">세계유산 보호</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753224" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/060/" data-cat="산업기술" data-src="산림청" data-kw="함양국유림관리소,산림교육,2026 년 운영사업,맞춤형 체험,거제·통영·함양">
-<div class="tt"><span class="ti cl">하</span><span class="ts">산림청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">산림청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">함양국유림관리소, 2026년 산림교육 운영사업 본격 추진함양국유림관리소</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>2026 년 3 월부터 아이들과 청소년들이 숲 속에서 자연을 배울 수 있는 특별한 교육이 시작된다. 거제, 통영, 함양 지역 주민들을 위해 숲을 체험하는 프로그램들이 준비되어 있다. 숲 해설가 활동, 자연물 관찰, 나무로 공예품 만들기 등 다양한 활동이 포함된다. 전문 선생님들이 참여하여 아이들이 안전하게 즐길 수 있도록 체계적으로 운영한다. 이 교육을 통해 미래 세대가 나무와 숲이 얼마나 중요한지 배우는 좋은 기회가 될 것이다.</div>
 <div class="ck"><span class="ct">함양국유림관리소</span><span class="ct">산림교육</span><span class="ct">2026 년 운영사업</span><span class="ct">맞춤형 체험</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753198" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/061/" data-cat="산업기술" data-src="산림청" data-kw="홍릉숲,평일개방,국립산림과학원,봄꽃축제,자유관람">
-<div class="tt"><span class="ti cm">중</span><span class="ts">산림청</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">산림청</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">홍릉숲 평일 확대 개방 첫 주, 2만 명 넘게 몰려</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>국립산림과학원이 있는 홍릉숲이 평일에 자유롭게 개방되었습니다. 지난 1 주일 동안만 약 2 만 5 천 명의 시민이 꽃구경 하러 왔습니다. 이전에는 평일에 오려면 미리 예약을 해야 했지만 이제는 바로 갈 수 있습니다. 숲 해설을 들을 수도 있고, 반려식물 건강검진 같은 이벤트도 있었습니다. 많은 사람이 와도 안전하고 자연이 손상되지 않도록 질서를 지키고 있습니다.</div>
 <div class="ck"><span class="ct">홍릉숲</span><span class="ct">평일개방</span><span class="ct">국립산림과학원</span><span class="ct">봄꽃축제</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753191" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/062/" data-cat="사회복지" data-src="식품의약품안전처" data-kw="식품의약품안전처,공공데이터,AI 활용,창업 경진대회,건강기능식품">
-<div class="tt"><span class="ti cm">중</span><span class="ts">식품의약품안전처</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">식품의약품안전처</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">식의약 공공데이터·AI 활용 창업 아이디어 경진대회 개최</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>식약처가 식품과 약품, 의료기기 관련 데이터를 이용해 새로운 창업 아이디어를 뽑는 대회 (경진대회) 를 연다. 올해 7 번째를 맞으며 심사 과정에 일반 국민도 함께 참여해 더 공정하게 선정한다. 아이디어 기획과 제품 개발 두 부문으로 나뉘어 누구나 참여할 수 있다. 우승자에게는 최고 500 만 원의 상금과 함께 실제 사업을 할 수 있도록 3 팀을 선발해 지원한다. 이 대회를 통해 좋은 아이디어가 발굴되면 식약처의 데이터와 전문가 도움을 받아 실전으로 키울 수 있다.</div>
 <div class="ck"><span class="ct">식품의약품안전처</span><span class="ct">공공데이터</span><span class="ct">AI 활용</span><span class="ct">창업 경진대회</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753195" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/063/" data-cat="산업기술" data-src="문화체육관광부" data-kw="글로벌 스포츠 리더십,문체부,한국외국어대학교,국제 스포츠기구,스포츠 외교">
-<div class="tt"><span class="ti ch">상</span><span class="ts">문화체육관광부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">문화체육관광부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">문체부, &#x27;케이-스포츠 외교&#x27; 선도할 고위급 인재 키운다</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>국가가 국제 스포츠계에서 리더 역할을 할 인재를 양성하는 새로운 교육 과정을 시작합니다. 선수 출신에게는 등록금을 전액 지원하고, 일반인에게는 반값으로 교육 비용을 지원합니다. 교육은 6 개월 동안 기초 이론부터 스위스에서의 실무 실습을 거쳐 실무를 익히는 과정으로 진행됩니다. 올림픽이나 세계 대회에서 메달을 딴 선수들은 특별히 우선 선발되어 더 많은 혜택을 받습니다. 최종 목표는 국제 스포츠 기구에서 의사결정을 할 수 있는 한국인 전문가를 더 많이 배출하는 것입니다.</div>
 <div class="ck"><span class="ct">글로벌 스포츠 리더십</span><span class="ct">문체부</span><span class="ct">한국외국어대학교</span><span class="ct">국제 스포츠기구</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753189" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/064/" data-cat="사회복지" data-src="교육부" data-kw="교육부,대학규제합리화위원회,규제 개선,대학 혁신,2026 년 4 월">
-<div class="tt"><span class="ti cm">중</span><span class="ts">교육부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">교육부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">제25차 대학규제합리화위원회 개최, 낡은 규제 걷어내고 대학 혁신 이끈다</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>교육부가 대학의 낡은 규칙을 없애기로 했습니다.
 이 결정은 2026 년 4 월 7 일 열린 회의에서 내려졌습니다.
@@ -765,10 +772,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 학생과 교사에게 더 나은 교육 환경을 제공합니다.
 앞으로 더 창의적인 학교가 세워질 것입니다.</div>
 <div class="ck"><span class="ct">교육부</span><span class="ct">대학규제합리화위원회</span><span class="ct">규제 개선</span><span class="ct">대학 혁신</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753188" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/065/" data-cat="산업기술" data-src="국토교통부" data-kw="자율주행차,사고책임,TF,보상절차,자동차손해배상진흥원">
-<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">자율주행차 사고 보상 빨라진다 … 책임기준 마련 본격 착수</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>자율주행차가 사고를 냈을 때 누가 책임지고 누가 돈을 주는지 기준이 없습니다.
 정부와 전문가들이 모여 사고가 났을 때의 책임 소재를 정리하고 보상 기준을 만듭니다.
@@ -776,17 +783,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 특히 광주에서 오는 하반기에 실제 운행이 늘어나는 만큼 이에 대비하는 것입니다.
 이 작업을 통해 국민들이 자율주행차를 더 안전하게, 더 믿고 탈 수 있게 됩니다.</div>
 <div class="ck"><span class="ct">자율주행차</span><span class="ct">사고책임</span><span class="ct">TF</span><span class="ct">보상절차</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753185" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/066/" data-cat="산업기술" data-src="기후에너지환경부" data-kw="에너지절약,승용차 5 부제,석유사용량 절감,민간기업,기후에너지환경부">
-<div class="tt"><span class="ti cm">중</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">민간 기업, 에너지절약에 속속 동참</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>정부 요청에 민간 기업들이 자발적으로 출퇴근 차량 운행을 5 일제도로 줄이고 있습니다. 대기업과 은행, 경제 단체 등 50 개 넘게 참여하여 공공기관 차량 운행 금지 제도를 돕고 있습니다. 석유를 많이 쓰는 공장들도 사용량을 3.3% 줄이는 계획을 세워 실행에 들어갔습니다. 절감되는 석유량은 원자로 약 한 달치 발전량만큼 많은 양입니다. 기업들이 스스로 절약 장치를 설치하고 공정 효율을 높여 자발적으로 에너지를 아낍니다.</div>
 <div class="ck"><span class="ct">에너지절약</span><span class="ct">승용차 5 부제</span><span class="ct">석유사용량 절감</span><span class="ct">민간기업</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753187" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/067/" data-cat="산업기술" data-src="기후에너지환경부" data-kw="생물다양성 교육,문화예술 교육,국립생물자원관,우리 학교 생생 예술채움,연극 무용 애니메이션">
-<div class="tt"><span class="ti cl">하</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">생물다양성 교육, 연극·무용·애니로 재밌게 배워요</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>학생들이 학교에서 생물의 소중함을 배우는 데 연극과 춤, 애니메이션 같은 재미있는 활동을 곁들인다.
 평소 딱딱하게 배우던 내용을 예술가의 도움으로 더 쉽고 재밌게 배울 수 있는 특별한 교육이 시작된다.
@@ -794,24 +801,24 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 6 월부터 5 달 동안 총 10 회 이상의 시간 동안 생물과 예술이 자연스럽게 어우러지는 수업을 진행한다.
 학교에서는 안전하고 즐거운 수업을 위해 필요한 모든 준비물을 챙기고 도울 사람을 배치할 예정이다.</div>
 <div class="ck"><span class="ct">생물다양성 교육</span><span class="ct">문화예술 교육</span><span class="ct">국립생물자원관</span><span class="ct">우리 학교 생생 예술채움</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753186" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/068/" data-cat="산업기술" data-src="농림축산식품부" data-kw="농업용 필름,비료,농자재 가격,현장 점검,중동 전쟁">
-<div class="tt"><span class="ti ch">상</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농식품부·농진청·지방정부·농협 합동, 농업용 필름·비료 등 농자재 수급 및 가격 동향 현장점검 실시</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>봄철 농사를 위해 필요한 비료와 필름 값이 갑자기 오르지 않도록 정부가 직접 확인하러 간다. 중동 전쟁 때문에 원자재가 부족해지거나 가격이 비싸져서 농사를 짓는 분들이 피해를 보지 않게 막기 위함이다. 정부와 농협이 힘을 합쳐 제조 공장 약 20 곳과 판매처 약 700 곳을 모두 꼼꼼히 확인한다. 비료와 필름의 재고가 얼마나 있는지, 그리고 가격이 정당한지 (정상적인지) 검사한다. 만약 가격이 비정상적으로 올랐거나 물건을 숨겨두었다가 비쌀 때 팔려고 한다면 제재를 한다.</div>
 <div class="ck"><span class="ct">농업용 필름</span><span class="ct">비료</span><span class="ct">농자재 가격</span><span class="ct">현장 점검</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753184" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/069/" data-cat="사회복지" data-src="식품의약품안전처" data-kw="HIV 치료제,선렌카,희귀의약품 허가,식약처,다제내성">
-<div class="tt"><span class="ti ch">상</span><span class="ts">식품의약품안전처</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">식품의약품안전처</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">[보도참고]</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>식약처가 HIV(인체 면역결핍 바이러스) 치료에 쓸 수 있는 새 약을 승인했다. 이 약은 HIV 가 몸속에서 증식하는 것을 막아주는 효과가 있다. 기존에 쓰던 약이 소용없었던 중증 환자를 위해 만들어졌다. 신속심사 제도 (빨리 심사해주는 제도) 를 적용해서 빨리 출시되었다. 이로 인해 HIV 감염 환자들도 치료받을 희망이 더 커졌다.</div>
 <div class="ck"><span class="ct">HIV 치료제</span><span class="ct">선렌카</span><span class="ct">희귀의약품 허가</span><span class="ct">식약처</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753339" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/070/" data-cat="사회복지" data-src="성평등가족부" data-kw="성평등가족부,학교 밖 청소년,무료 건강검진,건강권 보장,집중 홍보">
-<div class="tt"><span class="ti cm">중</span><span class="ts">성평등가족부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">성평등가족부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">성평등가족부, 학교 밖 청소년 건강검진 집중 홍보</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>학교에 다니지 않는 청소년들이 무료로 건강검진을 받을 수 있도록 홍보를 합니다.
 모든 청소년이 검진 대상이 되어 건강 문제를 미리 찾을 수 있습니다.
@@ -820,10 +827,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 이 정책은 청소년이 건강해야 사회 전체도 건강해진다는 취지입니다.
 전문용어: 학교 밖 청소년 (학교를 다니지 않거나 중퇴·자퇴한 9~24세 청소년)</div>
 <div class="ck"><span class="ct">성평등가족부</span><span class="ct">학교 밖 청소년</span><span class="ct">무료 건강검진</span><span class="ct">건강권 보장</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753289" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/071/" data-cat="금융경제" data-src="재정경제부" data-kw="공급망 병목해소,규제개선,국민 제안,핫라인,재정경제부">
-<div class="tt"><span class="ti cm">중</span><span class="ts">재정경제부</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">재정경제부</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">공급망 병목해소 규제개선을 위해 국민이 제안하는 「공급망 애로 핫라인」 구축</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>정부에서 국민과 기업이 겪는 어려움, 특히 수입·생산·유통 과정의 막힌 부분을 빨리 고치기 위해 핫라인을 만들었습니다.
 재정경제부 사이트와 SNS(소셜미디어 네트워크) 를 통해 누구나 아이디어나 문제를 제안할 수 있게 되었습니다.
@@ -831,17 +838,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 이미 발표된 규제 개선 조치를 한 번 더 넘어, 앞으로도 계속 들으려면 이 창구를 이용하면 됩니다.
 제안 내용은 빠르고 적극적으로 검토되어 실제 법이나 절차를 바꾸는 데 쓰여집니다.</div>
 <div class="ck"><span class="ct">공급망 병목해소</span><span class="ct">규제개선</span><span class="ct">국민 제안</span><span class="ct">핫라인</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753254" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/072/" data-cat="금융경제" data-src="재정경제부" data-kw="물가연동국고채,연동계수,재정경제부,국채,이자수익">
-<div class="tt"><span class="ti cm">중</span><span class="ts">재정경제부</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">재정경제부</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">2026년 5월 물가연동국고채 종목별 연동계수</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>재정부가 2026 년 5 월에 국민이 가진 채권의 이자를 얼마나 줄지 계산한 숫자를 발표했다. 이 숫자는 물가가 얼마나 올랐느냐에 따라 달라지며, 물가가 많이 오르면 이자가 더 많아진다. 투자자들은 이 숫자를 보고 자신이 받을 이자가 얼마인지 알 수 있다. 이는 물가 상승으로 인해 돈의 가치가 떨어지는 것을 보완하기 위한 장치다. 국고채는 정부가 돈을 빌릴 때 국민에게 준 증서이고, 연동계수는 물가 반영 비율을 뜻한다.</div>
 <div class="ck"><span class="ct">물가연동국고채</span><span class="ct">연동계수</span><span class="ct">재정경제부</span><span class="ct">국채</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753253" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/073/" data-cat="금융경제" data-src="재정경제부" data-kw="외환시장 간담회,중동 전쟁,원화 변동성,국제경제관리관,외환수급 개선">
-<div class="tt"><span class="ti ch">상</span><span class="ts">재정경제부</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">재정경제부</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">국제경제관리관 주재 「외환시장 간담회」 개최</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>중동 전쟁 때문에 돈 (환율) 가격이 갑자기 많이 오르내리고 있습니다.
 정부에서는 무역을 통해 돈이 들어오고, 외국인들이 한국 채권을 사고 있으니 곧 안정될 것으로 봅니다.
@@ -849,31 +856,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 아직 전쟁이 끝나지 않아 정부가 시장 상황을 매우 주시하고 있습니다.
 금융 시장 전문가들과 계속 대화하며 한국 경제가 흔들리지 않게 지키겠다고 약속했습니다.</div>
 <div class="ck"><span class="ct">외환시장 간담회</span><span class="ct">중동 전쟁</span><span class="ct">원화 변동성</span><span class="ct">국제경제관리관</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753315" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/074/" data-cat="금융경제" data-src="금융위원회" data-kw="석유화학·정유업계,금융지원,중동상황,유동성 완화,이억원 금융위원장">
-<div class="tt"><span class="ti cm">중</span><span class="ts">금융위원회</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">금융위원회</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">&quot;중동상황으로 인한 석유화학·정유업계의 애로를 금융권이 직접 듣고 어려움을 함께 극복해나가겠습니다&quot; - 금융위원장</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>중동 분쟁으로 인해 석유와 화학 원료를 구하기 어려워진 기업들을 돕기 위해 금융위원회가 은행들과 모임을 가졌다. 정부는 기업이 돈을 빌릴 때 더 쉽게 대출을 받고, 빚을 갚을 때 부담을 덜어주는 새로운 지원책을 바로 내렸다. 특히 석유화학 공장들이 원유를 구하기 힘들어 생산이 멈추는 위기 상황에 즉각 대응하기 위해 77조 원 이상의 돈을 풀었다. 기업들이 빚을 갚을 때 내야 할 이자 비율을 낮추거나 빚을 갚는 시기를 늘려줘서 기업들이 살아날 수 있게 돕는다. 앞으로도 다른 산업들이 힘들어하면 금융위원회가 은행들과 함께 꾸준히 만나서 해결책을 찾아나갈 계획이다.</div>
 <div class="ck"><span class="ct">석유화학·정유업계</span><span class="ct">금융지원</span><span class="ct">중동상황</span><span class="ct">유동성 완화</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156753303" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/075/" data-cat="금융경제" data-src="금융감독원" data-kw="금융감독원,사전예방적 감독,디지털 리스크,금융보안 패러다임 전환,전자금융거래법">
-<div class="tt"><span class="ti cm">중</span><span class="ts">금융감독원</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">금융감독원</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">사전예방 중심의 디지털 리스크 감독체계 확립을 위한 금융보안 패러다임 전환 간담회 개최</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>금융권이 자주 겪는 해킹이나 시스템 장애를 막기 위해 정부 감시 방식을 바꿉니다. 기존에는 사고가 나면 처벌만 했지만, 앞으로는 사전에 위험을 미리 찾아 막는 시스템으로 바뀝니다. 금융회사 경영진과 직원들이 보안에 더 신경 쓰고 돈을 더 쓰도록 독려하며 관리합니다. 위험이 큰 금융회사는 따로 집중 관리하고, 위험한 곳과 감독기관이 실시간으로 정보를 공유합니다. 이 모든 조치의 목표는 국민이 디지털 금융을 안심하고 이용할 수 있게 하는 것입니다.</div>
 <div class="ck"><span class="ct">금융감독원</span><span class="ct">사전예방적 감독</span><span class="ct">디지털 리스크</span><span class="ct">금융보안 패러다임 전환</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=217002&amp;menuNo=200218&amp;pageIndex=1" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/076/" data-cat="금융경제" data-src="금융감독원" data-kw="금융감독원,장애인 고용,포용금융,간담회,고용노동부">
-<div class="tt"><span class="ti cm">중</span><span class="ts">금융감독원</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">금융감독원</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">금감원, 은행권 장애인 고용 활성화를 위한 간담회 개최</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>금융감독원과 고용 관련 기관들이 모여 은행에서 장애인 고용을 늘리기 위한 회의를 열었다. 장애인 고용 지원 제도, 교육 프로그램, 좋은 사례들 등을 공유하고 은행이 겪는 어려움도 나누었다. 지속적으로 장애인 고용을 늘리기 위한 협의체가 만들어져 분기마다 모이기로 했다. 신한은행처럼 음악단 창단 등 좋은 예시를 공유하며 장애인 인식개선 교육도 진행한다. 앞으로 금융권에서 장애인이 일하기 좋은 환경이 만들어지도록 지속적으로 노력할 예정이다.</div>
 <div class="ck"><span class="ct">금융감독원</span><span class="ct">장애인 고용</span><span class="ct">포용금융</span><span class="ct">간담회</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=217000&amp;menuNo=200218&amp;pageIndex=1" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/077/" data-cat="금융경제" data-src="한국은행" data-kw="한국은행,프랑스중앙은행,CBDC,디지털 자산,기후변화">
-<div class="tt"><span class="ti cl">하</span><span class="ts">한국은행</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">한국은행</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">[보도자료]「한국은행･프랑스중앙은행 공동 세미나」 개최</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>한국은행과 프랑스 중앙은행이 함께 모여 중요한 주제를 논의하는 자리를 가졌습니다.
 주요 논의 내용은 디지털 돈 (CBDC) 이 금융에 어떤 영향을 미치는지에 대한 내용입니다.
@@ -881,31 +888,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 양국 전문가들이 그동안 연구한 결과와 경험 지식을 서로 나누어 공유했습니다.
 이러한 학술 교류를 통해 앞으로도 서로 협력하는 관계를 더 끈끈하게 이어가기로 했습니다.</div>
 <div class="ck"><span class="ct">한국은행</span><span class="ct">프랑스중앙은행</span><span class="ct">CBDC</span><span class="ct">디지털 자산</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.bok.or.kr/portal/bbs/B0000502/view.do?nttId=10097368&amp;searchCnd=1&amp;searchKwd=&amp;depth2=200038&amp;depth3=201263&amp;depth=201263&amp;pageUnit=10&amp;pageIndex=1&amp;programType=newsData&amp;menuNo=201265&amp;oldMenuNo=201263" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/078/" data-cat="금융경제" data-src="한국은행" data-kw="한국은행,통화정책 경시대회,대학생,장학금,취업우대">
-<div class="tt"><span class="ti cl">하</span><span class="ts">한국은행</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">한국은행</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">「2026년 제23회 통화정책 경시대회」개최</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>한국은행이 대학생들을 대상으로 경제 경시대회를 연다고 합니다. 대학생들이 팀을 이루어 금리 결정 같은 중요한 경제 문제를 연구하고 발표하는 대회입니다. 5 월에 지원하면 6 월에 예심 결과가 나오고 7 월에 지역 예선을 치릅니다. 8 월에 전국에서 실력을 겨루는 결선이 있으며, 최우승 팀에게는 상금을 줍니다. 입상자들은 향후 한국은행에 취업을 희망할 때 서류 심사 우대 혜택을 받습니다.</div>
 <div class="ck"><span class="ct">한국은행</span><span class="ct">통화정책 경시대회</span><span class="ct">대학생</span><span class="ct">장학금</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.bok.or.kr/portal/bbs/B0000502/view.do?nttId=10097376&amp;searchCnd=1&amp;searchKwd=&amp;depth2=200038&amp;depth3=201263&amp;depth=201263&amp;pageUnit=10&amp;pageIndex=1&amp;programType=newsData&amp;menuNo=201265&amp;oldMenuNo=201263" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/079/" data-cat="사회복지" data-src="보건복지부" data-kw="보건복지부,사회서비스 취약지 공모사업,통합돌봄,충청북도,노인돌봄">
-<div class="tt"><span class="ti cm">중</span><span class="ts">보건복지부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">보건복지부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">취약지 맞춤형 통합돌봄 서비스 확대 시행</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>정부는 마을마다 돌봄 서비스가 없어 어려움을 겪는 지역에서 더 많은 지원을 하기 위해 충청북도를 새로 선정했다. 2026 년 3 월부터 농촌이나 외딴 섬 지역에서는 노인을 위해 병원 동행, 장보기, 식사 지원 등 여러 서비스를 묶어서 제공한다. 지금까지 6 개 지역이었으나 충청북도가 합쳐져 총 7 개 지역에서 이 서비스를 시작한다. 충북 단양군에서는 주민들이 병원에 가고, 장을 보고, 밥을 먹을 때 지역 자원과 함께 도움을 받는다. 이는 지역 노인들의 일상생활이 조금 더 수월해지도록 4 월부터 실제로 실행한다.</div>
 <div class="ck"><span class="ct">보건복지부</span><span class="ct">사회서비스 취약지 공모사업</span><span class="ct">통합돌봄</span><span class="ct">충청북도</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.mohw.go.kr/board.es?mid=a10503000000&amp;bid=0027&amp;act=view&amp;list_no=1490012&amp;tag=&amp;nPage=1" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/080/" data-cat="사회복지" data-src="보건복지부" data-kw="보건의 날,유공자 표창,보건복지부,응급의료,지역 의료">
-<div class="tt"><span class="ti ch">상</span><span class="ts">보건복지부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">보건복지부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">국민의 생명 지키고 희망 심어준 보건의료인 시상, 건강한 대한민국을 외치다</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>보건의료 분야를 위해 열심히 일한 사람들과 기관을 칭찬하고 상을 주는 행사가 열렸다. 세계보건기구가 정한 날인 4 월 7 일에 건강과 의료 발전에 큰 도움을 준 이들을 기념한다. 올해는 건강한 사회를 만드는 데 힘쓴 248 명의 유공자들에게 훈장과 표창을 수여했다. 서길준 원장은 응급의료 시스템을, 박중신 교수는 산모와 태아 안전을 위해 헌신한 공로를 인정받았다. 이들은 모두 국민들이 어디서나 좋은 의료 서비스를 받을 수 있도록 오랫동안 노력해온 분들이다.</div>
 <div class="ck"><span class="ct">보건의 날</span><span class="ct">유공자 표창</span><span class="ct">보건복지부</span><span class="ct">응급의료</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.mohw.go.kr/board.es?mid=a10503000000&amp;bid=0027&amp;act=view&amp;list_no=1490011&amp;tag=&amp;nPage=1" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/081/" data-cat="사회복지" data-src="보건복지부" data-kw="통합돌봄,장기요양,병원동행 서비스,재가서비스 확대,이스란 제1차관">
-<div class="tt"><span class="ti cm">중</span><span class="ts">보건복지부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">보건복지부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">통합돌봄 시행 계기,장기요양 통합재가서비스 제공 현황 점검 및 재가 서비스 확대 방</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>보건복지부高官들이 어르신들을 위한 새로운 돌봄 서비스가 잘 되고 있는지 직접 현장에 가보았습니다.
 현재는 방문 간호와 요양을 함께 하는 등의 서비스만 있지만, 앞으로는 병원 가는 과정도 함께 도와주는 &#x27;병원동행&#x27; 서비스가 생깁니다.
@@ -913,10 +920,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 이 모든 것은 어르신이 살던 곳에서 필요한 돌봄을 끊기지 않고 계속 받기 위해 이루어지는 것입니다.
 결과적으로 노인 분들의 일상 생활이 더 편안해지고 다양한 서비스를 누릴 수 있게 됩니다.</div>
 <div class="ck"><span class="ct">통합돌봄</span><span class="ct">장기요양</span><span class="ct">병원동행 서비스</span><span class="ct">재가서비스 확대</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.mohw.go.kr/board.es?mid=a10503000000&amp;bid=0027&amp;act=view&amp;list_no=1490010&amp;tag=&amp;nPage=1" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/082/" data-cat="산업기술" data-src="농림축산식품부" data-kw="농림축산식품부,유망 기업,투자 확대,농식품 산업,성장">
-<div class="tt"><span class="ti cl">하</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농식품 유망 기업, 투자 확대로 성장 날개 달다새글</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>농림축산식품부가 성장할 가능성이 높은 농식품 회사를 돕기로 했습니다.
 이들은 더 큰 투자를 받아 사업 장소를 늘리거나 새로운 제품을 개발할 수 있게 됩니다.
@@ -924,17 +931,17 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 농산물을 더 안전하고 싸게 구할 수 있게 될 것입니다.
 우리의 식탁이 더 풍성해질 것입니다.</div>
 <div class="ck"><span class="ct">농림축산식품부</span><span class="ct">유망 기업</span><span class="ct">투자 확대</span><span class="ct">농식품 산업</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.mafra.go.kr/bbs/home/792/577540/artclView.do" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/083/" data-cat="산업기술" data-src="농림축산식품부" data-kw="박정훈,식량정책실장,시설원예,유가연동보조금,쌀 수급 안정">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">박정훈 식량실장, 중동상황 관련 시설원예 농가 및 쌀 산지유통업체 경영 안정 총력 대응새글</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>중동 전쟁 영향으로 기름값과 비료값이 비싸져 농가들이 어려움을 겪고 있습니다. 정부는 난방에 쓰는 기름값 일부를 지원해주고 비료 가격도 안정시키려고 합니다. 쌀을 담은 포대 자재 부족 문제를 해결하기 위해 대체재를 쓰거나 종이포장으로 바꾸는 방안도 논의합니다. 정부가 쌀을 미리 마련해두어 필요한 곳에 안정적으로 공급할 수 있도록 현황을 확인합니다. 농가와 유통 업체의 목소리를 직접 들어 실질적인 도움이 되도록 하겠다고 밝혔습니다.</div>
 <div class="ck"><span class="ct">박정훈</span><span class="ct">식량정책실장</span><span class="ct">시설원예</span><span class="ct">유가연동보조금</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.mafra.go.kr/bbs/home/792/577539/artclView.do" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/084/" data-cat="산업기술" data-src="농림축산식품부" data-kw="농촌관광,아이디어 경진대회,청년 참여,농림축산식품부,웰촌">
-<div class="tt"><span class="ti cl">하</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농촌관광 여행자가 바라본 농촌관광의 미래, 정책 아이디어를 제안해 주세요!새글</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>농촌여행을 더 좋게 만들 아이디어를 정부에 제안하는 대회가 열립니다.
 이번에는 대학생뿐만 아니라 청년들도 널리 참여할 수 있도록 대회가 확대되었습니다.
@@ -942,10 +949,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 접수는 2026 년 5 월 말까지 농림축산식품부에서 운영하는 &#x27;웰촌&#x27; 홈페이지를 통해 할 수 있습니다.
 최종 당선작은 상금을 받아 실제 농촌여행 정책에 적용되어 활용됩니다.</div>
 <div class="ck"><span class="ct">농촌관광</span><span class="ct">아이디어 경진대회</span><span class="ct">청년 참여</span><span class="ct">농림축산식품부</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.mafra.go.kr/bbs/home/792/577538/artclView.do" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/085/" data-cat="산업기술" data-src="농림축산식품부" data-kw="혁신 프리미어 1000,반려동물 산업,스마트농업,정책금융 지원,혁신기업 선정">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농식품부, 신산업 분야 혁신기업 발굴·육성을 위한 ‘혁신 프리미어 1000’ 선발새글</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>농식품부가 미래 성장할 농업·식품 관련 스타트업 29곳을 뽑아 지원하기로 했다.
 기존에 있던 분야뿐만 아니라 반려동물과 사료, 약품 분야도 새로운 지원 대상에 들어갔다.
@@ -953,39 +960,45 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 심사는 전문가들이 하고, 결과는 7월에 발표될 계획이다.
 중소·중견기업이면 누구나 참여해 더 크고 잘하는 기업으로 성장할 수 있다.</div>
 <div class="ck"><span class="ct">혁신 프리미어 1000</span><span class="ct">반려동물 산업</span><span class="ct">스마트농업</span><span class="ct">정책금융 지원</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.mafra.go.kr/bbs/home/792/577537/artclView.do" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/086/" data-cat="산업기술" data-src="농림축산식품부" data-kw="농업용 필름,비료 수급,농자재 가격,현장점검,중동전쟁 영향">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농식품부·농진청·지방정부·농협 합동, 농업용 필름·비료 등 농자재 수급 및 가격 동향 현장점검 실시새글</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>정부가 중동 전쟁 때문에 비료와 농필름 가격이 오르지 않도록 집중 점검을 시작합니다. 봄철 농사에 필요한 물자 수급 상황을 막기 위해 240 여 명이 현장에 나가 확인합니다. 제조공장 20 곳과 판매처 700 곳을 골라 재고와 가격이 정당한지 따집니다. 비료는 재고가 충분해서 7 월까지 부족하지 않도록 관리합니다. 가격이 너무 비싸지 않고 농민들이 필요할 때 물을 잘 구할 수 있도록 보장합니다.</div>
 <div class="ck"><span class="ct">농업용 필름</span><span class="ct">비료 수급</span><span class="ct">농자재 가격</span><span class="ct">현장점검</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.mafra.go.kr/bbs/home/792/577532/artclView.do" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/087/" data-cat="사회복지" data-src="국민권익위원회" data-kw="달리는 국민신문고,국민권익위,순회 상담,민원 해결,공공갈등조정">
-<div class="tt"><span class="ti cl">하</span><span class="ts">국민권익위원회</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">국민권익위원회</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">봄과 함께 찾아가는 ‘달리는 국민신문고’, 현장에서 답을 찾다</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>국민권익위가 버스가 여러 지역을 돌아다니며 주민의 불편함을 들어주는 서비스를 펼칩니다. 4 월 8 일 삼척, 9 일 정선, 10 일 증평에서 10 시부터 16 시까지 각각 열립니다. 주요 참여 지역은 해당 시·군이지만, 주변 동해·울진·평창·영월·음성·괴산 주민도 참여할 수 있습니다. 정부 행정 문제, 법률·소비자 분쟁 등 다양한 고민을 전문 상담사가 함께 해결해 줍니다. 특히 증평 행사에는 대통령비서실 핵심 인사가 와서 공무원과 대화하며 해결책을 찾습니다.</div>
 <div class="ck"><span class="ct">달리는 국민신문고</span><span class="ct">국민권익위</span><span class="ct">순회 상담</span><span class="ct">민원 해결</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.acrc.go.kr/board.es?mid=a10402010000&amp;bid=4A&amp;act=view&amp;list_no=109597&amp;tag=&amp;nPage=1" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-07/088/" data-cat="산업기술" data-src="과학기술정보통신부" data-kw="과학기술정보통신부,박인규,K-Science,의제 실험실,아젠다 랩">
-<div class="tt"><span class="ti cl">하</span><span class="ts">과학기술정보통신부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cl">하</span><span class="ts">과학기술정보통신부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">박인규 과학기술혁신본부장, 「한국형 과학(K-Science)」 ‘의제 실험실(아젠다 랩)’ 개최</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>과학기술정보통신부의 박인규 본부장이 모임을 주재했습니다. 한국형 과학이라는 새로운 과학 체계를 만드는 토론을 시작했습니다. 이곳을 &#x27;의제 실험실 (아젠다 랩)&#x27;이라 부르는데, 아이디어를 모음상자처럼 담아내는 곳입니다. 과학 발전 방향을 국민이 필요로 하는 방향으로 잡으려는 뜻입니다. 이 모임은 구체적인 법적 제도 변경 없이 아이디어를 나누는 자리입니다.</div>
 <div class="ck"><span class="ct">과학기술정보통신부</span><span class="ct">박인규</span><span class="ct">K-Science</span><span class="ct">의제 실험실</span></div>
-<div class="tb"><span>2026.04.07</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.07</span><a class="to" href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;mPid=208&amp;mId=307&amp;nttSeqNo=3187115" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 
   </div>
   <div class="pag" id="pag"></div>
+  <div class="impact-legend">
+    <div class="impact-legend-title">영향도 기준</div>
+    <div class="impact-legend-row"><span class="ti ch">상</span> 국민 생활·경제에 직접 영향. 법령 제·개정, 예산 편성, 규제 변경 등</div>
+    <div class="impact-legend-row"><span class="ti cm">중</span> 특정 업계·부처 관련 정책 발표. 간접적 영향 가능성</div>
+    <div class="impact-legend-row"><span class="ti cl">하</span> 내부 인사, 행사 안내, 참고자료 등 정보성 발표</div>
+  </div>
 </div>
 <footer class="footer">
-  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-motto">정부 정책과 규제 트래커, 한 화면에</div>
   <div class="footer-site">govbrief.kr</div>
 </footer>
 <nav class="bnav">
-  <a href="/">홈</a><a class="on" href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a href="/regulation/">금융/부동산</a>
+  <a href="/">홈</a><a class="on" href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a href="/regulation/">규제</a>
 </nav>
 <script>
 (function(){

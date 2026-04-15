@@ -111,8 +111,15 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 .cel{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--sec);letter-spacing:.06em;margin-bottom:4px}
 .ck{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
 .ct{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid var(--bl);color:var(--t3)}
-.tb{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3)}
+.tai{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:#dbeafe;color:#1e40af;margin-left:4px}
+.to{font-size:11px;color:var(--t3);text-decoration:none;font-weight:600;padding:2px 8px;border:1px solid var(--bl);border-radius:4px;margin-left:auto}
+.to:hover{color:var(--sec);border-color:var(--sec-border)}
+.tb{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3);gap:8px}
 .tl{color:var(--sec);font-weight:600}
+.impact-legend{background:var(--s);border:1px solid var(--bl);border-radius:8px;padding:14px 18px;margin:16px 0 0;font-size:13px;color:var(--t2);line-height:1.7}
+.impact-legend-title{font-size:12px;font-weight:700;color:var(--t3);margin-bottom:6px}
+.impact-legend-row{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.impact-legend-row:last-child{margin-bottom:0}
 .footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
 .footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
 .footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
@@ -134,7 +141,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
     <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
     <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
     <a href="/keywords/"><span class="lbl-full">키워드 트렌드</span><span class="lbl-short">키워드</span></a>
-    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+    <a href="/regulation/"><span class="lbl-full">규제 트래커</span><span class="lbl-short">규제</span></a>
   </nav>
 </header>
 <section class="hero">
@@ -177,253 +184,259 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
   </div>
   <div id="card-list">
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="금융경제" data-src="재정경제부" data-kw="고유가,에너지 수급,민생물가,원스톱 지원체계,패스트트랙">
-<div class="tt"><span class="ti cm">중</span><span class="ts">재정경제부</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">재정경제부</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">중동상황에 따른 고유가 대응 관계장관 간담회 개최구윤철 부총리 겸 재정경</div>
 
 <div class="ck"><span class="ct">고유가</span><span class="ct">에너지 수급</span><span class="ct">민생물가</span><span class="ct">원스톱 지원체계</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750210" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="행정법제" data-src="행정안전부" data-kw="공장화재,재난구호사업비,유가족,중앙합동재난피해자지원센터,긴급지원">
-<div class="tt"><span class="ti cm">중</span><span class="ts">행정안전부</span><span class="tg ca">행정법제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">행정안전부</span><span class="tg ca">행정법제</span><span class="tai">AI 요약</span></div>
 <div class="tn">대전 대덕구 공장화재 구호활동을 위한 재난구호사업비 긴급 지원</div>
 
 <div class="ck"><span class="ct">공장화재</span><span class="ct">재난구호사업비</span><span class="ct">유가족</span><span class="ct">중앙합동재난피해자지원센터</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750234" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="중소벤처기업부" data-kw="도약,중견기업,바우처,글로벌진출,성장성">
-<div class="tt"><span class="ti cm">중</span><span class="ts">중소벤처기업부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">중소벤처기업부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">중기부, 중견기업으로 도약(Jump-Up)할유망 중소기업 100개사 최종 선정!중소벤처기업부</div>
 
 <div class="ck"><span class="ct">도약</span><span class="ct">중견기업</span><span class="ct">바우처</span><span class="ct">글로벌진출</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750209" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="사회복지" data-src="보건복지부" data-kw="">
 <div class="tt"><span class="ti cm">중</span><span class="ts">보건복지부</span><span class="tg cs">사회복지</span></div>
 <div class="tn">정은경 장관, 위기가구 사망 사건 관련 긴급 점검회의 개최</div>
 
 <div class="ck"></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750207" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="과학기술정보통신부" data-kw="휴먼프론티어사이언스,연구비지원,국제공동연구,뇌회로,신경회로">
-<div class="tt"><span class="ti cm">중</span><span class="ts">과학기술정보통신부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">과학기술정보통신부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">휴먼프론티어사이언스프로그램에 한국 연구자 7명 선정</div>
 
 <div class="ck"><span class="ct">휴먼프론티어사이언스</span><span class="ct">연구비지원</span><span class="ct">국제공동연구</span><span class="ct">뇌회로</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750204" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="기후에너지환경부" data-kw="해상풍력,15MW,핵심부품,시험센터,국산화">
-<div class="tt"><span class="ti cm">중</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">해상풍력 핵심부품, 이제 국내에서 시험한다…15MW급 시험센터 구축 공모▷ 기후부</div>
 
 <div class="ck"><span class="ct">해상풍력</span><span class="ct">15MW</span><span class="ct">핵심부품</span><span class="ct">시험센터</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750206" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="기후에너지환경부" data-kw="배출권거래제,제4기 할당계획,K-MSR,유상할당,시장안정화">
-<div class="tt"><span class="ti cm">중</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">기후에너지환경부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">제4차 계획기간 배출권거래제 이행을 위한 제1차 민관협의회 개최▷ 제4차 계획기간(&#x27;26~&#x27;30) 이행 필요한 기업의</div>
 
 <div class="ck"><span class="ct">배출권거래제</span><span class="ct">제4기 할당계획</span><span class="ct">K-MSR</span><span class="ct">유상할당</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750205" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="금융경제" data-src="공정거래위원회" data-kw="가맹사업법,거래강제,일반공산품,시정명령,과징금">
-<div class="tt"><span class="ti cm">중</span><span class="ts">공정거래위원회</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">공정거래위원회</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">신전푸드시스의 가맹사업법 위반행위 제재정보공개서에 기재되지 않은 일반공산품구매 강제한 &#x27;신전떡볶이&#x27; 제재</div>
 
 <div class="ck"><span class="ct">가맹사업법</span><span class="ct">거래강제</span><span class="ct">일반공산품</span><span class="ct">시정명령</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750203" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="국토교통부" data-kw="특화주택,청년주택,고령자복지,육아친화,공공임대">
-<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">청년·신혼·고령자 맞춤 공공임대 확대 … &quot;내 삶에 꼭 맞는 집으로 선택하세요&quot;</div>
 
 <div class="ck"><span class="ct">특화주택</span><span class="ct">청년주택</span><span class="ct">고령자복지</span><span class="ct">육아친화</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750202" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="국토교통부" data-kw="전기차,배터리 정보,안전성 인증,과태료,소비자 알권리">
-<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">전기차 살 때 배터리 정보 더 자세히 확인 … 소비자 알권리·안전 모두 강화</div>
 
 <div class="ck"><span class="ct">전기차</span><span class="ct">배터리 정보</span><span class="ct">안전성 인증</span><span class="ct">과태료</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750201" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="해양수산부" data-kw="원양업계,유가 불안,연료유 수급,공동 대응,장기화">
-<div class="tt"><span class="ti cm">중</span><span class="ts">해양수산부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">해양수산부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">중동 상황 관련 원양업계 애로 청취를 위한 긴급 간담회 개최</div>
 
 <div class="ck"><span class="ct">원양업계</span><span class="ct">유가 불안</span><span class="ct">연료유 수급</span><span class="ct">공동 대응</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750200" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="해양수산부" data-kw="바다내비,안전항해,선박보급,설치비지원,해양안전">
-<div class="tt"><span class="ti cm">중</span><span class="ts">해양수산부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">해양수산부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">안전 항해 길잡이 &#x27;바다내비&#x27;, 설치비 최대 250만 원까지 지원안전 항해 길잡이 &#x27;바다내비&#x27;</div>
 
 <div class="ck"><span class="ct">바다내비</span><span class="ct">안전항해</span><span class="ct">선박보급</span><span class="ct">설치비지원</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750199" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="원산지,배달앱,통신판매,거짓표시,소비자안전">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">배달앱 등 통신판매 원산지 위반 업체 119개소 적발국립농산물품질관리원(원장 김철</div>
 
 <div class="ck"><span class="ct">원산지</span><span class="ct">배달앱</span><span class="ct">통신판매</span><span class="ct">거짓표시</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750198" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="농촌 소셜창업,기본소득,인구감소,지역개발,창업지원">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농촌의 미래를 바꿀 &#x27;농촌 소셜창업 청년 서포터즈&#x27;를 모집합니다!농림축산식품부</div>
 
 <div class="ck"><span class="ct">농촌 소셜창업</span><span class="ct">기본소득</span><span class="ct">인구감소</span><span class="ct">지역개발</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750197" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="길고양이,돌봄 가이드라인,중성화,위생 관리,공존">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">더불어 함께 살기 ｢길고양이 돌봄 가이드라인｣ 개정</div>
 
 <div class="ck"><span class="ct">길고양이</span><span class="ct">돌봄 가이드라인</span><span class="ct">중성화</span><span class="ct">위생 관리</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750196" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="K-종자,수출 확대,KOLAS,무상서비스,종자품질검정">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">K-종자 수출 확대를 위한 KOLAS 종자품질검정 무상서비스 추진국립종자원(원장 양주필)은 종자업체의 수출 확대를 지원</div>
 
 <div class="ck"><span class="ct">K-종자</span><span class="ct">수출 확대</span><span class="ct">KOLAS</span><span class="ct">무상서비스</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750195" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="여성농업인,성평등,농촌복지,여성친화형 농기계,맞춤형 복지">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농식품부, 「제6차 여성농업인 육성 기본계획(2026~2030)」 수립</div>
 
 <div class="ck"><span class="ct">여성농업인</span><span class="ct">성평등</span><span class="ct">농촌복지</span><span class="ct">여성친화형 농기계</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750194" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="저탄소,축산,온실가스,사육방식,직불금">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">저탄소 농업프로그램(축산) 참여농가 모집 (2.11~5.22)농림축산식품부</div>
 
 <div class="ck"><span class="ct">저탄소</span><span class="ct">축산</span><span class="ct">온실가스</span><span class="ct">사육방식</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750193" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="금융경제" data-src="재정경제부" data-kw="국제금융기구,AI디지털전환,국익연계,전략점검회,Win-Win협력">
-<div class="tt"><span class="ti cm">중</span><span class="ts">재정경제부</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">재정경제부</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">국제금융기구 전략점검회의 개최◇ 구윤철 경</div>
 
 <div class="ck"><span class="ct">국제금융기구</span><span class="ct">AI디지털전환</span><span class="ct">국익연계</span><span class="ct">전략점검회</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750255" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="행정법제" data-src="행정안전부" data-kw="화재 대응,유가족 지원,합동분향소,재난특교세,사고예방">
-<div class="tt"><span class="ti cm">중</span><span class="ts">행정안전부</span><span class="tg ca">행정법제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">행정안전부</span><span class="tg ca">행정법제</span><span class="tai">AI 요약</span></div>
 <div class="tn">행정안전부 장관 주재 대전 대덕구 공장 화재 중대본 3차 회의 개최정부는 윤호중 행정안전부 장관 주재로 3월 22일(일)</div>
 
 <div class="ck"><span class="ct">화재 대응</span><span class="ct">유가족 지원</span><span class="ct">합동분향소</span><span class="ct">재난특교세</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750188" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="사회복지" data-src="성평등가족부" data-kw="청소년재비행,양육비제도,형사미성년자,한부모가족,소년보호재판">
-<div class="tt"><span class="ti cm">중</span><span class="ts">성평등가족부</span><span class="tg cs">사회복지</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">성평등가족부</span><span class="tg cs">사회복지</span><span class="tai">AI 요약</span></div>
 <div class="tn">성평등가족부와 서울가정법원의 정책협력 간담회 개최</div>
 
 <div class="ck"><span class="ct">청소년재비행</span><span class="ct">양육비제도</span><span class="ct">형사미성년자</span><span class="ct">한부모가족</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156750258" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="금융경제" data-src="금융감독원" data-kw="스팩시장,상장규모,합병성공률,투기적거래,주가하락">
-<div class="tt"><span class="ti cm">중</span><span class="ts">금융감독원</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">금융감독원</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">우리나라 스팩(SPAC) 시장 투자 백서</div>
 
 <div class="ck"><span class="ct">스팩시장</span><span class="ct">상장규모</span><span class="ct">합병성공률</span><span class="ct">투기적거래</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=215645&amp;menuNo=200218&amp;pageIndex=1" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="금융경제" data-src="금융감독원" data-kw="핀플루언서,선행매매,불공정거래,시장변동성,제보포상금">
-<div class="tt"><span class="ti cm">중</span><span class="ts">금융감독원</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">금융감독원</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">시장 변동성 확대에 편승한 핀플루언서 등의 불공정거래 집중 점검 및 고강도 조사 실시</div>
 
 <div class="ck"><span class="ct">핀플루언서</span><span class="ct">선행매매</span><span class="ct">불공정거래</span><span class="ct">시장변동성</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=215646&amp;menuNo=200218&amp;pageIndex=1" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="금융경제" data-src="금융감독원" data-kw="소비자위험대응,신용융자,주가연계상품,전산사고,소비자경보">
-<div class="tt"><span class="ti cm">중</span><span class="ts">금융감독원</span><span class="tg cf">금융경제</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">금융감독원</span><span class="tg cf">금융경제</span><span class="tai">AI 요약</span></div>
 <div class="tn">금융감독원, 제1차 소비자위험대응협의회 개최</div>
 
 <div class="ck"><span class="ct">소비자위험대응</span><span class="ct">신용융자</span><span class="ct">주가연계상품</span><span class="ct">전산사고</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.fss.or.kr/fss/bbs/B0000188/view.do?nttId=215644&amp;menuNo=200218&amp;pageIndex=2" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="국토교통부" data-kw="맞춤형 주거,특화주택,육아친화,고령자 복지,청년임대">
-<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">청년·신혼·고령자 맞춤 공공임대 확대 … “내 삶에 꼭 맞는 집으로 선택하세요“</div>
 
 <div class="ck"><span class="ct">맞춤형 주거</span><span class="ct">특화주택</span><span class="ct">육아친화</span><span class="ct">고령자 복지</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.molit.go.kr/USR/NEWS/m_71/dtl.jsp?lcmspage=1&amp;id=95091812" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="국토교통부" data-kw="전기차,배터리 정보,안전성 인증,과태료,소비자 알권리">
-<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">국토교통부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">전기차 살 때 배터리 정보 더 자세히 확인 … 소비자 알권리·안전 모두 강화</div>
 
 <div class="ck"><span class="ct">전기차</span><span class="ct">배터리 정보</span><span class="ct">안전성 인증</span><span class="ct">과태료</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.molit.go.kr/USR/NEWS/m_71/dtl.jsp?lcmspage=1&amp;id=95091810" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="사회복지" data-src="보건복지부" data-kw="">
 <div class="tt"><span class="ti cm">중</span><span class="ts">보건복지부</span><span class="tg cs">사회복지</span></div>
 <div class="tn">정은경 장관, 위기가구 사망 사건 관련 긴급 점검회의 개최</div>
 
 <div class="ck"></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.mohw.go.kr/board.es?mid=a10503000000&amp;bid=0027&amp;act=view&amp;list_no=1489720&amp;tag=&amp;nPage=1" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="">
 <div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
 <div class="tn">배달앱 등 통신판매 원산지 위반 업체 119개소 적발새글</div>
 
 <div class="ck"></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.mafra.go.kr/bbs/home/792/577376/artclView.do" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="농촌,소셜창업,기본소득,청년 서포터즈,지역사회">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농촌의 미래를 바꿀 ‘농촌 소셜창업 청년 서포터즈’를 모집합니다!새글</div>
 
 <div class="ck"><span class="ct">농촌</span><span class="ct">소셜창업</span><span class="ct">기본소득</span><span class="ct">청년 서포터즈</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.mafra.go.kr/bbs/home/792/577375/artclView.do" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="">
 <div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
 <div class="tn">더불어 함께 살기 ｢길고양이 돌봄 가이드라인｣ 개정새글</div>
 
 <div class="ck"></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.mafra.go.kr/bbs/home/792/577374/artclView.do" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="KOLAS,종자수출,무상서비스,품질검정,수출확대">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">K-종자 수출 확대를 위한 KOLAS 종자품질검정 무상서비스 추진</div>
 
 <div class="ck"><span class="ct">KOLAS</span><span class="ct">종자수출</span><span class="ct">무상서비스</span><span class="ct">품질검정</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.mafra.go.kr/bbs/home/792/577373/artclView.do" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="여성농업인,성평등,경제주체,여성친화형 농기계,틈새돌봄">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">농식품부, 「제6차 여성농업인 육성 기본계획(2026~2030)」 수립새글</div>
 
 <div class="ck"><span class="ct">여성농업인</span><span class="ct">성평등</span><span class="ct">경제주체</span><span class="ct">여성친화형 농기계</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.mafra.go.kr/bbs/home/792/577372/artclView.do" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="농림축산식품부" data-kw="저탄소 농업,축산,탄소감축,직불단가,사육방식 개선">
-<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">농림축산식품부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">저탄소 농업프로그램(축산) 참여농가 모집 (2.11~5.22)새글</div>
 
 <div class="ck"><span class="ct">저탄소 농업</span><span class="ct">축산</span><span class="ct">탄소감축</span><span class="ct">직불단가</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.mafra.go.kr/bbs/home/792/577371/artclView.do" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-22/000/" data-cat="산업기술" data-src="중소벤처기업부" data-kw="중견기업,성장성,정책연계,글로벌화,바우처">
-<div class="tt"><span class="ti cm">중</span><span class="ts">중소벤처기업부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">중소벤처기업부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">중기부, 중견기업으로 도약(Jump-Up)할유망 중소기업 100개사 최종 선정!</div>
 
 <div class="ck"><span class="ct">중견기업</span><span class="ct">성장성</span><span class="ct">정책연계</span><span class="ct">글로벌화</span></div>
-<div class="tb"><span>2026.03.22</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.22</span><a class="to" href="https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=86&amp;bcIdx=1066506" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 
   </div>
   <div class="pag" id="pag"></div>
+  <div class="impact-legend">
+    <div class="impact-legend-title">영향도 기준</div>
+    <div class="impact-legend-row"><span class="ti ch">상</span> 국민 생활·경제에 직접 영향. 법령 제·개정, 예산 편성, 규제 변경 등</div>
+    <div class="impact-legend-row"><span class="ti cm">중</span> 특정 업계·부처 관련 정책 발표. 간접적 영향 가능성</div>
+    <div class="impact-legend-row"><span class="ti cl">하</span> 내부 인사, 행사 안내, 참고자료 등 정보성 발표</div>
+  </div>
 </div>
 <footer class="footer">
-  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-motto">정부 정책과 규제 트래커, 한 화면에</div>
   <div class="footer-site">govbrief.kr</div>
 </footer>
 <nav class="bnav">
-  <a href="/">홈</a><a class="on" href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a href="/regulation/">금융/부동산</a>
+  <a href="/">홈</a><a class="on" href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a href="/regulation/">규제</a>
 </nav>
 <script>
 (function(){

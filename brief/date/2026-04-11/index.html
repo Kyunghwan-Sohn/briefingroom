@@ -111,8 +111,15 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 .cel{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--sec);letter-spacing:.06em;margin-bottom:4px}
 .ck{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
 .ct{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid var(--bl);color:var(--t3)}
-.tb{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3)}
+.tai{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:#dbeafe;color:#1e40af;margin-left:4px}
+.to{font-size:11px;color:var(--t3);text-decoration:none;font-weight:600;padding:2px 8px;border:1px solid var(--bl);border-radius:4px;margin-left:auto}
+.to:hover{color:var(--sec);border-color:var(--sec-border)}
+.tb{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3);gap:8px}
 .tl{color:var(--sec);font-weight:600}
+.impact-legend{background:var(--s);border:1px solid var(--bl);border-radius:8px;padding:14px 18px;margin:16px 0 0;font-size:13px;color:var(--t2);line-height:1.7}
+.impact-legend-title{font-size:12px;font-weight:700;color:var(--t3);margin-bottom:6px}
+.impact-legend-row{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.impact-legend-row:last-child{margin-bottom:0}
 .footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
 .footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
 .footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
@@ -134,7 +141,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
     <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
     <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
     <a href="/keywords/"><span class="lbl-full">키워드 트렌드</span><span class="lbl-short">키워드</span></a>
-    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+    <a href="/regulation/"><span class="lbl-full">규제 트래커</span><span class="lbl-short">규제</span></a>
   </nav>
 </header>
 <section class="hero">
@@ -177,29 +184,35 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
   </div>
   <div id="card-list">
 <a class="tc" href="/articles/2026-04-11/000/" data-cat="산업기술" data-src="문화체육관광부" data-kw="문체부 2026 년 추경,문화예술인 지원,청년 일자리 창출,영화·공연 할인권,내수 진작">
-<div class="tt"><span class="ti cm">중</span><span class="ts">문화체육관광부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">문화체육관광부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">문체부 2026년 1회 추경 확정</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>정부가 중동 전쟁 여파로 힘든 문화·체육·관광 산업을 살리기 위해 4,614 억 원을 추가로 집행하기로 했습니다. 예술인들과 콘텐츠 업계에 직접적인 자금 지원을 늘리고 청년 일자리를 대폭 늘렸습니다. 또 영화나 공연 예매 할인권과 여행 숙박 할인권을 나눠 국민들이 소비를 돕고 지역경제를 살리겠습니다.</div>
 <div class="ck"><span class="ct">문체부 2026 년 추경</span><span class="ct">문화예술인 지원</span><span class="ct">청년 일자리 창출</span><span class="ct">영화·공연 할인권</span></div>
-<div class="tb"><span>2026.04.11</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.11</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754077" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-04-11/001/" data-cat="산업기술" data-src="중소벤처기업부" data-kw="2026 년 추경예산,수출 중소기업,소상공인 민생안정,스타트업,지역 중소 제조 AI 전환">
-<div class="tt"><span class="ti ch">상</span><span class="ts">중소벤처기업부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti ch">상</span><span class="ts">중소벤처기업부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">중기부 &#x27;26년 추경예산 1조 6,903억원 확정</div>
 <div class="ce"><div class="cel">EASY SUMMARY</div>중소벤처기업부가 내년에 쓸 추가 예산 1 조 6,900 여억원을 국회에서 최종 확정했다고 합니다. 중동 전쟁으로 힘든 수출 기업과 소상공인 살리기, 청년이 창업해서 일할 수 있도록 돕는 스타트업 지원에 집중적으로 투입됩니다. 한성숙 장관은 이 예산을 빠르게 집행해 기업들이 다시 일할 수 있는 기반을 마련하겠다고 밝혔습니다.</div>
 <div class="ck"><span class="ct">2026 년 추경예산</span><span class="ct">수출 중소기업</span><span class="ct">소상공인 민생안정</span><span class="ct">스타트업</span></div>
-<div class="tb"><span>2026.04.11</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.04.11</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156754060" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 
   </div>
   <div class="pag" id="pag"></div>
+  <div class="impact-legend">
+    <div class="impact-legend-title">영향도 기준</div>
+    <div class="impact-legend-row"><span class="ti ch">상</span> 국민 생활·경제에 직접 영향. 법령 제·개정, 예산 편성, 규제 변경 등</div>
+    <div class="impact-legend-row"><span class="ti cm">중</span> 특정 업계·부처 관련 정책 발표. 간접적 영향 가능성</div>
+    <div class="impact-legend-row"><span class="ti cl">하</span> 내부 인사, 행사 안내, 참고자료 등 정보성 발표</div>
+  </div>
 </div>
 <footer class="footer">
-  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-motto">정부 정책과 규제 트래커, 한 화면에</div>
   <div class="footer-site">govbrief.kr</div>
 </footer>
 <nav class="bnav">
-  <a href="/">홈</a><a class="on" href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a href="/regulation/">금융/부동산</a>
+  <a href="/">홈</a><a class="on" href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a href="/regulation/">규제</a>
 </nav>
 <script>
 (function(){

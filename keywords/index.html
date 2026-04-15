@@ -361,7 +361,7 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
 <body>
 <header class="hdr">
   <a class="hdr-logo" href="/">브리핑룸</a>
-  <nav class="hdr-nav"><a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a><a href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a><a class="on" href="/keywords/"><span class="lbl-full">키워드 트렌드</span><span class="lbl-short">키워드</span></a><a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a></nav>
+  <nav class="hdr-nav"><a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a><a href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a><a class="on" href="/keywords/"><span class="lbl-full">키워드 트렌드</span><span class="lbl-short">키워드</span></a><a href="/regulation/"><span class="lbl-full">규제 트래커</span><span class="lbl-short">규제</span></a></nav>
   <div class="hdr-search"><span class="hdr-search-icon">&#x2315;</span><input placeholder="검색"></div>
   <div class="hdr-time">2026.04.13</div>
 </header>
@@ -595,9 +595,9 @@ body{max-width:none!important;margin:0!important;padding:0!important;min-width:1
     <a href="/">홈</a>
     <a href="/brief/">정부 발표</a>
     <a href="/keywords/">키워드 트렌드</a>
-    <a href="/regulation/">금융/부동산 규제</a>
+    <a href="/regulation/">규제 트래커</a>
   </div>
-  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-motto">정부 정책과 규제 트래커, 한 화면에</div>
   <div class="footer-site">govbrief.kr</div>
 </footer>
 
@@ -668,6 +668,34 @@ if (catBar) {
     btn.classList.add('on');
   });
 }
+const PERIOD_MAP = {'24h':'7d','7일':'7d','30일':'30d','90일':'90d','기간 설정':'7d'};
+const CAT_COLORS = {'금융·경제':'#1e40af','산업·기술':'#7c3aed','사회·복지':'#059669','외교·안보':'#dc2626','행정·법제':'#6b7280'};
+function updateHeatmap(data) {
+  const canvas = document.getElementById('heatmap-main');
+  if (!canvas || !data.top) return;
+  const top20 = data.top.slice(0, 18);
+  const r1 = top20.slice(0, 4), r2 = top20.slice(4, 8), r3 = top20.slice(8, 18);
+  function row(items, cls, szFn) {
+    const cols = items.map(() => '1fr').join(' ');
+    return '<div class="kw-tree-row ' + cls + '" style="grid-template-columns:' + cols + '">' +
+      items.map(k => {
+        const c = CAT_COLORS[k.category] || '#7c3aed';
+        const sz = szFn(k);
+        return '<div class="kw-cell" data-kw="' + k.keyword + '" style="background:' + c + '"><div class="kw" style="font-size:' + sz + 'px">' + k.keyword + '</div><div class="ct">' + k.count + '회</div></div>';
+      }).join('') + '</div>';
+  }
+  canvas.innerHTML = row(r1, 'r1', () => 22) + row(r2, 'r2', () => 14) + row(r3, 'r3', () => 11);
+  // 랭킹 리스트 업데이트
+  const rankEl = document.getElementById('kw-rank-list');
+  if (rankEl) {
+    rankEl.innerHTML = data.top.slice(0, 10).map((k, i) => {
+      return '<div class="kw-rank-row"><span class="kw-rank-no">' + (i+1) + '</span><span class="kw-rank-kw">' + k.keyword + '</span><span class="kw-rank-cnt">' + k.count + '</span></div>';
+    }).join('');
+  }
+  // 헤더 숫자 업데이트
+  const numEl = document.querySelector('.panel-title .num');
+  if (numEl) numEl.textContent = data.period + ' · ' + data.article_count + '건 기반';
+}
 const periodBar = document.getElementById('period-bar');
 if (periodBar) {
   periodBar.addEventListener('click', (e) => {
@@ -675,6 +703,11 @@ if (periodBar) {
     if (!btn) return;
     periodBar.querySelectorAll('.filter-stab').forEach(t => t.classList.remove('on'));
     btn.classList.add('on');
+    const period = PERIOD_MAP[btn.textContent.trim()] || '7d';
+    fetch('/data/keywords-' + period + '.json')
+      .then(r => r.json())
+      .then(data => updateHeatmap(data))
+      .catch(() => {});
   });
 }
 
@@ -719,7 +752,7 @@ if (modalHeatmap) {
   <a href="/"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg><span>홈</span></a>
   <a href="/brief/"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>정부 발표</span></a>
   <a class="on" href="/keywords/"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>키워드</span></a>
-  <a href="/regulation/"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg><span>금융/부동산</span></a>
+  <a href="/regulation/"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg><span>규제</span></a>
 </nav>
 </body>
 </html>

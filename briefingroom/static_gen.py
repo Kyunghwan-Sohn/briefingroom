@@ -99,22 +99,42 @@ def _build_original_link(url: str) -> str:
 
 
 def generate_rss(target_date: str, max_items: int = 50) -> Path:
-    """일별 JSON에서 RSS 2.0 XML 생성"""
-    json_path = DATA_DIR / f"{target_date}.json"
-    if not json_path.exists():
-        print(f"  [RSS] {json_path} 없음 → 스킵")
+    """최근 일별 JSON들을 합산하여 RSS 2.0 XML 생성 (최대 50건)
+
+    target_date부터 역순으로 최대 14일치 JSON을 읽어 최신 기사 50건을 포함합니다.
+    """
+    from datetime import timedelta
+
+    # 최근 14일치 JSON에서 기사 수집 (최신순)
+    all_articles = []
+    base_date = datetime.strptime(target_date, "%Y-%m-%d").date()
+    for delta in range(14):
+        d = base_date - timedelta(days=delta)
+        json_path = DATA_DIR / f"{d.isoformat()}.json"
+        if not json_path.exists():
+            continue
+        data = json.loads(json_path.read_text(encoding="utf-8"))
+        items = data.get("items", [])
+        for idx, it in enumerate(items):
+            it["_rss_date"] = d.isoformat()
+            it["_rss_idx"] = idx
+            all_articles.append(it)
+        if len(all_articles) >= max_items:
+            break
+
+    if not all_articles:
+        print(f"  [RSS] 최근 14일간 JSON 없음 → 스킵")
         return None
 
-    data = json.loads(json_path.read_text(encoding="utf-8"))
-    items = data.get("items", [])[:max_items]
+    all_articles = all_articles[:max_items]
 
     rss_items = []
-    for idx, it in enumerate(items):
+    for it in all_articles:
         title = xml_escape(it.get("title", ""))
         source = xml_escape(it.get("source", ""))
         summary = xml_escape(it.get("summary", ""))
-        orig_link = xml_escape(it.get("url", ""))
-        date_str = it.get("date", target_date)
+        date_str = it.get("date", it["_rss_date"])
+        idx = it["_rss_idx"]
         category = xml_escape(it.get("category", ""))
         keywords = it.get("keywords", [])
         kw_html = " ".join(f"#{xml_escape(k)}" for k in keywords) if keywords else ""
@@ -123,7 +143,8 @@ def generate_rss(target_date: str, max_items: int = 50) -> Path:
             "%a, %d %b %Y 09:00:00 +0900"
         )
 
-        article_link = f"{SITE_URL}/articles/{date_str}/{idx:03d}/"
+        slug = it.get("slug") or f"{idx:03d}"
+        article_link = f"{SITE_URL}/articles/{date_str}/{slug}/"
 
         description = f"[{source}] {summary}" if summary else f"[{source}] {title}"
         if kw_html:
@@ -158,7 +179,7 @@ def generate_rss(target_date: str, max_items: int = 50) -> Path:
     FEED_DIR.mkdir(parents=True, exist_ok=True)
     out_path = FEED_DIR / "rss.xml"
     out_path.write_text(rss_xml, encoding="utf-8")
-    print(f"  [RSS] {out_path} 생성 ({len(rss_items)}건)")
+    print(f"  [RSS] {out_path} 생성 ({len(rss_items)}건, 최근 {len(set(it['_rss_date'] for it in all_articles))}일치)")
     return out_path
 
 
@@ -182,22 +203,61 @@ def _find_related_articles(current_idx: int, items: list[dict], max_results: int
     return [items[i] for _, i in scored[:max_results]]
 
 
+DATA_AI_KEYWORDS = {
+    "개인정보": ("개인정보 보호법", "/regulation/data-ai/laws/000751/"),
+    "마이데이터": ("신용정보의 이용 및 보호에 관한 법률", "/regulation/data-ai/laws/009199/"),
+    "신용정보": ("신용정보의 이용 및 보호에 관한 법률", "/regulation/data-ai/laws/009199/"),
+    "인공지능": ("지능정보화 기본법", "/regulation/data-ai/laws/000028/"),
+    "AI": ("지능정보화 기본법", "/regulation/data-ai/laws/000028/"),
+    "데이터": ("데이터 산업진흥 및 이용촉진에 관한 기본법", "/regulation/data-ai/laws/014168/"),
+    "클라우드": ("클라우드컴퓨팅 발전 및 이용자 보호에 관한 법률", "/regulation/data-ai/laws/012266/"),
+    "소프트웨어": ("소프트웨어 진흥법", "/regulation/data-ai/laws/001733/"),
+    "전자정부": ("전자정부법", "/regulation/data-ai/laws/001734/"),
+    "정보통신": ("정보통신망법", "/regulation/data-ai/laws/002000/"),
+    "정보보호": ("정보통신망법", "/regulation/data-ai/laws/002000/"),
+    "전자서명": ("전자서명법", "/regulation/data-ai/laws/001540/"),
+    "위치정보": ("위치정보법", "/regulation/data-ai/laws/009882/"),
+    "전자금융": ("전자금융거래법", "/regulation/data-ai/laws/009413/"),
+    "가상자산": ("전자금융거래법", "/regulation/data-ai/laws/009413/"),
+    "전자문서": ("전자문서 및 전자거래 기본법", "/regulation/data-ai/laws/000030/"),
+    "알고리즘": ("지능정보화 기본법", "/regulation/data-ai/laws/000028/"),
+    "가명정보": ("개인정보 보호법", "/regulation/data-ai/laws/000751/"),
+}
+
+
 def _find_related_regulations(keywords: list[str], category: str) -> list[dict]:
-    """금융/부동산 관련 보도자료인 경우 regulation DB에서 관련 법령을 찾는다."""
-    if category not in ("금융경제",):
-        return []
+    """보도자료 키워드로 관련 규제 법령을 찾는다."""
+    results = []
+    seen = set()
 
-    # regulation-stats.json에서 최근 법령 정보 활용
-    stats_path = DATA_DIR / "regulation-stats.json"
-    if not stats_path.exists():
-        return []
+    # 데이터/AI 키워드 매칭
+    for kw in keywords:
+        for trigger, (law_name, link) in DATA_AI_KEYWORDS.items():
+            if trigger in kw and law_name not in seen:
+                results.append({"law_name": law_name, "detail_link": link, "description": f"데이터/AI 규제"})
+                seen.add(law_name)
+                if len(results) >= 3:
+                    break
+        if len(results) >= 3:
+            break
 
-    try:
-        stats = json.loads(stats_path.read_text(encoding="utf-8"))
-        recent = stats.get("recent_changes", [])[:3]
-        return [{"law_name": r.get("name", ""), "detail_link": r.get("link", ""), "description": r.get("desc", "")} for r in recent if r.get("name")]
-    except Exception:
-        return []
+    # 금융경제 카테고리면 regulation-stats.json도 활용
+    if category == "금융경제" and len(results) < 3:
+        stats_path = DATA_DIR / "regulation-stats.json"
+        if stats_path.exists():
+            try:
+                stats = json.loads(stats_path.read_text(encoding="utf-8"))
+                for r in stats.get("recent_changes", [])[:3]:
+                    name = r.get("name", "")
+                    if name and name not in seen:
+                        results.append({"law_name": name, "detail_link": r.get("link", ""), "description": r.get("desc", "")})
+                        seen.add(name)
+                        if len(results) >= 3:
+                            break
+            except Exception:
+                pass
+
+    return results[:3]
 
 
 def _build_key_points_html(points: list[str]) -> str:
@@ -521,7 +581,7 @@ def generate_article_pages(target_date: str) -> int:
     <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
     <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
     <a href="/keywords/"><span class="lbl-full">키워드 트렌드</span><span class="lbl-short">키워드</span></a>
-    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+    <a href="/regulation/"><span class="lbl-full">규제 트래커</span><span class="lbl-short">규제</span></a>
   </nav>
 </header>
 <section class="hero">
@@ -549,14 +609,14 @@ def generate_article_pages(target_date: str) -> int:
   {nav_html}
 </div>
 <footer class="footer">
-  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-motto">정부 정책과 규제 트래커, 한 화면에</div>
   <div class="footer-site">govbrief.kr</div>
 </footer>
 <nav class="bnav">
   <a href="/">홈</a>
   <a class="on" href="/brief/">정부 발표</a>
   <a href="/keywords/">키워드</a>
-  <a href="/regulation/">금융/부동산</a>
+  <a href="/regulation/">규제</a>
 </nav>
 </body>
 </html>
@@ -650,12 +710,16 @@ def generate_today_page(target_date: str, output_path: str = "brief/today", hero
             easy_block = f'<div class="ce"><div class="cel">EASY SUMMARY</div>{html.escape(easy.strip())}</div>'
 
         kw_data = ",".join(keywords[:5])
+        ai_badge = '<span class="tai">AI 요약</span>' if (easy and easy.strip()) or it.get("summary") else ''
+        orig_url = it.get("url", "")
+        orig_link = f'<a class="to" href="{html.escape(orig_url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a>' if orig_url else ''
+
         cards_html += f'''<a class="tc" href="/articles/{date}/{slug}/" data-cat="{html.escape(cat)}" data-src="{html.escape(source)}" data-kw="{html.escape(kw_data)}">
-<div class="tt"><span class="ti {imp_cls}">{html.escape(imp)}</span><span class="ts">{html.escape(source)}</span><span class="tg {cat_cls}">{html.escape(cat_label)}</span></div>
+<div class="tt"><span class="ti {imp_cls}">{html.escape(imp)}</span><span class="ts">{html.escape(source)}</span><span class="tg {cat_cls}">{html.escape(cat_label)}</span>{ai_badge}</div>
 <div class="tn">{html.escape(title)}</div>
 {easy_block}
 <div class="ck">{kw_tags}</div>
-<div class="tb"><span>{date_display}</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>{date_display}</span>{orig_link}<span class="tl">상세 보기 &#8594;</span></div>
 </a>\n'''
 
     today_dir = Path(DATA_DIR).parent / output_path
@@ -774,8 +838,15 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
 .cel{{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--sec);letter-spacing:.06em;margin-bottom:4px}}
 .ck{{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}}
 .ct{{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid var(--bl);color:var(--t3)}}
-.tb{{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3)}}
+.tai{{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:#dbeafe;color:#1e40af;margin-left:4px}}
+.to{{font-size:11px;color:var(--t3);text-decoration:none;font-weight:600;padding:2px 8px;border:1px solid var(--bl);border-radius:4px;margin-left:auto}}
+.to:hover{{color:var(--sec);border-color:var(--sec-border)}}
+.tb{{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3);gap:8px}}
 .tl{{color:var(--sec);font-weight:600}}
+.impact-legend{{background:var(--s);border:1px solid var(--bl);border-radius:8px;padding:14px 18px;margin:16px 0 0;font-size:13px;color:var(--t2);line-height:1.7}}
+.impact-legend-title{{font-size:12px;font-weight:700;color:var(--t3);margin-bottom:6px}}
+.impact-legend-row{{display:flex;align-items:center;gap:8px;margin-bottom:2px}}
+.impact-legend-row:last-child{{margin-bottom:0}}
 .footer{{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}}
 .footer-motto{{font-family:var(--serif);font-size:14px;color:var(--t2)}}
 .footer-site{{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}}
@@ -797,7 +868,7 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
     <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
     <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
     <a href="/keywords/"><span class="lbl-full">키워드 트렌드</span><span class="lbl-short">키워드</span></a>
-    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+    <a href="/regulation/"><span class="lbl-full">규제 트래커</span><span class="lbl-short">규제</span></a>
   </nav>
 </header>
 <section class="hero">
@@ -842,13 +913,19 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
 {cards_html}
   </div>
   <div class="pag" id="pag"></div>
+  <div class="impact-legend">
+    <div class="impact-legend-title">영향도 기준</div>
+    <div class="impact-legend-row"><span class="ti ch">상</span> 국민 생활·경제에 직접 영향. 법령 제·개정, 예산 편성, 규제 변경 등</div>
+    <div class="impact-legend-row"><span class="ti cm">중</span> 특정 업계·부처 관련 정책 발표. 간접적 영향 가능성</div>
+    <div class="impact-legend-row"><span class="ti cl">하</span> 내부 인사, 행사 안내, 참고자료 등 정보성 발표</div>
+  </div>
 </div>
 <footer class="footer">
-  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-motto">정부 정책과 규제 트래커, 한 화면에</div>
   <div class="footer-site">govbrief.kr</div>
 </footer>
 <nav class="bnav">
-  <a href="/">홈</a><a class="on" href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a href="/regulation/">금융/부동산</a>
+  <a href="/">홈</a><a class="on" href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a href="/regulation/">규제</a>
 </nav>
 <script>
 (function(){{

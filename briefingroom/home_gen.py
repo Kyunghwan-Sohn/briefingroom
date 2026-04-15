@@ -10,7 +10,7 @@ import html as h
 import json
 import os
 from collections import Counter, defaultdict
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 import sqlite3
@@ -939,12 +939,384 @@ def generate_home_panel_json(target_date: str = ""):
     print(f"[home_gen] home-panel.json 생성 — {target_date}, {len(items)}건, 키워드 {len(kws)}개")
 
 
+def generate_weekly_latest_json(target_date: str = ""):
+    """주말 홈 화면용 weekly-latest.json 생성
+
+    토요일 오후에 실행되어 이번 주 데이터를 종합합니다.
+    index.html JS가 토/일/월 오전에 이 파일을 로드합니다.
+    """
+    from briefingroom.weekly_analysis import analyze_weekly, get_week_range
+
+    if not target_date:
+        target_date = date.today().isoformat()
+    target = date.fromisoformat(target_date)
+
+    analysis = analyze_weekly(target)
+    if analysis["total"] == 0:
+        print("[home_gen] weekly-latest.json: 주간 데이터 없음")
+        return
+
+    start, end = analysis["start"], analysis["end"]
+    total = analysis["total"]
+    prev_total = analysis["prev_total"]
+
+    # 전주 대비 증감
+    if prev_total > 0:
+        delta_pct = round((total - prev_total) / prev_total * 100)
+        delta_str = f"+{delta_pct}% vs 전주" if delta_pct >= 0 else f"{delta_pct}% vs 전주"
+        delta_dir = "up" if delta_pct >= 0 else "down"
+    else:
+        delta_str = "신규"
+        delta_dir = ""
+
+    # 영향도 상 건수 집계
+    high_count = 0
+    all_items = []
+    for cat_items in analysis["items_by_cat"].values():
+        for it in cat_items:
+            all_items.append(it)
+
+    # top_items: 뉴스 기사가 많거나 키워드가 많은 순으로 선정
+    scored = []
+    for it in all_items:
+        kw_count = len(it.get("keywords", "").split(",")) if it.get("keywords") else 0
+        summary_len = len(it.get("summary", ""))
+        score = kw_count * 2 + (1 if summary_len > 100 else 0)
+        scored.append((score, it))
+    scored.sort(key=lambda x: -x[0])
+    top_items_data = []
+    seen_titles = set()
+    for _, it in scored[:20]:
+        title = it.get("title", "")[:60]
+        if title in seen_titles:
+            continue
+        seen_titles.add(title)
+        d = it.get("date", "")
+        date_short = f"{d[5:7]}.{d[8:10]}" if len(d) >= 10 else d
+        slug = it.get("slug", "000")
+        top_items_data.append({
+            "title": title,
+            "source": it.get("source", ""),
+            "date": date_short,
+            "importance": "상" if len(top_items_data) < 5 else "중",
+            "link": f"/articles/{d}/{slug}/",
+        })
+        if len(top_items_data) >= 8:
+            break
+
+    # 키워드 변동
+    kw_list = []
+    for kw, info in sorted(analysis["kw_delta"].items(), key=lambda x: -x[1]["count"])[:7]:
+        change_type = "new" if info["prev"] == 0 else ""
+        pct = round(info["change_pct"]) if info["prev"] > 0 else 0
+        kw_list.append({
+            "name": kw,
+            "count": info["count"],
+            "change_pct": pct,
+            "change_type": change_type,
+        })
+
+    # 분야별 요약
+    cat_colors = {"금융경제": "#1e40af", "산업기술": "#d97706", "사회복지": "#047857",
+                  "외교안보": "#7c3aed", "행정법제": "#6b7280"}
+    cat_emojis = {"금융경제": "\U0001f4b0", "산업기술": "\u2699\ufe0f", "사회복지": "\U0001f3e5",
+                  "외교안보": "\U0001f30e", "행정법제": "\U0001f4dc"}
+
+    prev_by_cat = Counter()
+    # 전주 분야별 집계
+    from briefingroom.weekly_analysis import _load_items_from_json
+    prev_start = start - timedelta(days=7)
+    prev_end = start - timedelta(days=1)
+    for it in _load_items_from_json(prev_start, prev_end):
+        prev_by_cat[it.get("category", "") or "행정법제"] += 1
+
+    sectors = []
+    for cat in ["산업기술", "금융경제", "사회복지", "외교안보"]:
+        cnt = analysis["by_cat"].get(cat, 0)
+        prev_cnt = prev_by_cat.get(cat, 0)
+        pct = round(cnt / total * 100) if total else 0
+        delta = round((cnt - prev_cnt) / prev_cnt * 100) if prev_cnt > 0 else 0
+
+        # 분야 요약: 해당 분야 키워드 상위 3개로 자동 생성
+        cat_kws = Counter()
+        for it in analysis["items_by_cat"].get(cat, []):
+            if it.get("keywords"):
+                for k in it["keywords"].split(","):
+                    k = k.strip()
+                    if k and len(k) > 1:
+                        cat_kws[k] += 1
+        top3 = [k for k, _ in cat_kws.most_common(3)]
+        summary = ", ".join(top3) + " 관련 정책이 주요 이슈" if top3 else ""
+
+        sectors.append({
+            "name": CAT_LABELS.get(cat, cat),
+            "emoji": cat_emojis.get(cat, ""),
+            "count_label": f"{cnt}건 ({pct}%)",
+            "delta_pct": delta,
+            "color": cat_colors.get(cat, "#6b7280"),
+            "summary": summary,
+        })
+
+    # 다음 주 일정 (schedule 데이터가 있으면 사용)
+    next_week = []
+    schedule_path = DATA_DIR / "schedule-latest.json"
+    if schedule_path.exists():
+        try:
+            sched = json.loads(schedule_path.read_text(encoding="utf-8"))
+            for item in sched.get("items", [])[:4]:
+                d = item.get("date", "")
+                date_short = f"{d[5:7]}/{d[8:10]}" if len(d) >= 10 else d
+                day_names = ["월", "화", "수", "목", "금", "토", "일"]
+                try:
+                    day_name = day_names[date.fromisoformat(d).weekday()] if d else ""
+                except:
+                    day_name = ""
+                src = item.get("source", "")
+                title = item.get("title", "")[:40]
+                next_week.append(f"{date_short} ({day_name}) {src} — {title}")
+        except Exception:
+            pass
+
+    # 주간 리포트 URL
+    report_url = f"/brief/weekly/{target_date}/"
+
+    weekly_data = {
+        "generated_at": date.today().isoformat(),
+        "period": f"{start.month}/{start.day}~{end.month}/{end.day} 주간 정책 종합",
+        "subtitle": f"이번 주 {analysis['sources_count']}개 부처에서 발표한 {total}건의 보도자료를 AI가 분석했습니다",
+        "report_url": report_url,
+        "stats": [
+            {"label": "총 발표", "value": str(total), "unit": "건", "delta": delta_str, "delta_dir": delta_dir},
+            {"label": "참여 부처", "value": str(analysis["sources_count"]), "unit": "개", "delta": "", "delta_dir": ""},
+            {"label": "영향도 상", "value": str(len([i for i in top_items_data if i["importance"] == "상"])), "unit": "건", "delta": "", "delta_dir": ""},
+            {"label": "핵심 키워드", "value": str(len(kw_list)), "unit": "개", "delta": "", "delta_dir": ""},
+            {"label": "법령 변동", "value": "–", "unit": "", "delta": "", "delta_dir": ""},
+        ],
+        "top_items": top_items_data,
+        "keywords": kw_list,
+        "sectors": sectors,
+        "next_week": next_week,
+    }
+
+    out = DATA_DIR / "weekly-latest.json"
+    out.write_text(json.dumps(weekly_data, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"[home_gen] weekly-latest.json 생성 — {start}~{end}, {total}건")
+
+
+def generate_sitemap():
+    """sitemap.xml 자동 생성 — articles/ 폴더의 날짜 디렉토리 + 개별 기사 URL 포함
+
+    기존 static_gen.generate_sitemap()과 독립적으로,
+    articles/ 디렉토리 구조를 직접 스캔하여 sitemap.xml을 생성합니다.
+    """
+    SITE_URL = "https://govbrief.kr"
+    articles_dir = BASE_DIR / "articles"
+
+    # 정적 페이지 URL
+    urls = [
+        f'  <url><loc>{SITE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>',
+        f'  <url><loc>{SITE_URL}/brief/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
+        f'  <url><loc>{SITE_URL}/brief/today/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
+        f'  <url><loc>{SITE_URL}/brief/weekly/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>',
+        f'  <url><loc>{SITE_URL}/brief/ai/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>',
+        f'  <url><loc>{SITE_URL}/keywords/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
+        f'  <url><loc>{SITE_URL}/keywords/press/</loc><changefreq>daily</changefreq><priority>0.7</priority></url>',
+        f'  <url><loc>{SITE_URL}/regulation/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>',
+        f'  <url><loc>{SITE_URL}/regulation/finlaw/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>',
+        f'  <url><loc>{SITE_URL}/regulation/finlaw/cases/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
+        f'  <url><loc>{SITE_URL}/regulation/finlaw/opinions/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
+        f'  <url><loc>{SITE_URL}/regulation/finlaw/issues/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
+        f'  <url><loc>{SITE_URL}/regulation/realestate/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>',
+        f'  <url><loc>{SITE_URL}/regulation/realestate/cases/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>',
+        f'  <url><loc>{SITE_URL}/regulation/cross/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>',
+        f'  <url><loc>{SITE_URL}/regulation/finlaw-gpt/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>',
+    ]
+
+    # brief/date/ 일자별 페이지
+    date_dir = BASE_DIR / "brief" / "date"
+    if date_dir.exists():
+        for d in sorted(date_dir.iterdir()):
+            if d.is_dir() and (d / "index.html").exists():
+                urls.append(f'  <url><loc>{SITE_URL}/brief/date/{d.name}/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>')
+
+    # brief/weekly/ 주간 보고서
+    weekly_dir = BASE_DIR / "brief" / "weekly"
+    if weekly_dir.exists():
+        for d in sorted(weekly_dir.iterdir()):
+            if d.is_dir() and (d / "index.html").exists():
+                urls.append(f'  <url><loc>{SITE_URL}/brief/weekly/{d.name}/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>')
+
+    # 법령 상세/판례/diff 페이지
+    for sub, freq, pri in [("detail", "monthly", "0.6"), ("cases", "monthly", "0.5"), ("diff", "monthly", "0.5")]:
+        sub_dir = BASE_DIR / "regulation" / "finlaw" / sub
+        if sub_dir.exists():
+            for d in sorted(sub_dir.iterdir()):
+                if d.is_dir() and (d / "index.html").exists():
+                    urls.append(f'  <url><loc>{SITE_URL}/regulation/finlaw/{sub}/{d.name}/</loc><changefreq>{freq}</changefreq><priority>{pri}</priority></url>')
+
+    # articles/ 디렉토리에서 날짜별 + 개별 기사 URL 수집
+    if articles_dir.exists():
+        for date_folder in sorted(articles_dir.iterdir()):
+            if not date_folder.is_dir():
+                continue
+            date_name = date_folder.name
+            # 날짜 형식 확인 (YYYY-MM-DD)
+            if len(date_name) != 10 or date_name[4] != '-':
+                continue
+            # 날짜별 아카이브 URL
+            urls.append(f'  <url><loc>{SITE_URL}/articles/{date_name}/</loc><lastmod>{date_name}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>')
+            # 개별 기사 URL
+            for article_folder in sorted(date_folder.iterdir()):
+                if article_folder.is_dir() and (article_folder / "index.html").exists():
+                    urls.append(f'  <url><loc>{SITE_URL}/articles/{date_name}/{article_folder.name}/</loc><lastmod>{date_name}</lastmod></url>')
+
+    # data/ JSON에서도 기사 URL 보완 (articles/ 폴더가 없는 경우 대비)
+    for json_file in sorted(Path(DATA_DIR).glob("20*.json")):
+        date_str = json_file.stem
+        if "weekly" in date_str or "schedule" in date_str or "latest" in date_str:
+            continue
+        # articles/ 디렉토리에 이미 있으면 스킵
+        if articles_dir.exists() and (articles_dir / date_str).exists():
+            continue
+        data = json.loads(json_file.read_text(encoding="utf-8"))
+        items = data.get("items", [])
+        for idx, item in enumerate(items):
+            slug = item.get("slug") or f"{idx:03d}"
+            urls.append(f'  <url><loc>{SITE_URL}/articles/{date_str}/{slug}/</loc><lastmod>{date_str}</lastmod></url>')
+
+    sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{chr(10).join(urls)}
+</urlset>
+"""
+
+    out_path = BASE_DIR / "sitemap.xml"
+    out_path.write_text(sitemap_xml, encoding="utf-8")
+    print(f"[home_gen] sitemap.xml 생성 ({len(urls)}개 URL)")
+    return out_path
+
+
+def generate_regulation_stats():
+    """finance_law.db에서 법령/판례/비조치의견서 통계를 읽어 regulation-stats.json 생성"""
+    if not FINLAW_DB.exists():
+        print("[home_gen] finance_law.db 없음 → regulation-stats.json 스킵")
+        return None
+
+    try:
+        conn = sqlite3.connect(str(FINLAW_DB))
+        conn.row_factory = sqlite3.Row
+    except Exception as e:
+        print(f"[home_gen] finance_law.db 접근 실패: {e}")
+        return None
+
+    today = date.today()
+    month_ago = (today - timedelta(days=30)).strftime("%Y%m%d")
+
+    try:
+        # 테이블 존재 확인
+        tables = {r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()}
+        if "laws" not in tables:
+            print("[home_gen] laws 테이블 없음 → regulation-stats.json 스킵")
+            conn.close()
+            return None
+
+        # 카테고리별 법령 수
+        fin_count = conn.execute("SELECT COUNT(*) FROM laws WHERE categories LIKE '%금융%'").fetchone()[0]
+        re_count = conn.execute("SELECT COUNT(*) FROM laws WHERE categories LIKE '%부동산%'").fetchone()[0]
+        cross_count = conn.execute("SELECT COUNT(*) FROM laws WHERE categories LIKE '%금융%' AND categories LIKE '%부동산%'").fetchone()[0]
+
+        # 판례
+        prec_count = 0
+        if "precedents" in tables:
+            prec_count = conn.execute("SELECT COUNT(*) FROM precedents").fetchone()[0]
+
+        # 비조치의견서
+        opinion_count = 0
+        if "fsc_opinions" in tables:
+            try:
+                opinion_count = conn.execute("SELECT COUNT(*) FROM fsc_opinions").fetchone()[0]
+            except Exception:
+                pass
+
+        # 부동산 관련 부처 수
+        re_ministries = conn.execute(
+            "SELECT COUNT(DISTINCT ministry) FROM laws WHERE categories = '부동산'"
+        ).fetchone()[0]
+
+        # 최근 변경 법령 (금융)
+        fin_recent = conn.execute(
+            "SELECT name, promulgation_date, revision_type, ministry FROM laws "
+            "WHERE categories LIKE '%금융%' AND promulgation_date >= ? "
+            "ORDER BY promulgation_date DESC LIMIT 5",
+            (month_ago,)
+        ).fetchall()
+
+        # 최근 변경 법령 (부동산)
+        re_recent = conn.execute(
+            "SELECT name, promulgation_date, revision_type, ministry FROM laws "
+            "WHERE categories LIKE '%부동산%' AND promulgation_date >= ? "
+            "ORDER BY promulgation_date DESC LIMIT 5",
+            (month_ago,)
+        ).fetchall()
+
+        # 교차 법령 목록
+        cross_laws = conn.execute(
+            "SELECT name, ministry FROM laws "
+            "WHERE categories LIKE '%금융%' AND categories LIKE '%부동산%' "
+            "ORDER BY name"
+        ).fetchall()
+
+        # 법령 참조 관계
+        ref_count = 0
+        if "law_references" in tables:
+            try:
+                ref_count = conn.execute("SELECT COUNT(*) FROM law_references").fetchone()[0]
+            except Exception:
+                pass
+
+        conn.close()
+
+        stats = {
+            "generated_at": today.isoformat(),
+            "fin_count": fin_count,
+            "re_count": re_count,
+            "cross_count": cross_count,
+            "prec_count": prec_count,
+            "opinion_count": opinion_count,
+            "re_ministries": re_ministries,
+            "ref_count": ref_count,
+            "fin_recent": [{"name": r["name"], "date": r["promulgation_date"], "type": r["revision_type"], "ministry": r["ministry"]} for r in fin_recent],
+            "re_recent": [{"name": r["name"], "date": r["promulgation_date"], "type": r["revision_type"], "ministry": r["ministry"]} for r in re_recent],
+            "cross_laws": [{"name": r["name"], "ministry": r["ministry"]} for r in cross_laws],
+        }
+
+        out_path = DATA_DIR / "regulation-stats.json"
+        out_path.write_text(json.dumps(stats, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"[home_gen] regulation-stats.json 생성 — 금융 {fin_count}건, 부동산 {re_count}건, 판례 {prec_count}건, 의견서 {opinion_count}건")
+        return stats
+
+    except Exception as e:
+        print(f"[home_gen] regulation-stats.json 생성 실패: {e}")
+        conn.close()
+        return None
+
+
 def main():
     if os.environ.get("HOME_LEGACY_ENABLED", "").lower() in ("1", "true", "yes"):
         generate_home()
     else:
         print("[home_gen] 실홈은 index.html에서 JSON을 직접 로드하므로 legacy 홈 생성은 건너뜁니다")
     generate_home_panel_json()
+
+    # sitemap.xml 자동 갱신
+    generate_sitemap()
+
+    # regulation-stats.json 자동 갱신
+    generate_regulation_stats()
+
+    # 토요일이면 주간 요약도 생성
+    if date.today().weekday() == 5:  # 5 = Saturday
+        generate_weekly_latest_json()
 
 
 if __name__ == "__main__":

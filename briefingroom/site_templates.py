@@ -76,7 +76,7 @@ _NAV_LINKS = [
     ("/", "홈", "home"),
     ("/brief/", "정부 발표", "brief"),
     ("/keywords/", "키워드 트렌드", "keywords"),
-    ("/regulation/", "금융/부동산 규제", "regulation"),
+    ("/regulation/", "규제 트래커", "regulation"),
 ]
 
 
@@ -127,7 +127,7 @@ def render_footer() -> str:
         '<a href="/">홈</a> · '
         '<a href="/brief/">정부 발표</a> · '
         '<a href="/keywords/">키워드 트렌드</a> · '
-        '<a href="/regulation/">금융/부동산 규제</a> · '
+        '<a href="/regulation/">규제 트래커</a> · '
         '<a href="https://t.me/govbrief" target="_blank">텔레그램</a>'
         '<br>govbrief.kr'
         '</footer>'
@@ -153,7 +153,7 @@ def render_bottom_nav(active: str = "home") -> str:
         f'<a{cls("home")} href="/"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg><span>홈</span></a>'
         f'<a{cls("brief")} href="/brief/"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>정부 발표</span></a>'
         f'<a{cls("keywords")} href="/keywords/"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>키워드</span></a>'
-        f'<a{cls("regulation")} href="/regulation/"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg><span>금융/부동산</span></a>'
+        f'<a{cls("regulation")} href="/regulation/"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg><span>규제</span></a>'
         "</nav>"
     )
 

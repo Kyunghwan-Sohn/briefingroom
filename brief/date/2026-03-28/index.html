@@ -111,8 +111,15 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
 .cel{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--sec);letter-spacing:.06em;margin-bottom:4px}
 .ck{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
 .ct{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid var(--bl);color:var(--t3)}
-.tb{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3)}
+.tai{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:#dbeafe;color:#1e40af;margin-left:4px}
+.to{font-size:11px;color:var(--t3);text-decoration:none;font-weight:600;padding:2px 8px;border:1px solid var(--bl);border-radius:4px;margin-left:auto}
+.to:hover{color:var(--sec);border-color:var(--sec-border)}
+.tb{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--t3);gap:8px}
 .tl{color:var(--sec);font-weight:600}
+.impact-legend{background:var(--s);border:1px solid var(--bl);border-radius:8px;padding:14px 18px;margin:16px 0 0;font-size:13px;color:var(--t2);line-height:1.7}
+.impact-legend-title{font-size:12px;font-weight:700;color:var(--t3);margin-bottom:6px}
+.impact-legend-row{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.impact-legend-row:last-child{margin-bottom:0}
 .footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
 .footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
 .footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
@@ -134,7 +141,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
     <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
     <a class="on" href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
     <a href="/keywords/"><span class="lbl-full">키워드 트렌드</span><span class="lbl-short">키워드</span></a>
-    <a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+    <a href="/regulation/"><span class="lbl-full">규제 트래커</span><span class="lbl-short">규제</span></a>
   </nav>
 </header>
 <section class="hero">
@@ -177,50 +184,56 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px;
   </div>
   <div id="card-list">
 <a class="tc" href="/articles/2026-03-28/000/" data-cat="산업기술" data-src="문화체육관광부" data-kw="프로야구,관람환경,암표근절,국민체육진흥법,프로야구성장">
-<div class="tt"><span class="ti cm">중</span><span class="ts">문화체육관광부</span><span class="tg ci">산업기술</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">문화체육관광부</span><span class="tg ci">산업기술</span><span class="tai">AI 요약</span></div>
 <div class="tn">&#x27;2026 프로야구&#x27; 개막전 찾아 관람환경 점검</div>
 
 <div class="ck"><span class="ct">프로야구</span><span class="ct">관람환경</span><span class="ct">암표근절</span><span class="ct">국민체육진흥법</span></div>
-<div class="tb"><span>2026.03.28</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.28</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156751543" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-28/000/" data-cat="외교안보" data-src="외교부" data-kw="한-우크라이나 외교장관 회담,우크라이나 북한군 포로,인도적 지원,지역 정세,G7 외교 강국 실현">
-<div class="tt"><span class="ti cm">중</span><span class="ts">외교부</span><span class="tg cd">외교안보</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">외교부</span><span class="tg cd">외교안보</span><span class="tai">AI 요약</span></div>
 <div class="tn">한-우크라이나 외교장관 회담(3.27.) 결과</div>
 
 <div class="ck"><span class="ct">한-우크라이나 외교장관 회담</span><span class="ct">우크라이나 북한군 포로</span><span class="ct">인도적 지원</span><span class="ct">지역 정세</span></div>
-<div class="tb"><span>2026.03.28</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.28</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156751522" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-28/000/" data-cat="외교안보" data-src="외교부" data-kw="G7 외교장관회의,글로벌 거버넌스 개혁,핵심광물 공급망,FORGE,해양안보">
-<div class="tt"><span class="ti cm">중</span><span class="ts">외교부</span><span class="tg cd">외교안보</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">외교부</span><span class="tg cd">외교안보</span><span class="tai">AI 요약</span></div>
 <div class="tn">조현 장관, 주요 7개국 협의체(G7) 외교장관회의 참석 결과</div>
 
 <div class="ck"><span class="ct">G7 외교장관회의</span><span class="ct">글로벌 거버넌스 개혁</span><span class="ct">핵심광물 공급망</span><span class="ct">FORGE</span></div>
-<div class="tb"><span>2026.03.28</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.28</span><a class="to" href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156751521" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-28/000/" data-cat="외교안보" data-src="외교부" data-kw="조현우,G7 외교장관회의,외교부,국제 협력,대외 정책">
-<div class="tt"><span class="ti cm">중</span><span class="ts">외교부</span><span class="tg cd">외교안보</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">외교부</span><span class="tg cd">외교안보</span><span class="tai">AI 요약</span></div>
 <div class="tn">EW조현 장관, 주요 7개국 협의체(G7) 외교장관회의 참석 결과</div>
 
 <div class="ck"><span class="ct">조현우</span><span class="ct">G7 외교장관회의</span><span class="ct">외교부</span><span class="ct">국제 협력</span></div>
-<div class="tb"><span>2026.03.28</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.28</span><a class="to" href="https://www.mofa.go.kr/www/brd/m_4080/view.do?seq=377054&amp;page=1&amp;pitem=10" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 <a class="tc" href="/articles/2026-03-28/000/" data-cat="외교안보" data-src="외교부" data-kw="외교부,한-우크라이나,외교장관 회담,3.27,외교 협력">
-<div class="tt"><span class="ti cm">중</span><span class="ts">외교부</span><span class="tg cd">외교안보</span></div>
+<div class="tt"><span class="ti cm">중</span><span class="ts">외교부</span><span class="tg cd">외교안보</span><span class="tai">AI 요약</span></div>
 <div class="tn">EW한-우크라이나 외교장관 회담(3.27.) 결과</div>
 
 <div class="ck"><span class="ct">외교부</span><span class="ct">한-우크라이나</span><span class="ct">외교장관 회담</span><span class="ct">3.27</span></div>
-<div class="tb"><span>2026.03.28</span><span class="tl">상세 보기 &#8594;</span></div>
+<div class="tb"><span>2026.03.28</span><a class="to" href="https://www.mofa.go.kr/www/brd/m_4080/view.do?seq=377055&amp;page=1&amp;pitem=10" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a><span class="tl">상세 보기 &#8594;</span></div>
 </a>
 
   </div>
   <div class="pag" id="pag"></div>
+  <div class="impact-legend">
+    <div class="impact-legend-title">영향도 기준</div>
+    <div class="impact-legend-row"><span class="ti ch">상</span> 국민 생활·경제에 직접 영향. 법령 제·개정, 예산 편성, 규제 변경 등</div>
+    <div class="impact-legend-row"><span class="ti cm">중</span> 특정 업계·부처 관련 정책 발표. 간접적 영향 가능성</div>
+    <div class="impact-legend-row"><span class="ti cl">하</span> 내부 인사, 행사 안내, 참고자료 등 정보성 발표</div>
+  </div>
 </div>
 <footer class="footer">
-  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-motto">정부 정책과 규제 트래커, 한 화면에</div>
   <div class="footer-site">govbrief.kr</div>
 </footer>
 <nav class="bnav">
-  <a href="/">홈</a><a class="on" href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a href="/regulation/">금융/부동산</a>
+  <a href="/">홈</a><a class="on" href="/brief/">정부 발표</a><a href="/keywords/">키워드</a><a href="/regulation/">규제</a>
 </nav>
 <script>
 (function(){

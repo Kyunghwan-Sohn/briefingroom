@@ -1,0 +1,180 @@
+{
+  "generated_at": "2026-04-15",
+  "period": "4/5~4/11 주간 정책 종합",
+  "subtitle": "이번 주 52개 부처에서 발표한 565건의 보도자료를 AI가 분석했습니다",
+  "report_url": "/brief/weekly/2026-04-12/",
+  "stats": [
+    {
+      "label": "총 발표",
+      "value": "565",
+      "unit": "건",
+      "delta": "+10% vs 전주",
+      "delta_dir": "up"
+    },
+    {
+      "label": "참여 부처",
+      "value": "52",
+      "unit": "개",
+      "delta": "",
+      "delta_dir": ""
+    },
+    {
+      "label": "영향도 상",
+      "value": "5",
+      "unit": "건",
+      "delta": "",
+      "delta_dir": ""
+    },
+    {
+      "label": "핵심 키워드",
+      "value": "7",
+      "unit": "개",
+      "delta": "",
+      "delta_dir": ""
+    },
+    {
+      "label": "법령 변동",
+      "value": "–",
+      "unit": "",
+      "delta": "",
+      "delta_dir": ""
+    }
+  ],
+  "top_items": [
+    {
+      "title": "기상청, 창의도전적 성과로 국민이 체감하는 기상행정 혁신을 이끈다",
+      "source": "기상청",
+      "date": "04.10",
+      "importance": "상",
+      "link": "/articles/2026-04-10/023/"
+    },
+    {
+      "title": "부동산 탈세 신고하면 최대 40억 원 포상금 지급",
+      "source": "국세청",
+      "date": "04.09",
+      "importance": "상",
+      "link": "/articles/2026-04-09/015/"
+    },
+    {
+      "title": "원유·나프타 공급망 대체 수급선 발굴을 위한 재외공관 화상회의 개최",
+      "source": "외교부",
+      "date": "04.06",
+      "importance": "상",
+      "link": "/articles/2026-04-06/000/"
+    },
+    {
+      "title": "외교부-연합뉴스, 대 아프리카 외교 협력 강화를 위한 업무협약 체결",
+      "source": "외교부",
+      "date": "04.06",
+      "importance": "상",
+      "link": "/articles/2026-04-06/007/"
+    },
+    {
+      "title": "국방기술, 국민 안전으로 확장...방위사업청·소방청, 기술협력 본격화",
+      "source": "방위사업청",
+      "date": "04.06",
+      "importance": "상",
+      "link": "/articles/2026-04-06/008/"
+    },
+    {
+      "title": "\"소방-국방 기술협력으로\"… 소방청·방위사업청 국민 안전 함께 지킨다",
+      "source": "소방청",
+      "date": "04.06",
+      "importance": "중",
+      "link": "/articles/2026-04-06/011/"
+    },
+    {
+      "title": "유엔 인권메커니즘 진출 한국인 위원 간담회 개최",
+      "source": "외교부",
+      "date": "04.06",
+      "importance": "중",
+      "link": "/articles/2026-04-06/014/"
+    },
+    {
+      "title": "국방부-스타벅스 장병 복지 증진을 위한 「Hero 프로그램」 업무협약",
+      "source": "국방부",
+      "date": "04.06",
+      "importance": "중",
+      "link": "/articles/2026-04-06/015/"
+    }
+  ],
+  "keywords": [
+    {
+      "name": "외교부",
+      "count": 20,
+      "change_pct": 122,
+      "change_type": ""
+    },
+    {
+      "name": "중동전쟁",
+      "count": 18,
+      "change_pct": 125,
+      "change_type": ""
+    },
+    {
+      "name": "국가유산청",
+      "count": 14,
+      "change_pct": 180,
+      "change_type": ""
+    },
+    {
+      "name": "법무부",
+      "count": 13,
+      "change_pct": 333,
+      "change_type": ""
+    },
+    {
+      "name": "산림청",
+      "count": 12,
+      "change_pct": 9,
+      "change_type": ""
+    },
+    {
+      "name": "개인정보보호위원회",
+      "count": 12,
+      "change_pct": 300,
+      "change_type": ""
+    },
+    {
+      "name": "고용노동부",
+      "count": 12,
+      "change_pct": 0,
+      "change_type": ""
+    }
+  ],
+  "sectors": [
+    {
+      "name": "산업·기술",
+      "emoji": "⚙️",
+      "count_label": "226건 (40%)",
+      "delta_pct": 14,
+      "color": "#d97706",
+      "summary": "국가유산청, 산림청, 개인정보보호위원회 관련 정책이 주요 이슈"
+    },
+    {
+      "name": "금융·경제",
+      "emoji": "💰",
+      "count_label": "103건 (18%)",
+      "delta_pct": 0,
+      "color": "#1e40af",
+      "summary": "공정거래위원회, 조달청, 금융감독원 관련 정책이 주요 이슈"
+    },
+    {
+      "name": "사회·복지",
+      "emoji": "🏥",
+      "count_label": "132건 (23%)",
+      "delta_pct": 7,
+      "color": "#047857",
+      "summary": "법무부, 고용노동부, 교육부 관련 정책이 주요 이슈"
+    },
+    {
+      "name": "외교·안보",
+      "emoji": "🌎",
+      "count_label": "60건 (11%)",
+      "delta_pct": 76,
+      "color": "#7c3aed",
+      "summary": "외교부, 방위사업청, 소방청 관련 정책이 주요 이슈"
+    }
+  ],
+  "next_week": []
+}

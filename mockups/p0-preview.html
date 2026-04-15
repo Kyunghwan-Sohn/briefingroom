@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P0 적용 미리보기 — 브리핑룸</title>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var ua = navigator.userAgent;
+  var isMobileUA = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+  var isMobileParam = window.location.search.indexOf('mobile=1') !== -1;
+  if (isMobileUA || isMobileParam) document.documentElement.classList.add('is-mobile');
+})();
+</script>
+<style>
+/* ===== P0 변경 요약 =====
+ * [P0-1] body 15→16px, .top-title 14→17px, .top-src 11→13px
+ * [P0-2] 모든 9~10px 텍스트 → 최소 11px, 권장 12px
+ * [P0-3] 재방문 CTA 추가 (이메일 브리핑 구독 배너)
+ * [P0-4] 모바일 규제 카드 2열→1열
+ * ========================= */
+
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all;overflow-wrap:break-word}
+:root{
+  --a:#d96c2c;--al:rgba(217,108,44,.06);
+  --bg:#f7f7f5;--s:#fff;--s2:#fafaf8;--b:#dcdcd8;--bl:#ededea;
+  --t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;
+  --serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+/* ▼ P0-1: body 15→16px */
+body{background:var(--bg);color:var(--t);font-family:var(--sans);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.65;min-width:1120px}
+.is-mobile body{min-width:0}
+
+/* Header */
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--a);background:var(--al);font-weight:700}
+.hdr-nav .lbl-short{display:none}
+.hdr-search{position:relative;width:280px;margin-right:16px}
+.hdr-search input{width:100%;padding:10px 14px 10px 36px;font-size:14px;border:1px solid var(--b);border-radius:6px;background:var(--s2);outline:none;font-family:var(--sans)}
+.hdr-search input:focus{border-color:var(--a);background:#fff}
+.hdr-search input::placeholder{color:var(--m)}
+.hdr-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:15px}
+.hdr-time{font-family:var(--mono);font-size:12px;color:var(--t3)}
+
+/* 모바일 검색 */
+.mobile-search{display:none}
+.is-mobile .mobile-search{display:block;background:#fff;padding:10px 14px;border-bottom:1px solid var(--bl);position:sticky;top:52px;z-index:90}
+.mobile-search-box{position:relative}
+.mobile-search-box input{width:100%;padding:10px 14px 10px 36px;font-size:14px;border:1px solid var(--b);border-radius:8px;background:var(--s2);outline:none;font-family:var(--sans);color:var(--t)}
+.mobile-search-box input:focus{border-color:var(--a);background:#fff}
+.mobile-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--m);font-size:14px;pointer-events:none}
+
+/* Panel common */
+.shell{max-width:1080px;margin:0 auto;padding:20px 16px 40px}
+.main{display:flex;flex-direction:column;gap:16px;min-width:0}
+.panel{background:#fff;border:1px solid var(--b);border-radius:8px;overflow:hidden}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 22px 12px}
+.panel-title{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--t);display:flex;align-items:center;gap:12px}
+.panel-title::before{content:'';width:3px;height:16px;background:var(--a);border-radius:1px}
+/* ▼ P0-2: .num 13→12px (이건 이미 적절), .panel-more 13→14px */
+.panel-title .num{font-family:var(--mono);font-size:13px;color:var(--t3);font-weight:500;margin-left:0}
+.panel-more{font-size:14px;color:var(--a);text-decoration:none;font-weight:700}
+.panel-more:hover{text-decoration:underline}
+
+/* ====== 1. 오늘의 정부 발표 ====== */
+/* ▼ P0-2: today-date 12→13px */
+.today-date{font-family:var(--mono);font-size:13px;color:var(--t3);text-align:center;margin:0 22px 12px}
+
+.kw-hero{display:flex;flex-wrap:nowrap;gap:8px;justify-content:center;padding:8px 22px 18px;overflow:hidden}
+.kw-pill{font-family:var(--serif);font-weight:700;color:#fff;border-radius:8px;text-decoration:none;transition:opacity .15s;display:inline-flex;align-items:center;justify-content:center;text-align:center}
+.kw-pill:hover{opacity:.8}
+.kw-pill.sz1{font-size:20px;padding:14px 28px;min-width:120px;min-height:54px}
+.kw-pill.sz2{font-size:16px;padding:10px 22px;min-width:100px;min-height:46px}
+.kw-pill.sz3{font-size:13px;padding:8px 16px;min-width:80px;min-height:38px}
+
+/* ▼ P0-2: 분야범례 11→12px */
+.분야바{display:flex;height:8px;border-radius:4px;overflow:hidden;gap:2px;margin:0 22px}
+.분야바 div{border-radius:3px}
+.분야범례{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--t3);margin:6px 22px 16px}
+.분야범례 span{display:flex;align-items:center;gap:4px}
+.범례dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+.top-list{border-top:1px solid var(--bl);padding-top:0}
+.top-item{display:flex;align-items:flex-start;gap:10px;padding:12px 22px;border-bottom:1px dashed var(--bl);text-decoration:none;color:var(--t)}
+.top-item:last-child{border-bottom:none}
+.top-item:hover .top-title{color:var(--a)}
+/* ▼ P0-2: top-imp 10→11px */
+.top-imp{font-family:var(--mono);font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;margin-top:2px}
+.top-imp-h{background:#fee2e2;color:#dc2626}
+.top-imp-m{background:#fef3c7;color:#d97706}
+/* ▼ P0-1: top-title 14→17px — 핵심 변경 */
+.top-title{font-size:17px;font-weight:600;line-height:1.5;flex:1;transition:color .15s}
+/* ▼ P0-1: top-src 11→13px */
+.top-src{font-size:13px;color:var(--t3);flex-shrink:0;margin-left:8px;margin-top:2px}
+
+/* ====== 2. 키워드 트렌드 + 언론 반응 ====== */
+.kw-section-tabs{display:flex;gap:4px;margin:0 22px 16px}
+/* ▼ P0-2: kw-section-tab 12→13px */
+.kw-section-tab{font-size:13px;font-weight:600;padding:8px 16px;border-radius:16px;border:1px solid var(--bl);background:var(--s);color:var(--t3);cursor:pointer;white-space:nowrap}
+.kw-section-tab.on{background:var(--t);color:#fff;border-color:var(--t)}
+
+/* Treemap */
+.kw-tree-canvas{border-radius:6px;overflow:hidden;margin:0 22px 8px}
+.kw-tree-row{display:grid;gap:2px;margin-bottom:2px}
+.kw-tree-row:last-child{margin-bottom:0}
+.kw-cell{border-radius:3px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8px 4px;cursor:pointer;transition:opacity .15s}
+.kw-cell:hover{opacity:.8}
+.kw{font-family:var(--serif);font-weight:700;color:#fff;line-height:1.2}
+/* ▼ P0-2: .ct 11→12px */
+.ct{font-family:var(--mono);font-weight:700;color:rgba(255,255,255,.8);font-size:12px;margin-top:2px}
+
+.kw-tree-row.r1 .kw-cell{height:clamp(70px,10vw,120px)}
+.kw-tree-row.r1 .kw{font-size:clamp(14px,2vw,22px)}
+.kw-tree-row.r2 .kw-cell{height:clamp(50px,6vw,80px)}
+.kw-tree-row.r2 .kw{font-size:clamp(12px,1.4vw,16px)}
+.kw-tree-row.r3 .kw-cell{height:clamp(36px,4vw,55px)}
+.kw-tree-row.r3 .kw{font-size:clamp(11px,1.1vw,13px)}
+
+.kw-rank{margin:12px 22px 0}
+/* ▼ P0-2: kw-rank-row 13→14px */
+.kw-rank-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--bl);font-size:14px}
+.kw-rank-row:last-child{border-bottom:none}
+/* ▼ P0-2: rank-no 11→12px */
+.kw-rank-no{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--t3);width:18px}
+.kw-rank-kw{font-weight:600;flex:1}
+.kw-rank-cnt{font-family:var(--mono);font-size:13px;color:var(--t3)}
+/* ▼ P0-2: rank-delta 11→12px */
+.kw-rank-delta{font-family:var(--mono);font-size:12px;font-weight:700;width:50px;text-align:right}
+.kw-rank-delta.up{color:#dc2626}
+.kw-rank-delta.down{color:#2563eb}
+
+/* 언론 반응 */
+.signal-panel{display:none}
+.signal-panel.on{display:block}
+/* ▼ P0-1: signal-lead 14→15px */
+.signal-lead{font-size:15px;color:var(--t2);line-height:1.7;margin:0 22px 14px}
+.signal-lead b{color:var(--t);font-weight:700}
+/* ▼ P0-2: signal-row 13→14px */
+.signal-row{display:flex;align-items:center;gap:8px;padding:8px 22px;border-bottom:1px dashed var(--bl);font-size:14px}
+.signal-row:last-child{border-bottom:none}
+/* ▼ P0-2: signal-rank 11→12px */
+.signal-rank{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--t3);width:18px}
+.signal-kw{font-weight:600;width:70px;flex-shrink:0}
+.signal-bar-wrap{flex:1;height:6px;background:var(--bl);border-radius:3px;overflow:hidden}
+.signal-bar{height:100%;background:var(--a);border-radius:3px}
+/* ▼ P0-2: signal-ind 11→12px */
+.signal-ind{font-size:12px;color:var(--t3);width:80px;flex-shrink:0;text-align:right}
+.signal-cnt{font-family:var(--mono);font-size:13px;color:var(--t3);width:40px;text-align:right;flex-shrink:0}
+
+/* ====== 3. 금융/부동산 규제 2x2 ====== */
+.reg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px 16px}
+.reg-card{background:var(--s2);border:1px solid var(--bl);border-radius:10px;padding:22px;text-decoration:none;color:var(--t);display:flex;flex-direction:column;transition:border-color .15s}
+.reg-card:hover{border-color:var(--a)}
+.reg-card-title{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:6px}
+.reg-card-num{font-family:var(--mono);font-size:16px;font-weight:700;margin-bottom:10px}
+.reg-card-recent{font-size:15px;color:var(--t2);line-height:1.6;flex:1}
+.reg-card-arrow{font-size:16px;color:var(--a);font-weight:700;margin-top:12px;text-align:right}
+
+/* ====== P0-3: 텔레그램 채널 CTA 배너 ====== */
+.cta-telegram{background:linear-gradient(135deg,#0088cc 0%,#006daa 100%);border-radius:10px;padding:28px 28px;margin-top:4px;display:flex;align-items:center;justify-content:space-between;gap:20px;text-decoration:none;transition:opacity .15s}
+.cta-telegram:hover{opacity:.92}
+.cta-telegram-icon{width:48px;height:48px;flex-shrink:0;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center}
+.cta-telegram-icon svg{width:28px;height:28px;fill:#fff}
+.cta-telegram-text{color:#fff;flex:1}
+.cta-telegram-title{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:4px}
+.cta-telegram-desc{font-size:14px;color:rgba(255,255,255,.8);line-height:1.5}
+.cta-telegram-btn{padding:12px 28px;border:2px solid rgba(255,255,255,.4);border-radius:8px;background:rgba(255,255,255,.12);color:#fff;font-size:15px;font-weight:700;font-family:var(--sans);cursor:pointer;white-space:nowrap;transition:all .15s;text-decoration:none;flex-shrink:0}
+.cta-telegram-btn:hover{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.6)}
+
+/* Footer */
+/* ▼ P0-2: footer 크기 상향 */
+.footer{max-width:1240px;margin:20px auto 0;padding:24px 16px 32px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer-links{display:flex;gap:16px;justify-content:center;font-size:13px;margin-bottom:12px}
+.footer-links a{color:var(--t3);text-decoration:none;font-weight:600}
+.footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{font-family:var(--mono);font-size:12px;color:var(--t3);margin-top:4px}
+
+/* Bottom nav */
+.bottom-nav{display:none}
+.is-mobile .bottom-nav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(0,0,0,.06)}
+/* ▼ P0-2: bottom-nav a 10.5→12px */
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:12px;font-weight:600;padding:4px 0}
+.bottom-nav a.on{color:var(--a)}
+.bottom-nav svg{width:22px;height:22px;stroke-width:2;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+.bottom-nav a.on svg{stroke-width:2.4}
+
+/* ====== 모바일 반응형 ====== */
+/* ▼ P0-1: 모바일 body 14→15px */
+.is-mobile body{font-size:15px;line-height:1.55;padding-bottom:68px}
+.is-mobile .hdr{height:52px;padding:0 12px;gap:4px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav{gap:2px;flex:1;min-width:0}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+.is-mobile .hdr-nav .lbl-full{display:none}
+.is-mobile .hdr-nav .lbl-short{display:inline}
+.is-mobile .hdr-search,.is-mobile .hdr-time{display:none}
+.is-mobile .shell{padding:12px 14px 20px;max-width:100%}
+.is-mobile .main{gap:12px}
+.is-mobile .panel-hdr{padding:14px 16px 8px}
+.is-mobile .panel-title{font-size:16px}
+.is-mobile .today-date{margin:0 16px 10px}
+.is-mobile .kw-hero{flex-wrap:wrap;justify-content:center;gap:6px;padding:6px 14px 14px;max-height:92px;overflow:hidden}
+.is-mobile .kw-pill.sz1{font-size:16px;padding:8px 12px;min-width:88px;min-height:38px}
+.is-mobile .kw-pill.sz2{font-size:13px;padding:7px 10px;min-width:78px;min-height:34px}
+.is-mobile .kw-pill.sz3{font-size:12px;padding:6px 8px;min-width:66px;min-height:30px}
+.is-mobile .분야바{margin:0 16px}
+.is-mobile .분야범례{margin:6px 16px 14px}
+/* ▼ P0-1: 모바일 top-title 유지 */
+.is-mobile .top-item{padding:12px 16px}
+.is-mobile .top-title{font-size:15px}
+.is-mobile .kw-section-tabs{margin:0 16px 14px}
+.is-mobile .kw-tree-canvas{margin:0 16px 8px}
+.is-mobile .kw-rank{margin:10px 16px 0}
+.is-mobile .signal-lead{margin:0 16px 12px}
+.is-mobile .signal-row{padding:8px 16px}
+.is-mobile .signal-kw{width:60px}
+.is-mobile .signal-ind{width:60px}
+
+/* ▼ P0-4: 모바일 규제 카드 2열→1열 */
+.is-mobile .reg-grid{grid-template-columns:1fr;gap:10px;padding:0 14px 12px}
+.is-mobile .reg-card{padding:16px}
+.is-mobile .reg-card-title{font-size:18px;margin-bottom:4px}
+.is-mobile .reg-card-num{font-size:13px;margin-bottom:6px}
+.is-mobile .reg-card-recent{font-size:13px;line-height:1.5}
+.is-mobile .reg-card-arrow{font-size:13px;margin-top:8px}
+
+/* ▼ P0-3: 모바일 텔레그램 CTA */
+.is-mobile .cta-telegram{flex-direction:column;padding:20px 16px;text-align:center;gap:14px}
+.is-mobile .cta-telegram-title{font-size:17px}
+.is-mobile .cta-telegram-btn{width:100%;text-align:center}
+
+.is-mobile .footer-links{display:none}
+
+/* ====== 변경점 하이라이트 (토글용) ====== */
+.p0-highlight .top-title{outline:2px solid #22c55e;outline-offset:2px;border-radius:3px}
+.p0-highlight .top-src{outline:2px solid #3b82f6;outline-offset:2px;border-radius:3px}
+.p0-highlight .cta-telegram{outline:3px solid #f59e0b;outline-offset:4px;border-radius:12px}
+.p0-highlight .is-mobile .reg-grid{outline:2px solid #ef4444;outline-offset:2px;border-radius:8px}
+.p0-highlight .분야범례{outline:2px solid #8b5cf6;outline-offset:2px;border-radius:3px}
+.p0-highlight .bottom-nav a{outline:1px solid #06b6d4;outline-offset:1px;border-radius:3px}
+
+/* 비교 토글 바 */
+.compare-bar{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 20px;font-family:var(--sans);font-size:14px}
+.compare-bar button{padding:8px 20px;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+.compare-bar .btn-highlight{background:#22c55e;color:#fff}
+.compare-bar .btn-highlight.on{background:#16a34a}
+.is-mobile .compare-bar{bottom:68px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-logo" href="/">브리핑룸</a>
+  <nav class="hdr-nav"><a class="on" href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a><a href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a><a href="/keywords/"><span class="lbl-full">키워드 트렌드</span><span class="lbl-short">키워드</span></a><a href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a></nav>
+  <div class="hdr-search"><span class="hdr-search-icon">&#x2315;</span><input placeholder="정책, 법령, 키워드 검색"></div>
+  <div class="hdr-time">2026.04.15</div>
+</header>
+<div class="mobile-search"><div class="mobile-search-box"><span class="mobile-search-icon">&#x2315;</span><input placeholder="정책, 법령, 키워드 검색"></div></div>
+
+<div class="shell">
+  <main class="main">
+
+  <!-- 1. 오늘의 정부 발표 -->
+  <section class="panel">
+    <div class="panel-hdr">
+      <h2 class="panel-title">오늘의 정부 발표 <span class="num">24건</span></h2>
+      <a class="panel-more" href="/brief/today/">전체 &rarr;</a>
+    </div>
+
+    <div class="today-date">2026. 04. 15 (화)</div>
+
+    <div class="kw-hero">
+      <a class="kw-pill sz1" style="background:#1e40af" href="/brief/today/?kw=재정적자">재정적자</a>
+      <a class="kw-pill sz1" style="background:#d97706" href="/brief/today/?kw=부동산단속">부동산단속</a>
+      <a class="kw-pill sz2" style="background:#1e40af" href="/brief/today/?kw=민생물가">민생물가</a>
+      <a class="kw-pill sz2" style="background:#7c3aed" href="/brief/today/?kw=중동전쟁">중동전쟁</a>
+      <a class="kw-pill sz2" style="background:#1e40af" href="/brief/today/?kw=추경예산">추경예산</a>
+      <a class="kw-pill sz3" style="background:#047857" href="/brief/today/?kw=규제과학">규제과학</a>
+    </div>
+
+    <div class="분야바">
+      <div style="flex:31;background:#d97706"></div>
+      <div style="flex:24;background:#1e40af"></div>
+      <div style="flex:20;background:#047857"></div>
+      <div style="flex:6;background:#7c3aed"></div>
+      <div style="flex:5;background:#6b7280"></div>
+    </div>
+    <div class="분야범례">
+      <span><span class="범례dot" style="background:#d97706"></span>산업기술 31%</span>
+      <span><span class="범례dot" style="background:#1e40af"></span>금융경제 24%</span>
+      <span><span class="범례dot" style="background:#047857"></span>사회복지 20%</span>
+      <span><span class="범례dot" style="background:#7c3aed"></span>외교안보 6%</span>
+      <span><span class="범례dot" style="background:#6b7280"></span>행정법제 5%</span>
+    </div>
+
+    <div class="top-list">
+      <a class="top-item" href="/brief/">
+        <span class="top-imp top-imp-h">상</span>
+        <span class="top-title">통합재정통계 - 관리재정수지 1.4조 적자</span>
+        <span class="top-src">기획예산처</span>
+      </a>
+      <a class="top-item" href="/brief/">
+        <span class="top-imp top-imp-h">상</span>
+        <span class="top-title">부동산 불법행위 대응협의회 개최</span>
+        <span class="top-src">국토교통부</span>
+      </a>
+      <a class="top-item" href="/brief/">
+        <span class="top-imp top-imp-h">상</span>
+        <span class="top-title">민생물가 특별관리 TF 6차 회의</span>
+        <span class="top-src">재정경제부</span>
+      </a>
+      <a class="top-item" href="/brief/">
+        <span class="top-imp top-imp-m">중</span>
+        <span class="top-title">미래핵심 분야 규제과학 인재 양성</span>
+        <span class="top-src">식약처</span>
+      </a>
+      <a class="top-item" href="/brief/">
+        <span class="top-imp top-imp-m">중</span>
+        <span class="top-title">다주택자 양도세 중과 유예 보완 추진</span>
+        <span class="top-src">국토교통부</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 2. 키워드 트렌드 + 언론 반응 -->
+  <section class="panel">
+    <div class="panel-hdr">
+      <h2 class="panel-title">키워드 트렌드 <span class="num">7일 / 565건</span></h2>
+      <a class="panel-more" href="/keywords/">전체 &rarr;</a>
+    </div>
+
+    <div class="kw-section-tabs">
+      <span class="kw-section-tab on" onclick="switchKwTab('trend')">키워드 트렌드</span>
+      <span class="kw-section-tab" onclick="switchKwTab('press')">키워드별 언론 반응</span>
+    </div>
+
+    <!-- 트렌드 탭 -->
+    <div class="signal-panel on" id="tab-trend">
+      <div class="kw-tree-canvas">
+        <div class="kw-tree-row r1" style="grid-template-columns:5fr 3fr 3fr 2fr">
+          <div class="kw-cell" style="background:#7c3aed"><div class="kw" style="font-size:22px">인공지능</div><div class="ct">60회</div></div>
+          <div class="kw-cell" style="background:#dc2626"><div class="kw" style="font-size:18px">중동전쟁</div><div class="ct">40회</div></div>
+          <div class="kw-cell" style="background:#1e40af"><div class="kw" style="font-size:16px">중소기업</div><div class="ct">24회</div></div>
+          <div class="kw-cell" style="background:#7c3aed"><div class="kw" style="font-size:14px">탄소중립</div><div class="ct">21</div></div>
+        </div>
+        <div class="kw-tree-row r2" style="grid-template-columns:3fr 3fr 3fr 3fr">
+          <div class="kw-cell" style="background:#7c3aed"><div class="kw">디지털전환</div><div class="ct">18</div></div>
+          <div class="kw-cell" style="background:#059669"><div class="kw">소상공인</div><div class="ct">15</div></div>
+          <div class="kw-cell" style="background:#1e40af"><div class="kw">금융지원</div><div class="ct">12</div></div>
+          <div class="kw-cell" style="background:#059669"><div class="kw">자살예방</div><div class="ct">12</div></div>
+        </div>
+        <div class="kw-tree-row r3" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr">
+          <div class="kw-cell" style="background:#8b5cf6"><div class="kw">안전관리</div></div>
+          <div class="kw-cell" style="background:#8b5cf6"><div class="kw">산불예방</div></div>
+          <div class="kw-cell" style="background:#dc2626"><div class="kw">호르무즈</div></div>
+          <div class="kw-cell" style="background:#1e40af"><div class="kw">수출지원</div></div>
+          <div class="kw-cell" style="background:#10b981"><div class="kw">기후변화</div></div>
+          <div class="kw-cell" style="background:#1e40af"><div class="kw">공공조달</div></div>
+        </div>
+      </div>
+      <div class="kw-rank">
+        <div class="kw-rank-row"><span class="kw-rank-no">1</span><span class="kw-rank-kw">인공지능</span><span class="kw-rank-cnt">60</span><span class="kw-rank-delta up">+22%</span></div>
+        <div class="kw-rank-row"><span class="kw-rank-no">2</span><span class="kw-rank-kw">중동전쟁</span><span class="kw-rank-cnt">40</span><span class="kw-rank-delta up">+140%</span></div>
+        <div class="kw-rank-row"><span class="kw-rank-no">3</span><span class="kw-rank-kw">국제협력</span><span class="kw-rank-cnt">27</span><span class="kw-rank-delta up">+8%</span></div>
+        <div class="kw-rank-row"><span class="kw-rank-no">4</span><span class="kw-rank-kw">중소기업</span><span class="kw-rank-cnt">24</span><span class="kw-rank-delta down">-3%</span></div>
+        <div class="kw-rank-row"><span class="kw-rank-no">5</span><span class="kw-rank-kw">탄소중립</span><span class="kw-rank-cnt">21</span><span class="kw-rank-delta down">-12%</span></div>
+      </div>
+    </div>
+
+    <!-- 언론 반응 탭 -->
+    <div class="signal-panel" id="tab-press">
+      <div class="signal-lead"><b>AI 반도체</b>가 반도체/금융 업계에서 <b>1,247건</b>으로 최다 언급. <b>추경/중동</b> 이슈가 뒤를 이음</div>
+      <div class="signal-row">
+        <span class="signal-rank">1</span>
+        <span class="signal-kw">AI 반도체</span>
+        <div class="signal-bar-wrap"><div class="signal-bar" style="width:92%"></div></div>
+        <span class="signal-ind">반도체/금융</span>
+        <span class="signal-cnt">1,247</span>
+      </div>
+      <div class="signal-row">
+        <span class="signal-rank">2</span>
+        <span class="signal-kw">추경 예산</span>
+        <div class="signal-bar-wrap"><div class="signal-bar" style="width:74%"></div></div>
+        <span class="signal-ind">중소기업/유통</span>
+        <span class="signal-cnt">983</span>
+      </div>
+      <div class="signal-row">
+        <span class="signal-rank">3</span>
+        <span class="signal-kw">중동전쟁</span>
+        <div class="signal-bar-wrap"><div class="signal-bar" style="width:58%"></div></div>
+        <span class="signal-ind">에너지/해운</span>
+        <span class="signal-cnt">776</span>
+      </div>
+      <div class="signal-row">
+        <span class="signal-rank">4</span>
+        <span class="signal-kw">가상자산</span>
+        <div class="signal-bar-wrap"><div class="signal-bar" style="width:42%"></div></div>
+        <span class="signal-ind">금융/핀테크</span>
+        <span class="signal-cnt">552</span>
+      </div>
+      <div class="signal-row">
+        <span class="signal-rank">5</span>
+        <span class="signal-kw">탄소중립</span>
+        <div class="signal-bar-wrap"><div class="signal-bar" style="width:28%"></div></div>
+        <span class="signal-ind">에너지/화학</span>
+        <span class="signal-cnt">361</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 금융/부동산 규제 2x2 -->
+  <section class="panel">
+    <div class="panel-hdr">
+      <h2 class="panel-title">금융/부동산 규제</h2>
+      <a class="panel-more" href="/regulation/">전체 &rarr;</a>
+    </div>
+
+    <div class="reg-grid">
+      <a class="reg-card" href="/regulation/finlaw/" style="border-left:3px solid #1e40af">
+        <div class="reg-card-title" style="color:#1e40af">금융 규제 트래커</div>
+        <div class="reg-card-num" style="color:#1e40af">140건 추적 / 판례 779건</div>
+        <div class="reg-card-recent">최근: 자본시장법 제11조 자기자본 상향<br>비조치의견서 3,151건 검색 가능</div>
+        <div class="reg-card-arrow">상세 &rarr;</div>
+      </a>
+      <a class="reg-card" href="/regulation/realestate/" style="border-left:3px solid #92400e">
+        <div class="reg-card-title" style="color:#92400e">부동산 규제 트래커</div>
+        <div class="reg-card-num" style="color:#92400e">38건 추적 / 판례 253건</div>
+        <div class="reg-card-recent">최근: 소득세법 양도세 중과 유예 연장<br>주택법, 종부세법, 임대차보호법 등</div>
+        <div class="reg-card-arrow">상세 &rarr;</div>
+      </a>
+      <a class="reg-card" href="/regulation/cross/" style="border-left:3px solid #7c3aed">
+        <div class="reg-card-title" style="color:#7c3aed">금융/부동산 교차 영향</div>
+        <div class="reg-card-num" style="color:#7c3aed">24건 교차 법령</div>
+        <div class="reg-card-recent">은행법(LTV/DSR) + 주택법 + 소득세법<br>하나의 규제가 양쪽에 연쇄 영향</div>
+        <div class="reg-card-arrow">상세 &rarr;</div>
+      </a>
+      <a class="reg-card" href="/regulation/finlaw-gpt/" style="border-left:3px solid var(--a)">
+        <div class="reg-card-title" style="color:var(--a)">FinLaw GPT</div>
+        <div class="reg-card-num" style="color:var(--a)">AI 법령 질의응답</div>
+        <div class="reg-card-recent">154건 법령, 5,046건 조문 기반<br>비조치의견서 3,151건 통합 검색</div>
+        <div class="reg-card-arrow">질문하기 &rarr;</div>
+      </a>
+    </div>
+    <div style="text-align:center;padding:0 20px 16px">
+      <a href="/regulation/" style="font-size:14px;color:var(--a);text-decoration:none;font-weight:700">금융/부동산 규제 전체 보기 &rarr;</a>
+    </div>
+  </section>
+
+  <!-- P0-3: 텔레그램 채널 CTA (신규) -->
+  <a class="cta-telegram" href="https://t.me/govbrief" target="_blank" rel="noopener">
+    <div class="cta-telegram-icon"><svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg></div>
+    <div class="cta-telegram-text">
+      <div class="cta-telegram-title">텔레그램에서 매일 브리핑 받기</div>
+      <div class="cta-telegram-desc">정부 발표 요약 + 금융/부동산 규제 변동, 매일 아침 알림으로 전달됩니다</div>
+    </div>
+    <span class="cta-telegram-btn">채널 참여하기</span>
+  </a>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/">홈</a>
+    <a href="/brief/">정부 발표</a>
+    <a href="/keywords/">키워드 트렌드</a>
+    <a href="/regulation/">금융/부동산 규제</a>
+  </div>
+  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+<script>
+function switchKwTab(tab) {
+  document.querySelectorAll('.kw-section-tab').forEach(function(t) { t.classList.remove('on') });
+  document.querySelectorAll('.signal-panel').forEach(function(p) { p.classList.remove('on') });
+  document.getElementById('tab-' + tab).classList.add('on');
+  event.target.classList.add('on');
+}
+</script>
+
+<nav class="bottom-nav">
+  <a class="on" href="/"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg><span>홈</span></a>
+  <a href="/brief/"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>정부 발표</span></a>
+  <a href="/keywords/"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>키워드</span></a>
+  <a href="/regulation/"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2 6a4 4 0 0 0 8 0l-2-6M19 7l-2 6a4 4 0 0 0 8 0l-2-6"/></svg><span>금융/부동산</span></a>
+</nav>
+</body>
+</html>
