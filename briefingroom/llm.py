@@ -3,7 +3,7 @@ import time
 
 import requests
 
-from .config import API_KEY, API_URL, MAX_TEXT, MODEL, SYSTEM_PROMPT, WEEKLY_SIGNAL_PROMPT, WEEKLY_REPORT_PROMPT
+from .config import API_KEY, API_URL, MAX_TEXT, MODEL, SYSTEM_PROMPT, WEEKLY_SIGNAL_PROMPT, WEEKLY_REPORT_PROMPT, LAW_ANALYSIS_PROMPT
 
 MAX_RETRIES = 3
 _quota_exhausted = False  # 일일 한도 초과 플래그
@@ -138,6 +138,46 @@ def summarize(item: dict) -> str:
         return draft  # 교정 실패 시 초안 사용
 
     return reviewed
+
+
+def analyze_law_change(payload: dict) -> dict:
+    """법령 개정 내용을 전문가 관점에서 분석한다."""
+    response = _chat_completion(
+        [
+            {"role": "system", "content": LAW_ANALYSIS_PROMPT},
+            {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
+        ],
+        temperature=0.3,
+    )
+
+    result = {"background": "", "changes": [], "impact": "", "target": "", "penalty": "", "keywords": []}
+    if not response or response.startswith("["):
+        return result
+
+    import re
+    markers = []
+    for m in re.finditer(r'^(개정배경|핵심변경|실무영향|대상기업|위반시제재|관련키워드):', response, re.MULTILINE):
+        markers.append((m.start(), m.group(1), m.end()))
+
+    for i, (start, label, content_start) in enumerate(markers):
+        end = markers[i + 1][0] if i + 1 < len(markers) else len(response)
+        content = response[content_start:end].strip()
+
+        if label == "개정배경":
+            result["background"] = content
+        elif label == "핵심변경":
+            changes = [line.strip().lstrip("- ").strip() for line in content.split("\n") if line.strip().startswith("-")]
+            result["changes"] = [c for c in changes if c]
+        elif label == "실무영향":
+            result["impact"] = content
+        elif label == "대상기업":
+            result["target"] = content
+        elif label == "위반시제재":
+            result["penalty"] = content
+        elif label == "관련키워드":
+            result["keywords"] = [kw.strip() for kw in content.split(",") if kw.strip()]
+
+    return result
 
 
 def generate_weekly_report(payload: dict) -> dict:

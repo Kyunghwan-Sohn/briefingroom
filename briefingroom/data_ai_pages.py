@@ -12,7 +12,13 @@ import json
 import sqlite3
 from pathlib import Path
 
-from briefingroom.config import BASE_DIR
+import time as _time
+import xml.etree.ElementTree as ET
+from urllib.parse import quote
+
+import requests
+
+from briefingroom.config import BASE_DIR, DATA_DIR
 
 DB_PATH = BASE_DIR / "finance_law.db"
 DATA_AI_DIR = BASE_DIR / "regulation" / "data-ai"
@@ -107,8 +113,183 @@ def _get_data_ai_laws(conn: sqlite3.Connection) -> list[dict]:
     return laws
 
 
-def generate_law_detail_page(law: dict) -> Path:
+def _build_analysis_html(analysis: dict, color: str) -> str:
+    """LLM 분석 결과를 HTML로 변환"""
+    if not analysis or not analysis.get("background"):
+        return ""
+
+    sections = []
+
+    # 개정 배경
+    if analysis.get("background"):
+        sections.append(f"""<div class="sec-hdr">개정 배경</div>
+<div style="background:var(--sec-bg);border-left:4px solid var(--sec);border-radius:0 10px 10px 0;padding:18px 24px;margin-bottom:16px;font-size:16px;color:var(--t);line-height:1.9">{h.escape(analysis['background'])}</div>""")
+
+    # 핵심 변경
+    if analysis.get("changes"):
+        items = ""
+        for i, change in enumerate(analysis["changes"], 1):
+            if " - " in change:
+                title, desc = change.split(" - ", 1)
+                text = f"<strong>{h.escape(title)}</strong> - {h.escape(desc)}"
+            else:
+                text = h.escape(change)
+            items += f'<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px dashed var(--bl)"><span style="font-family:var(--mono);font-size:12px;font-weight:700;color:{color};background:var(--sec-bg);border-radius:4px;padding:3px 8px;flex-shrink:0">{i:02d}</span><div style="font-size:15px;color:var(--t);line-height:1.8">{text}</div></div>'
+        sections.append(f"""<div class="sec-hdr">핵심 변경사항</div>
+<div style="background:#fff;border:1px solid var(--b);border-radius:10px;padding:18px 22px;margin-bottom:16px">{items}</div>""")
+
+    # 실무 영향
+    if analysis.get("impact"):
+        sections.append(f"""<div class="sec-hdr">실무 영향</div>
+<div style="background:#fff;border:1px solid var(--b);border-radius:10px;padding:18px 22px;margin-bottom:16px">
+<div style="border-left:4px solid {color};background:var(--sec-bg);border-radius:0 10px 10px 0;padding:16px 20px;font-size:16px;color:var(--t);line-height:1.9">{h.escape(analysis['impact'])}</div>
+</div>""")
+
+    # 대상 기업 + 위반 시 제재
+    meta_items = []
+    if analysis.get("target"):
+        meta_items.append(f'<div style="padding:10px 0;border-bottom:1px dashed var(--bl)"><div style="font-size:12px;font-weight:700;color:{color};margin-bottom:4px">영향 대상</div><div style="font-size:15px;color:var(--t2);line-height:1.7">{h.escape(analysis["target"])}</div></div>')
+    if analysis.get("penalty"):
+        meta_items.append(f'<div style="padding:10px 0"><div style="font-size:12px;font-weight:700;color:#dc2626;margin-bottom:4px">위반 시 제재</div><div style="font-size:15px;color:var(--t2);line-height:1.7">{h.escape(analysis["penalty"])}</div></div>')
+    if meta_items:
+        sections.append(f"""<div style="background:#fff;border:1px solid var(--b);border-radius:10px;padding:14px 22px;margin-bottom:16px">{''.join(meta_items)}</div>""")
+
+    # 관련 키워드
+    if analysis.get("keywords"):
+        kws = "".join(f'<span style="font-size:13px;font-weight:600;padding:5px 12px;border-radius:10px;border:1px solid var(--sec-border);color:{color}">{h.escape(kw)}</span>' for kw in analysis["keywords"])
+        sections.append(f'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">{kws}</div>')
+
+    return "\n".join(sections)
+
+
+NEWS_CACHE = DATA_DIR / "data-ai-news.json"
+
+
+def _load_news_cache() -> dict:
+    if NEWS_CACHE.exists():
+        return json.loads(NEWS_CACHE.read_text(encoding="utf-8"))
+    return {}
+
+
+def _save_news_cache(cache: dict):
+    NEWS_CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _fetch_law_news(law_name: str, max_results: int = 5) -> list[dict]:
+    """Google News RSS로 법령 관련 뉴스 가져오기"""
+    query = quote(f"{law_name} 개정")
+    url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko"
+    try:
+        r = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0 govbrief.kr"})
+        if r.status_code != 200:
+            return []
+        root = ET.fromstring(r.text)
+        articles = []
+        for item in root.findall(".//item")[:max_results]:
+            title = item.find("title").text or ""
+            source = item.find("source").text if item.find("source") is not None else ""
+            link = item.find("link").text or ""
+            pub_date = item.find("pubDate").text if item.find("pubDate") is not None else ""
+            articles.append({
+                "title": title.replace(f" - {source}", "").strip(),
+                "source": source,
+                "link": link,
+                "pub_date": pub_date,
+            })
+        return articles
+    except Exception as e:
+        print(f"  [News] {law_name} 뉴스 조회 실패: {e}")
+        return []
+
+
+def _get_law_news(law_name: str, news_cache: dict) -> list[dict]:
+    """뉴스 캐시에서 가져오거나 새로 크롤링"""
+    if law_name in news_cache:
+        return news_cache[law_name]
+    print(f"  [News] {law_name} 뉴스 검색...")
+    articles = _fetch_law_news(law_name)
+    if articles:
+        news_cache[law_name] = articles
+        _save_news_cache(news_cache)
+        print(f"  [News] {law_name}: {len(articles)}건")
+    return articles
+
+
+ANALYSIS_CACHE = DATA_DIR / "data-ai-analysis.json"
+
+
+def _load_analysis_cache() -> dict:
+    if ANALYSIS_CACHE.exists():
+        return json.loads(ANALYSIS_CACHE.read_text(encoding="utf-8"))
+    return {}
+
+
+def _save_analysis_cache(cache: dict):
+    ANALYSIS_CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _get_law_analysis(law: dict, cache: dict) -> dict:
+    """법령 분석 결과를 캐시에서 가져오거나 LLM으로 생성"""
+    law_id = str(law["law_id"])
+    if law_id in cache:
+        return cache[law_id]
+
+    try:
+        from briefingroom.llm import analyze_law_change
+    except Exception:
+        return {}
+
+    # 주요 조문 5개 + 개정이유를 LLM에 전달
+    top_articles = []
+    for art in law["articles"][:10]:
+        if art["title"]:
+            top_articles.append(f"제{art['no']}조 {art['title']}")
+
+    payload = {
+        "law_name": law["name"],
+        "ministry": law["ministry"],
+        "category": law["cat_label"],
+        "enforcement_date": law["enforcement_date"],
+        "promulgation_date": law["promulgation_date"],
+        "amendment_reason": law["amendment_reason"][:300],
+        "article_count": law["article_count"],
+        "key_articles": top_articles[:8],
+    }
+
+    print(f"  [LLM] {law['name']} 분석 요청...")
+    analysis = analyze_law_change(payload)
+
+    if analysis.get("background"):
+        cache[law_id] = analysis
+        _save_analysis_cache(cache)
+        print(f"  [LLM] {law['name']} 분석 완료")
+    else:
+        print(f"  [LLM] {law['name']} 분석 실패 (빈 결과)")
+
+    return analysis
+
+
+def _build_news_html(news: list[dict]) -> str:
+    """관련 뉴스 HTML 생성"""
+    if not news:
+        return ""
+    items = ""
+    for n in news[:5]:
+        items += f"""<a href="{h.escape(n.get('link',''))}" target="_blank" rel="noopener" style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px dashed var(--bl);text-decoration:none;color:var(--t);font-size:14px">
+<span style="font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--sec-bg);color:var(--sec);flex-shrink:0;margin-top:2px">NEWS</span>
+<span style="flex:1;font-weight:500;line-height:1.5">{h.escape(n.get('title',''))}</span>
+<span style="font-size:11px;color:var(--t3);flex-shrink:0">{h.escape(n.get('source',''))}</span>
+</a>\n"""
+    return f"""<div class="sec-hdr">관련 뉴스</div>
+<div style="background:#fff;border:1px solid var(--b);border-radius:10px;padding:14px 22px;margin-bottom:16px">{items}</div>"""
+
+
+def generate_law_detail_page(law: dict, analysis: dict = None, news: list = None) -> Path:
     """개별 법령 상세 페이지 생성"""
+    if analysis is None:
+        analysis = {}
+    if news is None:
+        news = []
     law_id = law["law_id"]
     name = law["name"]
     cat_label = law["cat_label"]
@@ -202,6 +383,8 @@ def generate_law_detail_page(law: dict) -> Path:
 </section>
 <div class="shell">
   {"<div class='sec-hdr'>최근 개정이유</div><div class='amend-box'>" + h.escape(amendment) + "</div>" if amendment and len(amendment) > 20 else ""}
+  {_build_analysis_html(analysis, color)}
+  {_build_news_html(news)}
   <div class="sec-hdr">조문 전문 ({len(articles)}개)</div>
   {articles_html}
 </div>
@@ -213,7 +396,7 @@ def generate_law_detail_page(law: dict) -> Path:
     return out_dir
 
 
-def generate_timeline_page(laws: list[dict]) -> Path:
+def generate_timeline_page(laws: list[dict], analysis_cache: dict = None) -> Path:
     """타임라인 페이지 생성 (DB 데이터 기반)"""
 
     # 연도별 그룹핑
@@ -228,6 +411,10 @@ def generate_timeline_page(laws: list[dict]) -> Path:
         dot_cls = {"데이터": "data", "인공지능": "ai", "디지털": "digital"}.get(cat_label, "data")
         badge_cls = {"데이터": "data", "인공지능": "ai", "디지털": "digital"}.get(cat_label, "data")
 
+        # LLM 분석 + 뉴스 결과 가져오기
+        law_analysis = (analysis_cache or {}).get(str(law["law_id"]), {})
+        law_news = _load_news_cache().get(law["name"], [])
+
         entry = {
             "date": date_fmt,
             "cat": dot_cls,
@@ -238,6 +425,8 @@ def generate_timeline_page(laws: list[dict]) -> Path:
             "amendment": law["amendment_reason"][:200] if law["amendment_reason"] else "",
             "article_count": law["article_count"],
             "law_id": law["law_id"],
+            "analysis": law_analysis,
+            "news": law_news[:3],
         }
         by_year.setdefault(year, []).append(entry)
 
@@ -258,6 +447,22 @@ def generate_timeline_page(laws: list[dict]) -> Path:
             if amend_text and len(amend_text) > 20:
                 amend_block = f'<div class="tl-card-body">{h.escape(amend_text)}</div>'
 
+            # LLM 분석 블록
+            analysis_block = ""
+            a = entry.get("analysis", {})
+            if a.get("background"):
+                analysis_block += f'<div style="background:var(--sec-bg);border-left:3px solid var(--sec);border-radius:0 8px 8px 0;padding:12px 16px;margin:8px 0;font-size:14px;color:var(--t2);line-height:1.8"><div style="font-family:var(--mono);font-size:10px;font-weight:700;color:var(--sec);margin-bottom:4px">개정 배경</div>{h.escape(a["background"])}</div>'
+            if a.get("impact"):
+                analysis_block += f'<div style="border-left:3px solid #d97706;background:#fef3c7;border-radius:0 8px 8px 0;padding:12px 16px;margin:8px 0;font-size:14px;color:var(--t2);line-height:1.8"><div style="font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;margin-bottom:4px">실무 영향</div>{h.escape(a["impact"])}</div>'
+            if a.get("target"):
+                analysis_block += f'<div style="font-size:13px;color:var(--t3);margin-top:6px"><strong style="color:var(--t2)">영향 대상:</strong> {h.escape(a["target"])}</div>'
+
+            # 키워드 태그
+            kw_block = ""
+            kws = a.get("keywords", [])
+            if kws:
+                kw_block = '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:8px">' + "".join(f'<span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid var(--sec-border);color:var(--sec)">{h.escape(kw)}</span>' for kw in kws) + '</div>'
+
             timeline_html += f"""<div class="tl-entry" data-cat="{entry['cat']}">
 <div class="tl-dot tl-dot-{entry['cat']}"></div>
 <div class="tl-card">
@@ -268,9 +473,12 @@ def generate_timeline_page(laws: list[dict]) -> Path:
 </div>
 <div class="tl-card-title"><a href="/regulation/data-ai/laws/{entry['law_id']}/" style="color:var(--t);text-decoration:none">{h.escape(entry['name'])}</a></div>
 {amend_block}
-<div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+{analysis_block}
+{kw_block}
+{"".join(f'<a href="{h.escape(n.get("link",""))}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;color:var(--t2);text-decoration:none"><span style="font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:var(--sec-bg);color:var(--sec)">NEWS</span>{h.escape(n.get("title","")[:50])}<span style="color:var(--t3);margin-left:auto">{h.escape(n.get("source",""))}</span></a>' for n in entry.get("news", [])[:2])}
+<div style="display:flex;align-items:center;gap:12px;margin-top:10px">
   <span style="font-family:var(--mono);font-size:12px;color:var(--sec);font-weight:700">조문 {entry['article_count']}개</span>
-  <a href="/regulation/data-ai/laws/{entry['law_id']}/" style="font-size:13px;color:var(--sec);font-weight:600;text-decoration:none">조문 전문 보기 &#8594;</a>
+  <a href="/regulation/data-ai/laws/{entry['law_id']}/" style="font-size:13px;color:var(--sec);font-weight:600;text-decoration:none">조문 전문 + 상세 분석 보기 &#8594;</a>
 </div>
 </div>
 </div>\n"""
@@ -390,15 +598,36 @@ def main():
 
     print(f"[data-ai-pages] {len(laws)}개 법령 처리 시작")
 
-    # 1. 법령 상세 페이지
+    # LLM 분석 캐시 로드
+    cache = _load_analysis_cache()
+    news_cache = _load_news_cache()
+
+    # 1. LLM 분석 (캐시에 없는 것만)
+    for law in laws:
+        if law["article_count"] > 0 and str(law["law_id"]) not in cache:
+            _get_law_analysis(law, cache)
+            _time.sleep(1)
+
+    # 2. 뉴스 크롤링 (캐시에 없는 것만, 본법만)
+    for law in laws:
+        if "시행령" not in law["name"] and "시행규칙" not in law["name"]:
+            if law["name"] not in news_cache:
+                _get_law_news(law["name"], news_cache)
+                _time.sleep(0.5)
+
+    # 3. 법령 상세 페이지
     for law in laws:
         if law["article_count"] > 0:
-            generate_law_detail_page(law)
-            print(f"  [Law] {law['name']}: 조문 {law['article_count']}개")
+            analysis = cache.get(str(law["law_id"]), {})
+            news = news_cache.get(law["name"], [])
+            generate_law_detail_page(law, analysis, news)
+            has_analysis = "+" if analysis.get("background") else "-"
+            has_news = f"{len(news)}건" if news else "-"
+            print(f"  [Law] {law['name']}: 조문 {law['article_count']}개 [LLM:{has_analysis}] [뉴스:{has_news}]")
 
-    # 2. 타임라인 페이지 (본법만, 시행령 제외)
+    # 3. 타임라인 페이지 (본법만, 시행령 제외)
     main_laws = [l for l in laws if "시행령" not in l["name"] and "시행규칙" not in l["name"]]
-    generate_timeline_page(main_laws)
+    generate_timeline_page(main_laws, cache)
 
     print(f"[data-ai-pages] 완료: 법령 상세 {sum(1 for l in laws if l['article_count'] > 0)}개 + 타임라인 1개")
 
