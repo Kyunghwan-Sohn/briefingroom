@@ -609,7 +609,7 @@ def generate_article_pages(target_date: str) -> int:
   {nav_html}
 </div>
 <footer class="footer">
-  <div class="footer-motto">정부 정책과 규제 트래커, 한 화면에</div>
+  <div class="footer-motto">정부 정책과 규제 변화, 한 화면에</div>
   <div class="footer-site">govbrief.kr</div>
 </footer>
 <nav class="bnav">
@@ -921,7 +921,7 @@ body{{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:15px
   </div>
 </div>
 <footer class="footer">
-  <div class="footer-motto">정부 정책과 규제 트래커, 한 화면에</div>
+  <div class="footer-motto">정부 정책과 규제 변화, 한 화면에</div>
   <div class="footer-site">govbrief.kr</div>
 </footer>
 <nav class="bnav">
