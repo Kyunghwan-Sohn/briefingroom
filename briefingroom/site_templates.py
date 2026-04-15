@@ -92,7 +92,7 @@ def render_top_nav(active: str = "home") -> str:
     }.get(active, active)
     parts = []
     for href, label, key in _NAV_LINKS:
-        short = "키워드" if key == "keywords" else "금융/부동산" if key == "regulation" else label
+        short = "키워드" if key == "keywords" else "규제" if key == "regulation" else label
         if key == active:
             if key == "brief":
                 cls = "on-policy"
