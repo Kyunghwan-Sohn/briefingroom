@@ -260,6 +260,22 @@ def _find_related_regulations(keywords: list[str], category: str) -> list[dict]:
     return results[:3]
 
 
+def _build_reg_links(keywords: list[str]) -> str:
+    """키워드 기반 관련 규제 법령 링크 생성"""
+    regs = _find_related_regulations(keywords, "")
+    if not regs:
+        return ""
+    items = ""
+    for r in regs:
+        link = r.get("detail_link", "")
+        if not link:
+            continue
+        items += f'<a href="{html.escape(link)}" style="display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px dashed var(--bl);text-decoration:none;color:var(--t);font-size:14px"><span style="font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--sec-bg);color:var(--sec);flex-shrink:0">법령</span><span style="flex:1;font-weight:600">{html.escape(r.get("law_name",""))}</span><span style="font-size:12px;color:var(--sec);font-weight:600">조문 보기 &#8594;</span></a>'
+    if not items:
+        return ""
+    return f'<div style="background:#fff;border:1px solid var(--b);border-radius:10px;padding:14px 22px;margin-bottom:16px"><div style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="width:3px;height:14px;background:var(--sec);border-radius:1px;display:inline-block"></span>관련 규제 법령</div>{items}</div>'
+
+
 def _build_key_points_html(points: list[str]) -> str:
     if not points:
         return ""
@@ -605,7 +621,12 @@ def generate_article_pages(target_date: str) -> int:
   {kw_box_html}
   {attach_html}
   {related_html}
+  {_build_reg_links(keywords)}
   {source_html}
+  <div style="background:linear-gradient(135deg,#1e40af,#3b82f6);border-radius:10px;padding:20px 24px;margin:16px 0;display:flex;align-items:center;justify-content:space-between;gap:16px">
+    <div style="color:#fff"><div style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:4px">매일 정책 브리핑 받기</div><div style="font-size:13px;opacity:.8">정부 발표 요약과 규제 변화를 텔레그램으로 전달합니다</div></div>
+    <a href="https://t.me/govbrief" target="_blank" rel="noopener" style="padding:10px 20px;background:#fff;color:#1e40af;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap">구독하기</a>
+  </div>
   {nav_html}
 </div>
 <footer class="footer">
@@ -709,7 +730,7 @@ def generate_today_page(target_date: str, output_path: str = "brief/today", hero
         if easy and easy.strip():
             easy_block = f'<div class="ce"><div class="cel">EASY SUMMARY</div>{html.escape(easy.strip())}</div>'
 
-        kw_data = ",".join(keywords[:5])
+        kw_data = ",".join(keywords[:5]) if keywords else title[:60]
         ai_badge = '<span class="tai">AI 요약</span>' if (easy and easy.strip()) or it.get("summary") else ''
         orig_url = it.get("url", "")
         orig_link = f'<a class="to" href="{html.escape(orig_url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문</a>' if orig_url else ''
