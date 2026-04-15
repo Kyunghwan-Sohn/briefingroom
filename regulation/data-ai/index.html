@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>데이터/AI 규제 트래커 - 브리핑룸</title>
+<meta name="description" content="개인정보보호법, AI기본법, 데이터3법 등 데이터/인공지능 관련 규제를 추적합니다.">
+<link rel="canonical" href="https://govbrief.kr/regulation/data-ai/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="데이터/AI 규제 트래커 - 브리핑룸">
+<meta property="og:description" content="개인정보보호법, AI기본법, 데이터3법 등 데이터/인공지능 관련 규제를 추적합니다.">
+<meta property="og:url" content="https://govbrief.kr/regulation/data-ai/">
+<meta property="og:site_name" content="govbrief.kr">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://govbrief.kr/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"데이터/AI 규제 트래커","description":"개인정보보호법, AI기본법, 데이터3법 등 데이터/인공지능 관련 규제를 추적합니다.","url":"https://govbrief.kr/regulation/data-ai/","publisher":{"@type":"Organization","name":"브리핑룸","url":"https://govbrief.kr/"}}
+</script>
+<link href="https://cdn.jsdelivr.net/gh/niceplugin/wantedsans@1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){ if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) document.documentElement.classList.add('is-mobile'); })();
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all}
+:root{--bg:#f7f7f5;--s:#fff;--b:#dcdcd8;--bl:#ededea;--t:#1a1a1a;--t2:#555;--t3:#888;--m:#bbb;--sec:#7c3aed;--sec-bg:#f5f3ff;--sec-border:#ddd6fe;--data:#1e40af;--data-bg:#eff6ff;--ai:#047857;--ai-bg:#ecfdf5;--digital:#d97706;--digital-bg:#fef3c7;--serif:'Gowun Batang',serif;--sans:'Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:16px;line-height:1.7;min-width:1120px}
+.is-mobile body{min-width:0;font-size:15px;padding-bottom:68px}
+.hdr{background:#fff;border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+.hdr-logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--t);text-decoration:none;margin-right:44px}
+.hdr-nav{display:flex;gap:6px;flex:1}
+.hdr-nav a{font-size:15px;font-weight:600;color:var(--t2);text-decoration:none;padding:10px 16px;border-radius:6px}
+.hdr-nav a:hover{background:var(--bl)}
+.hdr-nav a.on{color:var(--sec);background:var(--sec-bg);font-weight:700}
+.hdr-nav .lbl-short{display:none}
+.is-mobile .hdr{height:52px;padding:0 12px}
+.is-mobile .hdr-logo{font-size:17px;margin-right:8px}
+.is-mobile .hdr-nav a{font-size:12px;padding:7px 8px}
+.is-mobile .hdr-nav .lbl-full{display:none}
+.is-mobile .hdr-nav .lbl-short{display:inline}
+
+.hero{background:linear-gradient(180deg,var(--sec-bg),#fff);border-bottom:1px solid var(--sec-border);padding:40px 32px 32px}
+.hero-inner{max-width:1080px;margin:0 auto}
+.hero-bc{font-size:12px;color:var(--t3);margin-bottom:14px}
+.hero-bc a{color:var(--sec);text-decoration:none;font-weight:600}
+.hero-bc span{margin:0 6px;color:var(--m)}
+.hero-ey{font-family:var(--mono);font-size:11px;color:var(--sec);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.hero-title{font-family:var(--serif);font-size:30px;font-weight:700;margin-bottom:6px}
+.hero-sub{font-size:15px;color:var(--t2);line-height:1.7;max-width:700px;margin-bottom:20px}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:720px}
+.hs{background:#fff;border:1px solid var(--sec-border);border-radius:8px;padding:14px 16px}
+.hs .hl{font-size:11px;color:var(--sec);font-weight:700}
+.hs .hn{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--sec);line-height:1.1;margin-top:4px}
+.hs .hu{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--t3)}
+.is-mobile .hero{padding:24px 16px 20px}
+.is-mobile .hero-title{font-size:22px}
+.is-mobile .hero-stats{grid-template-columns:repeat(2,1fr)}
+
+.shell{max-width:1080px;margin:0 auto;padding:24px 16px 40px}
+.sec-hdr{font-family:var(--serif);font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px;margin:28px 0 14px}
+.sec-hdr:first-child{margin-top:0}
+.sec-hdr::before{content:'';width:3px;height:18px;background:var(--sec);border-radius:1px}
+
+/* 분야 카드 */
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.cat-card{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px;border-top:3px solid var(--sec)}
+.cat-card-title{font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:6px}
+.cat-card-desc{font-size:14px;color:var(--t2);line-height:1.6;margin-bottom:10px}
+.cat-card-stat{font-family:var(--mono);font-size:13px;color:var(--sec);font-weight:700}
+.cat-data{border-top-color:var(--data)}
+.cat-data .cat-card-stat{color:var(--data)}
+.cat-ai{border-top-color:var(--ai)}
+.cat-ai .cat-card-stat{color:var(--ai)}
+.cat-digital{border-top-color:var(--digital)}
+.cat-digital .cat-card-stat{color:var(--digital)}
+.is-mobile .cat-grid{grid-template-columns:1fr}
+
+/* 법령 목록 */
+.law-card{background:#fff;border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:8px;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--t)}
+.law-card:hover{border-color:var(--sec);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.law-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0}
+.law-badge-data{background:var(--data-bg);color:var(--data)}
+.law-badge-ai{background:var(--ai-bg);color:var(--ai)}
+.law-badge-digital{background:var(--digital-bg);color:var(--digital)}
+.law-name{font-family:var(--serif);font-size:16px;font-weight:700;flex:1}
+.law-ministry{font-size:12px;color:var(--t3);flex-shrink:0}
+.law-type{font-size:11px;color:var(--sec);font-weight:600;flex-shrink:0}
+
+/* 타임라인 프리뷰 */
+.tl-preview{background:#fff;border:1px solid var(--b);border-radius:10px;padding:20px 24px;margin-bottom:16px}
+.tl-item{display:flex;gap:12px;padding:12px 0;border-top:1px dashed var(--bl)}
+.tl-item:first-child{border-top:none}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--sec);flex-shrink:0;margin-top:6px}
+.tl-content{flex:1}
+.tl-date{font-family:var(--mono);font-size:11px;color:var(--sec);font-weight:700}
+.tl-title{font-size:15px;font-weight:600;margin-top:2px}
+.tl-desc{font-size:13px;color:var(--t2);margin-top:4px;line-height:1.6}
+
+/* CTA */
+.cta-box{background:var(--sec);border-radius:12px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+.cta-text{color:#fff}
+.cta-text h3{font-family:var(--serif);font-size:18px;margin-bottom:4px}
+.cta-text p{font-size:13px;opacity:.8}
+.cta-btn{padding:10px 20px;background:#fff;color:var(--sec);border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap}
+.cta-btn:hover{opacity:.9}
+
+.footer{max-width:1080px;margin:20px auto 0;padding:24px 16px;text-align:center;color:var(--t3);border-top:1px solid var(--bl)}
+.footer-motto{font-family:var(--serif);font-size:14px;color:var(--t2)}
+.footer-site{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px}
+.bnav{display:none}
+.is-mobile .bnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;z-index:200;background:#fff;border-top:1px solid var(--b);padding:8px 0 calc(10px + env(safe-area-inset-bottom))}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--t3);font-size:10.5px;font-weight:600}
+.bnav a.on{color:var(--sec)}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="hdr-logo" href="/">브리핑룸</a>
+  <nav class="hdr-nav">
+    <a href="/"><span class="lbl-full">홈</span><span class="lbl-short">홈</span></a>
+    <a href="/brief/"><span class="lbl-full">정부 발표</span><span class="lbl-short">정부 발표</span></a>
+    <a href="/keywords/"><span class="lbl-full">키워드 트렌드</span><span class="lbl-short">키워드</span></a>
+    <a class="on" href="/regulation/"><span class="lbl-full">금융/부동산 규제</span><span class="lbl-short">금융/부동산</span></a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-bc"><a href="/regulation/">규제 트래커</a><span>/</span>데이터/AI 규제</div>
+    <div class="hero-ey">DATA & AI REGULATION TRACKER</div>
+    <h1 class="hero-title">데이터/AI 규제 트래커</h1>
+    <p class="hero-sub">개인정보보호법, AI기본법, 데이터3법, 정보통신망법 등 데이터와 인공지능 관련 규제의 변화를 실시간으로 추적합니다. IT기업, 스타트업, 데이터 담당자를 위한 규제 모니터링 허브.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hl">관련 법령</div><div class="hn">14<span class="hu">건</span></div></div>
+      <div class="hs"><div class="hl">관련 조문</div><div class="hn">1,180<span class="hu">개</span></div></div>
+      <div class="hs"><div class="hl">소관 부처</div><div class="hn">7<span class="hu">개</span></div></div>
+      <div class="hs"><div class="hl">규제 분야</div><div class="hn">3<span class="hu">개</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="shell">
+
+  <div class="sec-hdr">규제 분야</div>
+  <div class="cat-grid">
+    <div class="cat-card cat-data">
+      <div class="cat-card-title">개인정보/데이터</div>
+      <div class="cat-card-desc">개인정보 보호법, 신용정보법, 위치정보법, 정보통신망법 등 데이터 수집/이용/보호 관련 규제</div>
+      <div class="cat-card-stat">5개 법령</div>
+    </div>
+    <div class="cat-card cat-ai">
+      <div class="cat-card-title">인공지능</div>
+      <div class="cat-card-desc">지능정보화 기본법, 소프트웨어 진흥법 등 인공지능 개발/서비스/안전 관련 규제</div>
+      <div class="cat-card-stat">2개 법령 / 178개 조문</div>
+    </div>
+    <div class="cat-card cat-digital">
+      <div class="cat-card-title">디지털/플랫폼</div>
+      <div class="cat-card-desc">전자정부법, 클라우드컴퓨팅법, 전자문서법, 전기통신사업법 등 디지털 인프라/서비스 규제</div>
+      <div class="cat-card-stat">7개 법령 / 564개 조문</div>
+    </div>
+  </div>
+
+  <div class="sec-hdr">주요 법령</div>
+
+  <a class="law-card" href="https://www.law.go.kr/법령/개인정보보호법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-data">데이터</span>
+    <span class="law-name">개인정보 보호법</span>
+    <span class="law-ministry">개인정보보호위원회</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/신용정보의이용및보호에관한법률" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-data">데이터</span>
+    <span class="law-name">신용정보의 이용 및 보호에 관한 법률</span>
+    <span class="law-ministry">금융위원회</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/정보통신망이용촉진및정보보호등에관한법률" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-data">데이터</span>
+    <span class="law-name">정보통신망 이용촉진 및 정보보호 등에 관한 법률</span>
+    <span class="law-ministry">과기부, 방통위</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/위치정보의보호및이용등에관한법률" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-data">데이터</span>
+    <span class="law-name">위치정보의 보호 및 이용 등에 관한 법률</span>
+    <span class="law-ministry">방송미디어통신위원회</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/전자서명법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-digital">디지털</span>
+    <span class="law-name">전자서명법</span>
+    <span class="law-ministry">과학기술정보통신부</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/전자금융거래법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-digital">디지털</span>
+    <span class="law-name">전자금융거래법</span>
+    <span class="law-ministry">금융위원회</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/정보통신기반보호법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-digital">디지털</span>
+    <span class="law-name">정보통신기반 보호법</span>
+    <span class="law-ministry">과학기술정보통신부</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/전기통신금융사기피해방지및피해금환급에관한특별법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-digital">디지털</span>
+    <span class="law-name">전기통신금융사기 피해 방지 및 피해금 환급에 관한 특별법</span>
+    <span class="law-ministry">경찰청, 금융위</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/특정금융거래정보의보고및이용등에관한법률" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-data">데이터</span>
+    <span class="law-name">특정 금융거래정보의 보고 및 이용 등에 관한 법률</span>
+    <span class="law-ministry">금융위원회, 법무부</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/데이터산업진흥및이용촉진에관한기본법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-data">데이터</span>
+    <span class="law-name">데이터 산업진흥 및 이용촉진에 관한 기본법</span>
+    <span class="law-ministry">과학기술정보통신부</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/지능정보화기본법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-ai">AI</span>
+    <span class="law-name">지능정보화 기본법</span>
+    <span class="law-ministry">과학기술정보통신부</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/소프트웨어진흥법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-ai">AI</span>
+    <span class="law-name">소프트웨어 진흥법</span>
+    <span class="law-ministry">과학기술정보통신부</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/클라우드컴퓨팅발전및이용자보호에관한법률" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-digital">디지털</span>
+    <span class="law-name">클라우드컴퓨팅 발전 및 이용자 보호에 관한 법률</span>
+    <span class="law-ministry">과학기술정보통신부</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/전자정부법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-digital">디지털</span>
+    <span class="law-name">전자정부법</span>
+    <span class="law-ministry">행정안전부</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/전자문서및전자거래기본법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-digital">디지털</span>
+    <span class="law-name">전자문서 및 전자거래 기본법</span>
+    <span class="law-ministry">과학기술정보통신부</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/전기통신사업법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-digital">디지털</span>
+    <span class="law-name">전기통신사업법</span>
+    <span class="law-ministry">과학기술정보통신부</span>
+    <span class="law-type">법률</span>
+  </a>
+  <a class="law-card" href="https://www.law.go.kr/법령/전기통신기본법" target="_blank" rel="noopener">
+    <span class="law-badge law-badge-digital">디지털</span>
+    <span class="law-name">전기통신기본법</span>
+    <span class="law-ministry">과학기술정보통신부</span>
+    <span class="law-type">법률</span>
+  </a>
+
+  <div class="sec-hdr">규제 변화 타임라인</div>
+  <div class="tl-preview">
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--data)"></div>
+      <div class="tl-content">
+        <div class="tl-date">2026.03 ~</div>
+        <div class="tl-title">개인정보 보호법 시행령 개정</div>
+        <div class="tl-desc">가명정보 결합 절차 간소화, 마이데이터 사업자 의무 강화. 개인정보 이동권 도입으로 데이터 포터빌리티 확대.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--ai)"></div>
+      <div class="tl-content">
+        <div class="tl-date">2026.01 ~</div>
+        <div class="tl-title">인공지능 산업 육성 및 신뢰 확보에 관한 법률 시행</div>
+        <div class="tl-desc">고위험 AI 시스템 사전 영향평가 의무화. AI 개발/서비스 기업의 투명성 의무 신설. 자율규제 우선 원칙.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--digital)"></div>
+      <div class="tl-content">
+        <div class="tl-date">2025.09 ~</div>
+        <div class="tl-title">정보통신망법 개정 시행</div>
+        <div class="tl-desc">온라인 서비스 제공자의 이용자 보호 의무 강화. 불법 콘텐츠 유통 방지를 위한 기술적 조치 의무 확대.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--data)"></div>
+      <div class="tl-content">
+        <div class="tl-date">2025.06 ~</div>
+        <div class="tl-title">신용정보법 개정 (마이데이터 2단계)</div>
+        <div class="tl-desc">마이데이터 사업자 간 정보 연계 범위 확대. 금융 데이터 활용 동의 절차 개선. 가명정보 활용 범위 확대.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <div class="cta-text">
+      <h3>관련 보도자료 보기</h3>
+      <p>데이터, 인공지능, 개인정보 관련 정부 발표를 키워드로 필터링합니다</p>
+    </div>
+    <a class="cta-btn" href="/brief/today/?kw=인공지능">AI 보도자료 보기</a>
+  </div>
+
+  <div class="cta-box" style="background:var(--data)">
+    <div class="cta-text">
+      <h3>개인정보 관련 보도자료</h3>
+      <p>개인정보보호위원회, 과기부 등의 데이터 관련 발표</p>
+    </div>
+    <a class="cta-btn" style="color:var(--data)" href="/brief/today/?kw=개인정보">개인정보 보도자료</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-motto">정부 정책과 금융/부동산 규제, 한 화면에</div>
+  <div class="footer-site">govbrief.kr</div>
+</footer>
+
+<nav class="bnav">
+  <a href="/">홈</a>
+  <a href="/brief/">정부 발표</a>
+  <a href="/keywords/">키워드</a>
+  <a class="on" href="/regulation/">금융/부동산</a>
+</nav>
+
+</body>
+</html>
