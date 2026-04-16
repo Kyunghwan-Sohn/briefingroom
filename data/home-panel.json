@@ -1,79 +1,92 @@
 {
-  "date": "2026-04-14",
-  "total": 107,
+  "date": "2026-04-16",
+  "total": 29,
   "keywords": [
     {
-      "name": "문체부 2026 년 추경",
-      "count": 1,
-      "color": "#d97706"
+      "name": "증축",
+      "count": 2,
+      "color": "#047857"
     },
     {
-      "name": "문화예술인 지원",
+      "name": "생산적 금융",
       "count": 1,
-      "color": "#d97706"
+      "color": "#1e40af"
     },
     {
-      "name": "청년 일자리 창출",
+      "name": "자본규제 합리화",
       "count": 1,
-      "color": "#d97706"
+      "color": "#1e40af"
     },
     {
-      "name": "영화·공연 할인권",
+      "name": "중동상황 지원",
       "count": 1,
-      "color": "#d97706"
+      "color": "#1e40af"
     },
     {
-      "name": "내수 진작",
+      "name": "은행 자금공급",
       "count": 1,
-      "color": "#d97706"
+      "color": "#1e40af"
     },
     {
-      "name": "2026 년 추경예산",
+      "name": "보험사 장기투자",
       "count": 1,
-      "color": "#d97706"
+      "color": "#1e40af"
     },
     {
-      "name": "수출 중소기업",
+      "name": "고유가 피해지원금",
       "count": 1,
-      "color": "#d97706"
+      "color": "#1e40af"
     },
     {
-      "name": "소상공인 민생안정",
+      "name": "문자결제사기",
       "count": 1,
-      "color": "#d97706"
+      "color": "#1e40af"
     }
   ],
   "categories": [
     {
-      "name": "산업기술",
-      "count": 48,
-      "pct": 45,
-      "color": "#d97706"
-    },
-    {
       "name": "사회복지",
-      "count": 27,
-      "pct": 25,
+      "count": 10,
+      "pct": 34,
       "color": "#047857"
     },
     {
+      "name": "산업기술",
+      "count": 9,
+      "pct": 31,
+      "color": "#d97706"
+    },
+    {
       "name": "금융경제",
-      "count": 19,
-      "pct": 18,
+      "count": 5,
+      "pct": 17,
       "color": "#1e40af"
     },
     {
       "name": "외교안보",
-      "count": 8,
-      "pct": 7,
+      "count": 4,
+      "pct": 14,
       "color": "#7c3aed"
     },
     {
       "name": "행정법제",
-      "count": 5,
-      "pct": 5,
+      "count": 1,
+      "pct": 3,
       "color": "#6b7280"
     }
   ],
-  "top_items": []
+  "top_items": [
+    {
+      "title": "노동부 장관, ‘일일 안전한 일터 지킴이’로 소규모 건설현장 점검",
+      "source": "고용노동부",
+      "category": "사회복지",
+      "link": "/articles/2026-04-16/010/"
+    },
+    {
+      "title": "“공공부분부터 불공정한 도급 관행 바로잡는다.” 관계부처 합동 「공공부분 도급 운영 개선방안」 발표",
+      "source": "고용노동부",
+      "category": "사회복지",
+      "link": "/articles/2026-04-16/012/"
+    }
+  ]
 }
