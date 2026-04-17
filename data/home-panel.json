@@ -1,92 +1,74 @@
 {
-  "date": "2026-04-16",
-  "total": 29,
+  "date": "2026-04-17",
+  "total": 15,
   "keywords": [
     {
-      "name": "증축",
-      "count": 2,
-      "color": "#047857"
+      "name": "중동전쟁",
+      "count": 3,
+      "color": "#1e40af"
     },
     {
-      "name": "생산적 금융",
+      "name": "대출 연체율",
       "count": 1,
       "color": "#1e40af"
     },
     {
-      "name": "자본규제 합리화",
+      "name": "은행 리스크",
       "count": 1,
       "color": "#1e40af"
     },
     {
-      "name": "중동상황 지원",
+      "name": "중소법인",
       "count": 1,
       "color": "#1e40af"
     },
     {
-      "name": "은행 자금공급",
+      "name": "대손충당금",
       "count": 1,
       "color": "#1e40af"
     },
     {
-      "name": "보험사 장기투자",
+      "name": "인도",
       "count": 1,
       "color": "#1e40af"
     },
     {
-      "name": "고유가 피해지원금",
+      "name": "예금보험기구",
       "count": 1,
       "color": "#1e40af"
     },
     {
-      "name": "문자결제사기",
+      "name": "차등보험료율",
       "count": 1,
       "color": "#1e40af"
     }
   ],
   "categories": [
     {
-      "name": "사회복지",
-      "count": 10,
-      "pct": 34,
-      "color": "#047857"
-    },
-    {
-      "name": "산업기술",
-      "count": 9,
-      "pct": 31,
-      "color": "#d97706"
-    },
-    {
       "name": "금융경제",
-      "count": 5,
-      "pct": 17,
+      "count": 6,
+      "pct": 40,
       "color": "#1e40af"
     },
     {
-      "name": "외교안보",
-      "count": 4,
-      "pct": 14,
-      "color": "#7c3aed"
+      "name": "산업기술",
+      "count": 6,
+      "pct": 40,
+      "color": "#d97706"
     },
     {
-      "name": "행정법제",
-      "count": 1,
-      "pct": 3,
-      "color": "#6b7280"
+      "name": "외교안보",
+      "count": 3,
+      "pct": 20,
+      "color": "#7c3aed"
     }
   ],
   "top_items": [
     {
-      "title": "노동부 장관, ‘일일 안전한 일터 지킴이’로 소규모 건설현장 점검",
-      "source": "고용노동부",
-      "category": "사회복지",
-      "link": "/articles/2026-04-16/010/"
-    },
-    {
-      "title": "“공공부분부터 불공정한 도급 관행 바로잡는다.” 관계부처 합동 「공공부분 도급 운영 개선방안」 발표",
-      "source": "고용노동부",
-      "category": "사회복지",
-      "link": "/articles/2026-04-16/012/"
+      "title": "비상경제본부 회의 개최",
+      "source": "기획재정부",
+      "category": "금융경제",
+      "link": "/articles/2026-04-17/005/"
     }
   ]
 }
