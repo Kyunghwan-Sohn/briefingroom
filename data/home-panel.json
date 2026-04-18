@@ -1,74 +1,48 @@
 {
-  "date": "2026-04-17",
-  "total": 15,
+  "date": "2026-04-18",
+  "total": 0,
   "keywords": [
     {
       "name": "중동전쟁",
       "count": 3,
-      "color": "#1e40af"
+      "color": "#d97706"
     },
     {
       "name": "대출 연체율",
       "count": 1,
-      "color": "#1e40af"
+      "color": "#d97706"
     },
     {
       "name": "은행 리스크",
       "count": 1,
-      "color": "#1e40af"
+      "color": "#d97706"
     },
     {
       "name": "중소법인",
       "count": 1,
-      "color": "#1e40af"
+      "color": "#d97706"
     },
     {
       "name": "대손충당금",
       "count": 1,
-      "color": "#1e40af"
+      "color": "#d97706"
     },
     {
       "name": "인도",
       "count": 1,
-      "color": "#1e40af"
+      "color": "#d97706"
     },
     {
       "name": "예금보험기구",
       "count": 1,
-      "color": "#1e40af"
+      "color": "#d97706"
     },
     {
       "name": "차등보험료율",
       "count": 1,
-      "color": "#1e40af"
-    }
-  ],
-  "categories": [
-    {
-      "name": "금융경제",
-      "count": 6,
-      "pct": 40,
-      "color": "#1e40af"
-    },
-    {
-      "name": "산업기술",
-      "count": 6,
-      "pct": 40,
       "color": "#d97706"
-    },
-    {
-      "name": "외교안보",
-      "count": 3,
-      "pct": 20,
-      "color": "#7c3aed"
     }
   ],
-  "top_items": [
-    {
-      "title": "비상경제본부 회의 개최",
-      "source": "기획재정부",
-      "category": "금융경제",
-      "link": "/articles/2026-04-17/005/"
-    }
-  ]
+  "categories": [],
+  "top_items": []
 }

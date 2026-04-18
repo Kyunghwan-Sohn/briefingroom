@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-04-15",
-  "period": "4/5~4/11 주간 정책 종합",
-  "subtitle": "이번 주 52개 부처에서 발표한 565건의 보도자료를 AI가 분석했습니다",
-  "report_url": "/brief/weekly/2026-04-12/",
+  "generated_at": "2026-04-18",
+  "period": "4/11~4/17 주간 정책 종합",
+  "subtitle": "이번 주 49개 부처에서 발표한 315건의 보도자료를 AI가 분석했습니다",
+  "report_url": "/brief/weekly/2026-04-18/",
   "stats": [
     {
       "label": "총 발표",
-      "value": "565",
+      "value": "315",
       "unit": "건",
-      "delta": "+10% vs 전주",
-      "delta_dir": "up"
+      "delta": "-44% vs 전주",
+      "delta_dir": "down"
     },
     {
       "label": "참여 부처",
-      "value": "52",
+      "value": "49",
       "unit": "개",
       "delta": "",
       "delta_dir": ""
@@ -42,138 +42,138 @@
   ],
   "top_items": [
     {
-      "title": "기상청, 창의도전적 성과로 국민이 체감하는 기상행정 혁신을 이끈다",
-      "source": "기상청",
-      "date": "04.10",
+      "title": "문체부 2026년 1회 추경 확정",
+      "source": "문화체육관광부",
+      "date": "04.11",
       "importance": "상",
-      "link": "/articles/2026-04-10/023/"
+      "link": "/articles/2026-04-11/000/"
     },
     {
-      "title": "부동산 탈세 신고하면 최대 40억 원 포상금 지급",
-      "source": "국세청",
-      "date": "04.09",
+      "title": "중기부 '26년 추경예산 1조 6,903억원 확정",
+      "source": "중소벤처기업부",
+      "date": "04.11",
       "importance": "상",
-      "link": "/articles/2026-04-09/015/"
+      "link": "/articles/2026-04-11/001/"
     },
     {
-      "title": "원유·나프타 공급망 대체 수급선 발굴을 위한 재외공관 화상회의 개최",
-      "source": "외교부",
-      "date": "04.06",
+      "title": "김종구 차관, 농협 사료공장 현장 방문 및 사료업계 의견 청취새글",
+      "source": "농림축산식품부",
+      "date": "04.16",
       "importance": "상",
-      "link": "/articles/2026-04-06/000/"
+      "link": "/articles/2026-04-16/015/"
     },
     {
-      "title": "외교부-연합뉴스, 대 아프리카 외교 협력 강화를 위한 업무협약 체결",
-      "source": "외교부",
-      "date": "04.06",
+      "title": "“매년 청년 식품기업 100개 사 육성” K-푸드 창업사관학교 본격 가동새글",
+      "source": "농림축산식품부",
+      "date": "04.16",
       "importance": "상",
-      "link": "/articles/2026-04-06/007/"
+      "link": "/articles/2026-04-16/016/"
     },
     {
-      "title": "국방기술, 국민 안전으로 확장...방위사업청·소방청, 기술협력 본격화",
-      "source": "방위사업청",
-      "date": "04.06",
+      "title": "스마트 농업, 노지에서 가능성을 확인하다!새글",
+      "source": "농림축산식품부",
+      "date": "04.16",
       "importance": "상",
-      "link": "/articles/2026-04-06/008/"
+      "link": "/articles/2026-04-16/017/"
     },
     {
-      "title": "\"소방-국방 기술협력으로\"… 소방청·방위사업청 국민 안전 함께 지킨다",
-      "source": "소방청",
-      "date": "04.06",
+      "title": "농식품부, 가축분뇨 퇴액비 활용 혁신 위한 전문가 간담회 개최새글",
+      "source": "농림축산식품부",
+      "date": "04.16",
       "importance": "중",
-      "link": "/articles/2026-04-06/011/"
+      "link": "/articles/2026-04-16/018/"
     },
     {
-      "title": "유엔 인권메커니즘 진출 한국인 위원 간담회 개최",
-      "source": "외교부",
-      "date": "04.06",
+      "title": "고병원성 조류인플루엔자 특별방역대책기간 4월 15일로 마무리, 위험지역 중심으로 방역조치는 지속 유지새글",
+      "source": "농림축산식품부",
+      "date": "04.16",
       "importance": "중",
-      "link": "/articles/2026-04-06/014/"
+      "link": "/articles/2026-04-16/019/"
     },
     {
-      "title": "국방부-스타벅스 장병 복지 증진을 위한 「Hero 프로그램」 업무협약",
-      "source": "국방부",
-      "date": "04.06",
+      "title": "온라인 유통 친환경인증품 ‘촘촘한’ 관리로 소비자 신뢰 높인다!새글",
+      "source": "농림축산식품부",
+      "date": "04.16",
       "importance": "중",
-      "link": "/articles/2026-04-06/015/"
+      "link": "/articles/2026-04-16/020/"
     }
   ],
   "keywords": [
     {
+      "name": "농림축산식품부",
+      "count": 8,
+      "change_pct": -27,
+      "change_type": ""
+    },
+    {
       "name": "외교부",
-      "count": 20,
-      "change_pct": 122,
+      "count": 4,
+      "change_pct": -80,
       "change_type": ""
     },
     {
-      "name": "중동전쟁",
-      "count": 18,
-      "change_pct": 125,
-      "change_type": ""
-    },
-    {
-      "name": "국가유산청",
-      "count": 14,
-      "change_pct": 180,
-      "change_type": ""
-    },
-    {
-      "name": "법무부",
-      "count": 13,
-      "change_pct": 333,
-      "change_type": ""
-    },
-    {
-      "name": "산림청",
-      "count": 12,
-      "change_pct": 9,
-      "change_type": ""
-    },
-    {
-      "name": "개인정보보호위원회",
-      "count": 12,
-      "change_pct": 300,
+      "name": "금융감독원",
+      "count": 3,
+      "change_pct": -62,
       "change_type": ""
     },
     {
       "name": "고용노동부",
-      "count": 12,
-      "change_pct": 0,
+      "count": 3,
+      "change_pct": -75,
       "change_type": ""
+    },
+    {
+      "name": "중동전쟁",
+      "count": 3,
+      "change_pct": -83,
+      "change_type": ""
+    },
+    {
+      "name": "종신보험",
+      "count": 2,
+      "change_pct": 0,
+      "change_type": "new"
+    },
+    {
+      "name": "증축",
+      "count": 2,
+      "change_pct": 0,
+      "change_type": "new"
     }
   ],
   "sectors": [
     {
       "name": "산업·기술",
       "emoji": "⚙️",
-      "count_label": "226건 (40%)",
-      "delta_pct": 14,
+      "count_label": "133건 (42%)",
+      "delta_pct": -41,
       "color": "#d97706",
-      "summary": "국가유산청, 산림청, 개인정보보호위원회 관련 정책이 주요 이슈"
+      "summary": "농림축산식품부, 해양수산부, 문체부 2026 년 추경 관련 정책이 주요 이슈"
     },
     {
       "name": "금융·경제",
       "emoji": "💰",
-      "count_label": "103건 (18%)",
-      "delta_pct": 0,
+      "count_label": "69건 (22%)",
+      "delta_pct": -33,
       "color": "#1e40af",
-      "summary": "공정거래위원회, 조달청, 금융감독원 관련 정책이 주요 이슈"
+      "summary": "금융감독원, 종신보험, 구윤철 부총리 관련 정책이 주요 이슈"
     },
     {
       "name": "사회·복지",
       "emoji": "🏥",
-      "count_label": "132건 (23%)",
-      "delta_pct": 7,
+      "count_label": "71건 (23%)",
+      "delta_pct": -46,
       "color": "#047857",
-      "summary": "법무부, 고용노동부, 교육부 관련 정책이 주요 이슈"
+      "summary": "고용노동부, 증축, 법무부 관련 정책이 주요 이슈"
     },
     {
       "name": "외교·안보",
       "emoji": "🌎",
-      "count_label": "60건 (11%)",
-      "delta_pct": 76,
+      "count_label": "24건 (8%)",
+      "delta_pct": -60,
       "color": "#7c3aed",
-      "summary": "외교부, 방위사업청, 소방청 관련 정책이 주요 이슈"
+      "summary": "외교부, 통일부, 하나센터 관련 정책이 주요 이슈"
     }
   ],
   "next_week": []
