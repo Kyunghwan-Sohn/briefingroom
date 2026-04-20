@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-18",
-  "total": 0,
+  "date": "2026-04-20",
+  "total": 112,
   "keywords": [
     {
       "name": "중동전쟁",
@@ -43,6 +43,37 @@
       "color": "#d97706"
     }
   ],
-  "categories": [],
+  "categories": [
+    {
+      "name": "산업기술",
+      "count": 51,
+      "pct": 46,
+      "color": "#d97706"
+    },
+    {
+      "name": "금융경제",
+      "count": 22,
+      "pct": 20,
+      "color": "#1e40af"
+    },
+    {
+      "name": "사회복지",
+      "count": 18,
+      "pct": 16,
+      "color": "#047857"
+    },
+    {
+      "name": "행정법제",
+      "count": 11,
+      "pct": 10,
+      "color": "#6b7280"
+    },
+    {
+      "name": "외교안보",
+      "count": 10,
+      "pct": 9,
+      "color": "#7c3aed"
+    }
+  ],
   "top_items": []
 }
