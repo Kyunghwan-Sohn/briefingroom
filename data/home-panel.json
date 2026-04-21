@@ -1,79 +1,110 @@
 {
-  "date": "2026-04-20",
-  "total": 112,
+  "date": "2026-04-21",
+  "total": 92,
   "keywords": [
     {
-      "name": "중동전쟁",
+      "name": "탄소국경조정제도",
+      "count": 3,
+      "color": "#1e40af"
+    },
+    {
+      "name": "CBAM",
+      "count": 3,
+      "color": "#1e40af"
+    },
+    {
+      "name": "남부지방산림청",
       "count": 3,
       "color": "#d97706"
     },
     {
-      "name": "대출 연체율",
-      "count": 1,
+      "name": "산불 예방",
+      "count": 2,
       "color": "#d97706"
     },
     {
-      "name": "은행 리스크",
-      "count": 1,
-      "color": "#d97706"
+      "name": "지방정부",
+      "count": 2,
+      "color": "#6b7280"
     },
     {
-      "name": "중소법인",
-      "count": 1,
-      "color": "#d97706"
+      "name": "유럽연합",
+      "count": 2,
+      "color": "#1e40af"
     },
     {
-      "name": "대손충당금",
-      "count": 1,
-      "color": "#d97706"
+      "name": "수출기업",
+      "count": 2,
+      "color": "#1e40af"
     },
     {
-      "name": "인도",
-      "count": 1,
-      "color": "#d97706"
-    },
-    {
-      "name": "예금보험기구",
-      "count": 1,
-      "color": "#d97706"
-    },
-    {
-      "name": "차등보험료율",
-      "count": 1,
+      "name": "과기정통부",
+      "count": 2,
       "color": "#d97706"
     }
   ],
   "categories": [
     {
       "name": "산업기술",
-      "count": 51,
-      "pct": 46,
+      "count": 46,
+      "pct": 50,
       "color": "#d97706"
     },
     {
       "name": "금융경제",
-      "count": 22,
-      "pct": 20,
+      "count": 21,
+      "pct": 23,
       "color": "#1e40af"
     },
     {
       "name": "사회복지",
-      "count": 18,
-      "pct": 16,
+      "count": 14,
+      "pct": 15,
       "color": "#047857"
     },
     {
       "name": "행정법제",
-      "count": 11,
-      "pct": 10,
+      "count": 6,
+      "pct": 7,
       "color": "#6b7280"
     },
     {
       "name": "외교안보",
-      "count": 10,
-      "pct": 9,
+      "count": 5,
+      "pct": 5,
       "color": "#7c3aed"
     }
   ],
-  "top_items": []
+  "top_items": [
+    {
+      "title": "「고유가 피해지원금」 지급 대비 지방정부·주민센터의 철저한 준비 당부",
+      "source": "행정안전부",
+      "category": "행정법제",
+      "link": "/articles/2026-04-21/001/"
+    },
+    {
+      "title": "철강·알루미늄·구리 및 파생상품 관련 수출기업 이차보전 지원사업 개시철강·알루미늄",
+      "source": "산업통상부",
+      "category": "금융경제",
+      "link": "/articles/2026-04-21/011/"
+    },
+    {
+      "title": "관세청, 캐나다 원유 자유무역협정(FTA) 활용 난제 해결 ··· 3% → 0% 관세 혜택 본격화관세청",
+      "source": "관세청",
+      "category": "금융경제",
+      "link": "/articles/2026-04-21/024/"
+    },
+    {
+      "title": "\"농촌에 전하는 따뜻한 나눔\" 농촌 맞춤형 봉사활동, 4월부터 본격 추진",
+      "source": "농림축산식품부",
+      "category": "산업기술",
+      "link": "/articles/2026-04-21/030/"
+    },
+    {
+      "title": "산림청, 안동 산불 피해지에서 '제2의 산림녹화 운동' 시작을 알리다",
+      "source": "산림청",
+      "category": "산업기술",
+      "link": "/articles/2026-04-21/033/"
+    }
+  ]
 }
