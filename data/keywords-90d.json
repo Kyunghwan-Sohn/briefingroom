@@ -1,9 +1,9 @@
 {
   "period": "90d",
-  "generated_at": "2026-04-21T07:02:07",
-  "start_date": "2026-01-22",
-  "end_date": "2026-04-21",
-  "article_count": 2878,
+  "generated_at": "2026-04-22T07:09:25",
+  "start_date": "2026-01-23",
+  "end_date": "2026-04-22",
+  "article_count": 2983,
   "unique_keywords": 7210,
   "total_mentions": 9924,
   "category_totals": {

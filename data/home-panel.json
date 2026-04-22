@@ -1,16 +1,16 @@
 {
-  "date": "2026-04-21",
-  "total": 92,
+  "date": "2026-04-22",
+  "total": 105,
   "keywords": [
     {
       "name": "탄소국경조정제도",
       "count": 3,
-      "color": "#1e40af"
+      "color": "#d97706"
     },
     {
       "name": "CBAM",
       "count": 3,
-      "color": "#1e40af"
+      "color": "#d97706"
     },
     {
       "name": "남부지방산림청",
@@ -25,17 +25,17 @@
     {
       "name": "지방정부",
       "count": 2,
-      "color": "#6b7280"
+      "color": "#d97706"
     },
     {
       "name": "유럽연합",
       "count": 2,
-      "color": "#1e40af"
+      "color": "#d97706"
     },
     {
       "name": "수출기업",
       "count": 2,
-      "color": "#1e40af"
+      "color": "#d97706"
     },
     {
       "name": "과기정통부",
@@ -46,65 +46,34 @@
   "categories": [
     {
       "name": "산업기술",
-      "count": 46,
-      "pct": 50,
+      "count": 63,
+      "pct": 60,
       "color": "#d97706"
     },
     {
-      "name": "금융경제",
-      "count": 21,
-      "pct": 23,
-      "color": "#1e40af"
-    },
-    {
       "name": "사회복지",
-      "count": 14,
+      "count": 16,
       "pct": 15,
       "color": "#047857"
     },
     {
-      "name": "행정법제",
-      "count": 6,
-      "pct": 7,
-      "color": "#6b7280"
+      "name": "금융경제",
+      "count": 14,
+      "pct": 13,
+      "color": "#1e40af"
     },
     {
       "name": "외교안보",
+      "count": 7,
+      "pct": 7,
+      "color": "#7c3aed"
+    },
+    {
+      "name": "행정법제",
       "count": 5,
       "pct": 5,
-      "color": "#7c3aed"
+      "color": "#6b7280"
     }
   ],
-  "top_items": [
-    {
-      "title": "「고유가 피해지원금」 지급 대비 지방정부·주민센터의 철저한 준비 당부",
-      "source": "행정안전부",
-      "category": "행정법제",
-      "link": "/articles/2026-04-21/001/"
-    },
-    {
-      "title": "철강·알루미늄·구리 및 파생상품 관련 수출기업 이차보전 지원사업 개시철강·알루미늄",
-      "source": "산업통상부",
-      "category": "금융경제",
-      "link": "/articles/2026-04-21/011/"
-    },
-    {
-      "title": "관세청, 캐나다 원유 자유무역협정(FTA) 활용 난제 해결 ··· 3% → 0% 관세 혜택 본격화관세청",
-      "source": "관세청",
-      "category": "금융경제",
-      "link": "/articles/2026-04-21/024/"
-    },
-    {
-      "title": "\"농촌에 전하는 따뜻한 나눔\" 농촌 맞춤형 봉사활동, 4월부터 본격 추진",
-      "source": "농림축산식품부",
-      "category": "산업기술",
-      "link": "/articles/2026-04-21/030/"
-    },
-    {
-      "title": "산림청, 안동 산불 피해지에서 '제2의 산림녹화 운동' 시작을 알리다",
-      "source": "산림청",
-      "category": "산업기술",
-      "link": "/articles/2026-04-21/033/"
-    }
-  ]
+  "top_items": []
 }
